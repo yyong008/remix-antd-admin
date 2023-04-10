@@ -4,8 +4,10 @@ specifiers:
   '@ant-design/cssinjs': ^1.8.1
   '@ant-design/icons': ^5.0.1
   '@ant-design/pro-components': ^2.4.4
+  '@netlify/functions': ^1.4.0
   '@remix-run/dev': ^1.15.0
   '@remix-run/eslint-config': ^1.15.0
+  '@remix-run/netlify': ^1.15.0
   '@remix-run/node': ^1.15.0
   '@remix-run/react': ^1.15.0
   '@remix-run/serve': ^1.15.0
@@ -14,6 +16,7 @@ specifiers:
   '@types/styled-components': ^5.1.26
   antd: ^5.4.0
   china-division: ^2.6.1
+  cross-env: ^7.0.3
   echarts: ^5.4.2
   echarts-for-react: ^3.0.2
   echarts-liquidfill-ssr: ^3.1.0
@@ -42,11 +45,14 @@ dependencies:
   '@ant-design/cssinjs': 1.8.1_biqbaboplfbrettd7655fr4n2y
   '@ant-design/icons': 5.0.1_biqbaboplfbrettd7655fr4n2y
   '@ant-design/pro-components': 2.4.4_mxarhxqjcqlcspet2rjm7zmpei
+  '@netlify/functions': 1.4.0
+  '@remix-run/netlify': 1.15.0_@netlify+functions@1.4.0
   '@remix-run/node': 1.15.0
   '@remix-run/react': 1.15.0_biqbaboplfbrettd7655fr4n2y
   '@remix-run/serve': 1.15.0
   antd: 5.4.0_biqbaboplfbrettd7655fr4n2y
   china-division: 2.6.1
+  cross-env: 7.0.3
   echarts: 5.4.2
   echarts-for-react: 3.0.2_echarts@5.4.2+react@18.2.0
   echarts-liquidfill-ssr: 3.1.0_echarts@5.4.2
@@ -2475,6 +2481,13 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
 
+  /@netlify/functions/1.4.0:
+    resolution: {integrity: sha512-gy7ULTIRroc2/jyFVGx1djCmmBMVisIwrvkqggq5B6iDcInRSy2Tpkm+V5C63hKJVkNRskKWtLQKm9ecCaQTjA==}
+    engines: {node: '>=8.3.0'}
+    dependencies:
+      is-promise: 4.0.0
+    dev: false
+
   /@nicolo-ribaudo/eslint-scope-5-internals/5.1.1-v1:
     resolution: {integrity: sha512-54/JRvkLIzzDWshCWfuhadfrfZVPiElY8Fcgmg1HroEly/EDSszzhBAsarCux+D/kOslTRquNzuyGSmUSTTHGg==}
     dependencies:
@@ -2881,6 +2894,16 @@ packages:
     dependencies:
       '@remix-run/node': 1.15.0
       express: 4.18.2
+
+  /@remix-run/netlify/1.15.0_@netlify+functions@1.4.0:
+    resolution: {integrity: sha512-UOlszJRWMW8vdePDwU5+W2yk2x2+aCT9UtOt8AxX2FlFeKWrRb7nnfJgg6ARvr8VHOzq+JVWX40BnB9ipad8ww==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      '@netlify/functions': ^0.10.0 || ^0.11.0 || ^1.0.0
+    dependencies:
+      '@netlify/functions': 1.4.0
+      '@remix-run/node': 1.15.0
+    dev: false
 
   /@remix-run/node/1.15.0:
     resolution: {integrity: sha512-CS0p8T6A2KvMoAW5zzLA/BtNNCsv34A5RJoouJvXK9/o6MriAQ/YSugg6ldS5mec49neSep+CGeL1RS6tL+3NQ==}
@@ -4399,6 +4422,14 @@ packages:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
     dev: true
 
+  /cross-env/7.0.3:
+    resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
+    engines: {node: '>=10.14', npm: '>=6', yarn: '>=1'}
+    hasBin: true
+    dependencies:
+      cross-spawn: 7.0.3
+    dev: false
+
   /cross-fetch/3.1.5:
     resolution: {integrity: sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==}
     dependencies:
@@ -4414,7 +4445,6 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
-    dev: true
 
   /css-color-keywords/1.0.0:
     resolution: {integrity: sha512-FyyrDHZKEjXDpNJYvVsV960FiqQyXc/LlYmsxl2BcdMb2WPx0OGRVgTg55rPSyLSNMqP52R9r8geSp7apN3Ofg==}
@@ -6703,6 +6733,10 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
+  /is-promise/4.0.0:
+    resolution: {integrity: sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==}
+    dev: false
+
   /is-reference/3.0.1:
     resolution: {integrity: sha512-baJJdQLiYaJdvFbJqXrcGv3WU3QCzBlUcI5QhbesIm6/xPsvmO+2CDoi/GMOFBQEQm+PXkwOPrp9KK5ozZsp2w==}
     dependencies:
@@ -6809,7 +6843,6 @@ packages:
 
   /isexe/2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
-    dev: true
 
   /javascript-stringify/2.1.0:
     resolution: {integrity: sha512-JVAfqNPTvNq3sB/VHQJAFxN/sPgKnsKrCwyRt15zwNCdrMMJDdcEOdubuy+DuJYYdm0ox1J4uzEuYKkN+9yhVg==}
@@ -7977,7 +8010,6 @@ packages:
   /path-key/3.1.1:
     resolution: {integrity: sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==}
     engines: {node: '>=8'}
-    dev: true
 
   /path-parse/1.0.7:
     resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
@@ -9580,12 +9612,10 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       shebang-regex: 3.0.0
-    dev: true
 
   /shebang-regex/3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
-    dev: true
 
   /side-channel/1.0.4:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
@@ -10662,7 +10692,6 @@ packages:
     hasBin: true
     dependencies:
       isexe: 2.0.0
-    dev: true
 
   /why-is-node-running/2.2.2:
     resolution: {integrity: sha512-6tSwToZxTOcotxHeA+qGCq1mVzKR3CwcJGmVcY+QE8SHy6TnpFnh8PAvPNHYr7EcuVeG0QSMxtYCuO1ta/G/oA==}
