@@ -1,6 +1,28 @@
 {
-  "private": true,
-  "sideEffects": false,
+  "name": "remix-antd-admin",
+  "version": "0.0.1",
+  "description": "A Remix Antd Admin",
+  "keywords": [
+    "remix",
+    "admin",
+    "echarts",
+    "i18n",
+    "css-in-js",
+    "styled-components",
+    "remix-utils",
+    "react-mind",
+    "react-mindmap",
+    "react-wordcloud",
+    "reactflow",
+    "echarts-liquidfill-ssr",
+    "ssr",
+    "copper",
+    "prettier",
+    "antd",
+    "pro-components",
+    "antd pro"
+  ],
+  "author": "Magnesium",
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
@@ -59,5 +81,9 @@
         "react"
       ]
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yyong008/create-remix-antd-pro-app.git"
   }
 }

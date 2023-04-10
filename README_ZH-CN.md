@@ -1,7 +1,8 @@
 # Remix Antd Admin
 
-A management system based on Remix/Antd/Echarts/Styled-components that enables quick project initialization.
-## Current Remix Version
+一个基于 Remix/Antd/Echarts/Styled-components 的管理系统，能快速的开始一个项目。
+
+## 目前 Remix 版本
 
 > 1.51.0
 
@@ -81,28 +82,4 @@ pnpm run prettier
 
 ## 支持
 
-目前作者长期处于爱发电的状态，如果本项目能够帮助到你不妨请作者喝一杯咖啡，有你的支持，开源项目将得到更好的维护，也崔进输出更加高质量的代码，当然也可以参与到此项目中成为项目的参与者，同时期望提出宝贵意见以便项目能得到更好的维护和发展。
-
-## 问题
-
-- 服务单 SSR 需要注意的问题
-- 对 Node.js 要高，非浏览器端的 Node.js 工具
-- antd/procomponents 的 className 客户端和服务端不配的问题 `Warning: Prop `className` did not match. Server: "ant-tabs ant-tabs-top ant-tabs-centered css-dev-only-do-not-override-hza0t3" Client: "ant-tabs ant-tabs-top ant-tabs-centered"`
-
-## TODO
-
-- 国际化（优化载入方式，入口交互）
-- docker/docker-compose 镜像
-- 数据库选择/数据对应 ORM 等工具
-
-## 可能变化
-
-- 图表可能会替换为 antd-chart 目前对 服务端渲染不太好
-- 组件优化
-- 性能优化
-- 国际化处理方式
-
-## 问题
-
-- [ ] \_a.$(lang).profile.advanced 页面调试问题
-- [ ] [ECharts] DEPRECATED: textStyle hierarchy in label has been removed since 4.0. All textStyle properties are configured in label directly now.
+目前长期处于爱发电的状态，如果本项目能够帮助到你不妨请作者喝一杯咖啡，如果有您的支持，项目将得到更好的维护，也能输出更加高质量的代码，当然也可以参与到此项目中成为项目的参与者，同时期望提出宝贵意见，以便项目能得到更好的维护和发展。
