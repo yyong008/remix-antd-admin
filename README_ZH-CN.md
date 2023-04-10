@@ -1,30 +1,32 @@
 # Remix Antd Admin
 
-一个基于 Remix/Antd/Echarts/Styled-components 的管理系统，能快速的开始一个项目。
+一款基于Remix / Antd / Echarts / Styled-components的管理系统，可快速进行项目初始化。
 
-## 目前 Remix 版本
+## Current Remix Version
 
 > 1.51.0
 
 ## 设计动机
 
-Remix's design paradigm is simple and convenient - the entire application is a router that connects the front-end and back-end. The form design makes Remix's form capabilities more straightforward and convenient. In a backend management system, data display, data entry, and page switching are crucial. Remix's design seems to be a simple and apt fit. Integrating Antd UI project capabilities allows for the rapid implementation of backend management systems with beautiful and straightforward UIs.
+Remix 的设计范式简单方便，整个应用就是一个路由器，并且是前后端打通的路由器。表单设计使得 Remix 的表单能力更加简单方便。在后台管理系统中，数据展示与数据录入，以及页面切换占据重要位置，Remix 设计似乎特贴的简单贴切。集成 Antd UI 项目能力，能快速实现具有漂亮 UI 简单的后台管理系统。
 
-## Core Packages
+## 核心包
 
-| 包                | 说明                                                                 |
-| ----------------- | -------------------------------------------------------------------- |
-| remix             | 1.51.0 (CorPackage)                                                  |
-| antd              | 5.3.1 (Core UIPackage)                                               |
-| styled-components | CSS-in-JS solution (Core CSS solution)                               |
-| remix-utils       | Remix's common tools, such as the <ClientOnly> component (Core tool) |
+| 包                | 说明                                                                        |
+| ----------------- | --------------------------------------------------------------------------- |
+| remix             | 1.51.0（核心包）                                                            |
+| antd              | 5.3.1（核心 UI 包）                                                         |
+| styled-components | css-in-js 解决方案（核心 css 解决方案）                                     |
+| remix-utils       | Remix 的 常用工具，例如：仅仅在服务端然组件 `<ClientOnly>` 组件（核心工具） |
 
 ## 国际化
 
 | 国际化包                         | 说明                          |
 | -------------------------------- | ----------------------------- |
-| remix-i18next                    | A simple way to translate your Remix application|
-
+| remix-i18next                    | 很容的方式翻译你的 remix 应用 |
+| i18next                          |                               |
+| react-i18next                    |                               |
+| i18next-browser-languagedetector |                               |
 
 ### 图表库
 
@@ -32,13 +34,13 @@ Remix's design paradigm is simple and convenient - the entire application is a r
 
 | 图表库                 | 说明                                              |
 | ---------------------- | ------------------------------------------------- |
-| echarts                | 5.3.9 primary charts (consider Remix's need for server-side rendering) |
-| echarts-for-react      | Echarts component encapsulated by React                     |
-| react-mind             | React mind                                        |
-| react-mindmap          | React mind                                        |
-| react-wordcloud        | React word cloud that supports SSR                           |
-| reactflow              | Flow chart                                          |
-| echarts-liquidfill-ssr | Water droplet chart                                           |
+| echarts                | 5.3.9 主要图表（考虑 Remix 需要服务端渲染等问题） |
+| echarts-for-react      | 基于 React 封装 echarts 组件                      |
+| react-mind             | React 脑图                                        |
+| react-mindmap          | React 脑图                                        |
+| react-wordcloud        | React 云词图 支持 ssr                             |
+| reactflow              | 流程图                                            |
+| echarts-liquidfill-ssr | 水滴图                                            |
 
 ### 裁剪工具
 
@@ -48,24 +50,24 @@ Remix's design paradigm is simple and convenient - the entire application is a r
 pnpm install react-advanced-cropper
 ```
 
-## Advantages
+## 优点
 
-Simple and clear routing writing paradigm, simple data retrieval and form capabilities.
+简单明了的路由书写范式，简单的数据获取和表单能力
 
-- Powerful file routing paradigm
-- remix loader retrieves data
-- action processes form data
+- 强大的文件路由范式
+- loader 获取数据
+- action 处理表单数据
 
 ## 用法
 
-Use pnpm
+使用 pnpm
 
 ```sh
-# server
+# 服务器
 pnpm run dev # pnpm dev
-# build
+# 构建
 pnpm run build # pnpm build
-# Development environment server
+# 开发环境服务器
 pnpm run start # pnpm start
 ```
 
@@ -80,4 +82,4 @@ pnpm run prettier
 
 ## 支持
 
-Currently in a state of continuous fundraising. If this project helps you, please consider buying the author a cup of coffee. With your support, the project will receive better maintenance and produce higher-quality code. You can also participate in this project as a contributor and provide valuable feedback to help with its maintenance and development.
+目前作者长期处于爱发电的状态，如果本项目能够帮助到你不妨请作者喝一杯咖啡，有你的支持，开源项目将得到更好的维护，也崔进输出更加高质量的代码，当然也可以参与到此项目中成为项目的参与者，同时期望提出宝贵意见以便项目能得到更好的维护和发展。

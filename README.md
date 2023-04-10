@@ -1,47 +1,45 @@
 # Remix Antd Admin
 
-A management system based on Remix/Antd/Echarts/Styled-components that enables quick project initialization.
+A management system based on `Remix`/`Antd`/`Echarts`/`Styled-components` that enables quick project initialization.
+
 ## Current Remix Version
 
 > 1.51.0
 
-## 设计动机
+## Motivation
 
-Remix 的设计范式简单方便，整个应用就是一个路由器，并且是前后端打通的路由器。表单设计使得 Remix 的表单能力更加简单方便。在后台管理系统中，数据展示与数据录入，以及页面切换占据重要位置，Remix 设计似乎特贴的简单贴切。集成 Antd UI 项目能力，能快速实现具有漂亮 UI 简单的后台管理系统。
+Remix's design paradigm is simple and convenient - the entire application is a router that connects the front-end and back-end. The form design makes Remix's form capabilities more straightforward and convenient. In a backend management system, data display, data entry, and page switching are crucial. Remix's design seems to be a simple and apt fit. Integrating Antd UI project capabilities allows for the rapid implementation of backend management systems with beautiful and straightforward UIs.
 
-## 核心包
+## Core Packages
 
-| 包                | 说明                                                                        |
-| ----------------- | --------------------------------------------------------------------------- |
-| remix             | 1.51.0（核心包）                                                            |
-| antd              | 5.3.1（核心 UI 包）                                                         |
-| styled-components | css-in-js 解决方案（核心 css 解决方案）                                     |
-| remix-utils       | Remix 的 常用工具，例如：仅仅在服务端然组件 `<ClientOnly>` 组件（核心工具） |
+| Package           | Description                                                            |
+| ----------------- | ---------------------------------------------------------------------- |
+| remix             | 1.51.0 (CorPackage)                                                    |
+| antd              | 5.3.1 (Core UIPackage)                                                 |
+| styled-components | CSS-in-JS solution (Core CSS solution)                                 |
+| remix-utils       | Remix's common tools, such as the `<ClientOnly>` component (Core tool) |
 
-## 国际化
+## Chart Libraries
 
-| 国际化包                         | 说明                          |
-| -------------------------------- | ----------------------------- |
-| remix-i18next                    | 很容的方式翻译你的 remix 应用 |
-| i18next                          |                               |
-| react-i18next                    |                               |
-| i18next-browser-languagedetector |                               |
+| Internationalization Package | Description                                      |
+| ---------------------------- | ------------------------------------------------ |
+| remix-i18next                | A simple way to translate your Remix application |
 
-### 图表库
+### Chart Libraries
 
-选图表注意支持 ssr
+Chart selection should consider support for SSR.
 
-| 图表库                 | 说明                                              |
-| ---------------------- | ------------------------------------------------- |
-| echarts                | 5.3.9 主要图表（考虑 Remix 需要服务端渲染等问题） |
-| echarts-for-react      | 基于 React 封装 echarts 组件                      |
-| react-mind             | React 脑图                                        |
-| react-mindmap          | React 脑图                                        |
-| react-wordcloud        | React 云词图 支持 ssr                             |
-| reactflow              | 流程图                                            |
-| echarts-liquidfill-ssr | 水滴图                                            |
+| Chart Library          | Description                                                            |
+| ---------------------- | ---------------------------------------------------------------------- |
+| echarts                | 5.3.9 primary charts (consider Remix's need for server-side rendering) |
+| echarts-for-react      | Echarts component encapsulated by React                                |
+| react-mind             | React mind                                                             |
+| react-mindmap          | React mind                                                             |
+| react-wordcloud        | React word cloud that supports SSR                                     |
+| reactflow              | Flow chart                                                             |
+| echarts-liquidfill-ssr | Water droplet chart                                                    |
 
-### 裁剪工具
+### Cropping Tool
 
 - [react-advanced-cropper](https://advanced-cropper.github.io/react-advanced-cropper/#mobile-cropper)
 
@@ -49,28 +47,28 @@ Remix 的设计范式简单方便，整个应用就是一个路由器，并且�
 pnpm install react-advanced-cropper
 ```
 
-## 优点
+## Advantages
 
-简单明了的路由书写范式，简单的数据获取和表单能力
+Simple and clear routing writing paradigm, simple data retrieval and form capabilities.
 
-- 强大的文件路由范式
-- loader 获取数据
-- action 处理表单数据
+- Powerful file routing paradigm
+- remix loader retrieves data
+- action processes form data
 
-## 用法
+## Usage
 
-使用 pnpm
+Use pnpm
 
 ```sh
-# 服务器
+# server
 pnpm run dev # pnpm dev
-# 构建
+# build
 pnpm run build # pnpm build
-# 开发环境服务器
+# Development environment server
 pnpm run start # pnpm start
 ```
 
-### 格式化工具
+### Formatting Tool
 
 ```sh
 "scripts": {
@@ -79,30 +77,6 @@ pnpm run start # pnpm start
 pnpm run prettier
 ```
 
-## 支持
+## Support
 
-目前作者长期处于爱发电的状态，如果本项目能够帮助到你不妨请作者喝一杯咖啡，有你的支持，开源项目将得到更好的维护，也崔进输出更加高质量的代码，当然也可以参与到此项目中成为项目的参与者，同时期望提出宝贵意见以便项目能得到更好的维护和发展。
-
-## 问题
-
-- 服务单 SSR 需要注意的问题
-- 对 Node.js 要高，非浏览器端的 Node.js 工具
-- antd/procomponents 的 className 客户端和服务端不配的问题 `Warning: Prop `className` did not match. Server: "ant-tabs ant-tabs-top ant-tabs-centered css-dev-only-do-not-override-hza0t3" Client: "ant-tabs ant-tabs-top ant-tabs-centered"`
-
-## TODO
-
-- 国际化（优化载入方式，入口交互）
-- docker/docker-compose 镜像
-- 数据库选择/数据对应 ORM 等工具
-
-## 可能变化
-
-- 图表可能会替换为 antd-chart 目前对 服务端渲染不太好
-- 组件优化
-- 性能优化
-- 国际化处理方式
-
-## 问题
-
-- [ ] \_a.$(lang).profile.advanced 页面调试问题
-- [ ] [ECharts] DEPRECATED: textStyle hierarchy in label has been removed since 4.0. All textStyle properties are configured in label directly now.
+Currently in a state of continuous fundraising. If this project helps you, please consider buying the author a cup of coffee. With your support, the project will receive better maintenance and produce higher-quality code. You can also participate in this project as a contributor and provide valuable feedback to help with its maintenance and development.
