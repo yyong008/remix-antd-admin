@@ -1,0 +1,20 @@
+{
+  "title": "Remix Antd Admin",
+  "desc": "A full-stack back-end management system based on Remix/Antd/MongoDB",
+  "user-placeholder": "username: admin",
+  "password-pladeholder": "password：123456",
+  "user-message": "Please enter your username!",
+  "password-message": "Please enter your password!",
+  "remember": "Remember me",
+  "login": "login",
+  "other-login": "Other ways to sign in",
+  "account-password-login": "Account",
+  "phone-number-login": "Phone",
+  "submit": "submit",
+  "phone-placeholder": "phone number",
+  "phone-message": "Please enter your mobile phone number!",
+  "phone-format-message": "The phone number is in the wrong format!",
+  "verification-code": "Please enter the verification code",
+  "get-verification-code": "Get a verification code",
+  "get-captcha": "Get captcha successful! The verification code is: 1234"
+}
