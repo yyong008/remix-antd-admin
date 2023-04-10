@@ -2,6 +2,10 @@
 
 一款基于Remix / Antd / Echarts / Styled-components的管理系统，可快速进行项目初始化。
 
+## Project experience URL
+
+> https://remix-antd-admin.vercel.app/
+
 ## Current Remix Version
 
 > 1.51.0

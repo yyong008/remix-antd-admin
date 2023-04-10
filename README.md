@@ -2,6 +2,10 @@
 
 A management system based on `Remix`/`Antd`/`Echarts`/`Styled-components` that enables quick project initialization.
 
+## project address
+
+> https://remix-antd-admin.vercel.app/
+
 ## Current Remix Version
 
 > 1.51.0
