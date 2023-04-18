@@ -36,8 +36,6 @@
     "@ant-design/cssinjs": "^1.8.1",
     "@ant-design/icons": "^5.0.1",
     "@ant-design/pro-components": "^2.4.4",
-    "@netlify/functions": "^1.4.0",
-    "@remix-run/netlify": "^1.15.0",
     "@remix-run/node": "^1.15.0",
     "@remix-run/react": "^1.15.0",
     "@remix-run/serve": "^1.15.0",
@@ -87,6 +85,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yyong008/create-remix-antd-pro-app.git"
+    "url": "https://github.com/yyong008/remix-antd-admin.git"
   }
 }
