@@ -3,6 +3,7 @@ import {
   DashboardOutlined,
   FormOutlined,
   HighlightOutlined,
+  KeyOutlined,
   ProfileOutlined,
   TableOutlined,
   UserOutlined,
@@ -40,7 +41,7 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
         {
           key: "auth",
           path: `/${lang}/auth`,
-          icon: <FormOutlined />,
+          icon: <KeyOutlined />,
           name: t("auth"),
         },
         {
