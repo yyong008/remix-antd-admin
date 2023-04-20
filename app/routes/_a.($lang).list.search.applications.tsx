@@ -36,8 +36,9 @@ export default function ListSearchApplication() {
   const data = useLoaderData();
   return (
     <PageContainer
+      fixedHeader
       title={false}
-      content={[<ListHeaderSearch title="搜索列表（应用）" key="id" />]}
+      content={<ListHeaderSearch title="搜索列表（应用）" key="id" />}
     >
       <Space direction="vertical">
         <Row gutter={[10, 10]}>

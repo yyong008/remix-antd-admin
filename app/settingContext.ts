@@ -1,10 +1,12 @@
 import { createContext } from "react";
 
 const SettingContext = createContext({
-  theme: {},
-  setTheme: (theme: any) => {},
+  theme: {
+    colorPrimary: ''
+  },
+  setTheme: (theme: any) => { },
   lang: "zh",
-  setLang: (v: any) => {},
+  setLang: (v: any) => { },
 });
 
 export default SettingContext;
