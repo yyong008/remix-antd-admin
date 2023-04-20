@@ -5,6 +5,13 @@ export const loader = () => {
     role: 'admin',
     routes: [
       {
+        id: "routes/_a.($lang).auth",
+      },
+      //account
+      {
+        id: "routes/_a.($lang).account.center",
+      },
+      {
         id: "routes/_a.($lang).account.settings",
       },
       // article 

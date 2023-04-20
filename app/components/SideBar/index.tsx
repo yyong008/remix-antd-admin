@@ -38,6 +38,12 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
           ],
         },
         {
+          key: "auth",
+          path: `/${lang}/auth`,
+          icon: <FormOutlined />,
+          name: t("auth"),
+        },
+        {
           key: "form",
           path: `form`,
           icon: <FormOutlined />,

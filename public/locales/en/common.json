@@ -52,5 +52,6 @@
   "account-frozen": "Your account has been frozen.",
   "thaw-immediately": "Thaw immediately",
   "account-not-yet-eligible": "Your account is not yet eligible to apply.",
-  "apply-unlock": "Apply Unlock"
+  "apply-unlock": "Apply Unlock",
+  "auth": "auth"
 }

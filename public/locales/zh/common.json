@@ -52,5 +52,6 @@
   "account-frozen": "您的帐户已被冻结。",
   "thaw-immediately": "立即解冻",
   "account-not-yet-eligible": "您的帐户还没有资格申请。",
-  "apply-unlock": "应用解锁"
+  "apply-unlock": "应用解锁",
+  "auth": "授权"
 }
