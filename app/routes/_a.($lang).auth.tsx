@@ -1,6 +1,16 @@
-import { PageContainer, ProCard } from "@ant-design/pro-components";
-import { Col, Row, Tree } from "antd";
+// types
 import type { DataNode, TreeProps } from "antd/es/tree";
+import { LoaderArgs } from "@remix-run/node";
+
+// core
+import { json } from "@remix-run/node";
+
+// components:vendors
+import { Col, Row, Tree } from "antd";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
+
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
 
 const treeData: DataNode[] = [
   {
@@ -84,7 +94,7 @@ const treeData: DataNode[] = [
           },
           {
             title: <span style={{ color: "#1890ff" }}>卡片列表</span>,
-            key: "0-0-2-2",
+            key: "0-0-2-3",
           },
         ],
       },
@@ -248,7 +258,7 @@ const treeDataAdmin: DataNode[] = [
           },
           {
             title: <span style={{ color: "#1890ff" }}>卡片列表</span>,
-            key: "0-0-2-2",
+            key: "0-0-2-3",
           },
         ],
       },
@@ -413,7 +423,7 @@ const treeDataUser: DataNode[] = [
           },
           {
             title: <span style={{ color: "#1890ff" }}>卡片列表</span>,
-            key: "0-0-2-2",
+            key: "0-0-2-3",
           },
         ],
       },
@@ -495,7 +505,12 @@ const treeDataUser: DataNode[] = [
   },
 ];
 
-export default function Auth() {
+export const loader = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
+  return json({});
+};
+
+export default function AuthRoute() {
   const onSelect: TreeProps["onSelect"] = (selectedKeys, info) => {
     console.log("selected", selectedKeys, info);
   };

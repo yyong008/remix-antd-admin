@@ -1,11 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // types
-import type { V2_MetaFunction } from "@remix-run/node";
+import type { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
+
+// core
+import { json } from "@remix-run/node";
 
 // components:vendor
 import { Button, Card, Row } from "antd";
 import { PageContainer } from "@ant-design/pro-components";
+
+// components
 import { ColCardList, PageContainerContent } from "~/components/listCardList";
+
+// server
+import { routeAuthFailure } from "~/utils/auth.server";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -13,6 +21,11 @@ export const meta: V2_MetaFunction = () => {
       title: "搜索表格",
     },
   ];
+};
+
+export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
+  return json({});
 };
 
 export default () => {

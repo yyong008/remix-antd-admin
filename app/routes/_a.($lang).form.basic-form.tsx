@@ -1,5 +1,8 @@
 // type
-import type { V2_MetaFunction } from "@remix-run/node";
+import { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
+
+// core
+import { json } from "@remix-run/node";
 
 // components:vendors
 import {
@@ -16,12 +19,20 @@ import { Button } from "antd";
 // components
 import { FormIsOpen } from "~/components/formBasic";
 
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
+
 export const meta: V2_MetaFunction = () => {
   return [
     {
       title: "基础表单",
     },
   ];
+};
+
+export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
+  return json({});
 };
 
 export default function () {
@@ -52,7 +63,7 @@ export default function () {
           <ProFormText label="客户（选填）" tooltip="目标的服务对象" />
           <ProFormText label="邀评人（选填）" />
           <ProFormDigit label="权重（选填）" initialValue={15} />
-          <FormIsOpen /> 
+          <FormIsOpen />
         </ProCard>
       </PageContainer>
     </ProForm>

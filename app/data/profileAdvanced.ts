@@ -4,6 +4,7 @@ const creators = ["付小小", "五月天", "林东东", "陈帅帅", "兼某某
 
 for (let i = 0; i < 5; i += 1) {
   tableListDataSource.push({
+    id: i,
     key: i,
     name: "商品名称" + i,
     containers: Math.floor(Math.random() * 20),

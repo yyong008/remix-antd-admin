@@ -1,12 +1,13 @@
 // types
 import type {
+  ActionArgs,
   LinksFunction,
   LoaderArgs,
   V2_MetaFunction,
 } from "@remix-run/node";
 
 // core
-import { json, redirect } from "@remix-run/node";
+import { json } from "@remix-run/node";
 
 // hooks
 import { useState } from "react";
@@ -33,9 +34,14 @@ import {
   ActionIcons,
 } from "~/components/userLogin";
 import Footer from "~/components/Footer";
+import ClientOnlyWrap from "~/components/ClientOnlyWrap";
 
 // styles
 import loginStyleUrl from "~/styles/login.css";
+
+// auth
+import { auth, sessionStorage } from "~/utils/auth.server";
+
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -45,31 +51,25 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const action = async ({ request, params }: LoaderArgs) => {
-  const form = await request.formData();
-
-  if (form.get("type") === "account") {
-    const username = form.get("username");
-    const password = form.get("password");
-    if (
-      (username === "admin" && password === "123456") ||
-      (username === "user" && password === "123456")
-    ) {
-      return redirect("/" + params.lang + "/dashboard/analysis");
-    } else {
-      return json({ code: 1 });
-    }
-  } else {
-    const mobile = form.get("mobile")!;
-    const captcha = form.get("captcha")!;
-
-    if (mobile.length === 11 && captcha === "1234") {
-      return redirect("/" + params.lang + "/dashboard/analysis");
-    } else {
-      return json({ code: 1 });
-    }
-  }
+export const action = async ({ request, params }: ActionArgs) => {
+  await auth.authenticate("user-pass", request, {
+    successRedirect: "/" + params.lang + "/dashboard/analysis",
+  });
 };
+
+type LoaderError = { message: string } | null;
+
+export const loader = async ({ request, params }: LoaderArgs) => {
+  await auth.isAuthenticated(request, {
+    successRedirect: "/" + params.lang + "/dashboard/analysis",
+  });
+  const session = await sessionStorage.getSession(
+    request.headers.get("Cookie")
+  );
+  const error = session.get(auth.sessionErrorKey) as LoaderError;
+  return json({ error });
+};
+
 export const links: LinksFunction = () => {
   return [
     {
@@ -102,135 +102,137 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <LoginContainer>
-      <LoginContent>
-        <LoginForm
-          contentStyle={{
-            minWidth: 280,
-            maxWidth: "75vw",
-          }}
-          logo={<img alt="logo" src="/logo.png" />}
-          title={t("title")}
-          subTitle={t("desc")}
-          initialValues={{
-            autoLogin: true,
-            username: "admin",
-            password: "123456",
-          }}
-          actions={[t("other-login"), <ActionIcons key="icons" />]}
-          onFinish={async (values) => {
-            await handleSubmit(values);
-          }}
-          submitter={{
-            searchConfig: {
-              submitText: t("submit"),
-            },
-          }}
-        >
-          <Tabs
-            activeKey={type}
-            onChange={setType}
-            centered
-            items={[
-              {
-                key: "account",
-                label: t("account-password-login"),
+    <ClientOnlyWrap>
+      <LoginContainer>
+        <LoginContent>
+          <LoginForm
+            contentStyle={{
+              minWidth: 280,
+              maxWidth: "75vw",
+            }}
+            logo={<img alt="logo" src="/logo.png" />}
+            title={t("title")}
+            subTitle={t("desc")}
+            initialValues={{
+              autoLogin: true,
+              username: "admin",
+              password: "123456",
+            }}
+            actions={[t("other-login"), <ActionIcons key="icons" />]}
+            onFinish={async (values: string) => {
+              await handleSubmit(values);
+            }}
+            submitter={{
+              searchConfig: {
+                submitText: t("submit"),
               },
-              {
-                key: "mobile",
-                label: t("phone-number-login"),
-              },
-            ]}
-          />
-          {type === "account" && (
-            <>
-              <ProFormText
-                name="username"
-                fieldProps={{
-                  size: "large",
-                  prefix: <UserOutlined />,
-                }}
-                placeholder={t("user-placeholder") as string}
-                rules={[
-                  {
-                    required: true,
-                    message: t("user-message")!,
-                  },
-                ]}
-              />
-              <ProFormText.Password
-                name="password"
-                fieldProps={{
-                  size: "large",
-                  prefix: <LockOutlined />,
-                }}
-                placeholder={t("password-pladeholder") as string}
-                rules={[
-                  {
-                    required: true,
-                    message: t("password-message") as string,
-                  },
-                ]}
-              />
-            </>
-          )}
-          {type === "mobile" && (
-            <>
-              <ProFormText
-                fieldProps={{
-                  size: "large",
-                  prefix: <MobileOutlined />,
-                }}
-                name="mobile"
-                placeholder={t("phone-placeholder")!}
-                rules={[
-                  {
-                    required: true,
-                    message: t("phone-message")!,
-                  },
-                  {
-                    pattern: /^1\d{10}$/,
-                    message: t("phone-format-message")!,
-                  },
-                ]}
-              />
-              <ProFormCaptcha
-                fieldProps={{
-                  size: "large",
-                  prefix: <LockOutlined />,
-                }}
-                captchaProps={{
-                  size: "large",
-                }}
-                placeholder={t("verification-code")!}
-                captchaTextRender={(timing, count) => {
-                  if (timing) {
-                    return `${count} ${t("get-verification-code")}`;
-                  }
-                  return t("get-verification-code");
-                }}
-                name="captcha"
-                rules={[
-                  {
-                    required: true,
-                    message: t("verification-code")!,
-                  },
-                ]}
-                onGetCaptcha={async (phone) => {
-                  message.success(t("get-captcha")!);
-                }}
-              />
-            </>
-          )}
-          <HDiv>
-            <ProFormCheckbox noStyle name="autoLogin">
-              {t("remeber")}
-            </ProFormCheckbox>
-          </HDiv>
-        </LoginForm>
-      </LoginContent>
-      <Footer />
-    </LoginContainer>
+            }}
+          >
+            <Tabs
+              activeKey={type}
+              onChange={setType}
+              centered
+              items={[
+                {
+                  key: "account",
+                  label: t("account-password-login"),
+                },
+                {
+                  key: "mobile",
+                  label: t("phone-number-login"),
+                },
+              ]}
+            />
+            {type === "account" && (
+              <>
+                <ProFormText
+                  name="username"
+                  fieldProps={{
+                    size: "large",
+                    prefix: <UserOutlined />,
+                  }}
+                  placeholder={t("user-placeholder") as string}
+                  rules={[
+                    {
+                      required: true,
+                      message: t("user-message")!,
+                    },
+                  ]}
+                />
+                <ProFormText.Password
+                  name="password"
+                  fieldProps={{
+                    size: "large",
+                    prefix: <LockOutlined />,
+                  }}
+                  placeholder={t("password-pladeholder") as string}
+                  rules={[
+                    {
+                      required: true,
+                      message: t("password-message") as string,
+                    },
+                  ]}
+                />
+              </>
+            )}
+            {type === "mobile" && (
+              <>
+                <ProFormText
+                  fieldProps={{
+                    size: "large",
+                    prefix: <MobileOutlined />,
+                  }}
+                  name="mobile"
+                  placeholder={t("phone-placeholder")!}
+                  rules={[
+                    {
+                      required: true,
+                      message: t("phone-message")!,
+                    },
+                    {
+                      pattern: /^1\d{10}$/,
+                      message: t("phone-format-message")!,
+                    },
+                  ]}
+                />
+                <ProFormCaptcha
+                  fieldProps={{
+                    size: "large",
+                    prefix: <LockOutlined />,
+                  }}
+                  captchaProps={{
+                    size: "large",
+                  }}
+                  placeholder={t("verification-code")!}
+                  captchaTextRender={(timing: string, count: number) => {
+                    if (timing) {
+                      return `${count} ${t("get-verification-code")}`;
+                    }
+                    return t("get-verification-code");
+                  }}
+                  name="captcha"
+                  rules={[
+                    {
+                      required: true,
+                      message: t("verification-code")!,
+                    },
+                  ]}
+                  onGetCaptcha={async () => {
+                    message.success(t("get-captcha")!);
+                  }}
+                />
+              </>
+            )}
+            <HDiv>
+              <ProFormCheckbox noStyle name="autoLogin">
+                {t("remeber")}
+              </ProFormCheckbox>
+            </HDiv>
+          </LoginForm>
+        </LoginContent>
+        <Footer />
+      </LoginContainer>
+    </ClientOnlyWrap>
   );
 };
 

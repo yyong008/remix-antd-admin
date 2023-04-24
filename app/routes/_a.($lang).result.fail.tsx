@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // types
-import type { V2_MetaFunction } from "@remix-run/node";
+import { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
 
 // cores
+import { json } from "@remix-run/node";
 import React from "react";
 
 // components:vendor
@@ -12,6 +13,12 @@ import { CloseCircleOutlined } from "@ant-design/icons";
 // hooks
 import { useTranslation } from "react-i18next";
 
+// data
+import { tableListDataSource } from "~/data/listTableList";
+
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
+
 const { Paragraph, Text } = Typography;
 
 export const meta: V2_MetaFunction = () => {
@@ -20,6 +27,11 @@ export const meta: V2_MetaFunction = () => {
       title: "失败",
     },
   ];
+};
+
+export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
+  return json(tableListDataSource);
 };
 
 const FailPage: React.FC = () => {

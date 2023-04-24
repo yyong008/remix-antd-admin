@@ -21,7 +21,7 @@ import { useTranslation } from "react-i18next";
 import { useChangeLanguage } from "remix-i18next";
 
 // i18n server
-import i18next from "~/i18next.server";
+import i18next from "~/i18n/i18next.server";
 
 // context
 import SettingContext from "./settingContext";

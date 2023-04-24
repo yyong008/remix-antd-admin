@@ -46,10 +46,12 @@ export default function OnlineSearch() {
     {
       title: "用户数量",
       dataIndex: "count",
+      key: "count",
     },
     {
       title: "周涨幅",
       dataIndex: "weeklyGains",
+      key: "weeklyGains",
     },
   ];
   return (
@@ -62,15 +64,15 @@ export default function OnlineSearch() {
     >
       <SearchHotLine />
       <Table
+        rowKey="id"
         bordered={false}
-        rowKey="name"
+
         dataSource={dataSource}
         columns={columns}
         pagination={{
           pageSize: 5,
         }}
         size="small"
-        key="id"
       />
     </Card>
   );

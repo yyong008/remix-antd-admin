@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 //types
-import type { V2_MetaFunction } from "@remix-run/node";
+import { LoaderArgs, LoaderFunction, V2_MetaFunction, json } from "@remix-run/node";
 
 // hooks
 import { useLoaderData } from "@remix-run/react";
@@ -21,6 +21,9 @@ import {
 // data
 import { tableListDataSource } from "~/data/profileAdvanced";
 
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
+
 export const meta: V2_MetaFunction = () => {
   return [
     {
@@ -29,8 +32,9 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader = () => {
-  return tableListDataSource;
+export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
+  return json(tableListDataSource);
 };
 
 export default function ProfileBasicPage() {

@@ -59,7 +59,7 @@ export default function CardLoggerTable({ dataSource = [] }: any) {
       style={{ padding: 0 }}
       columns={columns as any}
       dataSource={dataSource}
-      rowKey="key"
+      rowKey="id"
       pagination={false}
     />
   );

@@ -1,5 +1,8 @@
 // types
-import type { LoaderFunction, V2_MetaFunction } from "@remix-run/node";
+import { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
+
+// core
+import { json } from "@remix-run/node";
 
 // hooks
 import { useLoaderData } from "@remix-run/react";
@@ -16,6 +19,9 @@ import ProjectsList from "~/components/listSearchProjects";
 // data
 import data from "~/data/listSearchProjects";
 
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
+
 export const meta: V2_MetaFunction = () => {
   return [
     {
@@ -24,8 +30,9 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = () => {
-  return data;
+export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
+  return json(data);
 };
 
 export default function ListSearchProjects() {

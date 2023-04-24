@@ -1,5 +1,5 @@
 // types
-import type { V2_MetaFunction } from "@remix-run/node";
+import type { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
 
 // core
 import { json } from "@remix-run/node";
@@ -19,10 +19,8 @@ import data from "~/data/listSearchApplications";
 // hooks
 import { useLoaderData } from "@remix-run/react";
 
-
-export const loader = () => {
-  return json(data);
-};
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -30,6 +28,11 @@ export const meta: V2_MetaFunction = () => {
       title: "搜索列表（应用）",
     },
   ];
+};
+
+export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
+  return json(data);
 };
 
 export default function ListSearchApplication() {

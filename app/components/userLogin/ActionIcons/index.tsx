@@ -1,36 +1,53 @@
 // cores
+import React from "react";
 import styled from "styled-components";
 
-//
-import { theme } from "antd";
+// components:vendor
 import {
   AlipayCircleOutlined,
   TaobaoCircleOutlined,
   WeiboCircleOutlined,
 } from "@ant-design/icons";
+import { theme } from "antd";
 
 const ActionIcons = () => {
   const { token } = theme.useToken();
-  const s = `
-      margin-left: 8px;
-      color: #b1b1b1;
-      font-size: 24px;
-      vertical-align: middle;
-      cursor: pointer;
-      transition: color 0.3s;
 
-      &:hover {
-        color: ${token.colorPrimary};
-      }
-    `;
   const AlipayCircleOutlinedIcon = styled(AlipayCircleOutlined)`
-    ${s}
+    margin-left: 8px;
+    color: #b1b1b1;
+    font-size: 24px;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: color 0.3s;
+
+    &:hover {
+      color: ${token.colorPrimary};
+    }
   `;
   const TaobaoCircleOutlinedIcon = styled(TaobaoCircleOutlined)`
-    ${s}
+    margin-left: 8px;
+    color: #b1b1b1;
+    font-size: 24px;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: color 0.3s;
+
+    &:hover {
+      color: ${token.colorPrimary};
+    }
   `;
   const WeiboCircleOutlinedIcon = styled(WeiboCircleOutlined)`
-    ${s}
+    margin-left: 8px;
+    color: #b1b1b1;
+    font-size: 24px;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: color 0.3s;
+
+    &:hover {
+      color: ${token.colorPrimary};
+    }
   `;
 
   return (

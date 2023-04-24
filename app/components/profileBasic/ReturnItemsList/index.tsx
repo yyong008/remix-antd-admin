@@ -20,18 +20,21 @@ export default function ReturnItemsList({ dataSource = [] }: any) {
     {
       title: "商品名称",
       dataIndex: "name",
+      key: "name",
       align: "center",
       render: (_: any) => <ALink>{_}</ALink>,
     },
     {
       title: "商品数量",
       dataIndex: "containers",
+      key: "containers",
       align: "center",
       sorter: false,
     },
     {
       title: "创建者",
       dataIndex: "creator",
+      key: "creator",
       valueType: "select",
       align: "center",
       valueEnum: {
@@ -68,7 +71,7 @@ export default function ReturnItemsList({ dataSource = [] }: any) {
         style={{ padding: 0 }}
         columns={columns as any}
         dataSource={dataSource}
-        rowKey="key"
+        rowKey="id"
         pagination={false}
       />
     </div>

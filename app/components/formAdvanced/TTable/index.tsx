@@ -65,7 +65,7 @@ const TTable = function () {
           recordCreatorProps={{
             newRecordType: "dataSource",
             position: "bottom",
-            record: (length, arr) => {
+            record: (length: any) => {
               return {
                 id: length + 1,
               };
@@ -75,7 +75,7 @@ const TTable = function () {
             type: "multiple",
             editableKeys,
             onChange: setEditableRowKeys,
-            actionRender: (row, _, dom) => {
+            actionRender: (_: any, __: any, dom: any) => {
               return [dom.delete, dom.cancel, dom.save];
             },
           }}

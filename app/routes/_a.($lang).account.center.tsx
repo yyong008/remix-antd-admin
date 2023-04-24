@@ -1,8 +1,9 @@
 // types
-import type { V2_MetaFunction } from "@remix-run/node";
+import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 
 // cores
 import { useLoaderData } from "@remix-run/react";
+import { json } from "@remix-run/node";
 
 // components
 import { Row, Col } from "antd";
@@ -16,6 +17,9 @@ import { PersonalCard, AAPCard } from "~/components/accountCenter";
 // cols
 import { colProps, colPropsSS } from "~/components/accountCenter/col";
 
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
+
 export const meta: V2_MetaFunction = () => {
   return [
     {
@@ -24,7 +28,8 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader = () => {
+export const loader = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
   return data;
 };
 

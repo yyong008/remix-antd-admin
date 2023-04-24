@@ -13,11 +13,11 @@ import {
 export function createRoute(lang: string, t: any, _routes?: any[]) {
   return {
     route: {
-      path: `/${lang}`,
+      path: `/`,
       routes: [
         {
           key: "dashboard",
-          path: `dashboard`,
+          path: `${lang}/dashboard`,
           icon: <DashboardOutlined />,
           name: t("dashboard"),
           children: [
@@ -46,7 +46,7 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
         },
         {
           key: "form",
-          path: `form`,
+          path: `${lang}/form`,
           icon: <FormOutlined />,
           name: t("form"),
           children: [
@@ -69,7 +69,7 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
         },
         {
           key: "List",
-          path: `list`,
+          path: `${lang}/list`,
           icon: <TableOutlined />,
           name: t("list"),
           children: [
@@ -116,7 +116,7 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
           key: "profile",
           icon: <ProfileOutlined />,
           name: t("profile"),
-          path: `profile`,
+          path: `${lang}/profile`,
           children: [
             {
               key: "basic",
@@ -134,7 +134,7 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
           key: "result",
           icon: <CheckCircleOutlined />,
           name: t("result"),
-          path: `result`,
+          path: `${lang}/result`,
           children: [
             {
               key: "success",
@@ -152,7 +152,7 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
           key: "expection",
           icon: <WarningOutlined />,
           name: t("exception"),
-          path: `exception`,
+          path: `${lang}/exception`,
           children: [
             {
               key: "/403",
@@ -173,7 +173,7 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
         },
         {
           key: "account",
-          path: `account`,
+          path: `${lang}/account`,
           icon: <UserOutlined />,
           name: t("account"),
           children: [
@@ -193,7 +193,7 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
           key: "editor",
           icon: <HighlightOutlined />,
           name: t("editor"),
-          path: `editor`,
+          path: `${lang}/editor`,
           children: [
             {
               key: "flow",

@@ -1,5 +1,8 @@
 // types
-import type { V2_MetaFunction } from "@remix-run/node";
+import { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
+
+// core
+import { json } from "@remix-run/node";
 
 // cores
 import { useState } from "react";
@@ -10,6 +13,9 @@ import ReactFlow from "reactflow";
 
 // styles
 import reactflowStyleUrl from "reactflow/dist/style.css";
+
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
 
 export function links() {
   return [
@@ -30,7 +36,6 @@ const initialNodes = [
 
   {
     id: "2",
-    // you can also pass a React component as a label
     data: { label: <div>Default Node</div> },
     position: { x: 100, y: 125 },
   },
@@ -55,7 +60,12 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-function Flow() {
+export const loader = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
+  return json({});
+};
+
+function FlowRoute() {
   const [nodes] = useState(initialNodes);
   const [edges] = useState(initialEdges);
 
@@ -71,4 +81,4 @@ function Flow() {
   );
 }
 
-export default Flow;
+export default FlowRoute;

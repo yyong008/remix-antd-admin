@@ -1,4 +1,8 @@
-import type { V2_MetaFunction } from "@remix-run/node";
+// types
+import { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
+
+// cores
+import { json } from "@remix-run/node";
 
 // components:vendor
 import { Space } from "antd";
@@ -11,8 +15,16 @@ import {
   AnalysisRowFour,
 } from "~/components/dashboardAnalysis";
 
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
+
 export const meta: V2_MetaFunction = () => {
   return [{ title: "分析页" }];
+};
+
+export const loader = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
+  return json({});
 };
 
 export default function DashboardAnalysisPage() {

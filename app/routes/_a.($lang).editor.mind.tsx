@@ -1,7 +1,10 @@
 // types
-import type { V2_MetaFunction } from "@remix-run/node";
+import { LinksFunction, LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
 
 // cores
+import { json } from "@remix-run/node";
+
+// hooks
 import { useCallback } from "react";
 
 // components:vender
@@ -20,12 +23,12 @@ import {
   nodes as initialNodes,
   edges as initialEdges,
 } from "~/components/reactFlow/initial-element";
-
 import CustomNode from "~/components/reactFlow/CustomNode";
 
 // styles
 import reactflowStyleUrl from "reactflow/dist/style.css";
 import overviewcssStyleUrl from "~/styles/reactflow.css";
+import { routeAuthFailure } from "~/utils/auth.server";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -35,7 +38,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export function links() {
+export const links: LinksFunction = () => {
   return [
     {
       rel: "stylesheet",
@@ -47,6 +50,11 @@ export function links() {
     },
   ];
 }
+
+export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
+  return json({});
+};
 
 const nodeTypes = {
   custom: CustomNode,
@@ -71,7 +79,7 @@ const OverviewFlow = () => {
   // this could also be done with a custom edge for example
   const edgesWithUpdatedTypes = edges.map((edge) => {
     if (edge.sourceHandle) {
-      const edgeType = nodes.find((node) => node.type === "custom").data
+      const edgeType = nodes.find((node) => node.type === "custom")?.data
         .selects[edge.sourceHandle];
       edge.type = edgeType;
     }

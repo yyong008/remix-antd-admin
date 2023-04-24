@@ -1,5 +1,5 @@
-//types
-import type { V2_MetaFunction } from "@remix-run/node";
+// types
+import type { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
 
 // core
 import { json } from "@remix-run/node";
@@ -21,6 +21,11 @@ import { useLoaderData } from "@remix-run/react";
 
 // data
 import { loggers as data } from "~/data/profileAdvanced";
+
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
+
+// route:meta
 export const meta: V2_MetaFunction = () => {
   return [
     {
@@ -29,7 +34,8 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader = () => {
+export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
   return json(data);
 };
 

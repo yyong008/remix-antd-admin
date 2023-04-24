@@ -1,15 +1,18 @@
 // types
-import type { V2_MetaFunction } from "@remix-run/node";
+import { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
 
 // core
-import React from "react";
+import { json } from "@remix-run/node";
 
 // components
 import { Button, Result } from "antd";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 // hooks
 import { useTranslation } from "react-i18next";
-import { PageContainer, ProCard } from "@ant-design/pro-components";
+
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -17,6 +20,11 @@ export const meta: V2_MetaFunction = () => {
       title: "404",
     },
   ];
+};
+
+export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
+  return json({});
 };
 
 const Expection404: React.FC = () => {

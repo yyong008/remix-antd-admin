@@ -1,5 +1,5 @@
 // type
-import type { V2_MetaFunction } from "@remix-run/node";
+import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 
 // core
 import { json } from "@remix-run/node";
@@ -21,13 +21,17 @@ import {
 // data
 import data from "~/data/dashboardWorkplace";
 
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
+
 export const meta: V2_MetaFunction = () => {
   return [{ title: "工作空间" }];
 };
 
-export async function loader() {
+export const loader = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
   return json(data);
-}
+};
 
 export default function DashboardWorkplacePage() {
   const data = useLoaderData();

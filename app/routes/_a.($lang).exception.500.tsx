@@ -1,15 +1,19 @@
 // types
-import type { V2_MetaFunction } from "@remix-run/node";
+import { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
 
-// core
-import React from "react";
+// cores
+import { json } from "@remix-run/node";
 
 // components:vendor
 import { Button, Result } from "antd";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 // hooks
 import { useTranslation } from "react-i18next";
-import { PageContainer, ProCard } from "@ant-design/pro-components";
+
+
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -19,7 +23,12 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-const Expection500: React.FC = () => {
+export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
+  return json({});
+};
+
+const Expection500Route: React.FC = () => {
   const { t } = useTranslation();
 
   return (
@@ -41,4 +50,4 @@ const Expection500: React.FC = () => {
   );
 };
 
-export default Expection500;
+export default Expection500Route;

@@ -8,3 +8,8 @@ node_modules
 
 # Local Netlify folder
 .netlify
+TODO.md
+
+# prisma db data
+/prisma/dev.db
+/prisma/dev.db-journal

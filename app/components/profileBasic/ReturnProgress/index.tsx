@@ -72,7 +72,7 @@ export default function ReturnProgress({ dataSource = [] }) {
       <Table
         columns={columns as any}
         dataSource={dataSource}
-        rowKey="key"
+        rowKey="id"
         pagination={false}
       />
     </div>

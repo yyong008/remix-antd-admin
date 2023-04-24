@@ -5,11 +5,9 @@ import { RemixBrowser } from "@remix-run/react";
 
 // components and others
 import { createCache, StyleProvider } from "@ant-design/cssinjs";
-// import { ConfigProvider } from "antd";
-import { ProConfigProvider } from '@ant-design/pro-components'
 
 // i18n
-import i18n from "./i18n";
+import i18n from "./i18n/i18n";
 import i18next from "i18next";
 import Backend from "i18next-http-backend";
 import { getInitialNamespaces } from "remix-i18next";
@@ -47,16 +45,7 @@ const hydrate = async () => {
         <I18nextProvider i18n={i18next}>
           <SettingContext.Provider value={{ theme, setTheme, lang, setLang }}>
             <StyleProvider cache={cache}>
-              <ProConfigProvider
-                hashed={true}
-                theme={{
-                  token: {
-                    colorPrimary: theme.colorPrimary
-                  },
-                }}
-              >
-                <RemixBrowser />
-              </ProConfigProvider>
+              <RemixBrowser />
             </StyleProvider>
           </SettingContext.Provider>
         </I18nextProvider>

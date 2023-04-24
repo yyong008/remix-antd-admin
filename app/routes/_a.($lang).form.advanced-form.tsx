@@ -1,5 +1,8 @@
 // type
-import type { V2_MetaFunction } from "@remix-run/node";
+import { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
+
+// core
+import { json } from "@remix-run/node";
 
 // components:vendor
 import { Button, Space } from "antd";
@@ -7,12 +10,21 @@ import { PageContainer, ProCard, ProForm } from "@ant-design/pro-components";
 
 // components
 import { CManager, TManager, TTable } from "~/components/formAdvanced";
+
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
+
 export const meta: V2_MetaFunction = () => {
   return [
     {
       title: "表单增强",
     },
   ];
+};
+
+export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
+  return json({});
 };
 
 export default function FormAdvance() {

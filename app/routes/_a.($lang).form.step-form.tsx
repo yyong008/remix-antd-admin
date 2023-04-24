@@ -1,8 +1,11 @@
 // types
-import type { V2_MetaFunction } from "@remix-run/node";
 import type { ProFormInstance } from "@ant-design/pro-components";
+import type { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
 
 // core
+import { json } from "@remix-run/node";
+
+// hooks
 import { useRef } from "react";
 
 // components:vendor
@@ -19,12 +22,20 @@ import {
   StepsForm,
 } from "@ant-design/pro-components";
 
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
+
 export const meta: V2_MetaFunction = () => {
   return [
     {
       title: "步骤表单",
     },
   ];
+};
+
+export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
+  return json({});
 };
 
 export default () => {

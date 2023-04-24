@@ -1,4 +1,4 @@
-// cores
+// cores.ts, .ts
 import React, { useState } from "react";
 
 // component: vendor
@@ -33,7 +33,7 @@ const Category: React.FC = () => {
   };
 
   return (
-    <>
+    <Form>
       <Form.Item
         label="所属类目:"
         style={{
@@ -54,7 +54,7 @@ const Category: React.FC = () => {
           ))}
         </Space>
       </Form.Item>
-    </>
+    </Form>
   );
 };
 

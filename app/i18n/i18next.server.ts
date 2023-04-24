@@ -6,7 +6,7 @@ import Backend from "i18next-fs-backend";
 import { RemixI18Next } from "remix-i18next";
 
 // config
-import i18n from "~/i18n";
+import i18n from "./i18n";
 
 let i18next = new RemixI18Next({
   detection: {
