@@ -26,7 +26,7 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
-    "start": "remix-serve build",
+    "start": "npx prisma db seed && remix-serve build",
     "typecheck": "tsc",
     "test": "vitest",
     "coverage": "vitest run --coverage",

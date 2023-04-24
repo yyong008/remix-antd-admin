@@ -2,14 +2,6 @@
 
 A management system based on `Remix`/`Antd`/`Echarts`/`Styled-components` that enables quick project initialization.
 
-## project address
-
-> https://remix-antd-admin.vercel.app/
-
-## Current Remix Version
-
-> 1.51.0
-
 ## Motivation
 
 Remix's design paradigm is simple and convenient - the entire application is a router that connects the front-end and back-end. The form design makes Remix's form capabilities more straightforward and convenient. In a backend management system, data display, data entry, and page switching are crucial. Remix's design seems to be a simple and apt fit. Integrating Antd UI project capabilities allows for the rapid implementation of backend management systems with beautiful and straightforward UIs.

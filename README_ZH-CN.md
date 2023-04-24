@@ -2,14 +2,6 @@
 
 一款基于Remix / Antd / Echarts / Styled-components的管理系统，可快速进行项目初始化。
 
-## Project experience URL
-
-> https://remix-antd-admin.vercel.app/
-
-## Current Remix Version
-
-> 1.51.0
-
 ## 设计动机
 
 Remix 的设计范式简单方便，整个应用就是一个路由器，并且是前后端打通的路由器。表单设计使得 Remix 的表单能力更加简单方便。在后台管理系统中，数据展示与数据录入，以及页面切换占据重要位置，Remix 设计似乎特贴的简单贴切。集成 Antd UI 项目能力，能快速实现具有漂亮 UI 简单的后台管理系统。
