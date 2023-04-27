@@ -9,16 +9,16 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
 } from "@remix-run/react";
 import { json } from "@remix-run/node";
-
+import ClientOnlyWrap from "./components/ClientOnlyWrap";
 // hooks
 import { useContext, useEffect } from "react";
 
 // hooks:i18n
 import { useTranslation } from "react-i18next";
-import { useChangeLanguage } from "remix-i18next";
+// import { useChangeLanguage } from "remix-i18next";
+import { useChangeLanguage } from "./hooks/useChangeLanuage";
 
 // i18n server
 import i18next from "~/i18n/i18next.server";
@@ -29,9 +29,10 @@ import SettingContext from "./settingContext";
 // css
 import globalStyle from "./styles/global.css";
 
-export async function loader({ request, params }: LoaderArgs) {
+export async function loader({ request, params, ...p }: LoaderArgs) {
   request.headers.set("Accept-Language", params.lang!);
   let locale = await i18next.getLocale(request);
+  console.log("server local", locale, params);
   return json({ locale });
 }
 
@@ -46,48 +47,29 @@ export const links: LinksFunction = () => {
 
 export let handle = { i18n: "common" };
 
-function Document({
-  children,
-  title,
-}: {
-  children: React.ReactNode;
-  title?: string;
-}) {
+export default function App() {
   const { i18n } = useTranslation();
-  const { locale } = useLoaderData<typeof loader>();
-  const { lang, setLang } = useContext(SettingContext);
+  const { lang } = useContext(SettingContext);
 
-  useChangeLanguage(locale);
-
-  useEffect(() => {
-    setLang(locale);
-  }, [locale, setLang]);
-
+  useChangeLanguage(lang);
   return (
     <html lang={lang} dir={i18n.dir()}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
-        <title>{title}</title>
         <Links />
         {typeof document === "undefined" ? "__ANTD__" : null}
         {typeof document === "undefined" ? "__STYLES__" : null}
       </head>
       <body>
-        {children}
+        <ClientOnlyWrap>
+          <Outlet />
+        </ClientOnlyWrap>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
       </body>
     </html>
-  );
-}
-
-export default function App() {
-  return (
-    <Document>
-      <Outlet />
-    </Document>
   );
 }
