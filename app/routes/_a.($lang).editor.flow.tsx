@@ -36,7 +36,7 @@ const initialNodes = [
 
   {
     id: "2",
-    data: { label: <div>Default Node</div> },
+    data: { label: "Default Node" },
     position: { x: 100, y: 125 },
   },
   {
