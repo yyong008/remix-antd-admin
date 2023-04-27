@@ -31,7 +31,6 @@ import { createRoute } from "~/components/SideBar";
 
 // hooks
 import { useTranslation } from "react-i18next";
-import ClientOnlyWrap from "~/components/ClientOnlyWrap";
 
 export default function Layout() {
   const navigate = useNavigate();
@@ -42,9 +41,11 @@ export default function Layout() {
 
   const choiceLang = (lang: string) => {
     let p = location.pathname.split("/");
-    p[1] = lang || "us";
-    value.setLang(lang || "us");
-    window.location.pathname = p.join("/");
+    p[1] = lang || "en";
+
+    navigate(p.join("/"));
+    value.setLang(lang || "en");
+    // window.location.pathname = p.join("/");
   };
 
   const fetchUserInfo = async () => {
@@ -73,148 +74,146 @@ export default function Layout() {
 
   return (
     <PageContainer>
-      <ClientOnlyWrap>
-        <Auth routes={userInfo?.routes ?? []}>
-          <ProLayout
-            title="Remix"
-            logo="/remix.png"
-            {...value.theme}
-            {...createRoute(value.lang, t)}
-            waterMarkProps={{
-              content: "Remix Antd Admin",
-            }}
-            token={{
-              sider: {
-                colorBgMenuItemSelected: "rgba(0, 0, 0, 0.027)",
-                colorTextMenuSelected: value.theme.colorPrimary,
-              },
-            }}
-            ErrorBoundary={false}
-            pageTitleRender={false}
-            suppressSiderWhenMenuEmpty={userInfo?.routes.length === 0}
-            menu={{ defaultOpenAll: true, hideMenuWhenCollapsed: true }}
-            menuItemRender={(item, dom) => (
-              <Link to={item.path as string}>{dom}</Link>
-            )}
-            actionsRender={(props) => {
-              if (props.isMobile) return [];
-              return [
-                <InfoCircleFilled key="InfoCircleFilled" />,
-                <QuestionCircleFilled key="QuestionCircleFilled" />,
-                <GithubFilled key="GithubFilled" />,
-              ];
-            }}
-            avatarProps={{
-              src: "/images/user.jpg",
-              size: "small",
-              title: "小二",
-              render: (_, dom) => {
-                return (
-                  <Dropdown
-                    menu={{
-                      items: [
-                        {
-                          key: "profile-center",
-                          icon: <UserOutlined />,
-                          label: t("personal-center"),
-                          onClick: () => {
-                            navigate("/");
-                          },
-                        },
-                        {
-                          key: "profile-settings",
-                          icon: <SettingOutlined />,
-                          label: t("personal-settings"),
-                          onClick: () => {
-                            navigate("/");
-                          },
-                        },
-                        {
-                          type: "divider",
-                        },
-                        {
-                          key: "logout",
-                          icon: <LogoutOutlined />,
-                          label: t("logout"),
-                          onClick: () => {
-                            handleLogout();
-                          },
-                        },
-                        {
-                          type: "divider",
-                        },
-                        {
-                          key: "us",
-                          label: "US English",
-                          onClick: () => {
-                            choiceLang("us");
-                          },
-                        },
-                        {
-                          key: "cn",
-                          label: "CN 简体中文",
-                          onClick: () => {
-                            choiceLang("zh");
-                          },
-                        },
-                      ],
-                    }}
-                  >
-                    {dom}
-                  </Dropdown>
-                );
-              },
-            }}
-            bgLayoutImgList={[
-              {
-                src: "",
-                left: 85,
-                bottom: 100,
-                height: "303px",
-              },
-              {
-                src: "",
-                bottom: -68,
-                right: -45,
-                height: "303px",
-              },
-              {
-                src: "/images/sidebar-bg.png",
-                bottom: 0,
-                left: 0,
-                width: "331px",
-              },
-            ]}
-            menuFooterRender={(props) => {
-              if (props?.collapsed) return undefined;
+      <Auth routes={userInfo?.routes ?? []}>
+        <ProLayout
+          title="Remix"
+          logo="/remix.png"
+          {...value.theme}
+          {...createRoute(value.lang, t)}
+          waterMarkProps={{
+            content: "Remix Antd Admin",
+          }}
+          token={{
+            sider: {
+              colorBgMenuItemSelected: "rgba(0, 0, 0, 0.027)",
+              colorTextMenuSelected: value.theme.colorPrimary,
+            },
+          }}
+          ErrorBoundary={false}
+          pageTitleRender={false}
+          suppressSiderWhenMenuEmpty={userInfo?.routes.length === 0}
+          menu={{ defaultOpenAll: true, hideMenuWhenCollapsed: true }}
+          menuItemRender={(item, dom) => (
+            <Link to={item.path as string}>{dom}</Link>
+          )}
+          actionsRender={(props) => {
+            if (props.isMobile) return [];
+            return [
+              <InfoCircleFilled key="InfoCircleFilled" />,
+              <QuestionCircleFilled key="QuestionCircleFilled" />,
+              <GithubFilled key="GithubFilled" />,
+            ];
+          }}
+          avatarProps={{
+            src: "/images/user.jpg",
+            size: "small",
+            title: "小二",
+            render: (_, dom) => {
               return (
-                <div
-                  style={{
-                    textAlign: "center",
-                    paddingBlockStart: 12,
+                <Dropdown
+                  menu={{
+                    items: [
+                      {
+                        key: "profile-center",
+                        icon: <UserOutlined />,
+                        label: t("personal-center"),
+                        onClick: () => {
+                          navigate("/");
+                        },
+                      },
+                      {
+                        key: "profile-settings",
+                        icon: <SettingOutlined />,
+                        label: t("personal-settings"),
+                        onClick: () => {
+                          navigate("/");
+                        },
+                      },
+                      {
+                        type: "divider",
+                      },
+                      {
+                        key: "logout",
+                        icon: <LogoutOutlined />,
+                        label: t("logout"),
+                        onClick: () => {
+                          handleLogout();
+                        },
+                      },
+                      {
+                        type: "divider",
+                      },
+                      {
+                        key: "en",
+                        label: "en English",
+                        onClick: () => {
+                          choiceLang("en");
+                        },
+                      },
+                      {
+                        key: "cn",
+                        label: "CN 简体中文",
+                        onClick: () => {
+                          choiceLang("zh");
+                        },
+                      },
+                    ],
                   }}
                 >
-                  <div>© 2023 Made with love</div>
-                  <div>by Magnesium</div>
-                </div>
+                  {dom}
+                </Dropdown>
               );
-            }}
-            footerRender={() => <Footer />}
-          >
-            <Outlet />
-            <ProConfigProvider>
-              <SettingDrawer
-                getContainer={() => document.body}
-                enableDarkTheme
-                onSettingChange={(settings: any) => {
-                  value?.setTheme(settings);
+            },
+          }}
+          bgLayoutImgList={[
+            {
+              src: "",
+              left: 85,
+              bottom: 100,
+              height: "303px",
+            },
+            {
+              src: "",
+              bottom: -68,
+              right: -45,
+              height: "303px",
+            },
+            {
+              src: "/images/sidebar-bg.png",
+              bottom: 0,
+              left: 0,
+              width: "331px",
+            },
+          ]}
+          menuFooterRender={(props) => {
+            if (props?.collapsed) return undefined;
+            return (
+              <div
+                style={{
+                  textAlign: "center",
+                  paddingBlockStart: 12,
                 }}
-                settings={{ ...value.theme }}
-              />
-            </ProConfigProvider>
-          </ProLayout>
-        </Auth>
-      </ClientOnlyWrap>
+              >
+                <div>© 2023 Made with love</div>
+                <div>by Magnesium</div>
+              </div>
+            );
+          }}
+          footerRender={() => <Footer />}
+        >
+          <Outlet />
+          <ProConfigProvider>
+            <SettingDrawer
+              getContainer={() => document.body}
+              enableDarkTheme
+              onSettingChange={(settings: any) => {
+                value?.setTheme(settings);
+              }}
+              settings={{ ...value.theme }}
+            />
+          </ProConfigProvider>
+        </ProLayout>
+      </Auth>
     </PageContainer>
   );
 }
