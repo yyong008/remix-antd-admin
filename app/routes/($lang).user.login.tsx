@@ -1,9 +1,10 @@
 // types
-import type {
+import {
   ActionArgs,
   LinksFunction,
   LoaderArgs,
   V2_MetaFunction,
+  redirect,
 } from "@remix-run/node";
 
 // core
@@ -34,13 +35,12 @@ import {
   ActionIcons,
 } from "~/components/userLogin";
 import Footer from "~/components/Footer";
-import ClientOnlyWrap from "~/components/ClientOnlyWrap";
 
 // styles
 import loginStyleUrl from "~/styles/login.css";
 
 // auth
-import { auth, sessionStorage } from "~/utils/auth.server";
+// import { auth, sessionStorage } from "~/utils/auth.server";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -51,22 +51,17 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export const action = async ({ request, params }: ActionArgs) => {
-  await auth.authenticate("user-pass", request, {
-    successRedirect: "/" + params.lang + "/dashboard/workplace",
-  });
-};
+  const formData = request.formData();
+  const username = (await formData).get("username");
+  const password = (await formData).get("password");
+  console.log(username, password);
 
-type LoaderError = { message: string } | null;
-
-export const loader = async ({ request, params }: LoaderArgs) => {
-  await auth.isAuthenticated(request, {
-    successRedirect: "/" + params.lang + "/dashboard/workplace",
+  if (username === "admin" && password === "123456") {
+    return redirect(`/${params.lang}/dashboard/analysis`);
+  }
+  return json({
+    message: "登录失败",
   });
-  const session = await sessionStorage.getSession(
-    request.headers.get("Cookie")
-  );
-  const error = session.get(auth.sessionErrorKey) as LoaderError;
-  return json({ error });
 };
 
 export const links: LinksFunction = () => {

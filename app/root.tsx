@@ -32,7 +32,6 @@ import globalStyle from "./styles/global.css";
 export async function loader({ request, params, ...p }: LoaderArgs) {
   request.headers.set("Accept-Language", params.lang!);
   let locale = await i18next.getLocale(request);
-  console.log("server local", locale, params);
   return json({ locale });
 }
 
