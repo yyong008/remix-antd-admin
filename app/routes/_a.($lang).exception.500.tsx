@@ -35,7 +35,7 @@ const Expection500Route: React.FC = () => {
     <PageContainer>
       <ProCard
         style={{
-          height: "120vh",
+          height: "100vh",
           minHeight: 600,
         }}
       >

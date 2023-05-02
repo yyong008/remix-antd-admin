@@ -34,7 +34,7 @@ const Expection404: React.FC = () => {
     <PageContainer>
       <ProCard
         style={{
-          height: "120vh",
+          height: "100vh",
           minHeight: 600,
         }}
       >

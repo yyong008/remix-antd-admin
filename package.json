@@ -37,6 +37,7 @@
     "@ant-design/cssinjs": "^1.8.1",
     "@ant-design/icons": "^5.0.1",
     "@ant-design/pro-components": "^2.4.4",
+    "@ant-design/pro-skeleton": "^2.1.1",
     "@prisma/client": "4.13.0",
     "@remix-run/node": "^1.15.0",
     "@remix-run/react": "^1.15.0",

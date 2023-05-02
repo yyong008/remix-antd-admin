@@ -1,4 +1,5 @@
 // types
+import { PageContainer } from "@ant-design/pro-components";
 import { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 
 // cores
@@ -23,17 +24,26 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export const loader = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json)
+  routeAuthFailure({ request, params }, json);
   return json({});
 };
 
 export default function DashboardAnalysisPage() {
   return (
-    <Space direction="vertical">
-      <AnalysisRowOne />
-      <AnalysisRowTwo />
-      <AnalysisRowThree />
-      <AnalysisRowFour />
-    </Space>
+    <PageContainer
+      title={null}
+      style={{
+        background: "transparent"
+      }}
+    >
+      <Space direction="vertical" style={{
+        width: '100%',
+      }}>
+        <AnalysisRowOne />
+        <AnalysisRowTwo />
+        <AnalysisRowThree />
+        <AnalysisRowFour />
+      </Space>
+    </PageContainer>
   );
 }

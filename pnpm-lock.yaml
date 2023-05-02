@@ -10,6 +10,9 @@ dependencies:
   '@ant-design/pro-components':
     specifier: ^2.4.4
     version: 2.4.4(antd@5.4.4)(prop-types@15.8.1)(rc-field-form@1.29.2)(react-dom@18.2.0)(react@18.2.0)
+  '@ant-design/pro-skeleton':
+    specifier: ^2.1.1
+    version: 2.1.1(antd@5.4.4)(react-dom@18.2.0)(react@18.2.0)
   '@prisma/client':
     specifier: 4.13.0
     version: 4.13.0(prisma@4.13.0)
@@ -287,7 +290,7 @@ packages:
       '@ant-design/pro-layout': 7.10.3(antd@5.4.4)(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-list': 2.3.4(antd@5.4.4)(prop-types@15.8.1)(rc-field-form@1.29.2)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-provider': 2.7.0(antd@5.4.4)(react-dom@18.2.0)(react@18.2.0)
-      '@ant-design/pro-skeleton': 2.1.0(antd@5.4.4)(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/pro-skeleton': 2.1.1(antd@5.4.4)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-table': 3.6.1(antd@5.4.4)(prop-types@15.8.1)(rc-field-form@1.29.2)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-utils': 2.7.2(antd@5.4.4)(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
       '@babel/runtime': 7.21.0
@@ -311,7 +314,7 @@ packages:
     dependencies:
       '@ant-design/pro-field': 2.5.2(antd@5.4.4)(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-form': 2.10.1(antd@5.4.4)(prop-types@15.8.1)(rc-field-form@1.29.2)(react-dom@18.2.0)(react@18.2.0)
-      '@ant-design/pro-skeleton': 2.1.0(antd@5.4.4)(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/pro-skeleton': 2.1.1(antd@5.4.4)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-utils': 2.7.2(antd@5.4.4)(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
       '@babel/runtime': 7.21.0
       antd: 5.4.4(react-dom@18.2.0)(react@18.2.0)
@@ -470,12 +473,12 @@ packages:
       swr: 2.1.3(react@18.2.0)
     dev: false
 
-  /@ant-design/pro-skeleton@2.1.0(antd@5.4.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-+1fyj51v9DjCZgqwPIM64nMpLrWVfOs7q/b4kjYoa2kMsv3ECpfEabx5+iwj76Dy9JnZxAUTGM2aaoA3DyG6WA==}
+  /@ant-design/pro-skeleton@2.1.1(antd@5.4.4)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-6w3WyPCd68jbvYGEnjPqpOsxoFjObuZCRBVVpK7hAeqrPbKzD+l6D1JvAtSIuvE1bqOQujsJk+tFjb1zv5Lagw==}
     peerDependencies:
       antd: '>=4.23.0'
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
+      react: '>=17.0.0'
+      react-dom: '>=17.0.0'
     peerDependenciesMeta:
       react:
         optional: true

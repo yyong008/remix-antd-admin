@@ -52,7 +52,7 @@ export const meta: V2_MetaFunction = () => {
 
 export const action = async ({ request, params }: ActionArgs) => {
   await auth.authenticate("user-pass", request, {
-    successRedirect: "/" + params.lang + "/dashboard/analysis",
+    successRedirect: "/" + params.lang + "/dashboard/workplace",
   });
 };
 
@@ -60,7 +60,7 @@ type LoaderError = { message: string } | null;
 
 export const loader = async ({ request, params }: LoaderArgs) => {
   await auth.isAuthenticated(request, {
-    successRedirect: "/" + params.lang + "/dashboard/analysis",
+    successRedirect: "/" + params.lang + "/dashboard/workplace",
   });
   const session = await sessionStorage.getSession(
     request.headers.get("Cookie")
@@ -72,7 +72,8 @@ export const loader = async ({ request, params }: LoaderArgs) => {
 export const links: LinksFunction = () => {
   return [
     {
-      rel: "stylesheet",
+      rel: "preload",
+      // rel: "stylesheet``",
       href: loginStyleUrl,
     },
   ];

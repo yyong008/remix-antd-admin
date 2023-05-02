@@ -7,7 +7,7 @@ import { json } from "@remix-run/node";
 
 // components:vendor
 import { Tabs } from "antd";
-import { ProCard } from "@ant-design/pro-components";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 // components
 import {
@@ -47,7 +47,7 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export const loader = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json)
+  routeAuthFailure({ request, params }, json);
   return data;
 };
 
@@ -76,9 +76,16 @@ const Settings: React.FC = () => {
     },
   ];
   return (
-    <ProCard>
-      <Tabs tabPosition={"left"} items={items} />
-    </ProCard>
+    <PageContainer
+      title={null}
+      style={{
+        background: "transparent",
+      }}
+    >
+      <ProCard>
+        <Tabs tabPosition={"left"} items={items} />
+      </ProCard>
+    </PageContainer>
   );
 };
 

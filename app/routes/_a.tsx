@@ -9,6 +9,7 @@ import {
   LogoutOutlined,
   QuestionCircleFilled,
   SettingOutlined,
+  TranslationOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import {
@@ -80,9 +81,6 @@ export default function Layout() {
           logo="/remix.png"
           {...value.theme}
           {...createRoute(value.lang, t)}
-          waterMarkProps={{
-            content: "Remix Antd Admin",
-          }}
           token={{
             sider: {
               colorBgMenuItemSelected: "rgba(0, 0, 0, 0.027)",
@@ -92,16 +90,51 @@ export default function Layout() {
           ErrorBoundary={false}
           pageTitleRender={false}
           suppressSiderWhenMenuEmpty={userInfo?.routes.length === 0}
-          menu={{ defaultOpenAll: true, hideMenuWhenCollapsed: true }}
+          menu={{ defaultOpenAll: false, hideMenuWhenCollapsed: true }}
           menuItemRender={(item, dom) => (
             <Link to={item.path as string}>{dom}</Link>
           )}
+          breadcrumbRender={false}
           actionsRender={(props) => {
             if (props.isMobile) return [];
             return [
               <InfoCircleFilled key="InfoCircleFilled" />,
               <QuestionCircleFilled key="QuestionCircleFilled" />,
-              <GithubFilled key="GithubFilled" />,
+              <GithubFilled
+                key="GithubFilled"
+                onClick={() => {
+                  let aTag: any = document.createElement("a");
+                  aTag.setAttribute(
+                    "href",
+                    "https://github.com/yyong008/remix-antd-admin"
+                  );
+                  aTag.setAttribute("target", "_blank");
+                  aTag.click();
+                  aTag = null;
+                }}
+              />,
+              <Dropdown
+                menu={{
+                  items: [
+                    {
+                      key: "en",
+                      label: "en English",
+                      onClick: () => {
+                        choiceLang("en");
+                      },
+                    },
+                    {
+                      key: "cn",
+                      label: "CN 简体中文",
+                      onClick: () => {
+                        choiceLang("zh");
+                      },
+                    },
+                  ],
+                }}
+              >
+                <TranslationOutlined key="TranslationOutlined" />
+              </Dropdown>,
             ];
           }}
           avatarProps={{
@@ -138,23 +171,6 @@ export default function Layout() {
                         label: t("logout"),
                         onClick: () => {
                           handleLogout();
-                        },
-                      },
-                      {
-                        type: "divider",
-                      },
-                      {
-                        key: "en",
-                        label: "en English",
-                        onClick: () => {
-                          choiceLang("en");
-                        },
-                      },
-                      {
-                        key: "cn",
-                        label: "CN 简体中文",
-                        onClick: () => {
-                          choiceLang("zh");
                         },
                       },
                     ],

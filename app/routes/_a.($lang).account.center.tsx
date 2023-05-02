@@ -19,6 +19,7 @@ import { colProps, colPropsSS } from "~/components/accountCenter/col";
 
 // utils
 import { routeAuthFailure } from "~/utils/auth.server";
+import { PageContainer } from "@ant-design/pro-components";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -29,7 +30,7 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export const loader = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json)
+  routeAuthFailure({ request, params }, json);
   return data;
 };
 
@@ -44,17 +45,24 @@ export default function AccountCenterPage() {
   } = useLoaderData();
 
   return (
-    <Row gutter={[10, 10]}>
-      <Col {...colProps}>
-        <PersonalCard userInfo={userInfo} tags={tags} team={team} />
-      </Col>
-      <Col {...colPropsSS}>
-        <AAPCard
-          dataSource={dataSource}
-          personalDataSource={personalDataSource}
-          projectsDataSource={projectsDataSource}
-        />
-      </Col>
-    </Row>
+    <PageContainer
+      title={null}
+      style={{
+        background: "transparent",
+      }}
+    >
+      <Row gutter={[10, 10]}>
+        <Col {...colProps}>
+          <PersonalCard userInfo={userInfo} tags={tags} team={team} />
+        </Col>
+        <Col {...colPropsSS}>
+          <AAPCard
+            dataSource={dataSource}
+            personalDataSource={personalDataSource}
+            projectsDataSource={projectsDataSource}
+          />
+        </Col>
+      </Row>
+    </PageContainer>
   );
 }
