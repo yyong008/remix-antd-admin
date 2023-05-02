@@ -37,7 +37,7 @@ export default function Layout() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const value = useContext(SettingContext);
-  const [userInfo, setUserInfo] = useState<any>();
+  const [userInfo, setUserInfo] = useState<any>({});
   const submit = useSubmit();
 
   const choiceLang = (lang: string) => {
@@ -46,17 +46,6 @@ export default function Layout() {
 
     navigate(p.join("/"));
     value.setLang(lang || "en");
-    // window.location.pathname = p.join("/");
-  };
-
-  const fetchUserInfo = async () => {
-    const userInfo = await fetch("/api/userinfo")
-      .then((res) => res.json())
-      .catch((e) => {
-        console.log("e", e);
-      });
-    localStorage.setItem("userinfo", JSON.stringify(userInfo));
-    setUserInfo(userInfo);
   };
 
   const handleLogout = () => {
@@ -69,13 +58,8 @@ export default function Layout() {
     );
   };
 
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
-
   return (
     <PageContainer>
-      <Auth routes={userInfo?.routes ?? []}>
         <ProLayout
           title="Remix"
           logo="/remix.png"
@@ -89,7 +73,7 @@ export default function Layout() {
           }}
           ErrorBoundary={false}
           pageTitleRender={false}
-          suppressSiderWhenMenuEmpty={userInfo?.routes.length === 0}
+          suppressSiderWhenMenuEmpty={userInfo && userInfo?.routes?.length === 0}
           menu={{ defaultOpenAll: false, hideMenuWhenCollapsed: true }}
           menuItemRender={(item, dom) => (
             <Link to={item.path as string}>{dom}</Link>
@@ -229,7 +213,6 @@ export default function Layout() {
             />
           </ProConfigProvider>
         </ProLayout>
-      </Auth>
     </PageContainer>
   );
 }
