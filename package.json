@@ -26,12 +26,12 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
-    "start": "remix-serve build",
+    "start":"remix-serve build",
     "typecheck": "tsc",
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "prettier": "prettier --write app/ public/locales",
-    "seed": "npx prisma db seed"
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.8.1",
