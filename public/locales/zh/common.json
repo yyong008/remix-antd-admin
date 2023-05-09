@@ -57,5 +57,7 @@
   "account-not-yet-eligible": "您的帐户还没有资格申请。",
   "apply-unlock": "应用解锁",
   "auth": "授权",
-  "clipboard": "粘贴"
+  "clipboard": "粘贴",
+  "excel-import": "Excel 导入",
+  "excel-export": "Excel 输出"
 }

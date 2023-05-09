@@ -57,5 +57,7 @@
   "account-not-yet-eligible": "Your account is not yet eligible to apply.",
   "apply-unlock": "Apply Unlock",
   "auth": "auth",
-  "clipboard": "clipboard"
+  "clipboard": "clipboard",
+  "excel-import": "excel-import",
+  "excel-export": "excel-export"
 }

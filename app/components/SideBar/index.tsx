@@ -2,6 +2,7 @@ import {
   CheckCircleOutlined,
   CopyOutlined,
   DashboardOutlined,
+  FileExcelOutlined,
   FormOutlined,
   HighlightOutlined,
   KeyOutlined,
@@ -226,6 +227,24 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
               key: "mind",
               path: "mind",
               name: t("editor-mind"),
+            },
+          ],
+        },
+        {
+          key: "excel",
+          path: `${lang}/excel`,
+          icon: <FileExcelOutlined />,
+          name: t("excel"),
+          children: [
+            {
+              key: "export",
+              path: "export",
+              name: t("excel-export"),
+            },
+            {
+              key: "import",
+              path: "import",
+              name: t("excel-import"),
             },
           ],
         },
