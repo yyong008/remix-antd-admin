@@ -1,6 +1,7 @@
 import {
   BorderHorizontalOutlined,
   CheckCircleOutlined,
+  CoffeeOutlined,
   CopyOutlined,
   DashboardOutlined,
   FileExcelOutlined,
@@ -254,6 +255,19 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
           path: `${lang}/split-pane`,
           icon: <BorderHorizontalOutlined />,
           name: t("split-pane"),
+        },
+        {
+          key: "game",
+          icon: <CoffeeOutlined />,
+          name: t("game"),
+          path: `${lang}/game`,
+          children: [
+            {
+              key: "pocker-guess",
+              path: "pocker-guess",
+              name: t("pocker-guess"),
+            }
+          ],
         },
       ],
     },
