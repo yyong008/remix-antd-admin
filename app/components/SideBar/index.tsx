@@ -1,5 +1,6 @@
 import {
   CheckCircleOutlined,
+  CopyOutlined,
   DashboardOutlined,
   FormOutlined,
   HighlightOutlined,
@@ -188,6 +189,12 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
               name: t("account-settings"),
             },
           ],
+        },
+        {
+          key: "clipboard",
+          path: `${lang}/clipboard`,
+          icon: <CopyOutlined />,
+          name: t("clipboard"),
         },
         {
           key: "editor",

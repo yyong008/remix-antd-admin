@@ -56,5 +56,6 @@
   "thaw-immediately": "Thaw immediately",
   "account-not-yet-eligible": "Your account is not yet eligible to apply.",
   "apply-unlock": "Apply Unlock",
-  "auth": "auth"
+  "auth": "auth",
+  "clipboard": "clipboard"
 }

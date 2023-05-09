@@ -61,6 +61,7 @@
     "isbot": "^3.6.10",
     "react": "^18.2.0",
     "react-advanced-cropper": "^0.18.0",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.2.2",
     "react-json-view-ssr": "^1.19.1",

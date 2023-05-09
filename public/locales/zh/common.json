@@ -56,5 +56,6 @@
   "thaw-immediately": "立即解冻",
   "account-not-yet-eligible": "您的帐户还没有资格申请。",
   "apply-unlock": "应用解锁",
-  "auth": "授权"
+  "auth": "授权",
+  "clipboard": "粘贴"
 }
