@@ -29,8 +29,14 @@ const Footer: React.FC = () => {
           blankTarget: true,
         },
         {
-          key: "Mongodb",
-          title: "Mongodb",
+          key: "Sqlite",
+          title: "Sqlite",
+          href: "",
+          blankTarget: true,
+        },
+        {
+          key: "Sqlite",
+          title: "Sqlite",
           href: "",
           blankTarget: true,
         },

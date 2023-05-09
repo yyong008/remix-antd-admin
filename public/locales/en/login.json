@@ -1,6 +1,6 @@
 {
   "title": "Remix Antd Admin",
-  "desc": "A full-stack back-end management system based on Remix/Antd/MongoDB",
+  "desc": "A full-stack back-end management system based on Remix/Antd",
   "user-placeholder": "username: admin",
   "password-pladeholder": "password：123456",
   "user-message": "Please enter your username!",
