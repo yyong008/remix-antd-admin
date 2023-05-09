@@ -12,32 +12,32 @@ const Footer: React.FC = () => {
         {
           key: "github",
           title: <GithubOutlined />,
-          href: "",
+          href: "https://github.com/yyong008/remix-antd-admin",
           blankTarget: true,
         },
         {
           key: "Remix",
           title: "Remix",
-          href: "",
+          href: "https://remix.run/",
           blankTarget: true,
         },
 
         {
           key: "Ant Design",
           title: "Ant Design",
-          href: "",
+          href: "https://ant.design/index-cn",
           blankTarget: true,
         },
         {
           key: "Sqlite",
           title: "Sqlite",
-          href: "",
+          href: "https://www.sqlite.org/index.html",
           blankTarget: true,
         },
         {
-          key: "Sqlite",
-          title: "Sqlite",
-          href: "",
+          key: "MongoDB",
+          title: "MongoDB",
+          href: "https://www.mongodb.com/",
           blankTarget: true,
         },
       ]}

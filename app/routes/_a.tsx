@@ -22,7 +22,6 @@ import { Dropdown } from "antd";
 
 // components
 import Footer from "~/components/Footer";
-import Auth from "~/components/Auth";
 
 // context
 import SettingContext from "~/settingContext";
@@ -32,6 +31,17 @@ import { createRoute } from "~/components/SideBar";
 
 // hooks
 import { useTranslation } from "react-i18next";
+import { LoaderArgs, LoaderFunction, json, redirect } from "@remix-run/node";
+
+const langs = ['zh', 'en']
+
+export const loader: LoaderFunction = ({ params }: LoaderArgs) => {
+  const { lang } = params
+  if (!langs.includes(typeof lang === 'string' ? lang: '')) {
+    return redirect('/404') // 404 is $.tsx routes
+  }
+  return json({ lang })
+}
 
 export default function Layout() {
   const navigate = useNavigate();
