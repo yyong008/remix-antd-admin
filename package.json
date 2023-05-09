@@ -63,6 +63,7 @@
     "react-advanced-cropper": "^0.18.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.2.2",
+    "react-json-view-ssr": "^1.19.1",
     "react-mind": "^0.1.6",
     "react-mindmap": "^2.1.6",
     "react-wordcloud": "^1.2.7",

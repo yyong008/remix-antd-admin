@@ -206,6 +206,11 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
               name: t("editor-markdown"),
             },
             {
+              key: "json-viewer",
+              path: "json-viewer",
+              name: t("editor-json-viewer"),
+            },
+            {
               key: "flow",
               path: "flow",
               name: t("editor-flow"),

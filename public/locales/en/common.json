@@ -34,6 +34,7 @@
   "editor": "editor",
   "editor-rich": "editor-rich",
   "editor-markdown": "editor-markdown",
+  "editor-json-viewer": "editor-json-viewer",
   "editor-flow": "editor-flow",
   "editor-mind": "editor-mind",
   "editor-koni": "editor-koni",
