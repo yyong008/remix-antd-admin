@@ -196,6 +196,16 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
           path: `${lang}/editor`,
           children: [
             {
+              key: "rich",
+              path: "rich",
+              name: t("editor-rich"),
+            },
+            {
+              key: "markdown",
+              path: "markdown",
+              name: t("editor-markdown"),
+            },
+            {
               key: "flow",
               path: "flow",
               name: t("editor-flow"),

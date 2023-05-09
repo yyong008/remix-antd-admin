@@ -32,6 +32,8 @@
   "account-center": "个人中心",
   "account-settings": "个人设置",
   "editor": "编辑器",
+  "editor-rich": "富文本编辑器",
+  "editor-markdown": "markdown 编辑器",
   "editor-flow": "流编辑器",
   "editor-mind": "脑图编辑器",
   "editor-koni": "koni 编辑器",

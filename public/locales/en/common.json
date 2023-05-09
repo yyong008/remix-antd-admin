@@ -32,6 +32,8 @@
   "account-center": "account-center",
   "account-settings": "account-settings",
   "editor": "editor",
+  "editor-rich": "editor-rich",
+  "editor-markdown": "editor-markdown",
   "editor-flow": "editor-flow",
   "editor-mind": "editor-mind",
   "editor-koni": "editor-koni",
