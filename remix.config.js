@@ -5,7 +5,11 @@ module.exports = {
   // assetsBuildDirectory: "public/build",
   // serverBuildPath: "build/index.js",
   // publicPath: "/build/",
-  "serverModuleFormat": 'cjs',
+  serverModuleFormat: 'cjs',
+  serverDependenciesToBundle: [
+    "allotment",
+    "nanoid"
+  ],
   future: {
     v2_errorBoundary: true,
     v2_meta: true,

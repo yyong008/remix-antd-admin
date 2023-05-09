@@ -59,5 +59,6 @@
   "auth": "auth",
   "clipboard": "clipboard",
   "excel-import": "excel-import",
-  "excel-export": "excel-export"
+  "excel-export": "excel-export",
+  "split-pane": "split-pane"
 }

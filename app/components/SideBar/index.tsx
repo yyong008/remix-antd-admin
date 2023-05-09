@@ -1,4 +1,5 @@
 import {
+  BorderHorizontalOutlined,
   CheckCircleOutlined,
   CopyOutlined,
   DashboardOutlined,
@@ -247,6 +248,12 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
               name: t("excel-import"),
             },
           ],
+        },
+        {
+          key: "split-pane",
+          path: `${lang}/split-pane`,
+          icon: <BorderHorizontalOutlined />,
+          name: t("split-pane"),
         },
       ],
     },

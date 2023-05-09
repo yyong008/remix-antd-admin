@@ -59,5 +59,6 @@
   "auth": "授权",
   "clipboard": "粘贴",
   "excel-import": "Excel 导入",
-  "excel-export": "Excel 输出"
+  "excel-export": "Excel 输出",
+  "split-pane": "拆分窗格"
 }

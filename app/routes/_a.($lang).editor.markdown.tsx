@@ -1,8 +1,11 @@
+import type { LinksFunction } from '@remix-run/node';
+
 import gfm from '@bytemd/plugin-gfm'
 import { Editor } from '@bytemd/react'
 import { useState } from 'react'
 import { cssBundleHref } from "@remix-run/css-bundle";
 
+// css
 import 'bytemd/dist/index.css'
 
 export const links: LinksFunction = () => {
@@ -15,7 +18,7 @@ export const links: LinksFunction = () => {
 };
 
 // import 'bytemd/dist/index.css'
-import { LinksFunction } from '@remix-run/node';
+
 
 const plugins = [
   gfm(),
