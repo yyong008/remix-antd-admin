@@ -9,6 +9,7 @@ import {
   HighlightOutlined,
   KeyOutlined,
   ProfileOutlined,
+  QrcodeOutlined,
   TableOutlined,
   UserOutlined,
   WarningOutlined,
@@ -268,6 +269,19 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
               name: t("pocker-guess"),
             }
           ],
+        },
+        {
+          key: "qrcode",
+          icon: <QrcodeOutlined />,
+          name: t("qrcode"),
+          path: `${lang}/qrcode`,
+          // children: [
+          //   {
+          //     key: "qrcode",
+          //     path: "qrcode",
+          //     name: t("qrcode"),
+          //   }
+          // ],
         },
       ],
     },
