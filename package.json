@@ -30,8 +30,7 @@
     "typecheck": "tsc",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "prettier": "prettier --write app/ public/locales",
-    "postinstall": "prisma generate"
+    "prettier": "prettier --write app/ public/locales"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.9.1",
@@ -98,9 +97,6 @@
     "@types/styled-components": "^5.1.26",
     "eslint": "^8.40.0",
     "prettier": "^2.8.8",
-    "prisma": "4.13.0",
-    "ts-node": "^10.9.1",
-    "tsconfig-paths": "^4.2.0",
     "typescript": "^4.9.5",
     "vitest": "^0.30.1"
   },
@@ -117,8 +113,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/yyong008/remix-antd-admin.git"
-  },
-  "prisma": {
-    "seed": "ts-node --require tsconfig-paths/register prisma/seed.ts"
   }
 }
