@@ -1,66 +1,34 @@
 # Remix Antd Admin
 
-一款基于Remix / Antd / Echarts / Styled-components的管理系统，可快速进行项目初始化。
-
+一款基于 `Remix/Antd` 的管理系统，可快速进行了解 Remix 作为管理系统时的表现。
 
 ## 访问地址
 
 > https://github.com/yyong008/remix-antd-admin
 ## 设计动机
 
-Remix 的设计范式简单方便，整个应用就是一个路由器，并且是前后端打通的路由器。表单设计使得 Remix 的表单能力更加简单方便。在后台管理系统中，数据展示与数据录入，以及页面切换占据重要位置，Remix 设计似乎特贴的简单贴切。集成 Antd UI 项目能力，能快速实现具有漂亮 UI 简单的后台管理系统。
-
-## 核心包
-
-| 包                | 说明                                                                        |
-| ----------------- | --------------------------------------------------------------------------- |
-| remix             | 1.51.0（核心包）                                                            |
-| antd              | 5.3.1（核心 UI 包）                                                         |
-| styled-components | css-in-js 解决方案（核心 css 解决方案）                                     |
-| remix-utils       | Remix 的 常用工具，例如：仅仅在服务端然组件 `<ClientOnly>` 组件（核心工具） |
-
-## 国际化
-
-| 国际化包                         | 说明                          |
-| -------------------------------- | ----------------------------- |
-| remix-i18next                    | 很容的方式翻译你的 remix 应用 |
-| i18next                          |                               |
-| react-i18next                    |                               |
-| i18next-browser-languagedetector |                               |
-
-### 图表库
-
-选图表注意支持 ssr
-
-| 图表库                 | 说明                                              |
-| ---------------------- | ------------------------------------------------- |
-| echarts                | 5.3.9 主要图表（考虑 Remix 需要服务端渲染等问题） |
-| echarts-for-react      | 基于 React 封装 echarts 组件                      |
-| react-mind             | React 脑图                                        |
-| react-mindmap          | React 脑图                                        |
-| react-wordcloud        | React 云词图 支持 ssr                             |
-| reactflow              | 流程图                                            |
-| echarts-liquidfill-ssr | 水滴图                                            |
-
-### 裁剪工具
-
-- [react-advanced-cropper](https://advanced-cropper.github.io/react-advanced-cropper/#mobile-cropper)
-
-```sh
-pnpm install react-advanced-cropper
-```
-
-## 优点
-
-简单明了的路由书写范式，简单的数据获取和表单能力
-
-- 强大的文件路由范式
-- loader 获取数据
-- action 处理表单数据
+考虑到 Remix 在路由系统的设计非常优秀，后台管理系统业务大部分在路由中完成的。使用 Remix 完成后台管理系统可能是一个不错的选择
 
 ## 用法
 
-使用 pnpm
+- clone 项目
+
+```sh
+git clone https://github.com/yyong008/remix-antd-admin.git
+```
+
+或者使用 `itpls` 来克隆，能直接打开使用
+
+```tsx
+cd your_target_dir
+npx itpls --type remote 
+```
+
+然后根据提示输入您需要的内容即可。
+
+> itpls 是一个基于 git/degit，专注于模板克隆的工具。
+
+### 安装依赖
 
 ```sh
 # 服务器
@@ -73,13 +41,18 @@ pnpm run start # pnpm start
 
 ### 格式化工具
 
-```sh
+```json
 "scripts": {
-    "prettier": "prettier --write app/ public/locales"
-},
+  "prettier": "prettier --write app/ public/locales"
+}
+```
+
+- 运行格式化
+
+```tsx
 pnpm run prettier
 ```
 
-## 支持
+## 支持作者
 
-目前作者长期处于爱发电的状态，如果本项目能够帮助到你不妨请作者喝一杯咖啡，有你的支持，开源项目将得到更好的维护，也崔进输出更加高质量的代码，当然也可以参与到此项目中成为项目的参与者，同时期望提出宝贵意见以便项目能得到更好的维护和发展。
+- [buy-me-a-coffee](https://github.com/yyong008/buy-me-a-coffee) 如果您觉的此项目帮助到了您，不妨请作者喝一杯咖啡，谢谢您的支持。
