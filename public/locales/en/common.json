@@ -60,5 +60,8 @@
   "clipboard": "clipboard",
   "excel-import": "excel-import",
   "excel-export": "excel-export",
-  "split-pane": "split-pane"
+  "split-pane": "split-pane",
+  "calendar": "calendar",
+  "calendar-temporal": "calendar-temporal",
+  "calendar-antd": "calendar-antd"
 }

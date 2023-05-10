@@ -1,5 +1,6 @@
 import {
   BorderHorizontalOutlined,
+  CalendarOutlined,
   CheckCircleOutlined,
   CoffeeOutlined,
   CopyOutlined,
@@ -282,6 +283,24 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
           //     name: t("qrcode"),
           //   }
           // ],
+        },
+        {
+          key: "calendar",
+          icon: <CalendarOutlined />,
+          name: t("calendar"),
+          path: `${lang}/calendar`,
+          children: [
+            {
+              key: "temporal",
+              path: "temporal",
+              name: t("calendar-temporal"),
+            },
+             {
+              key: "antd",
+              path: "antd",
+              name: t("calendar-antd"),
+            }
+          ],
         },
       ],
     },

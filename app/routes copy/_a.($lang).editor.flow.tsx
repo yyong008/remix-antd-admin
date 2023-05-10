@@ -1,0 +1,84 @@
+// types
+import { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
+
+// core
+import { json } from "@remix-run/node";
+
+// cores
+import { useState } from "react";
+
+// components:vendor
+import { ProCard } from "@ant-design/pro-components";
+import ReactFlow from "reactflow";
+
+// styles
+import reactflowStyleUrl from "reactflow/dist/style.css";
+
+// utils
+import { routeAuthFailure } from "~/utils/auth.server";
+
+export function links() {
+  return [
+    {
+      rel: "stylesheet",
+      href: reactflowStyleUrl,
+    },
+  ];
+}
+
+const initialNodes = [
+  {
+    id: "1",
+    type: "input",
+    data: { label: "Input Node" },
+    position: { x: 250, y: 25 },
+  },
+
+  {
+    id: "2",
+    data: { label: "Default Node" },
+    position: { x: 100, y: 125 },
+  },
+  {
+    id: "3",
+    type: "output",
+    data: { label: "Output Node" },
+    position: { x: 250, y: 250 },
+  },
+];
+
+const initialEdges = [
+  { id: "e1-2", source: "1", target: "2" },
+  { id: "e2-3", source: "2", target: "3", animated: true },
+];
+
+export const meta: V2_MetaFunction = () => {
+  return [
+    {
+      title: "流程编辑器",
+    },
+  ];
+};
+
+export const loader = ({ request, params }: LoaderArgs) => {
+  routeAuthFailure({ request, params }, json)
+  return json({});
+};
+
+function FlowRoute() {
+  const [nodes] = useState(initialNodes);
+  const [edges] = useState(initialEdges);
+
+  return (
+    <ProCard
+      style={{
+        height: 400,
+        width: "100%",
+      }}
+    >
+      <ReactFlow nodes={nodes} edges={edges} fitView />
+    </ProCard>
+  );
+}
+
+export default FlowRoute;

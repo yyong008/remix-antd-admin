@@ -60,5 +60,8 @@
   "clipboard": "粘贴",
   "excel-import": "Excel 导入",
   "excel-export": "Excel 输出",
-  "split-pane": "拆分窗格"
+  "split-pane": "拆分窗格",
+  "calendar": "日历",
+  "calendar-temporal": "Temporal 日历",
+  "calendar-antd": "antd 日历"
 }

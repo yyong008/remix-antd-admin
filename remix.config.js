@@ -8,7 +8,8 @@ module.exports = {
   serverModuleFormat: 'cjs',
   serverDependenciesToBundle: [
     "allotment",
-    "nanoid"
+    "nanoid",
+    "@js-temporal/polyfill"
   ],
   future: {
     v2_errorBoundary: true,
