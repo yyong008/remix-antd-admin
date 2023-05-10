@@ -4,7 +4,7 @@
 
 ## 访问地址
 
-> https://github.com/yyong008/remix-antd-admin
+> https://remix-antd-admin.vercel.app
 ## 设计动机
 
 考虑到 Remix 在路由系统的设计非常优秀，后台管理系统业务大部分在路由中完成的。使用 Remix 完成后台管理系统可能是一个不错的选择
