@@ -63,5 +63,8 @@
   "split-pane": "拆分窗格",
   "calendar": "日历",
   "calendar-temporal": "Temporal 日历",
-  "calendar-antd": "antd 日历"
+  "calendar-antd": "antd 日历",
+  "game": "游戏",
+  "excel": "Excel 表格",
+  "qrcode": "二维码"
 }

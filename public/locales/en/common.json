@@ -63,5 +63,8 @@
   "split-pane": "split-pane",
   "calendar": "calendar",
   "calendar-temporal": "calendar-temporal",
-  "calendar-antd": "calendar-antd"
+  "calendar-antd": "calendar-antd",
+  "game": "game",
+  "excel": "excel",
+  "qrcode": "qrcode"
 }
