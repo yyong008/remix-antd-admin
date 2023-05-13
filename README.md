@@ -10,6 +10,11 @@ A management system based on `Remix/Antd`, which can quickly understand the perf
 Considering that Remix has an excellent design in the routing system, most of the background management system business is done in the routing. It may be a good choice to use Remix to complete the background management system
 
 ## Usage
+- use remix cli
+
+```sh
+❯ pnpm create remix --template https://github.com/yyong008/remix-antd-admin
+```
 
 - clone project
 

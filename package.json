@@ -22,15 +22,19 @@
     "pro-components",
     "antd pro"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yyong008/remix-antd-admin.git"
+  },
   "author": "Magnesium",
   "scripts": {
     "build": "remix build",
-    "dev": "remix dev",
-    "start": "remix-serve build",
-    "typecheck": "tsc",
-    "test": "vitest",
     "coverage": "vitest run --coverage",
-    "prettier": "prettier --write app/ public/locales"
+    "dev": "remix dev",
+    "prettier": "prettier --write app/ public/locales",
+    "start": "remix-serve build",
+    "test": "vitest",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.9.1",
@@ -110,9 +114,5 @@
         "react"
       ]
     }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yyong008/remix-antd-admin.git"
   }
 }
