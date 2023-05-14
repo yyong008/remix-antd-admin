@@ -69,6 +69,7 @@
     "i18next-http-backend": "^2.2.0",
     "isbot": "^3.6.10",
     "js-export-excel": "^1.1.4",
+    "jsbi": "^4.3.0",
     "jszip": "^3.10.1",
     "nanoid": "^4.0.2",
     "qrcode": "^1.5.3",
