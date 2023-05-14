@@ -17,14 +17,12 @@ import {
 } from "~/components/dashboardAnalysis";
 
 // utils
-import { routeAuthFailure } from "~/utils/auth.server";
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "分析页" }];
 };
 
 export const loader = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json);
   return json({});
 };
 

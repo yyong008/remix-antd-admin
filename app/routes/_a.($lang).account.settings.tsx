@@ -3,7 +3,6 @@ import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 
 // cores
 import React from "react";
-import { json } from "@remix-run/node";
 
 // components:vendor
 import { Tabs } from "antd";
@@ -27,7 +26,6 @@ import data from "~/data/accountSettings";
 import CropperStyles from "react-advanced-cropper/dist/style.css";
 
 // utils
-import { routeAuthFailure } from "~/utils/auth.server";
 
 export const links = () => {
   return [
@@ -47,7 +45,6 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export const loader = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json);
   return data;
 };
 

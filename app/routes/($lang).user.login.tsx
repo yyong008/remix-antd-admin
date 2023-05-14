@@ -40,8 +40,6 @@ import Footer from "~/components/Footer";
 // styles
 import loginStyleUrl from "~/styles/login.css";
 
-// auth
-// import { auth, sessionStorage } from "~/utils/auth.server";
 
 export const meta: V2_MetaFunction = () => {
   return [

@@ -18,7 +18,6 @@ import { PersonalCard, AAPCard } from "~/components/accountCenter";
 import { colProps, colPropsSS } from "~/components/accountCenter/col";
 
 // utils
-import { routeAuthFailure } from "~/utils/auth.server";
 import { PageContainer } from "@ant-design/pro-components";
 
 export const meta: V2_MetaFunction = () => {
@@ -30,7 +29,6 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export const loader = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json);
   return data;
 };
 

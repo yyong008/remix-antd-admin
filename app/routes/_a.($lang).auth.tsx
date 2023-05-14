@@ -9,8 +9,6 @@ import { json } from "@remix-run/node";
 import { Col, Row, Tree } from "antd";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
-// utils
-import { routeAuthFailure } from "~/utils/auth.server";
 
 const treeData: DataNode[] = [
   {
@@ -506,7 +504,6 @@ const treeDataUser: DataNode[] = [
 ];
 
 export const loader = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json)
   return json({});
 };
 

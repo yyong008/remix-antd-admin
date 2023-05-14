@@ -28,7 +28,7 @@ import CustomNode from "~/components/reactFlow/CustomNode";
 // styles
 import reactflowStyleUrl from "reactflow/dist/style.css";
 import overviewcssStyleUrl from "~/styles/reactflow.css";
-import { routeAuthFailure } from "~/utils/auth.server";
+
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -52,7 +52,7 @@ export const links: LinksFunction = () => {
 }
 
 export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json)
+  
   return json({});
 };
 

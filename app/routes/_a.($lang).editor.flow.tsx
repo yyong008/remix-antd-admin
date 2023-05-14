@@ -14,9 +14,6 @@ import ReactFlow from "reactflow";
 // styles
 import reactflowStyleUrl from "reactflow/dist/style.css";
 
-// utils
-import { routeAuthFailure } from "~/utils/auth.server";
-
 export function links() {
   return [
     {
@@ -61,7 +58,7 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export const loader = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json)
+  
   return json({});
 };
 

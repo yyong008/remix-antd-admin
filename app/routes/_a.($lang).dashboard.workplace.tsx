@@ -22,14 +22,14 @@ import {
 import data from "~/data/dashboardWorkplace";
 
 // utils
-import { routeAuthFailure } from "~/utils/auth.server";
+
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "工作空间" }];
 };
 
 export const loader = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json)
+  
   return json(data);
 };
 

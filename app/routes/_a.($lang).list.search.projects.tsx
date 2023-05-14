@@ -20,7 +20,7 @@ import ProjectsList from "~/components/listSearchProjects";
 import data from "~/data/listSearchProjects";
 
 // utils
-import { routeAuthFailure } from "~/utils/auth.server";
+
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -31,7 +31,7 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json)
+  
   return json(data);
 };
 

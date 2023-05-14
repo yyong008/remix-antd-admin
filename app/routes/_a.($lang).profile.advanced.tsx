@@ -23,7 +23,7 @@ import { useLoaderData } from "@remix-run/react";
 import { loggers as data } from "~/data/profileAdvanced";
 
 // utils
-import { routeAuthFailure } from "~/utils/auth.server";
+
 
 // route:meta
 export const meta: V2_MetaFunction = () => {
@@ -35,7 +35,7 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json)
+  
   return json(data);
 };
 

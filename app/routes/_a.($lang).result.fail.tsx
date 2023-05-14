@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import { tableListDataSource } from "~/data/listTableList";
 
 // utils
-import { routeAuthFailure } from "~/utils/auth.server";
+
 
 const { Paragraph, Text } = Typography;
 
@@ -30,7 +30,7 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json)
+  
   return json(tableListDataSource);
 };
 

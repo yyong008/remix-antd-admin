@@ -12,7 +12,7 @@ import { ProTable, ModalForm, ProFormText } from "@ant-design/pro-components";
 import { tableListDataSource } from "~/data/listTableList";
 
 // data
-import { routeAuthFailure } from "~/utils/auth.server";
+
 
 export type TableListItem = {
   key: number;
@@ -32,7 +32,7 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json)
+  
   return json({});
 };
 

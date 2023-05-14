@@ -8,7 +8,7 @@ import { json } from "@remix-run/node";
 import { Button, Result } from "antd";
 import { useTranslation } from "react-i18next";
 import { tableListDataSource } from "~/data/listTableList";
-import { routeAuthFailure } from "~/utils/auth.server";
+
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -19,7 +19,7 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json)
+  
   return json(tableListDataSource);
 };
 

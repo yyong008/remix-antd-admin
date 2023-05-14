@@ -12,7 +12,7 @@ import { PageContainer, ProCard, ProForm } from "@ant-design/pro-components";
 import { CManager, TManager, TTable } from "~/components/formAdvanced";
 
 // utils
-import { routeAuthFailure } from "~/utils/auth.server";
+
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -23,7 +23,7 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json)
+  
   return json({});
 };
 

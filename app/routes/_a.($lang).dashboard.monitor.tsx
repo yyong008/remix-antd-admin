@@ -11,9 +11,6 @@ import { PageContainer } from "@ant-design/pro-components";
 // components
 import { MonitorRowOne, MonitorRowTwo, MonitorRowThree } from "~/components/dashboardMonitor";
 
-// utils
-import { routeAuthFailure } from "~/utils/auth.server";
-
 export const meta: V2_MetaFunction = () => {
   return [
     {
@@ -23,7 +20,6 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export const loader = ({ request, params }: LoaderArgs) => {
-  routeAuthFailure({ request, params }, json)
   return json({});
 };
 
