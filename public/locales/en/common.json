@@ -1,4 +1,13 @@
 {
+  "health": "health",
+  "disease": "disease",
+  "cervical-vertebra": "cervical-vertebra",
+  "vision": "vision",
+  "hand": "hand",
+  "obesity": "obesity",
+  "anxiety-depression": "anxiety-depression",
+  "sleep": "sleep",
+  "sport": "sport",
   "greeting": "Hello",
   "welcome": "welcome",
   "not-found": "Sorry, the page you visited does not exist.",

@@ -7,6 +7,7 @@ import {
   DashboardOutlined,
   FileExcelOutlined,
   FormOutlined,
+  HeartOutlined,
   HighlightOutlined,
   KeyOutlined,
   ProfileOutlined,
@@ -21,6 +22,55 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
     route: {
       path: `/`,
       routes: [
+        {
+          key: "disease",
+          path: `${lang}/disease`,
+          icon: <HeartOutlined />,
+          name: t("health"),
+          children: [
+            {
+              key: "health",
+              index: true,
+              path: `/${lang}/health`,
+              name: t("disease"),
+            },
+            {
+              key: "cervical-vertebra",
+              path: "cervical-vertebra",
+              name: t("cervical-vertebra"),
+            },
+            {
+              key: "vision",
+              path: "vision",
+              name: t("vision"),
+            },
+            {
+              key: "hand",
+              path: "hand",
+              name: t("hand"),
+            },
+            {
+              key: "obesity",
+              path: "obesity",
+              name: t("obesity"),
+            },
+            {
+              key: "anxiety-depression",
+              path: "anxiety-depression",
+              name: t("anxiety-depression"),
+            },
+            {
+              key: "sleep",
+              path: "sleep",
+              name: t("sleep"),
+            },
+            {
+              key: "sport",
+              path: "sport",
+              name: t("sport"),
+            },
+          ]
+        },
         {
           key: "dashboard",
           path: `${lang}/dashboard`,

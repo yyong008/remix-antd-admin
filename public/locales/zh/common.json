@@ -1,4 +1,13 @@
 {
+  "health": "健康",
+  "disease": "疾病",
+  "cervical-vertebra": "颈椎",
+  "vision": "视力",
+  "hand": "手部",
+  "obesity": "肥胖",
+  "anxiety-depression": "焦虑和抑郁",
+  "sleep": "睡眠",
+  "sport": "运动",
   "greeting": "你好",
   "welcome": "欢迎光临",
   "not-found": "对不起，你访问的页面不存在！",
