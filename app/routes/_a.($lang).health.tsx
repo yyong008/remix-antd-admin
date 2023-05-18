@@ -1,6 +1,7 @@
 import { PageContainer } from "@ant-design/pro-components";
 import { Link, useLocation } from "@remix-run/react";
 import { Card, List } from "antd";
+import ReactEcharts from '~/components/healthDisable/DiseaseBarChart'
 
 const data = [
   {
@@ -53,6 +54,7 @@ const HealthRoute: React.FC = () => {
     <h3>
       作为程序员，长时间进行电脑工作和专注于屏幕可能导致一些与工作环境相关的疾病和健康问题。以下是一些程序员容易遇到的常见疾病和健康问题：
     </h3>
+    <ReactEcharts />
     <List
       grid={{
         gutter: 16,
