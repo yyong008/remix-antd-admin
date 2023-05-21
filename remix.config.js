@@ -6,6 +6,7 @@ module.exports = {
   // serverBuildPath: "build/index.js",
   // publicPath: "/build/",
   serverModuleFormat: 'cjs',
+  serverMinify: true,
   serverDependenciesToBundle: [
     "allotment",
     "nanoid",
