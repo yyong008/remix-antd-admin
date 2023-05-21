@@ -33,13 +33,7 @@ const Footer: React.FC = () => {
           title: "Sqlite",
           href: "https://www.sqlite.org/index.html",
           blankTarget: true,
-        },
-        {
-          key: "MongoDB",
-          title: "MongoDB",
-          href: "https://www.mongodb.com/",
-          blankTarget: true,
-        },
+        }
       ]}
     />
   );

@@ -1,5 +1,5 @@
 import { Col, Space, Card, Row } from "antd";
-import { FiveDimensionalChart } from "~/components/echarts";
+import FiveDimensionalChart from "../FiveDimensional"
 import NavList from "../NavList";
 import Team from "../Team";
 import { colPropsSS } from "../col";

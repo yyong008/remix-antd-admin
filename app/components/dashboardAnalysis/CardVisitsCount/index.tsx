@@ -2,7 +2,7 @@
 import { Space } from "antd";
 
 // components
-import AreaChart from "../../echarts/Area";
+import AreaChart from "../Area";
 import HomeCard from "../HomeCard";
 
 export default function CardVisitsCount() {

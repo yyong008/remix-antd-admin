@@ -7,7 +7,7 @@ import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 
 // components
 import HomeCard from "../HomeCard";
-import BulletChart from "../../echarts/Bullet";
+import BulletChart from "../Bullet";
 
 const UpDown = ({ item }: any) => {
   return (

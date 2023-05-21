@@ -1,5 +1,5 @@
 import { Row, Col, Card, Space } from "antd";
-import { ChinaMap } from "~/components/echarts";
+import ChinaMap from "../Map";
 import DChart from "../DynamicData";
 import MainGauge from "../Gauge";
 import { colProps, colPropsSS } from "../col";

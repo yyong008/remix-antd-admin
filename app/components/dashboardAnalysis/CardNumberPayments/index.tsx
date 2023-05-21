@@ -3,7 +3,7 @@ import { Space } from "antd";
 
 // comoponents
 import HomeCard from "../HomeCard";
-import BarChart from "../../echarts/BarChart";
+import BarChart from "../BarChart";
 
 export default function CardNumberPayments() {
   return (

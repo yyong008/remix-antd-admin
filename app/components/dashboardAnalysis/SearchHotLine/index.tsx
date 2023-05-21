@@ -7,7 +7,7 @@ import {
 import { Card, Col, Row, Space, Tooltip } from "antd";
 
 // components
-import AreaChart from "../../echarts/Area";
+import AreaChart from "../Area";
 
 // core
 import styled from "styled-components";
