@@ -1,18 +1,16 @@
 // types
-import {
+import type {
   ActionArgs,
   LinksFunction,
-  LoaderArgs,
   V2_MetaFunction,
-  redirect,
 } from "@remix-run/node";
 
 // core
 import { json } from "@remix-run/node";
-
+import { redirect } from "@remix-run/node";
 // hooks
-import { useState } from "react";
-import { useFetcher } from "@remix-run/react";
+import { useContext, useState } from "react";
+import { useFetcher, useNavigate, useParams } from "@remix-run/react";
 
 // i18n:hooks
 import { useTranslation } from "react-i18next";
@@ -23,9 +21,8 @@ import {
   ProFormText,
   ProFormCaptcha,
   ProFormCheckbox,
-  ProConfigProvider,
 } from "@ant-design/pro-components";
-import { message, Tabs } from "antd";
+import { message, Tabs, ConfigProvider } from "antd";
 import { LockOutlined, MobileOutlined, UserOutlined } from "@ant-design/icons";
 
 // components
@@ -39,6 +36,7 @@ import Footer from "~/components/Footer";
 
 // styles
 import loginStyleUrl from "~/styles/login.css";
+import SettingContext from "~/settingContext";
 
 
 export const meta: V2_MetaFunction = () => {
@@ -53,7 +51,6 @@ export const action = async ({ request, params }: ActionArgs) => {
   const formData = request.formData();
   const username = (await formData).get("username");
   const password = (await formData).get("password");
-  console.log(username, password);
 
   if (username === "admin" && password === "123456") {
     return redirect(`/${params.lang}/dashboard/analysis`);
@@ -67,7 +64,6 @@ export const links: LinksFunction = () => {
   return [
     {
       rel: "preload",
-      // rel: "stylesheet``",
       href: loginStyleUrl,
     },
   ];
@@ -76,6 +72,13 @@ export const links: LinksFunction = () => {
 export const handle = { i18n: "login" };
 
 const LoginPage: React.FC = () => {
+  const navigate = useNavigate()
+  const { lang } = useParams()
+  if (!lang) {
+    navigate(-1)
+    return null
+  }
+  const value = useContext(SettingContext);
   const fetcher = useFetcher();
   const { t } = useTranslation("login");
   const [type, setType] = useState<string>("account");
@@ -96,7 +99,9 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <ProConfigProvider value={{}}>
+    <ConfigProvider theme={{
+      token: value.theme
+    }}>
       <LoginContainer>
         <LoginContent>
           <LoginForm
@@ -198,7 +203,7 @@ const LoginPage: React.FC = () => {
                     size: "large",
                   }}
                   placeholder={t("verification-code")!}
-                  captchaTextRender={(timing: string, count: number) => {
+                  captchaTextRender={(timing: boolean, count: number) => {
                     if (timing) {
                       return `${count} ${t("get-verification-code")}`;
                     }
@@ -226,7 +231,7 @@ const LoginPage: React.FC = () => {
         </LoginContent>
         <Footer />
       </LoginContainer>
-    </ProConfigProvider>
+    </ConfigProvider>
   );
 };
 

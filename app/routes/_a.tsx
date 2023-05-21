@@ -33,21 +33,21 @@ import { createRoute } from "~/components/SideBar";
 import { useTranslation } from "react-i18next";
 import { LoaderArgs, LoaderFunction, json, redirect } from "@remix-run/node";
 
-const langs = ['zh', 'en']
+const langs = ["zh", "en"];
 
 export const loader: LoaderFunction = ({ params }: LoaderArgs) => {
-  const { lang } = params
-  if (!langs.includes(typeof lang === 'string' ? lang : '')) {
-    return redirect('/404') // 404 is $.tsx routes
+  const { lang } = params;
+  if (!langs.includes(typeof lang === "string" ? lang : "")) {
+    return redirect("/404"); // 404 is $.tsx routes
   }
-  return json({ lang })
-}
+  return json({ lang });
+};
 
 export default function Layout() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const value = useContext(SettingContext);
-  const [userInfo, setUserInfo] = useState<any>({});
+  const [userInfo] = useState<any>({});
   const submit = useSubmit();
 
   const choiceLang = (lang: string) => {
@@ -69,19 +69,16 @@ export default function Layout() {
   };
 
   const routes = useMemo(() => {
-    return createRoute(value.lang, t)
-  }, [value.lang, t])
+    return createRoute(value.lang, t);
+  }, [value.lang, t]);
 
   const goGithub = () => {
     let aTag: any = document.createElement("a");
-    aTag.setAttribute(
-      "href",
-      "https://github.com/yyong008/remix-antd-admin"
-    );
+    aTag.setAttribute("href", "https://github.com/yyong008/remix-antd-admin");
     aTag.setAttribute("target", "_blank");
     aTag.click();
     aTag = null;
-  }
+  };
 
   return (
     <PageContainer>
@@ -109,10 +106,7 @@ export default function Layout() {
           return [
             <InfoCircleFilled key="InfoCircleFilled" />,
             <QuestionCircleFilled key="QuestionCircleFilled" />,
-            <GithubFilled
-              key="GithubFilled"
-              onClick={goGithub}
-            />,
+            <GithubFilled key="GithubFilled" onClick={goGithub} />,
             <Dropdown
               menu={{
                 items: [
@@ -198,16 +192,14 @@ export default function Layout() {
         footerRender={() => <Footer />}
       >
         <Outlet />
-        <ProConfigProvider>
-          <SettingDrawer
-            getContainer={() => document.body}
-            enableDarkTheme
-            onSettingChange={(settings: any) => {
-              value?.setTheme(settings);
-            }}
-            settings={{ ...value.theme }}
-          />
-        </ProConfigProvider>
+        <SettingDrawer
+          getContainer={() => document.body}
+          enableDarkTheme
+          onSettingChange={(settings: any) => {
+            value?.setTheme(settings);
+          }}
+          settings={{ ...value.theme }}
+        />
       </ProLayout>
     </PageContainer>
   );
