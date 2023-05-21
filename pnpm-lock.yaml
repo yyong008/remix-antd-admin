@@ -127,9 +127,6 @@ dependencies:
   react-json-view-ssr:
     specifier: ^1.19.1
     version: 1.19.1(react-dom@18.2.0)(react@18.2.0)
-  react-mind:
-    specifier: ^0.1.6
-    version: 0.1.6
   react-mindmap:
     specifier: ^2.1.6
     version: 2.1.6(react@18.2.0)
@@ -9287,10 +9284,6 @@ packages:
 
   /react-lifecycles-compat@3.0.4:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
-    dev: false
-
-  /react-mind@0.1.6:
-    resolution: {integrity: sha512-RwWcp5ZXpy5Fo6H6lT/81hgS94TulW527lHXgUqcO9W9MNWOC4dPLQ3aSXmPUuBRCqhfTITROLi+MABX2ukXyg==}
     dev: false
 
   /react-mindmap@2.1.6(react@18.2.0):
