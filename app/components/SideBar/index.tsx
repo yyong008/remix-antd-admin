@@ -10,6 +10,7 @@ import {
   HeartOutlined,
   HighlightOutlined,
   KeyOutlined,
+  MessageOutlined,
   ProfileOutlined,
   QrcodeOutlined,
   TableOutlined,
@@ -93,6 +94,12 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
               name: t("workplace"),
             },
           ],
+        },
+        {
+          key: "chat",
+          path: `/${lang}/chat`,
+          icon: <MessageOutlined />,
+          name: t("chat"),
         },
         {
           key: "auth",

@@ -75,5 +75,6 @@
   "calendar-antd": "calendar-antd",
   "game": "game",
   "excel": "excel",
-  "qrcode": "qrcode"
+  "qrcode": "qrcode",
+  "chat": "chat"
 }
