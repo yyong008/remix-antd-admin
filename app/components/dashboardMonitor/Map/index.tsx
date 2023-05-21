@@ -1,28 +1,23 @@
 // core
-import { useEffect, useRef } from "react";
+import { useMemo } from "react";
 
 // components
 import { theme } from "antd";
+import ReactEchart from 'echarts-for-react'
 
 // utils
 import * as echarts from "echarts";
 
-// data
-import geoJson from "~/data/100000.geoJson.json";
-
-// @ts-ignore
-echarts.registerMap("china", { geoJSON: geoJson });
-
-export default function ChinaMap() {
+const ChinaMap = () => {
   const { token } = theme.useToken();
 
-  const ref = useRef(null);
-  let mapInstance: any = null;
+  const option = useMemo(() => {
+    
+    let geoJson =  require('~/data/100000.geoJson.json')
+    // @ts-ignore
+    echarts.registerMap("china", { geoJSON: geoJson });
 
-  const renderChart = () => {
-    mapInstance = echarts.init(ref.current!);
-
-    mapInstance.setOption({
+    return {
       backgroundColor: "transparent",
       geo: {
         map: "china",
@@ -65,21 +60,10 @@ export default function ChinaMap() {
           },
         },
       },
-    });
-  };
+    }
+  }, [token])
 
-  useEffect(() => {
-    renderChart();
-
-    const handle = () => {
-      mapInstance?.resize();
-    };
-    window.addEventListener("resize", handle);
-
-    return () => {
-      window.addEventListener("resize", handle);
-    };
-  }, [token]);
-
-  return <div style={{ height: "700px" }} ref={ref}></div>;
+  return <ReactEchart option={option} style={{ height: "700px" }} />
 }
+
+export default ChinaMap
