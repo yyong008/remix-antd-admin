@@ -30,11 +30,18 @@ export default async function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
+  const context =
+      process.env.NODE_ENV === 'development'
+        ? await import('remix-development-tools').then(({ initServer }) =>
+            initServer(remixContext),
+          )
+        : remixContext;
+
   const cache = createCache();
 
   const instance = createInstance();
   const lng = await i18next.getLocale(request);
-  const ns = i18next.getRouteNamespaces(remixContext);
+  const ns = i18next.getRouteNamespaces(context);
 
   await instance
     .use(initReactI18next)
@@ -62,7 +69,7 @@ export default async function handleRequest(
       <I18nextProvider i18n={instance}>
         <SettingContext.Provider value={{ theme, setTheme, lang, setLang }}>
           <StyleProvider cache={cache}>
-            <RemixServer context={remixContext} url={request.url} />
+            <RemixServer context={context} url={request.url} />
           </StyleProvider>
         </SettingContext.Provider>
       </I18nextProvider>

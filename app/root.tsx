@@ -11,9 +11,13 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { json } from "@remix-run/node";
+import { Suspense, lazy } from "react";
+
+//utils
 import ClientOnlyWrap from "./components/ClientOnlyWrap";
+
 // hooks
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 // hooks:i18n
 import { useTranslation } from "react-i18next";
@@ -46,6 +50,11 @@ export const links: LinksFunction = () => {
 
 export let handle = { i18n: "common" };
 
+const RemixDevTools =
+  process.env.NODE_ENV === "development"
+    ? lazy(() => import("remix-development-tools"))
+    : null;
+
 export default function App() {
   const { i18n } = useTranslation();
   const { lang } = useContext(SettingContext);
@@ -68,6 +77,11 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+        {RemixDevTools ? (
+          <Suspense>
+            <RemixDevTools />
+          </Suspense>
+        ) : null}
       </body>
     </html>
   );
