@@ -1,41 +1,32 @@
 # Remix Antd Admin
 
+![](./public/images/admin.png)
+
 A management system based on `Remix/Antd`, which can quickly understand the performance of Remix as a management system.
 
 ## visit
 
 > https://remix-antd-admin.vercel.app
+
+tips: maybe this: `This Serverless Function has crashed.`
 ## Design motivation
 
 Considering that Remix has an excellent design in the routing system, most of the background management system business is done in the routing. It may be a good choice to use Remix to complete the background management system
 
+## stack
+
+- remix
+- antd
+- pro-components
+
 ## Usage
-- use remix cli
-
-```sh
-❯ pnpm create remix --template https://github.com/yyong008/remix-antd-admin
-```
-
-- clone project
 
 ```sh
 git clone https://github.com/yyong008/remix-antd-admin.git
-```
 
-Or use `itpls` to clone, you can directly open and use
+# install
+pnpm install
 
-```tsx
-cd your_target_dir
-npx itpls --type remote
-```
-
-Then enter the content you need according to the prompt.
-
-> itpls is a git/degit-based tool focused on template cloning.
-
-### Install dependencies
-
-```sh
 # server
 pnpm run dev # pnpm dev
 # Construct
@@ -58,7 +49,7 @@ pnpm run start # pnpm start
 pnpm run prettier
 ```
 
-## @ant-design/icons 使用规则
+## @ant-design/icons uages
 
 ```ts
 import * as _icons from '@ant-design/icons';
