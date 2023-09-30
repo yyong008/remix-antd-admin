@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-no-comment-textnodes */
 // type
-import type { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // core
 import { json } from "@remix-run/node";
@@ -11,7 +11,10 @@ import React from "react";
 // components:vendor
 import { Space, Tag } from "antd";
 import { ProList } from "@ant-design/pro-components";
-import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
+
+import * as _icons from '@ant-design/icons'
+
+
 
 // components:styled
 import { Tasks, AddModalForm } from "~/components/listBasicList";
@@ -24,8 +27,9 @@ import data from "~/data/listBasicList";
 
 // utils
 
+const { LikeOutlined, MessageOutlined, StarOutlined } = _icons;
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       title: "搜索表格",
@@ -33,7 +37,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
   
   return json(data.dataSource);
 };

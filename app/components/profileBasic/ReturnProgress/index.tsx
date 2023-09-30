@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { EllipsisOutlined } from "@ant-design/icons";
+import * as _icons from '@ant-design/icons'
 import { Space, Table, theme } from "antd";
 
-import { TDiv } from "../index";
+const { EllipsisOutlined } = _icons;
 
 const ALink = ({ children }: any) => {
   const { token } = theme.useToken();
@@ -68,7 +68,7 @@ export default function ReturnProgress({ dataSource = [] }) {
   ];
   return (
     <div>
-      <TDiv>退货进度</TDiv>
+      <div>退货进度</div>
       <Table
         columns={columns as any}
         dataSource={dataSource}

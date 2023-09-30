@@ -2,7 +2,7 @@ export default {
   userInfo: {
     avatar: "/remix.png",
     name: "吴彦祖",
-    jobs: "ABC Jobs |悲伤排骨－某某某事业群－某某平台部－某某DEF department－UXERDF",
+    jobs: "ABC Jobs |玉米排骨－某某某事业群－某某平台部－某某DEF department－UXERDF",
     pCount: 56,
     rank: "8/ 24",
     vCount: "2,223",

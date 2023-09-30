@@ -1,5 +1,5 @@
 // types
-import { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
 // cores
 import { json } from "@remix-run/node";
@@ -11,7 +11,7 @@ import { PageContainer } from "@ant-design/pro-components";
 // components
 import { MonitorRowOne, MonitorRowTwo, MonitorRowThree } from "~/components/dashboardMonitor";
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       title: "监控页",
@@ -19,7 +19,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader = ({ request, params }: LoaderArgs) => {
+export const loader = ({ request, params }: LoaderFunctionArgs) => {
   return json({});
 };
 

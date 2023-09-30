@@ -1,5 +1,5 @@
 // types
-import type { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // core
 import { json } from "@remix-run/node";
@@ -22,7 +22,7 @@ import { useLoaderData } from "@remix-run/react";
 // utils
 
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       title: "搜索列表（应用）",
@@ -30,7 +30,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
   
   return json(data);
 };

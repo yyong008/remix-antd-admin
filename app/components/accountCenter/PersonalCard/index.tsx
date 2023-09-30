@@ -1,89 +1,71 @@
 // core
-import styled from "styled-components";
 
 // components:vendor
-import {
-  ClusterOutlined,
-  ContactsOutlined,
-  HomeOutlined,
-} from "@ant-design/icons";
+import * as _icons from '@ant-design/icons'
+
 import { Card, Divider, Row, Col } from "antd";
 
 // components
 import Tags from "./Tags";
 
-const WrapDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const DivImageWrap = styled.div`
-  width: 104px;
-  height: 104px;
-  border-radius: 50%;
-
-  & img {
-    width: 100%;
-    height: 100%;
-  }
-`;
-
-const DivName = styled.div`
-  margin-bottom: 4px;
-  color: rgba(0, 0, 0, 0.85);
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 28px;
-`;
-
-const DivDesc = styled.div`
-  box-sizing: border-box;
-  margin-bottom: 24px;
-  text-align: center;
-`;
-
-const LDiv = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: start;
-  margin: 0px 0px 10px 0px;
-`;
-
-const DetailDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-
-const UserInfoDiv = styled.div`
-  margin-left: 10px;
-`;
+const { ClusterOutlined, ContactsOutlined, HomeOutlined } = _icons;
 
 export default function PersonalCard({ team, tags, userInfo }: any) {
   return (
     <Card>
-      <WrapDiv>
-        <DivImageWrap>
-          <img src="/remix.png" alt="" />
-        </DivImageWrap>
-        <DivName>{userInfo.name}</DivName>
-        <DivDesc>{userInfo.desc}</DivDesc>
-        <DetailDiv>
-          <LDiv>
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}>
+        <div style={{
+          width: '104px',
+          height: '104px',
+          borderRadius: '50%',
+        }}>
+          <img src="/remix.png" alt="" style={{
+            width: '100%',
+            height: '100%',
+          }} />
+        </div>
+        <div style={{
+          marginBottom: '4px',
+          color: 'rgba(0, 0, 0, 0.85)',
+          fontWeight: 500,
+          fontSize: '20px',
+          lineHeight: '28px',
+        }}>{userInfo.name}</div>
+        <div style={{
+          boxSizing: 'border-box',
+          marginBottom: '24px',
+          textAlign: 'center',
+        }}>{userInfo.desc}</div>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '100%',
+        }}>
+          <div style={{
+            display: 'flex',
+            flexWrap: 'nowrap',
+            justifyContent: 'flex-start',
+            margin: '0 0 10px 0',
+          }}>
             <ContactsOutlined />
-            <UserInfoDiv>{userInfo.contacts}</UserInfoDiv>
-          </LDiv>
-          <LDiv>
+            <div style={{
+              marginLeft: '10px',
+            }}>{userInfo.contacts}</div>
+          </div>
+          <div>
             <ClusterOutlined />
-            <UserInfoDiv>{userInfo.jobs}</UserInfoDiv>
-          </LDiv>
-          <LDiv>
+            <div>{userInfo.jobs}</div>
+          </div>
+          <div>
             <HomeOutlined />
-            <UserInfoDiv>{userInfo.address}</UserInfoDiv>
-          </LDiv>
-        </DetailDiv>
-      </WrapDiv>
+            <div>{userInfo.address}</div>
+          </div>
+        </div>
+      </div>
       <Divider dashed={true} />
       <div className="tag">
         {/* // @ts-ignore */}
@@ -109,16 +91,23 @@ export default function PersonalCard({ team, tags, userInfo }: any) {
                     display: "inline-flex",
                   }}
                 >
-                  <img
+                  <div
                     style={{
                       height: "24px",
                       width: "24px",
-                      borderRadius: "50%",
-                      marginRight: 10,
                     }}
-                    src={itm.url}
-                    alt=""
-                  />
+                  >
+                    <img
+                      style={{
+                        height: "100%",
+                        width: "100%",
+                        borderRadius: "50%",
+                        marginRight: 10,
+                      }}
+                      src={itm.url}
+                      alt=""
+                    />
+                  </div>
                   <div>{itm.name}</div>
                 </Col>
               );
@@ -126,6 +115,6 @@ export default function PersonalCard({ team, tags, userInfo }: any) {
           </Row>
         </div>
       </div>
-    </Card>
+    </Card >
   );
 }

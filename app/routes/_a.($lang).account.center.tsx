@@ -1,5 +1,5 @@
 // types
-import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
 // cores
 import { useLoaderData } from "@remix-run/react";
@@ -20,7 +20,7 @@ import { colProps, colPropsSS } from "~/components/accountCenter/col";
 // utils
 import { PageContainer } from "@ant-design/pro-components";
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       title: "账户中心",
@@ -28,7 +28,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader = ({ request, params }: LoaderArgs) => {
+export const loader = ({ request, params }: LoaderFunctionArgs) => {
   return data;
 };
 

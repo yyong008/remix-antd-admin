@@ -1,12 +1,11 @@
-// core
 import { resolve } from "node:path";
 
-// utils
 import Backend from "i18next-fs-backend";
-import { RemixI18Next } from "remix-i18next";
+import _RemixI18Next from "remix-i18next";
 
-// config
-import i18n from "./i18n";
+import i18n from "./i18n"; // your i18n configuration file
+
+const { RemixI18Next } = _RemixI18Next
 
 let i18next = new RemixI18Next({
   detection: {

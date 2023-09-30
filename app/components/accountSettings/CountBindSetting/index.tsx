@@ -3,13 +3,15 @@
 // components
 import { List, theme } from "antd";
 import { ProCard } from "@ant-design/pro-components";
-import {
+
+import * as _icons from '@ant-design/icons'
+const {
   AlipayOutlined,
   DingdingOutlined,
   QqOutlined,
   TaobaoOutlined,
   WechatOutlined,
-} from "@ant-design/icons";
+} = _icons;
 
 const CountBindSetting = ({ dataSource }: any) => {
   const { token } = theme.useToken();

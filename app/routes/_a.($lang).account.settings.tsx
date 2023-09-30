@@ -1,5 +1,5 @@
 // types
-import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
 // cores
 import React from "react";
@@ -36,7 +36,7 @@ export const links = () => {
   ];
 };
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       title: "账户设置",
@@ -44,7 +44,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader = ({ request, params }: LoaderArgs) => {
+export const loader = ({ request, params }: LoaderFunctionArgs) => {
   return data;
 };
 
@@ -54,7 +54,7 @@ const Settings: React.FC = () => {
     {
       label: `基本设置`,
       key: "BasicSetting",
-      children: <BasicSetting />,
+      // children: <BasicSetting />,
     },
     {
       label: `安全设置`,

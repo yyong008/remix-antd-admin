@@ -1,4 +1,4 @@
-import { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // cores
 import React from "react";
@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { tableListDataSource } from "~/data/listTableList";
 
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       title: "成功",
@@ -18,7 +18,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
   
   return json(tableListDataSource);
 };

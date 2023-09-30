@@ -1,13 +1,16 @@
 // components:vendor
-import { GithubOutlined } from "@ant-design/icons";
+import * as _icons from "@ant-design/icons";
+
 import { DefaultFooter } from "@ant-design/pro-components";
+
+const { GithubOutlined } = _icons;
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
     <DefaultFooter
-      copyright={`${currentYear} ${"By Magnesium"}`}
+      copyright={`${currentYear} ${"By Magnesium-"}`}
       links={[
         {
           key: "github",
@@ -28,12 +31,6 @@ const Footer: React.FC = () => {
           href: "https://ant.design/index-cn",
           blankTarget: true,
         },
-        {
-          key: "Sqlite",
-          title: "Sqlite",
-          href: "https://www.sqlite.org/index.html",
-          blankTarget: true,
-        }
       ]}
     />
   );

@@ -1,4 +1,8 @@
-import {
+import type { RouterTypes } from '@ant-design/pro-layout/lib/typings';
+
+import * as _icons from '@ant-design/icons';
+
+const {
   BorderHorizontalOutlined,
   CalendarOutlined,
   CheckCircleOutlined,
@@ -16,13 +20,37 @@ import {
   TableOutlined,
   UserOutlined,
   WarningOutlined,
-} from "@ant-design/icons";
 
-export function createRoute(lang: string, t: any, _routes?: any[]) {
+} = _icons;
+
+export function createRoute(lang: string, t: any, _routes?: any[]): { route: RouterTypes } {
   return {
     route: {
       path: `/`,
       routes: [
+        {
+          key: "dashboard",
+          path: `${lang}/dashboard`,
+          icon: <DashboardOutlined />,
+          name: t("dashboard"),
+          children: [
+            {
+              key: "analysis",
+              path: "analysis",
+              name: t("analysis"),
+            },
+            {
+              key: "monitor",
+              path: "monitor",
+              name: t("monitor"),
+            },
+            {
+              key: "workplace",
+              path: "workplace",
+              name: t("workplace"),
+            },
+          ],
+        },
         {
           key: "disease",
           path: `${lang}/disease`,
@@ -72,35 +100,12 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
             },
           ]
         },
-        {
-          key: "dashboard",
-          path: `${lang}/dashboard`,
-          icon: <DashboardOutlined />,
-          name: t("dashboard"),
-          children: [
-            {
-              key: "analysis",
-              path: "analysis",
-              name: t("analysis"),
-            },
-            {
-              key: "monitor",
-              path: "monitor",
-              name: t("monitor"),
-            },
-            {
-              key: "workplace",
-              path: "workplace",
-              name: t("workplace"),
-            },
-          ],
-        },
-        {
-          key: "chat",
-          path: `/${lang}/chat`,
-          icon: <MessageOutlined />,
-          name: t("chat"),
-        },
+        // {
+        //   key: "chat",
+        //   path: `/${lang}/chat`,
+        //   icon: <MessageOutlined />,
+        //   name: t("chat"),
+        // },
         {
           key: "auth",
           path: `/${lang}/auth`,
@@ -352,7 +357,7 @@ export function createRoute(lang: string, t: any, _routes?: any[]) {
               path: "temporal",
               name: t("calendar-temporal"),
             },
-             {
+            {
               key: "antd",
               path: "antd",
               name: t("calendar-antd"),

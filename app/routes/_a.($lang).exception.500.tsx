@@ -1,5 +1,5 @@
 // types
-import { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // cores
 import { json } from "@remix-run/node";
@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 // utils
 
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       title: "500",
@@ -23,7 +23,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
   
   return json({});
 };

@@ -1,9 +1,34 @@
 // import type { ActionArgs } from "@remix-run/node";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useMemo, useState, memo, useEffect } from "react";
 import { Link, Outlet, useNavigate, useSubmit } from "@remix-run/react";
 
 // components:vendor
+
 import {
+  PageContainer,
+  ProLayout,
+  SettingDrawer,
+} from "@ant-design/pro-components";
+import { Dropdown } from "antd";
+import * as _icons from '@ant-design/icons';
+
+// components
+import Footer from "~/components/Footer";
+
+// context
+import SettingContext from "~/context/settingContext";
+
+// sidebar routes
+import { createRoute } from "~/components/SideBar";
+
+// hooks
+import { useTranslation } from "react-i18next";
+import { LoaderFunctionArgs, LoaderFunction, json, redirect } from "@remix-run/node";
+
+const langs = ["zh-CN", "en-US"];
+
+
+const {
   GithubFilled,
   InfoCircleFilled,
   LogoutOutlined,
@@ -11,31 +36,9 @@ import {
   SettingOutlined,
   TranslationOutlined,
   UserOutlined,
-} from "@ant-design/icons";
-import {
-  PageContainer,
-  ProLayout,
-  ProConfigProvider,
-  SettingDrawer,
-} from "@ant-design/pro-components";
-import { Dropdown } from "antd";
+} = _icons
 
-// components
-import Footer from "~/components/Footer";
-
-// context
-import SettingContext from "~/settingContext";
-
-// sidebar routes
-import { createRoute } from "~/components/SideBar";
-
-// hooks
-import { useTranslation } from "react-i18next";
-import { LoaderArgs, LoaderFunction, json, redirect } from "@remix-run/node";
-
-const langs = ["zh", "en"];
-
-export const loader: LoaderFunction = ({ params }: LoaderArgs) => {
+export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs) => {
   const { lang } = params;
   if (!langs.includes(typeof lang === "string" ? lang : "")) {
     return redirect("/404"); // 404 is $.tsx routes
@@ -43,29 +46,23 @@ export const loader: LoaderFunction = ({ params }: LoaderArgs) => {
   return json({ lang });
 };
 
-export default function Layout() {
+function AdminLayout() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const value = useContext(SettingContext);
-  const [userInfo] = useState<any>({});
-  const submit = useSubmit();
+  // const [userInfo] = useState<any>({});
+  // const submit = useSubmit();
 
   const choiceLang = (lang: string) => {
     let p = location.pathname.split("/");
-    p[1] = lang || "en";
+    p[1] = lang || "en-US";
 
-    navigate(p.join("/"));
-    value.setLang(lang || "en");
-  };
+    navigate(p.join("/").trim(), {
+      replace: true
+    });
 
-  const handleLogout = () => {
-    submit(
-      {},
-      {
-        method: "POST",
-        action: `${value.lang}/api/logout`,
-      }
-    );
+    value.setLang(lang || "en-US");
+    window.location.href = p.join("/").trim();
   };
 
   const routes = useMemo(() => {
@@ -80,22 +77,27 @@ export default function Layout() {
     aTag = null;
   };
 
+  const handleLogout = () => { }
   return (
     <PageContainer>
       <ProLayout
-        title="Remix"
-        logo="/remix.png"
+        title="Remix/Antd/Admin"
+        logo="/remix.svg"
         {...value.theme}
         {...routes}
+        layout="mix"
         token={{
+          header: {
+            // colorBgHeader: value.theme.colorPrimary,
+          },
           sider: {
-            colorBgMenuItemSelected: "rgba(0, 0, 0, 0.027)",
+            // colorBgMenuItemSelected: "rgba(0, 0, 0, 0.027)",
             colorTextMenuSelected: value.theme.colorPrimary,
           },
         }}
         ErrorBoundary={false}
         pageTitleRender={false}
-        suppressSiderWhenMenuEmpty={userInfo && userInfo?.routes?.length === 0}
+        // suppressSiderWhenMenuEmpty={userInfo && userInfo?.routes?.length === 0}
         menu={{ defaultOpenAll: false, hideMenuWhenCollapsed: true }}
         menuItemRender={(item, dom) => (
           <Link to={item.path as string}>{dom}</Link>
@@ -112,22 +114,23 @@ export default function Layout() {
                 items: [
                   {
                     key: "en",
-                    label: "en English",
+                    label: "EN English",
                     onClick: () => {
-                      choiceLang("en");
+                      choiceLang("en-US");
                     },
                   },
                   {
                     key: "cn",
                     label: "CN 简体中文",
                     onClick: () => {
-                      choiceLang("zh");
+                      debugger
+                      choiceLang("zh-CN");
                     },
                   },
                 ],
               }}
             >
-              <TranslationOutlined key="TranslationOutlined" />
+              <TranslationOutlined />
             </Dropdown>,
           ];
         }}
@@ -196,7 +199,7 @@ export default function Layout() {
           getContainer={() => document.body}
           enableDarkTheme
           onSettingChange={(settings: any) => {
-            value?.setTheme(settings);
+            value.setTheme(settings);
           }}
           settings={{ ...value.theme }}
         />
@@ -204,3 +207,5 @@ export default function Layout() {
     </PageContainer>
   );
 }
+
+export default memo(AdminLayout)

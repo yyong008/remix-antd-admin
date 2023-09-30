@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // types
-import { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // cores
 import { json } from "@remix-run/node";
@@ -8,7 +8,8 @@ import React from "react";
 
 // components:vendor
 import { Button, Result, Typography } from "antd";
-import { CloseCircleOutlined } from "@ant-design/icons";
+
+import * as _icons from "@ant-design/icons"
 
 // hooks
 import { useTranslation } from "react-i18next";
@@ -17,11 +18,10 @@ import { useTranslation } from "react-i18next";
 import { tableListDataSource } from "~/data/listTableList";
 
 // utils
-
-
+const { CloseCircleOutlined } = _icons;
 const { Paragraph, Text } = Typography;
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       title: "失败",
@@ -29,7 +29,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
   
   return json(tableListDataSource);
 };

@@ -2,8 +2,10 @@
 import { useState } from "react";
 
 // components:vendor
-import { MoreOutlined } from "@ant-design/icons";
 import { Card, Dropdown, Radio, Space } from "antd";
+import * as _icons from '@ant-design/icons';
+
+const { MoreOutlined } = _icons;
 
 // components
 import MainPie from "../Pie";

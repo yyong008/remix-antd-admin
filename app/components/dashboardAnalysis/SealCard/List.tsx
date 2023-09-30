@@ -1,6 +1,3 @@
-// core
-import styled from "styled-components";
-
 // components
 import { theme } from "antd";
 
@@ -42,77 +39,31 @@ const dataSource = [
   },
 ];
 
-const RankListWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 0px 32px 32px 32px;
-`;
-
-const RankListItem = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 22px;
-`;
-
-const RankListTitle = styled.div`
-  margin-top: 16px;
-  margin-bottom: 0.5em;
-  color: rgba(0, 0, 0, 0.85);
-  font-weight: 500;
-`;
-
-const Rank123 = styled.div`
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin-top: 1.5px;
-  margin-right: 16px;
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 20px;
-  text-align: center;
-  background-color: ${(props) => props.color || "#314659"};
-  border-radius: 20px;
-  color: #fff;
-`;
-
-const Rank = styled.div`
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin-top: 1.5px;
-  margin-right: 16px;
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 20px;
-  text-align: center;
-  border-radius: 20px;
-`;
 
 const RankNum = ({ num }: any) => {
   const { token } = theme.useToken();
   if (num === 1 || num === 2 || num === 3) {
-    return <Rank123 color={token.colorPrimary}>{num}</Rank123>;
+    return <span className="Rank123" color={token.colorPrimary}>{num}</span>;
   }
-  return <Rank>{num}</Rank>;
+  return <span className="Rank">{num}</span>;
 };
 
 // eslint-disable-next-line react/display-name
 export default function SealCardList() {
   return (
-    <RankListWrap>
-      <RankListTitle>门店销售额排名</RankListTitle>
+    <div className="RankListWrap">
+      <div className="RankListTitle">门店销售额排名</div>
       {dataSource.map((item, index) => {
         return (
-          <RankListItem key={index}>
+          <div className="RankListItem" key={index}>
             <div>
               <RankNum num={Number(item.name)} />
               <span>{item.desc}</span>
             </div>
             <span>{item.count}</span>
-          </RankListItem>
+          </div>
         );
       })}
-    </RankListWrap>
+    </div>
   );
 }

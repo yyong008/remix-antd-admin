@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { EllipsisOutlined } from "@ant-design/icons";
 import { Space, Table, theme } from "antd";
+import * as _icons from '@ant-design/icons';
 
-import { TDiv } from "../index";
+const { EllipsisOutlined } = _icons;
 
 const ALink = ({ children }: any) => {
   const { token } = theme.useToken();
@@ -66,7 +66,7 @@ export default function ReturnItemsList({ dataSource = [] }: any) {
 
   return (
     <div>
-      <TDiv>退货商品</TDiv>
+      <div>退货商品</div>
       <Table
         style={{ padding: 0 }}
         columns={columns as any}

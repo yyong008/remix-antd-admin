@@ -1,6 +1,8 @@
-import { SettingOutlined, EditOutlined, EllipsisOutlined } from "@ant-design/icons";
+import * as _icons from "@ant-design/icons";
+
 import { Col, Card, Avatar } from "antd";
 import { colProps } from "../col";
+const { SettingOutlined, EditOutlined, EllipsisOutlined } = _icons;
 
 export default function ColCardList() {
   return <>

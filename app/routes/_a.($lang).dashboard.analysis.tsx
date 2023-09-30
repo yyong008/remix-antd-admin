@@ -1,9 +1,9 @@
 // types
-import { PageContainer } from "@ant-design/pro-components";
-import { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
 // cores
 import { json } from "@remix-run/node";
+import { PageContainer } from "@ant-design/pro-components";
 
 // components:vendor
 import { Space } from "antd";
@@ -16,14 +16,25 @@ import {
   AnalysisRowFour,
 } from "~/components/dashboardAnalysis";
 
+import css from '~/styles/dashboard.analysis.css';
+
 // utils
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [{ title: "分析页" }];
 };
 
-export const loader = ({ request, params }: LoaderArgs) => {
+export const loader = ({ request, params }: LoaderFunctionArgs) => {
   return json({});
+};
+
+export const links: LinksFunction = () => {
+  return [
+    {
+      rel: "stylesheet",
+      href: css,
+    },
+  ];
 };
 
 export default function DashboardAnalysisPage() {

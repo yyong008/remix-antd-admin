@@ -1,18 +1,7 @@
 // core
-import styled from "styled-components";
 
 // components:vendor
-import { List, Avatar, theme } from "antd";
-
-const TSpan = styled.span`
-  color: ${(props) => props.color};
-`;
-
-const TItem = styled.div`
-  font-size: 14px;
-  font-weight: 400;
-  color: #000;
-`;
+import { List, Avatar, theme, Space } from "antd";
 
 export default function DynamicList({ data }: any) {
   const { token } = theme.useToken();
@@ -26,12 +15,12 @@ export default function DynamicList({ data }: any) {
             avatar={<Avatar src={"/logo.png"} />}
             description={
               <div>
-                <TItem>
+                <Space>
                   <span>{"五月天"}</span> 在
-                  <TSpan color={token.colorPrimary}> {"高逼格设计天团"} </TSpan>
+                  <div color={token.colorPrimary}> {"高逼格设计天团"} </div>
                   新建项目{" "}
-                  <TSpan color={token.colorPrimary}> {"六月迭代"} </TSpan>
-                </TItem>
+                  <div color={token.colorPrimary}> {"六月迭代"} </div>
+                </Space>
                 <div style={{ margin: "10px 0px" }}>几分钟前</div>
               </div>
             }

@@ -1,9 +1,6 @@
-import {
-  SettingOutlined,
-  EditOutlined,
-  ShareAltOutlined,
-  EllipsisOutlined,
-} from "@ant-design/icons";
+import * as _icons from "@ant-design/icons";
+
+const { SettingOutlined, EditOutlined, ShareAltOutlined, EllipsisOutlined } = _icons;
 import { Col, Card, Avatar } from "antd";
 
 export default function AppCardList({ cardList }: any) {
@@ -11,7 +8,7 @@ export default function AppCardList({ cardList }: any) {
     <>
       {cardList.map((_: any, i: number) => {
         return (
-          <Col
+        <Col
             span={6}
             key={i}
             {...{

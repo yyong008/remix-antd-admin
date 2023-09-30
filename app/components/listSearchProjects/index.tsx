@@ -1,14 +1,7 @@
-import { UserOutlined } from "@ant-design/icons";
 import { Col, Card, Avatar, Tooltip } from "antd";
-import styled from "styled-components";
+import * as _icons from '@ant-design/icons';
 
-// ...
-const WrapCardBottom = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-`;
+const { UserOutlined } = _icons;
 
 export default function ProjectsList({ cardList }: any) {
   return (
@@ -28,7 +21,7 @@ export default function ProjectsList({ cardList }: any) {
               title="Europe Street beat"
               description="www.instagram.com"
             />
-            <WrapCardBottom>
+            <div>
               <div>2 小时前</div>
               <div>
                 <Avatar.Group>
@@ -52,7 +45,7 @@ export default function ProjectsList({ cardList }: any) {
                   </Tooltip>
                 </Avatar.Group>
               </div>
-            </WrapCardBottom>
+            </div>
           </Card>
         </Col>
       ))}

@@ -58,6 +58,14 @@ pnpm run start # pnpm start
 pnpm run prettier
 ```
 
+## @ant-design/icons 使用规则
+
+```ts
+import * as _icons from '@ant-design/icons';
+
+const { MoreOutlined } = _icons;
+```
+
 ## Support
 
 - [buy-me-a-coffee](https://github.com/yyong008/buy-me-a-coffee) If you think this project has helped you, please invite the author to have a cup of coffee, thank you for your support .

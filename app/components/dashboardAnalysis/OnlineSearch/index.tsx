@@ -1,6 +1,8 @@
 // components:vendor
 import { Card, Table, theme } from "antd";
-import { MoreOutlined } from "@ant-design/icons";
+import * as _icons from "@ant-design/icons";
+
+const { MoreOutlined } = _icons;
 
 // components
 import { SearchHotLine } from "../SearchHotLine";
@@ -66,7 +68,6 @@ export default function OnlineSearch() {
       <Table
         rowKey="id"
         bordered={false}
-
         dataSource={dataSource}
         columns={columns}
         pagination={{

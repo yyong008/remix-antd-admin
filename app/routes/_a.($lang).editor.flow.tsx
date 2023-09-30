@@ -1,5 +1,5 @@
 // types
-import { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
 // core
 import { json } from "@remix-run/node";
@@ -49,7 +49,7 @@ const initialEdges = [
   { id: "e2-3", source: "2", target: "3", animated: true },
 ];
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       title: "流程编辑器",
@@ -57,7 +57,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader = ({ request, params }: LoaderArgs) => {
+export const loader = ({ request, params }: LoaderFunctionArgs) => {
   
   return json({});
 };

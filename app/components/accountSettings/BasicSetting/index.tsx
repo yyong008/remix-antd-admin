@@ -21,8 +21,8 @@ import { Cropper } from "react-advanced-cropper";
 import reactAdvancedCropperStyles from "react-advanced-cropper/dist/style.css";
 
 //data
-import provinces from "china-division/dist/provinces.json";
-import cities from "china-division/dist/cities.json";
+// import provinces from "china-division/dist/provinces.json" assert { type: "json" };
+// import cities from "china-division/dist/cities.json" assert { type: "json" };
 
 export const links = () => {
   return [
@@ -88,18 +88,20 @@ const BasicSetting = () => {
             width="md"
             label="所在省市"
             name="province"
-            options={provinces.map((p) => ({ label: p.name, value: p.code }))}
+            // options={provinces.map((p) => ({ label: p.name, value: p.code }))}
+            options={[]}
           />
           <ProFormDependency name={["province"]}>
             {({ province }) => {
               return (
                 <ProFormSelect
-                  options={cities
-                    .filter((c) => c.provinceCode === province)
-                    .map((cc) => ({
-                      label: cc.name,
-                      value: cc.code,
-                    }))}
+                options={[]}
+                  // options={cities
+                  //   .filter((c) => c.provinceCode === province)
+                  //   .map((cc) => ({
+                  //     label: cc.name,
+                  //     value: cc.code,
+                  //   }))}
                   width="md"
                   name="cities"
                   label="选择城市"

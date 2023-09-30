@@ -1,6 +1,6 @@
 // types
 import type { DataNode, TreeProps } from "antd/es/tree";
-import { LoaderArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 
 // core
 import { json } from "@remix-run/node";
@@ -503,7 +503,7 @@ const treeDataUser: DataNode[] = [
   },
 ];
 
-export const loader = ({ request, params }: LoaderArgs) => {
+export const loader = ({ request, params }: LoaderFunctionArgs) => {
   return json({});
 };
 

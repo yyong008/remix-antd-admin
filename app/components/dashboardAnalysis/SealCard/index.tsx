@@ -1,6 +1,5 @@
 // cores
 import { useState } from "react";
-import styled from "styled-components";
 
 // components
 import { Col, Row, Space, Tabs, theme } from "antd";
@@ -9,12 +8,6 @@ import { ProCard, ProFormDateRangePicker, ProForm } from "@ant-design/pro-compon
 // components:vendor
 import Bar from "../Bar";
 import List from "./List";
-
-const PA = styled.a`
-  color: ${(props: { active: any; color: string }) =>
-    props.active ? props.color : "#000"};
-  align-items: center;
-`;
 
 export default function SealCard() {
   const [tab, setTab] = useState("tab1");
@@ -63,8 +56,8 @@ export default function SealCard() {
             <Space>
               {["今日", "本周", "本月", "本年"].map((it, index) => {
                 return (
-                  <PA
-                    active={index === idx}
+                  <div
+                    // active={index === idx}
                     color={token.colorPrimary}
                     key={index}
                     onClick={() => {
@@ -72,11 +65,11 @@ export default function SealCard() {
                     }}
                   >
                     {it}
-                  </PA>
+                  </div>
                 );
               })}
             </Space>
-            <ProForm>
+            <ProForm submitter={false}>
               <ProFormDateRangePicker name="dateRange" label="日期区间" noStyle />
             </ProForm>
           </Space>

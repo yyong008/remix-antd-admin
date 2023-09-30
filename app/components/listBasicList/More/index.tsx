@@ -3,8 +3,10 @@
 import type { MenuProps } from "antd";
 
 // core
+import * as _icons from "@ant-design/icons";
 import { Dropdown } from "antd";
-import { DownOutlined } from "@ant-design/icons";
+
+const { DownOutlined } = _icons;
 
 const More: React.FC = () => {
   const items: MenuProps["items"] = [

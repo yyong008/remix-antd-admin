@@ -1,5 +1,5 @@
 // type
-import { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // core
 import { json } from "@remix-run/node";
@@ -22,7 +22,7 @@ import { FormIsOpen } from "~/components/formBasic";
 // utils
 
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       title: "基础表单",
@@ -30,7 +30,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
   
   return json({});
 };

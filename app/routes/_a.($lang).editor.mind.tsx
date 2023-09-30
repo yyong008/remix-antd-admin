@@ -1,5 +1,5 @@
 // types
-import { LinksFunction, LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
+import { LinksFunction, LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // cores
 import { json } from "@remix-run/node";
@@ -30,7 +30,7 @@ import reactflowStyleUrl from "reactflow/dist/style.css";
 import overviewcssStyleUrl from "~/styles/reactflow.css";
 
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       title: "脑图编辑器",
@@ -51,7 +51,7 @@ export const links: LinksFunction = () => {
   ];
 }
 
-export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
   
   return json({});
 };

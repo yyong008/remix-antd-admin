@@ -1,10 +1,12 @@
 // core
 import React from "react";
+import * as _icons from "@ant-design/icons";
 
 // components:vendor
 import { Tag } from "antd";
 import { ProList } from "@ant-design/pro-components";
-import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
+
+const { LikeOutlined, MessageOutlined, StarOutlined } = _icons;
 
 const IconText = ({ icon, text }: { icon: any; text: string }) => (
   <span>
@@ -29,10 +31,6 @@ const dataSource = [
   {
     id: "4",
     title: "Remix",
-  },
-  {
-    id: "5",
-    title: "Sqlite",
   },
 ];
 

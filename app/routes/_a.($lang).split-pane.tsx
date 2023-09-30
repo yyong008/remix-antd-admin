@@ -3,7 +3,7 @@ import type { LinksFunction } from "@remix-run/node";
 import { Allotment } from "allotment";
 import { cssBundleHref } from "@remix-run/css-bundle";
 
-import "allotment/dist/style.css";
+import allotmentStyles from "allotment/dist/style.css";
 import { Button } from "antd";
 import React from "react";
 
@@ -12,7 +12,7 @@ import { nanoid } from 'nanoid';
 
 export const links: LinksFunction = () => {
   return [
-    ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+    ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }, { rel: "stylesheet", href: allotmentStyles }] : []),
   ];
 };
 
@@ -49,27 +49,27 @@ const App = () => {
     }
   };
   return (
-    <div style={{ width: '500px', height: '1000px'}}>
+    <div style={{ width: '500px', height: '1000px' }}>
       <Allotment vertical>
-      <Allotment.Pane minSize={100}>tespiego</Allotment.Pane>
-      <Allotment.Pane minSize={100}>
-        <Allotment snap>
-          {panels.map((p) => (
-            <Allotment.Pane key={p.id} minSize={100} snap={false}>
-              <div
-                style={{
-                  height: "100%",
-                  backgroundColor: "#ccc",
-                  padding: "8px",
-                }}
-              >
-                {p.label} <Button onClick={(e) => closePane(p.id)}>X</Button>
-              </div>
-            </Allotment.Pane>
-          ))}
-        </Allotment>
-      </Allotment.Pane>
-    </Allotment>
+        <Allotment.Pane minSize={100}>tespiego</Allotment.Pane>
+        <Allotment.Pane minSize={100}>
+          <Allotment snap>
+            {panels.map((p) => (
+              <Allotment.Pane key={p.id} minSize={100} snap={false}>
+                <div
+                  style={{
+                    height: "100%",
+                    backgroundColor: "#ccc",
+                    padding: "8px",
+                  }}
+                >
+                  {p.label} <Button onClick={(e) => closePane(p.id)}>X</Button>
+                </div>
+              </Allotment.Pane>
+            ))}
+          </Allotment>
+        </Allotment.Pane>
+      </Allotment>
     </div>
   );
 };

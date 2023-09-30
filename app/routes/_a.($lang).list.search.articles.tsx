@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 //types
-import { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // cores
 import { json } from "@remix-run/node";
@@ -16,7 +16,7 @@ import { SearchList, ToolSelect } from "~/components/listSearch";
 // utils
 
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       title: "搜索列表（文章）",
@@ -24,7 +24,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
   
   return json({});
 };

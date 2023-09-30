@@ -1,51 +1,36 @@
 // components:vendor
 import { ProCard } from "@ant-design/pro-components";
 
-// components
-import {
-  Jobs,
-  Num,
-  Project,
-  ProjectNums,
-  TeamRank,
-  VisitItem,
-  Welcome,
-  WorkplaceContent,
-  WorkplaceContentLeft,
-  WorkplaceContentLeftImgWrap,
-  WorkplaceContentRight,
-  WorkplaceTitle,
-} from "../styled";
 
 export default function ContainerContent({ data }: any) {
   return (
     <ProCard>
-      <WorkplaceTitle>工作台</WorkplaceTitle>
-      <WorkplaceContent>
-        <WorkplaceContentLeft>
-          <WorkplaceContentLeftImgWrap>
+      <div className="WorkplaceTitle">工作台</div>
+      <div className="WorkplaceContent">
+        <div className="WorkplaceContentLeft">
+          <div className="WorkplaceContentLeftImgWrap">
             <img src={data.userInfo.avatar} alt="" />
-          </WorkplaceContentLeftImgWrap>
-          <div>
-            <Welcome>早安，{data.userInfo.name}，祝你开心每一天！</Welcome>
-            <Jobs>{data.userInfo.jobs}</Jobs>
           </div>
-        </WorkplaceContentLeft>
-        <WorkplaceContentRight>
-          <ProjectNums>
-            <Project>项目数</Project>
-            <Num>{data.userInfo.pCount}</Num>
-          </ProjectNums>
-          <TeamRank>
-            <Project>团队内排名</Project>
-            <Num>{data.userInfo.rank}</Num>
-          </TeamRank>
-          <VisitItem>
-            <Project>项目访问</Project>
-            <Num>{data.userInfo.vCount}</Num>
-          </VisitItem>
-        </WorkplaceContentRight>
-      </WorkplaceContent>
+          <div>
+            <div className="Welcome">早安，{data.userInfo.name}，祝你开心每一天！</div>
+            <div className="Jobs">{data.userInfo.jobs}</div>
+          </div>
+        </div>
+        <div className="WorkplaceContentRight">
+          <div className="ProjectNums">
+            <div className="Project">项目数</div>
+            <div className="Num">{data.userInfo.pCount}</div>
+          </div>
+          <div className="TeamRank">
+            <div className="Project">团队内排名</div>
+            <div className="Num">{data.userInfo.rank}</div>
+          </div>
+          <div className="VisitItem">
+            <div className="Project">项目访问</div>
+            <div className="Num">{data.userInfo.vCount}</div>
+          </div>
+        </div>
+      </div>
     </ProCard>
   );
 }

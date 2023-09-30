@@ -1,5 +1,5 @@
 // type
-import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
 // core
 import { json } from "@remix-run/node";
@@ -21,14 +21,23 @@ import {
 // data
 import data from "~/data/dashboardWorkplace";
 
-// utils
+// css
+import css from '~/styles/dashboard.workplace.css';
 
-
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [{ title: "工作空间" }];
 };
 
-export const loader = ({ request, params }: LoaderArgs) => {
+export const links: LinksFunction = () => {
+  return [
+    {
+      rel: "stylesheet",
+      href: css,
+    },
+  ];
+};
+
+export const loader = ({ request, params }: LoaderFunctionArgs) => {
   
   return json(data);
 };

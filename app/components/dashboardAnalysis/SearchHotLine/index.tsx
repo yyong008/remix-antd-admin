@@ -1,43 +1,12 @@
 // components:vendor
-import {
-  CaretDownOutlined,
-  CaretUpOutlined,
-  ExclamationCircleOutlined,
-} from "@ant-design/icons";
+import * as _icons from '@ant-design/icons';
+
+const { CaretDownOutlined, CaretUpOutlined, ExclamationCircleOutlined } = _icons
+
 import { Card, Col, Row, Space, Tooltip } from "antd";
 
 // components
 import AreaChart from "../Area";
-
-// core
-import styled from "styled-components";
-
-const SearchUserCount = styled.div`
-  display: inline-block;
-  height: 32px;
-  margin-right: 32px;
-  color: rgba(0, 0, 0, 0.85);
-  font-size: 24px;
-  line-height: 32px;
-`;
-
-const SearchPercent = styled.span`
-  margin-right: 0;
-  color: rgba(0, 0, 0, 0.45);
-  font-size: 16px;
-  vertical-align: top;
-`;
-
-const SearchText = styled.span`
-  height: 22px;
-  overflow: hidden;
-  color: rgba(0, 0, 0, 0.45);
-  font-size: 14px;
-  line-height: 22px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  word-break: break-all;
-`;
 
 export function SearchHotLine() {
   return (
@@ -46,7 +15,7 @@ export function SearchHotLine() {
         <Card style={{ border: "none", boxShadow: "none" }}>
           <Space direction="vertical">
             <Space>
-              <SearchText>搜索用户数</SearchText>
+              <span>搜索用户数</span>
               <Tooltip title="指标说明">
                 <ExclamationCircleOutlined
                   style={{ color: "rgba(0,0,0,.45)" }}
@@ -54,8 +23,8 @@ export function SearchHotLine() {
               </Tooltip>
             </Space>
             <Space>
-              <SearchUserCount>12,321</SearchUserCount>
-              <SearchPercent>17.1 </SearchPercent>
+              <div>12,321</div>
+              <div>17.1 </div>
               <CaretUpOutlined style={{ color: "red" }} />
             </Space>
           </Space>
@@ -66,7 +35,7 @@ export function SearchHotLine() {
         <Card style={{ border: "none", boxShadow: "none" }}>
           <Space direction="vertical">
             <Space>
-              <SearchText>人均搜索次数</SearchText>
+              <span>人均搜索次数</span>
               <Tooltip title="指标说明">
                 <ExclamationCircleOutlined
                   style={{ color: "rgba(0,0,0,.45)" }}
@@ -74,8 +43,8 @@ export function SearchHotLine() {
               </Tooltip>
             </Space>
             <Space>
-              <SearchUserCount>3.7</SearchUserCount>
-              <SearchPercent>17.1 </SearchPercent>
+              <div>3.7</div>
+              <div>17.1 </div>
               <CaretDownOutlined style={{ color: "green" }} />
             </Space>
           </Space>

@@ -1,6 +1,8 @@
 import { Button, Input, Space } from "antd";
 import { useState } from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import * as rctc from "react-copy-to-clipboard";
+
+const { CopyToClipboard } = rctc.default;
 
 export default function ClipboardRoute() {
   const [data, setData] = useState({

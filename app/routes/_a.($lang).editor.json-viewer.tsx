@@ -1,4 +1,21 @@
+import type { LinksFunction } from "@remix-run/node";
+
 import ReactJsonSSR from "react-json-view-ssr"
+
+import { JsonView } from 'react-json-view-lite';
+import jsonViewCss from 'react-json-view-lite/dist/index.css';
+
+import { cssBundleHref } from "@remix-run/css-bundle";
+
+
+export const links: LinksFunction = () => {
+  return [
+    ...(cssBundleHref
+      ? [{ rel: "stylesheet", href: cssBundleHref }, { rel: "stylesheet", href: jsonViewCss }]
+      : []),
+    // ...
+  ];
+};
 
 const App = () => {
   const packageJson = {
@@ -10,9 +27,6 @@ const App = () => {
       "admin",
       "echarts",
       "i18n",
-      "css-in-js",
-      "styled-components",
-      "remix-utils",
       "react-mindmap",
       "react-wordcloud",
       "reactflow",
@@ -71,8 +85,6 @@ const App = () => {
       "remix-auth": "^3.4.0",
       "remix-auth-form": "^1.3.0",
       "remix-i18next": "^5.1.1",
-      "remix-utils": "^6.3.0",
-      "styled-components": "^5.3.10",
     },
     devDependencies: {
       "@remix-run/dev": "^1.16.0",
@@ -81,7 +93,6 @@ const App = () => {
       "@types/node": "^18.16.6",
       "@types/react": "^18.2.6",
       "@types/react-dom": "^18.2.4",
-      "@types/styled-components": "^5.1.26",
       eslint: "^8.40.0",
       prettier: "^2.8.8",
       prisma: "4.13.0",
@@ -107,7 +118,7 @@ const App = () => {
     },
   };
 
-  return <ReactJsonSSR src={packageJson} />
+  return <JsonView data={packageJson} />
 };
 
 export default App;

@@ -6,19 +6,16 @@ import { useState } from 'react'
 import { cssBundleHref } from "@remix-run/css-bundle";
 
 // css
-import 'bytemd/dist/index.css'
+import bytemdStyles from 'bytemd/dist/index.css'
 
 export const links: LinksFunction = () => {
   return [
     ...(cssBundleHref
-      ? [{ rel: "stylesheet", href: cssBundleHref }]
+      ? [{ rel: "stylesheet", href: cssBundleHref }, { rel: "stylesheet", href: bytemdStyles }]
       : []),
     // ...
   ];
 };
-
-// import 'bytemd/dist/index.css'
-
 
 const plugins = [
   gfm(),

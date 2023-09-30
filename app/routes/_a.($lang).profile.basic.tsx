@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 //types
-import { LoaderArgs, LoaderFunction, V2_MetaFunction, json } from "@remix-run/node";
+import { LoaderFunctionArgs, LoaderFunction, MetaFunction, json } from "@remix-run/node";
 
 // hooks
 import { useLoaderData } from "@remix-run/react";
@@ -23,8 +23,7 @@ import { tableListDataSource } from "~/data/profileAdvanced";
 
 // utils
 
-
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       title: "基础详情页",
@@ -32,7 +31,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
   
   return json(tableListDataSource);
 };

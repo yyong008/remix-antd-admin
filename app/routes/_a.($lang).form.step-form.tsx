@@ -1,6 +1,6 @@
 // types
 import type { ProFormInstance } from "@ant-design/pro-components";
-import type { LoaderArgs, LoaderFunction, V2_MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // core
 import { json } from "@remix-run/node";
@@ -25,7 +25,7 @@ import {
 // utils
 
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       title: "步骤表单",
@@ -33,7 +33,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderArgs) => {
+export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
   
   return json({});
 };

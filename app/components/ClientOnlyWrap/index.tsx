@@ -1,4 +1,4 @@
-import { ClientOnly } from "remix-utils";
+import { ClientOnly } from "../ClientOnly";
 
 // components
 import FallbackSkeleton from "~/components/FallbackSkeleton";

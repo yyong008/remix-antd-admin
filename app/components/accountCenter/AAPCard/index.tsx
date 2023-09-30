@@ -2,29 +2,23 @@
 
 // core
 import React, { useState } from "react";
-import styled from "styled-components";
 
 // components:vendor
-import {
+import * as _icons from '@ant-design/icons'
+
+import { ProCard, ProList } from "@ant-design/pro-components";
+import { Avatar, Card, Col, Row, Tag, Tooltip } from "antd";
+import { colPropsApp, colPropsProject } from "../col";
+
+const {
   EditOutlined,
   EllipsisOutlined,
   LikeOutlined,
   MessageOutlined,
   SettingOutlined,
   StarOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import { ProCard, ProList } from "@ant-design/pro-components";
-import { Avatar, Card, Col, Row, Tag, Tooltip } from "antd";
-
-import { colPropsApp, colPropsProject } from "../col";
-
-const WrapCardBottom = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-`;
+  UserOutlined
+} = _icons;
 
 const IconText = ({ icon, text }: { icon: any; text: string }) => (
   <span style={{ color: "blue" }}>
@@ -148,7 +142,12 @@ const AAPCard: React.FC<APPCardProps> = ({
             <Col {...colPropsProject} key={idx}>
               <Card hoverable cover={<img alt="" src="/images/app.png" />}>
                 <Card.Meta title="卡片标题" description="卡片内容" />
-                <WrapCardBottom>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginTop: '10px',
+                }}>
                   <div>2 小时前</div>
                   <div>
                     <Avatar.Group>
@@ -172,13 +171,13 @@ const AAPCard: React.FC<APPCardProps> = ({
                       </Tooltip>
                     </Avatar.Group>
                   </div>
-                </WrapCardBottom>
+                </div>
               </Card>
             </Col>
           ))}
         </Row>
         ,
-      </ProCard>
+      </ProCard >
     ),
   };
 

@@ -3,23 +3,11 @@ import { useState } from "react";
 
 // components: vendor
 import { Space } from "antd";
-import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
+import { UpDown } from '../UpDown'
 
 // components
 import HomeCard from "../HomeCard";
 import BulletChart from "../Bullet";
-
-const UpDown = ({ item }: any) => {
-  return (
-    <>
-      {item.status === "up" ? (
-        <CaretUpOutlined style={{ color: "green" }} />
-      ) : item.status === "down" ? (
-        <CaretDownOutlined style={{ color: "red" }} />
-      ) : null}
-    </>
-  );
-};
 
 export default function CardActivityEffectiveness() {
   const [data] = useState([
