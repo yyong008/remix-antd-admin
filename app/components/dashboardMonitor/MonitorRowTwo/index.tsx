@@ -1,8 +1,10 @@
 import { Row, Col, Card } from "antd";
-import LiquidFill from "../LiquidFill";
-import SimpleWordcloud from "../WordCloud";
+
+import PieChart from "./Pie";
+import LiquidFill from "./LiquidFill";
+import SimpleWordcloud from "./WordCloud";
+
 import { colPropsSSS, colPropsSSSS } from "../col";
-import PieChart from "../Pie";
 
 export default function RowTwo() {
   return (

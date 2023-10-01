@@ -1,9 +1,14 @@
-import { Row, Col, Card, Space } from "antd";
-import ChinaMap from "../Map";
-import DChart from "../DynamicData";
-import MainGauge from "../Gauge";
-import { colProps, colPropsSS } from "../col";
 import { useRef } from "react";
+
+import { Row, Col, Card, Space } from "antd";
+
+// components
+import ChinaMap from "./Map";
+import DChart from "./DynamicData";
+import MainGauge from "./Gauge";
+
+// cols
+import { colProps, colPropsSS } from "../col";
 
 export default function RowOne() {
   const CardRef = useRef<any>();

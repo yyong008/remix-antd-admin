@@ -1,5 +1,9 @@
 import { Row, Col, Card } from "antd";
-import Storke from "../Stroke";
+
+// components
+import Storke from "./Stroke";
+
+// cols
 import { colPropsSSS } from "../col";
 
 export default function RowThree() {
