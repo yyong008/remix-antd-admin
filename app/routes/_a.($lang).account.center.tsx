@@ -2,23 +2,18 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
 // cores
-import { useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 
 // components
 import { Row, Col } from "antd";
-
-// data
-import data from "~/data/accountCenter";
+import { PageContainer } from "@ant-design/pro-components";
 
 // components
 import { PersonalCard, AAPCard } from "~/components/accountCenter";
 
 // cols
 import { colProps, colPropsSS } from "~/components/accountCenter/col";
-
-// utils
-import { PageContainer } from "@ant-design/pro-components";
 
 export const meta: MetaFunction = () => {
   return [
@@ -28,8 +23,9 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader = ({ request, params }: LoaderFunctionArgs) => {
-  return data;
+export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+  const data = (await import("~/data/accountCenter")).default;
+  return json(data);
 };
 
 export default function AccountCenterPage() {

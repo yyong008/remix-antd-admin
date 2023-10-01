@@ -1,8 +1,9 @@
 // type
 import type { CropperRef } from "react-advanced-cropper";
-
+import type { LoaderFunction } from "@remix-run/node";
 // core
 import { useRef, useState } from "react";
+import { json } from '@remix-run/node';
 
 // components:vendor
 import {
@@ -21,8 +22,7 @@ import { Cropper } from "react-advanced-cropper";
 import reactAdvancedCropperStyles from "react-advanced-cropper/dist/style.css";
 
 //data
-// import provinces from "china-division/dist/provinces.json" assert { type: "json" };
-// import cities from "china-division/dist/cities.json" assert { type: "json" };
+import { useLoaderData } from "@remix-run/react";
 
 export const links = () => {
   return [
@@ -33,7 +33,7 @@ export const links = () => {
   ];
 };
 
-const BasicSetting = () => {
+const BasicSetting: React.FC = ({ provinces = [], cities = [] }: any) => {
   const inputRef = useRef<any>();
   const [visible, setVisible] = useState(false);
   const [croppedImage, setCroppedImage] = useState<string>("");
@@ -88,20 +88,19 @@ const BasicSetting = () => {
             width="md"
             label="所在省市"
             name="province"
-            // options={provinces.map((p) => ({ label: p.name, value: p.code }))}
-            options={[]}
+            options={provinces.map((p: any) => ({ label: p.name, value: p.code }))}
+            // options={[]}
           />
           <ProFormDependency name={["province"]}>
             {({ province }) => {
               return (
                 <ProFormSelect
-                options={[]}
-                  // options={cities
-                  //   .filter((c) => c.provinceCode === province)
-                  //   .map((cc) => ({
-                  //     label: cc.name,
-                  //     value: cc.code,
-                  //   }))}
+                  options={cities
+                    .filter((c: any) => c.provinceCode === province)
+                    .map((cc: any) => ({
+                      label: cc.name,
+                      value: cc.code,
+                    }))}
                   width="md"
                   name="cities"
                   label="选择城市"
@@ -136,7 +135,6 @@ const BasicSetting = () => {
             accept="image/*"
             onChange={(event) => {
               const fileList = event.target.files || [];
-
               if (fileList.length > 0) {
                 const file = fileList[0];
                 const reader = new FileReader();
