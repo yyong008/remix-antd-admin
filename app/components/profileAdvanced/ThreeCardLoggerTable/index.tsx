@@ -1,6 +1,8 @@
-import { Card } from "antd";
-import CardLoggerTable from "../CardLoggerTable";
 import { useState } from "react";
+
+import { Card } from "antd";
+
+import CardLoggerTable from "../CardLoggerTable";
 
 export default function ThreeCardLoggerTable({ data }: any) {
   const [key, setKey] = useState("one");

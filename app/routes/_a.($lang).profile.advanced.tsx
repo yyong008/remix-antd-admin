@@ -19,12 +19,6 @@ import {
 // hooks
 import { useLoaderData } from "@remix-run/react";
 
-// data
-import { loggers as data } from "~/data/profileAdvanced";
-
-// utils
-
-
 // route:meta
 export const meta: MetaFunction = () => {
   return [
@@ -34,8 +28,8 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
-  
+export const loader: LoaderFunction = async ({ request, params }: LoaderFunctionArgs) => {
+  const data = (await import("~/data/profileAdvanced")).loggers
   return json(data);
 };
 

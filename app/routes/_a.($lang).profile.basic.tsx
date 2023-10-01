@@ -1,6 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 //types
-import { LoaderFunctionArgs, LoaderFunction, MetaFunction, json } from "@remix-run/node";
+import type { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
+
+// cores
+import { json } from '@remix-run/node';
 
 // hooks
 import { useLoaderData } from "@remix-run/react";
@@ -11,17 +14,12 @@ import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 // components
 import {
-  PageContainerContent,
-  RefundRequest,
-  ReturnItemsList,
-  ReturnProgress,
   UserInfo,
+  RefundRequest,
+  ReturnProgress,
+  ReturnItemsList,
+  PageContainerContent,
 } from "~/components/profileBasic";
-
-// data
-import { tableListDataSource } from "~/data/profileAdvanced";
-
-// utils
 
 export const meta: MetaFunction = () => {
   return [
@@ -31,8 +29,8 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
-  
+export const loader: LoaderFunction = async ({ request, params }: LoaderFunctionArgs) => {
+  const { tableListDataSource } = await import("~/data/profileAdvanced")
   return json(tableListDataSource);
 };
 

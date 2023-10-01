@@ -1,5 +1,6 @@
-import { ProDescriptions } from "@ant-design/pro-components";
 import { Card } from "antd";
+
+import { ProDescriptions } from "@ant-design/pro-components";
 
 export default function CardUserInfo() {
   return (
