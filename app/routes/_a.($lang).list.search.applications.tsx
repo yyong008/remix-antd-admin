@@ -13,14 +13,8 @@ import { ToolSelect } from "~/components/listSearch";
 import { ListHeaderSearch } from "~/components/common";
 import AppCardList from "~/components/listSearchApplications/AppCardList";
 
-// data
-import data from "~/data/listSearchApplications";
-
 // hooks
 import { useLoaderData } from "@remix-run/react";
-
-// utils
-
 
 export const meta: MetaFunction = () => {
   return [
@@ -30,13 +24,13 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
-  
-  return json(data);
+export const loader: LoaderFunction = async ({ request, params }: LoaderFunctionArgs) => {
+  const _data = (await import('~/data/listSearchApplications')).default
+  return json(_data);
 };
 
 export default function ListSearchApplication() {
-  const data = useLoaderData();
+  const data: any = useLoaderData();
   return (
     <PageContainer
       fixedHeader
@@ -51,7 +45,7 @@ export default function ListSearchApplication() {
           gutter={[10, 10]}
           style={{ marginLeft: "-8px", marginRight: "-8px" }}
         >
-          <AppCardList cardList={data.cardList} />
+          <AppCardList cardList={data?.cardList} />
         </Row>
       </Space>
     </PageContainer>

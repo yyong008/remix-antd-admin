@@ -1,7 +1,7 @@
 import * as _icons from "@ant-design/icons";
 
-const { SettingOutlined, EditOutlined, ShareAltOutlined, EllipsisOutlined } = _icons;
 import { Col, Card, Avatar } from "antd";
+const { SettingOutlined, EditOutlined, ShareAltOutlined, EllipsisOutlined } = _icons;
 
 export default function AppCardList({ cardList }: any) {
   return (

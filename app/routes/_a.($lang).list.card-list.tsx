@@ -1,9 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // types
-import type { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
-
-// core
-import { json } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 
 // components:vendor
 import { Button, Card, Row } from "antd";
@@ -14,18 +11,12 @@ import { ColCardList, PageContainerContent } from "~/components/listCardList";
 
 // server
 
-
 export const meta: MetaFunction = () => {
   return [
     {
       title: "搜索表格",
     },
   ];
-};
-
-export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
-  
-  return json({});
 };
 
 export default () => {

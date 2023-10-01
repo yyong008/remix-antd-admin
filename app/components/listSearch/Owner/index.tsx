@@ -1,7 +1,9 @@
+import React from 'react';
+
 // components:vendor
 import { ProFormSelect, ProForm } from "@ant-design/pro-components";
 
-const Owner = () => {
+const Owner: React.FC = () => {
   return (
     <ProForm submitter={false}>
       <ProFormSelect

@@ -1,11 +1,13 @@
+import React from 'react';
+
 // comonents:vendor
 import {
+  ProForm,
   ProFormGroup,
   ProFormSelect,
-  ProForm,
 } from "@ant-design/pro-components";
 
-const OtherOptions = () => {
+const OtherOptions: React.FC = () => {
   return (
     <ProForm submitter={false}>
       <ProFormGroup style={{ marginTop: "20px" }}>

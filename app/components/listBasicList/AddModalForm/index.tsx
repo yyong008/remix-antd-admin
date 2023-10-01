@@ -1,4 +1,4 @@
-import * as _icons from "@ant-design/icons";
+
 
 import {
   ModalForm,
@@ -8,6 +8,9 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components";
 import { Button } from "antd";
+
+// icons
+import * as _icons from "@ant-design/icons";
 
 const { PlusOutlined } = _icons
 

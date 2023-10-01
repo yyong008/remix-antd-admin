@@ -12,20 +12,15 @@ import React from "react";
 import { Space, Tag } from "antd";
 import { ProList } from "@ant-design/pro-components";
 
-import * as _icons from '@ant-design/icons'
-
-
-
-// components:styled
+// components
 import { Tasks, AddModalForm } from "~/components/listBasicList";
+
+
+// icons
+import * as _icons from '@ant-design/icons'
 
 // hooks
 import { useLoaderData } from "@remix-run/react";
-
-// data
-import data from "~/data/listBasicList";
-
-// utils
 
 const { LikeOutlined, MessageOutlined, StarOutlined } = _icons;
 
@@ -37,8 +32,8 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
-  
+export const loader: LoaderFunction = async ({ request, params }: LoaderFunctionArgs) => {
+  const data = (await import('~/data/listBasicList')).default
   return json(data.dataSource);
 };
 

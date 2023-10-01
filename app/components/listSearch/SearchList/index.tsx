@@ -1,11 +1,11 @@
 // core
 import React from "react";
-import * as _icons from "@ant-design/icons";
 
 // components:vendor
 import { Tag } from "antd";
-import { ProList } from "@ant-design/pro-components";
 
+import { ProList } from "@ant-design/pro-components";
+import * as _icons from "@ant-design/icons";
 const { LikeOutlined, MessageOutlined, StarOutlined } = _icons;
 
 const IconText = ({ icon, text }: { icon: any; text: string }) => (

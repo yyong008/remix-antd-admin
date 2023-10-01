@@ -16,12 +16,6 @@ import { ToolSelect } from "~/components/listSearch";
 import { ListHeaderSearch } from "~/components/common";
 import ProjectsList from "~/components/listSearchProjects";
 
-// data
-import data from "~/data/listSearchProjects";
-
-// utils
-
-
 export const meta: MetaFunction = () => {
   return [
     {
@@ -30,13 +24,13 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
-  
+export const loader: LoaderFunction = async ({ request, params }: LoaderFunctionArgs) => {
+  const data = (await import('~/data/listSearchProjects')).default
   return json(data);
 };
 
 export default function ListSearchProjects() {
-  const data = useLoaderData();
+  const data: any = useLoaderData();
   return (
     <PageContainer
       title={false}

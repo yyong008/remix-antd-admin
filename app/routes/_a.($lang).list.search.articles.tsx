@@ -1,9 +1,6 @@
 /* eslint-disable react/jsx-key */
 //types
-import { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
-
-// cores
-import { json } from "@remix-run/node";
+import { MetaFunction } from "@remix-run/node";
 
 // components:vendor
 import { Row } from "antd";
@@ -13,9 +10,6 @@ import { PageContainer } from "@ant-design/pro-components";
 import { ListHeaderSearch } from "~/components/common";
 import { SearchList, ToolSelect } from "~/components/listSearch";
 
-// utils
-
-
 export const meta: MetaFunction = () => {
   return [
     {
@@ -23,13 +17,7 @@ export const meta: MetaFunction = () => {
     },
   ];
 };
-
-export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
-  
-  return json({});
-};
-
-export default () => {
+export default function ListSearchArticlesRoute() {
   return (
     <PageContainer
       title={false}

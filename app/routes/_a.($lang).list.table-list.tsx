@@ -1,19 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // types
-import type { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
+import {  type LoaderFunction, type MetaFunction } from "@remix-run/node";
 import type { ProColumns } from "@ant-design/pro-components";
 
+
+// core
+import { json } from '@remix-run/node';
+import { useLoaderData } from "@remix-run/react";
+
 // components
-import { json } from "@remix-run/node";
 import * as _icons from "@ant-design/icons";
 import { Button, Form, Space, theme } from "antd";
 import { ProTable, ModalForm, ProFormText } from "@ant-design/pro-components";
-
-// data
-import { tableListDataSource } from "~/data/listTableList";
-
-// icons
-const { PlusOutlined } = _icons;
 
 export type TableListItem = {
   key: number;
@@ -24,17 +22,20 @@ export type TableListItem = {
   beforeCallTime: string;
 };
 
+// icons
+const { PlusOutlined } = _icons;
+
+export const loader: LoaderFunction = async () => {
+  const { tableListDataSource } = (await import("~/data/listTableList"))
+  return json(tableListDataSource)
+}
+
 export const meta: MetaFunction = () => {
   return [
     {
       title: "搜索表格",
     },
   ];
-};
-
-export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
-  
-  return json({});
 };
 
 function AddButtonModal() {
@@ -66,6 +67,7 @@ function AddButtonModal() {
 
 export default function ListTableListPage() {
   const { token } = theme.useToken();
+  const data = useLoaderData();
   const columns: ProColumns<TableListItem>[] = [
     {
       title: "规则名称",
@@ -127,7 +129,7 @@ export default function ListTableListPage() {
 
   return (
     <ProTable<TableListItem>
-      dataSource={tableListDataSource}
+      dataSource={data}
       rowKey="key"
       pagination={{
         showQuickJumper: true,
