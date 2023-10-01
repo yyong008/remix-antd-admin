@@ -1,7 +1,9 @@
 import { Link } from "@remix-run/react";
 import { Col, Space, Card, Row } from "antd";
-import DynamicList from "../DynamicList";
-import WProject from "../WProject";
+
+import WProject from "./WProject";
+import DynamicList from "./DynamicList";
+
 import { colProps } from "../col";
 
 export default function WorkplaceColOne({ data }: any) {

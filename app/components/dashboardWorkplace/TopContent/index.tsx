@@ -1,7 +1,6 @@
 // components:vendor
 import { ProCard } from "@ant-design/pro-components";
 
-
 export default function ContainerContent({ data }: any) {
   return (
     <ProCard>

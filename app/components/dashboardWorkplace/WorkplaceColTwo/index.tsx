@@ -1,7 +1,9 @@
 import { Col, Space, Card, Row } from "antd";
-import FiveDimensionalChart from "../FiveDimensional"
-import NavList from "../NavList";
-import Team from "../Team";
+
+import Team from "./Team";
+import NavList from "./NavList";
+import FiveDimensionalChart from "./FiveDimensional"
+
 import { colPropsSS } from "../col";
 
 export default function WorkplaceTwo({ data }: any) {
