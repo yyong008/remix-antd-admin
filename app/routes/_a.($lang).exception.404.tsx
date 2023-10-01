@@ -1,8 +1,5 @@
 // types
-import { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
-
-// core
-import { json } from "@remix-run/node";
+import type { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // components
 import { Button, Result } from "antd";
@@ -11,20 +8,12 @@ import { PageContainer, ProCard } from "@ant-design/pro-components";
 // hooks
 import { useTranslation } from "react-i18next";
 
-// utils
-
-
 export const meta: MetaFunction = () => {
   return [
     {
       title: "404",
     },
   ];
-};
-
-export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
-  
-  return json({});
 };
 
 const Expection404: React.FC = () => {
