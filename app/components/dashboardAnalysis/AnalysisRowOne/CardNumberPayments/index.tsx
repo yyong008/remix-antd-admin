@@ -2,8 +2,8 @@
 import { Space } from "antd";
 
 // comoponents
-import HomeCard from "../HomeCard";
-import BarChart from "../BarChart";
+import HomeCard from "../../common/HomeCard";
+import BarChart from "./BarChart";
 
 export default function CardNumberPayments() {
   return (

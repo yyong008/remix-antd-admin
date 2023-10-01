@@ -6,7 +6,7 @@ import { Col, Row, Space, Tabs, theme } from "antd";
 import { ProCard, ProFormDateRangePicker, ProForm } from "@ant-design/pro-components";
 
 // components:vendor
-import Bar from "../Bar";
+import Bar from "./Bar";
 import List from "./List";
 
 export default function SealCard() {

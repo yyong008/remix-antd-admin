@@ -2,11 +2,11 @@
 import { useState } from "react";
 
 // components:vendors
-import { Space, Tooltip, Card } from "antd";
+import { Space } from "antd";
 
 // components
-import { UpDown } from "../UpDown";
-import HomeCard from "../HomeCard";
+import { UpDown } from "../../common/UpDown";
+import HomeCard from "../../common/HomeCard";
 
 export default function CardTotalSales() {
   const [data] = useState([

@@ -3,11 +3,11 @@ import { useState } from "react";
 
 // components: vendor
 import { Space } from "antd";
-import { UpDown } from '../UpDown'
+import { UpDown } from '../../common/UpDown'
 
 // components
-import HomeCard from "../HomeCard";
-import BulletChart from "../Bullet";
+import HomeCard from "../../common/HomeCard";
+import BulletChart from "./Bullet";
 
 export default function CardActivityEffectiveness() {
   const [data] = useState([

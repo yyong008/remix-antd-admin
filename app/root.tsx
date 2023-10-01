@@ -13,10 +13,10 @@ import {
   useParams,
   useRouteError,
 } from "@remix-run/react";
-import { useTranslation } from "react-i18next";
 
 // components
 import { ClientOnly } from "./components/ClientOnly";
+import Loading from "./components/FullScreen";
 
 // css
 import { cssBundleHref } from "@remix-run/css-bundle";
@@ -26,14 +26,10 @@ import rdtStylesheet from "remix-development-tools/index.css"
 // utils/dev-tools
 import { defineClientConfig, withDevTools } from 'remix-development-tools'
 
-// context
-import SettingContext from "./context/settingContext";
 
-export let handle = { i18n: "common" };
-
-import i18next from "~/i18n/i18next.server";
 import { useChangeLanguage } from "remix-i18next";
-import Loading from "./components/FullScreen";
+// i18n
+export let handle = { i18n: "common" };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   let locale = params.lang;
@@ -41,13 +37,16 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 }
 
 export const links: LinksFunction = () => {
-  const _links = [
-    ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref },] : []),
-  ];
-
+  const _links = [];
   _links.push({
     rel: 'stylesheet', href: globalStyle
   })
+
+  if (cssBundleHref) {
+    _links.push({ rel: "stylesheet", href: cssBundleHref })
+  }
+
+
 
   if (process.env.NODE_ENV === "development") {
     _links.push({
@@ -60,7 +59,6 @@ export const links: LinksFunction = () => {
 
 function App() {
   const params = useParams();
-  // const { i18n } = useTranslation();
   let { locale } = useLoaderData<typeof loader>();
 
   useChangeLanguage(locale as string)
@@ -81,7 +79,7 @@ function App() {
         </ClientOnly>
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
+        {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
   );

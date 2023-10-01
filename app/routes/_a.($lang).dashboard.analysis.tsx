@@ -1,8 +1,7 @@
 // types
-import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
-// cores
-import { json } from "@remix-run/node";
+// core
 import { PageContainer } from "@ant-design/pro-components";
 
 // components:vendor
@@ -19,13 +18,8 @@ import {
 import css from '~/styles/dashboard.analysis.css';
 
 // utils
-
 export const meta: MetaFunction = () => {
-  return [{ title: "分析页" }];
-};
-
-export const loader = ({ request, params }: LoaderFunctionArgs) => {
-  return json({});
+  return [{ title: "analysis" }];
 };
 
 export const links: LinksFunction = () => {

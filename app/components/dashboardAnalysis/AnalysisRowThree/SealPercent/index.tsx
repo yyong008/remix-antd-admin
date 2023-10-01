@@ -8,7 +8,7 @@ import * as _icons from '@ant-design/icons';
 const { MoreOutlined } = _icons;
 
 // components
-import MainPie from "../Pie";
+import MainPie from "../../common/Pie";
 
 export default function SealPercent() {
   const [size, setSize] = useState("all");

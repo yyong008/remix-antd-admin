@@ -1,13 +1,9 @@
 // components:vendor
 import * as _icons from '@ant-design/icons';
+import { Card, Col, Row, Space, Tooltip } from "antd";
+import AreaChart from "../../../common/Area";
 
 const { CaretDownOutlined, CaretUpOutlined, ExclamationCircleOutlined } = _icons
-
-import { Card, Col, Row, Space, Tooltip } from "antd";
-
-// components
-import AreaChart from "../Area";
-
 export function SearchHotLine() {
   return (
     <Row>

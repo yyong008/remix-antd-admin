@@ -1,11 +1,9 @@
 // components:vendor
 import { Card, Table, theme } from "antd";
 import * as _icons from "@ant-design/icons";
+import { SearchHotLine } from "./SearchHotLine";
 
 const { MoreOutlined } = _icons;
-
-// components
-import { SearchHotLine } from "../SearchHotLine";
 
 const dataSource: any[] = [];
 

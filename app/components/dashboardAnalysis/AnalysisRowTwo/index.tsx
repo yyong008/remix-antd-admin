@@ -2,7 +2,7 @@
 import { Row, Col } from "antd";
 
 // components
-import SealCard from "../SealCard";
+import SealCard from "./SealCard";
 
 export default function RowTwo() {
   return (

@@ -2,8 +2,8 @@
 import { Row, Col } from "antd";
 
 // components:vendors
-import SealPercent from "../SealPercent";
-import OnlineSearch from "../OnlineSearch";
+import SealPercent from "./SealPercent";
+import OnlineSearch from "./OnlineSearch";
 
 // cols
 import { colPropsSS, colPropsSSS } from "../col";

@@ -2,7 +2,7 @@
 import { Card, Col } from "antd";
 
 // components
-import BigDataArea from "../BigDataArea";
+import BigDataArea from "./BigDataArea";
 
 export default function RowFour() {
   return (
