@@ -1,21 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // types
-import { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // cores
-import { json } from "@remix-run/node";
 import React from "react";
+import { json } from "@remix-run/node";
 
 // components:vendor
 import { Button, Result, Typography } from "antd";
 
+// icons
 import * as _icons from "@ant-design/icons"
 
 // hooks
 import { useTranslation } from "react-i18next";
-
-// data
-import { tableListDataSource } from "~/data/listTableList";
 
 // utils
 const { CloseCircleOutlined } = _icons;
@@ -29,8 +27,8 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
-  
+export const loader: LoaderFunction = async ({ request, params }: LoaderFunctionArgs) => {
+  const { tableListDataSource } = (await import("~/data/listTableList"))
   return json(tableListDataSource);
 };
 

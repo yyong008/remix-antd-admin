@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // cores
 import React from "react";
@@ -7,8 +7,6 @@ import { json } from "@remix-run/node";
 // component:vendors
 import { Button, Result } from "antd";
 import { useTranslation } from "react-i18next";
-import { tableListDataSource } from "~/data/listTableList";
-
 
 export const meta: MetaFunction = () => {
   return [
@@ -18,8 +16,8 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
-  
+export const loader: LoaderFunction = async ({ request, params }: LoaderFunctionArgs) => {
+  const { tableListDataSource } = (await import("~/data/listTableList"))
   return json(tableListDataSource);
 };
 
