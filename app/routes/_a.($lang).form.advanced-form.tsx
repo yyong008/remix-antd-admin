@@ -1,8 +1,5 @@
 // type
-import { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
-
-// core
-import { json } from "@remix-run/node";
+import type { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // components:vendor
 import { Button, Space } from "antd";
@@ -12,8 +9,6 @@ import { PageContainer, ProCard, ProForm } from "@ant-design/pro-components";
 import { CManager, TManager, TTable } from "~/components/formAdvanced";
 
 // utils
-
-
 export const meta: MetaFunction = () => {
   return [
     {
@@ -22,12 +17,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
-  
-  return json({});
-};
-
-export default function FormAdvance() {
+export default function FormAdvanceRoute() {
   return (
     <ProForm submitter={false}>
       <PageContainer

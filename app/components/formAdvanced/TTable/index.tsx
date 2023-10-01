@@ -1,9 +1,9 @@
 import type { ProColumns } from "@ant-design/pro-components";
 
 // components
-import { ProForm, EditableProTable } from "@ant-design/pro-components";
 import { Card } from "antd";
 import { useState } from "react";
+import { ProForm, EditableProTable } from "@ant-design/pro-components";
 
 const columns: ProColumns[] = [
   {

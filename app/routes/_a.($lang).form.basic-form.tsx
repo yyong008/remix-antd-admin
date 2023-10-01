@@ -1,8 +1,5 @@
 // type
-import { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
-
-// core
-import { json } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 
 // components:vendors
 import {
@@ -20,8 +17,6 @@ import { Button } from "antd";
 import { FormIsOpen } from "~/components/formBasic";
 
 // utils
-
-
 export const meta: MetaFunction = () => {
   return [
     {
@@ -30,12 +25,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
-  
-  return json({});
-};
-
-export default function () {
+export default function BasicFormRoute() {
   return (
     <ProForm
       submitter={false}

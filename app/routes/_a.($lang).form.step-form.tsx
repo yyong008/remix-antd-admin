@@ -1,9 +1,6 @@
 // types
+import type { MetaFunction } from "@remix-run/node";
 import type { ProFormInstance } from "@ant-design/pro-components";
-import type { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
-
-// core
-import { json } from "@remix-run/node";
 
 // hooks
 import { useRef } from "react";
@@ -22,9 +19,6 @@ import {
   StepsForm,
 } from "@ant-design/pro-components";
 
-// utils
-
-
 export const meta: MetaFunction = () => {
   return [
     {
@@ -33,12 +27,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
-  
-  return json({});
-};
-
-export default () => {
+export default function StepFormRoute(){
   const formRef = useRef<ProFormInstance>();
 
   return (

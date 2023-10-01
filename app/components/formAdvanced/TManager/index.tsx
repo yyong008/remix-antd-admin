@@ -1,5 +1,5 @@
-import { ProFormText, ProFormSelect, ProFormDateTimePicker } from "@ant-design/pro-components";
 import { Card, Row, Col } from "antd";
+import { ProFormText, ProFormSelect, ProFormDateTimePicker } from "@ant-design/pro-components";
 
 const TManager = function () {
   return (
