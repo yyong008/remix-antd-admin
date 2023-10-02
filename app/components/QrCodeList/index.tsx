@@ -1,10 +1,14 @@
 import React from "react";
+
+import { Button } from "antd";
+
+// tools
 import QRCode from "qrcode";
 import JSZip from "jszip";
 import fileSaver from "file-saver";
-import { Button } from "antd";
 
 const { saveAs } = fileSaver
+
 export default function QrCodeList({ trigger, list = [] }: any) {
   // canvas
   const gnVisiableCanvas = async () => {

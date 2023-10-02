@@ -1,6 +1,9 @@
-import { List, Space } from "antd";
 import { useEffect, useRef } from "react";
+
+import { List, Space } from "antd";
 import QrCodeList from "~/components/QrCodeList";
+
+// qrcode
 import QRCode from "qrcode";
 
 const ReactQrCode = ({ url }: any) => {
