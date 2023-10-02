@@ -1,16 +1,18 @@
 import type { LinksFunction } from "@remix-run/node";
-import { useNavigate, useParams } from "@remix-run/react";
+
+// core
+import { json } from '@remix-run/node';
 import { useEffect, useState } from "react";
+import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
 
+// components
 import { toast, Toaster } from "sonner";
-
 import PockerItem from "~/components/pockers/PockerItem";
 import PockerList from "~/components/pockers/PockerList";
 
-import css from "~/styles/pocker-card.css";
+// css
 import amcss from 'animate.css'
-
-import { hs } from "~/data/pocker";
+import css from "~/styles/pocker-card.css";
 
 export const links: LinksFunction = () => {
   return [
@@ -25,18 +27,24 @@ export const links: LinksFunction = () => {
   ];
 };
 
-export default function () {
+export const loader = async () => {
+  const { hs } = (await import("~/data/pocker"))
+  return json(hs)
+}
+
+export default function PockerContentRoute() {
+  const hs: any = useLoaderData();
   const params = useParams();
   const navigate = useNavigate();
   const { hhmz } = params;
 
-  const [data, setData] = useState({
+  const [data, setData] = useState<any>({
     random: Math.floor(Math.random() * 16),
     guess: 0,
     status: "idle", // success - fail
   });
 
-  const handleChoice = (index) => {
+  const handleChoice = (index: any) => {
     setData({
       ...data,
       guess: index,
@@ -44,7 +52,7 @@ export default function () {
   };
 
   useEffect(() => {
-    if (hs.every((h) => h !== hhmz)) {
+    if (hs?.every((h: any) => h !== hhmz)) {
       toast.promise(
         () =>
           new Promise((resolve) =>

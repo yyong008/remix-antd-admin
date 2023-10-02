@@ -1,5 +1,7 @@
 import type { LinksFunction } from "@remix-run/node";
-import { useNavigate } from "@remix-run/react";
+
+// core
+import { useNavigate, useParams } from "@remix-run/react";
 
 // css
 import css from "../styles/pocker-card.css";
@@ -18,10 +20,11 @@ export const links: LinksFunction = () => {
   ];
 };
 
-export default function () {
+export default function GamePockerGuess() {
   const navigate = useNavigate()
+  const { lang } = useParams();
   const handleJump = (k: string) => {
-    navigate('/pockercontent/' + k)
+    navigate("/game/" + lang +  '/pockercontent/' + k)
   };
   return (
     <div className="card-container">

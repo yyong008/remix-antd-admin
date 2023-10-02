@@ -172,6 +172,9 @@ devDependencies:
   '@types/bcryptjs':
     specifier: ^2.4.4
     version: 2.4.4
+  '@types/canvas-confetti':
+    specifier: ^1.6.1
+    version: 1.6.1
   '@types/file-saver':
     specifier: ^2.0.5
     version: 2.0.5
@@ -2874,6 +2877,10 @@ packages:
 
   /@types/bcryptjs@2.4.4:
     resolution: {integrity: sha512-9wlJI7k5gRyJEC4yrV7DubzNQFTPiykYxUA6lBtsk5NlOfW9oWLJ1HdIA4YtE+6C3i3mTpDQQEosJ2rVZfBWnw==}
+    dev: true
+
+  /@types/canvas-confetti@1.6.1:
+    resolution: {integrity: sha512-wTSI/k/586KnzL8Inm0yXe/U9x0sO2tc4j/osIAZVsE+hyj2S/M+sdR5zDDLygEkohhlG948zNVBG5QiI4Z2mw==}
     dev: true
 
   /@types/chai-subset@1.3.3:
