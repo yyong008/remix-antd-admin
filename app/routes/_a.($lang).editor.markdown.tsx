@@ -1,9 +1,12 @@
 import type { LinksFunction } from '@remix-run/node';
 
-import gfm from '@bytemd/plugin-gfm'
-import { Editor } from '@bytemd/react'
+// react
 import { useState } from 'react'
 import { cssBundleHref } from "@remix-run/css-bundle";
+
+// windows
+import gfm from '@bytemd/plugin-gfm'
+import { Editor } from '@bytemd/react'
 
 // css
 import bytemdStyles from 'bytemd/dist/index.css'

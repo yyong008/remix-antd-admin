@@ -1,15 +1,13 @@
 // types
-import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
 // core
 import { json } from "@remix-run/node";
-
-// cores
-import { useState } from "react";
+import { useLoaderData } from "@remix-run/react";
 
 // components:vendor
-import { ProCard } from "@ant-design/pro-components";
 import ReactFlow from "reactflow";
+import { ProCard } from "@ant-design/pro-components";
 
 // styles
 import reactflowStyleUrl from "reactflow/dist/style.css";
@@ -23,32 +21,6 @@ export function links() {
   ];
 }
 
-const initialNodes = [
-  {
-    id: "1",
-    type: "input",
-    data: { label: "Input Node" },
-    position: { x: 250, y: 25 },
-  },
-
-  {
-    id: "2",
-    data: { label: "Default Node" },
-    position: { x: 100, y: 125 },
-  },
-  {
-    id: "3",
-    type: "output",
-    data: { label: "Output Node" },
-    position: { x: 250, y: 250 },
-  },
-];
-
-const initialEdges = [
-  { id: "e1-2", source: "1", target: "2" },
-  { id: "e2-3", source: "2", target: "3", animated: true },
-];
-
 export const meta: MetaFunction = () => {
   return [
     {
@@ -57,14 +29,16 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader = ({ request, params }: LoaderFunctionArgs) => {
-  
-  return json({});
+export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+  const {initialNodes, initialEdges}  = (await import('~/data/editor.flow'))
+  return json({
+    nodes: initialNodes,
+    edges: initialEdges,
+  });
 };
 
-function FlowRoute() {
-  const [nodes] = useState(initialNodes);
-  const [edges] = useState(initialEdges);
+function EditorFlowRoute() {
+  const { nodes, edges } = useLoaderData()
 
   return (
     <ProCard
@@ -78,4 +52,4 @@ function FlowRoute() {
   );
 }
 
-export default FlowRoute;
+export default EditorFlowRoute;

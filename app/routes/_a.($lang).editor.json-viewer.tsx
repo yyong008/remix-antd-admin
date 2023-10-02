@@ -1,12 +1,9 @@
 import type { LinksFunction } from "@remix-run/node";
 
-import ReactJsonSSR from "react-json-view-ssr"
-
 import { JsonView } from 'react-json-view-lite';
 import jsonViewCss from 'react-json-view-lite/dist/index.css';
 
 import { cssBundleHref } from "@remix-run/css-bundle";
-
 
 export const links: LinksFunction = () => {
   return [

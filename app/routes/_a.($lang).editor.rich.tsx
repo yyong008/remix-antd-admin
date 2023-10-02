@@ -1,5 +1,5 @@
-import { Editor } from "@tinymce/tinymce-react";
 import { useState } from "react";
+import { Editor } from "@tinymce/tinymce-react";
 
 const tinyKey = "your key";
 
@@ -13,7 +13,7 @@ export default function () {
         id="Editor-Component_Container_TinyEditor"
         // inline={true}
         scriptLoading={{ async: true }} // 异步加载
-        onChange={(value) => {
+        onChange={(value: any) => {
           setValue(value)
         }}
         init={{
@@ -32,7 +32,7 @@ export default function () {
             "undo redo | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | removeformat | image | link |",
           ],
         }}
-      ></Editor>
+      />
     </div>
   );
 }

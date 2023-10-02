@@ -1,8 +1,5 @@
 // types
-import { LinksFunction, LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
-
-// cores
-import { json } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 
 // hooks
 import { useCallback } from "react";
@@ -22,13 +19,12 @@ import { ProCard } from "@ant-design/pro-components";
 import {
   nodes as initialNodes,
   edges as initialEdges,
-} from "~/components/reactFlow/initial-element";
-import CustomNode from "~/components/reactFlow/CustomNode";
+} from "~/components/ReactFlow/initial-element";
+import CustomNode from "~/components/ReactFlow/CustomNode";
 
 // styles
 import reactflowStyleUrl from "reactflow/dist/style.css";
 import overviewcssStyleUrl from "~/styles/reactflow.css";
-
 
 export const meta: MetaFunction = () => {
   return [
@@ -50,11 +46,6 @@ export const links: LinksFunction = () => {
     },
   ];
 }
-
-export const loader: LoaderFunction = ({ request, params }: LoaderFunctionArgs) => {
-  
-  return json({});
-};
 
 const nodeTypes = {
   custom: CustomNode,
