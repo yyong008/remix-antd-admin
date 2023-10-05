@@ -20,12 +20,11 @@ import Loading from "./components/FullScreen";
 
 // css
 import { cssBundleHref } from "@remix-run/css-bundle";
-import globalStyle from '~/styles/global.css';
-import rdtStylesheet from "remix-development-tools/index.css"
+import globalStyle from "~/styles/global.css";
+import rdtStylesheet from "remix-development-tools/index.css";
 
 // utils/dev-tools
-import { defineClientConfig, withDevTools } from 'remix-development-tools'
-
+import { defineClientConfig, withDevTools } from "remix-development-tools";
 
 import { useChangeLanguage } from "remix-i18next";
 // i18n
@@ -39,29 +38,29 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 export const links: LinksFunction = () => {
   const _links = [];
   _links.push({
-    rel: 'stylesheet', href: globalStyle
-  })
+    rel: "stylesheet",
+    href: globalStyle,
+  });
 
   if (cssBundleHref) {
-    _links.push({ rel: "stylesheet", href: cssBundleHref })
+    _links.push({ rel: "stylesheet", href: cssBundleHref });
   }
-
-
 
   if (process.env.NODE_ENV === "development") {
     _links.push({
-      rel: "stylesheet", href: rdtStylesheet
-    })
+      rel: "stylesheet",
+      href: rdtStylesheet,
+    });
   }
 
-  return _links
-}
+  return _links;
+};
 
 function App() {
   const params = useParams();
   let { locale } = useLoaderData<typeof loader>();
 
-  useChangeLanguage(locale as string)
+  useChangeLanguage(locale as string);
 
   return (
     <html lang={params.lang}>
@@ -72,11 +71,7 @@ function App() {
         <Links />
       </head>
       <body>
-        <ClientOnly fallback={<Loading />}>
-          {
-            () => <Outlet />
-          }
-        </ClientOnly>
+        <ClientOnly fallback={<Loading />}>{() => <Outlet />}</ClientOnly>
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
@@ -110,6 +105,14 @@ export function ErrorBoundary() {
     return <h1>Unknown Error</h1>;
   }
 }
+
 const config = defineClientConfig({});
 
-export default withDevTools(App, config)
+let MainApp;
+if (process.env.NODE_ENV === 'development') {
+  MainApp = withDevTools(App, config);
+} else {
+  MainApp = App
+}
+
+export default MainApp;
