@@ -1,5 +1,6 @@
 import type { AppLoadContext, EntryContext } from "@remix-run/node";
 
+import { handleRequest as _handleVercelRequest } from '@vercel/remix';
 import { PassThrough } from "node:stream";
 import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
@@ -20,6 +21,14 @@ export default function handleRequest(
   remixContext: EntryContext,
   loadContext: AppLoadContext
 ) {
+  if(process.env.IS_VERCEL) {
+    return handleVercelRequest(
+      request,
+      responseStatusCode,
+      responseHeaders,
+      remixContext
+    )
+  }
   return isbot(request.headers.get("user-agent"))
     ? handleBotRequest(
       request,
@@ -142,4 +151,19 @@ function handleBrowserRequest(
 
     setTimeout(abort, ABORT_DELAY);
   });
+}
+
+function handleVercelRequest(
+  request: Request,
+  responseStatusCode: number,
+  responseHeaders: Headers,
+  remixContext: EntryContext,
+) {
+  const remixServer = <RemixServer context={remixContext} url={request.url} />;
+  return _handleVercelRequest(
+    request,
+    responseStatusCode,
+    responseHeaders,
+    remixServer,
+  );
 }

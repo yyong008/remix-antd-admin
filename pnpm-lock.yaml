@@ -41,6 +41,9 @@ dependencies:
   '@tinymce/tinymce-react':
     specifier: ^4.3.0
     version: 4.3.0(react-dom@18.2.0)(react@18.2.0)
+  '@vercel/remix':
+    specifier: ^2.0.1
+    version: 2.0.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
   allotment:
     specifier: ^1.19.3
     version: 1.19.3(react-dom@18.2.0)(react@18.2.0)
@@ -3397,6 +3400,25 @@ packages:
   /@vanilla-extract/private@1.0.3:
     resolution: {integrity: sha512-17kVyLq3ePTKOkveHxXuIJZtGYs+cSoev7BlP+Lf4916qfDhk/HBjvlYDe8egrea7LNPHKwSZJK/bzZC+Q6AwQ==}
     dev: true
+
+  /@vercel/remix@2.0.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-mHtbgIRn4naLkKT2ICcd0v9hgGZrGBSYjBQp2kYaA4PDBUKHFqXeB7C+iyyFlQXkc6tiSPwGeqMXgvb7t8D5Ow==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: '*'
+      react-dom: '*'
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      '@remix-run/node': 2.0.1(typescript@5.2.2)
+      '@remix-run/server-runtime': 2.0.1(typescript@5.2.2)
+      isbot: 3.7.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    transitivePeerDependencies:
+      - typescript
+    dev: false
 
   /@vitest/expect@0.34.6:
     resolution: {integrity: sha512-QUzKpUQRc1qC7qdGo7rMK3AkETI7w18gTCUrsNnyjjJKYiuUB9+TQK3QnR1unhCnWRC0AbKv2omLGQDF/mIjOw==}
