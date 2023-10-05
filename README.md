@@ -21,7 +21,7 @@ Considering that Remix has an excellent design in the routing system, most of th
 | echarts                    | v5.4.3  | chart lib with ssr |
 | i18next                    | v23.5.1 | i18n               |
 | remix-development-tools    | v3.0.3  | Remix DevTool      |
-
+| remix-i18next              | v5.0.0(no update) | remix i18n ()          |
 ## Usage
 
 ```sh
