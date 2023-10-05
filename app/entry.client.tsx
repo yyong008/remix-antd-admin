@@ -33,19 +33,19 @@ const hydrate = async () => {
 if (typeof requestIdleCallback === "function") {
   if (process.env.NODE_ENV === "development") {
     // ts-ignore
-    import("remix-development-tools").then(({ initClient }: any) => {
-      // Add all the dev tools props here into the client
-      initClient?.();
-    });
+    // import("remix-development-tools").then(({ initClient }: any) => {
+    //   // Add all the dev tools props here into the client
+    //   initClient?.();
+    // });
   }
   requestIdleCallback(hydrate);
 } else {
   if (process.env.NODE_ENV === "development") {
     // ts-ignore
-    import("remix-development-tools").then(({ initClient }: any) => {
-      // Add all the dev tools props here into the client
-      initClient?.();
-    });
+    // import("remix-development-tools").then(({ initClient }: any) => {
+    //   // Add all the dev tools props here into the client
+    //   initClient?.();
+    // });
   }
   setTimeout(hydrate, 1);
 }
