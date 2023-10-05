@@ -13,3 +13,4 @@ TODO.md
 # prisma db data
 /prisma/dev.db
 /prisma/dev.db-journal
+.vercel

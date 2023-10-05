@@ -21,10 +21,10 @@ import Loading from "./components/FullScreen";
 // css
 import { cssBundleHref } from "@remix-run/css-bundle";
 import globalStyle from "~/styles/global.css";
-import rdtStylesheet from "remix-development-tools/index.css";
+// import rdtStylesheet from "remix-development-tools/index.css";
 
 // utils/dev-tools
-import { defineClientConfig, withDevTools } from "remix-development-tools";
+// import { defineClientConfig, withDevTools } from "remix-development-tools";
 
 import { useChangeLanguage } from "remix-i18next";
 // i18n
@@ -46,12 +46,12 @@ export const links: LinksFunction = () => {
     _links.push({ rel: "stylesheet", href: cssBundleHref });
   }
 
-  if (process.env.NODE_ENV === "development") {
-    _links.push({
-      rel: "stylesheet",
-      href: rdtStylesheet,
-    });
-  }
+  // if (process.env.NODE_ENV === "development") {
+  //   _links.push({
+  //     rel: "stylesheet",
+  //     href: rdtStylesheet,
+  //   });
+  // }
 
   return _links;
 };
@@ -106,11 +106,12 @@ export function ErrorBoundary() {
   }
 }
 
-const config = defineClientConfig({});
+
 
 let MainApp;
 if (process.env.NODE_ENV === 'development') {
-  MainApp = withDevTools(App, config);
+  // const config = defineClientConfig({});
+  // MainApp = withDevTools(App, config);
 } else {
   MainApp = App
 }
