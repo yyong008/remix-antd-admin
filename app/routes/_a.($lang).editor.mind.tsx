@@ -19,7 +19,7 @@ import { ProCard } from "@ant-design/pro-components";
 import {
   nodes as initialNodes,
   edges as initialEdges,
-} from "~/components/ReactFlow/initial-element";
+} from "~/components/ReactFlow/InitialElement";
 import CustomNode from "~/components/ReactFlow/CustomNode";
 
 // styles
