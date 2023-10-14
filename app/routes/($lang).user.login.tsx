@@ -76,16 +76,16 @@ export const links: LinksFunction = () => {
 const LoginPage: React.FC = () => {
   const navigate = useNavigate()
   const { lang } = useParams()
-  if (!lang) {
-    navigate(-1)
-    return null
-  }
   const value = useContext(SettingContext);
   const fetcher = useFetcher();
   const { t } = useTranslation();
   const [type, setType] = useState<string>("account");
   const actionData = useActionData();
 
+  if (!lang) {
+    navigate(-1)
+    return null
+  }
   const handleSubmit = async (values: any) => {
     const formData = new FormData();
     formData.append("type", type);
@@ -228,7 +228,7 @@ const LoginPage: React.FC = () => {
                 />
               </>
             )}
-            <div style={{ margin: '10px 0px'}}>
+            <div style={{ margin: '10px 0px' }}>
               <ProFormCheckbox noStyle name="autoLogin">
                 {t("remeber")}
               </ProFormCheckbox>
