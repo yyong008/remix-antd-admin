@@ -1,6 +1,6 @@
 // import type { ActionArgs } from "@remix-run/node";
 import { useContext, useMemo, useState, memo, useEffect } from "react";
-import { Link, Outlet, useNavigate, useSubmit } from "@remix-run/react";
+import { Link, Outlet, useNavigate, useParams, useSubmit } from "@remix-run/react";
 
 // components:vendor
 
@@ -27,7 +27,6 @@ import { LoaderFunctionArgs, LoaderFunction, json, redirect } from "@remix-run/n
 
 const langs = ["zh-CN", "en-US"];
 
-
 const {
   GithubFilled,
   InfoCircleFilled,
@@ -52,6 +51,7 @@ function AdminLayout() {
   const value = useContext(SettingContext);
   // const [userInfo] = useState<any>({});
   // const submit = useSubmit();
+  const { lang } = useParams()
 
   const choiceLang = (lang: string) => {
     let p = location.pathname.split("/");
@@ -77,7 +77,9 @@ function AdminLayout() {
     aTag = null;
   };
 
-  const handleLogout = () => { }
+  const handleLogout = () => { 
+    navigate(`/${lang}/user/login`)
+  }
   return (
     <PageContainer>
       <ProLayout
@@ -123,7 +125,6 @@ function AdminLayout() {
                     key: "cn",
                     label: "CN 简体中文",
                     onClick: () => {
-                      debugger
                       choiceLang("zh-CN");
                     },
                   },

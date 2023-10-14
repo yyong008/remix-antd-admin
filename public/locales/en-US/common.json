@@ -76,5 +76,13 @@
   "game": "game",
   "excel": "excel",
   "qrcode": "qrcode",
-  "chat": "chat"
+  "chat": "chat",
+  "account-password-login": "account-password-login",
+  "phone-number-login": "phone-number-login",
+  "remeber": "remeber",
+  "title": "Remix Antd Admin",
+  "desc": "Base Remix for Admin with Antd",
+  "other-login": "other login",
+  "submit": "submit",
+  "phone-placeholder": "please input phone number"
 }

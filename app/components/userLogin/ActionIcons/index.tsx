@@ -1,5 +1,6 @@
 // components:vendor
 import * as _icons from "@ant-design/icons";
+import { Space } from "antd";
 
 const {
   AlipayCircleOutlined,
@@ -10,11 +11,14 @@ const {
 const ActionIcons = () => {
 
   return (
-    <>
-      <AlipayCircleOutlined key="AlipayCircleOutlined" />
-      <TaobaoCircleOutlined key="TaobaoCircleOutlined" />
-      <WeiboCircleOutlined key="WeiboCircleOutlined" />
-    </>
+    <span style={{ margin: '0 0 0 10' }}>
+      <Space>
+        <AlipayCircleOutlined key="AlipayCircleOutlined" />
+        <TaobaoCircleOutlined key="TaobaoCircleOutlined" />
+        <WeiboCircleOutlined key="WeiboCircleOutlined" />
+      </Space>
+    </span>
+
   );
 };
 

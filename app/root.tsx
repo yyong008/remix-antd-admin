@@ -108,7 +108,7 @@ export function ErrorBoundary() {
 
 
 
-let MainApp;
+let MainApp = App;
 if (process.env.NODE_ENV === 'development') {
   // const config = defineClientConfig({});
   // MainApp = withDevTools(App, config);
