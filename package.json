@@ -1,6 +1,6 @@
 {
   "name": "remix-antd-admin",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Remix Antd Admin",
   "type": "module",
   "keywords": [
@@ -90,6 +90,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "@remix-run/dev": "^2.0.1",
     "@remix-run/eslint-config": "^2.0.1",
     "@types/bcryptjs": "^2.4.4",
