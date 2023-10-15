@@ -52,6 +52,16 @@ import * as _icons from '@ant-design/icons';
 const { MoreOutlined } = _icons;
 ```
 
+## api checkhealth
+
+```ts
+export const loader: LoaderFunction = () => {
+  return new Response("Alive", { status: 200 });
+};
+```
+
+visit: `http://localhost:<your_port>/checkhealth`, if get `Alive`, this api server is alive。
+
 ## Support
 
 - [buy-me-a-coffee](https://github.com/yyong008/buy-me-a-coffee) If you think this project has helped you, please invite the author to have a cup of coffee, thank you for your support .

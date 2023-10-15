@@ -1,22 +1,17 @@
 // import type { ActionArgs } from "@remix-run/node";
 import type { LoaderFunctionArgs, LoaderFunction } from "@remix-run/node";
 
-import { Link, Outlet, useNavigate, useParams } from "@remix-run/react";
+import { Link, Outlet } from "@remix-run/react";
 import { useContext, useMemo, memo } from "react";
 import { json, redirect } from "@remix-run/node";
 
 // components:vendor
 
-import {
-  PageContainer,
-  ProLayout,
-  SettingDrawer,
-} from "@ant-design/pro-components";
-import { Dropdown } from "antd";
-import * as _icons from "@ant-design/icons";
+import { PageContainer, ProLayout } from "@ant-design/pro-components";
 
 // components
 import Footer from "~/components/Footer";
+import MenuFooterRender from "~/layout/MenuFooterRender";
 
 // context
 import SettingContext from "~/context/settingContext";
@@ -27,17 +22,14 @@ import { createRoute } from "~/components/SideBar";
 // hooks
 import { useTranslation } from "react-i18next";
 
-const langs = ["zh-CN", "en-US"];
+// layout
+import { SettingDrawerWrap } from "~/layout/SettingDrawerWrap";
+import { AvatarDropDown } from "~/layout/AvatarDropDown";
+import { createActionRenderWrap } from "~/layout/createActionsRender";
+import { config } from "~/layout/config";
+import { createTokens } from "~/layout/createToken";
 
-const {
-  GithubFilled,
-  InfoCircleFilled,
-  LogoutOutlined,
-  QuestionCircleFilled,
-  SettingOutlined,
-  TranslationOutlined,
-  UserOutlined,
-} = _icons;
+const langs = ["zh-CN", "en-US"];
 
 export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs) => {
   const { lang } = params;
@@ -48,165 +40,41 @@ export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs) => {
 };
 
 function AdminLayout() {
-  const navigate = useNavigate();
   const { t } = useTranslation();
   const value = useContext(SettingContext);
-  // const [userInfo] = useState<any>({});
-  // const submit = useSubmit();
-  const { lang } = useParams();
 
-  const choiceLang = (lang: string) => {
-    let p = location.pathname.split("/");
-    p[1] = lang || "en-US";
+  const routes = useMemo(() => createRoute(value.lang, t), [value.lang, t]);
 
-    navigate(p.join("/").trim(), {
-      replace: true,
-    });
-
-    value.setLang(lang || "en-US");
-    window.location.href = p.join("/").trim();
-  };
-
-  const routes = useMemo(() => {
-    return createRoute(value.lang, t);
-  }, [value.lang, t]);
-
-  const goGithub = () => {
-    let aTag: any = document.createElement("a");
-    aTag.setAttribute("href", "https://github.com/yyong008/remix-antd-admin");
-    aTag.setAttribute("target", "_blank");
-    aTag.click();
-    aTag = null;
-  };
-
-  const handleLogout = () => {
-    navigate(`/${lang}/user/login`);
-  };
   return (
     <PageContainer>
       <ProLayout
-        title="Remix/Antd/Admin"
-        logo="/remix.svg"
-        {...value.theme}
         {...routes}
-        layout="mix"
-        token={{
-          header: {
-            // colorBgHeader: value.theme.colorPrimary,
-          },
-          sider: {
-            // colorBgMenuItemSelected: "rgba(0, 0, 0, 0.027)",
-            colorTextMenuSelected: value.theme.colorPrimary,
-          },
-        }}
+        {...value.theme}
+        title={config.title}
+        logo={config.logo}
+        layout={config.layout as any}
+        token={createTokens(value)}
         ErrorBoundary={false}
         pageTitleRender={false}
-        // suppressSiderWhenMenuEmpty={userInfo && userInfo?.routes?.length === 0}
-        menu={{ defaultOpenAll: false, hideMenuWhenCollapsed: true }}
+        breadcrumbRender={false}
+        menu={config.menu}
         menuItemRender={(item, dom) => (
           <Link to={item.path as string}>{dom}</Link>
         )}
-        breadcrumbRender={false}
-        actionsRender={(props) => {
-          if (props.isMobile) return [];
-          return [
-            <InfoCircleFilled key="InfoCircleFilled" />,
-            <QuestionCircleFilled key="QuestionCircleFilled" />,
-            <GithubFilled key="GithubFilled" onClick={goGithub} />,
-            <Dropdown
-              key="lang"
-              menu={{
-                items: [
-                  {
-                    key: "en",
-                    label: "EN English",
-                    onClick: () => {
-                      choiceLang("en-US");
-                    },
-                  },
-                  {
-                    key: "cn",
-                    label: "CN 简体中文",
-                    onClick: () => {
-                      choiceLang("zh-CN");
-                    },
-                  },
-                ],
-              }}
-            >
-              <TranslationOutlined />
-            </Dropdown>,
-          ];
-        }}
+        actionsRender={createActionRenderWrap({ value })}
         avatarProps={{
-          src: "/images/user.jpg",
-          size: "small",
-          title: "magnesium-",
+          src: config.avatar.src,
+          size: config.avatar.size as any,
+          title: config.avatar.title,
           render: (_, dom) => {
-            return (
-              <Dropdown
-                menu={{
-                  items: [
-                    {
-                      key: "profile-center",
-                      icon: <UserOutlined />,
-                      label: t("personal-center"),
-                      onClick: () => {
-                        navigate("/");
-                      },
-                    },
-                    {
-                      key: "profile-settings",
-                      icon: <SettingOutlined />,
-                      label: t("personal-settings"),
-                      onClick: () => {
-                        navigate("/");
-                      },
-                    },
-                    {
-                      type: "divider",
-                    },
-                    {
-                      key: "logout",
-                      icon: <LogoutOutlined />,
-                      label: t("logout"),
-                      onClick: () => {
-                        handleLogout();
-                      },
-                    },
-                  ],
-                }}
-              >
-                {dom}
-              </Dropdown>
-            );
+            return <AvatarDropDown t={t} dom={dom} />;
           },
         }}
-        menuFooterRender={(props) => {
-          if (props?.collapsed) return undefined;
-          return (
-            <div
-              style={{
-                textAlign: "center",
-                paddingBlockStart: 12,
-              }}
-            >
-              <div>© 2023 Made with love</div>
-              <div>by Magnesium</div>
-            </div>
-          );
-        }}
+        menuFooterRender={MenuFooterRender}
         footerRender={() => <Footer />}
       >
         <Outlet />
-        <SettingDrawer
-          getContainer={() => document.body}
-          enableDarkTheme
-          onSettingChange={(settings: any) => {
-            value.setTheme(settings);
-          }}
-          settings={{ ...value.theme }}
-        />
+        <SettingDrawerWrap theme={value.theme} setTheme={value.setTheme} />
       </ProLayout>
     </PageContainer>
   );
