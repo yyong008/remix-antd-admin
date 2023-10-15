@@ -7,10 +7,10 @@ import type {
 } from "@remix-run/node";
 
 // core
-import { json } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
+
 // hooks
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import {
   useActionData,
   useFetcher,
@@ -20,6 +20,10 @@ import {
 
 // i18n:hooks
 import { useTranslation } from "react-i18next";
+
+// components
+import { ActionIcons } from "~/components/userLogin";
+import Footer from "~/components/Footer";
 
 // component:vendor
 import {
@@ -31,15 +35,13 @@ import {
 import { message, Tabs, ConfigProvider } from "antd";
 import * as _icons from "@ant-design/icons";
 
-const { LockOutlined, MobileOutlined, UserOutlined } = _icons;
-
-// components
-import { ActionIcons } from "~/components/userLogin";
-import Footer from "~/components/Footer";
-
 // styles
 import loginStyleUrl from "~/styles/login.css";
+
+// context
 import SettingContext from "~/context/settingContext";
+
+const { LockOutlined, MobileOutlined, UserOutlined } = _icons;
 
 export const meta: MetaFunction = () => {
   return [

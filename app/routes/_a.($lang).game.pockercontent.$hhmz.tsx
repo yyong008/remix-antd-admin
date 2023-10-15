@@ -70,6 +70,7 @@ export default function PockerContentRoute() {
     } else {
       toast("猜测并选择一个扑克");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hhmz, navigate]);
 
   useEffect(() => {

@@ -1,7 +1,5 @@
 // type
 import type {
-  LoaderFunctionArgs,
-  LoaderFunction,
   MetaFunction,
 } from "@remix-run/node";
 

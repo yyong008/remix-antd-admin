@@ -59,7 +59,7 @@ const onInit = (reactFlowInstance: any) =>
   console.log("flow loaded:", reactFlowInstance);
 
 const OverviewFlow = () => {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes as any);
+  const [nodes, , onNodesChange] = useNodesState(initialNodes as any);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const onConnect = useCallback(
     (params: any) => setEdges((eds) => addEdge(params, eds)),

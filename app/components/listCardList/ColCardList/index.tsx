@@ -6,7 +6,7 @@ import { useState } from "react";
 const { SettingOutlined, EditOutlined, EllipsisOutlined } = _icons;
 
 export default function ColCardList() {
-  const [data, setData] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
+  const [data] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
   return (
     <>
       {data.map((_, i) => {

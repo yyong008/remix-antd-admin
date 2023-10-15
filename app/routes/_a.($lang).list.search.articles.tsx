@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 //types
-import { MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 
 // components:vendor
 import { Row } from "antd";

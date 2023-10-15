@@ -7,9 +7,6 @@ import allotmentStyles from "allotment/dist/style.css";
 import { Button } from "antd";
 import React from "react";
 
-// utils
-import { nanoid } from "nanoid";
-
 export const links: LinksFunction = () => {
   return [
     ...(cssBundleHref
@@ -21,13 +18,13 @@ export const links: LinksFunction = () => {
   ];
 };
 
-const ComponentA = () => {
-  return <div>This is ComponentA</div>;
-};
+// const ComponentA = () => {
+//   return <div>This is ComponentA</div>;
+// };
 
-const ComponentB = () => {
-  return <div>This is ComponentB</div>;
-};
+// const ComponentB = () => {
+//   return <div>This is ComponentB</div>;
+// };
 
 const App = () => {
   type Panel = {
@@ -37,13 +34,13 @@ const App = () => {
 
   const [panels, setPanels] = React.useState<Panel[]>([]);
 
-  const openPane = () => {
-    const id = nanoid(3);
-    const panel = { label: "Panel-" + id, id };
-    const newPanels = panels.concat(panel);
-    console.log(newPanels);
-    setPanels(newPanels);
-  };
+  // const openPane = () => {
+  //   const id = nanoid(3);
+  //   const panel = { label: "Panel-" + id, id };
+  //   const newPanels = panels.concat(panel);
+  //   console.log(newPanels);
+  //   setPanels(newPanels);
+  // };
 
   const closePane = (pid: string) => {
     const newPanels = panels.filter((_p) => _p.id !== pid);

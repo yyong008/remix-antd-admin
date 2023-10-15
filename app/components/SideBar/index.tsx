@@ -14,7 +14,7 @@ const {
   HeartOutlined,
   HighlightOutlined,
   KeyOutlined,
-  MessageOutlined,
+  // MessageOutlined,
   ProfileOutlined,
   QrcodeOutlined,
   TableOutlined,

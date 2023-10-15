@@ -1,5 +1,5 @@
 // types
-import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
 // cores
 import { json } from "@remix-run/node";

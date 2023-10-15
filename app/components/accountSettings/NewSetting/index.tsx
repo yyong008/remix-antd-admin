@@ -10,8 +10,9 @@ const NewSetting = ({ dataSource }: any) => {
         itemLayout="horizontal"
         dataSource={dataSource}
         renderItem={(item: any) => (
-          <List.Item actions={[<Switch />]}>
+          <List.Item actions={[<Switch key={item.id} />]}>
             <List.Item.Meta
+              // eslint-disable-next-line jsx-a11y/anchor-is-valid
               title={<a href="#">{item.name?.last}</a>}
               description={item.description}
             />

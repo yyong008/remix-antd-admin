@@ -31,10 +31,12 @@
     "build": "remix build",
     "coverage": "vitest run --coverage",
     "dev": "remix dev --manual",
+    "lint": "eslint ./app",
     "format": "prettier --write app/ public/locales",
     "start": "remix-serve ./build/index.js",
     "test": "vitest",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.17.0",
@@ -103,6 +105,7 @@
     "@types/react-dom": "^18.2.8",
     "@types/styled-components": "^5.1.28",
     "eslint": "^8.50.0",
+    "husky": "^8.0.3",
     "prettier": "^3.0.3",
     "remix-development-tools": "^3.0.3",
     "typescript": "^5.2.2",

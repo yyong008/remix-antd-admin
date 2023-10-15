@@ -5,10 +5,10 @@ import { useState } from "react";
 import { Card, Dropdown, Radio, Space } from "antd";
 import * as _icons from "@ant-design/icons";
 
-const { MoreOutlined } = _icons;
-
 // components
 import MainPie from "../../common/Pie";
+
+const { MoreOutlined } = _icons;
 
 export default function SealPercent() {
   const [size, setSize] = useState("all");

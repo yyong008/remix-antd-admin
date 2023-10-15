@@ -1,12 +1,17 @@
 // import type { ActionArgs } from "@remix-run/node";
-import { useContext, useMemo, useState, memo, useEffect } from "react";
+import type {
+  LoaderFunctionArgs,
+  LoaderFunction,
+} from "@remix-run/node";
+
 import {
   Link,
   Outlet,
   useNavigate,
   useParams,
-  useSubmit,
 } from "@remix-run/react";
+import { useContext, useMemo, memo } from "react";
+import { json, redirect } from "@remix-run/node";
 
 // components:vendor
 
@@ -29,12 +34,6 @@ import { createRoute } from "~/components/SideBar";
 
 // hooks
 import { useTranslation } from "react-i18next";
-import {
-  LoaderFunctionArgs,
-  LoaderFunction,
-  json,
-  redirect,
-} from "@remix-run/node";
 
 const langs = ["zh-CN", "en-US"];
 
@@ -123,6 +122,7 @@ function AdminLayout() {
             <QuestionCircleFilled key="QuestionCircleFilled" />,
             <GithubFilled key="GithubFilled" onClick={goGithub} />,
             <Dropdown
+              key="lang"
               menu={{
                 items: [
                   {
@@ -149,7 +149,7 @@ function AdminLayout() {
         avatarProps={{
           src: "/images/user.jpg",
           size: "small",
-          title: "小二",
+          title: "magnesium-",
           render: (_, dom) => {
             return (
               <Dropdown

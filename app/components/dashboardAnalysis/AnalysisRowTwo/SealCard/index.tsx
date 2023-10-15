@@ -15,7 +15,7 @@ import List from "./List";
 
 export default function SealCard() {
   const [tab, setTab] = useState("tab1");
-  const [idx, setIdx] = useState(0);
+  const [setIdx] = useState(0);
   const { token } = theme.useToken();
   return (
     <ProCard>

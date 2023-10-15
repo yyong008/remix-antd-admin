@@ -1,7 +1,3 @@
-// core
-import { useMemo } from "react";
-
-// comopnents
 import ReactEchart from "echarts-for-react";
 
 export default function DynamicData() {
@@ -24,64 +20,62 @@ export default function DynamicData() {
     data.push(randomData());
   }
 
-  let option = useMemo(() => {
-    return {
-      grid: {
-        top: "0%",
-        left: "0%",
-        right: "0%",
-        bottom: "0%",
-        containLabel: true,
+  let option = {
+    grid: {
+      top: "0%",
+      left: "0%",
+      right: "0%",
+      bottom: "0%",
+      containLabel: true,
+    },
+    tooltip: {
+      trigger: "axis",
+      formatter: function (params: any) {
+        params = params[0];
+        var date = new Date(params.name);
+        return (
+          date.getDate() +
+          "/" +
+          (date.getMonth() + 1) +
+          "/" +
+          date.getFullYear() +
+          " : " +
+          params.value[1]
+        );
       },
-      tooltip: {
-        trigger: "axis",
-        formatter: function (params: any) {
-          params = params[0];
-          var date = new Date(params.name);
-          return (
-            date.getDate() +
-            "/" +
-            (date.getMonth() + 1) +
-            "/" +
-            date.getFullYear() +
-            " : " +
-            params.value[1]
-          );
-        },
-        axisPointer: {
-          animation: false,
-        },
+      axisPointer: {
+        animation: false,
       },
-      xAxis: {
-        type: "time",
-        splitLine: {
-          show: false,
-        },
-        axisLabel: {
-          interval: 0,
-          rotate: 40,
-        },
+    },
+    xAxis: {
+      type: "time",
+      splitLine: {
+        show: false,
       },
-      yAxis: {
-        type: "value",
-        splitLine: {
-          show: false,
-        },
-        axisLabel: {
-          interval: 0,
-          rotate: 40,
-        },
+      axisLabel: {
+        interval: 0,
+        rotate: 40,
       },
-      series: [
-        {
-          name: "Fake Data",
-          type: "line",
-          showSymbol: false,
-          data: data,
-        },
-      ],
-    };
-  }, [data]);
+    },
+    yAxis: {
+      type: "value",
+      splitLine: {
+        show: false,
+      },
+      axisLabel: {
+        interval: 0,
+        rotate: 40,
+      },
+    },
+    series: [
+      {
+        name: "Fake Data",
+        type: "line",
+        showSymbol: false,
+        data: data,
+      },
+    ],
+  };
   return (
     <ReactEchart option={option} style={{ width: "100%", height: "300px" }} />
   );

@@ -20,6 +20,7 @@ const ReactQrCode = ({ url }: any) => {
 
   useEffect(() => {
     drawQrCode();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div ref={cRef}></div>;

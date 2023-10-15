@@ -1,9 +1,7 @@
 // type
 import type { CropperRef } from "react-advanced-cropper";
-import type { LoaderFunction } from "@remix-run/node";
 // core
 import { useRef, useState } from "react";
-import { json } from "@remix-run/node";
 
 // components:vendor
 import {
@@ -20,9 +18,6 @@ import { Cropper } from "react-advanced-cropper";
 
 // css
 import reactAdvancedCropperStyles from "react-advanced-cropper/dist/style.css";
-
-//data
-import { useLoaderData } from "@remix-run/react";
 
 export const links = () => {
   return [

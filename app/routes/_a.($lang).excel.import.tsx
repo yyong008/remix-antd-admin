@@ -9,8 +9,8 @@ import { Button, message, Table, Upload } from "antd";
 const Dragger = Upload.Dragger;
 
 const Preview = () => {
-  const [tableData, setTableData] = useState([]);
-  const [tableHeader, setTableHeader] = useState([]);
+  const [tableData] = useState([]);
+  const [tableHeader] = useState([]);
   const [data, setData] = useState({});
 
   const uploadFilesChange = (file: any) => {

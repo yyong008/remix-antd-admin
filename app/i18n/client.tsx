@@ -1,5 +1,4 @@
 import i18next from "i18next";
-import { resolve } from "node:path";
 
 import Backend from "i18next-http-backend";
 import { getInitialNamespaces } from "remix-i18next";

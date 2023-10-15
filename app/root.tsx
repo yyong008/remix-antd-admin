@@ -1,4 +1,6 @@
-import { LoaderFunctionArgs, type LinksFunction, json } from "@remix-run/node";
+import type { LoaderFunctionArgs, LinksFunction } from "@remix-run/node";
+
+import { json } from "@remix-run/node";
 
 // core
 import {

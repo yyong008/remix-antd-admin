@@ -1,7 +1,7 @@
 // 主要在世界上使用的四种扑克牌套组：方块（◆），梅花（♣），红心（♥）和黑桃（♠），每张纸牌都有对应的Unicode字符。
 // 提示💡：除前5个表情符号外，其余均为Unicode字符，而不是emoji。
 
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useCallback } from "react";
 import confetti from "canvas-confetti";
 import { pockerEmojis } from "~/data/pocker";
 

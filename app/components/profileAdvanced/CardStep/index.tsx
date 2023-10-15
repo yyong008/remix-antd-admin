@@ -2,8 +2,7 @@
 import type { StepsProps } from "antd";
 
 // components:vendor
-import { Card } from "antd";
-import { Popover, Steps } from "antd";
+import { Card, Popover, Steps } from "antd";
 
 const customDot: StepsProps["progressDot"] = (dot, { status, index }) => (
   <Popover

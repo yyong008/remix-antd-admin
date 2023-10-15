@@ -1,4 +1,4 @@
-import { createCookieSessionStorage, redirect } from "@remix-run/node";
+import { createCookieSessionStorage } from "@remix-run/node";
 
 // auth
 import { Authenticator } from "remix-auth";
@@ -71,6 +71,6 @@ export async function routeAuthFailure({ request, params }: any, json: any) {
   const session = await sessionStorage.getSession(
     request.headers.get("Cookie"),
   );
-  const error = session.get(auth.sessionErrorKey) as LoaderError;
+  const error = session.get(auth.sessionErrorKey);
   return json({ error });
 }
