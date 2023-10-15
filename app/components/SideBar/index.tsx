@@ -337,6 +337,19 @@ export function createRoute(
           ],
         },
         {
+          key: "stack",
+          icon: <CoffeeOutlined />,
+          name: "stack",
+          path: `${lang}/stack`,
+          children: [
+            {
+              key: "stack-rxjs",
+              path: "rxjs/keybr",
+              name: "RxJS",
+            },
+          ],
+        },
+        {
           key: "qrcode",
           icon: <QrcodeOutlined />,
           name: t("qrcode"),

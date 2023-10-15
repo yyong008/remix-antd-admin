@@ -23,6 +23,7 @@ import Loading from "./components/FullScreen";
 // css
 import { cssBundleHref } from "@remix-run/css-bundle";
 import globalStyle from "~/styles/global.css";
+import tailwind from "~/styles/tailwind.css";
 // import rdtStylesheet from "remix-development-tools/index.css";
 
 // utils/dev-tools
@@ -38,11 +39,16 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 }
 
 export const links: LinksFunction = () => {
-  const _links = [];
-  _links.push({
-    rel: "stylesheet",
-    href: globalStyle,
-  });
+  const _links = [
+    {
+      rel: "stylesheet",
+      href: globalStyle,
+    },
+    {
+      rel: "stylesheet",
+      href: tailwind,
+    },
+  ];
 
   if (cssBundleHref) {
     _links.push({ rel: "stylesheet", href: cssBundleHref });
