@@ -2,7 +2,7 @@
 import type { LoaderFunctionArgs, LoaderFunction } from "@remix-run/node";
 
 import { Link, Outlet } from "@remix-run/react";
-import { useContext, useMemo, memo } from "react";
+import { useContext, useMemo, memo, useState } from "react";
 import { json, redirect } from "@remix-run/node";
 
 // components:vendor
@@ -42,6 +42,7 @@ export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs) => {
 function AdminLayout() {
   const { t } = useTranslation();
   const value = useContext(SettingContext);
+  const [pathname, setPathname] = useState(location.pathname);
 
   const routes = useMemo(() => createRoute(value.lang, t), [value.lang, t]);
 
@@ -58,8 +59,18 @@ function AdminLayout() {
         pageTitleRender={false}
         breadcrumbRender={false}
         menu={config.menu}
+        location={{
+          pathname,
+        }}
         menuItemRender={(item, dom) => (
-          <Link to={item.path as string}>{dom}</Link>
+          <Link
+            to={item.path!}
+            onClick={() => {
+              setPathname(item.path || "/welcome");
+            }}
+          >
+            {dom}
+          </Link>
         )}
         actionsRender={createActionRenderWrap({ value })}
         avatarProps={{

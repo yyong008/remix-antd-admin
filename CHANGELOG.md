@@ -1,5 +1,11 @@
 # remix-antd-admin
 
+## 0.0.9
+
+### Patch Changes
+
+- location
+
 ## 0.0.8
 
 ### Patch Changes
