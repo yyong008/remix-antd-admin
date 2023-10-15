@@ -1,5 +1,11 @@
 # remix-antd-admin
 
+## 0.0.10
+
+### Patch Changes
+
+- allotment
+
 ## 0.0.9
 
 ### Patch Changes

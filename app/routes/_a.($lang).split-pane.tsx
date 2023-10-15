@@ -4,8 +4,9 @@ import { Allotment } from "allotment";
 import { cssBundleHref } from "@remix-run/css-bundle";
 
 import allotmentStyles from "allotment/dist/style.css";
-import { Button } from "antd";
+import { Button, Col, Row } from "antd";
 import React from "react";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 export const links: LinksFunction = () => {
   return [
@@ -51,28 +52,60 @@ const App = () => {
     }
   };
   return (
-    <div style={{ width: "500px", height: "1000px" }}>
-      <Allotment vertical>
-        <Allotment.Pane minSize={100}>tespiego</Allotment.Pane>
-        <Allotment.Pane minSize={100}>
-          <Allotment snap>
-            {panels.map((p) => (
-              <Allotment.Pane key={p.id} minSize={100} snap={false}>
-                <div
-                  style={{
-                    height: "100%",
-                    backgroundColor: "#ccc",
-                    padding: "8px",
-                  }}
-                >
-                  {p.label} <Button onClick={(e) => closePane(p.id)}>X</Button>
-                </div>
+    <PageContainer title="Allotment Split Pane">
+      <Row gutter={16}>
+        <Col span={12}>
+          <ProCard style={{ height: "600px" }}>
+            <Allotment vertical>
+              <Allotment.Pane minSize={100}>竖向</Allotment.Pane>
+              <Allotment.Pane minSize={100}>
+                <Allotment snap>
+                  {panels.map((p) => (
+                    <Allotment.Pane key={p.id} minSize={100} snap={false}>
+                      <div
+                        style={{
+                          height: "100%",
+                          backgroundColor: "#ccc",
+                          padding: "8px",
+                        }}
+                      >
+                        {p.label}{" "}
+                        <Button onClick={(e) => closePane(p.id)}>X</Button>
+                      </div>
+                    </Allotment.Pane>
+                  ))}
+                </Allotment>
               </Allotment.Pane>
-            ))}
-          </Allotment>
-        </Allotment.Pane>
-      </Allotment>
-    </div>
+            </Allotment>
+          </ProCard>
+        </Col>
+        <Col span={12}>
+          <ProCard style={{ height: "600px" }}>
+            <Allotment>
+              <Allotment.Pane minSize={100}>横向</Allotment.Pane>
+              <Allotment.Pane minSize={100}>
+                <Allotment snap>
+                  {panels.map((p) => (
+                    <Allotment.Pane key={p.id} minSize={100} snap={false}>
+                      <div
+                        style={{
+                          height: "100%",
+                          backgroundColor: "#ccc",
+                          padding: "8px",
+                        }}
+                      >
+                        {p.label}{" "}
+                        <Button onClick={(e) => closePane(p.id)}>X</Button>
+                      </div>
+                    </Allotment.Pane>
+                  ))}
+                </Allotment>
+              </Allotment.Pane>
+            </Allotment>
+          </ProCard>
+        </Col>
+      </Row>
+    </PageContainer>
   );
 };
 
