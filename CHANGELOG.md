@@ -1,5 +1,11 @@
 # remix-antd-admin
 
+## 0.0.7
+
+### Patch Changes
+
+- routes
+
 ## 0.0.6
 
 ### Patch Changes

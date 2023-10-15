@@ -24,7 +24,7 @@ export default function GamePockerGuess() {
   const navigate = useNavigate();
   const { lang } = useParams();
   const handleJump = (k: string) => {
-    navigate("/game/" + lang + "/pockercontent/" + k);
+    navigate("/" + lang + "/game/pockercontent/" + k);
   };
   return (
     <div className="card-container">

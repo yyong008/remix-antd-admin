@@ -1,6 +1,6 @@
 {
   "name": "remix-antd-admin",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A Remix Antd Admin",
   "type": "module",
   "keywords": [
@@ -45,6 +45,7 @@
     "@ant-design/cssinjs": "^1.17.0",
     "@ant-design/icons": "^5.2.6",
     "@ant-design/pro-components": "^2.6.28",
+    "@ant-design/pro-layout": "^7.17.8",
     "@ant-design/pro-skeleton": "^2.1.7",
     "@bytemd/plugin-gfm": "^1.21.0",
     "@bytemd/react": "^1.21.0",
