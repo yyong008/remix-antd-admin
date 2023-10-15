@@ -1,7 +1,5 @@
 // type
-import type {
-  MetaFunction,
-} from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 
 // components:vendor
 import { Button, Space } from "antd";

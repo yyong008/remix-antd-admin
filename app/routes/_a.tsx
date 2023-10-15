@@ -1,15 +1,7 @@
 // import type { ActionArgs } from "@remix-run/node";
-import type {
-  LoaderFunctionArgs,
-  LoaderFunction,
-} from "@remix-run/node";
+import type { LoaderFunctionArgs, LoaderFunction } from "@remix-run/node";
 
-import {
-  Link,
-  Outlet,
-  useNavigate,
-  useParams,
-} from "@remix-run/react";
+import { Link, Outlet, useNavigate, useParams } from "@remix-run/react";
 import { useContext, useMemo, memo } from "react";
 import { json, redirect } from "@remix-run/node";
 

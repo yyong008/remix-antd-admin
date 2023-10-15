@@ -1,8 +1,5 @@
 // types
-import type {
-  LinksFunction,
-  MetaFunction,
-} from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 
 // core
 import { PageContainer } from "@ant-design/pro-components";
