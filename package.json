@@ -1,6 +1,6 @@
 {
   "name": "remix-antd-admin",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A Remix Antd Admin",
   "type": "module",
   "keywords": [
@@ -27,6 +27,7 @@
     "url": "https://github.com/yyong008/remix-antd-admin.git"
   },
   "author": "Magnesium",
+  "license": "MIT",
   "scripts": {
     "build": "remix build",
     "coverage": "vitest run --coverage",

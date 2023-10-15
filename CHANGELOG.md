@@ -1,5 +1,11 @@
 # remix-antd-admin
 
+## 0.0.13
+
+### Patch Changes
+
+- "license": "MIT",
+
 ## 0.0.12
 
 ### Patch Changes
