@@ -1,6 +1,6 @@
 {
   "name": "remix-antd-admin",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A Remix Antd Admin",
   "type": "module",
   "keywords": [
@@ -36,6 +36,9 @@
     "start": "remix-serve ./build/index.js",
     "test": "vitest",
     "typecheck": "tsc",
+    "commit": "git-cz",
+    "changeset": "changeset",
+    "version": "changeset version",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -104,6 +107,8 @@
     "@types/react-copy-to-clipboard": "^5.0.5",
     "@types/react-dom": "^18.2.8",
     "@types/styled-components": "^5.1.28",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.50.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.0",
@@ -127,5 +132,10 @@
       "prettier --write",
       "eslint --fix"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }
