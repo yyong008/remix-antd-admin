@@ -4,7 +4,7 @@ export const config = {
   layout: "mix",
   menu: {
     defaultOpenAll: false,
-    hideMenuWhenCollapsed: true,
+    // hideMenuWhenCollapsed: true,
   },
   avatar: {
     src: "/images/user.jpg",

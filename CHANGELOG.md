@@ -1,5 +1,11 @@
 # remix-antd-admin
 
+## 0.0.11
+
+### Patch Changes
+
+- hide menu when collapsed false
+
 ## 0.0.10
 
 ### Patch Changes
