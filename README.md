@@ -30,6 +30,8 @@ Considering that Remix has an excellent design in the routing system, most of th
 ```sh
 # clone the project
 git clone https://github.com/yyong008/remix-antd-admin.git
+# or gitee
+git clone https://gitee.com/yyong008/remix-antd-admin.git
 
 # install deps
 pnpm install
