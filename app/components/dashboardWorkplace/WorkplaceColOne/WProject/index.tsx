@@ -26,12 +26,9 @@ export default function WProject({ p }: any) {
 
 export function WPT({ data }: any) {
   return (
-    <Card
-      title="进行中的项目"
-      extra={<Link to={"/"}>全部项目</Link>}
-    >
+    <Card title="进行中的项目" extra={<Link to={"/"}>全部项目</Link>}>
       {data.wProjects.map((p: any, index: number) => (
-        <Card.Grid key={index} style={{ padding: '10px 20px'}}>
+        <Card.Grid key={index} style={{ padding: "10px 20px" }}>
           {data.wProjects.map((p: any, index: number) => (
             <Card.Grid key={index}>
               <WProject p={p} />

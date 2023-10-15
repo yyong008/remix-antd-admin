@@ -18,8 +18,7 @@ export default function DynamicList({ data }: any) {
                 <Space>
                   <span>{"五月天"}</span> 在
                   <div color={token.colorPrimary}> {"高逼格设计天团"} </div>
-                  新建项目{" "}
-                  <div color={token.colorPrimary}> {"六月迭代"} </div>
+                  新建项目 <div color={token.colorPrimary}> {"六月迭代"} </div>
                 </Space>
                 <div style={{ margin: "10px 0px" }}>几分钟前</div>
               </div>

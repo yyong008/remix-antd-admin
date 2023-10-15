@@ -1,7 +1,7 @@
 // core
 
 // components:vendor
-import * as _icons from '@ant-design/icons'
+import * as _icons from "@ant-design/icons";
 
 import { Card, Divider, Row, Col } from "antd";
 
@@ -13,48 +13,72 @@ const { ClusterOutlined, ContactsOutlined, HomeOutlined } = _icons;
 export default function PersonalCard({ team, tags, userInfo }: any) {
   return (
     <Card>
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}>
-        <div style={{
-          width: '104px',
-          height: '104px',
-          borderRadius: '50%',
-        }}>
-          <img src="/remix.png" alt="" style={{
-            width: '100%',
-            height: '100%',
-          }} />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            width: "104px",
+            height: "104px",
+            borderRadius: "50%",
+          }}
+        >
+          <img
+            src="/remix.png"
+            alt=""
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          />
         </div>
-        <div style={{
-          marginBottom: '4px',
-          color: 'rgba(0, 0, 0, 0.85)',
-          fontWeight: 500,
-          fontSize: '20px',
-          lineHeight: '28px',
-        }}>{userInfo.name}</div>
-        <div style={{
-          boxSizing: 'border-box',
-          marginBottom: '24px',
-          textAlign: 'center',
-        }}>{userInfo.desc}</div>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '100%',
-        }}>
-          <div style={{
-            display: 'flex',
-            flexWrap: 'nowrap',
-            justifyContent: 'flex-start',
-            margin: '0 0 10px 0',
-          }}>
+        <div
+          style={{
+            marginBottom: "4px",
+            color: "rgba(0, 0, 0, 0.85)",
+            fontWeight: 500,
+            fontSize: "20px",
+            lineHeight: "28px",
+          }}
+        >
+          {userInfo.name}
+        </div>
+        <div
+          style={{
+            boxSizing: "border-box",
+            marginBottom: "24px",
+            textAlign: "center",
+          }}
+        >
+          {userInfo.desc}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "nowrap",
+              justifyContent: "flex-start",
+              margin: "0 0 10px 0",
+            }}
+          >
             <ContactsOutlined />
-            <div style={{
-              marginLeft: '10px',
-            }}>{userInfo.contacts}</div>
+            <div
+              style={{
+                marginLeft: "10px",
+              }}
+            >
+              {userInfo.contacts}
+            </div>
           </div>
           <div>
             <ClusterOutlined />
@@ -115,6 +139,6 @@ export default function PersonalCard({ team, tags, userInfo }: any) {
           </Row>
         </div>
       </div>
-    </Card >
+    </Card>
   );
 }

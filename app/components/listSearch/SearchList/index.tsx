@@ -60,13 +60,7 @@ export default () => {
           ],
         },
         extra: {
-          render: () => (
-            <img
-              width={272}
-              alt="logo"
-              src="/images/bear.png"
-            />
-          ),
+          render: () => <img width={272} alt="logo" src="/images/bear.png" />,
         },
         content: {
           render: () => {

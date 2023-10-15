@@ -45,7 +45,7 @@ export const links: LinksFunction = () => {
       href: overviewcssStyleUrl,
     },
   ];
-}
+};
 
 const nodeTypes = {
   custom: CustomNode,
@@ -63,7 +63,7 @@ const OverviewFlow = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const onConnect = useCallback(
     (params: any) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges]
+    [setEdges],
   );
 
   // we are using a bit of a shortcut here to adjust the edge type

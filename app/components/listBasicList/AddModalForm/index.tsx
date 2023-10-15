@@ -1,5 +1,3 @@
-
-
 import {
   ModalForm,
   ProFormText,
@@ -12,7 +10,7 @@ import { Button } from "antd";
 // icons
 import * as _icons from "@ant-design/icons";
 
-const { PlusOutlined } = _icons
+const { PlusOutlined } = _icons;
 
 const AddModalForm = function () {
   return (

@@ -2,7 +2,7 @@ import { useState } from "react";
 
 // xlsx
 import * as XLSX from "xlsx";
-import ExportJsonExcel from 'js-export-excel';
+import ExportJsonExcel from "js-export-excel";
 
 import { Button, message, Table, Upload } from "antd";
 
@@ -26,7 +26,7 @@ const Preview = () => {
         for (const sheet in workbook.Sheets) {
           if (workbook.Sheets.hasOwnProperty(sheet)) {
             newData[sheet] = newData[sheet].concat(
-              XLSX.utils.sheet_to_json(workbook.Sheets[sheet])
+              XLSX.utils.sheet_to_json(workbook.Sheets[sheet]),
             );
           }
         }
@@ -44,14 +44,14 @@ const Preview = () => {
     let dataTable: any = [];
     let option: any = {};
     dataTable = data;
-    option.fileName = '下载文档';
+    option.fileName = "下载文档";
     option.datas = [
       {
         sheetData: dataTable,
-        sheetName: '安全组',
-        sheetFilter: ['规则协议', '端口', '来源', '策略', '备注', '修改时间'],
-        sheetHeader: ['规则协议', '端口', '来源', '策略', '备注', '修改时间'],
-      }
+        sheetName: "安全组",
+        sheetFilter: ["规则协议", "端口", "来源", "策略", "备注", "修改时间"],
+        sheetHeader: ["规则协议", "端口", "来源", "策略", "备注", "修改时间"],
+      },
     ];
     let toExcel = new ExportJsonExcel(option);
     toExcel.saveExcel();
@@ -77,10 +77,7 @@ const Preview = () => {
       >
         下载
       </Button>
-      <Table
-        columns={tableHeader}
-        dataSource={tableData}
-      />
+      <Table columns={tableHeader} dataSource={tableData} />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 // components: vendor
-import * as _icons from '@ant-design/icons';
+import * as _icons from "@ant-design/icons";
 
-const { CaretUpOutlined, CaretDownOutlined } = _icons
+const { CaretUpOutlined, CaretDownOutlined } = _icons;
 
 export const UpDown = ({ item }: any) => {
   return (

@@ -1,6 +1,6 @@
-import type { RouterTypes } from '@ant-design/pro-layout/lib/typings';
+import type { RouterTypes } from "@ant-design/pro-layout/lib/typings";
 
-import * as _icons from '@ant-design/icons';
+import * as _icons from "@ant-design/icons";
 
 const {
   BorderHorizontalOutlined,
@@ -20,10 +20,13 @@ const {
   TableOutlined,
   UserOutlined,
   WarningOutlined,
-
 } = _icons;
 
-export function createRoute(lang: string, t: any, _routes?: any[]): { route: RouterTypes } {
+export function createRoute(
+  lang: string,
+  t: any,
+  _routes?: any[],
+): { route: RouterTypes } {
   return {
     route: {
       path: `/`,
@@ -98,7 +101,7 @@ export function createRoute(lang: string, t: any, _routes?: any[]): { route: Rou
               path: "sport",
               name: t("sport"),
             },
-          ]
+          ],
         },
         // {
         //   key: "chat",
@@ -330,7 +333,7 @@ export function createRoute(lang: string, t: any, _routes?: any[]): { route: Rou
               key: "pocker-guess",
               path: "pocker-guess",
               name: t("pocker-guess"),
-            }
+            },
           ],
         },
         {
@@ -361,7 +364,7 @@ export function createRoute(lang: string, t: any, _routes?: any[]): { route: Rou
               key: "antd",
               path: "antd",
               name: t("calendar-antd"),
-            }
+            },
           ],
         },
       ],

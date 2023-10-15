@@ -4,7 +4,7 @@
 import { List, theme } from "antd";
 import { ProCard } from "@ant-design/pro-components";
 
-import * as _icons from '@ant-design/icons'
+import * as _icons from "@ant-design/icons";
 const {
   AlipayOutlined,
   DingdingOutlined,

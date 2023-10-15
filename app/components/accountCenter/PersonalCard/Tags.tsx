@@ -6,9 +6,9 @@ import React, { useEffect, useRef, useState } from "react";
 
 // components
 import { Space, Input, Tag, Tooltip, theme } from "antd";
-import * as _icons from '@ant-design/icons';
+import * as _icons from "@ant-design/icons";
 
-const { PlusOutlined } = _icons; 
+const { PlusOutlined } = _icons;
 
 const Tags: React.FC = ({ ts }: any) => {
   const { token } = theme.useToken();

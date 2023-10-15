@@ -9,7 +9,11 @@ import { Space } from "antd";
 import { PageContainer } from "@ant-design/pro-components";
 
 // components
-import { MonitorRowOne, MonitorRowTwo, MonitorRowThree } from "~/components/dashboardMonitor";
+import {
+  MonitorRowOne,
+  MonitorRowTwo,
+  MonitorRowThree,
+} from "~/components/dashboardMonitor";
 
 export const meta: MetaFunction = () => {
   return [

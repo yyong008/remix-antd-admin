@@ -31,7 +31,8 @@ const data = [
 
 const op_data = [
   {
-    content: "增加身体活动：尽量每天安排一定时间进行身体活动，如散步、慢跑、游泳或参加健身课程。也可以尝试使用站立式办公桌或定期休息来活动身体。",
+    content:
+      "增加身体活动：尽量每天安排一定时间进行身体活动，如散步、慢跑、游泳或参加健身课程。也可以尝试使用站立式办公桌或定期休息来活动身体。",
   },
   {
     content:
@@ -46,15 +47,16 @@ const op_data = [
       "均衡饮食：保持均衡的饮食，摄入足够的营养素，包括蛋白质、维生素和矿物质，以支持身体的健康和能量。",
   },
   {
-    content: "设立目标和规划：制定合理的运动目标，并制定计划和时间表来确保每天获得足够的身体活动。",
-  }
+    content:
+      "设立目标和规划：制定合理的运动目标，并制定计划和时间表来确保每天获得足够的身体活动。",
+  },
 ];
 
 const HealthRoute: React.FC = () => {
   return (
     <PageContainer title={false}>
       <h3>
-       作为程序员，长时间进行电脑工作和缺乏身体活动可能导致一些与缺乏运动和体能下降相关的常见问题。以下是一些与缺乏运动和体能下降相关的常见问题： 
+        作为程序员，长时间进行电脑工作和缺乏身体活动可能导致一些与缺乏运动和体能下降相关的常见问题。以下是一些与缺乏运动和体能下降相关的常见问题：
       </h3>
       <List
         grid={{
@@ -89,7 +91,9 @@ const HealthRoute: React.FC = () => {
         dataSource={op_data}
         renderItem={(item) => (
           <List.Item>
-            <Card title={false} style={{ minHeight: "130px" }}>{item.content}</Card>
+            <Card title={false} style={{ minHeight: "130px" }}>
+              {item.content}
+            </Card>
           </List.Item>
         )}
       />

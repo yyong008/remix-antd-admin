@@ -73,7 +73,10 @@ export default function PockerItem({ num, hs, guess, status }: IITem) {
   }, [num, guess]);
 
   return (
-    <div className={`pockeritem-container animate__animated animate__backInDown`} style={styles()}>
+    <div
+      className={`pockeritem-container animate__animated animate__backInDown`}
+      style={styles()}
+    >
       <div className="pockeritem-guess">
         <div className="pockeritem-title">猜测扑克牌：</div>
         <div className="pocker-guess-item">

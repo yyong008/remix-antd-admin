@@ -6,7 +6,7 @@ import React from "react";
 
 // components:vendor
 import { Tabs } from "antd";
-import { json } from '@remix-run/node'
+import { json } from "@remix-run/node";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 // components

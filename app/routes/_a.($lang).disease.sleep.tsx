@@ -31,7 +31,8 @@ const data = [
 
 const op_data = [
   {
-    content: "养成良好的睡眠习惯：建立规律的作息时间，尽量在相同的时间上床睡觉和起床，保持稳定的睡眠时间。",
+    content:
+      "养成良好的睡眠习惯：建立规律的作息时间，尽量在相同的时间上床睡觉和起床，保持稳定的睡眠时间。",
   },
   {
     content:
@@ -46,7 +47,8 @@ const op_data = [
       "避免刺激物和电子设备：避免在睡前饮用咖啡因和刺激性饮料，减少电子设备使用时间，尤其是睡前一小时。",
   },
   {
-    content: "定期进行身体活动：加强身体活动，如有氧运动和力量训练，有助于提高睡眠质量。",
+    content:
+      "定期进行身体活动：加强身体活动，如有氧运动和力量训练，有助于提高睡眠质量。",
   },
   {
     content:
@@ -97,7 +99,9 @@ const HealthSleepRoute: React.FC = () => {
         dataSource={op_data}
         renderItem={(item) => (
           <List.Item>
-            <Card title={false} style={{ minHeight: "130px" }}>{item.content}</Card>
+            <Card title={false} style={{ minHeight: "130px" }}>
+              {item.content}
+            </Card>
           </List.Item>
         )}
       />

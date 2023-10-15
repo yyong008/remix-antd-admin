@@ -4,7 +4,7 @@
 import React, { useState } from "react";
 
 // components:vendor
-import * as _icons from '@ant-design/icons'
+import * as _icons from "@ant-design/icons";
 
 import { Avatar, Card, Col, Row, Tag, Tooltip } from "antd";
 import { ProCard, ProList } from "@ant-design/pro-components";
@@ -18,7 +18,7 @@ const {
   MessageOutlined,
   SettingOutlined,
   StarOutlined,
-  UserOutlined
+  UserOutlined,
 } = _icons;
 
 const IconText = ({ icon, text }: { icon: any; text: string }) => (
@@ -86,13 +86,7 @@ const AAPCard: React.FC<APPCardProps> = ({
             ],
           },
           extra: {
-            render: () => (
-              <img
-                width={272}
-                alt="logo"
-                src="/images/bear.png"
-              />
-            ),
+            render: () => <img width={272} alt="logo" src="/images/bear.png" />,
           },
           content: {
             render: () => {
@@ -143,12 +137,14 @@ const AAPCard: React.FC<APPCardProps> = ({
             <Col {...colPropsProject} key={idx}>
               <Card hoverable cover={<img alt="" src="/images/app.png" />}>
                 <Card.Meta title="卡片标题" description="卡片内容" />
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginTop: '10px',
-                }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginTop: "10px",
+                  }}
+                >
                   <div>2 小时前</div>
                   <div>
                     <Avatar.Group>
@@ -178,7 +174,7 @@ const AAPCard: React.FC<APPCardProps> = ({
           ))}
         </Row>
         ,
-      </ProCard >
+      </ProCard>
     ),
   };
 

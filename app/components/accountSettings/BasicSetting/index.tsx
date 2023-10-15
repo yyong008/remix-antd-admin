@@ -3,7 +3,7 @@ import type { CropperRef } from "react-advanced-cropper";
 import type { LoaderFunction } from "@remix-run/node";
 // core
 import { useRef, useState } from "react";
-import { json } from '@remix-run/node';
+import { json } from "@remix-run/node";
 
 // components:vendor
 import {
@@ -88,7 +88,10 @@ const BasicSetting: React.FC = ({ provinces = [], cities = [] }: any) => {
             width="md"
             label="所在省市"
             name="province"
-            options={provinces.map((p: any) => ({ label: p.name, value: p.code }))}
+            options={provinces.map((p: any) => ({
+              label: p.name,
+              value: p.code,
+            }))}
             // options={[]}
           />
           <ProFormDependency name={["province"]}>

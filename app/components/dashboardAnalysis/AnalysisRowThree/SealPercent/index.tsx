@@ -3,7 +3,7 @@ import { useState } from "react";
 
 // components:vendor
 import { Card, Dropdown, Radio, Space } from "antd";
-import * as _icons from '@ant-design/icons';
+import * as _icons from "@ant-design/icons";
 
 const { MoreOutlined } = _icons;
 

@@ -1,14 +1,15 @@
 import * as _icons from "@ant-design/icons";
 
 import { Col, Card, Avatar } from "antd";
-const { SettingOutlined, EditOutlined, ShareAltOutlined, EllipsisOutlined } = _icons;
+const { SettingOutlined, EditOutlined, ShareAltOutlined, EllipsisOutlined } =
+  _icons;
 
 export default function AppCardList({ cardList }: any) {
   return (
     <>
       {cardList.map((_: any, i: number) => {
         return (
-        <Col
+          <Col
             span={6}
             key={i}
             {...{
@@ -29,12 +30,7 @@ export default function AppCardList({ cardList }: any) {
               ]}
             >
               <Card.Meta
-                avatar={
-                  <Avatar
-                    size="large"
-                    src="/images/react.png"
-                  />
-                }
+                avatar={<Avatar size="large" src="/images/react.png" />}
                 title="Card title"
                 description="在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。"
               />

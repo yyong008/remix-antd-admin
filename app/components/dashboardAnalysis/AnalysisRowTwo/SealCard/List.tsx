@@ -39,11 +39,14 @@ const dataSource = [
   },
 ];
 
-
 const RankNum = ({ num }: any) => {
   const { token } = theme.useToken();
   if (num === 1 || num === 2 || num === 3) {
-    return <span className="Rank123" color={token.colorPrimary}>{num}</span>;
+    return (
+      <span className="Rank123" color={token.colorPrimary}>
+        {num}
+      </span>
+    );
   }
   return <span className="Rank">{num}</span>;
 };

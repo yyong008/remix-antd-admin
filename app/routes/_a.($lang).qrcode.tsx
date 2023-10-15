@@ -12,19 +12,17 @@ const ReactQrCode = ({ url }: any) => {
   const drawQrCode = async () => {
     let canvas = document.createElement("canvas");
 
-    await QRCode.toCanvas(canvas, url, { width: 132}).catch((err) => {
+    await QRCode.toCanvas(canvas, url, { width: 132 }).catch((err) => {
       console.log("qr err", err);
     });
-    cRef.current.appendChild(canvas)
+    cRef.current.appendChild(canvas);
   };
 
   useEffect(() => {
     drawQrCode();
   }, []);
-  
-  return (
-    <div ref={cRef}></div>
-  );
+
+  return <div ref={cRef}></div>;
 };
 
 export default function QrCodeRoute() {

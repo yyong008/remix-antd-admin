@@ -106,14 +106,12 @@ export function ErrorBoundary() {
   }
 }
 
-
-
 let MainApp = App;
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === "development") {
   // const config = defineClientConfig({});
   // MainApp = withDevTools(App, config);
 } else {
-  MainApp = App
+  MainApp = App;
 }
 
 export default MainApp;

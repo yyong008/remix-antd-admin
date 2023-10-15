@@ -1,6 +1,12 @@
 // import type { ActionArgs } from "@remix-run/node";
 import { useContext, useMemo, useState, memo, useEffect } from "react";
-import { Link, Outlet, useNavigate, useParams, useSubmit } from "@remix-run/react";
+import {
+  Link,
+  Outlet,
+  useNavigate,
+  useParams,
+  useSubmit,
+} from "@remix-run/react";
 
 // components:vendor
 
@@ -10,7 +16,7 @@ import {
   SettingDrawer,
 } from "@ant-design/pro-components";
 import { Dropdown } from "antd";
-import * as _icons from '@ant-design/icons';
+import * as _icons from "@ant-design/icons";
 
 // components
 import Footer from "~/components/Footer";
@@ -23,7 +29,12 @@ import { createRoute } from "~/components/SideBar";
 
 // hooks
 import { useTranslation } from "react-i18next";
-import { LoaderFunctionArgs, LoaderFunction, json, redirect } from "@remix-run/node";
+import {
+  LoaderFunctionArgs,
+  LoaderFunction,
+  json,
+  redirect,
+} from "@remix-run/node";
 
 const langs = ["zh-CN", "en-US"];
 
@@ -35,7 +46,7 @@ const {
   SettingOutlined,
   TranslationOutlined,
   UserOutlined,
-} = _icons
+} = _icons;
 
 export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs) => {
   const { lang } = params;
@@ -51,14 +62,14 @@ function AdminLayout() {
   const value = useContext(SettingContext);
   // const [userInfo] = useState<any>({});
   // const submit = useSubmit();
-  const { lang } = useParams()
+  const { lang } = useParams();
 
   const choiceLang = (lang: string) => {
     let p = location.pathname.split("/");
     p[1] = lang || "en-US";
 
     navigate(p.join("/").trim(), {
-      replace: true
+      replace: true,
     });
 
     value.setLang(lang || "en-US");
@@ -77,9 +88,9 @@ function AdminLayout() {
     aTag = null;
   };
 
-  const handleLogout = () => { 
-    navigate(`/${lang}/user/login`)
-  }
+  const handleLogout = () => {
+    navigate(`/${lang}/user/login`);
+  };
   return (
     <PageContainer>
       <ProLayout
@@ -209,4 +220,4 @@ function AdminLayout() {
   );
 }
 
-export default memo(AdminLayout)
+export default memo(AdminLayout);

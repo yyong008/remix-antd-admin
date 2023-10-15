@@ -5,7 +5,7 @@ import _RemixI18Next from "remix-i18next";
 
 import i18n from "./i18n"; // your i18n configuration file
 
-const { RemixI18Next } = _RemixI18Next
+const { RemixI18Next } = _RemixI18Next;
 
 let i18next = new RemixI18Next({
   detection: {

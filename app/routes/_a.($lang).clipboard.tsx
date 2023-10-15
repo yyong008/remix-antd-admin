@@ -6,7 +6,7 @@ const { CopyToClipboard } = rctc.default;
 
 export default function ClipboardRoute() {
   const [data, setData] = useState({
-    value: ""
+    value: "",
   });
   return (
     <Space direction="vertical">
@@ -16,17 +16,11 @@ export default function ClipboardRoute() {
         onChange={({ target: { value } }) => setData({ ...data, value })}
       />
 
-      <CopyToClipboard
-        text={data.value}
-        onCopy={() => setData({ ...data})}
-      >
+      <CopyToClipboard text={data.value} onCopy={() => setData({ ...data })}>
         <span>Copy to clipboard with span</span>
       </CopyToClipboard>
 
-      <CopyToClipboard
-        text={data.value}
-        onCopy={() => setData({ ...data })}
-      >
+      <CopyToClipboard text={data.value} onCopy={() => setData({ ...data })}>
         <Button>Copy to clipboard with button</Button>
       </CopyToClipboard>
     </Space>

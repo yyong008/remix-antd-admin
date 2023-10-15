@@ -30,9 +30,9 @@ const DiseaseChart = () => {
         name: "发病率",
         type: "bar",
         data: incidenceRates,
-         itemStyle: {
-          color: token.colorPrimary // 设置柱状图的颜色
-        }
+        itemStyle: {
+          color: token.colorPrimary, // 设置柱状图的颜色
+        },
       },
     ],
   };

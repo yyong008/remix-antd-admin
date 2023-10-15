@@ -1,38 +1,38 @@
-import { Table, Button } from 'antd';
+import { Table, Button } from "antd";
 
-import { Excel } from 'antd-table-saveas-excel';
+import { Excel } from "antd-table-saveas-excel";
 
 export default function ExcelExportRoute() {
   const dataSource = [
     {
-      key: '1',
-      name: '胡彦斌',
+      key: "1",
+      name: "胡彦斌",
       age: 32,
-      date: '1999-10-01',
+      date: "1999-10-01",
     },
     {
-      key: '2',
-      name: '胡彦祖',
+      key: "2",
+      name: "胡彦祖",
       age: 42,
-      date: '1990-10-07',
+      date: "1990-10-07",
     },
   ];
 
   const columns = [
     {
-      title: '姓名',
-      dataIndex: 'name',
-      key: 'name',
+      title: "姓名",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: '年龄',
-      dataIndex: 'age',
-      key: 'age',
+      title: "年龄",
+      dataIndex: "age",
+      key: "age",
     },
     {
-      title: '出生',
-      dataIndex: 'date',
-      key: 'date',
+      title: "出生",
+      dataIndex: "date",
+      key: "date",
     },
   ];
   return (
@@ -44,10 +44,10 @@ export default function ExcelExportRoute() {
         onClick={() => {
           const excel = new Excel();
           excel
-            .addSheet('test')
+            .addSheet("test")
             .addColumns(columns)
             .addDataSource(dataSource)
-            .saveAs('测试.xlsx');
+            .saveAs("测试.xlsx");
         }}
       >
         下载
@@ -55,4 +55,4 @@ export default function ExcelExportRoute() {
       <Table bordered columns={columns} dataSource={dataSource} />
     </div>
   );
-};
+}

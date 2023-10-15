@@ -3,7 +3,7 @@ import { useState } from "react";
 
 // components: vendor
 import { Space } from "antd";
-import { UpDown } from '../../common/UpDown'
+import { UpDown } from "../../common/UpDown";
 
 // components
 import HomeCard from "../../common/HomeCard";

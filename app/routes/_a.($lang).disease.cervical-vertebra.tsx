@@ -88,7 +88,9 @@ const HealthRoute: React.FC = () => {
         dataSource={op_data}
         renderItem={(item) => (
           <List.Item>
-            <Card title={false} style={{ minHeight: "130px" }}>{item.content}</Card>
+            <Card title={false} style={{ minHeight: "130px" }}>
+              {item.content}
+            </Card>
           </List.Item>
         )}
       />

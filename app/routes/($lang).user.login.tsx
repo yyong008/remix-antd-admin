@@ -11,7 +11,12 @@ import { json } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 // hooks
 import { useContext, useEffect, useState } from "react";
-import { useActionData, useFetcher, useNavigate, useParams } from "@remix-run/react";
+import {
+  useActionData,
+  useFetcher,
+  useNavigate,
+  useParams,
+} from "@remix-run/react";
 
 // i18n:hooks
 import { useTranslation } from "react-i18next";
@@ -24,18 +29,12 @@ import {
   ProFormCheckbox,
 } from "@ant-design/pro-components";
 import { message, Tabs, ConfigProvider } from "antd";
-import * as _icons from '@ant-design/icons';
+import * as _icons from "@ant-design/icons";
 
-const {
-  LockOutlined,
-  MobileOutlined,
-  UserOutlined
-} = _icons
+const { LockOutlined, MobileOutlined, UserOutlined } = _icons;
 
 // components
-import {
-  ActionIcons,
-} from "~/components/userLogin";
+import { ActionIcons } from "~/components/userLogin";
 import Footer from "~/components/Footer";
 
 // styles
@@ -50,9 +49,12 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const action: ActionFunction = async ({ request, params }: ActionFunctionArgs) => {
+export const action: ActionFunction = async ({
+  request,
+  params,
+}: ActionFunctionArgs) => {
   const formData = request.formData();
-  const lang = params.lang || 'zh-CN';
+  const lang = params.lang || "zh-CN";
   const username = (await formData).get("username");
   const password = (await formData).get("password");
 
@@ -74,8 +76,8 @@ export const links: LinksFunction = () => {
 };
 
 const LoginPage: React.FC = () => {
-  const navigate = useNavigate()
-  const { lang } = useParams()
+  const navigate = useNavigate();
+  const { lang } = useParams();
   const value = useContext(SettingContext);
   const fetcher = useFetcher();
   const { t } = useTranslation();
@@ -83,8 +85,8 @@ const LoginPage: React.FC = () => {
   const actionData = useActionData();
 
   if (!lang) {
-    navigate(-1)
-    return null
+    navigate(-1);
+    return null;
   }
   const handleSubmit = async (values: any) => {
     const formData = new FormData();
@@ -101,12 +103,14 @@ const LoginPage: React.FC = () => {
     fetcher.submit(formData, { method: "post" });
   };
 
-  console.log("actionData", actionData)
+  console.log("actionData", actionData);
 
   return (
-    <ConfigProvider theme={{
-      token: value.theme
-    }}>
+    <ConfigProvider
+      theme={{
+        token: value.theme,
+      }}
+    >
       <div>
         <div>
           <LoginForm
@@ -114,8 +118,12 @@ const LoginPage: React.FC = () => {
               minWidth: 280,
               maxWidth: "75vw",
             }}
-            loading={fetcher.state === 'loading' || fetcher.state === 'submitting'}
-            logo={<img alt="logo" src="/logo.png" style={{ borderRadius: '60%' }} />}
+            loading={
+              fetcher.state === "loading" || fetcher.state === "submitting"
+            }
+            logo={
+              <img alt="logo" src="/logo.png" style={{ borderRadius: "60%" }} />
+            }
             title={t("title")}
             subTitle={t("desc")}
             initialValues={{
@@ -228,7 +236,7 @@ const LoginPage: React.FC = () => {
                 />
               </>
             )}
-            <div style={{ margin: '10px 0px' }}>
+            <div style={{ margin: "10px 0px" }}>
               <ProFormCheckbox noStyle name="autoLogin">
                 {t("remeber")}
               </ProFormCheckbox>

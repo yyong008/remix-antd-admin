@@ -1,5 +1,9 @@
 // types
-import type { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
+import type {
+  LoaderFunctionArgs,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/node";
 
 // core
 import { json } from "@remix-run/node";
@@ -24,8 +28,11 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = async ({ request, params }: LoaderFunctionArgs) => {
-  const _data = (await import('~/data/listSearchApplications')).default
+export const loader: LoaderFunction = async ({
+  request,
+  params,
+}: LoaderFunctionArgs) => {
+  const _data = (await import("~/data/listSearchApplications")).default;
   return json(_data);
 };
 

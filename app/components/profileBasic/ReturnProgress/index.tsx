@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import * as _icons from '@ant-design/icons'
+import * as _icons from "@ant-design/icons";
 import { Space, Table, theme } from "antd";
 
 const { EllipsisOutlined } = _icons;

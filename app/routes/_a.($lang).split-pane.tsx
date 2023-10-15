@@ -8,11 +8,16 @@ import { Button } from "antd";
 import React from "react";
 
 // utils
-import { nanoid } from 'nanoid';
+import { nanoid } from "nanoid";
 
 export const links: LinksFunction = () => {
   return [
-    ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }, { rel: "stylesheet", href: allotmentStyles }] : []),
+    ...(cssBundleHref
+      ? [
+          { rel: "stylesheet", href: cssBundleHref },
+          { rel: "stylesheet", href: allotmentStyles },
+        ]
+      : []),
   ];
 };
 
@@ -49,7 +54,7 @@ const App = () => {
     }
   };
   return (
-    <div style={{ width: '500px', height: '1000px' }}>
+    <div style={{ width: "500px", height: "1000px" }}>
       <Allotment vertical>
         <Allotment.Pane minSize={100}>tespiego</Allotment.Pane>
         <Allotment.Pane minSize={100}>

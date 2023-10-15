@@ -46,7 +46,8 @@ const op_data = [
       "锻炼身体：定期参加身体活动，如散步、跑步或其他运动，增加身体活动量，改善心理健康。",
   },
   {
-    content: "学习应对技巧：学习应对焦虑和抑郁的技巧，如放松训练、冥想和深呼吸练习，以减轻压力和焦虑情绪。",
+    content:
+      "学习应对技巧：学习应对焦虑和抑郁的技巧，如放松训练、冥想和深呼吸练习，以减轻压力和焦虑情绪。",
   },
   {
     content:
@@ -97,7 +98,9 @@ const HealthRoute: React.FC = () => {
         dataSource={op_data}
         renderItem={(item) => (
           <List.Item>
-            <Card title={false} style={{ minHeight: "130px" }}>{item.content}</Card>
+            <Card title={false} style={{ minHeight: "130px" }}>
+              {item.content}
+            </Card>
           </List.Item>
         )}
       />

@@ -1,7 +1,7 @@
 import type { LinksFunction } from "@remix-run/node";
 
 // core
-import { json } from '@remix-run/node';
+import { json } from "@remix-run/node";
 import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
 
@@ -11,7 +11,7 @@ import PockerItem from "~/components/pockers/PockerItem";
 import PockerList from "~/components/pockers/PockerList";
 
 // css
-import amcss from 'animate.css'
+import amcss from "animate.css";
 import css from "~/styles/pocker-card.css";
 
 export const links: LinksFunction = () => {
@@ -28,9 +28,9 @@ export const links: LinksFunction = () => {
 };
 
 export const loader = async () => {
-  const { hs } = (await import("~/data/pocker"))
-  return json(hs)
-}
+  const { hs } = await import("~/data/pocker");
+  return json(hs);
+};
 
 export default function PockerContentRoute() {
   const hs: any = useLoaderData();
@@ -59,13 +59,13 @@ export default function PockerContentRoute() {
             setTimeout(() => {
               resolve(null);
               navigate("/pocker");
-            }, 2000)
+            }, 2000),
           ),
         {
           loading: "没有选择花色，即将返回？",
           success: "Success",
           error: "Error",
-        }
+        },
       );
     } else {
       toast("猜测并选择一个扑克");

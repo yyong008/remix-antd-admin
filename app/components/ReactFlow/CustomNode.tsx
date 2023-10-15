@@ -42,7 +42,7 @@ function Select({ value, handleId, nodeId }: any) {
         }
 
         return node;
-      })
+      }),
     );
   };
 

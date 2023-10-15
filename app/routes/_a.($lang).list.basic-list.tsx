@@ -2,7 +2,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-no-comment-textnodes */
 // type
-import type { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
+import type {
+  LoaderFunctionArgs,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/node";
 
 // core
 import { json } from "@remix-run/node";
@@ -15,9 +19,8 @@ import { ProList } from "@ant-design/pro-components";
 // components
 import { Tasks, AddModalForm } from "~/components/listBasicList";
 
-
 // icons
-import * as _icons from '@ant-design/icons'
+import * as _icons from "@ant-design/icons";
 
 // hooks
 import { useLoaderData } from "@remix-run/react";
@@ -32,8 +35,11 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = async ({ request, params }: LoaderFunctionArgs) => {
-  const data = (await import('~/data/listBasicList')).default
+export const loader: LoaderFunction = async ({
+  request,
+  params,
+}: LoaderFunctionArgs) => {
+  const data = (await import("~/data/listBasicList")).default;
   return json(data.dataSource);
 };
 
@@ -74,11 +80,7 @@ export default function ListBasicPage() {
             },
             extra: {
               render: () => (
-                <img
-                  width={272}
-                  alt="logo"
-                  src="/images/bear.png"
-                />
+                <img width={272} alt="logo" src="/images/bear.png" />
               ),
             },
             content: {

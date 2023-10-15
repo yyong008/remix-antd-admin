@@ -4,7 +4,7 @@ import { Editor } from "@tinymce/tinymce-react";
 const tinyKey = "your key";
 
 export default function () {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState("");
   return (
     <div>
       <Editor
@@ -14,7 +14,7 @@ export default function () {
         // inline={true}
         scriptLoading={{ async: true }} // 异步加载
         onChange={(value: any) => {
-          setValue(value)
+          setValue(value);
         }}
         init={{
           min_height: 500,

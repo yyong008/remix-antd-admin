@@ -11,7 +11,9 @@ export default function ContainerContent({ data }: any) {
             <img src={data.userInfo.avatar} alt="" />
           </div>
           <div>
-            <div className="Welcome">早安，{data.userInfo.name}，祝你开心每一天！</div>
+            <div className="Welcome">
+              早安，{data.userInfo.name}，祝你开心每一天！
+            </div>
             <div className="Jobs">{data.userInfo.jobs}</div>
           </div>
         </div>

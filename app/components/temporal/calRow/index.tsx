@@ -2,7 +2,7 @@
 import { week } from "../utils/week";
 import { gnDateFn } from "../utils";
 
-import "./index.css"
+import "./index.css";
 
 // 第一行
 // 前面预留位置 prviewDay
@@ -17,8 +17,8 @@ const tdStyle: any = (d: number | string) => {
     border: "1px solid #eee",
     width: "60px",
     height: "60px",
-    "textAlign": "center",
-    "fontSize": "20px",
+    textAlign: "center",
+    fontSize: "20px",
     color: !active ? "#111" : "#f56",
   };
 
@@ -38,7 +38,11 @@ function CalRow() {
           return (
             <tr key={i}>
               {w.map((l, idx) => {
-                return <td style={tdStyle(l)} key={idx}>{l ? l : ""}</td>;
+                return (
+                  <td style={tdStyle(l)} key={idx}>
+                    {l ? l : ""}
+                  </td>
+                );
               })}
             </tr>
           );

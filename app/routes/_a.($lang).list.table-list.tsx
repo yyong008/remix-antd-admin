@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // types
-import {  type LoaderFunction, type MetaFunction } from "@remix-run/node";
+import { type LoaderFunction, type MetaFunction } from "@remix-run/node";
 import type { ProColumns } from "@ant-design/pro-components";
 
-
 // core
-import { json } from '@remix-run/node';
+import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
 // components
@@ -26,9 +25,9 @@ export type TableListItem = {
 const { PlusOutlined } = _icons;
 
 export const loader: LoaderFunction = async () => {
-  const { tableListDataSource } = (await import("~/data/listTableList"))
-  return json(tableListDataSource)
-}
+  const { tableListDataSource } = await import("~/data/listTableList");
+  return json(tableListDataSource);
+};
 
 export const meta: MetaFunction = () => {
   return [
@@ -55,7 +54,7 @@ function AddButtonModal() {
       autoFocusFirstInput
       modalProps={{
         destroyOnClose: true,
-        onCancel: () => { },
+        onCancel: () => {},
       }}
       submitTimeout={2000}
     >
@@ -122,7 +121,7 @@ export default function ListTableListPage() {
           <a key="link2" style={{ color: token.colorPrimary }}>
             订阅删除
           </a>
-        </Space>
+        </Space>,
       ],
     },
   ];

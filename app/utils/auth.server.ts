@@ -35,21 +35,24 @@ auth.use(
 
     return user;
   }),
-  "user-pass"
+  "user-pass",
 );
 
 export async function login(username: string, password: string) {
-  const user: any = await db.user.findUnique({
-    where: { username },
-    include: {
-      password: true,
-    },
-  }).then((res: any) => {
-    return res
-  }).catch((err: any) => {
-    console.error(err)
-    return ''
-  })
+  const user: any = await db.user
+    .findUnique({
+      where: { username },
+      include: {
+        password: true,
+      },
+    })
+    .then((res: any) => {
+      return res;
+    })
+    .catch((err: any) => {
+      console.error(err);
+      return "";
+    });
 
   if (!user) return null;
   const isCorrectPassword = await bcrypt.compare(password, user.password.hash);
@@ -58,13 +61,15 @@ export async function login(username: string, password: string) {
 }
 
 export async function routeAuthFailure({ request, params }: any, json: any) {
-  await auth.isAuthenticated(request, {
-    failureRedirect: "/" + params.lang + "/user/login",
-  }).catch((e) => {
-    return json({err: e})
-  });
+  await auth
+    .isAuthenticated(request, {
+      failureRedirect: "/" + params.lang + "/user/login",
+    })
+    .catch((e) => {
+      return json({ err: e });
+    });
   const session = await sessionStorage.getSession(
-    request.headers.get("Cookie")
+    request.headers.get("Cookie"),
   );
   const error = session.get(auth.sessionErrorKey) as LoaderError;
   return json({ error });

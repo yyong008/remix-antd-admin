@@ -31,7 +31,7 @@
     "build": "remix build",
     "coverage": "vitest run --coverage",
     "dev": "remix dev --manual",
-    "prettier": "prettier --write app/ public/locales",
+    "format": "prettier --write app/ public/locales",
     "start": "remix-serve ./build/index.js",
     "test": "vitest",
     "typecheck": "tsc"

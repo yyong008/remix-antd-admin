@@ -2,7 +2,7 @@ import { Col, Space, Card, Row } from "antd";
 
 import Team from "./Team";
 import NavList from "./NavList";
-import FiveDimensionalChart from "./FiveDimensional"
+import FiveDimensionalChart from "./FiveDimensional";
 
 import { colPropsSS } from "../col";
 

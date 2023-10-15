@@ -4,7 +4,7 @@ import { hydrateRoot } from "react-dom/client";
 import { RemixBrowser } from "@remix-run/react";
 
 // i18n client
-import { startClientI18n, I18nextProviderWrap } from './i18n/client'
+import { startClientI18n, I18nextProviderWrap } from "./i18n/client";
 import SettingContext from "./context/settingContext";
 
 const hydrate = async () => {

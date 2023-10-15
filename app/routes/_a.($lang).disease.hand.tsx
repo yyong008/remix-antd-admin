@@ -46,8 +46,7 @@ const op_data = [
       "使用软垫和支撑：在键盘前放置软垫或手腕支撑，以减轻手部和手腕的压力。",
   },
   {
-    content:
-      "定期进行体育锻炼：加强手部和手腕的肌肉力量，提高灵活性和稳定性。",
+    content: "定期进行体育锻炼：加强手部和手腕的肌肉力量，提高灵活性和稳定性。",
   },
   {
     content:
@@ -105,4 +104,3 @@ const HealthHandRoute: React.FC = () => {
 };
 
 export default HealthHandRoute;
-

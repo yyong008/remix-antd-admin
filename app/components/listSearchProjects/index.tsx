@@ -1,5 +1,5 @@
 import { Col, Card, Avatar, Tooltip } from "antd";
-import * as _icons from '@ant-design/icons';
+import * as _icons from "@ant-design/icons";
 
 const { UserOutlined } = _icons;
 

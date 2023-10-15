@@ -3,7 +3,7 @@ import { useMemo } from "react";
 
 // components
 import { theme } from "antd";
-import ReactEchart from 'echarts-for-react'
+import ReactEchart from "echarts-for-react";
 
 // utils
 import * as echarts from "echarts";
@@ -12,8 +12,7 @@ const ChinaMap = () => {
   const { token } = theme.useToken();
 
   const option = useMemo(() => {
-    
-    let geoJson =  require('~/data/100000.geoJson.json')
+    let geoJson = require("~/data/100000.geoJson.json");
     // @ts-ignore
     echarts.registerMap("china", { geoJSON: geoJson });
 
@@ -60,10 +59,10 @@ const ChinaMap = () => {
           },
         },
       },
-    }
-  }, [token])
+    };
+  }, [token]);
 
-  return <ReactEchart option={option} style={{ height: "700px" }} />
-}
+  return <ReactEchart option={option} style={{ height: "700px" }} />;
+};
 
-export default ChinaMap
+export default ChinaMap;

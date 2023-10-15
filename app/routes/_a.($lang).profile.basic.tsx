@@ -1,9 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 //types
-import type { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
+import type {
+  LoaderFunctionArgs,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/node";
 
 // cores
-import { json } from '@remix-run/node';
+import { json } from "@remix-run/node";
 
 // hooks
 import { useLoaderData } from "@remix-run/react";
@@ -29,8 +33,11 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = async ({ request, params }: LoaderFunctionArgs) => {
-  const { tableListDataSource } = await import("~/data/profileAdvanced")
+export const loader: LoaderFunction = async ({
+  request,
+  params,
+}: LoaderFunctionArgs) => {
+  const { tableListDataSource } = await import("~/data/profileAdvanced");
   return json(tableListDataSource);
 };
 

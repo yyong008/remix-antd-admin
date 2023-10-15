@@ -5,5 +5,5 @@ import FormStepTwo from "./FormStepTwo";
 export default {
   FormStepOne,
   FormStepTwo,
-  FormStepThree
-}
+  FormStepThree,
+};

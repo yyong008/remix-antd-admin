@@ -1,3 +1,3 @@
 export default function UnknownLang() {
-  return <div>UnknownLang</div>
+  return <div>UnknownLang</div>;
 }

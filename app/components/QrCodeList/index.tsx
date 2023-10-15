@@ -7,7 +7,7 @@ import QRCode from "qrcode";
 import JSZip from "jszip";
 import fileSaver from "file-saver";
 
-const { saveAs } = fileSaver
+const { saveAs } = fileSaver;
 
 export default function QrCodeList({ trigger, list = [] }: any) {
   // canvas
@@ -24,7 +24,7 @@ export default function QrCodeList({ trigger, list = [] }: any) {
       document.body.appendChild(canvas);
     }
   };
-  
+
   const destoryQrCodeWithURL = () => {
     const qrs = document.querySelectorAll(".__qrcode");
     qrs.forEach((qr: any) => {
@@ -72,7 +72,7 @@ export default function QrCodeList({ trigger, list = [] }: any) {
           createQrCodeWithURL();
         },
       },
-      trigger.props.children
+      trigger.props.children,
     );
   };
 

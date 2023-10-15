@@ -9,7 +9,6 @@ import { json } from "@remix-run/node";
 import { Col, Row, Tree } from "antd";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
-
 const treeData: DataNode[] = [
   {
     title: "超级管理员",
@@ -337,7 +336,6 @@ const treeDataAdmin: DataNode[] = [
     ],
   },
 ];
-
 
 const treeDataUser: DataNode[] = [
   {

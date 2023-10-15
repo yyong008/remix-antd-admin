@@ -1,5 +1,10 @@
 // types
-import type { LinksFunction, LoaderFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import type {
+  LinksFunction,
+  LoaderFunction,
+  LoaderFunctionArgs,
+  MetaFunction,
+} from "@remix-run/node";
 
 // core
 import { PageContainer } from "@ant-design/pro-components";
@@ -15,7 +20,7 @@ import {
   AnalysisRowFour,
 } from "~/components/dashboardAnalysis";
 
-import css from '~/styles/dashboard.analysis.css';
+import css from "~/styles/dashboard.analysis.css";
 
 // utils
 export const meta: MetaFunction = () => {
@@ -36,12 +41,15 @@ export default function DashboardAnalysisPage() {
     <PageContainer
       title={null}
       style={{
-        background: "transparent"
+        background: "transparent",
       }}
     >
-      <Space direction="vertical" style={{
-        width: '100%',
-      }}>
+      <Space
+        direction="vertical"
+        style={{
+          width: "100%",
+        }}
+      >
         <AnalysisRowOne />
         <AnalysisRowTwo />
         <AnalysisRowThree />

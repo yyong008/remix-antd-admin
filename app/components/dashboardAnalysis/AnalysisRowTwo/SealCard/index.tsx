@@ -3,7 +3,11 @@ import { useState } from "react";
 
 // components
 import { Col, Row, Space, Tabs, theme } from "antd";
-import { ProCard, ProFormDateRangePicker, ProForm } from "@ant-design/pro-components";
+import {
+  ProCard,
+  ProFormDateRangePicker,
+  ProForm,
+} from "@ant-design/pro-components";
 
 // components:vendor
 import Bar from "./Bar";
@@ -70,7 +74,11 @@ export default function SealCard() {
               })}
             </Space>
             <ProForm submitter={false}>
-              <ProFormDateRangePicker name="dateRange" label="日期区间" noStyle />
+              <ProFormDateRangePicker
+                name="dateRange"
+                label="日期区间"
+                noStyle
+              />
             </ProForm>
           </Space>
         }

@@ -1,5 +1,9 @@
 // type
-import type { LoaderFunctionArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
+import type {
+  LoaderFunctionArgs,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/node";
 
 // components:vendor
 import { Button, Space } from "antd";

@@ -27,7 +27,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export default function StepFormRoute(){
+export default function StepFormRoute() {
   const formRef = useRef<ProFormInstance>();
 
   return (
@@ -167,4 +167,4 @@ export default function StepFormRoute(){
       </ProCard>
     </PageContainer>
   );
-};
+}

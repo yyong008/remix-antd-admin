@@ -1,7 +1,9 @@
-import "./index.css"
+import "./index.css";
 
 export default function ImageComp() {
-  return <div>
-    <img src="/images/react.svg" className="image"/>
-  </div>
+  return (
+    <div>
+      <img src="/images/react.svg" className="image" />
+    </div>
+  );
 }

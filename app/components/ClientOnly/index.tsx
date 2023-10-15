@@ -5,7 +5,6 @@ type Props = {
   fallback?: JSX.Element | null;
 };
 
-
 export function ClientOnly({ children, fallback = null }: Props) {
   return useHydrated() ? <>{children()}</> : <>{fallback}</>;
 }

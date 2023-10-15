@@ -10,7 +10,7 @@ import i18n from "./i18n";
 
 export async function startClientI18n() {
   await i18next
-    .use(initReactI18next) 
+    .use(initReactI18next)
     .use(LanguageDetector)
     .use(Backend)
     .init({
@@ -23,9 +23,9 @@ export async function startClientI18n() {
       },
     });
 
-  return i18next
+  return i18next;
 }
 
 export const I18nextProviderWrap = ({ children, i18next }: any) => {
-  return <I18nextProvider i18n={i18next}>{children}</I18nextProvider>
-}
+  return <I18nextProvider i18n={i18next}>{children}</I18nextProvider>;
+};

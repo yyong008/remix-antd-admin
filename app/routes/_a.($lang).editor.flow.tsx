@@ -30,7 +30,7 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
-  const {initialNodes, initialEdges}  = (await import('~/data/editor.flow'))
+  const { initialNodes, initialEdges } = await import("~/data/editor.flow");
   return json({
     nodes: initialNodes,
     edges: initialEdges,
@@ -38,7 +38,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 };
 
 function EditorFlowRoute() {
-  const { nodes, edges } = useLoaderData()
+  const { nodes, edges } = useLoaderData();
 
   return (
     <ProCard

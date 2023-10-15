@@ -49,7 +49,7 @@ const defaultData = [
 
 const TTable = function () {
   const [editableKeys, setEditableRowKeys] = useState<React.Key[]>(() =>
-    defaultData.map((item: any) => item.id)
+    defaultData.map((item: any) => item.id),
   );
   return (
     <Card title="仓库管理">
@@ -85,4 +85,4 @@ const TTable = function () {
   );
 };
 
-export default TTable
+export default TTable;

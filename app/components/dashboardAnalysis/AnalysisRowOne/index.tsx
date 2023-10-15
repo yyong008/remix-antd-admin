@@ -5,7 +5,7 @@ import { Row, Col } from "antd";
 import CardTotalSales from "./CardTotalSales";
 import CardVisitsCount from "./CardVisitsCount";
 import CardNumberPayments from "./CardNumberPayments";
-import CardActivityEffectiveness from "./CardActivityEffectiveness"
+import CardActivityEffectiveness from "./CardActivityEffectiveness";
 
 // col
 import { colProps } from "../col";

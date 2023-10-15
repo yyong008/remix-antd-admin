@@ -1,14 +1,17 @@
 import type { LinksFunction } from "@remix-run/node";
 
-import { JsonView } from 'react-json-view-lite';
-import jsonViewCss from 'react-json-view-lite/dist/index.css';
+import { JsonView } from "react-json-view-lite";
+import jsonViewCss from "react-json-view-lite/dist/index.css";
 
 import { cssBundleHref } from "@remix-run/css-bundle";
 
 export const links: LinksFunction = () => {
   return [
     ...(cssBundleHref
-      ? [{ rel: "stylesheet", href: cssBundleHref }, { rel: "stylesheet", href: jsonViewCss }]
+      ? [
+          { rel: "stylesheet", href: cssBundleHref },
+          { rel: "stylesheet", href: jsonViewCss },
+        ]
       : []),
     // ...
   ];
@@ -115,7 +118,7 @@ const App = () => {
     },
   };
 
-  return <JsonView data={packageJson} />
+  return <JsonView data={packageJson} />;
 };
 
 export default App;
