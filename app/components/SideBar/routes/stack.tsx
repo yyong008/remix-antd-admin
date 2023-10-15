@@ -16,6 +16,11 @@ export const createStackRoutes = (t: any, lang: string): Route => {
         path: "rxjs/keybr",
         name: "RxJS",
       },
+      {
+        key: "stack-rxjs-count-down",
+        path: "rxjs/count-down",
+        name: "RxJS-count-down",
+      },
     ],
   };
 };
