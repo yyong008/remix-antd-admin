@@ -13,7 +13,7 @@ dependencies:
     version: 5.2.6(react-dom@18.2.0)(react@18.2.0)
   '@ant-design/pro-components':
     specifier: ^2.6.28
-    version: 2.6.28(antd@5.9.4)(rc-field-form@1.38.2)(react-dom@18.2.0)(react@18.2.0)
+    version: 2.6.28(antd@5.9.4)(rc-field-form@1.40.0)(react-dom@18.2.0)(react@18.2.0)
   '@ant-design/pro-layout':
     specifier: ^7.17.8
     version: 7.17.8(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
@@ -33,14 +33,14 @@ dependencies:
     specifier: ^2.0.1
     version: 2.0.1
   '@remix-run/node':
-    specifier: ^2.0.1
-    version: 2.0.1(typescript@5.2.2)
+    specifier: ^2.1.0
+    version: 2.1.0(typescript@5.2.2)
   '@remix-run/react':
-    specifier: ^2.0.1
-    version: 2.0.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
+    specifier: ^2.1.0
+    version: 2.1.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
   '@remix-run/serve':
-    specifier: ^2.0.1
-    version: 2.0.1(typescript@5.2.2)
+    specifier: ^2.1.0
+    version: 2.1.0(typescript@5.2.2)
   '@tinymce/tinymce-react':
     specifier: ^4.3.0
     version: 4.3.0(react-dom@18.2.0)(react@18.2.0)
@@ -149,15 +149,18 @@ dependencies:
   reactflow:
     specifier: ^11.9.2
     version: 11.9.2(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0)
+  remix-antd-admin:
+    specifier: 'link:'
+    version: 'link:'
   remix-auth:
     specifier: ^3.5.1
-    version: 3.6.0(@remix-run/react@2.0.1)(@remix-run/server-runtime@1.19.3)
+    version: 3.6.0(@remix-run/react@2.1.0)(@remix-run/server-runtime@1.19.3)
   remix-auth-form:
     specifier: ^1.3.0
     version: 1.3.0(@remix-run/server-runtime@1.19.3)(remix-auth@3.6.0)
   remix-i18next:
     specifier: 5.0.0
-    version: 5.0.0(@remix-run/react@2.0.1)(@remix-run/server-runtime@1.19.3)(i18next@23.5.1)(react-i18next@13.2.2)(react@18.2.0)
+    version: 5.0.0(@remix-run/react@2.1.0)(@remix-run/server-runtime@1.19.3)(i18next@23.5.1)(react-i18next@13.2.2)(react@18.2.0)
   rxjs:
     specifier: ^7.8.1
     version: 7.8.1
@@ -176,11 +179,11 @@ devDependencies:
     specifier: ^2.26.2
     version: 2.26.2
   '@remix-run/dev':
-    specifier: ^2.0.1
-    version: 2.0.1(@remix-run/serve@2.0.1)(@types/node@20.8.2)(ts-node@10.9.1)(typescript@5.2.2)
+    specifier: ^2.1.0
+    version: 2.1.0(@remix-run/serve@2.1.0)(@types/node@20.8.2)(ts-node@10.9.1)(typescript@5.2.2)
   '@remix-run/eslint-config':
-    specifier: ^2.0.1
-    version: 2.0.1(eslint@8.50.0)(react@18.2.0)(typescript@5.2.2)
+    specifier: ^2.1.0
+    version: 2.1.0(eslint@8.50.0)(react@18.2.0)(typescript@5.2.2)
   '@types/bcryptjs':
     specifier: ^2.4.4
     version: 2.4.4
@@ -228,7 +231,7 @@ devDependencies:
     version: 3.0.3
   remix-development-tools:
     specifier: ^3.0.3
-    version: 3.2.1(@remix-run/react@2.0.1)(@types/react-dom@18.2.10)(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0)
+    version: 3.2.1(@remix-run/react@2.1.0)(@types/react-dom@18.2.10)(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0)
   typescript:
     specifier: ^5.2.2
     version: 5.2.2
@@ -328,7 +331,7 @@ packages:
       - react-dom
     dev: false
 
-  /@ant-design/pro-components@2.6.28(antd@5.9.4)(rc-field-form@1.38.2)(react-dom@18.2.0)(react@18.2.0):
+  /@ant-design/pro-components@2.6.28(antd@5.9.4)(rc-field-form@1.40.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-Kger5QRxJ4oR8KHH72wKJlwqT/s1psG9G7UW5T2NPKa0xoPRg97WWJnV2zK/KKz4Rou6g0LnzS7VvlexZPi7nQ==}
     peerDependencies:
       antd: '>=4.23.0 || >=5.0.0'
@@ -339,14 +342,14 @@ packages:
         optional: true
     dependencies:
       '@ant-design/pro-card': 2.5.18(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
-      '@ant-design/pro-descriptions': 2.5.13(antd@5.9.4)(rc-field-form@1.38.2)(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/pro-descriptions': 2.5.13(antd@5.9.4)(rc-field-form@1.40.0)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-field': 2.12.9(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
-      '@ant-design/pro-form': 2.21.0(antd@5.9.4)(rc-field-form@1.38.2)(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/pro-form': 2.21.0(antd@5.9.4)(rc-field-form@1.40.0)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-layout': 7.17.6(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
-      '@ant-design/pro-list': 2.5.27(antd@5.9.4)(rc-field-form@1.38.2)(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/pro-list': 2.5.27(antd@5.9.4)(rc-field-form@1.40.0)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-provider': 2.13.1(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-skeleton': 2.1.7(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
-      '@ant-design/pro-table': 3.12.12(antd@5.9.4)(rc-field-form@1.38.2)(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/pro-table': 3.12.12(antd@5.9.4)(rc-field-form@1.40.0)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-utils': 2.14.6(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
       '@babel/runtime': 7.23.1
       antd: 5.9.4(react-dom@18.2.0)(react@18.2.0)
@@ -357,7 +360,7 @@ packages:
       - rc-field-form
     dev: false
 
-  /@ant-design/pro-descriptions@2.5.13(antd@5.9.4)(rc-field-form@1.38.2)(react-dom@18.2.0)(react@18.2.0):
+  /@ant-design/pro-descriptions@2.5.13(antd@5.9.4)(rc-field-form@1.40.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-L49Su1kT3h3umsimC9mxxRXgFMXHo8DxjSp81mMpZEr0O7KIc5C3I2b5R5QE9ktjHqe3LM+3UXrJD1pUq4lm1A==}
     peerDependencies:
       antd: '>=4.23.0 || >=5.0.0'
@@ -367,7 +370,7 @@ packages:
         optional: true
     dependencies:
       '@ant-design/pro-field': 2.12.9(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
-      '@ant-design/pro-form': 2.21.0(antd@5.9.4)(rc-field-form@1.38.2)(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/pro-form': 2.21.0(antd@5.9.4)(rc-field-form@1.40.0)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-skeleton': 2.1.7(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-utils': 2.14.6(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
       '@babel/runtime': 7.23.1
@@ -407,7 +410,7 @@ packages:
       - react-dom
     dev: false
 
-  /@ant-design/pro-form@2.21.0(antd@5.9.4)(rc-field-form@1.38.2)(react-dom@18.2.0)(react@18.2.0):
+  /@ant-design/pro-form@2.21.0(antd@5.9.4)(rc-field-form@1.40.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-3jR0Us7k50Gkxg1hHbnWlZKDzfen8le/XxtK0JqBA2mM7B+y26ieXfaxISD/Dptt4o0Zk57wcquSJHOfhR53wQ==}
     peerDependencies:
       '@types/lodash.merge': ^4.6.7
@@ -432,7 +435,7 @@ packages:
       classnames: 2.3.2
       lodash.merge: 4.6.2
       omit.js: 2.0.2
-      rc-field-form: 1.38.2(react-dom@18.2.0)(react@18.2.0)
+      rc-field-form: 1.40.0(react-dom@18.2.0)(react@18.2.0)
       rc-resize-observer: 1.3.1(react-dom@18.2.0)(react@18.2.0)
       rc-util: 5.37.0(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
@@ -497,7 +500,7 @@ packages:
       warning: 4.0.3
     dev: false
 
-  /@ant-design/pro-list@2.5.27(antd@5.9.4)(rc-field-form@1.38.2)(react-dom@18.2.0)(react@18.2.0):
+  /@ant-design/pro-list@2.5.27(antd@5.9.4)(rc-field-form@1.40.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-Dkl8JLz69+i9hK9z16ckocKqD8ZEzCmaxJ8mS0DVwKjhZKs+82gI/xTZqyDqGXSLyyA12FqYo9q6U88FV9Nt5w==}
     peerDependencies:
       antd: '>=4.23.0 || >=5.0.0'
@@ -510,7 +513,7 @@ packages:
       '@ant-design/icons': 5.2.6(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-card': 2.5.18(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-field': 2.12.9(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
-      '@ant-design/pro-table': 3.12.12(antd@5.9.4)(rc-field-form@1.38.2)(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/pro-table': 3.12.12(antd@5.9.4)(rc-field-form@1.40.0)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-utils': 2.14.6(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
       '@babel/runtime': 7.23.1
       antd: 5.9.4(react-dom@18.2.0)(react@18.2.0)
@@ -561,7 +564,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@ant-design/pro-table@3.12.12(antd@5.9.4)(rc-field-form@1.38.2)(react-dom@18.2.0)(react@18.2.0):
+  /@ant-design/pro-table@3.12.12(antd@5.9.4)(rc-field-form@1.40.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-NySv5v3v11n7Ux3t3r41YbHc3xmQjdoGMqzGLg+eslbEhOmUrkrvYpm24eZ7glOStPFwKDrMdd8MupB8hel7RA==}
     peerDependencies:
       antd: '>=4.23.0 || >=5.0.0'
@@ -575,7 +578,7 @@ packages:
       '@ant-design/icons': 5.2.6(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-card': 2.5.18(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-field': 2.12.9(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
-      '@ant-design/pro-form': 2.21.0(antd@5.9.4)(rc-field-form@1.38.2)(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/pro-form': 2.21.0(antd@5.9.4)(rc-field-form@1.40.0)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-provider': 2.13.1(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/pro-utils': 2.14.6(antd@5.9.4)(react-dom@18.2.0)(react@18.2.0)
       '@babel/runtime': 7.23.1
@@ -587,7 +590,7 @@ packages:
       classnames: 2.3.2
       dayjs: 1.11.10
       omit.js: 2.0.2
-      rc-field-form: 1.38.2(react-dom@18.2.0)(react@18.2.0)
+      rc-field-form: 1.40.0(react-dom@18.2.0)(react@18.2.0)
       rc-resize-observer: 1.3.1(react-dom@18.2.0)(react@18.2.0)
       rc-util: 5.37.0(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
@@ -1026,6 +1029,13 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.0
+
+  /@babel/runtime@7.23.2:
+    resolution: {integrity: sha512-mM8eg4yl5D6i3lu2QKPuPH4FArvJ8KhTofbE7jwMUv9KX5mBvwPAqnV3MlyBNqdp9RyRKP6Yck8TrfYrPvX3bg==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.0
+    dev: false
 
   /@babel/template@7.22.15:
     resolution: {integrity: sha512-QPErUVm4uyJa60rkI73qneDacvdvzxshT3kksGqlGWYdOTIUOwJ7RDUL8sGqslY1uXWSL6xMFKEXDS3ox2uF0w==}
@@ -2925,12 +2935,12 @@ packages:
     engines: {node: '>=18.0.0'}
     dev: false
 
-  /@remix-run/dev@2.0.1(@remix-run/serve@2.0.1)(@types/node@20.8.2)(ts-node@10.9.1)(typescript@5.2.2):
-    resolution: {integrity: sha512-FxlbgCBXUzKxBSs2OfNoBUadcARr4S7S4JQ28t7MLcIsfJI/uHmGAMXClatsgeZuRvPK/Zx/W3B4uho1FTfQVA==}
+  /@remix-run/dev@2.1.0(@remix-run/serve@2.1.0)(@types/node@20.8.2)(ts-node@10.9.1)(typescript@5.2.2):
+    resolution: {integrity: sha512-Hn5lw46F+a48dp5uHKe68ckaHgdStW4+PmLod+LMFEqrMbkF0j4XD1ousebxlv989o0Uy/OLgfRMgMy4cBOvHg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     peerDependencies:
-      '@remix-run/serve': ^2.0.1
+      '@remix-run/serve': ^2.1.0
       typescript: ^5.1.0
     peerDependenciesMeta:
       '@remix-run/serve':
@@ -2947,8 +2957,8 @@ packages:
       '@babel/traverse': 7.23.0
       '@mdx-js/mdx': 2.3.0
       '@npmcli/package-json': 4.0.1
-      '@remix-run/serve': 2.0.1(typescript@5.2.2)
-      '@remix-run/server-runtime': 2.0.1(typescript@5.2.2)
+      '@remix-run/serve': 2.1.0(typescript@5.2.2)
+      '@remix-run/server-runtime': 2.1.0(typescript@5.2.2)
       '@types/mdx': 2.0.8
       '@vanilla-extract/integration': 6.2.2(@types/node@20.8.2)
       arg: 5.0.2
@@ -3004,8 +3014,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@remix-run/eslint-config@2.0.1(eslint@8.50.0)(react@18.2.0)(typescript@5.2.2):
-    resolution: {integrity: sha512-XIKnID45O60Vtegsib2qJOVYBCq2VRn+3qaEAX1NtgcQDI1xD7o3k1k3MCdQqaGD9/XmcbJumkmuAIX3Ti6/mA==}
+  /@remix-run/eslint-config@2.1.0(eslint@8.50.0)(react@18.2.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-yfeUnHpUG+XveujMi6QODKMGhs5CvKWCKzASU397BPXiPWbMv6r2acfODSWK64ZdBMu9hcLbOb42GBFydVQeHA==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       eslint: ^8.0.0
@@ -3042,8 +3052,8 @@ packages:
       - supports-color
     dev: true
 
-  /@remix-run/express@2.0.1(express@4.18.2)(typescript@5.2.2):
-    resolution: {integrity: sha512-YwqWF+Se6EoKL7uJhA/55BwP6kxIgDo//kHoh8miaMvVUKa1KMLru79kqU74d7PleYf9Qj4i2cXygz1mMl032w==}
+  /@remix-run/express@2.1.0(express@4.18.2)(typescript@5.2.2):
+    resolution: {integrity: sha512-R5myPowQx6LYWY3+EqP42q19MOCT3+ZGwb2f0UKNs9a34R8U3nFpGWL7saXryC+To+EasujEScc8rTQw5Pftog==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       express: ^4.17.1
@@ -3052,7 +3062,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@remix-run/node': 2.0.1(typescript@5.2.2)
+      '@remix-run/node': 2.1.0(typescript@5.2.2)
       express: 4.18.2
       typescript: 5.2.2
 
@@ -3074,9 +3084,29 @@ packages:
       source-map-support: 0.5.21
       stream-slice: 0.1.2
       typescript: 5.2.2
+    dev: false
 
-  /@remix-run/react@2.0.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
-    resolution: {integrity: sha512-xZgJcRjzx9gjCzh7dDZGQJcmQPPFisMrDwhUuIzlSHuR2rEQCCGZPBLVCpbD1zhDfbdvOugbf2DLSmP2TEBXNA==}
+  /@remix-run/node@2.1.0(typescript@5.2.2):
+    resolution: {integrity: sha512-TeSgjXnZUUlmw5FVpBVnXY7MLpracjdnwFNwoJE5NQkiUEFnGD/Yhvk4F2fOCkszqc2Z25KRclc5noweyiFu6Q==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      typescript: ^5.1.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@remix-run/server-runtime': 2.1.0(typescript@5.2.2)
+      '@remix-run/web-fetch': 4.4.1
+      '@remix-run/web-file': 3.1.0
+      '@remix-run/web-stream': 1.1.0
+      '@web3-storage/multipart-parser': 1.0.0
+      cookie-signature: 1.2.1
+      source-map-support: 0.5.21
+      stream-slice: 0.1.2
+      typescript: 5.2.2
+
+  /@remix-run/react@2.1.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-DeYgfsvNxHqNn29sGA3XsZCciMKo2EFTQ9hHkuVPTsJXC4ipHr6Dja1j6UzZYPe/ZuKppiuTjueWCQlE2jOe1w==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^18.0.0
@@ -3088,12 +3118,16 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@remix-run/router': 1.9.0
-      '@remix-run/server-runtime': 2.0.1(typescript@5.2.2)
+      '@remix-run/router': 1.10.0
+      '@remix-run/server-runtime': 2.1.0(typescript@5.2.2)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-router-dom: 6.16.0(react-dom@18.2.0)(react@18.2.0)
+      react-router-dom: 6.17.0(react-dom@18.2.0)(react@18.2.0)
       typescript: 5.2.2
+
+  /@remix-run/router@1.10.0:
+    resolution: {integrity: sha512-Lm+fYpMfZoEucJ7cMxgt4dYt8jLfbpwRCzAjm9UgSLOkmlqo9gupxt6YX3DY0Fk155NT9l17d/ydi+964uS9Lw==}
+    engines: {node: '>=14.0.0'}
 
   /@remix-run/router@1.7.2:
     resolution: {integrity: sha512-7Lcn7IqGMV+vizMPoEl5F0XDshcdDYtMI6uJLQdQz5CfZAwy3vvGKYSUk789qndt5dEC4HfSjviSYlSoHGL2+A==}
@@ -3103,14 +3137,15 @@ packages:
   /@remix-run/router@1.9.0:
     resolution: {integrity: sha512-bV63itrKBC0zdT27qYm6SDZHlkXwFL1xMBuhkn+X7l0+IIhNaH5wuuvZKp6eKhCD4KFhujhfhCT1YxXW6esUIA==}
     engines: {node: '>=14.0.0'}
+    dev: false
 
-  /@remix-run/serve@2.0.1(typescript@5.2.2):
-    resolution: {integrity: sha512-3aljUFhzsIwgGN2SuMgrXQH5TqA8e52afrYAnHR5CpHXxVxkwyDB4BNKng7yLRIywsOi5MHOclu/5preKV8qVA==}
+  /@remix-run/serve@2.1.0(typescript@5.2.2):
+    resolution: {integrity: sha512-XHI+vPYz217qrg1QcV38TTPlEBTzMJzAt0SImPutyF0S2IBrZGZIFMEsspI0i0wNvdcdQz1IqmSx+mTghzW8eQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
-      '@remix-run/express': 2.0.1(express@4.18.2)(typescript@5.2.2)
-      '@remix-run/node': 2.0.1(typescript@5.2.2)
+      '@remix-run/express': 2.1.0(express@4.18.2)(typescript@5.2.2)
+      '@remix-run/node': 2.1.0(typescript@5.2.2)
       chokidar: 3.5.3
       compression: 1.7.4
       express: 4.18.2
@@ -3149,6 +3184,24 @@ packages:
       set-cookie-parser: 2.6.0
       source-map: 0.7.4
       type-fest: 4.3.3
+      typescript: 5.2.2
+    dev: false
+
+  /@remix-run/server-runtime@2.1.0(typescript@5.2.2):
+    resolution: {integrity: sha512-Uz69yF4Gu6F3VYQub3JgDo9godN8eDMeZclkadBTAWN7bYLonu0ChR/GlFxS35OLeF7BDgudxOSZob0nE1WHNg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      typescript: ^5.1.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@remix-run/router': 1.10.0
+      '@types/cookie': 0.4.1
+      '@web3-storage/multipart-parser': 1.0.0
+      cookie: 0.4.2
+      set-cookie-parser: 2.6.0
+      source-map: 0.7.4
       typescript: 5.2.2
 
   /@remix-run/web-blob@3.1.0:
@@ -9643,6 +9696,23 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
+  /rc-field-form@1.40.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-OM3N01X2BYFGJDJcwpk9/BBtlwgveE7eh2SQAKIxVCt9KVWlODYJ9ypTHQdxchfDbeJKJKxMBFXlLAmyvlgPHg==}
+    engines: {node: '>=8.x'}
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.2
+      async-validator: 4.2.5
+      rc-util: 5.38.0(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /rc-image@7.2.0(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-5Ug2hCVl6VcT0osR5XaZQ4zclTMEWPnbn3b4/TS/MR1QjRpEACLNFUzBGwr5mbAVhzvLWX5YZf4vO10xUA5IUA==}
     peerDependencies:
@@ -10141,6 +10211,21 @@ packages:
       react-is: 16.13.1
     dev: false
 
+  /rc-util@5.38.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-yV/YBNdFn+edyBpBdCqkPE29Su0jWcHNgwx2dJbRqMrMfrUcMJUjCRV+ZPhcvWyKFJ63GzEerPrz9JIVo0zXmA==}
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.2
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-is: 18.2.0
+    dev: false
+
   /rc-virtual-list@3.11.2(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-MTFLL2LOHr3+/+r+WjTIs6j8XmJE6EqdOsJvCH8SWig7qyik3aljCEImUtw5tdWR0tQhXUfbv7P7nZaLY91XPg==}
     engines: {node: '>=8.x'}
@@ -10245,7 +10330,6 @@ packages:
 
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
-    dev: true
 
   /react-json-view-lite@1.1.0(react@18.2.0):
     resolution: {integrity: sha512-90cq69xHA4N3ZxZpIVcsZzWPBWuaEbI9BetfNWp/kDcqSX2gZmpFtTrmrcmmIzcN2WUudxpUb4k/DcjsxjjcVA==}
@@ -10324,8 +10408,8 @@ packages:
       use-sidecar: 1.1.2(@types/react@18.2.25)(react@18.2.0)
     dev: true
 
-  /react-router-dom@6.16.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-aTfBLv3mk/gaKLxgRDUPbPw+s4Y/O+ma3rEN1u8EgEpLpPe6gNjIsWt9rxushMHHMb7mSwxRGdGlGdvmFsyPIg==}
+  /react-router-dom@6.17.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-qWHkkbXQX+6li0COUUPKAUkxjNNqPJuiBd27dVwQGDNsuFBdMbrS6UZ0CLYc4CsbdLYTckn4oB4tGDuPZpPhaQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
@@ -10334,13 +10418,13 @@ packages:
       react:
         optional: true
     dependencies:
-      '@remix-run/router': 1.9.0
+      '@remix-run/router': 1.10.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-router: 6.16.0(react@18.2.0)
+      react-router: 6.17.0(react@18.2.0)
 
-  /react-router@6.16.0(react@18.2.0):
-    resolution: {integrity: sha512-VT4Mmc4jj5YyjpOi5jOf0I+TYzGpvzERy4ckNSvSh2RArv8LLoCxlsZ2D+tc7zgjxcY34oTz2hZaeX5RVprKqA==}
+  /react-router@6.17.0(react@18.2.0):
+    resolution: {integrity: sha512-YJR3OTJzi3zhqeJYADHANCGPUu9J+6fT5GLv82UWRGSxu6oJYCKVmxUcaBQuGm9udpWmPsvpme/CdHumqgsoaA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
@@ -10348,7 +10432,7 @@ packages:
       react:
         optional: true
     dependencies:
-      '@remix-run/router': 1.9.0
+      '@remix-run/router': 1.10.0
       react: 18.2.0
 
   /react-style-singleton@2.2.1(@types/react@18.2.25)(react@18.2.0):
@@ -10618,21 +10702,21 @@ packages:
       remix-auth: ^3.4.0
     dependencies:
       '@remix-run/server-runtime': 1.19.3
-      remix-auth: 3.6.0(@remix-run/react@2.0.1)(@remix-run/server-runtime@1.19.3)
+      remix-auth: 3.6.0(@remix-run/react@2.1.0)(@remix-run/server-runtime@1.19.3)
     dev: false
 
-  /remix-auth@3.6.0(@remix-run/react@2.0.1)(@remix-run/server-runtime@1.19.3):
+  /remix-auth@3.6.0(@remix-run/react@2.1.0)(@remix-run/server-runtime@1.19.3):
     resolution: {integrity: sha512-mxlzLYi+/GKQSaXIqIw15dxAT1wm+93REAeDIft2unrKDYnjaGhhpapyPhdbALln86wt9lNAk21znfRss3fG7Q==}
     peerDependencies:
       '@remix-run/react': ^1.0.0 || ^2.0.0
       '@remix-run/server-runtime': ^1.0.0 || ^2.0.0
     dependencies:
-      '@remix-run/react': 2.0.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
+      '@remix-run/react': 2.1.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
       '@remix-run/server-runtime': 1.19.3
       uuid: 8.3.2
     dev: false
 
-  /remix-development-tools@3.2.1(@remix-run/react@2.0.1)(@types/react-dom@18.2.10)(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0):
+  /remix-development-tools@3.2.1(@remix-run/react@2.1.0)(@types/react-dom@18.2.10)(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-2b6vWT36rDn3N5WXhmJVf6scQzG3pnJXXA13q+PVyFteMIve1Ru2AjdSeJQEkkRf5oyPplA+0aUH8FKQ13JACA==}
     hasBin: true
     peerDependencies:
@@ -10645,7 +10729,7 @@ packages:
     dependencies:
       '@radix-ui/react-accordion': 1.1.2(@types/react-dom@18.2.10)(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-select': 1.2.2(@types/react-dom@18.2.10)(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0)
-      '@remix-run/react': 2.0.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
+      '@remix-run/react': 2.1.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
       clone: 2.1.2
       clsx: 2.0.0
       d3-hierarchy: 3.1.2
@@ -10666,7 +10750,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /remix-i18next@5.0.0(@remix-run/react@2.0.1)(@remix-run/server-runtime@1.19.3)(i18next@23.5.1)(react-i18next@13.2.2)(react@18.2.0):
+  /remix-i18next@5.0.0(@remix-run/react@2.1.0)(@remix-run/server-runtime@1.19.3)(i18next@23.5.1)(react-i18next@13.2.2)(react@18.2.0):
     resolution: {integrity: sha512-HB7FjbxdkSDwqMAgVzAb3UTxkzK0mUzRiIvH+GsdoLd6avJVn5Lr4NUs3vLQi9Ez2ufA0QrjGXDEIHBs+26ppA==}
     peerDependencies:
       '@remix-run/react': ^1.0.0
@@ -10678,7 +10762,7 @@ packages:
       react:
         optional: true
     dependencies:
-      '@remix-run/react': 2.0.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
+      '@remix-run/react': 2.1.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
       '@remix-run/server-runtime': 1.19.3
       accept-language-parser: 1.5.0
       i18next: 23.5.1
@@ -11728,6 +11812,7 @@ packages:
   /type-fest@4.3.3:
     resolution: {integrity: sha512-bxhiFii6BBv6UiSDq7uKTMyADT9unXEl3ydGefndVLxFeB44LRbT4K7OJGDYSyDrKnklCC1Pre68qT2wbUl2Aw==}
     engines: {node: '>=16'}
+    dev: false
 
   /type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
