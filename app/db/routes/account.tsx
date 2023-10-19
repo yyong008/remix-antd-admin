@@ -1,14 +1,14 @@
 import type { Route } from "@ant-design/pro-layout/es/typing";
 
-import * as _icons from "@ant-design/icons";
+// import * as _icons from "@ant-design/icons";
 
-const { UserOutlined } = _icons;
+// const { UserOutlined } = _icons;
 
 export const createAccountRoutes = (t: any, lang: string): Route => {
   return {
     key: "account",
     path: `${lang}/account`,
-    icon: <UserOutlined />,
+    icon: "UserOutlined",
     name: t("account"),
     children: [
       {

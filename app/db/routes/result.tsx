@@ -1,13 +1,13 @@
 import type { Route } from "@ant-design/pro-layout/es/typing";
 
-import * as _icons from "@ant-design/icons";
+// import * as _icons from "@ant-design/icons";
 
-const { CheckCircleOutlined } = _icons;
+// const { CheckCircleOutlined } = _icons;
 
 export const createResultRoutes = (t: any, lang: string): Route => {
   return {
     key: "result",
-    icon: <CheckCircleOutlined />,
+    icon: "CheckCircleOutlined",
     name: t("result"),
     path: `${lang}/result`,
     children: [

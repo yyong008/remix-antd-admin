@@ -1,14 +1,14 @@
 import type { Route } from "@ant-design/pro-layout/es/typing";
 
-import * as _icons from "@ant-design/icons";
+// import * as _icons from "@ant-design/icons";
 
-const { FileExcelOutlined } = _icons;
+// const { FileExcelOutlined } = _icons;
 
 export const createExcelRoutes = (t: any, lang: string): Route => {
   return {
     key: "excel",
     path: `${lang}/excel`,
-    icon: <FileExcelOutlined />,
+    icon: "FileExcelOutlined",
     name: t("excel"),
     children: [
       {

@@ -1,14 +1,14 @@
 import type { Route } from "@ant-design/pro-layout/es/typing";
 
-import * as _icons from "@ant-design/icons";
+// import * as _icons from "@ant-design/icons";
 
-const { HeartOutlined } = _icons;
+// const { HeartOutlined } = _icons;
 
 export const createDiseaseRoutes = (t: any, lang: string): Route => {
   return {
     key: "disease",
     path: `${lang}/disease`,
-    icon: <HeartOutlined />,
+    icon: "HeartOutlined",
     name: t("health"),
     children: [
       {

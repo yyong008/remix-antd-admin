@@ -1,13 +1,13 @@
 import type { Route } from "@ant-design/pro-layout/es/typing";
 
-import * as _icons from "@ant-design/icons";
+// import * as _icons from "@ant-design/icons";
 
-const { HighlightOutlined } = _icons;
+// const { HighlightOutlined } = _icons;
 
 export const createEditorRoutes = (t: any, lang: string): Route => {
   return {
     key: "editor",
-    icon: <HighlightOutlined />,
+    icon: "HighlightOutlined",
     name: t("editor"),
     path: `${lang}/editor`,
     children: [

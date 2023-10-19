@@ -1,14 +1,14 @@
 import type { Route } from "@ant-design/pro-layout/es/typing";
 
-import * as _icons from "@ant-design/icons";
+// import * as _icons from "@ant-design/icons";
 
-const { TableOutlined } = _icons;
+// const { TableOutlined } = _icons;
 
 export const createListRoutes = (t: any, lang: string): Route => {
   return {
     key: "List",
     path: `${lang}/list`,
-    icon: <TableOutlined />,
+    icon: "TableOutlined",
     name: t("list"),
     children: [
       {
