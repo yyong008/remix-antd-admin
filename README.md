@@ -46,6 +46,14 @@ pnpm run build #pnpm build
 pnpm run start # pnpm start
 ```
 
+## custom hooks
+
+`/app/hooks/**` dir define custom hooks
+
+## layout
+
+`/app/layout/**` dir define main layout
+
 ## @ant-design/icons uages
 
 ```ts

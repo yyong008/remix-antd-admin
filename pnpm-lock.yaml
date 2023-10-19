@@ -119,6 +119,9 @@ dependencies:
   nanoid:
     specifier: ^5.0.1
     version: 5.0.1
+  nprogress:
+    specifier: ^0.2.0
+    version: 0.2.0
   qrcode:
     specifier: ^1.5.3
     version: 1.5.3
@@ -196,6 +199,9 @@ devDependencies:
   '@types/node':
     specifier: ^20.7.1
     version: 20.8.2
+  '@types/nprogress':
+    specifier: ^0.2.2
+    version: 0.2.2
   '@types/qrcode':
     specifier: ^1.5.2
     version: 1.5.2
@@ -3595,6 +3601,10 @@ packages:
 
   /@types/normalize-package-data@2.4.2:
     resolution: {integrity: sha512-lqa4UEhhv/2sjjIQgjX8B+RBjj47eo0mzGasklVJ78UKGQY1r0VpB9XHDaZZO9qzEFDdy4MrXLuEaSmPrPSe/A==}
+    dev: true
+
+  /@types/nprogress@0.2.2:
+    resolution: {integrity: sha512-2wLrSJXLztGmr7wXwM0hA/wuIOY9DznVdd+ZFofHOiXcj9JnVt+2ZeLRJ7v5ZVlmheSkUOSg3Q3O4Ce7yji79A==}
     dev: true
 
   /@types/parse5@6.0.3:
@@ -8850,6 +8860,10 @@ packages:
     dependencies:
       path-key: 4.0.0
     dev: true
+
+  /nprogress@0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
+    dev: false
 
   /object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}

@@ -28,6 +28,7 @@ import { createTokens } from "~/layout/createToken";
 import i18n from "~/i18n/i18next.server";
 import { Spin } from "antd";
 import { handleRoutes } from "~/utils/route.handle";
+import { useNProgress } from "~/hooks/useNProgress";
 
 const langs = ["zh-CN", "en-US"];
 
@@ -44,6 +45,7 @@ export const loader: LoaderFunction = async ({
 };
 
 function AdminLayout() {
+  useNProgress();
   const { routes } = useLoaderData();
   const value = useContext(SettingContext);
   const [pathname, setPathname] = useState(location.pathname);
