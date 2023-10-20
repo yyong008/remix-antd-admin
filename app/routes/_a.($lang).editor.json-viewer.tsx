@@ -50,7 +50,6 @@ const App = () => {
       postinstall: "prisma generate",
     },
     dependencies: {
-      "@ant-design/cssinjs": "^1.9.1",
       "@ant-design/icons": "^5.0.1",
       "@ant-design/pro-components": "^2.4.14",
       "@ant-design/pro-skeleton": "^2.1.3",

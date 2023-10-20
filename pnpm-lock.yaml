@@ -5,9 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@ant-design/cssinjs':
-    specifier: ^1.17.0
-    version: 1.17.0(react-dom@18.2.0)(react@18.2.0)
   '@ant-design/icons':
     specifier: ^5.2.6
     version: 5.2.6(react-dom@18.2.0)(react@18.2.0)
@@ -152,9 +149,6 @@ dependencies:
   reactflow:
     specifier: ^11.9.2
     version: 11.9.2(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0)
-  remix-antd-admin:
-    specifier: 'link:'
-    version: 'link:'
   remix-auth:
     specifier: ^3.5.1
     version: 3.6.0(@remix-run/react@2.1.0)(@remix-run/server-runtime@1.19.3)
