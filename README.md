@@ -2,7 +2,7 @@
 
 ![](./public/images/admin.png)
 
-A management system based on `Remix/Antd`, which can quickly understand the performance of Remix as a management system.
+A management system based on `Remix/Antd/...`, which can quickly understand the performance of Remix as a management system.
 
 > https://remix-antd-admin.vercel.app
 
@@ -45,6 +45,12 @@ pnpm run build #pnpm build
 # start in production
 pnpm run start # pnpm start
 ```
+
+## styles
+
+- css
+- cssModule
+- tailwindcss
 
 ## client only
 
