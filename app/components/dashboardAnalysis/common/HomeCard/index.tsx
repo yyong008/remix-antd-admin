@@ -1,8 +1,9 @@
 // core
 
 // components:vendor
-import { Tooltip } from "antd";
+import { Space, Tooltip } from "antd";
 import { ProCard } from "@ant-design/pro-components";
+
 import * as _icons from "@ant-design/icons";
 
 const { InfoCircleOutlined } = _icons;
@@ -20,10 +21,12 @@ export default function HomeCard(props: HomeCardProps) {
   return (
     <ProCard className="home-card">
       <div className="cardContent">
-        <div>{props.title}</div>
-        <Tooltip title={props.tip}>
-          <InfoCircleOutlined />
-        </Tooltip>
+        <Space>
+          <div>{props.title}</div>
+          <Tooltip title={props.tip}>
+            <InfoCircleOutlined />
+          </Tooltip>
+        </Space>
       </div>
       <div className="coreName">
         {props.unit ? <span className="unit">{props.unit}</span> : null}

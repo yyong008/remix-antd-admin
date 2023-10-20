@@ -21,6 +21,9 @@
   word-break: break-all;
 }
 
+.content {
+  height: 46px;
+}
 /* RankListWrap */
 .RankListWrap {
   display: flex;

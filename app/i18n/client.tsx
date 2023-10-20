@@ -1,4 +1,4 @@
-import i18next from "i18next";
+import { createInstance } from "i18next";
 
 import Backend from "i18next-http-backend";
 import { getInitialNamespaces } from "remix-i18next";
@@ -8,7 +8,9 @@ import { I18nextProvider, initReactI18next } from "react-i18next";
 import i18n from "./i18n";
 
 export async function startClientI18n() {
-  await i18next
+  let instance = createInstance();
+
+  await instance
     .use(initReactI18next)
     .use(LanguageDetector)
     .use(Backend)
@@ -22,7 +24,7 @@ export async function startClientI18n() {
       },
     });
 
-  return i18next;
+  return instance;
 }
 
 export const I18nextProviderWrap = ({ children, i18next }: any) => {
