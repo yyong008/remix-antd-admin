@@ -46,6 +46,16 @@ pnpm run build #pnpm build
 pnpm run start # pnpm start
 ```
 
+## client only
+
+```tsx
+    <html lang={params.lang}>
+      <body>
+        <ClientOnly fallback={<Loading />}>{() => <Outlet />}</ClientOnly>
+      </body>
+    </html>
+```
+
 ## custom hooks
 
 `/app/hooks/**` dir define custom hooks
@@ -55,6 +65,8 @@ pnpm run start # pnpm start
 `/app/layout/**` dir define main layout
 
 ## @ant-design/icons uages
+
+use in client only mode
 
 ```ts
 import * as _icons from '@ant-design/icons';
