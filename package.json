@@ -43,6 +43,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.17.2",
     "@ant-design/icons": "^5.2.6",
     "@ant-design/pro-components": "^2.6.28",
     "@ant-design/pro-layout": "^7.17.8",
