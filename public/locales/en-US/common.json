@@ -84,5 +84,6 @@
   "desc": "Base Remix for Admin with Antd",
   "other-login": "other login",
   "submit": "submit",
-  "phone-placeholder": "please input phone number"
+  "phone-placeholder": "please input phone number",
+  "lib": "lib"
 }

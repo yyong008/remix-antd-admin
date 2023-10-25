@@ -84,5 +84,6 @@
   "desc": "基于 Remix Antd Admin 的后台管理系统",
   "other-login": "其他登录",
   "submit": "提交",
-  "phone-placeholder": "输入电话号"
+  "phone-placeholder": "输入电话号",
+  "lib": "库"
 }

@@ -6,9 +6,23 @@ import type { Route } from "@ant-design/pro-layout/es/typing";
 
 export const createAuthRoutes = (t: any, lang: string): Route => {
   return {
-    key: "auth",
-    path: `/${lang}/auth`,
+    key: "auths",
+    path: `/${lang}/`,
     icon: "KeyOutlined",
     name: t("auth"),
+    children: [
+      {
+        key: "role",
+        path: `role`,
+        icon: "KeyOutlined",
+        name: t("role"),
+      },
+      {
+        key: "auth-tree",
+        path: `auth`,
+        icon: "KeyOutlined",
+        name: t("auth"),
+      },
+    ],
   };
 };

@@ -78,14 +78,14 @@ dependencies:
     specifier: ^1.11.10
     version: 1.11.10
   echarts:
-    specifier: ^5.4.3
-    version: 5.4.3
+    specifier: ^5.0.0
+    version: 5.0.0
   echarts-for-react:
     specifier: ^3.0.2
-    version: 3.0.2(echarts@5.4.3)(react@18.2.0)
+    version: 3.0.2(echarts@5.0.0)(react@18.2.0)
   echarts-liquidfill-ssr:
     specifier: ^3.1.0
-    version: 3.1.0(echarts@5.4.3)
+    version: 3.1.0(echarts@5.0.0)
   file-saver:
     specifier: ^2.0.5
     version: 2.0.5
@@ -5669,7 +5669,7 @@ packages:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
 
-  /echarts-for-react@3.0.2(echarts@5.4.3)(react@18.2.0):
+  /echarts-for-react@3.0.2(echarts@5.0.0)(react@18.2.0):
     resolution: {integrity: sha512-DRwIiTzx8JfwPOVgGttDytBqdp5VzCSyMRIxubgU/g2n9y3VLUmF2FK7Icmg/sNVkv4+rktmrLN9w22U2yy3fA==}
     peerDependencies:
       echarts: ^3.0.0 || ^4.0.0 || ^5.0.0
@@ -5678,25 +5678,25 @@ packages:
       react:
         optional: true
     dependencies:
-      echarts: 5.4.3
+      echarts: 5.0.0
       fast-deep-equal: 3.1.3
       react: 18.2.0
       size-sensor: 1.0.2
     dev: false
 
-  /echarts-liquidfill-ssr@3.1.0(echarts@5.4.3):
+  /echarts-liquidfill-ssr@3.1.0(echarts@5.0.0):
     resolution: {integrity: sha512-sgs9d0wwi0+BI/E1Pq1zHHcwZBnOc05DvEGlPebw1G9ljkvwzJJzdhF3Zds7UHM54Dw8YnLrqfeofx11y8Jnuw==}
     peerDependencies:
       echarts: ^5.0.1
     dependencies:
-      echarts: 5.4.3
+      echarts: 5.0.0
     dev: false
 
-  /echarts@5.4.3:
-    resolution: {integrity: sha512-mYKxLxhzy6zyTi/FaEbJMOZU1ULGEQHaeIeuMR5L+JnJTpz+YR03mnnpBhbR4+UYJAgiXgpyTVLffPAjOTLkZA==}
+  /echarts@5.0.0:
+    resolution: {integrity: sha512-6SDcJbLVOcfQyjPg+spNU1+JVrkU1B9fzUa5tpbP/mMNUPyigCOJwcEIQAJSbp9jt5UP3EXvQR0vtYXIo9AjyA==}
     dependencies:
-      tslib: 2.3.0
-      zrender: 5.4.4
+      tslib: 1.10.0
+      zrender: 5.0.1
     dev: false
 
   /ee-first@1.1.1:
@@ -11733,13 +11733,13 @@ packages:
       strip-bom: 3.0.0
     dev: true
 
+  /tslib@1.10.0:
+    resolution: {integrity: sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==}
+    dev: false
+
   /tslib@1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: true
-
-  /tslib@2.3.0:
-    resolution: {integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==}
-    dev: false
 
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
@@ -12602,10 +12602,10 @@ packages:
     engines: {node: '>=12.20'}
     dev: true
 
-  /zrender@5.4.4:
-    resolution: {integrity: sha512-0VxCNJ7AGOMCWeHVyTrGzUgrK4asT4ml9PEkeGirAkKNYXYzoPJCLvmyfdoOXcjTHPs10OZVMfD1Rwg16AZyYw==}
+  /zrender@5.0.1:
+    resolution: {integrity: sha512-i8FNCKAKfF0EfZFJ6w2p30umBrCyy481/PePFQqPdtNgCl5Hp5z7/dovqb7soEoFkhNvhjJ/J4W9zFALeae6yA==}
     dependencies:
-      tslib: 2.3.0
+      tslib: 1.10.0
     dev: false
 
   /zustand@4.4.2(@types/react@18.2.25)(react@18.2.0):
