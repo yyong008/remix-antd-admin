@@ -1,3 +1,4 @@
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 import type { MetaFunction } from "@remix-run/node";
 
 // libs
@@ -22,34 +23,38 @@ export default function Index() {
   ];
 
   return (
-    <div className="flex flex-col justify-center align-middle">
-      <div className="text-center p-[100px]">
-        RxJS Keybr(Press keybr, RxJS in hooks)
-      </div>
-      <div className="flex justify-center 90vh">
-        <div className="border-slate-400 border-spacing-1 border p-[20px] rounded">
-          {qwertyRows.map((row, rowIndex) => (
-            <div
-              key={rowIndex}
-              className="row flex align-center justify-center"
-            >
-              {row.map((rowKey, keyIndex) => (
+    <PageContainer title="RxJS">
+      <ProCard>
+        <div className="flex flex-col justify-center align-middle">
+          <div className="text-center p-[100px]">
+            RxJS Keybr(Press keybr, RxJS in hooks)
+          </div>
+          <div className="flex justify-center 90vh">
+            <div className="border-slate-400 border-spacing-1 border p-[20px] rounded">
+              {qwertyRows.map((row, rowIndex) => (
                 <div
-                  key={keyIndex}
-                  className={classNames(
-                    "flex align-center justify-center w-[80px] h-[80px] bg-slate-300 m-[4px] rounded-sm",
-                    {
-                      "bg-yellow-500": rowKey === key,
-                    },
-                  )}
+                  key={rowIndex}
+                  className="row flex align-center justify-center"
                 >
-                  {rowKey.toUpperCase()}
+                  {row.map((rowKey, keyIndex) => (
+                    <div
+                      key={keyIndex}
+                      className={classNames(
+                        "flex align-center justify-center w-[80px] h-[80px] bg-slate-300 m-[4px] rounded-sm",
+                        {
+                          "bg-yellow-500": rowKey === key,
+                        },
+                      )}
+                    >
+                      {rowKey.toUpperCase()}
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
-          ))}
+          </div>
         </div>
-      </div>
-    </div>
+      </ProCard>
+    </PageContainer>
   );
 }

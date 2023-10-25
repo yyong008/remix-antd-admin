@@ -1,3 +1,4 @@
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { Table, Button } from "antd";
 
 import { Excel } from "antd-table-saveas-excel";
@@ -36,23 +37,27 @@ export default function ExcelExportRoute() {
     },
   ];
   return (
-    <div>
-      <Button
-        style={{
-          marginBottom: 20,
-        }}
-        onClick={() => {
-          const excel = new Excel();
-          excel
-            .addSheet("test")
-            .addColumns(columns)
-            .addDataSource(dataSource)
-            .saveAs("测试.xlsx");
-        }}
-      >
-        下载
-      </Button>
-      <Table bordered columns={columns} dataSource={dataSource} />
-    </div>
+    <PageContainer title="excel export">
+      <ProCard>
+        <div>
+          <Button
+            style={{
+              marginBottom: 20,
+            }}
+            onClick={() => {
+              const excel = new Excel();
+              excel
+                .addSheet("test")
+                .addColumns(columns)
+                .addDataSource(dataSource)
+                .saveAs("测试.xlsx");
+            }}
+          >
+            下载
+          </Button>
+          <Table bordered columns={columns} dataSource={dataSource} />
+        </div>
+      </ProCard>
+    </PageContainer>
   );
 }

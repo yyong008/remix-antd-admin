@@ -5,6 +5,7 @@ import QrCodeList from "~/components/QrCodeList";
 
 // qrcode
 import QRCode from "qrcode";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 const ReactQrCode = ({ url }: any) => {
   const cRef = useRef<any>();
@@ -36,29 +37,31 @@ export default function QrCodeRoute() {
   ];
 
   return (
-    <div className="qr-mount">
-      <>
-        <Space
-          direction="vertical"
-          style={{
-            width: "100%",
-          }}
-        >
-          <QrCodeList list={list} />
-          <List
-            bordered
-            dataSource={list}
-            renderItem={(item) => {
-              return (
-                <List.Item>
-                  <List.Item.Meta title={item.name} description={item.url} />
-                  <ReactQrCode url={item.url} />
-                </List.Item>
-              );
+    <PageContainer title="qrcode">
+      <ProCard>
+        <div className="qr-mount">
+          <Space
+            direction="vertical"
+            style={{
+              width: "100%",
             }}
-          />
-        </Space>
-      </>
-    </div>
+          >
+            <QrCodeList list={list} />
+            <List
+              bordered
+              dataSource={list}
+              renderItem={(item) => {
+                return (
+                  <List.Item>
+                    <List.Item.Meta title={item.name} description={item.url} />
+                    <ReactQrCode url={item.url} />
+                  </List.Item>
+                );
+              }}
+            />
+          </Space>
+        </div>
+      </ProCard>
+    </PageContainer>
   );
 }
