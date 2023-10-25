@@ -7,7 +7,7 @@ import { json, redirect } from "@remix-run/node";
 
 // components:vendor
 
-import { PageContainer, ProLayout } from "@ant-design/pro-components";
+import { ProLayout } from "@ant-design/pro-components";
 
 // components
 import Footer from "~/components/Footer";
@@ -46,7 +46,7 @@ export const loader: LoaderFunction = async ({
 
 function AdminLayout() {
   useNProgress();
-  const { routes } = useLoaderData();
+  const { routes } = useLoaderData<typeof loader>();
   const value = useContext(SettingContext);
   const [pathname, setPathname] = useState(location.pathname);
 
@@ -58,48 +58,46 @@ function AdminLayout() {
 
   return (
     <Spin spinning={!myroutes}>
-      <PageContainer>
-        <ProLayout
-          {...myroutes}
-          {...value.theme}
-          loading={false}
-          title={config.title}
-          logo={config.logo}
-          layout={config.layout as any}
-          token={createTokens(value)}
-          ErrorBoundary={false}
-          pageTitleRender={false}
-          breadcrumbRender={false}
-          menu={config.menu}
-          location={{
-            pathname,
-          }}
-          menuItemRender={(item, dom) => (
-            <Link
-              to={item.path!}
-              onClick={() => {
-                setPathname(item.path || "/welcome");
-              }}
-            >
-              {dom}
-            </Link>
-          )}
-          actionsRender={createActionRenderWrap({ value })}
-          avatarProps={{
-            src: config.avatar.src,
-            size: config.avatar.size as any,
-            title: config.avatar.title,
-            render: (_, dom) => {
-              return <AvatarDropDown dom={dom} />;
-            },
-          }}
-          menuFooterRender={MenuFooterRender}
-          footerRender={() => <Footer />}
-        >
-          <Outlet />
-          <SettingDrawerWrap theme={value.theme} setTheme={value.setTheme} />
-        </ProLayout>
-      </PageContainer>
+      <ProLayout
+        {...myroutes}
+        {...value.theme}
+        loading={false}
+        title={config.title}
+        logo={config.logo}
+        layout={config.layout as any}
+        token={createTokens(value)}
+        ErrorBoundary={false}
+        pageTitleRender={false}
+        breadcrumbRender={false}
+        menu={config.menu}
+        location={{
+          pathname,
+        }}
+        menuItemRender={(item, dom) => (
+          <Link
+            to={item.path!}
+            onClick={() => {
+              setPathname(item.path || "/welcome");
+            }}
+          >
+            {dom}
+          </Link>
+        )}
+        actionsRender={createActionRenderWrap({ value })}
+        avatarProps={{
+          src: config.avatar.src,
+          size: config.avatar.size as any,
+          title: config.avatar.title,
+          render: (_, dom) => {
+            return <AvatarDropDown dom={dom} />;
+          },
+        }}
+        menuFooterRender={MenuFooterRender}
+        footerRender={() => <Footer />}
+      >
+        <Outlet />
+        <SettingDrawerWrap theme={value.theme} setTheme={value.setTheme} />
+      </ProLayout>
     </Spin>
   );
 }
