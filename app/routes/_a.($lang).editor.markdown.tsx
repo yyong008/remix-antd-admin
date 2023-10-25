@@ -10,6 +10,7 @@ import { Editor } from "@bytemd/react";
 
 // css
 import bytemdStyles from "bytemd/dist/index.css";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 export const links: LinksFunction = () => {
   return [
@@ -32,13 +33,17 @@ const App = () => {
   const [value, setValue] = useState("");
 
   return (
-    <Editor
-      value={value}
-      plugins={plugins}
-      onChange={(v) => {
-        setValue(v);
-      }}
-    />
+    <PageContainer title="editor markdown">
+      <ProCard>
+        <Editor
+          value={value}
+          plugins={plugins}
+          onChange={(v) => {
+            setValue(v);
+          }}
+        />
+      </ProCard>
+    </PageContainer>
   );
 };
 

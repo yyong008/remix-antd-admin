@@ -7,7 +7,7 @@ import { useLoaderData } from "@remix-run/react";
 
 // components:vendor
 import ReactFlow from "reactflow";
-import { ProCard } from "@ant-design/pro-components";
+import { ProCard, PageContainer } from "@ant-design/pro-components";
 
 // styles
 import reactflowStyleUrl from "reactflow/dist/style.css";
@@ -38,17 +38,19 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 };
 
 function EditorFlowRoute() {
-  const { nodes, edges } = useLoaderData();
+  const { nodes, edges } = useLoaderData<typeof loader>();
 
   return (
-    <ProCard
-      style={{
-        height: 400,
-        width: "100%",
-      }}
-    >
-      <ReactFlow nodes={nodes} edges={edges} fitView />
-    </ProCard>
+    <PageContainer title="editor flow">
+      <ProCard
+        style={{
+          height: 600,
+          width: "100%",
+        }}
+      >
+        <ReactFlow nodes={nodes} edges={edges} fitView />
+      </ProCard>
+    </PageContainer>
   );
 }
 

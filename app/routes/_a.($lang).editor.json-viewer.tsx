@@ -4,6 +4,7 @@ import { JsonView } from "react-json-view-lite";
 import jsonViewCss from "react-json-view-lite/dist/index.css";
 
 import { cssBundleHref } from "@remix-run/css-bundle";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 export const links: LinksFunction = () => {
   return [
@@ -116,7 +117,13 @@ const App = () => {
     },
   };
 
-  return <JsonView data={packageJson} />;
+  return (
+    <PageContainer title="editor json view">
+      <ProCard>
+        <JsonView data={packageJson} />
+      </ProCard>
+    </PageContainer>
+  );
 };
 
 export default App;

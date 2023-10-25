@@ -13,7 +13,7 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
 } from "reactflow";
-import { ProCard } from "@ant-design/pro-components";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 // components
 import {
@@ -79,28 +79,30 @@ const OverviewFlow = () => {
   });
 
   return (
-    <ProCard
-      style={{
-        height: "600px",
-        width: "100%",
-      }}
-    >
-      <ReactFlow
-        nodes={nodes}
-        edges={edgesWithUpdatedTypes}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        onInit={onInit}
-        fitView
-        attributionPosition="top-right"
-        nodeTypes={nodeTypes}
+    <PageContainer title="editor mind">
+      <ProCard
+        style={{
+          height: "600px",
+          width: "100%",
+        }}
       >
-        <MiniMap style={minimapStyle} zoomable pannable />
-        <Controls />
-        <Background color="#aaa" gap={16} />
-      </ReactFlow>
-    </ProCard>
+        <ReactFlow
+          nodes={nodes}
+          edges={edgesWithUpdatedTypes}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          onInit={onInit}
+          fitView
+          attributionPosition="top-right"
+          nodeTypes={nodeTypes}
+        >
+          <MiniMap style={minimapStyle} zoomable pannable />
+          <Controls />
+          <Background color="#aaa" gap={16} />
+        </ReactFlow>
+      </ProCard>
+    </PageContainer>
   );
 };
 
