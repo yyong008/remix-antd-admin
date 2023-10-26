@@ -1,6 +1,6 @@
 import { PageContainer } from "@ant-design/pro-components";
 import { Link, useLocation } from "@remix-run/react";
-import { Card, List } from "antd";
+import { Alert, Card, List, Space } from "antd";
 import ReactEcharts from "~/components/healthDisable/DiseaseBarChart";
 
 const data = [
@@ -51,33 +51,39 @@ const HealthRoute: React.FC = () => {
   const { pathname } = useLocation();
 
   return (
-    <PageContainer title={false}>
-      <h3>
-        作为程序员，长时间进行电脑工作和专注于屏幕可能导致一些与工作环境相关的疾病和健康问题。以下是一些程序员容易遇到的常见疾病和健康问题：
-      </h3>
-      <ReactEcharts />
-      <List
-        grid={{
-          gutter: 16,
-          xs: 1,
-          sm: 2,
-          md: 4,
-          lg: 4,
-          xl: 6,
-          xxl: 3,
-        }}
-        dataSource={data}
-        renderItem={(item) => (
-          <Link to={pathname.split("/")[0] + "/" + item.path?.slice(1)}>
-            <List.Item>
-              <Card title={item.title}>{item.content}</Card>
-            </List.Item>
-          </Link>
-        )}
-      />
-      <div>
-        为了预防这些问题，程序员可以采取以下措施：定期休息和眼部放松、保持良好的姿势和脊柱支撑、进行适度的体育锻炼、保持适当的饮食、减少工作压力、定期眼部检查，并遵循良好的睡眠习惯。此外，经常进行眼部锻炼、保持屏幕适当的亮度和对比度、使用蓝光滤光镜以及使用人体工学键盘和
-      </div>
+    <PageContainer title="health disease">
+      <Space direction="vertical">
+        <Alert
+          description="作为程序员，长时间进行电脑工作和专注于屏幕可能导致一些与工作环境相关的疾病和健康问题。以下是一些程序员容易遇到的常见疾病和健康问题："
+          type="warning"
+          showIcon
+        />
+        <ReactEcharts />
+        <List
+          grid={{
+            gutter: 16,
+            xs: 1,
+            sm: 2,
+            md: 4,
+            lg: 4,
+            xl: 6,
+            xxl: 3,
+          }}
+          dataSource={data}
+          renderItem={(item) => (
+            <Link to={pathname.split("/")[0] + "/" + item.path?.slice(1)}>
+              <List.Item>
+                <Card title={item.title}>{item.content}</Card>
+              </List.Item>
+            </Link>
+          )}
+        />
+        <Alert
+          description="为了预防这些问题，程序员可以采取以下措施：定期休息和眼部放松、保持良好的姿势和脊柱支撑、进行适度的体育锻炼、保持适当的饮食、减少工作压力、定期眼部检查，并遵循良好的睡眠习惯。此外，经常进行眼部锻炼、保持屏幕适当的亮度和对比度、使用蓝光滤光镜以及使用人体工学键盘等"
+          type="info"
+          showIcon
+        />
+      </Space>
     </PageContainer>
   );
 };
