@@ -1,5 +1,5 @@
 export const config = {
-  title: "Remix/Antd/Admin",
+  title: "RAA",
   logo: "/remix.svg",
   layout: "mix",
   menu: {
