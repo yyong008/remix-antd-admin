@@ -2,73 +2,53 @@
 
 ![](./public/images/admin.png)
 
-A management system based on `Remix/Antd/...`, which can quickly understand the performance of Remix as a management system.
+## Intro
+
+A lightweight content management system, not limited to content management.
 
 > https://remix-antd-admin.vercel.app
 
-tips: maybe this: `This Serverless Function has crashed.`
+## Stack
 
-## Design motivation
+- 🌟 Remix main framework
+- 🏰 Ant Design design system
+- 🚀 RxJS has significant advantages in handling complex calculations
+- 📊 Echarts chart system and SSR (Server-Side Rendering)
+- 🌍 Internationalization support with i18next, react-i18next, and remix-i18next
+- 💡 Atomic support with Tailwind CSS
+- 🧰 Developer tools support with remix-development-tools
+- 🧪 Component testing with Vitest
 
-Considering that Remix has an excellent design in the routing system, most of the background management system business is done in the routing. It may be a good choice to use Remix to complete the background management system. now, I currently lean more towards front-end development.
-
-## stack
-
-| pkg                             | version           | desc                           |
-| ------------------------------- | ----------------- | ------------------------------ |
-| remix                           | v2.0.1            | latest Remix                   |
-| tailwindcss                     | latest Remix      | css                            |
-| antd/@ant-design/pro-components | v5.9.4            | Antd UI                        |
-| echarts                         | v5.4.3            | chart lib with ssr             |
-| i18next                         | v23.5.1           | i18n                           |
-| remix-development-tools         | v3.0.3            | Remix DevTool (in development) |
-| remix-i18next                   | v5.0.0(no update) | remix i18n ()                  |
-| RxJS                            | latest Remix      | For complex calculations.      |
-
-## Usage
+## Quickstart
 
 ```sh
-# clone the project
 git clone https://github.com/yyong008/remix-antd-admin.git
-# or gitee
+# or
 git clone https://gitee.com/yyong008/remix-antd-admin.git
 
-# install deps
-pnpm install
+pnpm install # install deps
 
-# start local server
 pnpm run dev # pnpm dev
 
-# build project for productin
 pnpm run build #pnpm build
 
-# start in production
 pnpm run start # pnpm start
 ```
 
-## styles
-
-- css
-- cssModule
-- tailwindcss
-
-## client only
+## Client only
 
 ```tsx
-    <html lang={params.lang}>
-      <body>
-        <ClientOnly fallback={<Loading />}>{() => <Outlet />}</ClientOnly>
-      </body>
-    </html>
+<html lang={params.lang}>
+  <body>
+    <ClientOnly fallback={<Loading />}>{() => <Outlet />}</ClientOnly>
+  </body>
+</html>
 ```
 
-## custom hooks
+## Code layout
 
-`/app/hooks/**` dir define custom hooks
-
-## layout
-
-`/app/layout/**` dir define main layout
+- `/app/hooks/**` define custom hooks
+- `/app/layout/**` define main layout
 
 ## @ant-design/icons uages
 
@@ -80,7 +60,7 @@ import * as _icons from '@ant-design/icons';
 const { MoreOutlined } = _icons;
 ```
 
-## api checkhealth
+## API checkhealth
 
 ```ts
 export const loader: LoaderFunction = () => {
