@@ -2,7 +2,7 @@
 import { theme } from "antd";
 import ReactEcharts from "echarts-for-react";
 
-const AreaChart = () => {
+const AreaChart = (props: any) => {
   const { token } = theme.useToken();
 
   const option = {
@@ -17,7 +17,7 @@ const AreaChart = () => {
       {
         boundaryGap: false,
         type: "category",
-        data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+        data: props?.xAxis?.data,
       },
     ],
     yAxis: [
@@ -38,7 +38,7 @@ const AreaChart = () => {
           opacity: 0.8,
           color: token.colorPrimary,
         },
-        data: [120, 132, 101, 134, 90, 230, 210],
+        data: props?.series?.data,
       },
     ],
   };

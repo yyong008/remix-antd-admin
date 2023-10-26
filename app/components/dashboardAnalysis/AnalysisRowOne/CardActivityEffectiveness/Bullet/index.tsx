@@ -2,9 +2,9 @@
 import ReactEcharts from "echarts-for-react";
 import { theme } from "antd";
 
-const BulletChart = () => {
+const BulletChart = ({ data }: any) => {
   const { token } = theme.useToken();
-
+  const { series } = data;
   const option = {
     grid: {
       left: "0",
@@ -26,7 +26,7 @@ const BulletChart = () => {
     series: [
       {
         type: "bar",
-        data: [18203],
+        data: [series[0].data],
         stack: "sear",
         itemStyle: {
           color: token.colorPrimary,
@@ -35,7 +35,7 @@ const BulletChart = () => {
       },
       {
         type: "bar",
-        data: [6000],
+        data: [[series[1].data]],
         stack: "sear",
         itemStyle: {
           color: "#EEEEEE",

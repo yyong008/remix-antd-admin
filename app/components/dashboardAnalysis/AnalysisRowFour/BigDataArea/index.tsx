@@ -16,7 +16,7 @@ export default function BigDataArea() {
   }
 
   const option = {
-    animation: false, // 关闭动画
+    animation: true, // 关闭动画
     lazyUpdate: true, // 开启懒更新
     progressive: 500, // 设置增量渲染阈值
     grid: {

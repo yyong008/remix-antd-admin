@@ -5,24 +5,24 @@ import { Space } from "antd";
 import HomeCard from "../../common/HomeCard";
 import BarChart from "./BarChart";
 
-export default function CardNumberPayments() {
+export default function CardNumberPayments(props: any) {
   return (
     <>
       <HomeCard
-        title="支付笔数"
+        title={props.title}
         tip="指标说明"
         unit=""
-        coreNum={"960"}
+        coreNum={props.coreNum}
         content={
           <div className="content">
-            <BarChart />
+            <BarChart {...props.barChartData} />
           </div>
         }
         footer={
           <Space>
             <Space>
-              <span>转化率</span>
-              <span>60%</span>
+              <span>{props.footer.title}</span>
+              <span>{props.footer.precent}</span>
             </Space>
           </Space>
         }

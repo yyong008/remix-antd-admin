@@ -9,21 +9,30 @@ import { UpDown } from "../../common/UpDown";
 import HomeCard from "../../common/HomeCard";
 import BulletChart from "./Bullet";
 
-export default function CardActivityEffectiveness() {
+export default function CardActivityEffectiveness(props: any) {
   const [data] = useState([
-    { name: "周同比", num: "12%", status: "up" },
-    { name: "日同比", num: "11%", status: "down" },
+    {
+      name: "周同比",
+      num: props?.week?.num || "0%",
+      status: props?.week?.status || "up",
+    },
+    {
+      name: "日同比",
+      num: props?.day?.num || "0%",
+      status: props?.day?.status || "down",
+    },
   ]);
+
   return (
     <>
       <HomeCard
-        title="运营活动效果"
+        title={props.title}
         tip="指标说明"
         unit={null}
-        coreNum={"78%"}
+        coreNum={props.coreNum}
         content={
           <div className="content">
-            <BulletChart />
+            <BulletChart data={props.bullet} />
           </div>
         }
         footer={

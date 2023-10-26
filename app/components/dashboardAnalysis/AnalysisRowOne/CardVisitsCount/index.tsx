@@ -5,19 +5,19 @@ import { Space } from "antd";
 import AreaChart from "../../common/Area";
 import HomeCard from "../../common/HomeCard";
 
-export default function CardVisitsCount() {
+export default function CardVisitsCount(props: any) {
   return (
     <>
       <HomeCard
-        title="访问量"
+        title={props.title}
         tip="指标说明"
         unit={null}
-        coreNum={"6,560"}
-        content={<AreaChart />}
+        coreNum={props.coreNum}
+        content={<AreaChart {...props.areaChartData} />}
         footer={
           <Space>
-            <span>日访问量</span>
-            <span>1,234</span>
+            <span>{props?.footer?.title}</span>
+            <span>{props?.footer?.count}</span>
           </Space>
         }
       />

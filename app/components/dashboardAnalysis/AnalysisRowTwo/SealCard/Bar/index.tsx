@@ -3,10 +3,10 @@ import { theme } from "antd";
 // components:vendor
 import ReactChart from "echarts-for-react";
 
-export default function MainBar() {
+export default function MainBar({ optionsData }: any) {
   const { token } = theme.useToken();
   const option = {
-    animation: false, // 关闭动画
+    animation: true, // 关闭动画
     lazyUpdate: true, // 开启懒更新
     progressive: 500, // 设置增量渲染阈值
     grid: {
@@ -17,20 +17,7 @@ export default function MainBar() {
       containLabel: true,
     },
     xAxis: {
-      data: [
-        "1月",
-        "2月",
-        "3月",
-        "4月",
-        "5月",
-        "6月",
-        "7月",
-        "8月",
-        "9月",
-        "10月",
-        "11月",
-        "12月",
-      ],
+      data: optionsData.months,
     },
     yAxis: {},
     series: [
@@ -39,7 +26,7 @@ export default function MainBar() {
         itemStyle: {
           color: token.colorPrimary,
         },
-        data: [920, 830, 330, 380, 1100, 400, 490, 1000, 900, 600, 620, 570],
+        data: optionsData.data,
       },
     ],
   };

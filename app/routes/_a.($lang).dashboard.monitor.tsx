@@ -27,7 +27,7 @@ export const loader = ({ request, params }: LoaderFunctionArgs) => {
   return json({});
 };
 
-export default function () {
+export default function MonitorRoute() {
   return (
     <PageContainer title={false}>
       <Space direction="vertical" style={{ width: "100%" }}>

@@ -1,7 +1,14 @@
 // types
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import type {
+  LoaderFunction,
+  LinksFunction,
+  MetaFunction,
+} from "@remix-run/node";
 
 // core
+import { json } from "@remix-run/node";
+
+// components
 import { PageContainer } from "@ant-design/pro-components";
 
 // components:vendor
@@ -15,7 +22,14 @@ import {
   AnalysisRowFour,
 } from "~/components/dashboardAnalysis";
 
+// css
 import css from "~/styles/dashboard.analysis.css";
+
+import { lastValueFrom } from "rxjs";
+import { useLoaderData } from "@remix-run/react";
+
+// db
+import { getAnalysisData } from "~/db/dashboard/analysis";
 
 // utils
 export const meta: MetaFunction = () => {
@@ -31,22 +45,36 @@ export const links: LinksFunction = () => {
   ];
 };
 
+export const loader: LoaderFunction = async () => {
+  const analysisData = await lastValueFrom(getAnalysisData());
+  return json(analysisData);
+};
+
 export default function DashboardAnalysisPage() {
+  const {
+    one: { salesData, activeData, visitCountData, paymentData },
+    two: { monthSales, monthVisit, monthPartSaleData },
+  } = useLoaderData<typeof loader>();
+
   return (
-    <PageContainer
-      title={null}
-      style={{
-        background: "transparent",
-      }}
-    >
+    <PageContainer>
       <Space
         direction="vertical"
         style={{
           width: "100%",
         }}
       >
-        <AnalysisRowOne />
-        <AnalysisRowTwo />
+        <AnalysisRowOne
+          salesData={salesData}
+          visitCountData={visitCountData}
+          paymentData={paymentData}
+          activeData={activeData}
+        />
+        <AnalysisRowTwo
+          monthSales={monthSales}
+          monthVisit={monthVisit}
+          monthPartSaleData={monthPartSaleData}
+        />
         <AnalysisRowThree />
         <AnalysisRowFour />
       </Space>

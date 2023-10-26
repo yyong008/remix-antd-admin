@@ -10,20 +10,20 @@ import CardActivityEffectiveness from "./CardActivityEffectiveness";
 // col
 import { colProps } from "../col";
 
-export default function RowOne() {
+export default function RowOne(props: any) {
   return (
     <Row gutter={[8, 8]}>
       <Col {...colProps}>
-        <CardTotalSales />
+        <CardTotalSales {...props.salesData} />
       </Col>
       <Col {...colProps}>
-        <CardVisitsCount />
+        <CardVisitsCount {...props.visitCountData} />
       </Col>
       <Col {...colProps}>
-        <CardNumberPayments />
+        <CardNumberPayments {...props.paymentData} />
       </Col>
       <Col {...colProps}>
-        <CardActivityEffectiveness />
+        <CardActivityEffectiveness {...props.activeData} />
       </Col>
     </Row>
   );
