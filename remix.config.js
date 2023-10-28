@@ -6,7 +6,9 @@ export default {
   // publicPath: "/build/",
   // serverBuildPath: "build/index.js",
   tailwind: true,
-  serverDependenciesToBundle: [],
+  serverDependenciesToBundle: ['remix-i18next', 'accept-language-parser', 'intl-parse-accept-language'],
+  watchPaths: ['./tailwind.config.ts'],
+  cacheDirectory: './node_modules/.cache/remix',
   future: {},
   browserNodeBuiltinsPolyfill: {
     modules: {

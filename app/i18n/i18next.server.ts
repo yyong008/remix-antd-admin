@@ -1,24 +1,22 @@
 import { resolve } from "node:path";
 
 import Backend from "i18next-fs-backend";
-import _RemixI18Next from "remix-i18next";
+import { RemixI18Next } from "remix-i18next";
 
-import i18n from "./i18n"; // your i18n configuration file
+import i18nConfig from "./i18n";
 
-const { RemixI18Next } = _RemixI18Next;
-
-let i18next = new RemixI18Next({
+const remixI18Next = new RemixI18Next({
   detection: {
-    supportedLanguages: i18n.supportedLngs,
-    fallbackLanguage: i18n.fallbackLng,
+    supportedLanguages: i18nConfig.supportedLngs,
+    fallbackLanguage: i18nConfig.fallbackLng,
   },
   i18next: {
-    ...i18n,
+    ...i18nConfig,
     backend: {
       loadPath: resolve("./public/locales/{{lng}}/{{ns}}.json"),
     },
   },
-  backend: Backend,
+  plugins: [Backend],
 });
 
-export default i18next;
+export default remixI18Next;

@@ -25,10 +25,6 @@ import { cssBundleHref } from "@remix-run/css-bundle";
 import globalStyle from "~/styles/global.css";
 import tailwind from "~/styles/tailwind.css";
 import nProgressStyles from "nprogress/nprogress.css";
-// import rdtStylesheet from "remix-development-tools/index.css";
-
-// utils/dev-tools
-// import { defineClientConfig, withDevTools } from "remix-development-tools";
 
 import { useChangeLanguage } from "remix-i18next";
 // i18n
