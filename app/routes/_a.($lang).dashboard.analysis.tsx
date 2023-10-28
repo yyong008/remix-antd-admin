@@ -54,6 +54,8 @@ export default function DashboardAnalysisPage() {
   const {
     one: { salesData, activeData, visitCountData, paymentData },
     two: { monthSales, monthVisit, monthPartSaleData },
+    three: { searchCountData, searchAvageCountData, dataSource, pies },
+    four,
   } = useLoaderData<typeof loader>();
 
   return (
@@ -75,8 +77,15 @@ export default function DashboardAnalysisPage() {
           monthVisit={monthVisit}
           monthPartSaleData={monthPartSaleData}
         />
-        <AnalysisRowThree />
-        <AnalysisRowFour />
+        <AnalysisRowThree
+          searchCountData={searchCountData}
+          searchAvageCountData={searchAvageCountData}
+          search={visitCountData}
+          searchAvage={visitCountData}
+          dataSource={dataSource}
+          pies={pies}
+        />
+        <AnalysisRowFour {...four} />
       </Space>
     </PageContainer>
   );

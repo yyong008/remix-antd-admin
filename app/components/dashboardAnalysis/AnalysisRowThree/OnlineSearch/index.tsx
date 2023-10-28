@@ -5,19 +5,7 @@ import { SearchHotLine } from "./SearchHotLine";
 
 const { MoreOutlined } = _icons;
 
-const dataSource: any[] = [];
-
-for (let i = 0; i < 50; i++) {
-  dataSource.unshift({
-    id: i,
-    rank: `${i + 1}`,
-    desc: `搜索关键字 - ${i}`,
-    count: 123,
-    weeklyGains: `${1 + i}%`,
-  });
-}
-
-export default function OnlineSearch() {
+export default function OnlineSearch(props: any) {
   const { token } = theme.useToken();
   const columns = [
     {
@@ -58,15 +46,18 @@ export default function OnlineSearch() {
     <Card
       title="线上热门搜索"
       extra={<MoreOutlined />}
+      style={{
+        height: "550px",
+      }}
       bodyStyle={{
         padding: "0px 24px",
       }}
     >
-      <SearchHotLine />
+      <SearchHotLine {...props} />
       <Table
         rowKey="id"
         bordered={false}
-        dataSource={dataSource}
+        dataSource={props.dataSource}
         columns={columns}
         pagination={{
           pageSize: 5,

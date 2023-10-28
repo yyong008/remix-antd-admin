@@ -170,6 +170,100 @@ const monthVisit = {
   part: monthPartSaleData,
 };
 
+const salesDataInPies = {
+  all: [
+    { name: "家用电器", value: 4_544 },
+    { name: "食用酒水", value: 3_321 },
+    { name: "个人健康", value: 3_113 },
+    { name: "服饰箱包", value: 2_341 },
+    { name: "母婴产品", value: 1_231 },
+    { name: "其它", value: 1_231 },
+  ],
+  online: [
+    { name: "家用电器", value: 5_544 },
+    { name: "食用酒水", value: 3_321 },
+    { name: "个人健康", value: 3_113 },
+    { name: "服饰箱包", value: 8_341 },
+    { name: "母婴产品", value: 1_231 },
+    { name: "其它", value: 1_231 },
+  ],
+  store: [
+    { name: "家用电器", value: 4_544 },
+    { name: "食用酒水", value: 37_321 },
+    { name: "个人健康", value: 3_113 },
+    { name: "服饰箱包", value: 2_341 },
+    { name: "母婴产品", value: 81_231 },
+    { name: "其它", value: 1_231 },
+  ],
+};
+
+const dataSource: any[] = [];
+
+for (let i = 0; i < 50; i++) {
+  dataSource.unshift({
+    id: i,
+    rank: `${i + 1}`,
+    desc: `搜索关键字 - ${i}`,
+    count: 123,
+    weeklyGains: `${1 + i}%`,
+  });
+}
+
+const getHistoryData = () => {
+  let base = +new Date(1968, 9, 3);
+  let oneDay = 24 * 3600 * 1000;
+  let date = [];
+  let data = [Math.random() * 300];
+
+  for (let i = 1; i < 20000; i++) {
+    var now = new Date((base += oneDay));
+    date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join("/"));
+    data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
+  }
+
+  return { date, data };
+};
+
+const searchCountData = {
+  title: "搜索用户数",
+  tip: "指标说明",
+  unit: "",
+  coreNum: "6,560",
+  footer: {
+    title: "搜索量",
+    unit: "",
+    count: "1,423",
+  },
+  areaChartData: {
+    xAxis: {
+      data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+    },
+    series: {
+      data: [120, 132, 101, 134, 90, 230, 210],
+    },
+  },
+};
+
+const searchAvageCountData = {
+  title: "人均所搜量",
+  tip: "指标说明",
+  unit: "",
+  coreNum: "6,560",
+  footer: {
+    title: "搜索量",
+    unit: "",
+    count: "1,423",
+  },
+  areaChartData: {
+    xAxis: {
+      data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+    },
+    series: {
+      data: [120, 132, 101, 134, 90, 230, 210],
+    },
+  },
+};
+
 export const getAnalysisData = () => {
   return of({
     one: {
@@ -183,7 +277,14 @@ export const getAnalysisData = () => {
       monthVisit,
       monthPartSaleData,
     },
-    three: {},
-    four: {},
+    three: {
+      searchCountData,
+      searchAvageCountData,
+      dataSource,
+      pies: { ...salesDataInPies },
+    },
+    four: {
+      ...getHistoryData(),
+    },
   }).pipe(delay(20));
 };

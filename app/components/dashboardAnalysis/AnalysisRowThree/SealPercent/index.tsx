@@ -10,7 +10,7 @@ import MainPie from "../../common/Pie";
 
 const { MoreOutlined } = _icons;
 
-export default function SealPercent() {
+export default function SealPercent(props: any) {
   const [size, setSize] = useState("all");
   return (
     <Card
@@ -43,12 +43,15 @@ export default function SealPercent() {
         </Space>
       }
       style={{
-        height: "502px",
+        height: "550px",
+        // display: 'flex',
+        // justifyContent: 'center',
+        // alignItems: 'center'
       }}
     >
-      {size === "all" && <MainPie />}
-      {size === "online" && <MainPie />}
-      {size === "store" && <MainPie />}
+      {size === "all" && <MainPie datas={props.all} />}
+      {size === "online" && <MainPie datas={props.online} />}
+      {size === "store" && <MainPie datas={props.store} />}
     </Card>
   );
 }

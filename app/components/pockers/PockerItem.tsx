@@ -14,7 +14,6 @@ type IITem = {
 };
 
 export default function PockerItem({ num, hs, guess, status }: IITem) {
-  // console.log(num, guess);
   const [showResult, setShowResult] = useState(false);
 
   const styles = useCallback(() => {

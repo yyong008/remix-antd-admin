@@ -33,7 +33,6 @@ export default function CreateRoleModal({ trigger, record, menu }: any) {
       }}
       submitTimeout={2000}
       onFinish={async (values) => {
-        console.log(values.name);
         message.success("提交成功");
         return true;
       }}

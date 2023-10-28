@@ -12,7 +12,7 @@ import { json, redirect } from "@remix-run/node";
 // hooks
 import { useContext, useState } from "react";
 import {
-  useActionData,
+  // useActionData,
   useFetcher,
   useNavigate,
   useParams,
@@ -84,7 +84,7 @@ const LoginPage: React.FC = () => {
   const fetcher = useFetcher();
   const { t } = useTranslation();
   const [type, setType] = useState<string>("account");
-  const actionData = useActionData();
+  // const actionData = useActionData();
 
   if (!lang) {
     navigate(-1);
@@ -104,8 +104,6 @@ const LoginPage: React.FC = () => {
 
     fetcher.submit(formData, { method: "post" });
   };
-
-  console.log("actionData", actionData);
 
   return (
     <ConfigProvider

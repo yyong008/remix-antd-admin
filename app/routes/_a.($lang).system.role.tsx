@@ -60,7 +60,6 @@ export default function UserRoute() {
     {
       title: "operation",
       render(record: any) {
-        console.log("args");
         return (
           <Space>
             <RoleModal

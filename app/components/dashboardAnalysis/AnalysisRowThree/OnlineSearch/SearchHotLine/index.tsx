@@ -1,52 +1,40 @@
 // components:vendor
-import * as _icons from "@ant-design/icons";
-import { Card, Col, Row, Space, Tooltip } from "antd";
+import { Col, Row, Space } from "antd";
 import AreaChart from "../../../common/Area";
+import HomeCard from "~/components/dashboardAnalysis/common/HomeCard";
 
-const { CaretDownOutlined, CaretUpOutlined, ExclamationCircleOutlined } =
-  _icons;
-export function SearchHotLine() {
+export function SearchHotLine(props: any) {
   return (
     <Row>
       <Col span={12}>
-        <Card style={{ border: "none", boxShadow: "none" }}>
-          <Space direction="vertical">
+        <HomeCard
+          title={props.searchAvageCountData.title}
+          tip="指标说明"
+          unit={null}
+          coreNum={props.coreNum}
+          content={<AreaChart {...props.searchAvageCountData.areaChartData} />}
+          footer={
             <Space>
-              <span>搜索用户数</span>
-              <Tooltip title="指标说明">
-                <ExclamationCircleOutlined
-                  style={{ color: "rgba(0,0,0,.45)" }}
-                />
-              </Tooltip>
+              <span>{props?.searchAvageCountData?.footer?.title}</span>
+              <span>{props?.searchAvageCountData?.footer?.count}</span>
             </Space>
-            <Space>
-              <div>12,321</div>
-              <div>17.1 </div>
-              <CaretUpOutlined style={{ color: "red" }} />
-            </Space>
-          </Space>
-          <AreaChart />
-        </Card>
+          }
+        />
       </Col>
       <Col span={12}>
-        <Card style={{ border: "none", boxShadow: "none" }}>
-          <Space direction="vertical">
+        <HomeCard
+          title={props.searchCountData.title}
+          tip="指标说明"
+          unit={null}
+          coreNum={props.coreNum}
+          content={<AreaChart {...props.searchCountData.areaChartData} />}
+          footer={
             <Space>
-              <span>人均搜索次数</span>
-              <Tooltip title="指标说明">
-                <ExclamationCircleOutlined
-                  style={{ color: "rgba(0,0,0,.45)" }}
-                />
-              </Tooltip>
+              <span>{props?.searchCountData?.footer?.title}</span>
+              <span>{props?.searchCountData?.footer?.count}</span>
             </Space>
-            <Space>
-              <div>3.7</div>
-              <div>17.1 </div>
-              <CaretDownOutlined style={{ color: "green" }} />
-            </Space>
-          </Space>
-          <AreaChart />
-        </Card>
+          }
+        />
       </Col>
     </Row>
   );

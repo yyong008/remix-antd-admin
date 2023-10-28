@@ -1,17 +1,6 @@
 import ReactChart from "echarts-for-react";
 
-export default function MainPie({ pieData }: any) {
-  const datas = pieData || [
-    [
-      { name: "家用电器", value: 4_544 },
-      { name: "食用酒水", value: 3_321 },
-      { name: "个人健康", value: 3_113 },
-      { name: "服饰箱包", value: 2_341 },
-      { name: "母婴产品", value: 1_231 },
-      { name: "其它", value: 1_231 },
-    ],
-  ];
-
+export default function MainPie({ datas }: any) {
   const option = {
     animation: false, // 关闭动画
     lazyUpdate: true, // 开启懒更新
@@ -23,7 +12,7 @@ export default function MainPie({ pieData }: any) {
         fontSize: 14,
       },
     },
-    series: datas.map(function (data: any, idx: number) {
+    series: [datas].map(function (data: any, idx: number) {
       var top = idx * 33.3;
       return {
         type: "pie",

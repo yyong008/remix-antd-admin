@@ -15,11 +15,12 @@ type HomeCardProps = {
   content: JSX.Element;
   unit: string | null;
   footer: JSX.Element;
+  style?: React.CSSProperties;
 };
 
 export default function HomeCard(props: HomeCardProps) {
   return (
-    <ProCard className="home-card">
+    <ProCard className="home-card" style={props.style}>
       <div className="cardContent">
         <Space>
           <div>{props.title}</div>
