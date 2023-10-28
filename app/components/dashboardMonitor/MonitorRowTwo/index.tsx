@@ -2,7 +2,7 @@ import { Row, Col, Card } from "antd";
 
 import PieChart from "./Pie";
 import LiquidFill from "./LiquidFill";
-import SimpleWordcloud from "./WordCloud";
+// import SimpleWordcloud from "./WordCloud";
 
 import { colPropsSSS, colPropsSSSS } from "../col";
 
@@ -26,7 +26,7 @@ export default function RowTwo() {
       </Col>
       <Col {...colPropsSSSS}>
         <Card title="热门搜索">
-          <SimpleWordcloud />
+          <LiquidFill />
         </Card>
       </Col>
       <Col {...colPropsSSSS}>
