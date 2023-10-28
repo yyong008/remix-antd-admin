@@ -14,7 +14,7 @@ export const createDiseaseRoutes = (t: any, lang: string): Route => {
       {
         key: "health",
         index: true,
-        path: `/${lang}/health`,
+        path: `health`,
         name: t("disease"),
       },
       {
