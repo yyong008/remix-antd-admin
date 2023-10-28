@@ -505,7 +505,7 @@ export const loader = ({ request, params }: LoaderFunctionArgs) => {
   return json({});
 };
 
-export default function AuthRoute() {
+export default function MenuRoute() {
   const onSelect: TreeProps["onSelect"] = (selectedKeys, info) => {
     console.log("selected", selectedKeys, info);
   };
