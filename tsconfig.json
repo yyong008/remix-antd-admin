@@ -3,7 +3,7 @@
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "target": "ES2022",
-    "module": "nodenext",
+    "module": "ES2015",
     "moduleResolution": "Bundler",
     "jsx": "react-jsx",
     "strict": true,

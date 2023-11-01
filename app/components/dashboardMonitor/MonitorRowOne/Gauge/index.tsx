@@ -1,6 +1,6 @@
 import ReactChart from "echarts-for-react";
 
-export default function MainGauge() {
+export default function MainGauge(props: { gaugeData: any[] }) {
   const option = {
     series: [
       {
@@ -45,11 +45,7 @@ export default function MainGauge() {
           fontSize: 30,
           offsetCenter: [0, "70%"],
         },
-        data: [
-          {
-            value: 70,
-          },
-        ],
+        data: [...props.gaugeData],
       },
     ],
   };

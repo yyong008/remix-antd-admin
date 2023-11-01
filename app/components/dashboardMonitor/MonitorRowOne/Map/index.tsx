@@ -8,13 +8,11 @@ import ReactEchart from "echarts-for-react";
 // utils
 import * as echarts from "echarts";
 
-const ChinaMap = () => {
+const ChinaMap = (props: { geoJson: any }) => {
   const { token } = theme.useToken();
 
   const option = useMemo(() => {
-    let geoJson = require("~/data/100000.geoJson.json");
-    // @ts-ignore
-    echarts.registerMap("china", { geoJSON: geoJson });
+    echarts.registerMap("china", { geoJSON: props.geoJson } as any);
 
     return {
       backgroundColor: "transparent",
@@ -60,7 +58,7 @@ const ChinaMap = () => {
         },
       },
     };
-  }, [token]);
+  }, [token, props]);
 
   return <ReactEchart option={option} style={{ height: "700px" }} />;
 };
