@@ -82,8 +82,8 @@ function App() {
       <body>
         <ClientOnly fallback={<Loading />}>{() => <Outlet />}</ClientOnly>
         <ScrollRestoration />
-        <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
+        <Scripts />
       </body>
     </html>
   );
