@@ -1,12 +1,58 @@
-export default {
+import { delay, of } from "rxjs";
+
+export const workplaceData = {
   userInfo: {
     avatar: "/remix.png",
     name: "吴彦祖",
-    jobs: "ABC Jobs |玉米排骨－某某某事业群－某某平台部－某某DEF department－UXERDF",
+    jobs: "dABC Jobs |玉米排骨－某某某事业群－某某平台部－某某DEF department－UXERDF",
     pCount: 56,
-    rank: "8/ 24",
+    rank: "8/24",
     vCount: "2,223",
   },
+  dList: [
+    {
+      avatar: "/logo.png",
+      name: "五月天",
+      team: "高逼格设计天团",
+      project: "六月迭代",
+      time: "几分钟前",
+    },
+    {
+      avatar: "/logo.png",
+      name: "五月天",
+      team: "高逼格设计天团",
+      project: "六月迭代",
+      time: "几分钟前",
+    },
+    {
+      avatar: "/logo.png",
+      name: "五月天",
+      team: "高逼格设计天团",
+      project: "六月迭代",
+      time: "几分钟前",
+    },
+    {
+      avatar: "/logo.png",
+      name: "五月天",
+      team: "高逼格设计天团",
+      project: "六月迭代",
+      time: "几分钟前",
+    },
+    {
+      avatar: "/logo.png",
+      name: "五月天",
+      team: "高逼格设计天团",
+      project: "六月迭代",
+      time: "几分钟前",
+    },
+    {
+      avatar: "/logo.png",
+      name: "五月天",
+      team: "高逼格设计天团",
+      project: "六月迭代",
+      time: "几分钟前",
+    },
+  ],
   wProjects: [
     {
       avatar: "/images/react.png",
@@ -88,4 +134,8 @@ export default {
       title: "Remix Antd 4",
     },
   ],
+};
+
+export const getWorkplaceData = () => {
+  return of(workplaceData).pipe(delay(20));
 };

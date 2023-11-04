@@ -1,14 +1,14 @@
 // components:vendor
-import { Col } from "antd";
+import { Card, Row, Space } from "antd";
 
 // cores
 export default function Team({ data }: any) {
   return (
-    <>
+    <Row>
       {data.teams.map((item: any, index: number) => {
         return (
-          <Col span={12} key={index}>
-            <div>
+          <Card.Grid style={{ width: "50%" }} key={index}>
+            <Space direction="vertical">
               <div
                 style={{
                   width: "24px",
@@ -24,10 +24,10 @@ export default function Team({ data }: any) {
                 />
               </div>
               <div>{item.title}</div>
-            </div>
-          </Col>
+            </Space>
+          </Card.Grid>
         );
       })}
-    </>
+    </Row>
   );
 }

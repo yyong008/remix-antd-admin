@@ -22,11 +22,10 @@ import {
   WorkplaceColTwo,
 } from "~/components/dashboardWorkplace";
 
-// data
-import data from "~/data/dashboardWorkplace";
-
 // css
 import css from "~/styles/dashboard.workplace.css";
+import { lastValueFrom } from "rxjs";
+import { getWorkplaceData } from "~/db/workplace";
 
 export const meta: MetaFunction = () => {
   return [{ title: "工作空间" }];
@@ -41,7 +40,8 @@ export const links: LinksFunction = () => {
   ];
 };
 
-export const loader = ({ request, params }: LoaderFunctionArgs) => {
+export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+  const data = await lastValueFrom(getWorkplaceData());
   return json(data);
 };
 

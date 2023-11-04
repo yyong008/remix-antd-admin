@@ -7,6 +7,7 @@ import DynamicList from "./DynamicList";
 import { colProps } from "../col";
 
 export default function WorkplaceColOne({ data }: any) {
+  debugger;
   return (
     <Col {...colProps}>
       <Space direction="vertical">
@@ -24,7 +25,7 @@ export default function WorkplaceColOne({ data }: any) {
           </Row>
         </Card>
         <Card title="动态">
-          <DynamicList data={data} />
+          <DynamicList data={data.dList} />
         </Card>
       </Space>
     </Col>

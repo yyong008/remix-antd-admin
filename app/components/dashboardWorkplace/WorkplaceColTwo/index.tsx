@@ -18,10 +18,8 @@ export default function WorkplaceTwo({ data }: any) {
         <Card title="XX 指数">
           <FiveDimensionalChart />
         </Card>
-        <Card title="团队">
-          <Row gutter={[10, 10]}>
-            <Team data={data} />
-          </Row>
+        <Card title="团队" bodyStyle={{ padding: "0px" }}>
+          <Team data={data} />
         </Card>
       </Space>
     </Col>
