@@ -1,9 +1,5 @@
 import type { Route } from "@ant-design/pro-layout/es/typing";
 
-// import * as _icons from "@ant-design/icons";
-
-// const { MacCommandOutlined } = _icons;
-
 export const createStackRoutes = (t: any, lang: string): Route => {
   return {
     key: "stack",
@@ -14,12 +10,17 @@ export const createStackRoutes = (t: any, lang: string): Route => {
       {
         key: "stack-rxjs",
         path: "rxjs/keybr",
-        name: "RxJS",
+        name: "RxJS Keyboard",
       },
       {
         key: "stack-rxjs-count-down",
         path: "rxjs/count-down",
         name: "RxJS-count-down",
+      },
+      {
+        key: "laxjs-cursor",
+        path: "laxjs/example/cursor",
+        name: "laxjs-cursor",
       },
     ],
   };

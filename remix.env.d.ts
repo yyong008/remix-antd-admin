@@ -4,3 +4,4 @@
 
 declare module 'js-export-excel';
 declare module 'allotment';
+declare module 'lax.js';
