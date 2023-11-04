@@ -1,5 +1,11 @@
 # remix-antd-admin
 
+## 0.0.14
+
+### Patch Changes
+
+- antd icons
+
 ## 0.0.13
 
 ### Patch Changes

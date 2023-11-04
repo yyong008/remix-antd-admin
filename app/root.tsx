@@ -103,11 +103,24 @@ export function ErrorBoundary() {
     );
   } else if (error instanceof Error) {
     return (
-      <div>
+      <div style={{ padding: "0px 20px" }}>
         <h1>Error</h1>
-        <p>{error.message}</p>
+        <p
+          style={{
+            textDecoration: "underline dotted #000",
+          }}
+        >
+          {error.message}
+        </p>
         <p>The stack trace is:</p>
-        <pre>{error.stack}</pre>
+        <pre
+          style={{
+            padding: "10px 10px",
+            backgroundColor: "rgba(255, 0, 0, 0.199)",
+          }}
+        >
+          {error.stack}
+        </pre>
       </div>
     );
   } else {

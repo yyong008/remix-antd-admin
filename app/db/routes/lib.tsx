@@ -25,6 +25,12 @@ export const createLibRoutes = (t: any, lang: string): Route => {
         icon: "BorderHorizontalOutlined",
         name: t("split-pane"),
       },
+      {
+        key: "antd-icons",
+        path: `icons`,
+        icon: "BorderHorizontalOutlined",
+        name: t("antd-icons"),
+      },
     ],
   };
 };

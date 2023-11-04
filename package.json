@@ -1,6 +1,6 @@
 {
   "name": "remix-antd-admin",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "A Remix Antd Admin",
   "type": "module",
   "keywords": [
@@ -78,6 +78,7 @@
     "isbot": "^3.7.0",
     "js-export-excel": "^1.1.4",
     "jszip": "^3.10.1",
+    "lax.js": "^2.0.3",
     "nanoid": "^5.0.1",
     "nprogress": "^0.2.0",
     "qrcode": "^1.5.3",
@@ -110,7 +111,6 @@
     "@types/react": "^18.2.23",
     "@types/react-copy-to-clipboard": "^5.0.5",
     "@types/react-dom": "^18.2.8",
-    "@types/styled-components": "^5.1.28",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.50.0",
