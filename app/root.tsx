@@ -18,7 +18,6 @@ import {
 
 // components
 import { ClientOnly } from "./components/ClientOnly";
-import Loading from "./components/FullScreen";
 
 // css
 import { cssBundleHref } from "@remix-run/css-bundle";
@@ -80,7 +79,7 @@ function App() {
         <Links />
       </head>
       <body>
-        <ClientOnly fallback={<Loading />}>{() => <Outlet />}</ClientOnly>
+        <ClientOnly fallback={<></>}>{() => <Outlet />}</ClientOnly>
         <ScrollRestoration />
         {process.env.NODE_ENV === "development" && <LiveReload />}
         <Scripts />
