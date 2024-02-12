@@ -54,10 +54,10 @@
     "@bytemd/plugin-gfm": "^1.21.0",
     "@bytemd/react": "^1.21.0",
     "@js-temporal/polyfill": "^0.4.4",
-    "@remix-run/css-bundle": "^2.2.0",
-    "@remix-run/node": "^2.2.0",
-    "@remix-run/react": "^2.2.0",
-    "@remix-run/serve": "^2.2.0",
+    "@remix-run/css-bundle": "^2.6.0",
+    "@remix-run/node": "^2.6.0",
+    "@remix-run/react": "^2.6.0",
+    "@remix-run/serve": "^2.6.0",
     "@tinymce/tinymce-react": "^4.3.0",
     "@vercel/remix": "^2.0.1",
     "allotment": "^1.19.3",
@@ -104,8 +104,8 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
-    "@remix-run/dev": "^2.2.0",
-    "@remix-run/eslint-config": "^2.2.0",
+    "@remix-run/dev": "^2.6.0",
+    "@remix-run/eslint-config": "^2.6.0",
     "@types/bcryptjs": "^2.4.4",
     "@types/canvas-confetti": "^1.6.1",
     "@types/file-saver": "^2.0.5",
@@ -121,10 +121,10 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.0.0",
     "prettier": "^3.0.3",
-    "remix-development-tools": "^3.0.3",
+    "remix-development-tools": "^3.7.4",
     "typescript": "^5.2.2",
-    "vite": "^4.5.0",
-    "vitest": "^0.34.5"
+    "vite": "^4.5.2",
+    "vitest": "^0.34.6"
   },
   "engines": {
     "node": ">=18"
