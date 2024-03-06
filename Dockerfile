@@ -1,5 +1,5 @@
 # 使用 Node.js 官方镜像作为基础镜像
-FROM node:14
+FROM node:18
 
 # 设置工作目录
 WORKDIR /data/webroot/app
