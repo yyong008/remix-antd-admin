@@ -35,6 +35,7 @@ pnpm install # install deps
 pnpm run dev # pnpm dev
 
 pnpm run build #pnpm build
+# 💌💌💌It is preferable to choose machines with more than 2GB of memory for packaging, with a recommendation of 4GB.
 
 pnpm run start # pnpm start
 ```
