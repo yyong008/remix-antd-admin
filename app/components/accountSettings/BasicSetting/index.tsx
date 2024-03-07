@@ -17,16 +17,7 @@ import { Avatar, Button, Modal, message } from "antd";
 import { Cropper } from "react-advanced-cropper";
 
 // css
-import reactAdvancedCropperStyles from "react-advanced-cropper/dist/style.css";
-
-export const links = () => {
-  return [
-    {
-      rel: "stylesheet",
-      href: reactAdvancedCropperStyles,
-    },
-  ];
-};
+import "react-advanced-cropper/dist/style.css";
 
 const BasicSetting: React.FC = ({ provinces = [], cities = [] }: any) => {
   const inputRef = useRef<any>();

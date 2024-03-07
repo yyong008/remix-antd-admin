@@ -1,11 +1,10 @@
-import type { LoaderFunctionArgs, LinksFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 
 import { json } from "@remix-run/node";
 
 // core
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -20,49 +19,25 @@ import {
 import { ClientOnly } from "./components/ClientOnly";
 
 // css
-import { cssBundleHref } from "@remix-run/css-bundle";
-import globalStyle from "~/styles/global.css";
-import tailwind from "~/styles/tailwind.css";
-import nProgressStyles from "nprogress/nprogress.css";
+import global from "~/styles/global.css?url";
+import tailwind from "~/styles/tailwind.css?url";
+import "nprogress/nprogress.css";
 
-import { useChangeLanguage } from "remix-i18next";
+import { useChangeLanguage } from "remix-i18next/react";
+import { noop } from "./utils/utils";
+
 // i18n
 export let handle = { i18n: "common" };
+
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: global },
+  { rel: "stylesheet", href: tailwind },
+];
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   let locale = params.lang;
   return json({ locale });
 }
-
-export const links: LinksFunction = () => {
-  const _links = [
-    {
-      rel: "stylesheet",
-      href: nProgressStyles,
-    },
-    {
-      rel: "stylesheet",
-      href: globalStyle,
-    },
-    {
-      rel: "stylesheet",
-      href: tailwind,
-    },
-  ];
-
-  if (cssBundleHref) {
-    _links.push({ rel: "stylesheet", href: cssBundleHref });
-  }
-
-  // if (process.env.NODE_ENV === "development") {
-  //   _links.push({
-  //     rel: "stylesheet",
-  //     href: rdtStylesheet,
-  //   });
-  // }
-
-  return _links;
-};
 
 function App() {
   const params = useParams();
@@ -81,7 +56,6 @@ function App() {
       <body>
         <ClientOnly fallback={<></>}>{() => <Outlet />}</ClientOnly>
         <ScrollRestoration />
-        {process.env.NODE_ENV === "development" && <LiveReload />}
         <Scripts />
       </body>
     </html>
@@ -129,8 +103,7 @@ export function ErrorBoundary() {
 
 let MainApp = App;
 if (process.env.NODE_ENV === "development") {
-  // const config = defineClientConfig({});
-  // MainApp = withDevTools(App, config);
+  noop();
 } else {
   MainApp = App;
 }

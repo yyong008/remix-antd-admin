@@ -1,22 +1,7 @@
-import type { LinksFunction } from "@remix-run/node";
-
 import { JsonView } from "react-json-view-lite";
-import jsonViewCss from "react-json-view-lite/dist/index.css";
+import "react-json-view-lite/dist/index.css";
 
-import { cssBundleHref } from "@remix-run/css-bundle";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
-
-export const links: LinksFunction = () => {
-  return [
-    ...(cssBundleHref
-      ? [
-          { rel: "stylesheet", href: cssBundleHref },
-          { rel: "stylesheet", href: jsonViewCss },
-        ]
-      : []),
-    // ...
-  ];
-};
 
 const App = () => {
   const packageJson = {

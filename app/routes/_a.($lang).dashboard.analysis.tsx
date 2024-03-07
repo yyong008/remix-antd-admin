@@ -1,9 +1,5 @@
 // types
-import type {
-  LoaderFunction,
-  LinksFunction,
-  MetaFunction,
-} from "@remix-run/node";
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // core
 import { json } from "@remix-run/node";
@@ -23,7 +19,7 @@ import {
 } from "~/components/dashboardAnalysis";
 
 // css
-import css from "~/styles/dashboard.analysis.css";
+import "~/styles/dashboard.analysis.css";
 
 import { lastValueFrom } from "rxjs";
 import { useLoaderData } from "@remix-run/react";
@@ -34,15 +30,6 @@ import { getAnalysisData } from "~/db/dashboard/analysis";
 // utils
 export const meta: MetaFunction = () => {
   return [{ title: "analysis" }];
-};
-
-export const links: LinksFunction = () => {
-  return [
-    {
-      rel: "stylesheet",
-      href: css,
-    },
-  ];
 };
 
 export const loader: LoaderFunction = async () => {

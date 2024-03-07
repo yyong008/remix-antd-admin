@@ -13,6 +13,8 @@ RUN npm install -g pnpm && pnpm install
 # 复制应用程序代码到工作目录
 COPY . .
 
+RUN npm run build
+
 # 暴露应用程序的端口（根据你的应用程序配置）
 EXPOSE 3003
 

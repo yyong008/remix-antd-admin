@@ -21,18 +21,7 @@ import {
 import { useLoaderData } from "@remix-run/react";
 
 // css
-import CropperStyles from "react-advanced-cropper/dist/style.css";
-
-// utils
-
-export const links = () => {
-  return [
-    {
-      rel: "stylesheet",
-      href: CropperStyles,
-    },
-  ];
-};
+import "react-advanced-cropper/dist/style.css";
 
 export const meta: MetaFunction = () => {
   return [
@@ -45,8 +34,6 @@ export const meta: MetaFunction = () => {
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   return json({
     data: (await import("~/data/accountSettings")).default,
-    // provinces: await import("china-division/dist/provinces.json", { assert: { type: 'json' } }),
-    // cities: await import("china-division/dist/cities.json", { assert: { type: 'json' } }),
     provinces: [],
     cities: [],
   });

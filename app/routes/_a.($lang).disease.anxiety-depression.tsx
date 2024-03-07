@@ -7,7 +7,10 @@ import { useLoaderData } from "@remix-run/react";
 import { Alert, Card, List, Space } from "antd";
 import { PageContainer } from "@ant-design/pro-components";
 
+// libs
 import { lastValueFrom } from "rxjs";
+
+// mock db
 import { getDiseaseData } from "~/db/health-disease/anxiety-depression";
 
 export const loader: LoaderFunction = async () => {

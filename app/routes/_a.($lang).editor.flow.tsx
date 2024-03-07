@@ -10,16 +10,7 @@ import ReactFlow from "reactflow";
 import { ProCard, PageContainer } from "@ant-design/pro-components";
 
 // styles
-import reactflowStyleUrl from "reactflow/dist/style.css";
-
-export function links() {
-  return [
-    {
-      rel: "stylesheet",
-      href: reactflowStyleUrl,
-    },
-  ];
-}
+import "reactflow/dist/style.css";
 
 export const meta: MetaFunction = () => {
   return [

@@ -1,5 +1,8 @@
-import { PageContainer, ProCard } from "@ant-design/pro-components";
+// types
 import type { MetaFunction } from "@remix-run/node";
+
+// component
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 // libs
 import classNames from "classnames";

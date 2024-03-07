@@ -1,24 +1,9 @@
-import type { LinksFunction } from "@remix-run/node";
-
 // core
 import { useNavigate, useParams } from "@remix-run/react";
 
 // css
-import css from "../styles/pocker-card.css";
-import amcss from "animate.css";
-
-export const links: LinksFunction = () => {
-  return [
-    {
-      rel: "stylesheet",
-      href: css,
-    },
-    {
-      rel: "stylesheet",
-      href: amcss,
-    },
-  ];
-};
+import "../styles/pocker-card.css";
+import "animate.css";
 
 export default function GamePockerGuess() {
   const navigate = useNavigate();

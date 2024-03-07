@@ -2,7 +2,6 @@
 import type {
   ActionFunction,
   ActionFunctionArgs,
-  LinksFunction,
   MetaFunction,
 } from "@remix-run/node";
 
@@ -36,7 +35,7 @@ import { message, Tabs, ConfigProvider } from "antd";
 import * as _icons from "@ant-design/icons";
 
 // styles
-import loginStyleUrl from "~/styles/login.css";
+import "~/styles/login.css";
 
 // context
 import SettingContext from "~/context/settingContext";
@@ -66,15 +65,6 @@ export const action: ActionFunction = async ({
   return json({
     message: "登录失败",
   });
-};
-
-export const links: LinksFunction = () => {
-  return [
-    {
-      rel: "preload",
-      href: loginStyleUrl,
-    },
-  ];
 };
 
 const LoginPage: React.FC = () => {

@@ -1,28 +1,15 @@
-import type { LinksFunction } from "@remix-run/node";
-
 // react
 import { useState } from "react";
-import { cssBundleHref } from "@remix-run/css-bundle";
 
-// windows
+// editor
 import gfm from "@bytemd/plugin-gfm";
 import { Editor } from "@bytemd/react";
 
 // css
-import bytemdStyles from "bytemd/dist/index.css";
-import { PageContainer, ProCard } from "@ant-design/pro-components";
+import "bytemd/dist/index.css";
 
-export const links: LinksFunction = () => {
-  return [
-    ...(cssBundleHref
-      ? [
-          { rel: "stylesheet", href: cssBundleHref },
-          { rel: "stylesheet", href: bytemdStyles },
-        ]
-      : []),
-    // ...
-  ];
-};
+// components
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 const plugins = [
   gfm(),

@@ -1,5 +1,5 @@
 // types
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 
 // hooks
 import { useCallback } from "react";
@@ -23,26 +23,13 @@ import {
 import CustomNode from "~/components/ReactFlow/CustomNode";
 
 // styles
-import reactflowStyleUrl from "reactflow/dist/style.css";
-import overviewcssStyleUrl from "~/styles/reactflow.css";
+import "reactflow/dist/style.css";
+import "~/styles/reactflow.css";
 
 export const meta: MetaFunction = () => {
   return [
     {
       title: "脑图编辑器",
-    },
-  ];
-};
-
-export const links: LinksFunction = () => {
-  return [
-    {
-      rel: "stylesheet",
-      href: reactflowStyleUrl,
-    },
-    {
-      rel: "stylesheet",
-      href: overviewcssStyleUrl,
     },
   ];
 };

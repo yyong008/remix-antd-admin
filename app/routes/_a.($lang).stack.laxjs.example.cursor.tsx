@@ -1,11 +1,7 @@
 import { useEffect } from "react";
 import lax from "lax.js";
 
-import type { LinksFunction } from "@remix-run/node"; // or cloudflare/deno
-
-import styles from "~/styles/laxjs.example.cursor.css";
-
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
+import "~/styles/laxjs.example.cursor.css";
 
 export default function LaxJSExampleCursor() {
   useEffect(() => {

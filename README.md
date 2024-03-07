@@ -74,6 +74,12 @@ export const loader: LoaderFunction = () => {
 
 visit: `http://localhost:<your_port>/checkhealth`, if get `Alive`, this api server is alive。
 
+## deploy
+
+- normal
+- vercel (vite)
+- docker
+
 ## License
 
 [MIT](./LICENSE)

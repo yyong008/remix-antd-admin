@@ -1,5 +1,3 @@
-import type { LinksFunction } from "@remix-run/node";
-
 // core
 import { json } from "@remix-run/node";
 import { useEffect, useState } from "react";
@@ -11,21 +9,8 @@ import PockerItem from "~/components/pockers/PockerItem";
 import PockerList from "~/components/pockers/PockerList";
 
 // css
-import amcss from "animate.css";
-import css from "~/styles/pocker-card.css";
-
-export const links: LinksFunction = () => {
-  return [
-    {
-      rel: "stylesheet",
-      href: css,
-    },
-    {
-      rel: "stylesheet",
-      href: amcss,
-    },
-  ];
-};
+import "animate.css";
+import "~/styles/pocker-card.css";
 
 export const loader = async () => {
   const { hs } = await import("~/data/pocker");

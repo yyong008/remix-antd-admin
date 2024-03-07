@@ -1,7 +1,7 @@
 import { resolve } from "node:path";
 
 import Backend from "i18next-fs-backend";
-import { RemixI18Next } from "remix-i18next";
+import { RemixI18Next } from "remix-i18next/server";
 
 import i18nConfig from "./i18n";
 

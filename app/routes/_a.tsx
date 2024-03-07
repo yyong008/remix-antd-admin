@@ -6,12 +6,15 @@ import { useContext, useMemo, memo, useState } from "react";
 import { json, redirect } from "@remix-run/node";
 
 // components:vendor
-
+import { Spin } from "antd";
 import { ProLayout } from "@ant-design/pro-components";
 
 // components
 import Footer from "~/components/Footer";
 import MenuFooterRender from "~/layout/MenuFooterRender";
+import { AvatarDropDown } from "~/layout/AvatarDropDown";
+import { SettingDrawerWrap } from "~/layout/SettingDrawerWrap";
+import { createActionRenderWrap } from "~/layout/createActionsRender";
 
 // context
 import SettingContext from "~/context/settingContext";
@@ -20,14 +23,14 @@ import SettingContext from "~/context/settingContext";
 import { createRoute } from "~/db/index";
 
 // layout
-import { SettingDrawerWrap } from "~/layout/SettingDrawerWrap";
-import { AvatarDropDown } from "~/layout/AvatarDropDown";
-import { createActionRenderWrap } from "~/layout/createActionsRender";
 import { config } from "~/layout/config";
 import { createTokens } from "~/layout/createToken";
-import i18n from "~/i18n/i18next.server";
-import { Spin } from "antd";
+
 import { handleRoutes } from "~/utils/route.handle";
+
+import i18n from "~/i18n/i18next.server";
+
+// hooks
 import { useNProgress } from "~/hooks/useNProgress";
 
 const langs = ["zh-CN", "en-US"];
