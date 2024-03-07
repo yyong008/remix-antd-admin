@@ -1,5 +1,11 @@
 # remix-antd-admin
 
+## 0.1.0
+
+### Minor Changes
+
+- vite
+
 ## 0.0.14
 
 ### Patch Changes
