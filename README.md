@@ -1,8 +1,12 @@
-# Remix Antd Admin
-
 ![](./public/images/admin.png)
 
-## Intro
+<p align="center">
+  <img src="https://img.shields.io/github/stars/yyong008/remix-antd-admin.svg" />
+  <img src="https://img.shields.io/github/forks/yyong008/remix-antd-admin.svg" />
+  <img src="https://img.shields.io/github/issues/yyong008/remix-antd-admin.svg" />
+</p>
+
+## Remix Antd Admin
 
 A lightweight content management system, not limited to content management.
 
@@ -55,7 +59,7 @@ pnpm run start # pnpm start
 use in client only mode
 
 ```ts
-import * as _icons from '@ant-design/icons';
+import * as _icons from "@ant-design/icons";
 
 const { MoreOutlined } = _icons;
 ```
@@ -70,6 +74,10 @@ export const loader: LoaderFunction = () => {
 
 visit: `http://localhost:<your_port>/checkhealth`, if get `Alive`, this api server is alive。
 
+## License
+
+[MIT](./LICENSE)
+
 ## Support
 
-- [buy-me-a-coffee](https://github.com/yyong008/buy-me-a-coffee) If you think this project has helped you, please invite the author to have a cup of coffee, thank you for your support .
+[buy-me-a-coffee](https://github.com/yyong008/buy-me-a-coffee) If you think this project has helped you, please invite the author to have a cup of coffee, thank you for your support .
