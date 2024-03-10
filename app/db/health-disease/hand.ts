@@ -53,6 +53,6 @@ const op_data = [
   },
 ];
 
-export const gethandData = () => {
+export const gethandData$ = () => {
   return of({ data, op_data }).pipe(delay(20));
 };

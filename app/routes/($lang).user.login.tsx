@@ -5,61 +5,48 @@ import type {
   MetaFunction,
 } from "@remix-run/node";
 
-// core
-import { json, redirect } from "@remix-run/node";
-
-// hooks
+// react
 import { useContext, useState } from "react";
-import {
-  // useActionData,
-  useFetcher,
-  useNavigate,
-  useParams,
-} from "@remix-run/react";
+
+// remix
+import { useFetcher, useNavigate, useParams } from "@remix-run/react";
+import { json, redirect } from "@remix-run/node";
 
 // i18n:hooks
 import { useTranslation } from "react-i18next";
 
 // components
+import { LoginForm, ProFormCheckbox } from "@ant-design/pro-components";
+import { Tabs, ConfigProvider } from "antd";
 import { ActionIcons } from "~/components/userLogin";
 import Footer from "~/components/Footer";
-
-// component:vendor
-import {
-  LoginForm,
-  ProFormText,
-  ProFormCaptcha,
-  ProFormCheckbox,
-} from "@ant-design/pro-components";
-import { message, Tabs, ConfigProvider } from "antd";
-import * as _icons from "@ant-design/icons";
 
 // styles
 import "~/styles/login.css";
 
 // context
 import SettingContext from "~/context/settingContext";
+import AccountLogin from "~/components/login/AccountLogin";
+import MobileLogin from "~/components/login/MobileLogin";
 
-const { LockOutlined, MobileOutlined, UserOutlined } = _icons;
-
+// remix:meta
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "登录",
+      title: "用户登录",
     },
   ];
 };
 
+// remix:action
 export const action: ActionFunction = async ({
   request,
   params,
 }: ActionFunctionArgs) => {
-  const formData = request.formData();
   const lang = params.lang || "zh-CN";
-  const username = (await formData).get("username");
-  const password = (await formData).get("password");
+  const data = await request.json();
 
-  if (username === "admin" && password === "123456") {
+  if (data.username === "admin" && data.password === "123456") {
     return redirect(`/${lang}/dashboard/analysis`);
   }
   return json({
@@ -67,32 +54,21 @@ export const action: ActionFunction = async ({
   });
 };
 
-const LoginPage: React.FC = () => {
+export default function LoginPage() {
   const navigate = useNavigate();
   const { lang } = useParams();
   const value = useContext(SettingContext);
   const fetcher = useFetcher();
   const { t } = useTranslation();
   const [type, setType] = useState<string>("account");
-  // const actionData = useActionData();
 
   if (!lang) {
     navigate(-1);
     return null;
   }
+
   const handleSubmit = async (values: any) => {
-    const formData = new FormData();
-    formData.append("type", type);
-
-    if (type === "account") {
-      formData.append("username", values.username);
-      formData.append("password", values.password);
-    } else {
-      formData.append("mobile", values.mobile);
-      formData.append("captcha", values.captcha);
-    }
-
-    fetcher.submit(formData, { method: "post" });
+    fetcher.submit(values, { method: "post", encType: "application/json" });
   };
 
   return (
@@ -112,7 +88,11 @@ const LoginPage: React.FC = () => {
               fetcher.state === "loading" || fetcher.state === "submitting"
             }
             logo={
-              <img alt="logo" src="/logo.png" style={{ borderRadius: "60%" }} />
+              <img
+                alt="logo"
+                src="/logo.png"
+                style={{ borderRadius: "10px" }}
+              />
             }
             title={t("title")}
             subTitle={t("desc")}
@@ -146,86 +126,8 @@ const LoginPage: React.FC = () => {
                 },
               ]}
             />
-            {type === "account" && (
-              <>
-                <ProFormText
-                  name="username"
-                  fieldProps={{
-                    size: "large",
-                    prefix: <UserOutlined />,
-                  }}
-                  placeholder={t("user-placeholder") as string}
-                  rules={[
-                    {
-                      required: true,
-                      message: t("user-message")!,
-                    },
-                  ]}
-                />
-                <ProFormText.Password
-                  name="password"
-                  fieldProps={{
-                    size: "large",
-                    prefix: <LockOutlined />,
-                  }}
-                  placeholder={t("password-pladeholder") as string}
-                  rules={[
-                    {
-                      required: true,
-                      message: t("password-message") as string,
-                    },
-                  ]}
-                />
-              </>
-            )}
-            {type === "mobile" && (
-              <>
-                <ProFormText
-                  fieldProps={{
-                    size: "large",
-                    prefix: <MobileOutlined />,
-                  }}
-                  name="mobile"
-                  placeholder={t("phone-placeholder")!}
-                  rules={[
-                    {
-                      required: true,
-                      message: t("phone-message")!,
-                    },
-                    {
-                      pattern: /^1\d{10}$/,
-                      message: t("phone-format-message")!,
-                    },
-                  ]}
-                />
-                <ProFormCaptcha
-                  fieldProps={{
-                    size: "large",
-                    prefix: <LockOutlined />,
-                  }}
-                  captchaProps={{
-                    size: "large",
-                  }}
-                  placeholder={t("verification-code")!}
-                  captchaTextRender={(timing: boolean, count: number) => {
-                    if (timing) {
-                      return `${count} ${t("get-verification-code")}`;
-                    }
-                    return t("get-verification-code");
-                  }}
-                  name="captcha"
-                  rules={[
-                    {
-                      required: true,
-                      message: t("verification-code")!,
-                    },
-                  ]}
-                  onGetCaptcha={async () => {
-                    message.success(t("get-captcha")!);
-                  }}
-                />
-              </>
-            )}
+            {type === "account" && <AccountLogin />}
+            {type === "mobile" && <MobileLogin />}
             <div style={{ margin: "10px 0px" }}>
               <ProFormCheckbox noStyle name="autoLogin">
                 {t("remeber")}
@@ -237,6 +139,4 @@ const LoginPage: React.FC = () => {
       </div>
     </ConfigProvider>
   );
-};
-
-export default LoginPage;
+}

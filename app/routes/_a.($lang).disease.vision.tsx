@@ -1,5 +1,7 @@
-import type { LoaderFunction } from "@remix-run/node";
+// types
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 
+// remix
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
@@ -7,15 +9,31 @@ import { useLoaderData } from "@remix-run/react";
 import { Alert, Card, List, Space } from "antd";
 import { PageContainer } from "@ant-design/pro-components";
 
+// libs
 import { lastValueFrom } from "rxjs";
-import { getVisionData } from "~/db/health-disease/vision";
 
+// db
+import { getVisionData$ } from "~/db/health-disease/vision";
+
+// config
+import { antdGrid } from "~/config/antd-grid";
+
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [
+    {
+      title: "disease vision",
+    },
+  ];
+};
+
+// remix:loader
 export const loader: LoaderFunction = async () => {
-  const data = await lastValueFrom(getVisionData());
+  const data = await lastValueFrom(getVisionData$());
   return json(data);
 };
 
-const HealthVisionRoute: React.FC = () => {
+export default function HealthVisionRoute() {
   const { data, op_data } = useLoaderData<typeof loader>();
   return (
     <PageContainer title="vision">
@@ -26,15 +44,7 @@ const HealthVisionRoute: React.FC = () => {
           showIcon
         />
         <List
-          grid={{
-            gutter: 16,
-            xs: 1,
-            sm: 2,
-            md: 4,
-            lg: 4,
-            xl: 6,
-            xxl: 3,
-          }}
+          grid={antdGrid}
           dataSource={data}
           renderItem={(item: any) => (
             <List.Item>
@@ -50,15 +60,7 @@ const HealthVisionRoute: React.FC = () => {
           showIcon
         />
         <List
-          grid={{
-            gutter: 16,
-            xs: 1,
-            sm: 2,
-            md: 4,
-            lg: 4,
-            xl: 6,
-            xxl: 3,
-          }}
+          grid={antdGrid}
           dataSource={op_data}
           renderItem={(item: any) => (
             <List.Item>
@@ -71,6 +73,4 @@ const HealthVisionRoute: React.FC = () => {
       </Space>
     </PageContainer>
   );
-};
-
-export default HealthVisionRoute;
+}

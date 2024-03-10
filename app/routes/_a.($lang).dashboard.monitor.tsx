@@ -1,33 +1,37 @@
 // types
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
-// cores
+// remix
 import { json } from "@remix-run/node";
-
-// components:vendors
-import { Space } from "antd";
-import { PageContainer } from "@ant-design/pro-components";
+import { useLoaderData } from "@remix-run/react";
 
 // components
+import { Space } from "antd";
+import { PageContainer } from "@ant-design/pro-components";
 import {
   MonitorRowOne,
   MonitorRowTwo,
   MonitorRowThree,
 } from "~/components/dashboardMonitor";
-import { getMonitorData } from "~/db/monitor";
-import { lastValueFrom } from "rxjs";
-import { useLoaderData } from "@remix-run/react";
 
+// db
+import { getMonitorData$ } from "~/db/monitor";
+
+// libs
+import { lastValueFrom } from "rxjs";
+
+// remix:meta
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "监控页",
+      title: "dashboard-monitor",
     },
   ];
 };
 
+// remix:loader
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
-  const monitorData = await lastValueFrom(getMonitorData());
+  const monitorData = await lastValueFrom(getMonitorData$());
   return json({ ...monitorData });
 };
 

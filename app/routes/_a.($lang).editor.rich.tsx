@@ -1,10 +1,24 @@
+import type { MetaFunction } from "@remix-run/node";
+
+// react
 import { useState } from "react";
+
+// components
 import { Editor } from "@tinymce/tinymce-react";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [
+    {
+      title: "editor-rich",
+    },
+  ];
+};
+
 const tinyKey = "your key";
 
-export default function () {
+export default function EditorRich() {
   const [value, setValue] = useState("");
   return (
     <PageContainer title="editor rich">

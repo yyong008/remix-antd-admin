@@ -15,6 +15,6 @@ export const roles = [
   },
 ];
 
-export const getRoles = () => {
+export const getRoles$ = () => {
   return of(roles).pipe(delay(20));
 };

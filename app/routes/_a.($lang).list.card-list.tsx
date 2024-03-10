@@ -2,24 +2,17 @@
 // types
 import type { MetaFunction } from "@remix-run/node";
 
-// components:vendor
+// components
 import { Button, Card, Row } from "antd";
 import { PageContainer } from "@ant-design/pro-components";
-
-// components
 import { ColCardList, PageContainerContent } from "~/components/listCardList";
 
-// server
-
+// remix:meta
 export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "搜索表格",
-    },
-  ];
+  return [{ title: "list-card-list" }];
 };
 
-export default () => {
+export default function ListCardList() {
   return (
     <PageContainer title={false} content={<PageContainerContent />}>
       <Card title="卡片列表" extra={<Button type="primary">添加卡片</Button>}>
@@ -29,4 +22,4 @@ export default () => {
       </Card>
     </PageContainer>
   );
-};
+}

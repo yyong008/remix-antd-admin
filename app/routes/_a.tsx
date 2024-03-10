@@ -1,15 +1,16 @@
 // import type { ActionArgs } from "@remix-run/node";
 import type { LoaderFunctionArgs, LoaderFunction } from "@remix-run/node";
 
-import { Link, Outlet, useLoaderData } from "@remix-run/react";
+// react
 import { useContext, useMemo, memo, useState } from "react";
-import { json, redirect } from "@remix-run/node";
 
-// components:vendor
-import { Spin } from "antd";
-import { ProLayout } from "@ant-design/pro-components";
+// remix
+import { json, redirect } from "@remix-run/node";
+import { Link, Outlet, useLoaderData } from "@remix-run/react";
 
 // components
+import { Spin } from "antd";
+import { ProLayout } from "@ant-design/pro-components";
 import Footer from "~/components/Footer";
 import MenuFooterRender from "~/layout/MenuFooterRender";
 import { AvatarDropDown } from "~/layout/AvatarDropDown";
@@ -19,15 +20,11 @@ import { createActionRenderWrap } from "~/layout/createActionsRender";
 // context
 import SettingContext from "~/context/settingContext";
 
-// routes from mock db
+// libs
 import { createRoute } from "~/db/index";
-
-// layout
-import { config } from "~/layout/config";
+import { config } from "~/config/index";
 import { createTokens } from "~/layout/createToken";
-
 import { handleRoutes } from "~/utils/route.handle";
-
 import i18n from "~/i18n/i18next.server";
 
 // hooks
@@ -35,6 +32,7 @@ import { useNProgress } from "~/hooks/useNProgress";
 
 const langs = ["zh-CN", "en-US"];
 
+// meta:loader(layout loader)
 export const loader: LoaderFunction = async ({
   request,
   params,

@@ -59,6 +59,6 @@ const op_data = [
   },
 ];
 
-export const getSleepData = () => {
+export const getSleepData$ = () => {
   return of({ data, op_data }).pipe(delay(20));
 };

@@ -16,7 +16,7 @@ import {
 import { Avatar, Button, Modal, message } from "antd";
 import { Cropper } from "react-advanced-cropper";
 
-// css
+// styles
 import "react-advanced-cropper/dist/style.css";
 
 const BasicSetting: React.FC = ({ provinces = [], cities = [] }: any) => {

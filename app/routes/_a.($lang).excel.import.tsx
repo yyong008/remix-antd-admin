@@ -1,15 +1,28 @@
+import type { MetaFunction } from "@remix-run/node";
+
+// react
 import { useState } from "react";
 
-// xlsx
-import * as XLSX from "xlsx";
-import ExportJsonExcel from "js-export-excel";
-
+// components
 import { Button, message, Space, Table, Upload } from "antd";
 import { PageContainer } from "@ant-design/pro-components";
 
+// libs
+import * as XLSX from "xlsx";
+import ExportJsonExcel from "js-export-excel";
+
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [
+    {
+      title: "excel-important",
+    },
+  ];
+};
+
 const Dragger = Upload.Dragger;
 
-const Preview = () => {
+export default function ExcexImportRoute() {
   const [tableData] = useState([]);
   const [tableHeader] = useState([]);
   const [data, setData] = useState({});
@@ -91,6 +104,4 @@ const Preview = () => {
       </Space>
     </PageContainer>
   );
-};
-
-export default Preview;
+}

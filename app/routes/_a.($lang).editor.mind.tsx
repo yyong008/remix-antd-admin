@@ -1,10 +1,10 @@
 // types
 import type { MetaFunction } from "@remix-run/node";
 
-// hooks
+// react
 import { useCallback } from "react";
 
-// components:vender
+// components
 import ReactFlow, {
   addEdge,
   MiniMap,
@@ -26,10 +26,11 @@ import CustomNode from "~/components/ReactFlow/CustomNode";
 import "reactflow/dist/style.css";
 import "~/styles/reactflow.css";
 
+// remix:meta
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "脑图编辑器",
+      title: "editor-mind",
     },
   ];
 };
@@ -42,10 +43,7 @@ const minimapStyle = {
   height: 120,
 };
 
-const onInit = (reactFlowInstance: any) =>
-  console.log("flow loaded:", reactFlowInstance);
-
-const OverviewFlow = () => {
+export default function OverviewFlow() {
   const [nodes, , onNodesChange] = useNodesState(initialNodes as any);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const onConnect = useCallback(
@@ -79,7 +77,9 @@ const OverviewFlow = () => {
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
-          onInit={onInit}
+          onInit={(reactFlowInstance: any) =>
+            console.log("flow loaded:", reactFlowInstance)
+          }
           fitView
           attributionPosition="top-right"
           nodeTypes={nodeTypes}
@@ -91,6 +91,4 @@ const OverviewFlow = () => {
       </ProCard>
     </PageContainer>
   );
-};
-
-export default OverviewFlow;
+}

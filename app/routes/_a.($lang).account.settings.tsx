@@ -1,15 +1,13 @@
 // types
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
-// cores
-import React from "react";
-
-// components:vendor
-import { Tabs } from "antd";
+// remix
 import { json } from "@remix-run/node";
-import { PageContainer, ProCard } from "@ant-design/pro-components";
+import { useLoaderData } from "@remix-run/react";
 
 // components
+import { Tabs } from "antd";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 import {
   BasicSetting,
   SecretSetting,
@@ -17,20 +15,19 @@ import {
   NewSetting,
 } from "~/components/accountSettings";
 
-// hooks
-import { useLoaderData } from "@remix-run/react";
-
-// css
+// styles
 import "react-advanced-cropper/dist/style.css";
 
+// remix:meta
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "账户设置",
+      title: "account-settings",
     },
   ];
 };
 
+// remix:loader
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   return json({
     data: (await import("~/data/accountSettings")).default,
@@ -39,8 +36,8 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   });
 };
 
-const Settings: React.FC = () => {
-  const { data, provinces, cities }: any = useLoaderData();
+export default function Settings() {
+  const { data, provinces, cities } = useLoaderData<typeof loader>();
   const items = [
     {
       label: `基本设置`,
@@ -75,6 +72,4 @@ const Settings: React.FC = () => {
       </ProCard>
     </PageContainer>
   );
-};
-
-export default Settings;
+}

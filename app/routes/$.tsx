@@ -1,14 +1,19 @@
-// core
-import React from "react";
+// types
+import type { MetaFunction } from "@remix-run/node";
 
-// hooks
+// remix
 import { useNavigate } from "@remix-run/react";
 
-// components:vendor
+// components
 import { Button, Result } from "antd";
 import { useTranslation } from "react-i18next";
 
-const NoFoundPage: React.FC = () => {
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [{ title: "404" }, { name: "404", content: "Not Found" }];
+};
+
+export default function NoFoundPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -24,6 +29,4 @@ const NoFoundPage: React.FC = () => {
       }
     />
   );
-};
-
-export default NoFoundPage;
+}

@@ -1,10 +1,36 @@
+// types
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+
+// components
 import { PageContainer, ProCard, ProTable } from "@ant-design/pro-components";
 
+// remix
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [
+    { title: "System-Log-OperLog" },
+    { name: "System-Log-OperLog", content: "System-Log-OperLog" },
+  ];
+};
+
+// remix:loader
+export const loader: LoaderFunction = () => {
+  return json({
+    dataSource: [],
+  });
+};
+
 export default function SystemLogOperLogRoute() {
+  const { dataSource } = useLoaderData<typeof loader>();
+
   return (
     <PageContainer title="system user">
       <ProCard>
         <ProTable
+          dataSource={dataSource as any[]}
           columns={[
             {
               dataIndex: "num",

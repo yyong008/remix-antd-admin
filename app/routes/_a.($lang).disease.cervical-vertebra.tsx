@@ -1,5 +1,6 @@
-import type { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 
+// remix
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
@@ -7,16 +8,27 @@ import { useLoaderData } from "@remix-run/react";
 import { Alert, Card, List, Space } from "antd";
 import { PageContainer } from "@ant-design/pro-components";
 
+// libs
 import { lastValueFrom } from "rxjs";
 
-import { getCervicalData } from "~/db/health-disease/cervical-vertebra";
+// db
+import { getCervicalData$ } from "~/db/health-disease/cervical-vertebra";
 
+// config
+import { antdGrid } from "~/config/antd-grid";
+
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [{ title: "disease-cervical-vertebra" }];
+};
+
+// remix:loader
 export const loader: LoaderFunction = async () => {
-  const data = await lastValueFrom(getCervicalData());
+  const data = await lastValueFrom(getCervicalData$());
   return json(data);
 };
 
-const HealthRoute: React.FC = () => {
+export function HealthRoute() {
   const { data, op_data } = useLoaderData<typeof loader>();
   return (
     <PageContainer title="cervical vertebra">
@@ -27,15 +39,7 @@ const HealthRoute: React.FC = () => {
           showIcon
         />
         <List
-          grid={{
-            gutter: 16,
-            xs: 1,
-            sm: 2,
-            md: 4,
-            lg: 4,
-            xl: 6,
-            xxl: 3,
-          }}
+          grid={antdGrid}
           dataSource={data}
           renderItem={(item: any) => (
             <List.Item>
@@ -51,15 +55,7 @@ const HealthRoute: React.FC = () => {
           showIcon
         />
         <List
-          grid={{
-            gutter: 16,
-            xs: 1,
-            sm: 2,
-            md: 4,
-            lg: 4,
-            xl: 6,
-            xxl: 3,
-          }}
+          grid={antdGrid}
           dataSource={op_data}
           renderItem={(item: any) => (
             <List.Item>
@@ -72,6 +68,4 @@ const HealthRoute: React.FC = () => {
       </Space>
     </PageContainer>
   );
-};
-
-export default HealthRoute;
+}

@@ -6,10 +6,8 @@ import type {
   MetaFunction,
 } from "@remix-run/node";
 
-// cores
+// remix
 import { json } from "@remix-run/node";
-
-// hooks
 import { useLoaderData } from "@remix-run/react";
 
 // components:vendor
@@ -25,14 +23,12 @@ import {
   PageContainerContent,
 } from "~/components/profileBasic";
 
+// remix:meta
 export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "基础详情页",
-    },
-  ];
+  return [{ title: "profile-basic" }];
 };
 
+// remix:loader
 export const loader: LoaderFunction = async ({
   request,
   params,
@@ -42,7 +38,7 @@ export const loader: LoaderFunction = async ({
 };
 
 export default function ProfileBasicPage() {
-  const data = useLoaderData();
+  const data = useLoaderData<typeof loader>();
   return (
     <PageContainer title={false} content={<PageContainerContent />}>
       <ProCard>

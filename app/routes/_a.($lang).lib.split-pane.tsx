@@ -1,16 +1,28 @@
-import { Allotment } from "allotment";
+// types
+import type { MetaFunction } from "@remix-run/node";
 
-import "allotment/dist/style.css";
-import { Button, Col, Row } from "antd";
+// react
 import React from "react";
+
+// components
+import { Allotment } from "allotment";
+import { Button, Col, Row } from "antd";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
-const App = () => {
-  type Panel = {
-    label: string;
-    id: string;
-  };
+// styles
+import "allotment/dist/style.css";
 
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [{ title: "lib-split-pane" }];
+};
+
+type Panel = {
+  label: string;
+  id: string;
+};
+
+export default function App() {
   const [panels, setPanels] = React.useState<Panel[]>([]);
 
   const closePane = (pid: string) => {
@@ -77,6 +89,4 @@ const App = () => {
       </Row>
     </PageContainer>
   );
-};
-
-export default App;
+}

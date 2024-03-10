@@ -1,22 +1,19 @@
 // types
 import type { MetaFunction } from "@remix-run/node";
 
-// components:vendor
+// components
 import { Button, Result } from "antd";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
-// hooks
+// libs
 import { useTranslation } from "react-i18next";
 
+// remix:meta
 export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "500",
-    },
-  ];
+  return [{ title: "exception-500" }];
 };
 
-const Expection500Route: React.FC = () => {
+export default function Expection500Route() {
   const { t } = useTranslation();
 
   return (
@@ -36,6 +33,4 @@ const Expection500Route: React.FC = () => {
       </ProCard>
     </PageContainer>
   );
-};
-
-export default Expection500Route;
+}

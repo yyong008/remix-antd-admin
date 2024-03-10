@@ -3,7 +3,7 @@ import { geoJson } from "./map";
 import { data as activeMonitorData } from "~/db/monitor/active-monitor";
 import { gaugeData } from "~/db/monitor/gauge";
 
-export const getMonitorData = () => {
+export const getMonitorData$ = () => {
   return of({
     geoJson,
     activeMonitorData,

@@ -1,23 +1,34 @@
-import { PageContainer, ProCard } from "@ant-design/pro-components";
-import { Table, Button } from "antd";
+// types
+import type { MetaFunction } from "@remix-run/node";
 
+// remix
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+
+// components
+import { Table, Button } from "antd";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { Excel } from "antd-table-saveas-excel";
 
+// libs
+import { lastValueFrom } from "rxjs";
+
+// db
+import { getExcelDisease$ } from "~/db/excel/export";
+
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [{ title: "excel-export" }];
+};
+
+// remix:loader
+export const loader = async () => {
+  const { dataSource } = await lastValueFrom(getExcelDisease$());
+  return json({ dataSource });
+};
+
 export default function ExcelExportRoute() {
-  const dataSource = [
-    {
-      key: "1",
-      name: "胡彦斌",
-      age: 32,
-      date: "1999-10-01",
-    },
-    {
-      key: "2",
-      name: "胡彦祖",
-      age: 42,
-      date: "1990-10-07",
-    },
-  ];
+  const { dataSource } = useLoaderData<typeof loader>();
 
   const columns = [
     {

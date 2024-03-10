@@ -1,16 +1,13 @@
 // types
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 
-// core
+// remix
 import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 
 // components
-import { PageContainer } from "@ant-design/pro-components";
-
-// components:vendor
 import { Space } from "antd";
-
-// components
+import { PageContainer } from "@ant-design/pro-components";
 import {
   AnalysisRowOne,
   AnalysisRowTwo,
@@ -18,22 +15,23 @@ import {
   AnalysisRowFour,
 } from "~/components/dashboardAnalysis";
 
-// css
+// styles
 import "~/styles/dashboard.analysis.css";
 
+// libs
 import { lastValueFrom } from "rxjs";
-import { useLoaderData } from "@remix-run/react";
 
 // db
-import { getAnalysisData } from "~/db/dashboard/analysis";
+import { getAnalysisData$ } from "~/db/dashboard/analysis";
 
-// utils
+// remix:meta
 export const meta: MetaFunction = () => {
-  return [{ title: "analysis" }];
+  return [{ title: "dashboard-analysis" }];
 };
 
+// remix:loader
 export const loader: LoaderFunction = async () => {
-  const analysisData = await lastValueFrom(getAnalysisData());
+  const analysisData = await lastValueFrom(getAnalysisData$());
   return json(analysisData);
 };
 

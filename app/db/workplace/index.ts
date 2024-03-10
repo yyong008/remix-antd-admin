@@ -136,6 +136,6 @@ export const workplaceData = {
   ],
 };
 
-export const getWorkplaceData = () => {
+export const getWorkplaceData$ = () => {
   return of(workplaceData).pipe(delay(20));
 };

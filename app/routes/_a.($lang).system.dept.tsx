@@ -1,10 +1,35 @@
+// types
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+
+// remix
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+
+// component
 import { PageContainer, ProCard, ProTable } from "@ant-design/pro-components";
 
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [
+    { title: "System-Dept" },
+    { name: "System-Dept", content: "System-Dept" },
+  ];
+};
+
+// remix:loader
+export const loader: LoaderFunction = () => {
+  return json({
+    dataSource: [],
+  });
+};
+
 export default function SystemDeptRoute() {
+  const { dataSource } = useLoaderData<typeof loader>();
   return (
     <PageContainer title="system user">
       <ProCard>
         <ProTable
+          dataSource={dataSource as any[]}
           columns={[
             {
               dataIndex: "name",
@@ -33,7 +58,7 @@ export default function SystemDeptRoute() {
             {
               dataIndex: "op",
               title: "操作",
-              render(_, record) {
+              render(_) {
                 return <div>record</div>;
               },
             },

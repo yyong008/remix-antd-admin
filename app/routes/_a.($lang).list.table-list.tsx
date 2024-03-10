@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // types
-import { type LoaderFunction, type MetaFunction } from "@remix-run/node";
 import type { ProColumns } from "@ant-design/pro-components";
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 
-// core
+// remix
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
@@ -12,6 +12,20 @@ import * as _icons from "@ant-design/icons";
 import { Button, Form, Space, theme } from "antd";
 import { ProTable, ModalForm, ProFormText } from "@ant-design/pro-components";
 
+// icons
+const { PlusOutlined } = _icons;
+
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [{ title: "list-table-list" }];
+};
+
+// remix:loader
+export const loader: LoaderFunction = async () => {
+  const { tableListDataSource } = await import("~/data/listTableList");
+  return json(tableListDataSource);
+};
+
 export type TableListItem = {
   key: number;
   name: string;
@@ -19,22 +33,6 @@ export type TableListItem = {
   callcount: string;
   status: string;
   beforeCallTime: string;
-};
-
-// icons
-const { PlusOutlined } = _icons;
-
-export const loader: LoaderFunction = async () => {
-  const { tableListDataSource } = await import("~/data/listTableList");
-  return json(tableListDataSource);
-};
-
-export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "搜索表格",
-    },
-  ];
 };
 
 function AddButtonModal() {
@@ -66,7 +64,7 @@ function AddButtonModal() {
 
 export default function ListTableListPage() {
   const { token } = theme.useToken();
-  const data = useLoaderData();
+  const data = useLoaderData<typeof loader>();
   const columns: ProColumns<TableListItem>[] = [
     {
       title: "规则名称",

@@ -1,5 +1,7 @@
-import type { LoaderFunction } from "@remix-run/node";
+// types
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 
+// remix
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
@@ -7,15 +9,27 @@ import { useLoaderData } from "@remix-run/react";
 import { Alert, Card, List, Space } from "antd";
 import { PageContainer } from "@ant-design/pro-components";
 
+// libs
 import { lastValueFrom } from "rxjs";
-import { getObesityData } from "~/db/health-disease/obesity";
 
+// db
+import { getObesityData$ } from "~/db/health-disease/obesity";
+
+// config
+import { antdGrid } from "~/config/antd-grid";
+
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [{ title: "disease-obesity" }];
+};
+
+// remix:loader
 export const loader: LoaderFunction = async () => {
-  const data = await lastValueFrom(getObesityData());
+  const data = await lastValueFrom(getObesityData$());
   return json(data);
 };
 
-const HealthObesityRoute: React.FC = () => {
+export default function HealthObesityRoute() {
   const { data, op_data } = useLoaderData<typeof loader>();
   return (
     <PageContainer title="obesity">
@@ -26,15 +40,7 @@ const HealthObesityRoute: React.FC = () => {
           showIcon
         />
         <List
-          grid={{
-            gutter: 16,
-            xs: 1,
-            sm: 2,
-            md: 4,
-            lg: 4,
-            xl: 6,
-            xxl: 3,
-          }}
+          grid={antdGrid}
           dataSource={data}
           renderItem={(item: any) => (
             <List.Item>
@@ -50,15 +56,7 @@ const HealthObesityRoute: React.FC = () => {
           showIcon
         />
         <List
-          grid={{
-            gutter: 16,
-            xs: 1,
-            sm: 2,
-            md: 4,
-            lg: 4,
-            xl: 6,
-            xxl: 3,
-          }}
+          grid={antdGrid}
           dataSource={op_data}
           renderItem={(item: any) => (
             <List.Item>
@@ -71,6 +69,4 @@ const HealthObesityRoute: React.FC = () => {
       </Space>
     </PageContainer>
   );
-};
-
-export default HealthObesityRoute;
+}

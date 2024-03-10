@@ -1,15 +1,26 @@
+// types
+import type { MetaFunction } from "@remix-run/node";
+
+// react
 import React, { useMemo } from "react";
+
+// components
 import * as Icons from "@ant-design/icons";
 import { Alert, Card, Row, Space } from "antd";
-import { PageContainer } from "@ant-design/pro-layout";
 import { ProCard } from "@ant-design/pro-components";
+import { PageContainer } from "@ant-design/pro-layout";
+
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [{ title: "lib-icons" }];
+};
 
 const gridStyle: React.CSSProperties = {
   width: "10%",
   textAlign: "center",
 };
 
-function AlphaList(props) {
+function AlphaList(props: any) {
   return (
     <div>
       <Alert
@@ -50,7 +61,7 @@ function AlphaList(props) {
   );
 }
 
-function RenderAllAntdIcons() {
+export default function RenderAllAntdIcons() {
   const iconNames = useMemo(() => {
     return Object.keys(Icons).filter((icon) => /^[A-Z]/.test(icon[0]));
   }, []);
@@ -84,5 +95,3 @@ function RenderAllAntdIcons() {
     </PageContainer>
   );
 }
-
-export default RenderAllAntdIcons;

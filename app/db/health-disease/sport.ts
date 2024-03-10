@@ -51,6 +51,6 @@ const op_data = [
   },
 ];
 
-export const getSportData = () => {
+export const getSportData$ = () => {
   return of({ data, op_data }).pipe(delay(20));
 };

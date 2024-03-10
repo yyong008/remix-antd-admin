@@ -1,20 +1,31 @@
+// types
+import type { MetaFunction } from "@remix-run/node";
+
+// react
 import { useRef, useEffect } from "react";
+
+// libs
 import { fromEvent } from "rxjs";
 import { map, scan } from "rxjs/operators";
 
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [{ title: "game-mouse" }];
+};
+
 const step = 10;
 
-const Game = () => {
+export default function Game() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current! as HTMLCanvasElement;
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext("2d") as any;
 
     const canvasRect = canvas.getBoundingClientRect();
 
     const mouseMoveStream = fromEvent(canvas, "mousemove").pipe(
-      map((event) => {
+      map((event: any) => {
         return {
           x: event.clientX - canvasRect.left - 25, // 25 is half of the square width
           y: event.clientY - canvasRect.top - 25, // 25 is half of the square height
@@ -62,6 +73,4 @@ const Game = () => {
       />
     </div>
   );
-};
-
-export default Game;
+}

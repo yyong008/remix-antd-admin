@@ -264,7 +264,7 @@ const searchAvageCountData = {
   },
 };
 
-export const getAnalysisData = () => {
+export const getAnalysisData$ = () => {
   return of({
     one: {
       salesData,

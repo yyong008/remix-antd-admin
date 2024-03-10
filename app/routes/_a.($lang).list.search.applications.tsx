@@ -5,39 +5,33 @@ import type {
   MetaFunction,
 } from "@remix-run/node";
 
-// core
+// remix
 import { json } from "@remix-run/node";
-
-// components:vendor
-import { Row, Space } from "antd";
-import { PageContainer } from "@ant-design/pro-components";
+import { useLoaderData } from "@remix-run/react";
 
 // components
+import { Row, Space } from "antd";
+import { PageContainer } from "@ant-design/pro-components";
 import { ToolSelect } from "~/components/listSearch";
 import { ListHeaderSearch } from "~/components/common";
 import AppCardList from "~/components/listSearchApplications/AppCardList";
 
-// hooks
-import { useLoaderData } from "@remix-run/react";
-
+// remix:meta
 export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "搜索列表（应用）",
-    },
-  ];
+  return [{ title: "list-search-applications" }];
 };
 
+// remix:loader
 export const loader: LoaderFunction = async ({
   request,
   params,
 }: LoaderFunctionArgs) => {
   const _data = (await import("~/data/listSearchApplications")).default;
-  return json(_data);
+  return json({ data: _data });
 };
 
 export default function ListSearchApplication() {
-  const data: any = useLoaderData();
+  const { data } = useLoaderData<typeof loader>();
   return (
     <PageContainer
       fixedHeader

@@ -5,14 +5,13 @@ import type {
   MetaFunction,
 } from "@remix-run/node";
 
-// core
+// remix
 import { json } from "@remix-run/node";
-
-// components: vendors
-import { Space } from "antd";
-import { PageContainer } from "@ant-design/pro-components";
+import { useLoaderData } from "@remix-run/react";
 
 // components
+import { Space } from "antd";
+import { PageContainer } from "@ant-design/pro-components";
 import {
   CardStep,
   CardUserInfo,
@@ -20,18 +19,12 @@ import {
   ThreeCardLoggerTable,
 } from "~/components/profileAdvanced";
 
-// hooks
-import { useLoaderData } from "@remix-run/react";
-
 // route:meta
 export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "基础详情页",
-    },
-  ];
+  return [{ title: "profile-advanced" }];
 };
 
+// route:loader
 export const loader: LoaderFunction = async ({
   request,
   params,
@@ -41,7 +34,7 @@ export const loader: LoaderFunction = async ({
 };
 
 export default function ProfileAdvancedPage() {
-  const data = useLoaderData();
+  const data = useLoaderData<typeof loader>();
 
   return (
     <PageContainer title={false}>

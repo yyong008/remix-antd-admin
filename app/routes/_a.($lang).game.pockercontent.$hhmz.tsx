@@ -1,6 +1,11 @@
-// core
-import { json } from "@remix-run/node";
+// types
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+
+// react
 import { useEffect, useState } from "react";
+
+// remix
+import { json } from "@remix-run/node";
 import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
 
 // components
@@ -8,11 +13,17 @@ import { toast, Toaster } from "sonner";
 import PockerItem from "~/components/pockers/PockerItem";
 import PockerList from "~/components/pockers/PockerList";
 
-// css
+// styles
 import "animate.css";
 import "~/styles/pocker-card.css";
 
-export const loader = async () => {
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [{ title: "game-prockercontent" }];
+};
+
+// remix:loader
+export const loader: LoaderFunction = async () => {
   const { hs } = await import("~/data/pocker");
   return json(hs);
 };

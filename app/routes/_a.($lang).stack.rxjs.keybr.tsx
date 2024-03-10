@@ -10,14 +10,15 @@ import classNames from "classnames";
 // hooks
 import useKeyPress from "~/hooks/useKeyPress";
 
+// remix:meta
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Stack-RxJS-Keybr" },
+    { name: "Stack-RxJS-Keybr", content: "Stack-RxJS-Keybr" },
   ];
 };
 
-export default function Index() {
+export default function StackRxJSKeybr() {
   const [key] = useKeyPress();
   const qwertyRows = [
     ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],

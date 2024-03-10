@@ -18,13 +18,13 @@ import {
 // components
 import { ClientOnly } from "./components/ClientOnly";
 
-// css
+// styles
 import global from "~/styles/global.css?url";
 import tailwind from "~/styles/tailwind.css?url";
 import "nprogress/nprogress.css";
 
+// hooks
 import { useChangeLanguage } from "remix-i18next/react";
-import { noop } from "./utils/utils";
 
 // i18n
 export let handle = { i18n: "common" };
@@ -39,7 +39,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return json({ locale });
 }
 
-function App() {
+export default function App() {
   const params = useParams();
   let { locale } = useLoaderData<typeof loader>();
 
@@ -100,12 +100,3 @@ export function ErrorBoundary() {
     return <h1>Unknown Error</h1>;
   }
 }
-
-let MainApp = App;
-if (process.env.NODE_ENV === "development") {
-  noop();
-} else {
-  MainApp = App;
-}
-
-export default MainApp;

@@ -54,6 +54,6 @@ const op_data = [
   },
 ];
 
-export const getVisionData = () => {
+export const getVisionData$ = () => {
   return of({ data, op_data }).pipe(delay(20));
 };

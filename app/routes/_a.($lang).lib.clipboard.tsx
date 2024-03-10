@@ -1,9 +1,20 @@
-import { PageContainer, ProCard } from "@ant-design/pro-components";
-import { Button, Input, Space } from "antd";
-import { useState } from "react";
-import * as rctc from "react-copy-to-clipboard";
+// types
+import type { MetaFunction } from "@remix-run/node";
 
-const { CopyToClipboard } = rctc.default;
+// react
+import { useState } from "react";
+
+// components
+import { Button, Input, Space } from "antd";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
+import * as _clipboard from "react-copy-to-clipboard";
+
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [{ title: "lib-clipboard" }];
+};
+
+const { CopyToClipboard } = _clipboard;
 
 export default function ClipboardRoute() {
   const [data, setData] = useState({

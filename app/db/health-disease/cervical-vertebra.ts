@@ -48,6 +48,6 @@ const op_data = [
   },
 ];
 
-export const getCervicalData = () => {
+export const getCervicalData$ = () => {
   return of({ data, op_data }).pipe(delay(20));
 };

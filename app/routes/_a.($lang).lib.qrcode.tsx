@@ -1,11 +1,35 @@
+// types
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+
+// react
 import { useEffect, useRef } from "react";
 
-import { List, Space } from "antd";
-import QrCodeList from "~/components/QrCodeList";
+// remix
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 
-// qrcode
-import QRCode from "qrcode";
+// component
+import { List, Space } from "antd";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
+import QrCodeList from "~/components/QrCodeList";
+import QRCode from "qrcode";
+
+// libs
+import { lastValueFrom } from "rxjs";
+
+// db
+import { getQrCodeList$ } from "~/db/lib/qrcode";
+
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [{ title: "lib-qrcode" }];
+};
+
+// remix:loader
+export const loader: LoaderFunction = async () => {
+  const data = await lastValueFrom(getQrCodeList$());
+  return json({ list: data });
+};
 
 const ReactQrCode = ({ url }: any) => {
   const cRef = useRef<any>();
@@ -28,13 +52,7 @@ const ReactQrCode = ({ url }: any) => {
 };
 
 export default function QrCodeRoute() {
-  const list = [
-    { name: "qrcode", url: "https://www.npmjs.com/package/qrcode" },
-    {
-      name: "remix-antd-admin",
-      url: "https://github.com/yyong008/remix-antd-admin",
-    },
-  ];
+  const { list } = useLoaderData<typeof loader>();
 
   return (
     <PageContainer title="qrcode">
@@ -50,7 +68,7 @@ export default function QrCodeRoute() {
             <List
               bordered
               dataSource={list}
-              renderItem={(item) => {
+              renderItem={(item: any) => {
                 return (
                   <List.Item>
                     <List.Item.Meta title={item.name} description={item.url} />

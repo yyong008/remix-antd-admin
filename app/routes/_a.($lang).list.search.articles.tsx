@@ -2,21 +2,17 @@
 //types
 import type { MetaFunction } from "@remix-run/node";
 
-// components:vendor
+// components
 import { Row } from "antd";
 import { PageContainer } from "@ant-design/pro-components";
-
-// components
 import { ListHeaderSearch } from "~/components/common";
 import { SearchList, ToolSelect } from "~/components/listSearch";
 
+// remix:meta
 export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "搜索列表（文章）",
-    },
-  ];
+  return [{ title: "list-search-articles" }];
 };
+
 export default function ListSearchArticlesRoute() {
   return (
     <PageContainer

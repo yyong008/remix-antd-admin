@@ -1,33 +1,44 @@
+// types
+import type { MetaFunction } from "@remix-run/node";
+
+// react
 import { useRef, useEffect } from "react";
+
+// libs
 import { fromEvent, merge } from "rxjs";
 import { filter, map, scan } from "rxjs/operators";
 
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [{ title: "game-trbl" }];
+};
+
 const step = 10;
 
-const Game = () => {
+export default function Game() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current! as HTMLCanvasElement;
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext("2d") as any;
 
     const leftKeyStream = fromEvent(document, "keydown").pipe(
-      filter((event) => event.key === "ArrowLeft"),
+      filter((event: any) => event.key === "ArrowLeft"),
       map(() => ({ x: -step, y: 0 })),
     );
 
     const rightKeyStream = fromEvent(document, "keydown").pipe(
-      filter((event) => event.key === "ArrowRight"),
+      filter((event: any) => event.key === "ArrowRight"),
       map(() => ({ x: step, y: 0 })),
     );
 
     const upKeyStream = fromEvent(document, "keydown").pipe(
-      filter((event) => event.key === "ArrowUp"),
+      filter((event: any) => event.key === "ArrowUp"),
       map(() => ({ x: 0, y: -step })),
     );
 
     const downKeyStream = fromEvent(document, "keydown").pipe(
-      filter((event) => event.key === "ArrowDown"),
+      filter((event: any) => event.key === "ArrowDown"),
       map(() => ({ x: 0, y: step })),
     );
 
@@ -66,6 +77,4 @@ const Game = () => {
       />
     </div>
   );
-};
-
-export default Game;
+}

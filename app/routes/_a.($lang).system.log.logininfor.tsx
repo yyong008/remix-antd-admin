@@ -1,10 +1,36 @@
+// types
+import type { MetaFunction, LoaderFunction } from "@remix-run/node";
+
+// remix
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+
+// components
 import { PageContainer, ProCard, ProTable } from "@ant-design/pro-components";
 
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [
+    { title: "System-Log-LogininFor" },
+    { name: "System-Log-LogininFor", content: "System-Log-LogininFor" },
+  ];
+};
+
+// remix:loader
+export const loader: LoaderFunction = () => {
+  return json({
+    dataSource: [],
+  });
+};
+
 export default function SystemLogLogininforRoute() {
+  const { dataSource } = useLoaderData<typeof loader>();
+
   return (
     <PageContainer title="system user">
       <ProCard>
         <ProTable
+          dataSource={dataSource as any[]}
           columns={[
             {
               dataIndex: "num",

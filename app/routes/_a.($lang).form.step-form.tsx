@@ -2,10 +2,10 @@
 import type { MetaFunction } from "@remix-run/node";
 import type { ProFormInstance } from "@ant-design/pro-components";
 
-// hooks
+// react
 import { useRef } from "react";
 
-// components:vendor
+// components
 import {
   PageContainer,
   ProCard,
@@ -19,12 +19,9 @@ import {
   StepsForm,
 } from "@ant-design/pro-components";
 
+// remix:meta
 export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "步骤表单",
-    },
-  ];
+  return [{ title: "form-step-form" }];
 };
 
 export default function StepFormRoute() {

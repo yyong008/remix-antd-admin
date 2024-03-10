@@ -1,20 +1,14 @@
 // type
 import type { MetaFunction } from "@remix-run/node";
 
-// components:vendor
+// components
 import { Button, Space } from "antd";
 import { PageContainer, ProCard, ProForm } from "@ant-design/pro-components";
-
-// components
 import { CManager, TManager, TTable } from "~/components/formAdvanced";
 
-// utils
+// remix:meta
 export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "表单增强",
-    },
-  ];
+  return [{ title: "form-advanced-form" }];
 };
 
 export default function FormAdvanceRoute() {

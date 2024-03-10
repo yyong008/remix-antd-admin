@@ -1,12 +1,23 @@
+// types
+import type { MetaFunction } from "@remix-run/node";
+
+// react
 import { useState, useEffect } from "react";
 
+// component
 import { Button, Space } from "antd";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
+// libs
 import { timer, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
-function CountdownTimer() {
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [{ title: "Stack-RxJS-Count-down" }];
+};
+
+export default function CountdownTimer() {
   const [countdown, setCountdown] = useState(60 * 1000);
   const [isRunning, setIsRunning] = useState(false);
 
@@ -59,5 +70,3 @@ function CountdownTimer() {
     </PageContainer>
   );
 }
-
-export default CountdownTimer;

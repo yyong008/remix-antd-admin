@@ -58,6 +58,6 @@ const op_data = [
   },
 ];
 
-export const getDiseaseData = () => {
+export const getDiseaseData$ = () => {
   return of({ data, op_data }).pipe(delay(20));
 };

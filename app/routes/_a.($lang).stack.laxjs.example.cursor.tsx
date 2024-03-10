@@ -1,7 +1,18 @@
+import type { MetaFunction } from "@remix-run/node";
+
+// react
 import { useEffect } from "react";
+
+// libs
 import lax from "lax.js";
 
+// styles
 import "~/styles/laxjs.example.cursor.css";
+
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [{ title: "Stack-laxjs-cousor" }];
+};
 
 export default function LaxJSExampleCursor() {
   useEffect(() => {
@@ -70,7 +81,7 @@ export default function LaxJSExampleCursor() {
           [0, "screenWidth"],
           [0, "screenWidth/2"],
           {
-            cssFn: (val) => {
+            cssFn: (val: any) => {
               return `hue-rotate(${val % 360}deg)`;
             },
           },

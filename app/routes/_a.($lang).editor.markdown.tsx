@@ -1,22 +1,34 @@
+// types
+import type { MetaFunction } from "@remix-run/node";
+
 // react
 import { useState } from "react";
 
-// editor
+// components
+import { PageContainer, ProCard } from "@ant-design/pro-components";
+
+// libs
 import gfm from "@bytemd/plugin-gfm";
 import { Editor } from "@bytemd/react";
 
-// css
+// styles
 import "bytemd/dist/index.css";
 
-// components
-import { PageContainer, ProCard } from "@ant-design/pro-components";
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [
+    {
+      title: "editor-markdown",
+    },
+  ];
+};
 
 const plugins = [
   gfm(),
   // Add more plugins here
 ];
 
-const App = () => {
+export default function App() {
   const [value, setValue] = useState("");
 
   return (
@@ -32,6 +44,4 @@ const App = () => {
       </ProCard>
     </PageContainer>
   );
-};
-
-export default App;
+}

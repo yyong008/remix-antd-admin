@@ -1,25 +1,27 @@
 // types
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
-// core
+// remix
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
-// components:vendor
+// components
 import ReactFlow from "reactflow";
 import { ProCard, PageContainer } from "@ant-design/pro-components";
 
 // styles
 import "reactflow/dist/style.css";
 
+// remix:meta
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "流程编辑器",
+      title: "editor-flow",
     },
   ];
 };
 
+// remix:loader
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const { initialNodes, initialEdges } = await import("~/data/editor.flow");
   return json({
@@ -28,7 +30,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   });
 };
 
-function EditorFlowRoute() {
+export default function EditorFlowRoute() {
   const { nodes, edges } = useLoaderData<typeof loader>();
 
   return (
@@ -44,5 +46,3 @@ function EditorFlowRoute() {
     </PageContainer>
   );
 }
-
-export default EditorFlowRoute;

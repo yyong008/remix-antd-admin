@@ -1,7 +1,7 @@
 // type
 import type { MetaFunction } from "@remix-run/node";
 
-// components:vendors
+// components
 import {
   PageContainer,
   ProCard,
@@ -12,17 +12,11 @@ import {
   ProFormDigit,
 } from "@ant-design/pro-components";
 import { Button } from "antd";
-
-// components
 import { FormIsOpen } from "~/components/formBasic";
 
-// utils
+// remix:meta
 export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "基础表单",
-    },
-  ];
+  return [{ title: "form-basic-form" }];
 };
 
 export default function BasicFormRoute() {

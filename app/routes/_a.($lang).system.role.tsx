@@ -1,7 +1,9 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
-// core
+// react
 import { useRef } from "react";
+
+// remix
 import { useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
 
@@ -11,16 +13,26 @@ import RoleModal from "~/components/roles/RoleModel";
 import CreateRoleModal from "~/components/roles/CreateRoleModel";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
+// libs
 import { lastValueFrom } from "rxjs";
 import i18n from "~/i18n/i18next.server";
 
 // db
 import { createRoute } from "~/db";
-import { getRoles } from "~/db/role";
+import { getRoles$ } from "~/db/role";
 
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [
+    { title: "System-Role" },
+    { name: "System-Role", content: "System-Role" },
+  ];
+};
+
+// remix:loader
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { lang } = params;
-  const roles = await lastValueFrom(getRoles());
+  const roles = await lastValueFrom(getRoles$());
   let t = await i18n.getFixedT(lang!);
 
   const menu = () => {

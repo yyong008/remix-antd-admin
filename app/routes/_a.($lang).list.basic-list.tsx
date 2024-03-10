@@ -3,38 +3,32 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 // type
 import type {
-  LoaderFunctionArgs,
   LoaderFunction,
+  LoaderFunctionArgs,
   MetaFunction,
 } from "@remix-run/node";
 
-// core
-import { json } from "@remix-run/node";
+// react
 import React from "react";
 
-// components:vendor
-import { Space, Tag } from "antd";
-import { ProList } from "@ant-design/pro-components";
+// remix
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 
 // components
-import { Tasks, AddModalForm } from "~/components/listBasicList";
+import { Space, Tag } from "antd";
+import { ProList } from "@ant-design/pro-components";
+import { AddModalForm, Tasks } from "~/components/listBasicList";
 
 // icons
 import * as _icons from "@ant-design/icons";
 
-// hooks
-import { useLoaderData } from "@remix-run/react";
-
-const { LikeOutlined, MessageOutlined, StarOutlined } = _icons;
-
+// remix:meta
 export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "搜索表格",
-    },
-  ];
+  return [{ title: "list-basic-list" }];
 };
 
+// remix:loader
 export const loader: LoaderFunction = async ({
   request,
   params,
@@ -42,6 +36,8 @@ export const loader: LoaderFunction = async ({
   const data = (await import("~/data/listBasicList")).default;
   return json(data.dataSource);
 };
+
+const { LikeOutlined, MessageOutlined, StarOutlined } = _icons;
 
 const IconText = ({ icon, text }: { icon: any; text: string }) => (
   <span>
@@ -51,7 +47,7 @@ const IconText = ({ icon, text }: { icon: any; text: string }) => (
 );
 
 export default function ListBasicPage() {
-  const dataSource = useLoaderData();
+  const dataSource = useLoaderData<typeof loader>();
   return (
     <Space direction="vertical">
       <Tasks />

@@ -5,29 +5,23 @@ import type {
   MetaFunction,
 } from "@remix-run/node";
 
-// core
+// remix
 import { json } from "@remix-run/node";
-
-// hooks
 import { useLoaderData } from "@remix-run/react";
 
-// components:vender
+// components
 import { Row, Space } from "antd";
 import { PageContainer } from "@ant-design/pro-components";
-
-// components
 import { ToolSelect } from "~/components/listSearch";
 import { ListHeaderSearch } from "~/components/common";
 import ProjectsList from "~/components/listSearchProjects";
 
+// remix:meta
 export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "搜索列表（项目）",
-    },
-  ];
+  return [{ title: "list-search-projects" }];
 };
 
+// remix:loader
 export const loader: LoaderFunction = async ({
   request,
   params,
@@ -37,7 +31,7 @@ export const loader: LoaderFunction = async ({
 };
 
 export default function ListSearchProjects() {
-  const data: any = useLoaderData();
+  const data = useLoaderData<typeof loader>();
   return (
     <PageContainer
       title={false}

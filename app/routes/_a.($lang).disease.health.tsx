@@ -1,53 +1,39 @@
-import { PageContainer } from "@ant-design/pro-components";
-import { Link, useLocation } from "@remix-run/react";
+//types
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+
+// remix
+import { json } from "@remix-run/node";
+import { Link, useLoaderData, useLocation } from "@remix-run/react";
+
+// components:libs
 import { Alert, Card, List, Space } from "antd";
+import { PageContainer } from "@ant-design/pro-components";
+
+// components
 import ReactEcharts from "~/components/healthDisable/DiseaseBarChart";
 
-const data = [
-  {
-    path: "/disease/cervical-vertebra",
-    title: "1. 颈椎和脊椎问题：",
-    content:
-      "长时间坐在同一位置、不正确的姿势和缺乏适当的脊柱支撑可能导致颈椎和脊椎的压力和紧张，引发颈部和背部疼痛、僵硬和不适。",
-  },
-  {
-    path: "/disease/vision",
-    title: "2. 视力问题：",
-    content:
-      "长时间注视计算机屏幕可能导致眼睛疲劳、干涩和眼部不适，甚至引发近视。这被称为计算机视觉综合征（CVS）或数字眼疲劳。",
-  },
-  {
-    path: "/disease/hand",
-    title: "3. 手部和手腕问题：",
-    content:
-      "频繁的键盘和鼠标使用可能导致手部和手腕的疲劳、疼痛和不适，如腕隧道综合征和鼠标手。",
-  },
-  {
-    path: "/disease/obesity",
-    title: "4. 肥胖和缺乏锻炼：",
-    content:
-      "长时间坐在桌前可能导致缺乏运动，加上不良的饮食习惯，容易导致肥胖和相关的健康问题，如心血管疾病和代谢综合征。",
-  },
-  {
-    path: "/disease/anxiety-depression",
-    title: "5. 焦虑和抑郁：",
-    content:
-      "高强度的工作压力、长时间的屏幕工作和社交隔离可能增加焦虑和抑郁的风险。",
-  },
-  {
-    path: "/disease/sleep",
-    title: "T6. 缺乏睡眠：",
-    content:
-      "工作紧张、加班和熬夜可能导致睡眠不足和睡眠质量下降，进而影响身体和心理健康。",
-  },
-  {
-    path: "/disease/sport",
-    title: "7. 缺乏运动和体能下降：",
-    content: "长时间坐着工作会导致缺乏运动，肌肉力量下降和体能不佳。",
-  },
-];
+// libs
+import { lastValueFrom } from "rxjs";
 
-const HealthRoute: React.FC = () => {
+// db
+import { getHealthData$ } from "~/db/disease/health";
+
+// config
+import { antdGrid } from "~/config/antd-grid";
+
+// remix:meta
+export const meta: MetaFunction = () => {
+  return [{ title: "disease-health" }];
+};
+
+// remix:loader
+export const loader: LoaderFunction = async () => {
+  const data = await lastValueFrom(await getHealthData$());
+  return json(data);
+};
+
+export default function HealthRoute() {
+  const data = useLoaderData<typeof loader>();
   const { pathname } = useLocation();
 
   return (
@@ -60,16 +46,8 @@ const HealthRoute: React.FC = () => {
         />
         <ReactEcharts />
         <List
-          grid={{
-            gutter: 16,
-            xs: 1,
-            sm: 2,
-            md: 4,
-            lg: 4,
-            xl: 6,
-            xxl: 3,
-          }}
-          dataSource={data}
+          grid={antdGrid}
+          dataSource={data as any[]}
           renderItem={(item) => (
             <Link to={pathname.split("/")[0] + "/" + item.path?.slice(1)}>
               <List.Item>
@@ -86,6 +64,4 @@ const HealthRoute: React.FC = () => {
       </Space>
     </PageContainer>
   );
-};
-
-export default HealthRoute;
+}

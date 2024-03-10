@@ -4,22 +4,19 @@ import type {
   MetaFunction,
 } from "@remix-run/node";
 
-// cores
-import React from "react";
+// remix
 import { json } from "@remix-run/node";
 
-// component:vendors
+// component
 import { Button, Result } from "antd";
 import { useTranslation } from "react-i18next";
 
+// remix:meta
 export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "成功",
-    },
-  ];
+  return [{ title: "result-success" }];
 };
 
+// remix:loader
 export const loader: LoaderFunction = async ({
   request,
   params,
@@ -28,7 +25,7 @@ export const loader: LoaderFunction = async ({
   return json(tableListDataSource);
 };
 
-const SuccessPage: React.FC = () => {
+export default function SuccessPage() {
   const { t } = useTranslation();
   return (
     <Result
@@ -43,6 +40,4 @@ const SuccessPage: React.FC = () => {
       ]}
     />
   );
-};
-
-export default SuccessPage;
+}

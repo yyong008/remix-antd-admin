@@ -9,14 +9,10 @@ import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { useTranslation } from "react-i18next";
 
 export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "403",
-    },
-  ];
+  return [{ title: "exception-403" }];
 };
 
-const Exception403Route: React.FC = () => {
+export default function Exception403Route() {
   const { t } = useTranslation();
 
   return (
@@ -36,6 +32,4 @@ const Exception403Route: React.FC = () => {
       </ProCard>
     </PageContainer>
   );
-};
-
-export default Exception403Route;
+}

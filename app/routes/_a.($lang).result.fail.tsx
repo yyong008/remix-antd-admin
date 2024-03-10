@@ -6,8 +6,7 @@ import type {
   MetaFunction,
 } from "@remix-run/node";
 
-// cores
-import React from "react";
+// remix
 import { json } from "@remix-run/node";
 
 // components:vendor
@@ -23,14 +22,12 @@ import { useTranslation } from "react-i18next";
 const { CloseCircleOutlined } = _icons;
 const { Paragraph, Text } = Typography;
 
+// remix:meta
 export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "失败",
-    },
-  ];
+  return [{ title: "result-fail" }];
 };
 
+// remix:loader
 export const loader: LoaderFunction = async ({
   request,
   params,
@@ -39,7 +36,7 @@ export const loader: LoaderFunction = async ({
   return json(tableListDataSource);
 };
 
-const FailPage: React.FC = () => {
+export default function FailPage() {
   const { t } = useTranslation();
 
   return (
@@ -77,6 +74,4 @@ const FailPage: React.FC = () => {
       </div>
     </Result>
   );
-};
-
-export default FailPage;
+}
