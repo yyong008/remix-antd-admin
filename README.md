@@ -15,6 +15,7 @@ A lightweight content management system, not limited to content management.
 ## Stack
 
 - 🌟 Remix main framework
+- ⚡️   Developing and building applications with Vite is exceptionally fast.
 - 🏰 Ant Design design system
 - 🚀 RxJS has significant advantages in handling complex calculations
 - 📊 Echarts chart system and SSR (Server-Side Rendering)
@@ -52,8 +53,18 @@ pnpm run start # pnpm start # PORT=3003 pnpm run start
 
 ## Code layout
 
+- `/app/routes/**` define all routes and apis
+- `/app/components/**` define components
 - `/app/hooks/**` define custom hooks
 - `/app/layout/**` define main layout
+- `/app/services/**` define mock service get data
+- `/app/config/**` define app config
+- `/app/styles/**` define styles hooks
+- `/app/i18n/**` define i18n config
+- `/app/utils/**` define utils function
+- `/app/db/**` define mock database
+- `/app/__test__/**` define test demos
+- `.env.tpl` define env template
 
 ## @ant-design/icons uages
 
