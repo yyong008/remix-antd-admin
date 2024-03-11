@@ -12,8 +12,8 @@ import { PageContainer } from "@ant-design/pro-components";
 // libs
 import { lastValueFrom } from "rxjs";
 
-// db
-import { getObesityData$ } from "~/db/health-disease/obesity";
+// services
+import { getObesityData$ } from "~/services/health/obesity";
 
 // config
 import { antdGrid } from "~/config/antd-grid";

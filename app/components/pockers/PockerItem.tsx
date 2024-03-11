@@ -3,7 +3,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import confetti from "canvas-confetti";
-import { pockerEmojis } from "~/data/pocker";
+import { pockerEmojis } from "~/db/game/pocker";
 
 type IITem = {
   guess: number;

@@ -1,11 +1,4 @@
-import type {
-  LoaderFunctionArgs,
-  LoaderFunction,
-  MetaFunction,
-} from "@remix-run/node";
-
-// remix
-import { json } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 
 // component
 import { Button, Result } from "antd";
@@ -14,15 +7,6 @@ import { useTranslation } from "react-i18next";
 // remix:meta
 export const meta: MetaFunction = () => {
   return [{ title: "result-success" }];
-};
-
-// remix:loader
-export const loader: LoaderFunction = async ({
-  request,
-  params,
-}: LoaderFunctionArgs) => {
-  const { tableListDataSource } = await import("~/data/listTableList");
-  return json(tableListDataSource);
 };
 
 export default function SuccessPage() {

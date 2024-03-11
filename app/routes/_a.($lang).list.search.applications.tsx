@@ -16,6 +16,12 @@ import { ToolSelect } from "~/components/listSearch";
 import { ListHeaderSearch } from "~/components/common";
 import AppCardList from "~/components/listSearchApplications/AppCardList";
 
+// lib
+import { lastValueFrom } from "rxjs";
+
+// service
+import { getSearchProjectCardList$ } from "~/services/list/search.projects";
+
 // remix:meta
 export const meta: MetaFunction = () => {
   return [{ title: "list-search-applications" }];
@@ -26,7 +32,7 @@ export const loader: LoaderFunction = async ({
   request,
   params,
 }: LoaderFunctionArgs) => {
-  const _data = (await import("~/data/listSearchApplications")).default;
+  const _data = await lastValueFrom(getSearchProjectCardList$());
   return json({ data: _data });
 };
 

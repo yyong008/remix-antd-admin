@@ -1,9 +1,9 @@
 // types
-import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 
 // remix
-import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+// import { json } from "@remix-run/node";
+// import { useLoaderData } from "@remix-run/react";
 
 // components
 import { PageContainer, ProCard, ProTable } from "@ant-design/pro-components";
@@ -17,20 +17,20 @@ export const meta: MetaFunction = () => {
 };
 
 // remix:loader
-export const loader: LoaderFunction = () => {
-  return json({
-    dataSource: [],
-  });
-};
+// export const loader: LoaderFunction = () => {
+//   return json({
+//     dataSource: [],
+//   });
+// };
 
 export default function SystemConfigRoute() {
-  const { dataSource } = useLoaderData<typeof loader>();
+  // const { dataSource } = useLoaderData<typeof loader>();
 
   return (
-    <PageContainer title="system user">
+    <PageContainer title="system/client">
       <ProCard>
         <ProTable
-          dataSource={dataSource as any[]}
+          dataSource={[]}
           columns={[
             {
               dataIndex: "id",

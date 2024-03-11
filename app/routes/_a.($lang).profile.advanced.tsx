@@ -19,6 +19,12 @@ import {
   ThreeCardLoggerTable,
 } from "~/components/profileAdvanced";
 
+// lib
+import { lastValueFrom } from "rxjs";
+
+// server
+import { getLoggers$ } from "~/services/profile/profile.server";
+
 // route:meta
 export const meta: MetaFunction = () => {
   return [{ title: "profile-advanced" }];
@@ -29,7 +35,7 @@ export const loader: LoaderFunction = async ({
   request,
   params,
 }: LoaderFunctionArgs) => {
-  const data = (await import("~/data/profileAdvanced")).loggers;
+  const data = await lastValueFrom(getLoggers$());
   return json(data);
 };
 

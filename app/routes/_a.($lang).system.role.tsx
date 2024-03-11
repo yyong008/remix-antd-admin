@@ -18,8 +18,8 @@ import { lastValueFrom } from "rxjs";
 import i18n from "~/i18n/i18next.server";
 
 // db
-import { createRoute } from "~/db";
-import { getRoles$ } from "~/db/role";
+import { createRoute } from "~/services/route/routes";
+import { getRoles$ } from "~/services/role/role";
 
 // remix:meta
 export const meta: MetaFunction = () => {

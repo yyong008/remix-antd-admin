@@ -11,6 +11,8 @@ import { ProCard, PageContainer } from "@ant-design/pro-components";
 
 // styles
 import "reactflow/dist/style.css";
+import { lastValueFrom } from "rxjs";
+import { getFlowData$ } from "~/services/editor/flow.service";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -23,7 +25,8 @@ export const meta: MetaFunction = () => {
 
 // remix:loader
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
-  const { initialNodes, initialEdges } = await import("~/data/editor.flow");
+  const { initialNodes, initialEdges } = await lastValueFrom(getFlowData$());
+
   return json({
     nodes: initialNodes,
     edges: initialEdges,

@@ -15,8 +15,8 @@ import ReactEcharts from "~/components/healthDisable/DiseaseBarChart";
 // libs
 import { lastValueFrom } from "rxjs";
 
-// db
-import { getHealthData$ } from "~/db/disease/health";
+// services
+import { getHealthData$ } from "~/services/disease/health.service";
 
 // config
 import { antdGrid } from "~/config/antd-grid";
@@ -28,7 +28,7 @@ export const meta: MetaFunction = () => {
 
 // remix:loader
 export const loader: LoaderFunction = async () => {
-  const data = await lastValueFrom(await getHealthData$());
+  const { data } = await lastValueFrom(getHealthData$());
   return json(data);
 };
 

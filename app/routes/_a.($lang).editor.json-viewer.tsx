@@ -12,7 +12,7 @@ import { PageContainer, ProCard } from "@ant-design/pro-components";
 // styles
 import "react-json-view-lite/dist/index.css";
 import { lastValueFrom } from "rxjs";
-import { getPackageJsonData$ } from "~/db/editor/json";
+import { getPackageJsonData$ } from "~/services/editor/json.service";
 
 // remix:meta
 export const meta: MetaFunction = () => {

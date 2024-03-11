@@ -16,13 +16,13 @@ import {
 } from "~/components/dashboardAnalysis";
 
 // styles
-import "~/styles/dashboard.analysis.css";
+import "~/styles/dashboard/analysis.css";
 
 // libs
 import { lastValueFrom } from "rxjs";
 
 // db
-import { getAnalysisData$ } from "~/db/dashboard/analysis";
+import { getAnalysisData$ } from "~/services/dashboard/analysis";
 
 // remix:meta
 export const meta: MetaFunction = () => {

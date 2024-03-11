@@ -12,6 +12,12 @@ import * as _icons from "@ant-design/icons";
 import { Button, Form, Space, theme } from "antd";
 import { ProTable, ModalForm, ProFormText } from "@ant-design/pro-components";
 
+// libs
+import { lastValueFrom } from "rxjs";
+
+// service
+import { getTableListDataSource$ } from "~/services/profile/profile.server";
+
 // icons
 const { PlusOutlined } = _icons;
 
@@ -22,7 +28,9 @@ export const meta: MetaFunction = () => {
 
 // remix:loader
 export const loader: LoaderFunction = async () => {
-  const { tableListDataSource } = await import("~/data/listTableList");
+  const { tableListDataSource } = await lastValueFrom(
+    getTableListDataSource$(),
+  );
   return json(tableListDataSource);
 };
 

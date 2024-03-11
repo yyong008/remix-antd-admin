@@ -1,13 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // types
-import type {
-  LoaderFunctionArgs,
-  LoaderFunction,
-  MetaFunction,
-} from "@remix-run/node";
-
-// remix
-import { json } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 
 // components:vendor
 import { Button, Result, Typography } from "antd";
@@ -25,15 +18,6 @@ const { Paragraph, Text } = Typography;
 // remix:meta
 export const meta: MetaFunction = () => {
   return [{ title: "result-fail" }];
-};
-
-// remix:loader
-export const loader: LoaderFunction = async ({
-  request,
-  params,
-}: LoaderFunctionArgs) => {
-  const { tableListDataSource } = await import("~/data/listTableList");
-  return json(tableListDataSource);
 };
 
 export default function FailPage() {

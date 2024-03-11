@@ -11,8 +11,8 @@ import { PageContainer } from "@ant-design/pro-components";
 // libs
 import { lastValueFrom } from "rxjs";
 
-// db
-import { getCervicalData$ } from "~/db/health-disease/cervical-vertebra";
+// services
+import { getCervicalData$ } from "~/services/health/cervical-vertebra";
 
 // config
 import { antdGrid } from "~/config/antd-grid";
@@ -28,7 +28,7 @@ export const loader: LoaderFunction = async () => {
   return json(data);
 };
 
-export function HealthRoute() {
+export default function HealthRoute() {
   const { data, op_data } = useLoaderData<typeof loader>();
   return (
     <PageContainer title="cervical vertebra">

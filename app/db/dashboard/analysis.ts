@@ -1,6 +1,4 @@
-import { delay, of } from "rxjs";
-
-const _months = [
+export const _months = [
   "1月",
   "2月",
   "3月",
@@ -15,7 +13,7 @@ const _months = [
   "12月",
 ];
 
-const monthPartSaleData = [
+export const monthPartSaleData = [
   {
     name: "1",
     desc: "工专路 0 号店",
@@ -53,7 +51,7 @@ const monthPartSaleData = [
   },
 ];
 
-const salesData = {
+export const salesData = {
   title: "总销售额",
   tip: "指标说明",
   unit: "￥",
@@ -73,7 +71,7 @@ const salesData = {
   },
 };
 
-const visitCountData = {
+export const visitCountData = {
   title: "访问量",
   tip: "指标说明",
   unit: "",
@@ -93,7 +91,7 @@ const visitCountData = {
   },
 };
 
-const paymentData = {
+export const paymentData = {
   title: "支付笔数",
   tip: "指标说明",
   unit: "",
@@ -128,7 +126,7 @@ const paymentData = {
   },
 };
 
-const activeData = {
+export const activeData = {
   title: "运营活动效果",
   tip: "指标说明",
   unit: "",
@@ -158,19 +156,19 @@ const activeData = {
   },
 };
 
-const monthSales = {
+export const monthSales = {
   months: _months,
   data: [920, 830, 330, 380, 1100, 400, 490, 1000, 900, 600, 620, 570],
   part: monthPartSaleData,
 };
 
-const monthVisit = {
+export const monthVisit = {
   months: _months,
   data: [450, 830, 730, 380, 1100, 500, 490, 1000, 900, 650, 720, 570],
   part: monthPartSaleData,
 };
 
-const salesDataInPies = {
+export const salesDataInPies = {
   all: [
     { name: "家用电器", value: 4_544 },
     { name: "食用酒水", value: 3_321 },
@@ -197,7 +195,7 @@ const salesDataInPies = {
   ],
 };
 
-const dataSource: any[] = [];
+export const dataSource: any[] = [];
 
 for (let i = 0; i < 50; i++) {
   dataSource.unshift({
@@ -209,7 +207,7 @@ for (let i = 0; i < 50; i++) {
   });
 }
 
-const getHistoryData = () => {
+export const getHistoryData = () => {
   let base = +new Date(1968, 9, 3);
   let oneDay = 24 * 3600 * 1000;
   let date = [];
@@ -224,7 +222,7 @@ const getHistoryData = () => {
   return { date, data };
 };
 
-const searchCountData = {
+export const searchCountData = {
   title: "搜索用户数",
   tip: "指标说明",
   unit: "",
@@ -244,7 +242,7 @@ const searchCountData = {
   },
 };
 
-const searchAvageCountData = {
+export const searchAvageCountData = {
   title: "人均所搜量",
   tip: "指标说明",
   unit: "",
@@ -262,29 +260,4 @@ const searchAvageCountData = {
       data: [120, 132, 101, 134, 90, 230, 210],
     },
   },
-};
-
-export const getAnalysisData$ = () => {
-  return of({
-    one: {
-      salesData,
-      visitCountData,
-      paymentData,
-      activeData,
-    },
-    two: {
-      monthSales,
-      monthVisit,
-      monthPartSaleData,
-    },
-    three: {
-      searchCountData,
-      searchAvageCountData,
-      dataSource,
-      pies: { ...salesDataInPies },
-    },
-    four: {
-      ...getHistoryData(),
-    },
-  }).pipe(delay(20));
 };

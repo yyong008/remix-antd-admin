@@ -18,7 +18,7 @@ import QRCode from "qrcode";
 import { lastValueFrom } from "rxjs";
 
 // db
-import { getQrCodeList$ } from "~/db/lib/qrcode";
+import { getQrCodeList$ } from "~/services/lib/qrcode";
 
 // remix:meta
 export const meta: MetaFunction = () => {

@@ -23,6 +23,12 @@ import { AddModalForm, Tasks } from "~/components/listBasicList";
 // icons
 import * as _icons from "@ant-design/icons";
 
+// libs
+import { lastValueFrom } from "rxjs";
+
+// services
+import { getBasicList$ } from "~/services/list/basic.list";
+
 // remix:meta
 export const meta: MetaFunction = () => {
   return [{ title: "list-basic-list" }];
@@ -33,7 +39,8 @@ export const loader: LoaderFunction = async ({
   request,
   params,
 }: LoaderFunctionArgs) => {
-  const data = (await import("~/data/listBasicList")).default;
+  const data = await lastValueFrom(getBasicList$());
+
   return json(data.dataSource);
 };
 

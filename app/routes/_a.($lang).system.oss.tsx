@@ -26,7 +26,7 @@ export const loader: LoaderFunction = () => {
 export default function SystemOSSRoute() {
   const { dataSource } = useLoaderData<typeof loader>();
   return (
-    <PageContainer title="system user">
+    <PageContainer title="system/oss">
       <ProCard>
         <ProTable
           dataSource={dataSource as any[]}

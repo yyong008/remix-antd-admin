@@ -15,13 +15,13 @@ import {
 } from "~/components/dashboardWorkplace";
 
 // styles
-import "~/styles/dashboard.workplace.css";
+import "~/styles/dashboard/workplace.css";
 
 // libs
 import { lastValueFrom } from "rxjs";
 
 // db
-import { getWorkplaceData$ } from "~/db/workplace";
+import { getWorkplaceData$ } from "~/services/dashboard/workplace";
 
 // remix:meta
 export const meta: MetaFunction = () => {

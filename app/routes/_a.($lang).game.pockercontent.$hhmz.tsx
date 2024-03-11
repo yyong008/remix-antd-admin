@@ -17,6 +17,12 @@ import PockerList from "~/components/pockers/PockerList";
 import "animate.css";
 import "~/styles/pocker-card.css";
 
+// libs
+import { lastValueFrom } from "rxjs";
+
+// services
+import { getPockeraData$ } from "~/services/game/pocker";
+
 // remix:meta
 export const meta: MetaFunction = () => {
   return [{ title: "game-prockercontent" }];
@@ -24,7 +30,7 @@ export const meta: MetaFunction = () => {
 
 // remix:loader
 export const loader: LoaderFunction = async () => {
-  const { hs } = await import("~/data/pocker");
+  const { hs } = await lastValueFrom(getPockeraData$());
   return json(hs);
 };
 

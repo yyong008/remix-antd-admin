@@ -12,6 +12,8 @@ import { PersonalCard, AAPCard } from "~/components/accountCenter";
 
 // cols
 import { colProps, colPropsSS } from "~/components/accountCenter/col";
+import { getAccountData$ } from "~/services/account/center";
+import { lastValueFrom } from "rxjs";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -24,7 +26,7 @@ export const meta: MetaFunction = () => {
 
 // remix:loader
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
-  const data = (await import("~/data/accountCenter")).default;
+  const data = await lastValueFrom(getAccountData$());
   return json(data);
 };
 

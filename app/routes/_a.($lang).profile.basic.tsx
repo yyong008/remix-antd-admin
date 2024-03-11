@@ -23,17 +23,25 @@ import {
   PageContainerContent,
 } from "~/components/profileBasic";
 
+// lib
+import { lastValueFrom } from "rxjs";
+
+// service
+import { getTableListDataSource$ } from "~/services/profile/profile.server";
+
 // remix:meta
 export const meta: MetaFunction = () => {
   return [{ title: "profile-basic" }];
 };
 
-// remix:loader
+// route:loader
 export const loader: LoaderFunction = async ({
   request,
   params,
 }: LoaderFunctionArgs) => {
-  const { tableListDataSource } = await import("~/data/profileAdvanced");
+  const { tableListDataSource } = await lastValueFrom(
+    getTableListDataSource$(),
+  );
   return json(tableListDataSource);
 };
 

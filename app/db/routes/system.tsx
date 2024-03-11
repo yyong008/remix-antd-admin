@@ -56,8 +56,8 @@ export const createSystemRoutes = (t: any, lang: string): Route => {
         name: t("notice"),
       },
       {
-        key: "system/log",
-        path: `system/log`,
+        key: "log",
+        path: `log`,
         icon: "KeyOutlined",
         name: t("system-log"),
         children: [
@@ -81,12 +81,12 @@ export const createSystemRoutes = (t: any, lang: string): Route => {
         icon: "KeyOutlined",
         name: t("oss"),
       },
-      {
-        key: "client",
-        path: `client`,
-        icon: "KeyOutlined",
-        name: t("client"),
-      },
+      // {
+      //   key: "client",
+      //   path: `client`,
+      //   icon: "KeyOutlined",
+      //   name: t("client"),
+      // },
     ],
   };
 };

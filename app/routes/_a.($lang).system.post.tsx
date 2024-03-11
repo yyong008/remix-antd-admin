@@ -26,7 +26,7 @@ export const loader: LoaderFunction = () => {
 export default function SystemPostRoute() {
   const { dataSource } = useLoaderData<typeof loader>();
   return (
-    <PageContainer title="system user">
+    <PageContainer title="system/post">
       <ProCard>
         <ProTable
           dataSource={dataSource as any[]}

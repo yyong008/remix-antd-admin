@@ -21,7 +21,7 @@ import { createActionRenderWrap } from "~/layout/createActionsRender";
 import SettingContext from "~/context/settingContext";
 
 // libs
-import { createRoute } from "~/db/index";
+import { createRoute } from "~/services/route/routes";
 import { config } from "~/config/index";
 import { createTokens } from "~/layout/createToken";
 import { handleRoutes } from "~/utils/route.handle";

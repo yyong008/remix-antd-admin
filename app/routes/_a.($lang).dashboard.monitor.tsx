@@ -15,7 +15,7 @@ import {
 } from "~/components/dashboardMonitor";
 
 // db
-import { getMonitorData$ } from "~/db/monitor";
+import { getMonitorData$ } from "~/services/dashboard/monitor";
 
 // libs
 import { lastValueFrom } from "rxjs";

@@ -10,6 +10,12 @@ import { useLoaderData } from "@remix-run/react";
 import { Col, Row, Tree } from "antd";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
+// libs
+import { lastValueFrom } from "rxjs";
+
+// service
+import { getMenuData$ } from "~/services/menu";
+
 // remix:meta
 export const meta: MetaFunction = () => {
   return [
@@ -20,9 +26,8 @@ export const meta: MetaFunction = () => {
 
 // remix:loader
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
-  const { treeData, treeDataAdmin, treeDataUser } = await import(
-    "~/data/menu/index"
-  );
+  const { treeData, treeDataAdmin, treeDataUser } =
+    await lastValueFrom(getMenuData$());
   return json({ treeData, treeDataAdmin, treeDataUser });
 };
 

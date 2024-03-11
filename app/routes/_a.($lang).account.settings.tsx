@@ -18,6 +18,12 @@ import {
 // styles
 import "react-advanced-cropper/dist/style.css";
 
+// libs
+import { lastValueFrom } from "rxjs";
+
+// service
+import { getAccountSettingsData$ } from "~/services/account/settings";
+
 // remix:meta
 export const meta: MetaFunction = () => {
   return [
@@ -29,15 +35,16 @@ export const meta: MetaFunction = () => {
 
 // remix:loader
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+  const data = await lastValueFrom(getAccountSettingsData$());
   return json({
-    data: (await import("~/data/accountSettings")).default,
-    provinces: [],
+    data,
+    provinces: [] as any[],
     cities: [],
   });
 };
 
 export default function Settings() {
-  const { data, provinces, cities } = useLoaderData<typeof loader>();
+  const { data, provinces, cities }: any = useLoaderData<typeof loader>();
   const items = [
     {
       label: `基本设置`,

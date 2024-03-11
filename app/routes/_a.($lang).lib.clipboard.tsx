@@ -7,7 +7,7 @@ import { useState } from "react";
 // components
 import { Button, Input, Space } from "antd";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
-import * as _clipboard from "react-copy-to-clipboard";
+import _clipboard from "react-copy-to-clipboard";
 
 // remix:meta
 export const meta: MetaFunction = () => {

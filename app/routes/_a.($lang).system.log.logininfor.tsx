@@ -27,7 +27,7 @@ export default function SystemLogLogininforRoute() {
   const { dataSource } = useLoaderData<typeof loader>();
 
   return (
-    <PageContainer title="system user">
+    <PageContainer title="system/log/logininfor">
       <ProCard>
         <ProTable
           dataSource={dataSource as any[]}

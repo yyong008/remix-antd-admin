@@ -13,7 +13,7 @@ import { PageContainer } from "@ant-design/pro-components";
 import { lastValueFrom } from "rxjs";
 
 // db
-import { getSleepData$ } from "~/db/health-disease/sleep";
+import { getSleepData$ } from "~/services/health/sleep";
 
 // config
 import { antdGrid } from "~/config/antd-grid";

@@ -1,4 +1,4 @@
-import { pockerEmojis } from "~/data/pocker";
+import { pockerEmojis } from "~/db/game/pocker";
 
 type IList = {
   hs: "hei" | "hong" | "mei" | "zhuan";

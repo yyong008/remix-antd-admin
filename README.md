@@ -23,6 +23,7 @@ A lightweight content management system, not limited to content management.
 - 💡 Atomic support with Tailwind CSS
 - 🧰 Developer tools support with remix-development-tools
 - 🧪 Component testing with Vitest
+- 🌈 Mix TailwindCSS Support and CSS-IN-JS and so on
 
 ## Quickstart
 
