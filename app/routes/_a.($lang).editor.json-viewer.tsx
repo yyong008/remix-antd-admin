@@ -34,7 +34,7 @@ export const loader: LoaderFunction = async () => {
 export default function EditorJsonViewer() {
   const { packageJson } = useLoaderData<typeof loader>();
   return (
-    <PageContainer title="editor json view">
+    <PageContainer>
       <ProCard>
         <JsonView data={packageJson} />
       </ProCard>

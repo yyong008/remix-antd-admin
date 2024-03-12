@@ -3,11 +3,15 @@ import type { MetaFunction } from "@remix-run/node";
 // react
 import { useEffect } from "react";
 
+// component
+import { PageContainer } from "@ant-design/pro-layout";
+import { ProCard } from "@ant-design/pro-components";
+
 // libs
 import lax from "lax.js";
 
 // styles
-import "~/styles/laxjs.example.cursor.css";
+import "~/styles/laxjs.cursor.css";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -90,29 +94,31 @@ export default function LaxJSExampleCursor() {
     });
   }, []);
   return (
-    <div>
-      <div className="container">
-        <h1 className="text a">Lax.js</h1>
-        <h1 className="text b">Lax.js</h1>
-        <h1 className="text c">Lax.js</h1>
-        <h1 className="text d">Lax.js</h1>
-        <h1 className="text a">Lax.js</h1>
-        <h1 className="text b">Lax.js</h1>
-        <h1 className="text c">Lax.js</h1>
-        <h1 className="text d">Lax.js</h1>
-        <h1 className="text a">Lax.js</h1>
-        <h1 className="text b">Lax.js</h1>
-        <h1 className="text c">Lax.js</h1>
-        <h1 className="text d">Lax.js</h1>
-        <h1 className="text a">Lax.js</h1>
-        <h1 className="text b">Lax.js</h1>
-        <h1 className="text c">Lax.js</h1>
-        <h1 className="text d">Lax.js</h1>
-        <h1 className="text a">Lax.js</h1>
-        <h1 className="text b">Lax.js</h1>
-        <h1 className="text c">Lax.js</h1>
-        <h1 className="text d">Lax.js</h1>
-      </div>
-    </div>
+    <PageContainer>
+      <ProCard className="">
+        <div className="container">
+          <h1 className="text a">Lax.js</h1>
+          <h1 className="text b">Lax.js</h1>
+          <h1 className="text c">Lax.js</h1>
+          <h1 className="text d">Lax.js</h1>
+          <h1 className="text a">Lax.js</h1>
+          <h1 className="text b">Lax.js</h1>
+          <h1 className="text c">Lax.js</h1>
+          <h1 className="text d">Lax.js</h1>
+          <h1 className="text a">Lax.js</h1>
+          <h1 className="text b">Lax.js</h1>
+          <h1 className="text c">Lax.js</h1>
+          <h1 className="text d">Lax.js</h1>
+          <h1 className="text a">Lax.js</h1>
+          <h1 className="text b">Lax.js</h1>
+          <h1 className="text c">Lax.js</h1>
+          <h1 className="text d">Lax.js</h1>
+          <h1 className="text a">Lax.js</h1>
+          <h1 className="text b">Lax.js</h1>
+          <h1 className="text c">Lax.js</h1>
+          <h1 className="text d">Lax.js</h1>
+        </div>
+      </ProCard>
+    </PageContainer>
   );
 }

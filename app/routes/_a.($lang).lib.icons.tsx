@@ -80,7 +80,9 @@ export default function RenderAllAntdIcons() {
   }, [iconNames]);
 
   return (
-    <PageContainer title={`antd icons（total: ${iconNames.length}）`}>
+    <PageContainer
+      header={{ title: `antd icons（total: ${iconNames.length}）` }}
+    >
       <ProCard>
         <Space direction="vertical">
           {iconslist.map((iconNames, index) => {

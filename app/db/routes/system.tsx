@@ -3,7 +3,7 @@ import type { Route } from "@ant-design/pro-layout/es/typing";
 export const createSystemRoutes = (t: any, lang: string): Route => {
   return {
     key: "system",
-    path: `/${lang}/system/`,
+    path: `${lang}/system`,
     icon: "KeyOutlined",
     name: t("system"),
     children: [

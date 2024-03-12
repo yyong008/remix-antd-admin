@@ -27,7 +27,7 @@ export default function SystemDictRoute() {
   const { dataSource } = useLoaderData<typeof loader>();
 
   return (
-    <PageContainer title="system/dict">
+    <PageContainer>
       <ProCard>
         <ProTable
           dataSource={dataSource as any[]}

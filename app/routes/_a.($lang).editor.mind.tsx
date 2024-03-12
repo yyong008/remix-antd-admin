@@ -64,13 +64,8 @@ export default function OverviewFlow() {
   });
 
   return (
-    <PageContainer title="editor mind">
-      <ProCard
-        style={{
-          height: "600px",
-          width: "100%",
-        }}
-      >
+    <PageContainer>
+      <ProCard className="h-[600px]">
         <ReactFlow
           nodes={nodes}
           edges={edgesWithUpdatedTypes}

@@ -26,7 +26,7 @@ export const loader: LoaderFunction = () => {
 export default function SystemUserRoute() {
   const { dataSource } = useLoaderData<typeof loader>();
   return (
-    <PageContainer title="system user">
+    <PageContainer>
       <ProCard>
         <ProTable
           dataSource={dataSource as any[]}

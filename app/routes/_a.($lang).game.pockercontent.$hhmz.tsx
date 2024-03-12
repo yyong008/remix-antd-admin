@@ -22,6 +22,8 @@ import { lastValueFrom } from "rxjs";
 
 // services
 import { getPockeraData$ } from "~/services/game/pocker";
+import { PageContainer } from "@ant-design/pro-layout";
+import { ProCard } from "@ant-design/pro-components";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -100,30 +102,34 @@ export default function PockerContentRoute() {
   }, [data.random, data.guess]);
 
   return (
-    <div className="pockercontent-container">
-      <Toaster position="bottom-right" />
-      <div className="guess-pocker-title">猜一个扑克牌</div>
-      <PockerItem
-        status={data.status}
-        guess={data.random}
-        num={data.guess}
-        hs={params.hhmz as any}
-      />
-      <div className="guess-pocker-title">从下面选择一张扑克牌</div>
-      <PockerList hs={params.hhmz as any} handleChoice={handleChoice} />
-      <button
-        className="play-again"
-        onClick={() => {
-          setData({
-            random: Math.floor(Math.random() * 16),
-            guess: 0,
-            status: "idle",
-          });
-          toast("猜测并选择一个扑克");
-        }}
-      >
-        重新玩
-      </button>
-    </div>
+    <PageContainer>
+      <ProCard>
+        <div className="pockercontent-container">
+          <Toaster position="bottom-right" />
+          <div className="guess-pocker-title">猜一个扑克牌</div>
+          <PockerItem
+            status={data.status}
+            guess={data.random}
+            num={data.guess}
+            hs={params.hhmz as any}
+          />
+          <div className="guess-pocker-title">从下面选择一张扑克牌</div>
+          <PockerList hs={params.hhmz as any} handleChoice={handleChoice} />
+          <button
+            className="play-again"
+            onClick={() => {
+              setData({
+                random: Math.floor(Math.random() * 16),
+                guess: 0,
+                status: "idle",
+              });
+              toast("猜测并选择一个扑克");
+            }}
+          >
+            重新玩
+          </button>
+        </div>
+      </ProCard>
+    </PageContainer>
   );
 }

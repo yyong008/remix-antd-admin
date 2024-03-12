@@ -44,7 +44,7 @@ export default function DashboardAnalysisPage() {
   } = useLoaderData<typeof loader>();
 
   return (
-    <PageContainer>
+    <PageContainer breadcrumb={{}}>
       <Space
         direction="vertical"
         style={{

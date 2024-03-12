@@ -10,7 +10,13 @@ import { useLoaderData } from "@remix-run/react";
 // components
 import * as _icons from "@ant-design/icons";
 import { Button, Form, Space, theme } from "antd";
-import { ProTable, ModalForm, ProFormText } from "@ant-design/pro-components";
+import {
+  ProTable,
+  ModalForm,
+  ProFormText,
+  PageContainer,
+  ProCard,
+} from "@ant-design/pro-components";
 
 // libs
 import { lastValueFrom } from "rxjs";
@@ -133,16 +139,20 @@ export default function ListTableListPage() {
   ];
 
   return (
-    <ProTable<TableListItem>
-      dataSource={data}
-      rowKey="key"
-      pagination={{
-        showQuickJumper: true,
-      }}
-      columns={columns}
-      dateFormatter="string"
-      headerTitle="查询表格"
-      toolBarRender={() => [<AddButtonModal key="id" />]}
-    />
+    <PageContainer>
+      <ProCard>
+        <ProTable<TableListItem>
+          dataSource={data}
+          rowKey="key"
+          pagination={{
+            showQuickJumper: true,
+          }}
+          columns={columns}
+          dateFormatter="string"
+          headerTitle="查询表格"
+          toolBarRender={() => [<AddButtonModal key="id" />]}
+        />
+      </ProCard>
+    </PageContainer>
   );
 }

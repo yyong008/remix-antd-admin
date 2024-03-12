@@ -34,7 +34,6 @@ body {
 
 .container {
   background-color: #f5922c;
-  position: fixed;
-  /* width: 100%; */
-  height: 80vh;
+  width: 100% !important;
+  height: 70vh;
 }

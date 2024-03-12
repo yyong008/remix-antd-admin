@@ -27,10 +27,10 @@ export default function StackRxJSKeybr() {
   ];
 
   return (
-    <PageContainer title="RxJS">
+    <PageContainer>
       <ProCard>
-        <div className="flex flex-col justify-center align-middle">
-          <div className="text-center p-[100px]">
+        <div className="flex flex-col justify-center align-middle h-[70vh] bg-green-400">
+          <div className="text-center pb-[50px]">
             RxJS Keybr(Press keybr, RxJS in hooks)
           </div>
           <div className="flex justify-center 90vh">

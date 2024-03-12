@@ -15,12 +15,12 @@ export const createStackRoutes = (t: any, lang: string): Route => {
       {
         key: "stack-rxjs-count-down",
         path: "rxjs/count-down",
-        name: "RxJS-count-down",
+        name: "RxJS CountDown",
       },
       {
         key: "laxjs-cursor",
-        path: "laxjs/example/cursor",
-        name: "laxjs-cursor",
+        path: "laxjs/cursor",
+        name: "Laxjs Cursor",
       },
     ],
   };

@@ -69,7 +69,6 @@ function AdminLayout() {
         token={createTokens(value)}
         ErrorBoundary={false}
         pageTitleRender={false}
-        breadcrumbRender={false}
         menu={config.menu}
         location={{
           pathname,
@@ -97,7 +96,9 @@ function AdminLayout() {
         footerRender={() => <Footer />}
       >
         <Outlet />
-        <SettingDrawerWrap theme={value.theme} setTheme={value.setTheme} />
+        {typeof process && typeof process.env.NODE_ENV === "development" && (
+          <SettingDrawerWrap theme={value.theme} setTheme={value.setTheme} />
+        )}
       </ProLayout>
     </Spin>
   );

@@ -32,8 +32,8 @@ export default function App() {
   const [value, setValue] = useState("");
 
   return (
-    <PageContainer title="editor markdown">
-      <ProCard>
+    <PageContainer>
+      <ProCard className="h-[70vh]">
         <Editor
           value={value}
           plugins={plugins}

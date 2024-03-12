@@ -29,7 +29,6 @@ export default function StepFormRoute() {
 
   return (
     <PageContainer
-      title={false}
       content={
         <div
           style={{

@@ -1,4 +1,6 @@
 // types
+import { ProCard } from "@ant-design/pro-components";
+import { PageContainer } from "@ant-design/pro-layout";
 import type { MetaFunction } from "@remix-run/node";
 
 // react
@@ -45,14 +47,18 @@ export default function Game() {
   }, []);
 
   return (
-    <div>
-      <h1>左右移动方块游戏 (RxJS)</h1>
-      <canvas
-        ref={canvasRef}
-        width={400}
-        height={200}
-        style={{ border: "1px solid black" }}
-      />
-    </div>
+    <PageContainer>
+      <ProCard>
+        <div className="flex flex-col items-center justify-center h-[70vh] bg-red-400">
+          <h1>左右移动方块游戏 (RxJS)</h1>
+          <canvas
+            ref={canvasRef}
+            width={400}
+            height={200}
+            style={{ border: "1px solid black" }}
+          />
+        </div>
+      </ProCard>
+    </PageContainer>
   );
 }

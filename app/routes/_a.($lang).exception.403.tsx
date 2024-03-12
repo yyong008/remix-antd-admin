@@ -19,7 +19,7 @@ export default function Exception403Route() {
     <PageContainer>
       <ProCard
         style={{
-          height: "100vh",
+          height: "70vh",
           minHeight: 600,
         }}
       >

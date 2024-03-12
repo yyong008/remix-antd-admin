@@ -45,7 +45,7 @@ export default function MenuRoute() {
   return (
     <PageContainer>
       <ProCard>
-        <Row>
+        <Row className="h-[70vh]">
           <Col span={8}>
             <Tree
               checkable

@@ -27,7 +27,7 @@ export default function SystemConfigRoute() {
   const { dataSource } = useLoaderData<typeof loader>();
 
   return (
-    <PageContainer title="system/config">
+    <PageContainer>
       <ProCard>
         <ProTable
           dataSource={dataSource as any[]}

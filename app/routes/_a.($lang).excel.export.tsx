@@ -48,7 +48,7 @@ export default function ExcelExportRoute() {
     },
   ];
   return (
-    <PageContainer title="excel export">
+    <PageContainer>
       <ProCard>
         <div>
           <Button

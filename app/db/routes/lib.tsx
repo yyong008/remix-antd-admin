@@ -5,7 +5,7 @@ export const createLibRoutes = (t: any, lang: string): Route => {
     key: "lib",
     icon: "BuildOutlined",
     name: t("lib"),
-    path: `${lang}/lib/`,
+    path: `${lang}/lib`,
     children: [
       {
         key: "qrcode",

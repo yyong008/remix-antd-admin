@@ -27,7 +27,7 @@ export default function SystemLogOperLogRoute() {
   const { dataSource } = useLoaderData<typeof loader>();
 
   return (
-    <PageContainer title="system/log/operlog">
+    <PageContainer>
       <ProCard>
         <ProTable
           dataSource={dataSource as any[]}

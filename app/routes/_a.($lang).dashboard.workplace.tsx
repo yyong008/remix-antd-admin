@@ -37,7 +37,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 export default function DashboardWorkplacePage() {
   const data = useLoaderData<typeof loader>();
   return (
-    <PageContainer title={false} content={<ContainerContent data={data} />}>
+    <PageContainer breadcrumb={{}} content={<ContainerContent data={data} />}>
       <Row gutter={[8, 8]}>
         <WorkplaceColOne data={data} />
         <WorkplaceColTwo data={data} />

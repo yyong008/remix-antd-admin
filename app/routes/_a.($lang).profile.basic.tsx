@@ -20,7 +20,6 @@ import {
   RefundRequest,
   ReturnProgress,
   ReturnItemsList,
-  PageContainerContent,
 } from "~/components/profileBasic";
 
 // lib
@@ -48,7 +47,7 @@ export const loader: LoaderFunction = async ({
 export default function ProfileBasicPage() {
   const data = useLoaderData<typeof loader>();
   return (
-    <PageContainer title={false} content={<PageContainerContent />}>
+    <PageContainer>
       <ProCard>
         <RefundRequest />
         <Divider />

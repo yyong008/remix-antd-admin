@@ -21,8 +21,8 @@ const tinyKey = "your key";
 export default function EditorRich() {
   const [value, setValue] = useState("");
   return (
-    <PageContainer title="editor rich">
-      <ProCard>
+    <PageContainer>
+      <ProCard className="h-[70vh]">
         <Editor
           apiKey={tinyKey}
           initialValue={value}

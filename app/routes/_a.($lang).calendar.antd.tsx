@@ -5,6 +5,8 @@ import type { CalendarMode } from "antd/es/calendar/generateCalendar";
 
 // components
 import { Calendar } from "antd";
+import { PageContainer } from "@ant-design/pro-layout";
+import { ProCard } from "@ant-design/pro-components";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -20,5 +22,11 @@ export default function CalendarAntd() {
     console.log(value.format("YYYY-MM-DD"), mode);
   };
 
-  return <Calendar onPanelChange={onPanelChange} />;
+  return (
+    <PageContainer>
+      <ProCard>
+        <Calendar onPanelChange={onPanelChange} />
+      </ProCard>
+    </PageContainer>
+  );
 }

@@ -55,17 +55,19 @@ export default function CountdownTimer() {
   };
 
   return (
-    <PageContainer title="RxJS Count Down">
+    <PageContainer>
       <ProCard>
-        <div className="mb-[20px]">
-          <span className="text-2xl">倒计时: </span>
-          <span className="text-4xl">{countdown / 100_0}</span> 秒
+        <div className="flex flex-col items-center justify-center align-middle h-[70vh] bg-blue-400">
+          <div className="mb-[20px]">
+            <span className="text-2xl">倒计时: </span>
+            <span className="text-4xl">{countdown / 100_0}</span> 秒
+          </div>
+          <Space>
+            <Button onClick={startTimer}>开始</Button>
+            <Button onClick={pauseTimer}>暂停</Button>
+            <Button onClick={resetTimer}>复位</Button>
+          </Space>
         </div>
-        <Space>
-          <Button onClick={startTimer}>开始</Button>
-          <Button onClick={pauseTimer}>暂停</Button>
-          <Button onClick={resetTimer}>复位</Button>
-        </Space>
       </ProCard>
     </PageContainer>
   );

@@ -55,7 +55,7 @@ export default function QrCodeRoute() {
   const { list } = useLoaderData<typeof loader>();
 
   return (
-    <PageContainer title="qrcode">
+    <PageContainer>
       <ProCard>
         <div className="qr-mount">
           <Space

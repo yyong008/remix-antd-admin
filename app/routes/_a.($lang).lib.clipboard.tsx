@@ -5,7 +5,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { useState } from "react";
 
 // components
-import { Button, Input, Space } from "antd";
+import { Button, Input, message } from "antd";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 import _clipboard from "react-copy-to-clipboard";
 
@@ -21,11 +21,11 @@ export default function ClipboardRoute() {
     value: "",
   });
   return (
-    <PageContainer title="Clipboard">
+    <PageContainer>
       <ProCard>
-        <Space direction="vertical" style={{ width: "100%" }}>
+        <div className="flex flex-col justify-center items-center h-[70vh] bg-emerald-300">
           <Input
-            width={500}
+            className="w-[600px]"
             value={data.value}
             onChange={({ target: { value } }) => setData({ ...data, value })}
             placeholder="Input something to copy"
@@ -33,11 +33,16 @@ export default function ClipboardRoute() {
 
           <CopyToClipboard
             text={data.value}
-            onCopy={() => setData({ ...data })}
+            onCopy={() => {
+              setData({ ...data });
+              message.info(`[coped:] ${data.value}`);
+            }}
           >
-            <Button>Copy to clipboard with button</Button>
+            <Button type="primary" className="mt-[20px] w-[300px]">
+              Copy
+            </Button>
           </CopyToClipboard>
-        </Space>
+        </div>
       </ProCard>
     </PageContainer>
   );

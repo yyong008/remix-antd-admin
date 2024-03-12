@@ -37,7 +37,7 @@ export default function EditorFlowRoute() {
   const { nodes, edges } = useLoaderData<typeof loader>();
 
   return (
-    <PageContainer title="editor flow">
+    <PageContainer>
       <ProCard
         style={{
           height: 600,

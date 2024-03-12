@@ -5,7 +5,7 @@ import { useState } from "react";
 
 // components
 import { Button, message, Space, Table, Upload } from "antd";
-import { PageContainer } from "@ant-design/pro-components";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 // libs
 import * as XLSX from "xlsx";
@@ -72,36 +72,38 @@ export default function ExcexImportRoute() {
   };
 
   return (
-    <PageContainer title="excel import">
-      <Space direction="vertical" style={{ width: "100%" }}>
-        <Dragger
-          name="file"
-          beforeUpload={() => false}
-          onChange={uploadFilesChange}
-          showUploadList={false}
-        >
-          <p
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: 200,
-            }}
+    <PageContainer>
+      <ProCard>
+        <Space direction="vertical" style={{ width: "100%" }}>
+          <Dragger
+            name="file"
+            beforeUpload={() => false}
+            onChange={uploadFilesChange}
+            showUploadList={false}
           >
-            <span>点击上传文件</span>
-            或者拖拽上传
-          </p>
-        </Dragger>
-        <Button
-          type="primary"
-          onClick={downloadFileToExcel}
-          style={{ marginBottom: "15px" }}
-          block
-        >
-          下载
-        </Button>
-        <Table columns={tableHeader} dataSource={tableData} />
-      </Space>
+            <p
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: 200,
+              }}
+            >
+              <span>点击上传文件</span>
+              或者拖拽上传
+            </p>
+          </Dragger>
+          <Button
+            type="primary"
+            onClick={downloadFileToExcel}
+            style={{ marginBottom: "15px" }}
+            block
+          >
+            下载
+          </Button>
+          <Table columns={tableHeader} dataSource={tableData} />
+        </Space>
+      </ProCard>
     </PageContainer>
   );
 }

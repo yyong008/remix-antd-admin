@@ -59,9 +59,11 @@ export default function QrCodeList({ trigger, list = [] }: any) {
   const TriggerNew = () => {
     if (!trigger) {
       return (
-        <Button type="primary" onClick={() => createQrCodeWithURL()}>
-          批量生成二维码
-        </Button>
+        <div className="flex justify-center">
+          <Button type="primary" onClick={() => createQrCodeWithURL()}>
+            批量生成二维码
+          </Button>
+        </div>
       );
     }
 

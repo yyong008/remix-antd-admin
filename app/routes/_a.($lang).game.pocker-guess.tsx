@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "@remix-run/react";
 // styles
 import "../styles/pocker-card.css";
 import "animate.css";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -32,11 +33,15 @@ const PockerCard = (props: { content: string; addr: string }) => {
 };
 export default function GamePockerGuess() {
   return (
-    <div className="card-container">
-      <PockerCard content="♠" addr="hei" />
-      <PockerCard content="♥" addr="hong" />
-      <PockerCard content="♣" addr="mei" />
-      <PockerCard content="♦" addr="zhuan" />
-    </div>
+    <PageContainer>
+      <ProCard>
+        <div className="card-container bg-orange-400">
+          <PockerCard content="♠" addr="hei" />
+          <PockerCard content="♥" addr="hong" />
+          <PockerCard content="♣" addr="mei" />
+          <PockerCard content="♦" addr="zhuan" />
+        </div>
+      </ProCard>
+    </PageContainer>
   );
 }

@@ -20,7 +20,7 @@ export default function Expection500Route() {
     <PageContainer>
       <ProCard
         style={{
-          height: "100vh",
+          height: "70vh",
           minHeight: 600,
         }}
       >

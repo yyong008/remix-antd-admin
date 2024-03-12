@@ -11,7 +11,7 @@ import { useLoaderData } from "@remix-run/react";
 
 // components
 import { Space } from "antd";
-import { PageContainer } from "@ant-design/pro-components";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 import {
   CardStep,
   CardUserInfo,
@@ -43,13 +43,15 @@ export default function ProfileAdvancedPage() {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <PageContainer title={false}>
-      <Space direction="vertical" style={{ width: "100%" }}>
-        <CardStep />
-        <CardUserInfo />
-        <CardLastPhoneList />
-        <ThreeCardLoggerTable data={data} />
-      </Space>
+    <PageContainer>
+      <ProCard>
+        <Space direction="vertical" style={{ width: "100%" }}>
+          <CardStep />
+          <CardUserInfo />
+          <CardLastPhoneList />
+          <ThreeCardLoggerTable data={data} />
+        </Space>
+      </ProCard>
     </PageContainer>
   );
 }

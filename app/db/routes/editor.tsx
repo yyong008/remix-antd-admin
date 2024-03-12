@@ -1,9 +1,5 @@
 import type { Route } from "@ant-design/pro-layout/es/typing";
 
-// import * as _icons from "@ant-design/icons";
-
-// const { HighlightOutlined } = _icons;
-
 export const createEditorRoutes = (t: any, lang: string): Route => {
   return {
     key: "editor",

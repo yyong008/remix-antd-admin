@@ -11,7 +11,7 @@ import { json } from "@remix-run/node";
 import { Button, Space } from "antd";
 import RoleModal from "~/components/roles/RoleModel";
 import CreateRoleModal from "~/components/roles/CreateRoleModel";
-import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { PageContainer, ProCard, ProTable } from "@ant-design/pro-components";
 
 // libs
 import { lastValueFrom } from "rxjs";
@@ -87,21 +87,23 @@ export default function UserRoute() {
   ];
   return (
     <PageContainer>
-      <ProTable
-        actionRef={actionRef}
-        rowKey="id"
-        search={false}
-        loading={!dataSource}
-        dataSource={dataSource}
-        columns={columns}
-        toolBarRender={() => [
-          <CreateRoleModal
-            key="create-role-modal"
-            menu={menu}
-            trigger={<Button type="primary">New</Button>}
-          />,
-        ]}
-      />
+      <ProCard>
+        <ProTable
+          actionRef={actionRef}
+          rowKey="id"
+          search={false}
+          loading={!dataSource}
+          dataSource={dataSource}
+          columns={columns}
+          toolBarRender={() => [
+            <CreateRoleModal
+              key="create-role-modal"
+              menu={menu}
+              trigger={<Button type="primary">New</Button>}
+            />,
+          ]}
+        />
+      </ProCard>
     </PageContainer>
   );
 }

@@ -16,6 +16,22 @@ export const createGameRoutes = (t: any, lang: string): Route => {
         path: "pocker-guess",
         name: t("pocker-guess"),
       },
+
+      {
+        key: "to-rl",
+        path: "rl",
+        name: t("to-rl"),
+      },
+      {
+        key: "to-trbl",
+        path: "trbl",
+        name: t("to-trbl"),
+      },
+      {
+        key: "to-mouse",
+        path: "mouse",
+        name: t("to-mouse"),
+      },
     ],
   };
 };

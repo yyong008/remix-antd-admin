@@ -39,7 +39,7 @@ export default function MonitorRoute() {
   const { geoJson, activeMonitorData, gaugeData } =
     useLoaderData<typeof loader>();
   return (
-    <PageContainer title={false}>
+    <PageContainer breadcrumb={{}}>
       <Space direction="vertical" style={{ width: "100%" }}>
         <MonitorRowOne
           geoJson={geoJson}
