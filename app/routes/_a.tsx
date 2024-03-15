@@ -96,9 +96,7 @@ function AdminLayout() {
         footerRender={() => <Footer />}
       >
         <Outlet />
-        {typeof process && typeof process.env.NODE_ENV === "development" && (
           <SettingDrawerWrap theme={value.theme} setTheme={value.setTheme} />
-        )}
       </ProLayout>
     </Spin>
   );

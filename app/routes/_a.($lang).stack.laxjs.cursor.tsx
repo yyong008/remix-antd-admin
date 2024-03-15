@@ -11,7 +11,7 @@ import { ProCard } from "@ant-design/pro-components";
 import lax from "lax.js";
 
 // styles
-import "~/styles/laxjs.cursor.css";
+import "~/styles/stack/laxjs.cursor.css";
 
 // remix:meta
 export const meta: MetaFunction = () => {

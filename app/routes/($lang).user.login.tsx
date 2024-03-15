@@ -22,7 +22,7 @@ import { ActionIcons } from "~/components/userLogin";
 import Footer from "~/components/Footer";
 
 // styles
-import "~/styles/login.css";
+import "~/styles/login/login.css";
 
 // context
 import SettingContext from "~/context/settingContext";

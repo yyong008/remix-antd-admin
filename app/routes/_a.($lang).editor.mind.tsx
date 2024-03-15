@@ -24,7 +24,7 @@ import CustomNode from "~/components/ReactFlow/CustomNode";
 
 // styles
 import "reactflow/dist/style.css";
-import "~/styles/reactflow.css";
+import "~/styles/editor/reactflow.css";
 
 // remix:meta
 export const meta: MetaFunction = () => {

@@ -4,7 +4,7 @@ import type { MetaFunction } from "@remix-run/react";
 import { useNavigate, useParams } from "@remix-run/react";
 
 // styles
-import "../styles/pocker-card.css";
+import "~/styles/game/pocker-card.css";
 import "animate.css";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 

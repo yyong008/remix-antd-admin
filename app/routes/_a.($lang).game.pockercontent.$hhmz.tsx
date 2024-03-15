@@ -15,7 +15,7 @@ import PockerList from "~/components/pockers/PockerList";
 
 // styles
 import "animate.css";
-import "~/styles/pocker-card.css";
+import "~/styles/game/pocker-card.css";
 
 // libs
 import { lastValueFrom } from "rxjs";
