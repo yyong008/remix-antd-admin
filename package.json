@@ -97,7 +97,7 @@
     "sonner": "^1.0.3",
     "tailwindcss": "^3.3.3",
     "vite-tsconfig-paths": "^4.2.1",
-    "xlsx": "^0.18.5"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
