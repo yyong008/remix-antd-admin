@@ -1,8 +1,7 @@
+// type
 import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 
-import { json } from "@remix-run/node";
-
-// core
+// remix
 import {
   Links,
   Meta,
@@ -14,6 +13,7 @@ import {
   useParams,
   useRouteError,
 } from "@remix-run/react";
+import { json } from "@remix-run/node";
 
 // components
 import { ClientOnly } from "./components/ClientOnly";
@@ -29,11 +29,13 @@ import { useChangeLanguage } from "remix-i18next/react";
 // i18n
 export let handle = { i18n: "common" };
 
+// remix:links
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: global },
   { rel: "stylesheet", href: tailwind },
 ];
 
+// remix:loader
 export async function loader({ request, params }: LoaderFunctionArgs) {
   let locale = params.lang;
   return json({ locale });
