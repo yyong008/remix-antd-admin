@@ -1,18 +1,25 @@
 import type { AppLoadContext, EntryContext } from "@remix-run/node";
 
-import isbot from "isbot";
-
+// node
 import { resolve } from "node:path";
 import { PassThrough } from "node:stream";
-import { RemixServer } from "@remix-run/react";
-import { createReadableStreamFromReadable } from "@remix-run/node";
+
+// react
 import { renderToPipeableStream } from "react-dom/server";
 
+// remix
+import { RemixServer } from "@remix-run/react";
+import { createReadableStreamFromReadable } from "@remix-run/node";
+
+// i18n
 import Backend from "i18next-fs-backend";
 import { createInstance } from "i18next";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import i18nConfig from "~/i18n/i18n";
 import remixI18Next from "~/i18n/i18next.server";
+
+// libs
+import isbot from "isbot";
 
 const ABORT_DELAY = 5_000;
 
@@ -46,7 +53,7 @@ export default async function handleRequest(
     let shellRendered = false;
 
     const { pipe, abort } = renderToPipeableStream(
-      <I18nextProvider i18n={i18nInstance}>
+      <I18nextProvider i18n={i18nInstance as any}>
         <RemixServer
           context={remixContext}
           url={request.url}

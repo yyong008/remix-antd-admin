@@ -1,14 +1,19 @@
-import { RemixBrowser } from "@remix-run/react";
+// react
 import { startTransition, useState } from "react";
 import { hydrateRoot } from "react-dom/client";
 
-import { getInitialNamespaces } from "remix-i18next/client";
-import { I18nextProvider, initReactI18next } from "react-i18next";
-import i18nConfig from "~/i18n/i18n";
+// remix
+import { RemixBrowser } from "@remix-run/react";
 
+// i18n
+import i18nConfig from "~/i18n/i18n";
 import i18next from "i18next";
 import Backend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
+import { I18nextProvider, initReactI18next } from "react-i18next";
+import { getInitialNamespaces } from "remix-i18next/client";
+
+// context
 import SettingContext from "~/context/settingContext";
 
 i18next
