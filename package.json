@@ -121,6 +121,7 @@
     "postcss": "^8.4.35",
     "prettier": "^3.0.3",
     "remix-development-tools": "^4.0.0",
+    "systeminformation": "^5.22.2",
     "typescript": "^5.2.2",
     "vite": "^5.1.5",
     "vitest": "^1.3.1"

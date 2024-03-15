@@ -235,6 +235,9 @@ devDependencies:
   remix-development-tools:
     specifier: ^4.0.0
     version: 4.0.0(@remix-run/node@2.8.0)(@remix-run/react@2.8.0)(@types/react-dom@18.2.21)(@types/react@18.2.64)(react-dom@18.2.0)(react@18.2.0)(vite@5.1.5)
+  systeminformation:
+    specifier: ^5.22.2
+    version: 5.22.2
   typescript:
     specifier: ^5.2.2
     version: 5.4.2
@@ -11734,6 +11737,13 @@ packages:
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
+
+  /systeminformation@5.22.2:
+    resolution: {integrity: sha512-VsXY7i1UFZZhbNRv8QN6yTIqNL66/rXpMGb5xYzXx8jDYyEM0+tQpehpPdaxxvym+oYIHs9usUxDzRDNkabpVQ==}
+    engines: {node: '>=8.0.0'}
+    os: [darwin, linux, win32, freebsd, openbsd, netbsd, sunos, android]
+    hasBin: true
+    dev: true
 
   /tailwind-merge@1.14.0:
     resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}

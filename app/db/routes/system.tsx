@@ -81,6 +81,20 @@ export const createSystemRoutes = (t: any, lang: string): Route => {
         icon: "KeyOutlined",
         name: t("oss"),
       },
+      {
+        key: "monitor",
+        path: `monitor`,
+        icon: "KeyOutlined",
+        name: t("monitor"),
+        children: [
+          {
+            key: "serve",
+            path: `serve`,
+            icon: "KeyOutlined",
+            name: t("serve"),
+          },
+        ],
+      },
       // {
       //   key: "client",
       //   path: `client`,
