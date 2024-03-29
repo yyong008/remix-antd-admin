@@ -3,7 +3,7 @@ import * as _icons from "@ant-design/icons";
 import { Button, Form, Tree, message } from "antd";
 import { useEffect } from "react";
 
-const { PlusOutlined } = _icons;
+const { EditOutlined } = _icons;
 
 export default function RoleModal({ trigger, record, menu }: any) {
   const [form] = Form.useForm<{ name: string; company: string }>();
@@ -17,19 +17,12 @@ export default function RoleModal({ trigger, record, menu }: any) {
       company: string;
     }>
       title="编辑角色"
-      trigger={
-        trigger ?? (
-          <Button type="primary">
-            <PlusOutlined />
-            编辑角色
-          </Button>
-        )
-      }
+      trigger={trigger ?? <Button type="link" icon={<EditOutlined />} />}
       form={form}
       autoFocusFirstInput
       modalProps={{
         destroyOnClose: true,
-        onCancel: () => console.log("run"),
+        onCancel: () => console.log(""),
       }}
       submitTimeout={2000}
       onFinish={async (values) => {

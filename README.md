@@ -14,16 +14,21 @@ A lightweight content management system, not limited to content management.
 
 ## Stack
 
-- 🌟 Remix main framework
-- ⚡️   Developing and building applications with Vite is exceptionally fast.
-- 🏰 Ant Design design system
-- 🚀 RxJS has significant advantages in handling complex calculations
-- 📊 Echarts chart system and SSR (Server-Side Rendering)
-- 🌍 Internationalization support with i18next, react-i18next, and remix-i18next
-- 💡 Atomic support with Tailwind CSS
-- 🧰 Developer tools support with remix-development-tools
-- 🧪 Component testing with Vitest
-- 🌈 Mix TailwindCSS Support and CSS-IN-JS and so on
+- 🌟 [Remix](https://remix.run/docs/en/main)main framework
+- ⚡️ [Vite](https://vitejs.dev/guide/#scaffolding-your-first-vite-project)Developing and building applications with Vite is exceptionally fast.
+- 🏰 [Ant Design design](https://ant.design/)system and [ProComponent](https://procomponents.ant.design/en-US/docs)
+- 🚀 [RxJS](https://rxjs.dev/guide/overview)has significant advantages in handling complex calculations
+- 📊 [Echarts](https://echartsjs.com/index.html) system and SSR (Server-Side Rendering)
+- 🌍 [i18n](https://www.i18next.com/) Internationalization support with i18next, react-i18next, and remix-i18next
+- 🌈 [TailwindCSS](https://tailwindcss.com/docs/installation) Atomic support with Tailwind CSS and CSS-IN-JS and so on
+- 🧰 [RemixDevTool](https://remix-development-tools.fly.dev/) Developer tools support with remix-development-tools
+- 🃏 [Prisma](https://www.prisma.io/docs/getting-started) ORM support (SQLite、MySQL、MongoDB)
+- ✅ [Zod](https://zod.dev/) TypeScript-first schema validation with static type inference
+- 🧪 [Vitest](https://vitest.dev/) Component testing with Vitest
+- 🐸 [Cypress](https://docs.cypress.io/) e2e testing with Cypress
+- 🎯 [Remix RESTful](https://remix.run/docs/en/main/guides/bff) RESTful API with swagger
+- 🍭 [GraphQL](https://graphql.org/) api support
+- 🐳 [Docker](https://www.docker.com/) docker quick to deploy
 
 ## Quickstart
 
@@ -92,6 +97,10 @@ visit: `http://localhost:<your_port>/checkhealth`, if get `Alive`, this api serv
 - normal
 - vercel (vite)
 - docker
+
+## Prisma
+
+>tips: when download Prisma engine,  no proxy。
 
 ## License
 

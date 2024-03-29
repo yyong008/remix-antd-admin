@@ -1,7 +1,7 @@
-import { useNavigate, useParams } from "@remix-run/react";
+import { useFetcher, useNavigate, useParams } from "@remix-run/react";
 
 import * as _icons from "@ant-design/icons";
-import { Dropdown } from "antd";
+import { Dropdown, Form } from "antd";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -13,12 +13,10 @@ type AvatarDropDownProps = {
 
 export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
   const navigate = useNavigate();
-  const { lang } = useParams();
   const { t } = useTranslation();
+  const fetcher = useFetcher();
+  const { lang } = useParams();
 
-  const handleLogout = () => {
-    navigate(`/${lang}/user/login`);
-  };
   return (
     <Dropdown
       menu={{
@@ -44,10 +42,17 @@ export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
           },
           {
             key: "logout",
-            icon: <LogoutOutlined />,
+            icon: (
+              <Form method="post" action="/logout">
+                <LogoutOutlined />
+              </Form>
+            ),
             label: t("logout"),
-            onClick: () => {
-              handleLogout();
+            onClick(e) {
+              fetcher.submit(
+                {},
+                { method: "POST", action: "/" + lang + "/logout" },
+              );
             },
           },
         ],

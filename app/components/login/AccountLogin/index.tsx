@@ -1,11 +1,17 @@
 import * as _icons from "@ant-design/icons";
 import { ProFormText } from "@ant-design/pro-components";
+import { useTranslation } from "react-i18next";
 
-import { t } from "i18next";
+// import { t } from "i18next";
 
 const { UserOutlined, LockOutlined } = _icons;
 
-export default function AccountLogin() {
+type AccountLoginProps = {
+  isRegister?: boolean;
+};
+
+export default function AccountLogin(props: AccountLoginProps) {
+  const { t } = useTranslation();
   return (
     <>
       <ProFormText
@@ -14,11 +20,11 @@ export default function AccountLogin() {
           size: "large",
           prefix: <UserOutlined />,
         }}
-        placeholder={t("user-placeholder") as string}
+        placeholder={t("login-register.placeholder.username") as string}
         rules={[
           {
             required: true,
-            message: t("user-message")!,
+            message: t("login-register.message.username-message")!,
           },
         ]}
       />
@@ -28,14 +34,34 @@ export default function AccountLogin() {
           size: "large",
           prefix: <LockOutlined />,
         }}
-        placeholder={t("password-pladeholder") as string}
+        placeholder={t("login-register.placeholder.password") as string}
         rules={[
           {
             required: true,
-            message: t("password-message") as string,
+            message: t("login-register.message.password-message") as string,
           },
         ]}
       />
+      {props.isRegister ? (
+        <ProFormText.Password
+          name="passwordRe"
+          fieldProps={{
+            size: "large",
+            prefix: <LockOutlined />,
+          }}
+          placeholder={t("login-register.placeholder.password-re") as string}
+          rules={[
+            {
+              required: true,
+              message: t(
+                "login-register.message.password-message-re",
+              ) as string,
+            },
+          ]}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 }

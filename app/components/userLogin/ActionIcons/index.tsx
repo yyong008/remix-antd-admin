@@ -7,13 +7,22 @@ const { AlipayCircleOutlined, TaobaoCircleOutlined, WeiboCircleOutlined } =
 
 const ActionIcons = () => {
   return (
-    <span style={{ margin: "0 0 0 10" }}>
+    <div className="inline-flex flex-nowrap pl-[10px]">
       <Space>
-        <AlipayCircleOutlined key="AlipayCircleOutlined" />
-        <TaobaoCircleOutlined key="TaobaoCircleOutlined" />
-        <WeiboCircleOutlined key="WeiboCircleOutlined" />
+        <AlipayCircleOutlined
+          key="AlipayCircleOutlined"
+          className="text-gray-300"
+        />
+        <TaobaoCircleOutlined
+          key="TaobaoCircleOutlined"
+          className="text-gray-300"
+        />
+        <WeiboCircleOutlined
+          key="WeiboCircleOutlined"
+          className="text-gray-300"
+        />
       </Space>
-    </span>
+    </div>
   );
 };
 

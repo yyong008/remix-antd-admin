@@ -11,6 +11,14 @@ node_modules
 TODO.md
 
 # prisma db data
-/prisma/dev.db
-/prisma/dev.db-journal
+prisma/
+depoly/
+docker/
+
 .vercel
+public/uploads/avatar/*
+
+# vitepress
+
+doc/.vitepress/cache/
+vite.config.ts.*

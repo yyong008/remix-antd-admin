@@ -1,5 +1,3 @@
-import React from "react";
-
 const MenuFooterRender = (props: any) => {
   if (props?.collapsed) return undefined;
   return (

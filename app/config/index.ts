@@ -1,10 +1,10 @@
 export const config = {
-  title: "RAA",
+  title: "Remix Antd Admin",
   logo: "/remix.svg",
   layout: "mix",
   menu: {
     defaultOpenAll: false,
-    // hideMenuWhenCollapsed: true,
+    loading: false,
   },
   avatar: {
     src: "/images/user.jpg",

@@ -1,12 +1,5 @@
 import { createContext } from "react";
-
-// type ISettings = {
-//   colorPrimary: string;
-//   contentWidth: string;
-//   fixSiderbar: boolean;
-//   layout: string;
-//   navTheme: string;
-// };
+import { defaultLang } from "~/config/lang";
 
 const SettingContext = createContext({
   theme: {
@@ -14,7 +7,7 @@ const SettingContext = createContext({
     // layout: "mix"
   },
   setTheme: (theme: any) => {},
-  lang: "en-US",
+  lang: defaultLang,
   setLang: (v: any) => {},
 });
 

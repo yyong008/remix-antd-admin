@@ -16,7 +16,7 @@ import {
 import { json } from "@remix-run/node";
 
 // components
-import { ClientOnly } from "./components/ClientOnly";
+import { ClientOnly } from "./components/common/ClientOnly";
 
 // styles
 import global from "~/styles/global.css?url";
@@ -27,7 +27,8 @@ import "nprogress/nprogress.css";
 import { useChangeLanguage } from "remix-i18next/react";
 
 // i18n
-export let handle = { i18n: "common" };
+// export let handle = { i18n: "common" };
+export let handle = { i18n: ["common", "menu"] };
 
 // remix:links
 export const links: LinksFunction = () => [
@@ -37,15 +38,15 @@ export const links: LinksFunction = () => [
 
 // remix:loader
 export async function loader({ request, params }: LoaderFunctionArgs) {
-  let locale = params.lang;
-  return json({ locale });
+  let { lang } = params;
+  return json({ lang });
 }
 
 export default function App() {
   const params = useParams();
-  let { locale } = useLoaderData<typeof loader>();
+  let { lang } = useLoaderData<typeof loader>();
 
-  useChangeLanguage(locale as string);
+  useChangeLanguage(lang!);
 
   return (
     <html lang={params.lang}>

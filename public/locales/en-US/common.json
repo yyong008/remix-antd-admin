@@ -85,5 +85,20 @@
   "other-login": "other login",
   "submit": "submit",
   "phone-placeholder": "please input phone number",
-  "lib": "lib"
+  "lib": "lib",
+  "system": "system",
+  "about": "about",
+  "user": "user",
+  "role": "role",
+  "menu": "menu",
+  "dept": "dept",
+  "post": "post",
+  "dict": "dict",
+  "config": "config",
+  "notice": "notice",
+  "oss": "oss",
+  "system-log": "system.log",
+  "operlog": "operlog",
+  "logininfor": "logininfor",
+  "serve": "serve"
 }

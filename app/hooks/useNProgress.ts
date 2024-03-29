@@ -7,10 +7,10 @@ export function useNProgress() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (navigation.state === "loading") {
-      NProgress.start();
-    } else if (navigation.state === "idle") {
+    if (navigation.state === "idle") {
       NProgress.done();
+    } else {
+      NProgress.start();
     }
-  }, [navigation]);
+  }, [navigation.state]);
 }

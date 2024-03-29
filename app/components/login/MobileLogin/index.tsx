@@ -13,16 +13,16 @@ export default function MobileLogin() {
           size: "large",
           prefix: <MobileOutlined />,
         }}
-        name="mobile"
-        placeholder={t("phone-placeholder")!}
+        name="phone"
+        placeholder={t("login-register.placeholder.phone")!}
         rules={[
           {
             required: true,
-            message: t("phone-message")!,
+            message: t("login-register.message.phone-message")!,
           },
           {
             pattern: /^1\d{10}$/,
-            message: t("phone-format-message")!,
+            message: t("login-register.message.phone-format-message")!,
           },
         ]}
       />
@@ -34,22 +34,22 @@ export default function MobileLogin() {
         captchaProps={{
           size: "large",
         }}
-        placeholder={t("verification-code")!}
+        placeholder={t("login-register.message.code")!}
         captchaTextRender={(timing: boolean, count: number) => {
           if (timing) {
-            return `${count} ${t("get-verification-code")}`;
+            return `${count} ${t("login-register.code.get-verification-code")}`;
           }
-          return t("get-verification-code");
+          return t("login-register.code.get-verification-code");
         }}
         name="captcha"
         rules={[
           {
             required: true,
-            message: t("verification-code")!,
+            message: t("login-register.code.verification-code-message")!,
           },
         ]}
         onGetCaptcha={async () => {
-          message.success(t("get-captcha")!);
+          message.success(t("get-captcha-success")!);
         }}
       />
     </>
