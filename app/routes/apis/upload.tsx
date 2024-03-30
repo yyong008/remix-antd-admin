@@ -15,8 +15,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   if (method === "POST") {
     const uploadHandler = unstable_composeUploadHandlers(
       unstable_createFileUploadHandler({
-        maxPartSize: 5_000_000,
-        directory: "public/uploads/avatar", // 指定上传目录
+        maxPartSize: 2 * 1024 * 1024,
+        directory: "public/uploads", // 指定上传目录
         file: ({ filename }) => filename,
       }),
       // parse everything else into memory

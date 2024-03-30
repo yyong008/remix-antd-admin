@@ -217,6 +217,19 @@ export function createAdmin(route: DefineRouteFunction) {
   route(`${PREFIX}/login`, "./routes/admin/login.tsx");
   route(`${PREFIX}/register`, "./routes/admin/register.tsx");
   route(`${PREFIX}/logout`, "./routes/admin/logout.tsx");
-
   route(`${PREFIX}/welcome`, "./routes/admin/welcome.tsx");
+}
+
+export function createAdminTools(route: DefineRouteFunction) {
+  route(`${PREFIX}/tools/storage`, "./routes/admin/tools/storage/storage.tsx");
+}
+
+export function createApi(route: DefineRouteFunction) {
+  route(`api/swagger`, "./routes/apis/api.swagger.tsx");
+  route(
+    `api/system/monitor/serve`,
+    "./routes/apis/api.system.monitor.serve.tsx",
+  );
+  route(`api/healthcheck`, "./routes/apis/healthcheck.tsx");
+  route(`api/upload`, "./routes/apis/upload.tsx");
 }

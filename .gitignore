@@ -16,7 +16,7 @@ depoly/
 docker/
 
 .vercel
-public/uploads/avatar/*
+public/uploads/*
 
 # vitepress
 

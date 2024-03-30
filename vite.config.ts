@@ -22,7 +22,7 @@ const __APP_INFO__ = {
 
 export default defineConfig({
   server: {
-    port: 3000,
+    port: 3333,
   },
   define: {
     __APP_INFO__: JSON.stringify(__APP_INFO__),
@@ -35,12 +35,14 @@ export default defineConfig({
       routes: async (defineRoute) => {
         return defineRoute((route) => {
           createRoutes.createAdmin(route);
+          createRoutes.createApi(route);
 
           route("", "routes/admin/_a.tsx", () => {
             createRoutes.createAdminDashboard(route)
             createRoutes.createAdminDemoRoute(route);
             createRoutes.createAdminSystem(route);
             createRoutes.createAdminAbout(route)
+            createRoutes.createAdminTools(route)
           });
         });
       },

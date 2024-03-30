@@ -60,7 +60,7 @@ export default function CreateUserModal({
 
         if (values.file && values.file.length > 0) {
           const url: string = values.file[0].response.data.name;
-          const prefix = "/uploads/avatar/";
+          const prefix = "/uploads/";
           avatar = url.startsWith(prefix) ? url : `${prefix}${url}`;
         }
         if (!values.password) {
