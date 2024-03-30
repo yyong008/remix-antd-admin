@@ -1,6 +1,8 @@
 ![](./public/images/admin.png)
 
 <p align="center">
+  <img src="https://img.shields.io/github/stars/remix-run/remix.svg" />
+  <img src="https://img.shields.io/github/stars/ant-design/ant-design.svg" />
   <img src="https://img.shields.io/github/stars/yyong008/remix-antd-admin.svg" />
   <img src="https://img.shields.io/github/forks/yyong008/remix-antd-admin.svg" />
   <img src="https://img.shields.io/github/issues/yyong008/remix-antd-admin.svg" />
