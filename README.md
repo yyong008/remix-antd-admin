@@ -1,113 +1,143 @@
-![](./public/images/admin.png)
 
-<p align="center">
-  <img src="https://img.shields.io/github/stars/remix-run/remix.svg" />
-  <img src="https://img.shields.io/github/stars/ant-design/ant-design.svg" />
-  <img src="https://img.shields.io/github/stars/yyong008/remix-antd-admin.svg" />
-  <img src="https://img.shields.io/github/forks/yyong008/remix-antd-admin.svg" />
-  <img src="https://img.shields.io/github/issues/yyong008/remix-antd-admin.svg" />
-</p>
+# 简介
 
-## Remix Antd Admin
+[Remix Antd Admin](https://github.com/yyong008/remix-antd-admin)是一个前后端全栈的管理系统。基于 Remix 和 Antd/TailwindCSS 以及 Prisma，包含 rbac 权限管理系统，内置了 remix-i18n 解决方案。
 
-A lightweight content management system, not limited to content management.
+:::tip
+💻💻💻Remix Antd Admin 还在紧锣密鼓的开发和测试中...
+:::
 
-> https://remix-antd-admin.vercel.app
+## 解决方案
 
-## Stack
+- 前端版本：[remix-antd-admin(**fe 分支**)](https://github.com/yyong008/remix-antd-admin)
+- 全栈版本：[remix-antd-admin(**feat/full-stack 分支**)](https://github.com/yyong008/remix-antd-admin/tree/feat/fullstack)
+- 桌面端版：[remix-antd-admin-electron](https://github.com/yyong008/remix-antd-admin-electron)
 
-- 🌟 [Remix](https://remix.run/docs/en/main)main framework
-- ⚡️ [Vite](https://vitejs.dev/guide/#scaffolding-your-first-vite-project)Developing and building applications with Vite is exceptionally fast.
-- 🏰 [Ant Design design](https://ant.design/)system and [ProComponent](https://procomponents.ant.design/en-US/docs)
-- 🚀 [RxJS](https://rxjs.dev/guide/overview)has significant advantages in handling complex calculations
-- 📊 [Echarts](https://echartsjs.com/index.html) system and SSR (Server-Side Rendering)
-- 🌍 [i18n](https://www.i18next.com/) Internationalization support with i18next, react-i18next, and remix-i18next
-- 🌈 [TailwindCSS](https://tailwindcss.com/docs/installation) Atomic support with Tailwind CSS and CSS-IN-JS and so on
-- 🧰 [RemixDevTool](https://remix-development-tools.fly.dev/) Developer tools support with remix-development-tools
-- 🃏 [Prisma](https://www.prisma.io/docs/getting-started) ORM support (SQLite、MySQL、MongoDB)
-- ✅ [Zod](https://zod.dev/) TypeScript-first schema validation with static type inference
-- 🧪 [Vitest](https://vitest.dev/) Component testing with Vitest
-- 🐸 [Cypress](https://docs.cypress.io/) e2e testing with Cypress
-- 🎯 [Remix RESTful](https://remix.run/docs/en/main/guides/bff) RESTful API with swagger
-- 🍭 [GraphQL](https://graphql.org/) api support
-- 🐳 [Docker](https://www.docker.com/) docker quick to deploy
+## 示例在线访问
 
-## Quickstart
+- 全栈版本访问地址：部署中
+- 前端版本访问地址：[remix-antd-admin(**Vercel**)](https://remix-antd-admin.vercel.app)
+- 文档访问地址：[remix-antd-admin-docs](https://remix-antd-admin-docs.vercel.app/)
+
+## 特性
 
 ```sh
+- Admin:Login / Logout
+- RBAC Permission Authentication
+
+- 全局特性
+  - 全栈一体化，管理端和前端后端一体化开发
+  - Remix I18n 国际化
+  - CSS 混合方案，支持 TailWindCSS 等多种方案
+
+- DOME:Editor
+  - Rich Text Editor
+  - Markdown Editor
+  - JSON Editor
+
+- DEMO:Excel
+  - Export Excel
+  - Upload Excel
+
+- Fallback Page
+  - $
+```
+
+### 业务
+
+- admin
+- Components
+- login/logout
+
+### 库
+
+- Remix
+- antd
+- Pro Component
+- Zod
+- RxJS
+
+## 目录结构
+
+```tree
+├── app
+│   ├── components
+│   ├── config
+│   ├── context
+│   ├── db
+│   ├── entry.client.tsx
+│   ├── entry.server.tsx
+│   ├── hooks
+│   ├── i18n
+│   ├── layout
+│   ├── root.tsx
+│   ├── routes
+│   ├── services
+│   ├── styles
+│   ├── __tests__
+│   └── utils
+├── CHANGELOG.md
+├── Dockerfile
+├── env.d.ts
+├── LICENSE
+├── node_modules
+├── package.json
+├── pnpm-lock.yaml
+├── postcss.config.mjs
+├── prisma
+│   ├── dev.db
+│   ├── dev.db-journal
+│   ├── migrations
+│   └── schema.prisma
+├── public
+│   ├── favicon.ico
+│   ├── images
+│   ├── locales
+│   ├── logo.png
+│   ├── remix.png
+│   └── remix.svg
+├── README.md
+├── tailwind.config.ts
+├── tsconfig.json
+├── vercel.json
+├── vite.config.ts
+└── vitest.config.ts
+```
+
+## 使用
+
+```sh
+# github
 git clone https://github.com/yyong008/remix-antd-admin.git
-# or
+
+# gitee
 git clone https://gitee.com/yyong008/remix-antd-admin.git
-
-pnpm install # install deps
-
-pnpm run dev # pnpm dev
-
-pnpm run build #pnpm build
-# 💌💌💌It is preferable to choose machines with more than 2GB of memory for packaging, with a recommendation of 4GB.
-
-pnpm run start # pnpm start # PORT=3003 pnpm run start
 ```
 
-## Client only
-
-```tsx
-<html lang={params.lang}>
-  <body>
-    <ClientOnly fallback={<Loading />}>{() => <Outlet />}</ClientOnly>
-  </body>
-</html>
+```sh
+cd remix-antd-admin
+pnpm run dev # open port in your browser
 ```
 
-## Code layout
+## 浏览器支持
 
-- `/app/routes/**` define all routes and apis
-- `/app/components/**` define components
-- `/app/hooks/**` define custom hooks
-- `/app/layout/**` define main layout
-- `/app/services/**` define mock service get data
-- `/app/config/**` define app config
-- `/app/styles/**` define styles hooks
-- `/app/i18n/**` define i18n config
-- `/app/utils/**` define utils function
-- `/app/db/**` define mock database
-- `/app/__test__/**` define test demos
-- `.env.tpl` define env template
+Modern browsers last 2 version
 
-## @ant-design/icons uages
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" />](https://godban.github.io/browsers-support-badges/)</br> Edge  | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](https://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](https://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](https://godban.github.io/browsers-support-badges/)</br>Safari |
+| --------- | --------- | --------- | --------- |
+| last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
-use in client only mode
+## Node.js 支持
 
-```ts
-import * as _icons from "@ant-design/icons";
+| [<img src="https://avatars.githubusercontent.com/u/9950313?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://avatars.githubusercontent.com/u/9950313?s=48&v=4)</br> Node.js  | [<img src="https://avatars.githubusercontent.com/u/21320719?s=48&v=4" alt="pnpm" width="24px" height="24px" />](https://avatars.githubusercontent.com/u/21320719?s=48&v=4)</br>pnpm | [<img src="https://avatars.githubusercontent.com/u/17219288?s=48&v=4" alt="Prisma" width="24px" height="24px" />](https://avatars.githubusercontent.com/u/17219288?s=48&v=4)</br>Prisma | [<img src="https://avatars.githubusercontent.com/u/64235328?s=48&v=4" alt="Remix" width="24px" height="24px" />](https://avatars.githubusercontent.com/u/64235328?s=48&v=4)</br>Remix |
+| --------- | --------- | --------- | --------- |
+| 18.x+ | 8.x+| 5.x+ | 2.x+|
 
-const { MoreOutlined } = _icons;
-```
 
-## API checkhealth
+## 请作者和喝一杯咖啡
 
-```ts
-export const loader: LoaderFunction = () => {
-  return new Response("Alive", { status: 200 });
-};
-```
-
-visit: `http://localhost:<your_port>/checkhealth`, if get `Alive`, this api server is alive。
-
-## deploy
-
-- normal
-- vercel (vite)
-- docker
-
-## Prisma
-
->tips: when download Prisma engine,  no proxy。
+[💌buy-me-a-coffee💌](https://github.com/yyong008/buy-me-a-coffee)
 
 ## License
 
-[MIT](./LICENSE)
-
-## Support
-
-[buy-me-a-coffee](https://github.com/yyong008/buy-me-a-coffee) If you think this project has helped you, please invite the author to have a cup of coffee, thank you for your support .
+Copyright (c) 2023-present Magnesium-
