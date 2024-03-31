@@ -12,7 +12,7 @@ import {
   useNavigate,
   useParams,
 } from "@remix-run/react";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 
 // components
 import { Image } from "antd";
@@ -23,7 +23,12 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 import { StorageModal } from "~/components/tools/StorageModal";
 import { getStorageList, storageCount } from "~/services/tools/storage";
-import { ADMIN_ROUTE_PREFIX } from "~/constants";
+import { ADMIN_ROUTE_PREFIX, LANG } from "~/constants";
+import {
+  destroySession,
+  getSession,
+  getUserId,
+} from "~/services/common/auth.server";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -36,6 +41,15 @@ export const meta: MetaFunction = () => {
 export const loader: LoaderFunction = async ({
   request,
 }: LoaderFunctionArgs) => {
+  const userId = await getUserId(request);
+  const session = await getSession(request.headers.get("Cookie"));
+  if (!userId) {
+    return redirect(`/${LANG}/${ADMIN_ROUTE_PREFIX}/login`, {
+      headers: {
+        "Set-Cookie": await destroySession(session),
+      },
+    });
+  }
   let { searchParams } = new URL(request.url);
   let page = Number(searchParams.get("page") ?? 1);
   let pageSize = Number(searchParams.get("pageSize") ?? 10);

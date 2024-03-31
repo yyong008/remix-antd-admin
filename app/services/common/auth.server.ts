@@ -26,7 +26,7 @@ export async function logout(request: Request, lang: string) {
   const session = await getSession(request.headers.get("Cookie"));
   return redirect("/" + lang + "/" + ADMIN_ROUTE_PREFIX + "/login", {
     headers: {
-      "Set-Cookie": await sessionStorage.destroySession(session),
+      "Set-Cookie": await destroySession(session),
     },
   });
 }

@@ -4,6 +4,7 @@ import * as _icons from "@ant-design/icons";
 import { Dropdown, Form } from "antd";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { ADMIN_ROUTE_PREFIX } from "~/constants";
 
 const { LogoutOutlined, SettingOutlined, UserOutlined } = _icons;
 
@@ -51,7 +52,10 @@ export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
             onClick(e) {
               fetcher.submit(
                 {},
-                { method: "POST", action: "/" + lang + "/logout" },
+                {
+                  method: "POST",
+                  action: `/${lang}/${ADMIN_ROUTE_PREFIX}/logout`,
+                },
               );
             },
           },

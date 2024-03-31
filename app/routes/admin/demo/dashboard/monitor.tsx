@@ -24,6 +24,7 @@ import {
   getSession,
   getUserId,
 } from "~/services/common/auth.server";
+import { ADMIN_ROUTE_PREFIX } from "~/constants";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -41,7 +42,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const userId = await getUserId(request);
 
   if (!userId) {
-    return redirect("/" + lang + "/login", {
+    return redirect("/" + lang + "/" + ADMIN_ROUTE_PREFIX + "/login", {
       headers: {
         "Set-Cookie": await destroySession(session),
       },
