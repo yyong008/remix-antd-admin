@@ -1,5 +1,5 @@
 // react
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // components
 import * as _icons from "@ant-design/icons";
@@ -8,6 +8,7 @@ import { Alert, Button, Progress, message } from "antd";
 
 // lib
 import { ajax } from "rxjs/ajax";
+import { combineLatest } from "rxjs";
 
 const { EditOutlined } = _icons;
 
@@ -27,29 +28,54 @@ export function StorageModal(props: StorageModalProps) {
   const inputRef = useRef<HTMLInputElement>();
   const { trigger } = props;
   const [fileList, setFileList] = useState<any[]>();
+  const chooseFileListRef: any[] = useRef<any>([]);
+
+  useEffect(() => {
+    return () => {
+      chooseFileListRef.current = [];
+      setFileList([]);
+    };
+  }, []);
 
   return (
     <ModalForm
       title="文件上传"
       onFinish={async (e) => {
-        const files = fileList?.map((file) => file) ?? [];
-        const formData = new FormData();
-        formData.append("file", files[0].file);
+        const files = chooseFileListRef.current?.map((file) => file) ?? [];
 
-        ajax({
-          method: "POST",
-          url: `/api/upload`,
-          body: formData,
-          includeUploadProgress: true,
-        }).subscribe({
-          error(error) {
-            console.log(error);
+        const fileUpload$ = files.map((file) => {
+          const formData = new FormData();
+          formData.append("file", file.file);
+          return ajax({
+            method: "POST",
+            url: `/api/upload`,
+            body: formData,
+            includeUploadProgress: true,
+          });
+        });
+
+        combineLatest(fileUpload$).subscribe({
+          next(fileuploads) {
+            // 所有的已经完成？
+            const newFiles = fileuploads.map((uploadInfo, index) => {
+              const info = {
+                ...(chooseFileListRef?.current?.[index] ?? []),
+                progress: {
+                  loaded: uploadInfo.originalEvent.loaded,
+                  total: uploadInfo.originalEvent.total,
+                },
+              };
+              return info;
+            });
+
+            setFileList(() => {
+              return newFiles;
+            });
           },
-          next(value) {
-            console.log("xxx", value);
+          error(e) {
+            console.log(e);
           },
         });
-        // return true;
       }}
       submitter={{
         searchConfig: {
@@ -76,23 +102,29 @@ export function StorageModal(props: StorageModalProps) {
         style={{ display: "none" }}
         onChange={(e) => {
           const files = inputRef.current?.files ?? [];
-          const _chooseFileList: any[] = [];
+
           Array.from(files)?.forEach((file: any) => {
             if (file.size > 1024 * 1024 * 2) {
               return message.error(
                 `单个文件不超过${FileSizeLimit}MB，最多只能上传10个文件`,
               );
             }
-            _chooseFileList.push({
+            chooseFileListRef.current?.push({
               file: file,
               url: URL.createObjectURL(file),
               name: file.name,
               size: file.size,
               type: file.type,
               status: FileStatus.BeforeUpload,
+              progress: {
+                loaded: 0,
+                total: 0,
+              },
+              isError: false,
+              isCompleted: false,
             });
           });
-          setFileList(_chooseFileList);
+          setFileList(chooseFileListRef.current);
         }}
       />
       <Alert
@@ -114,10 +146,12 @@ export function StorageModal(props: StorageModalProps) {
             title: "文件名",
             width: 260,
             render(_, record) {
+              const percent =
+                (record.progress.loaded / record.progress.total) * 100;
               return (
                 <div>
                   <div>{record.name}</div>
-                  <Progress></Progress>
+                  <Progress percent={percent}></Progress>
                 </div>
               );
             },

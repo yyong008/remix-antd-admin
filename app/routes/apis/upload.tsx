@@ -11,6 +11,8 @@ import {
 } from "@remix-run/node";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
+  // 授权
+
   const method = request.method;
   if (method === "POST") {
     const uploadHandler = unstable_composeUploadHandlers(
@@ -28,7 +30,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     );
 
     const file = formData.get("file");
-
+    // 写入数据库
     return json({
       code: 0,
       message: "ok",
