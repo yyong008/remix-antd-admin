@@ -13,6 +13,7 @@ TODO.md
 # prisma db data
 prisma/migrations/*
 prisma/dev.db
+prisma/dev.db-journal
 
 docker/
 

@@ -28,12 +28,15 @@ export function StorageModal(props: StorageModalProps) {
   const inputRef = useRef<HTMLInputElement>();
   const { trigger } = props;
   const [fileList, setFileList] = useState<any[]>();
-  const chooseFileListRef: any[] = useRef<any>([]);
+  const chooseFileListRef = useRef<any[]>([]);
 
+  const reset = () => {
+    chooseFileListRef.current = [];
+    setFileList([]);
+  };
   useEffect(() => {
     return () => {
-      chooseFileListRef.current = [];
-      setFileList([]);
+      reset();
     };
   }, []);
 
@@ -81,9 +84,15 @@ export function StorageModal(props: StorageModalProps) {
         searchConfig: {
           submitText: "开始上传",
         },
+        submitButtonProps: {
+          disabled: chooseFileListRef.current.length <= 0,
+        },
       }}
       modalProps={{
         destroyOnClose: true,
+        onCancel: () => {
+          reset();
+        },
       }}
       submitTimeout={2000}
       trigger={

@@ -8,13 +8,13 @@ import { SortOrder } from "~/types";
 import prisma from "~/services/common/db.server";
 
 /**
- * create login log info
- * @param data  Prisma.LoginLogCreateInput
+ * create storage info
+ * @param data  Prisma.StorageCreateInput
  * @returns
  */
-export const createLoginLog = async (data: Prisma.LoginlogCreateInput) => {
+export const createStorage = async (data: Prisma.StorageCreateInput) => {
   try {
-    const res = await prisma.loginlog.create({
+    const res = await prisma.storage.create({
       data,
     });
     return res;
@@ -25,12 +25,12 @@ export const createLoginLog = async (data: Prisma.LoginlogCreateInput) => {
 };
 
 /**
- * 获取 Login Log 的数量
+ * 获取 storage 的数量
  * @returns Number
  */
-export const loginLogCount = async () => {
+export const storageCount = async () => {
   try {
-    return await prisma.loginlog.count();
+    return await prisma.storage.count();
   } catch (error) {
     console.log(error);
     return null;
@@ -42,10 +42,10 @@ export const loginLogCount = async () => {
  * @param param0 TPage
  * @returns
  */
-export const getLoginLogList = async (data: TPage) => {
+export const getStorageList = async (data: TPage) => {
   const { page = 1, pageSize = 10, name = "" } = data;
   try {
-    return await prisma.loginlog.findMany({
+    return await prisma.storage.findMany({
       where: {
         name: {
           contains: name,

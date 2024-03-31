@@ -47,3 +47,11 @@ export function genFileListByName(name: string) {
     },
   ];
 }
+
+export function extname(str: string) {
+  var slug = str.split(/\/|\\/).slice(-1)[0];
+  var idx = slug.lastIndexOf(".");
+  if (idx <= 0) return "";
+  var ext = slug.slice(idx);
+  return ext;
+}

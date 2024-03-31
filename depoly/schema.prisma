@@ -11,9 +11,9 @@ model Department {
   id          Int       @id @default(autoincrement()) @map("id")
   name        String    @map("name")
   description String?   @map("description")
-  orderNo    Int?      @map("order_no")
-  createdAt  DateTime  @default(now()) @map("createdAt")
-  updatedAt  DateTime? @map("updatedAt")
+  orderNo     Int?      @map("order_no")
+  createdAt   DateTime  @default(now()) @map("createdAt")
+  updatedAt   DateTime? @map("updatedAt")
 
   User User[]
 
@@ -32,20 +32,20 @@ model Dictionary {
   description     String?           @map("description")
   remark          String?           @map("remark")
   status          Int?              @map("status")
-  createdAt      DateTime          @default(now()) @map("createdAt")
-  updatedAt      DateTime?         @map("updatedAt")
+  createdAt       DateTime          @default(now()) @map("createdAt")
+  updatedAt       DateTime?         @map("updatedAt")
   DictionaryEntry DictionaryEntry[]
 
   @@map("sys_dictionary")
 }
 
 model DictionaryEntry {
-  id       Int     @id @default(autoincrement()) @map("id")
-  key      String  @map("key")
-  value    String  @map("value")
+  id      Int     @id @default(autoincrement()) @map("id")
+  key     String  @map("key")
+  value   String  @map("value")
   orderNo Int?    @map("order_no")
-  status   Int     @map("status")
-  remark   String? @map("remark")
+  status  Int     @map("status")
+  remark  String? @map("remark")
 
   createdAt DateTime  @default(now()) @map("createdAt")
   updatedAt DateTime? @map("updatedAt")
@@ -84,9 +84,9 @@ model Menu {
   isCache     Int?      @map("isCache")
   permission  String?   @map("permission")
   isLink      Int?      @map("isLink")
-  orderNo    Int?      @map("order_no")
-  createdAt  DateTime  @default(now()) @map("createdAt")
-  updatedAt  DateTime? @map("updatedAt")
+  orderNo     Int?      @map("order_no")
+  createdAt   DateTime  @default(now()) @map("createdAt")
+  updatedAt   DateTime? @map("updatedAt")
 
   MenuRole MenuRole[]
 
@@ -100,13 +100,13 @@ model Menu {
 
 // sys_menu_role
 model MenuRole {
-  id         Int       @id @default(autoincrement()) @map("id")
+  id        Int       @id @default(autoincrement()) @map("id")
   roleId    Int       @map("role_id")
   menuId    Int       @map("menu_id")
   createdAt DateTime  @default(now()) @map("createdAt")
   updatedAt DateTime? @map("updatedAt")
-  roles      Role      @relation(fields: [roleId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  menus      Menu      @relation(fields: [menuId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  roles     Role      @relation(fields: [roleId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  menus     Menu      @relation(fields: [menuId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
   @@map("sys_menu_role")
 }
@@ -119,8 +119,8 @@ model Role {
   description String?    @map("description")
   remark      String?    @map("remark")
   status      Int?       @map("status")
-  createdAt  DateTime   @default(now()) @map("createdAt")
-  updatedAt  DateTime?  @map("updatedAt")
+  createdAt   DateTime   @default(now()) @map("createdAt")
+  updatedAt   DateTime?  @map("updatedAt")
   MenuRole    MenuRole[]
   UserRole    UserRole[]
 
@@ -129,36 +129,36 @@ model Role {
 
 // User
 model User {
-  id         Int       @id @default(autoincrement()) @map("id")
-  avatar     String?   @map("avatar")
-  email      String?   @map("email")
-  name       String    @map("name")
-  nickname   String?   @map("nickname")
-  password   String    @map("password")
-  lang       String    @default("en-US") @map("lang")
-  theme      String    @default("light") @map("theme")
-  phone      String?   @map("phone")
-  remark     String?   @map("remark")
-  status     Int?      @map("status")
+  id        Int       @id @default(autoincrement()) @map("id")
+  avatar    String?   @map("avatar")
+  email     String?   @map("email")
+  name      String    @map("name")
+  nickname  String?   @map("nickname")
+  password  String    @map("password")
+  lang      String    @default("en-US") @map("lang")
+  theme     String    @default("light") @map("theme")
+  phone     String?   @map("phone")
+  remark    String?   @map("remark")
+  status    Int?      @map("status")
   createdAt DateTime  @default(now()) @map("createdAt")
   updatedAt DateTime? @map("updatedAt")
 
   departmentId Int?        @map("department_id")
-  department    Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  UserRole      UserRole[]
+  department   Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  UserRole     UserRole[]
 
   @@map("sys_user")
 }
 
 // sys_user_role
 model UserRole {
-  id         Int       @id @default(autoincrement()) @map("id")
+  id        Int       @id @default(autoincrement()) @map("id")
   userId    Int       @map("user_id")
   roleId    Int       @map("role_id")
   createdAt DateTime  @default(now()) @map("createdAt")
   updatedAt DateTime? @map("updatedAt")
-  users      User      @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  roles      Role      @relation(fields: [roleId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  users     User      @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  roles     Role      @relation(fields: [roleId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
   @@map("sys_user_role")
 }

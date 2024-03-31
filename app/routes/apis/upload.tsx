@@ -9,10 +9,22 @@ import {
   unstable_createMemoryUploadHandler,
   unstable_parseMultipartFormData,
 } from "@remix-run/node";
+import { getUserId } from "~/services/common/auth.server";
+import prisma from "~/services/common/db.server";
+import { extname } from "~/utils/utils";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   // 授权
 
+  const userId = await getUserId(request);
+
+  if (!userId) {
+    return json({
+      code: 1,
+      message: "未授权",
+      data: {},
+    });
+  }
   const method = request.method;
   if (method === "POST") {
     const uploadHandler = unstable_composeUploadHandlers(
@@ -29,12 +41,23 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       uploadHandler,
     );
 
-    const file = formData.get("file");
-    // 写入数据库
+    const file: any = formData.get("file");
+
+    const _file = await prisma.storage.create({
+      data: {
+        userId,
+        name: file.name,
+        fileName: file.name,
+        extName: extname(file.name),
+        path: "/uploads/" + file.name,
+        size: file.size.toString(),
+        type: file.type,
+      },
+    });
     return json({
       code: 0,
       message: "ok",
-      data: file,
+      data: _file,
     });
   }
 };

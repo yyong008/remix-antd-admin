@@ -6,18 +6,24 @@ import type {
 } from "@remix-run/node";
 
 // remix
-import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
+import {
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "@remix-run/react";
 import { json } from "@remix-run/node";
 
 // components
-
+import { Image } from "antd";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 // utils
 // import { formatDate } from "~/utils/utils";
 
-import { getLoginLogList, loginLogCount } from "~/services/system/login-log";
 import { StorageModal } from "~/components/tools/StorageModal";
+import { getStorageList, storageCount } from "~/services/tools/storage";
+import { ADMIN_ROUTE_PREFIX } from "~/constants";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -36,8 +42,8 @@ export const loader: LoaderFunction = async ({
   let name = searchParams.get("name") ?? "";
 
   return json({
-    count: await loginLogCount(),
-    dataSource: await getLoginLogList({ page, pageSize, name }),
+    count: await storageCount(),
+    dataSource: await getStorageList({ page, pageSize, name }),
   });
 };
 
@@ -45,6 +51,8 @@ export default function SystemUserRoute() {
   const { dataSource, count } = useLoaderData<typeof loader>();
   const nav = useNavigate();
   const { lang } = useParams();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
 
   return (
     <PageContainer>
@@ -63,12 +71,19 @@ export default function SystemUserRoute() {
             ellipsis: true,
           },
           {
-            dataIndex: "url",
+            dataIndex: "path",
             title: "预览图",
             ellipsis: true,
+            render(_, record) {
+              console.log("");
+              if (record.type.startsWith("image")) {
+                return <Image src={record.path} />;
+              }
+              return record.path;
+            },
           },
           {
-            dataIndex: "suffix",
+            dataIndex: "extName",
             title: "文件后缀",
             ellipsis: true,
           },
@@ -79,18 +94,13 @@ export default function SystemUserRoute() {
           },
           {
             dataIndex: "size",
-            title: "浏览器",
+            title: "尺寸",
             ellipsis: true,
           },
           {
-            dataIndex: "user_name",
+            dataIndex: "userId",
             title: "上传者",
             ellipsis: true,
-            // render(_, record) {
-            //   return (
-            //     <div>{record.loginAt ? formatDate(record.loginAt) : "-"}</div>
-            //   );
-            // },
           },
           {
             dataIndex: "createdAt",
@@ -100,10 +110,11 @@ export default function SystemUserRoute() {
         ]}
         pagination={{
           total: count,
-          pageSize: 10,
+          pageSize: Number(searchParams.get("pageSize")) || 10,
+          current: Number(searchParams.get("page")) || 0,
           onChange(page, pageSize) {
             nav(
-              `/${lang}/system/serve/loginlog?page=${page}&pageSize=${pageSize}`,
+              `/${lang}/${ADMIN_ROUTE_PREFIX}/tools/storage?page=${page}&pageSize=${pageSize}`,
             );
           },
         }}
