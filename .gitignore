@@ -11,8 +11,9 @@ node_modules
 TODO.md
 
 # prisma db data
-prisma/
-depoly/
+prisma/migrations/*
+prisma/dev.db
+
 docker/
 
 .vercel

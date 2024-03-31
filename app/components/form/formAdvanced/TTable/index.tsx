@@ -31,7 +31,7 @@ const defaultData = [
     name: "John Brown",
     num: "00001",
     part: "New York No. 1 Lake Park",
-    created_at: "1590486176000",
+    createdAt: "1590486176000",
   },
   {
     id: 2,

@@ -10,7 +10,7 @@ import { Button, Space } from "antd";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 // service
-import { getDictListByTypeId } from "~/services/system/dict-item";
+import { getDictListByDictionaryId } from "~/services/system/dict-item";
 import { formatDate } from "~/utils/utils";
 import StatusType from "~/components/common/StatusType";
 import DictItemModal from "~/components/system/dict/CreateDictItemModel";
@@ -31,7 +31,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     return redirect(`/${lang}/system/dict`);
   }
   return json({
-    dataSource: await getDictListByTypeId(Number(did)),
+    dataSource: await getDictListByDictionaryId(Number(did)),
   });
 };
 

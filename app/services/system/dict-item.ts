@@ -15,14 +15,14 @@ export const getDictItemList = async () => {
 
 /**
  * 返回字典类型对应的字典条目列表
- * @param typeId 字典类型 id
+ * @param dictionary_id 字典类型 id
  * @returns 字典类型 id 对应的列表
  */
-export const getDictListByTypeId = async (typeId: number) => {
+export const getDictListByDictionaryId = async (dictionary_id: number) => {
   try {
     return await prisma.dictionaryEntry.findMany({
       where: {
-        typeId,
+        dictionary_id,
       },
     });
   } catch (error) {

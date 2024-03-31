@@ -48,7 +48,6 @@ type SystemMenuProps = {
 
 export default function SystemMenu(props: SystemMenuProps) {
   const { menuRaw = [], menuNotPerm = [], fetcher } = props;
-  console.log("props", props);
   return (
     <ProTable<TableListItem>
       size="small"

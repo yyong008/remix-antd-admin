@@ -13,10 +13,9 @@ function buildTreeData(
 
   menuData.forEach((menu) => {
     menu.title = t(menu.name);
-    menu.key = menu.name;
-    // menu.icon = ""
+    menu.name = t(menu.name);
 
-    if (menu.parentId === parentId) {
+    if (menu.parent_menu_id === parentId) {
       const subMenus = buildTreeData(menuData, menu.id, t);
       if (subMenus.length) {
         menu.children = subMenus;
@@ -38,6 +37,7 @@ function buildMenuTree(
 
   menuData.forEach((menu) => {
     menu.name = t(menu.name);
+    menu.title = t(menu.name);
     menu.hideInMenu = !!menu.isShow;
 
     if (menu.type !== 3) {
@@ -46,7 +46,7 @@ function buildMenuTree(
       }
     }
 
-    if (menu.parentId === parentId) {
+    if (menu.parent_menu_id === parentId) {
       const subMenus = buildMenuTree(menuData, menu.id, t, lang);
       if (subMenus.length) {
         menu.children = subMenus;

@@ -18,6 +18,7 @@ function buildMenuTree(
 
   menuData.forEach((menu) => {
     menu.name = t(menu.name);
+    menu.key = t(menu.name);
     menu.hideInMenu = !!menu.isShow;
 
     if (menu.type === 3) return;
@@ -26,7 +27,7 @@ function buildMenuTree(
       menu.path = `/${lang}/${ADMIN_ROUTE_PREFIX}${menu.path}`;
     }
 
-    if (menu.parentId === parentId) {
+    if (menu.parent_menu_id === parentId) {
       const subMenus = buildMenuTree(menuData, menu.id, t, lang);
       if (subMenus.length) {
         menu.children = subMenus;
@@ -48,7 +49,8 @@ function buildMenuTreeRaw(
 
   menuData.forEach((menu) => {
     menu.name = t(menu.name);
-    if (menu.parentId === parentId) {
+    menu.key = t(menu.name);
+    if (menu.parent_menu_id === parentId) {
       const subMenus = buildMenuTreeRaw(menuData, menu.id, t, lang);
       if (subMenus.length) {
         menu.children = subMenus;
@@ -74,7 +76,6 @@ export async function getMenu(t: () => void, lang: string) {
 export async function getMenuRaw(t: () => void, lang: string) {
   try {
     const menuData = await prisma.menu.findMany();
-
     const menuTree = buildMenuTreeRaw(menuData, null, t, lang);
     return menuTree;
   } catch (error) {
@@ -119,13 +120,13 @@ export async function getMenuByUserId(
         id: userId,
       },
       include: {
-        roles: {
+        UserRole: {
           include: {
-            role: {
+            roles: {
               include: {
-                menus: {
+                MenuRole: {
                   include: {
-                    menu: true,
+                    menus: true,
                   },
                 },
               },
@@ -137,13 +138,12 @@ export async function getMenuByUserId(
 
     // 指定角色的菜单
     const flatRoleMenuData =
-      user?.roles
-        ?.map((_role) => {
-          return _role.role;
-        })
-        ?.map((role) => role.menus)
+      user?.UserRole?.map((_role) => {
+        return _role.roles;
+      })
+        ?.map((role) => role.MenuRole)
         ?.reduce((p, c) => p.concat(c), [])
-        ?.map((m) => m.menu)
+        ?.map((m) => m.menus)
         .map((m) => {
           m.name = t(m.name);
           return m;
@@ -192,7 +192,7 @@ export const createMenu = async (data: Prisma.MenuUncheckedCreateInput) => {
     menuData = {
       type: data.type,
       name: data.name,
-      parentId: data.parentId,
+      parent_menu_id: data.parent_menu_id,
       permission: data.permission,
       isLink: data.isLink,
       isShow: data.isShow,

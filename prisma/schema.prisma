@@ -1,0 +1,164 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Department {
+  id          Int       @id @default(autoincrement()) @map("id")
+  name        String    @map("name")
+  description String?   @map("description")
+  orderNo    Int?      @map("order_no")
+  createdAt  DateTime  @default(now()) @map("createdAt")
+  updatedAt  DateTime? @map("updatedAt")
+
+  User User[]
+
+  parent_department_id Int?         @map("parent_department_id")
+  parent               Department?  @relation("x", fields: [parent_department_id], references: [id])
+  children             Department[] @relation("x")
+
+  @@map("sys_department")
+}
+
+// sys_dictionary
+model Dictionary {
+  id              Int               @id @default(autoincrement()) @map("id")
+  name            String            @map("name")
+  code            String            @map("code")
+  description     String?           @map("description")
+  remark          String?           @map("remark")
+  status          Int?              @map("status")
+  createdAt      DateTime          @default(now()) @map("createdAt")
+  updatedAt      DateTime?         @map("updatedAt")
+  DictionaryEntry DictionaryEntry[]
+
+  @@map("sys_dictionary")
+}
+
+model DictionaryEntry {
+  id       Int     @id @default(autoincrement()) @map("id")
+  key      String  @map("key")
+  value    String  @map("value")
+  orderNo Int?    @map("order_no")
+  status   Int     @map("status")
+  remark   String? @map("remark")
+
+  createdAt DateTime  @default(now()) @map("createdAt")
+  updatedAt DateTime? @map("updatedAt")
+
+  dictionary_id Int        @map("dictionary_id")
+  dictionary    Dictionary @relation(fields: [dictionary_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("sys_dictionary_entry")
+}
+
+// sys_loginlog
+model Loginlog {
+  id      Int      @id @default(autoincrement()) @map("id")
+  name    String   @map("name")
+  ip      String?  @map("ip")
+  address String?  @map("address")
+  loginAt DateTime @default(now()) @map("login_at")
+  system  String?  @map("system")
+  browser String?  @map("browser")
+
+  @@map("sys_loginlog")
+}
+
+// sys_menu
+model Menu {
+  id          Int       @id @default(autoincrement()) @map("id")
+  name        String    @map("name")
+  type        Int       @map("type")
+  description String?   @map("description")
+  remark      String?   @map("remark")
+  icon        String?   @map("icon")
+  path        String?   @map("path")
+  path_file   String?   @map("path_file")
+  status      Int?      @map("status")
+  isShow      Int?      @map("isShow")
+  isCache     Int?      @map("isCache")
+  permission  String?   @map("permission")
+  isLink      Int?      @map("isLink")
+  orderNo    Int?      @map("order_no")
+  createdAt  DateTime  @default(now()) @map("createdAt")
+  updatedAt  DateTime? @map("updatedAt")
+
+  MenuRole MenuRole[]
+
+  parent_menu_id Int?  @map("parent_menu_id")
+  parent_menu    Menu? @relation("ParentMenuToChildMenus", fields: [parent_menu_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+
+  children_menu Menu[] @relation("ParentMenuToChildMenus")
+
+  @@map("sys_menu")
+}
+
+// sys_menu_role
+model MenuRole {
+  id         Int       @id @default(autoincrement()) @map("id")
+  roleId    Int       @map("role_id")
+  menuId    Int       @map("menu_id")
+  createdAt DateTime  @default(now()) @map("createdAt")
+  updatedAt DateTime? @map("updatedAt")
+  roles      Role      @relation(fields: [roleId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  menus      Menu      @relation(fields: [menuId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("sys_menu_role")
+}
+
+// sys_role
+model Role {
+  id          Int        @id @default(autoincrement()) @map("id")
+  name        String     @map("name")
+  value       String     @map("value")
+  description String?    @map("description")
+  remark      String?    @map("remark")
+  status      Int?       @map("status")
+  createdAt  DateTime   @default(now()) @map("createdAt")
+  updatedAt  DateTime?  @map("updatedAt")
+  MenuRole    MenuRole[]
+  UserRole    UserRole[]
+
+  @@map("sys_role")
+}
+
+// User
+model User {
+  id         Int       @id @default(autoincrement()) @map("id")
+  avatar     String?   @map("avatar")
+  email      String?   @map("email")
+  name       String    @map("name")
+  nickname   String?   @map("nickname")
+  password   String    @map("password")
+  lang       String    @default("en-US") @map("lang")
+  theme      String    @default("light") @map("theme")
+  phone      String?   @map("phone")
+  remark     String?   @map("remark")
+  status     Int?      @map("status")
+  createdAt DateTime  @default(now()) @map("createdAt")
+  updatedAt DateTime? @map("updatedAt")
+
+  departmentId Int?        @map("department_id")
+  department    Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  UserRole      UserRole[]
+
+  @@map("sys_user")
+}
+
+// sys_user_role
+model UserRole {
+  id         Int       @id @default(autoincrement()) @map("id")
+  userId    Int       @map("user_id")
+  roleId    Int       @map("role_id")
+  createdAt DateTime  @default(now()) @map("createdAt")
+  updatedAt DateTime? @map("updatedAt")
+  users      User      @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  roles      Role      @relation(fields: [roleId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("sys_user_role")
+}

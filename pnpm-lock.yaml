@@ -183,16 +183,11 @@ dependencies:
     specifier: ^4.2.1
     version: 4.3.1(typescript@5.4.2)(vite@5.1.5)
   xlsx:
-<<<<<<< HEAD
     specifier: ^0.18.5
     version: 0.18.5
   zod:
     specifier: ^3.22.4
     version: 3.22.4
-=======
-    specifier: https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz
-    version: '@cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz'
->>>>>>> 4d454b9 (fix: fix dep: xlsx 0.18.5 to  https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz)
 
 devDependencies:
   '@changesets/cli':
@@ -5605,6 +5600,11 @@ packages:
     dependencies:
       commander: 2.14.1
       exit-on-epipe: 1.0.1
+    dev: false
+
+  /codepage@1.15.0:
+    resolution: {integrity: sha512-3g6NUTPd/YtuuGrhMnOMRjFc+LJw/bnMp3+0r/Wcz3IXUuCosKRJvMphm5+Q+bvTVGcJJuRvVLuYba+WojaFaA==}
+    engines: {node: '>=0.8'}
     dev: false
 
   /color-convert@1.9.3:
@@ -14561,7 +14561,6 @@ packages:
       word: 0.3.0
     dev: false
 
-<<<<<<< HEAD
   /xlsx@0.18.5:
     resolution: {integrity: sha512-dmg3LCjBPHZnQp5/F/+nnTa+miPJxUXB6vtk42YjBBKayDNagxGEeIdWApkYPOf3Z3pm3k62Knjzp7lMeTEtFQ==}
     engines: {node: '>=0.8'}
@@ -14586,8 +14585,6 @@ packages:
     resolution: {integrity: sha512-huCv9IH9Tcf95zuYCsQraZtWnJvBtLVE0QHMOs8bWyZAFZNDcYjsPq1nEx8jKA9y+Beo9v+7OBPRisQTjinQMw==}
     dev: true
 
-=======
->>>>>>> 4d454b9 (fix: fix dep: xlsx 0.18.5 to  https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz)
   /xmlhttprequest@1.8.0:
     resolution: {integrity: sha512-58Im/U0mlVBLM38NdZjHyhuMtCqa61469k2YP/AaPbvCoV9aQGUpbJBj1QRm2ytRiVQBD/fsw7L2bJGDVQswBA==}
     engines: {node: '>=0.4.0'}
@@ -14726,11 +14723,3 @@ packages:
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
-
-  '@cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz':
-    resolution: {tarball: https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz}
-    name: xlsx
-    version: 0.20.1
-    engines: {node: '>=0.8'}
-    hasBin: true
-    dev: false
