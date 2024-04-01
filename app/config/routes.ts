@@ -230,10 +230,7 @@ export function createProfile(route: DefineRouteFunction) {
     `${PREFIX}/profile/account`,
     "./routes/admin/profile/Account/index.tsx",
   );
-  route(
-    `${PREFIX}/profile/link/category`,
-    "./routes/admin/profile/link/Category.tsx",
-  );
+  route(`${PREFIX}/profile/link`, "./routes/admin/profile/link/Category.tsx");
   route(
     `${PREFIX}/profile/link/category/:id`,
     "./routes/admin/profile/link/Link.tsx",

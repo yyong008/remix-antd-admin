@@ -205,6 +205,11 @@
       "split-pane": "拆分窗格",
       "game": "游戏",
       "qrcode": "二维码"
+    },
+    "profile": {
+      "main": "个人中心",
+      "account": "账户中心",
+      "link": "链接管理"
     }
   },
   "operator": {
