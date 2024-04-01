@@ -43,6 +43,7 @@ export default defineConfig({
             createRoutes.createAdminSystem(route);
             createRoutes.createAdminAbout(route)
             createRoutes.createAdminTools(route)
+            createRoutes.createProfile(route)
           });
         });
       },

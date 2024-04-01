@@ -225,6 +225,17 @@ export function createAdminTools(route: DefineRouteFunction) {
   route(`${PREFIX}/tools/mail`, "./routes/admin/tools/mail/mail.tsx");
 }
 
+export function createProfile(route: DefineRouteFunction) {
+  route(
+    `${PREFIX}/profile/link/category`,
+    "./routes/admin/profile/link/Category.tsx",
+  );
+  route(
+    `${PREFIX}/profile/link/category/:id`,
+    "./routes/admin/profile/link/Link.tsx",
+  );
+}
+
 export function createApi(route: DefineRouteFunction) {
   route(`api/swagger`, "./routes/apis/api.swagger.tsx");
   route(

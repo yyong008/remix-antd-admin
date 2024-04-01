@@ -1,5 +1,4 @@
 // type
-import type { Prisma } from "@prisma/client";
 
 // service
 import prisma from "~/services/common/db.server";
