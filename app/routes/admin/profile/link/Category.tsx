@@ -9,13 +9,14 @@ import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 import {
   createLinkCategory,
-  getLinkCategoryList,
+  getLinkCategoryListByUserId,
 } from "~/services/profile/link-category";
 import LinkCategoryModal from "./LinkCategoryModal";
 import { useFetcherChange } from "~/hooks/useFetcherChange";
 import { Space, Tag } from "antd";
 import DeleteIt from "~/components/common/DeleteIt";
 import { ADMIN_ROUTE_PREFIX } from "~/constants";
+import { getUserId } from "~/services/common/auth.server";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -25,10 +26,14 @@ export const meta: MetaFunction = () => {
 // remix:action
 export const action: LoaderFunction = async ({ request }) => {
   const data = await request.json();
+  const userId = await getUserId(request);
   // 校验数据
 
   // 写入数据
-  const linkCategory = await createLinkCategory(data);
+  const linkCategory = await createLinkCategory({
+    ...data,
+    userId,
+  });
 
   if (linkCategory === null) {
     return json({
@@ -46,10 +51,10 @@ export const action: LoaderFunction = async ({ request }) => {
 };
 
 // remix:loader
-export const loader: LoaderFunction = async () => {
-  // 授权认证
+export const loader: LoaderFunction = async ({ request }) => {
+  const userId = await getUserId(request);
   return json({
-    dataSource: await getLinkCategoryList(),
+    dataSource: await getLinkCategoryListByUserId(userId!),
   });
 };
 

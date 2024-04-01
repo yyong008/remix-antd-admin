@@ -14,7 +14,7 @@ cp ./depoly/schema.prisma ./prisma/schema.prisma
 npx prisma migrate dev --name init # 迁移数据
 
 # 确保安装了 sqlite3
-sqlite3 ./prisma/dev.db < ./depoly/seed-sql.sql
+sqlite3 ./prisma/dev.db < ./depoly/seed.sql
 
 # npx prisma studio
 pnpm run dev

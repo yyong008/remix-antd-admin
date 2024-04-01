@@ -13,9 +13,13 @@ export const createLinkCategory = async (data: any) => {
   }
 };
 
-export const getLinkCategoryList = async () => {
+export const getLinkCategoryListByUserId = async (userId: number) => {
   try {
-    return await prisma.linkCategory.findMany();
+    return await prisma.linkCategory.findMany({
+      where: {
+        userId,
+      },
+    });
   } catch (error) {
     console.log(error);
     return null;
