@@ -23,7 +23,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 import { StorageModal } from "~/components/tools/StorageModal";
 import { getStorageList, storageCount } from "~/services/tools/storage";
-import { ADMIN_ROUTE_PREFIX, LANG } from "~/constants";
+import { ADMIN_ROUTE_PREFIX } from "~/constants";
 import {
   destroySession,
   getSession,
@@ -40,11 +40,13 @@ export const meta: MetaFunction = () => {
 // remix:loader
 export const loader: LoaderFunction = async ({
   request,
+  params,
 }: LoaderFunctionArgs) => {
+  const { lang } = params;
   const userId = await getUserId(request);
   const session = await getSession(request.headers.get("Cookie"));
   if (!userId) {
-    return redirect(`/${LANG}/${ADMIN_ROUTE_PREFIX}/login`, {
+    return redirect(`/${lang}/${ADMIN_ROUTE_PREFIX}/login`, {
       headers: {
         "Set-Cookie": await destroySession(session),
       },

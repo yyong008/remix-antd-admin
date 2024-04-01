@@ -222,6 +222,7 @@ export function createAdmin(route: DefineRouteFunction) {
 
 export function createAdminTools(route: DefineRouteFunction) {
   route(`${PREFIX}/tools/storage`, "./routes/admin/tools/storage/storage.tsx");
+  route(`${PREFIX}/tools/mail`, "./routes/admin/tools/mail/mail.tsx");
 }
 
 export function createApi(route: DefineRouteFunction) {

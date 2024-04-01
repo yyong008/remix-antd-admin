@@ -3,7 +3,7 @@ import { useFetcher } from "@remix-run/react";
 import { message } from "antd";
 
 export const useFetcherChange = () => {
-  const [setState] = useState("");
+  const [, setState] = useState("");
   const fetcher = useFetcher();
 
   useEffect(() => {
