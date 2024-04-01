@@ -18,6 +18,24 @@ export const getUserInfoById = async (id: number) => {
       where: {
         id,
       },
+      select: {
+        email: true,
+        avatar: true,
+        name: true,
+        nickname: true,
+        lang: true,
+        theme: true,
+        phone: true,
+        remark: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
+        department: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
   } catch (error) {
     console.log(error);

@@ -227,6 +227,10 @@ export function createAdminTools(route: DefineRouteFunction) {
 
 export function createProfile(route: DefineRouteFunction) {
   route(
+    `${PREFIX}/profile/account`,
+    "./routes/admin/profile/Account/index.tsx",
+  );
+  route(
     `${PREFIX}/profile/link/category`,
     "./routes/admin/profile/link/Category.tsx",
   );
