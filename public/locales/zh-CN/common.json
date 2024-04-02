@@ -191,10 +191,15 @@
       }
     },
     "news": {
-      "main": "新闻"
+      "main": "新闻",
+      "edit": "编辑新闻",
+      "category": "新闻分类"
     },
     "blog": {
-      "main": "博客"
+      "main": "博客",
+      "edit": "编辑博客",
+      "category": "博客分类",
+      "tag": "博客标签"
     },
     "about": {
       "main": "关于"
@@ -210,6 +215,11 @@
       "main": "个人中心",
       "account": "账户中心",
       "link": "链接管理"
+    },
+    "tools": {
+      "main": "工具中心",
+      "storage": "存储库",
+      "mail": "邮件管理"
     }
   },
   "operator": {

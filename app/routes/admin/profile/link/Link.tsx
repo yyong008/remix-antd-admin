@@ -10,7 +10,8 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { createLink, getLinkListById } from "~/services/profile/link";
 import { useFetcherChange } from "~/hooks/useFetcherChange";
 import LinkModal from "./LinkModal";
-import { Space } from "antd";
+import { Space, Tag } from "antd";
+import LinkSvg from "~/components/svg/LinkSvg";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -72,7 +73,10 @@ export default function SystemConfigRoute() {
             renderText(text, record, index, action) {
               return (
                 <Link to={record.url} target="_blank">
-                  {record.url}
+                  <Tag className="inline-flex" color="cyan">
+                    {record.url}
+                    <LinkSvg className="border-yellow-200 w-[16px]" />
+                  </Tag>
                 </Link>
               );
             },

@@ -52,7 +52,6 @@ export const action: ActionFunction = async ({
     });
   }
   const data = await request.json();
-  console.log(data);
   const info: any = await sendMail({
     host: data.host,
     port: data.port,

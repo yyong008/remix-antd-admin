@@ -44,6 +44,8 @@ export default defineConfig({
             createRoutes.createAdminAbout(route)
             createRoutes.createAdminTools(route)
             createRoutes.createProfile(route)
+            createRoutes.createNews(route)
+            createRoutes.createBlog(route)
           });
         });
       },

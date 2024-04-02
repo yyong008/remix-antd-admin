@@ -237,6 +237,29 @@ export function createProfile(route: DefineRouteFunction) {
   );
 }
 
+export function createNews(route: DefineRouteFunction) {
+  route(
+    `${PREFIX}/news/category`,
+    "./routes/admin/news/category-list/index.tsx",
+  );
+  route(
+    `${PREFIX}/news/category/:id`,
+    "./routes/admin/news/category-news-list/index.tsx",
+  );
+  route(`${PREFIX}/news/edit`, "./routes/admin/news/edit/index.tsx");
+  route(`${PREFIX}/news/edit/:id`, "./routes/admin/news/mod/index.tsx");
+}
+
+export function createBlog(route: DefineRouteFunction) {
+  route(
+    `${PREFIX}/blog/category`,
+    "./routes/admin/blog/category-list/index.tsx",
+  );
+  route(`${PREFIX}/blog/tag`, "./routes/admin/blog/tag-list/index.tsx");
+  route(`${PREFIX}/blog/edit/`, "./routes/admin/blog/edit/index.tsx");
+  route(`${PREFIX}/blog/edit/:id`, "./routes/admin/blog/mod/index.tsx");
+}
+
 export function createApi(route: DefineRouteFunction) {
   route(`api/swagger`, "./routes/apis/api.swagger.tsx");
   route(

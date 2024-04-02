@@ -47,7 +47,8 @@
     "changeset": "changeset",
     "version": "changeset version",
     "prepare": "husky install",
-    "seed": "esno ./seed.ts"
+    "seed": "esno ./seed.ts",
+    "docker:build": "docker build"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.17.2",
@@ -75,6 +76,7 @@
     "china-division": "^2.7.0",
     "classnames": "^2.3.2",
     "crypto-js": "^4.2.0",
+    "daisyui": "^4.9.0",
     "dayjs": "^1.11.10",
     "echarts": "^5.0.0",
     "echarts-for-react": "^3.0.2",

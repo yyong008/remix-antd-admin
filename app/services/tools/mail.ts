@@ -49,7 +49,6 @@ export function sendMail(options: SendMailOptions) {
         return console.log(error);
       }
 
-      console.log("邮件发送成功 ID：", info);
       resolve(info);
     });
   });
