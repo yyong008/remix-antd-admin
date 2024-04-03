@@ -3,24 +3,25 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // remix
 import { json } from "@remix-run/node";
-import { Link, useLoaderData, useParams } from "@remix-run/react";
+import { useLoaderData, useParams } from "@remix-run/react";
 
 // components
 import { PageContainer, ProTable } from "@ant-design/pro-components";
-import { Space } from "antd";
+import { Space, Tag } from "antd";
 
 // constants
+// import { ADMIN_ROUTE_PREFIX } from "~/constants";
 import DeleteIt from "~/components/common/DeleteIt";
 import { useFetcherChange } from "~/hooks/useFetcherChange";
-import TagModal from "./TagModal";
-import * as _icon from "@ant-design/icons";
-
-// services
-import { createBlogTag, getBlogCategoryTag } from "~/services/blog/blog-tags";
+import {
+  createBlogCategory,
+  getBlogListById,
+} from "~/services/blog/blog-category";
 import { getUserId } from "~/services/common/auth.server";
-import { goBlogNav } from "~/hooks/router/blog.route";
 
-const { SwitcherOutlined } = _icon;
+import { URLSearchParams } from "url";
+import ButtonLink from "~/components/common/ButtonLink";
+import { ADMIN_ROUTE_PREFIX } from "~/constants";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -36,10 +37,9 @@ export const action: LoaderFunction = async ({ request }) => {
     // 校验数据
 
     // 写入数据
-    const userId = await getUserId(request);
-    const linkCategory = await createBlogTag({
+    const linkCategory = await createBlogCategory({
       ...data,
-      userId,
+      userId: await getUserId(request),
     });
 
     if (linkCategory === null) {
@@ -72,10 +72,16 @@ export const action: LoaderFunction = async ({ request }) => {
 
 // remix:loader
 export const loader: LoaderFunction = async ({ request, params }) => {
-  // const { id } = params;
+  const url = new URL(request.url);
+  const searchParams = new URLSearchParams(url.searchParams);
+
   const userId = await getUserId(request);
   return json({
-    dataSource: await getBlogCategoryTag(userId!),
+    dataSource: await getBlogListById(
+      userId!,
+      Number(searchParams.get("category")),
+      Number(searchParams.get("tag")),
+    ),
   });
 };
 
@@ -91,37 +97,66 @@ export default function SystemConfigRoute() {
         search={false}
         dataSource={dataSource as any[]}
         toolBarRender={() => [
-          <TagModal fetcher={fetcher} record={{}} key="tag-modal" />,
+          <ButtonLink
+            key="tag-modal"
+            to={`/${lang}/${ADMIN_ROUTE_PREFIX}/blog/edit`}
+            type={"new"}
+            content="新建"
+          />,
         ]}
         columns={[
           {
-            dataIndex: "name",
-            title: "标签名字",
-            renderText(text, record, index, action) {
-              return (
-                <Link to={goBlogNav(lang!, { tag: record.id })}>
-                  <Space>
-                    <SwitcherOutlined />
-                    <span>{record.name}</span>
-                  </Space>
-                </Link>
-              );
+            dataIndex: "title",
+            title: "文章名字",
+          },
+          {
+            dataIndex: "content",
+            title: "文章",
+          },
+          {
+            dataIndex: "author",
+            title: "作者",
+          },
+          {
+            dataIndex: "source",
+            title: "来源",
+          },
+          {
+            dataIndex: "viewCount",
+            title: "查看数",
+          },
+          {
+            dataIndex: "publishedAt",
+            title: "发布时间",
+          },
+          {
+            dataIndex: "categories",
+            title: "分类",
+            renderText(_, record) {
+              return <Tag>{record?.categories.name}</Tag>;
             },
           },
           {
-            dataIndex: "description",
-            title: "描述",
+            dataIndex: "tags",
+            title: "标签",
+            renderText(_, record) {
+              return <Tag>{record?.tags.name}</Tag>;
+            },
+          },
+          {
+            dataIndex: "userId",
+            title: "作者id",
           },
           {
             dataIndex: "op",
             title: "操作",
             render(_, record) {
+              console.log("id", record);
               return (
                 <Space>
-                  <TagModal
-                    fetcher={fetcher}
-                    record={record}
-                    key="mod-tag-modal"
+                  <ButtonLink
+                    to={`/${lang}/${ADMIN_ROUTE_PREFIX}/blog/edit/${record.id}`}
+                    type={"edit"}
                   />
                   <DeleteIt fetcher={fetcher} record={record} title={""} />
                 </Space>

@@ -186,7 +186,7 @@ export function createAdminDemoRoute(route: DefineRouteFunction) {
 }
 
 export function createAdminDashboard(route: DefineRouteFunction) {
-  route(`${DASHBOARD_PREFIX}/`, "./routes/admin/dashboard/index.tsx", {});
+  route(`${DASHBOARD_PREFIX}`, "./routes/admin/dashboard/index.tsx", {});
 }
 export function createAdminSystem(route: DefineRouteFunction) {
   route(`${SYSTEM_PREFIX}/user`, "./routes/admin/system/user.tsx");
@@ -251,6 +251,7 @@ export function createNews(route: DefineRouteFunction) {
 }
 
 export function createBlog(route: DefineRouteFunction) {
+  route(`${PREFIX}/blog`, "./routes/admin/blog/main/index.tsx");
   route(
     `${PREFIX}/blog/category`,
     "./routes/admin/blog/category-list/index.tsx",

@@ -3,22 +3,30 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // remix
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData, useParams } from "@remix-run/react";
 
 // components
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { Space } from "antd";
+import DeleteIt from "~/components/common/DeleteIt";
+import CategoryModal from "./CategoryModal";
+import * as _icon from "@ant-design/icons";
 
 // constants
 // import { ADMIN_ROUTE_PREFIX } from "~/constants";
-import DeleteIt from "~/components/common/DeleteIt";
+
+// hooks
 import { useFetcherChange } from "~/hooks/useFetcherChange";
-import CategoryModal from "./CategoryModal";
+import { goBlogNav } from "~/hooks/router/blog.route";
+
+// services
 import {
   createBlogCategory,
-  getBlogCategoryListById,
+  getBlogCategory,
 } from "~/services/blog/blog-category";
 import { getUserId } from "~/services/common/auth.server";
+
+const { SwitcherOutlined } = _icon;
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -71,15 +79,15 @@ export const action: LoaderFunction = async ({ request }) => {
 export const loader: LoaderFunction = async ({ request, params }) => {
   const userId = await getUserId(request);
   return json({
-    dataSource: await getBlogCategoryListById(userId!),
+    dataSource: await getBlogCategory(userId!),
   });
 };
 
 export default function SystemConfigRoute() {
   const { dataSource } = useLoaderData<typeof loader>();
-  // const { lang } = useParams();
+  const { lang } = useParams();
   const fetcher = useFetcherChange();
-
+  console.log("dataSource", dataSource);
   return (
     <PageContainer>
       <ProTable
@@ -93,6 +101,16 @@ export default function SystemConfigRoute() {
           {
             dataIndex: "name",
             title: "标签名字",
+            renderText(_, record) {
+              return (
+                <Link to={goBlogNav(lang!, { category: record.id })}>
+                  <Space>
+                    <SwitcherOutlined />
+                    <span>{record.name}</span>
+                  </Space>
+                </Link>
+              );
+            },
           },
           {
             dataIndex: "description",

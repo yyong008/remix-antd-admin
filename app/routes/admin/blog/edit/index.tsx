@@ -1,3 +1,6 @@
+// type
+import type { ActionFunctionArgs } from "@remix-run/node";
+
 // remix
 import { json, useLoaderData, useParams } from "@remix-run/react";
 
@@ -18,38 +21,55 @@ import { useFetcherChange } from "~/hooks/useFetcherChange";
 
 // services
 import { getUserId } from "~/services/common/auth.server";
-import { createBlog } from "~/config/routes";
 import { getFindBlogCategory } from "~/services/blog/blog-category";
 import { getFindBlogTag } from "~/services/blog/blog-tags";
+import { createBlog, updateBlog } from "~/services/blog/blog";
 
 // remix:action
-export const action = async ({ params, request }) => {
-  const data = await request.json();
-  const userId = await getUserId(request);
-  const blog = await createBlog({
-    ...data,
-    userId,
-    categoryId: data.newsId,
-    publishedAt: data.date,
-  });
+export const action = async ({ params, request }: ActionFunctionArgs) => {
+  const { method } = request;
 
-  return json({
-    code: 0,
-    data: blog,
-    message: "success",
-  });
+  if (method === "POST") {
+    const data = await request.json();
+    const userId = await getUserId(request);
+    const blog = await createBlog({
+      ...data,
+      userId,
+      publishedAt: data.date,
+    });
+
+    return json({
+      code: 0,
+      data: blog,
+      message: "success",
+    });
+  } else if (method === "PUT") {
+    const data = await request.json();
+    const userId = await getUserId(request);
+    const blog = await updateBlog({
+      ...data,
+      userId,
+      publishedAt: data.date,
+    });
+
+    return json({
+      code: 0,
+      data: blog,
+      message: "success",
+    });
+  }
 };
 
 // remix:loader
 export const loader = async () => {
   return json({
     code: 0,
+    message: "success",
     data: {
       TINYMCE_KEY: process.env.TINYMCE_KEY,
       blogCategory: await getFindBlogCategory(),
       blogTag: await getFindBlogTag(),
     },
-    message: "success",
   });
 };
 
@@ -64,6 +84,7 @@ export default function BlotModRoute() {
         <ProForm
           onFinish={async (v) => {
             const vals = v;
+            debugger;
             fetcher.submit(vals, {
               method: id ? "PUT" : "POST", // 修改或新建
               encType: "application/json",

@@ -256,21 +256,6 @@ CREATE TABLE "sys_loginlog" (
     "system" TEXT,
     "browser" TEXT
 );
-INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (1, 'admin', '本机地址', '湖南省张家界市', 1711887132863, 'Windows10', 'Chrome123.0.0.0');
-INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (2, 'admin', '本机地址', '湖南省张家界市', 1711940509912, 'Windows10', 'Chrome123.0.0.0');
-INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (3, 'super admin', '本机地址', '湖南省张家界市', 1711940516141, 'Windows10', 'Chrome123.0.0.0');
-INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (4, 'admin', '本机地址', '湖南省张家界市', 1711966951241, 'Windows10', 'Chrome123.0.0.0');
-INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (5, 'admin', '本机地址', '湖南省张家界市', 1711966962738, 'Windows10', 'Chrome123.0.0.0');
-INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (6, 'super admin', '本机地址', '湖南省张家界市', 1711967076505, 'Windows10', 'Chrome123.0.0.0');
-INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (7, 'super admin', '本机地址', '湖南省张家界市', 1711977765412, 'Windows10', 'Chrome123.0.0.0');
-INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (8, 'super admin', '本机地址', '湖南省张家界市', 1712017512297, 'Windows10', 'Chrome123.0.0.0');
-INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (9, 'admin', '本机地址', '湖南省张家界市', 1712052640588, 'Windows10', 'Chrome123.0.0.0');
-INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (10, 'admin', '本机地址', '湖南省张家界市', 1712052649973, 'Windows10', 'Chrome123.0.0.0');
-INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (11, 'admin', '本机地址', '湖南省张家界市', 1712053319982, 'Windows10', 'Chrome123.0.0.0');
-INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (12, 'admin', '本机地址', '湖南省张家界市', 1712053346754, 'Windows10', 'Chrome123.0.0.0');
-INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (13, 'admin', '本机地址', '湖南省张家界市', 1712053469160, 'Windows10', 'Chrome123.0.0.0');
-INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (14, 'super admin', '本机地址', '湖南省张家界市', 1712053480895, 'Windows10', 'Chrome123.0.0.0');
-
 -- 表：sys_menu
 DROP TABLE IF EXISTS sys_menu;
 CREATE TABLE "sys_menu" (

@@ -66,10 +66,15 @@ export const getBlogsListByCategoryId = async (categoryId: number) => {
   }
 };
 
-export const getBlogsListByTagId = async (tagId: number) => {
+export const getBlogsListByTagId = async (
+  categoryId: number,
+  tagId: number,
+  userId: number,
+) => {
   try {
     return await prisma.blog.findMany({
       where: {
+        userId,
         tagId,
       },
     });
