@@ -17,7 +17,7 @@ import {
   createBlogCategory,
   getBlogListById,
 } from "~/services/blog/blog-category";
-import { getUserId } from "~/services/common/auth.server";
+import { auth, getUserId } from "~/services/common/auth.server";
 
 import { URLSearchParams } from "url";
 import ButtonLink from "~/components/common/ButtonLink";
@@ -29,7 +29,12 @@ export const meta: MetaFunction = () => {
 };
 
 // remix:action
-export const action: LoaderFunction = async ({ request }) => {
+export const action: LoaderFunction = async ({ request, params }) => {
+  const [userId, redirectToLogin] = await auth({ request, params } as any);
+
+  if (!userId) {
+    return redirectToLogin();
+  }
   const method = request.method;
 
   if (method === "POST") {
@@ -72,10 +77,14 @@ export const action: LoaderFunction = async ({ request }) => {
 
 // remix:loader
 export const loader: LoaderFunction = async ({ request, params }) => {
+  const [userId, redirectToLogin] = await auth({ request, params } as any);
+
+  if (!userId) {
+    return redirectToLogin();
+  }
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.searchParams);
 
-  const userId = await getUserId(request);
   return json({
     dataSource: await getBlogListById(
       userId!,

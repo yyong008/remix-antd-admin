@@ -24,7 +24,7 @@ import {
   createBlogCategory,
   getBlogCategory,
 } from "~/services/blog/blog-category";
-import { getUserId } from "~/services/common/auth.server";
+import { auth, getUserId } from "~/services/common/auth.server";
 
 const { SwitcherOutlined } = _icon;
 
@@ -34,7 +34,12 @@ export const meta: MetaFunction = () => {
 };
 
 // remix:action
-export const action: LoaderFunction = async ({ request }) => {
+export const action: LoaderFunction = async ({ request, params }) => {
+  const [userId, redirectToLogin] = await auth({ request, params } as any);
+
+  if (!userId) {
+    return redirectToLogin();
+  }
   const method = request.method;
 
   if (method === "POST") {
@@ -77,7 +82,11 @@ export const action: LoaderFunction = async ({ request }) => {
 
 // remix:loader
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const userId = await getUserId(request);
+  const [userId, redirectToLogin] = await auth({ request, params } as any);
+
+  if (!userId) {
+    return redirectToLogin();
+  }
   return json({
     dataSource: await getBlogCategory(userId!),
   });

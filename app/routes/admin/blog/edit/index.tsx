@@ -1,5 +1,5 @@
 // type
-import type { ActionFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 
 // remix
 import { json, useLoaderData, useParams } from "@remix-run/react";
@@ -20,13 +20,18 @@ import EditorRichFromItem from "~/components/editor/EditorRichFromItem";
 import { useFetcherChange } from "~/hooks/useFetcherChange";
 
 // services
-import { getUserId } from "~/services/common/auth.server";
+import { auth, getUserId } from "~/services/common/auth.server";
 import { getFindBlogCategory } from "~/services/blog/blog-category";
 import { getFindBlogTag } from "~/services/blog/blog-tags";
 import { createBlog, updateBlog } from "~/services/blog/blog";
 
 // remix:action
 export const action = async ({ params, request }: ActionFunctionArgs) => {
+  const [userId, redirectToLogin] = await auth({ request, params } as any);
+
+  if (!userId) {
+    return redirectToLogin();
+  }
   const { method } = request;
 
   if (method === "POST") {
@@ -61,7 +66,12 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 };
 
 // remix:loader
-export const loader = async () => {
+export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+  const [userId, redirectToLogin] = await auth({ request, params } as any);
+
+  if (!userId) {
+    return redirectToLogin();
+  }
   return json({
     code: 0,
     message: "success",

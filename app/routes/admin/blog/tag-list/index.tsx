@@ -17,7 +17,7 @@ import * as _icon from "@ant-design/icons";
 
 // services
 import { createBlogTag, getBlogCategoryTag } from "~/services/blog/blog-tags";
-import { getUserId } from "~/services/common/auth.server";
+import { auth, getUserId } from "~/services/common/auth.server";
 import { goBlogNav } from "~/hooks/router/blog.route";
 
 const { SwitcherOutlined } = _icon;
@@ -28,7 +28,12 @@ export const meta: MetaFunction = () => {
 };
 
 // remix:action
-export const action: LoaderFunction = async ({ request }) => {
+export const action: LoaderFunction = async ({ request, params }) => {
+  const [userId, redirectToLogin] = await auth({ request, params } as any);
+
+  if (!userId) {
+    return redirectToLogin();
+  }
   const method = request.method;
 
   if (method === "POST") {
@@ -72,8 +77,13 @@ export const action: LoaderFunction = async ({ request }) => {
 
 // remix:loader
 export const loader: LoaderFunction = async ({ request, params }) => {
+  const [userId, redirectToLogin] = await auth({ request, params } as any);
+
+  if (!userId) {
+    return redirectToLogin();
+  }
   // const { id } = params;
-  const userId = await getUserId(request);
+  // const userId = await getUserId(request);
   return json({
     dataSource: await getBlogCategoryTag(userId!),
   });

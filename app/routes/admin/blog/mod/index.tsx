@@ -17,30 +17,51 @@ import EditorRichFromItem from "~/components/editor/EditorRichFromItem";
 import { useFetcherChange } from "~/hooks/useFetcherChange";
 
 // services
-import { getUserId } from "~/services/common/auth.server";
-import { createNews } from "~/services/news/news";
+import { auth } from "~/services/common/auth.server";
 import { getFindNewsCategory } from "~/services/news/news-category";
-import type { LoaderFunctionArgs } from "@remix-run/node";
-import { getBlogById } from "~/services/blog/blog";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import { getBlogById, updateBlog } from "~/services/blog/blog";
 import { getFindBlogCategory } from "~/services/blog/blog-category";
 import { getFindBlogTag } from "~/services/blog/blog-tags";
 
 // remix:action
-export const action = async ({ params, request }) => {
-  const data = await request.json();
-  const userId = await getUserId(request);
-  const news = await createNews({
-    ...data,
-    userId,
-    categoryId: data.newsId,
-    publishedAt: data.date,
-  });
-  console.log(news);
-  return json({});
+export const action = async ({ params, request }: ActionFunctionArgs) => {
+  const [userId, redirectToLogin] = await auth({ request, params } as any);
+
+  if (!userId) {
+    return redirectToLogin();
+  }
+  const method = request.method;
+
+  if (method === "PUT") {
+    const data = await request.json();
+    await updateBlog({
+      ...data,
+      userId,
+      categoryId: data.newsId,
+      publishedAt: data.date,
+    });
+    return json({
+      code: 0,
+      message: "success",
+      data: {},
+    });
+  } else {
+    return json({
+      code: 1,
+      message: "fail",
+      data: {},
+    });
+  }
 };
 
 // remix:loader
-export const loader = async ({ params }: LoaderFunctionArgs) => {
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+  const [userId, redirectToLogin] = await auth({ request, params } as any);
+
+  if (!userId) {
+    return redirectToLogin();
+  }
   const { id } = params;
 
   if (id) {
