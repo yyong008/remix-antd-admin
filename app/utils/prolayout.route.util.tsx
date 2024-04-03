@@ -6,6 +6,7 @@ import AntdIcon from "~/components/common/AntdIcon";
  */
 function refactorMenu(menuItem: any) {
   const { icon } = menuItem;
+  menuItem.key = menuItem.key + menuItem.path; // https://github.com/ant-design/pro-components/issues/2511
   menuItem.hideInMenu = !menuItem.isShow;
   if (icon) {
     menuItem.icon = <AntdIcon name={icon} />;

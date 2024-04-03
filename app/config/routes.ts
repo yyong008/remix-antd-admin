@@ -186,7 +186,7 @@ export function createAdminDemoRoute(route: DefineRouteFunction) {
 }
 
 export function createAdminDashboard(route: DefineRouteFunction) {
-  route(`${DASHBOARD_PREFIX}/main`, "./routes/admin/dashboard/index.tsx");
+  route(`${DASHBOARD_PREFIX}/`, "./routes/admin/dashboard/index.tsx", {});
 }
 export function createAdminSystem(route: DefineRouteFunction) {
   route(`${SYSTEM_PREFIX}/user`, "./routes/admin/system/user.tsx");
