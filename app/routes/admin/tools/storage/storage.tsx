@@ -6,29 +6,24 @@ import type {
 } from "@remix-run/node";
 
 // remix
-import {
-  useLoaderData,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "@remix-run/react";
-import { json, redirect } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { json } from "@remix-run/node";
 
 // components
 import { Image } from "antd";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { StorageModal } from "~/components/tools/StorageModal";
+
+// services
+import { auth } from "~/services/common/auth.server";
+import { getStorageList, storageCount } from "~/services/tools/storage";
 
 // utils
-// import { formatDate } from "~/utils/utils";
+import { getPaginationByRequest } from "~/utils/pagination.util";
 
-import { StorageModal } from "~/components/tools/StorageModal";
-import { getStorageList, storageCount } from "~/services/tools/storage";
-import { ADMIN_ROUTE_PREFIX } from "~/constants";
-import {
-  destroySession,
-  getSession,
-  getUserId,
-} from "~/services/common/auth.server";
+// hooks
+import { usePagination } from "~/hooks/usePagination";
+import { useStorageNav } from "~/hooks/router/storage.route";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -42,33 +37,26 @@ export const loader: LoaderFunction = async ({
   request,
   params,
 }: LoaderFunctionArgs) => {
-  const { lang } = params;
-  const userId = await getUserId(request);
-  const session = await getSession(request.headers.get("Cookie"));
+  const [userId, redirectToLogin] = await auth({
+    request,
+    params,
+  } as LoaderFunctionArgs);
+
   if (!userId) {
-    return redirect(`/${lang}/${ADMIN_ROUTE_PREFIX}/login`, {
-      headers: {
-        "Set-Cookie": await destroySession(session),
-      },
-    });
+    return redirectToLogin();
   }
-  let { searchParams } = new URL(request.url);
-  let page = Number(searchParams.get("page") ?? 1);
-  let pageSize = Number(searchParams.get("pageSize") ?? 10);
-  let name = searchParams.get("name") ?? "";
+  const { page, pageSize, name } = getPaginationByRequest(request);
 
   return json({
-    count: await storageCount(),
+    total: await storageCount(),
     dataSource: await getStorageList({ page, pageSize, name }),
   });
 };
 
-export default function SystemUserRoute() {
-  const { dataSource, count } = useLoaderData<typeof loader>();
-  const nav = useNavigate();
-  const { lang } = useParams();
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
+export default function SystemStorageRoute() {
+  const { dataSource, total } = useLoaderData<typeof loader>();
+  const { pageSize, current } = usePagination();
+  const [navStorage] = useStorageNav();
 
   return (
     <PageContainer>
@@ -91,7 +79,6 @@ export default function SystemUserRoute() {
             title: "预览图",
             ellipsis: true,
             render(_, record) {
-              console.log("");
               if (record.type.startsWith("image")) {
                 return <Image src={record.path} />;
               }
@@ -125,13 +112,11 @@ export default function SystemUserRoute() {
           },
         ]}
         pagination={{
-          total: count,
-          pageSize: Number(searchParams.get("pageSize")) || 10,
-          current: Number(searchParams.get("page")) || 0,
+          total,
+          pageSize,
+          current,
           onChange(page, pageSize) {
-            nav(
-              `/${lang}/${ADMIN_ROUTE_PREFIX}/tools/storage?page=${page}&pageSize=${pageSize}`,
-            );
+            navStorage({ page, pageSize });
           },
         }}
       />

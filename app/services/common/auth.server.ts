@@ -1,3 +1,5 @@
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
 import { ADMIN_ROUTE_PREFIX } from "~/constants";
 
@@ -44,4 +46,32 @@ export async function getUserId(request: Request) {
     return null;
   }
   return +userId;
+}
+
+export async function auth({
+  request,
+  params,
+}: ActionFunctionArgs | LoaderFunctionArgs): Promise<
+  [number | null, () => Promise<any>]
+> {
+  const { lang } = params;
+  const userId = await getUserId(request);
+  const session = await getSession(request.headers.get("Cookie"));
+  // if (!userId) {
+  //   return redirect(`/${lang}/${ADMIN_ROUTE_PREFIX}/login`, {
+  //     headers: {
+  //       "Set-Cookie": await destroySession(session),
+  //     },
+  //   })
+  // }
+
+  const redirectToLogin = async () => {
+    return redirect(`/${lang}/${ADMIN_ROUTE_PREFIX}/login`, {
+      headers: {
+        "Set-Cookie": await destroySession(session),
+      },
+    });
+  };
+
+  return [userId, redirectToLogin];
 }
