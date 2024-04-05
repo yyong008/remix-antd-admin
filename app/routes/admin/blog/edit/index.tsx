@@ -94,7 +94,6 @@ export default function BlotModRoute() {
         <ProForm
           onFinish={async (v) => {
             const vals = v;
-            debugger;
             fetcher.submit(vals, {
               method: id ? "PUT" : "POST", // 修改或新建
               encType: "application/json",

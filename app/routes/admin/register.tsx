@@ -132,7 +132,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
 
   if (session.has("userId")) {
-    return redirect("/" + lang + "/" + ADMIN_ROUTE_PREFIX + "/dashboard/main", {
+    return redirect("/" + lang + "/" + ADMIN_ROUTE_PREFIX + "/dashboard", {
       headers: {
         "Set-Cookie": await destroySession(session),
       },
@@ -163,7 +163,6 @@ export default function RegisterPage() {
   }
 
   const handleSubmit = async (values: any) => {
-    debugger;
     const vals = {
       ...values,
       password: bcryptUtil.genHashedPassword(values.password),

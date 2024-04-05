@@ -6,7 +6,7 @@ import { useContext, useMemo, memo, useState } from "react";
 
 // remix
 import { json, redirect } from "@remix-run/node";
-import { Link, Outlet, useLoaderData } from "@remix-run/react";
+import { Outlet, useLoaderData, useParams } from "@remix-run/react";
 
 // components
 import { ProLayout } from "@ant-design/pro-components";
@@ -15,6 +15,8 @@ import MenuFooterRender from "~/layout/MenuFooterRender";
 import { AvatarDropDown } from "~/layout/AvatarDropDown";
 import { SettingDrawerWrap } from "~/layout/SettingDrawerWrap";
 import { createActionRenderWrap } from "~/layout/createActionsRender";
+import MenuItemOutLink from "~/components/common/MenuItemOuterLink";
+import MenuItemLink from "~/components/common/MenuItemLink";
 
 // context
 import SettingContext from "~/context/settingContext";
@@ -27,84 +29,75 @@ import { createTokens } from "~/layout/createToken";
 
 // utils
 import { createProLayoutRoute } from "~/utils/prolayout.route.util";
-
-// i18n
-import i18n from "~/i18n/i18next.server";
+import { createT } from "~/utils/i18n.util";
 
 // hooks
 import { useNProgress } from "~/hooks/useNProgress";
 
 // servies
-import {
-  destroySession,
-  getSession,
-  getUserId,
-} from "~/services/common/auth.server";
-import { getMenuByUserId } from "~/services/system/menu";
+import { auth } from "~/services/common/auth.server";
+import { getFlatMenuByUserId } from "~/services/system/menu";
 import { getUserInfoById } from "~/services/system/user";
-
-// constants
-import { ADMIN_ROUTE_PREFIX } from "~/constants";
 
 // meta:loader
 export const loader: LoaderFunction = async ({
   request,
   params,
 }: LoaderFunctionArgs) => {
+  const [userId, redirectFn] = await auth({ request, params } as any);
+
+  if (!userId) {
+    return redirectFn();
+  }
+
   const { lang } = params;
-  let t = await i18n.getFixedT(lang!);
+  let t = await createT(params);
 
   if (!langs.includes(typeof lang === "string" ? lang : "")) {
     return redirect("/404"); // 404 is $.tsx routes
   }
-  const userId = await getUserId(request);
 
-  if (!userId) {
-    const session = await getSession(request.headers.get("Cookie"));
-    return redirect("/" + lang + "/" + ADMIN_ROUTE_PREFIX + "/login", {
-      headers: {
-        "Set-Cookie": await destroySession(session),
-      },
-    });
-  }
   return json({
-    menu: await getMenuByUserId(userId, t, lang!),
+    menu: await getFlatMenuByUserId(userId, t),
     userInfo: await getUserInfoById(userId),
   });
 };
 
+const resetStyles = {
+  padding: "0px",
+  margin: "0px",
+};
+
 function AdminLayout() {
   useNProgress();
-  const { menu, userInfo } = useLoaderData<typeof loader>();
+
+  const { lang } = useParams();
   const value = useContext(SettingContext);
+  const { menu, userInfo } = useLoaderData<typeof loader>();
   const [pathname, setPathname] = useState(location.pathname);
-  const route = useMemo(() => createProLayoutRoute(menu), [menu]);
   const token = useMemo(() => createTokens(value), [value]);
-  const resetStyles = {
-    padding: "0px",
-    margin: "0px",
-  };
+  const route = useMemo(() => createProLayoutRoute(lang!, menu), [lang, menu]);
 
   return (
     <ProLayout
-      {...value.theme}
-      route={route}
-      loading={false}
-      title={config.title}
-      logo={config.logo}
-      suppressSiderWhenMenuEmpty={true}
-      layout={config.layout as any}
-      token={token}
-      ErrorBoundary={false}
-      pageTitleRender={() => ""}
-      menu={config.menu}
-      menuFooterRender={MenuFooterRender}
-      footerRender={() => <Footer />}
-      contentStyle={resetStyles}
-      style={resetStyles}
       location={{
         pathname,
       }}
+      route={route}
+      token={token}
+      loading={false}
+      {...value.theme}
+      logo={config.logo}
+      menu={config.menu}
+      style={resetStyles}
+      title={config.title}
+      ErrorBoundary={false}
+      pageTitleRender={false}
+      contentStyle={resetStyles}
+      layout={config.layout as any}
+      footerRender={() => <Footer />}
+      suppressSiderWhenMenuEmpty={true}
+      menuFooterRender={MenuFooterRender}
       actionsRender={createActionRenderWrap({ value })}
       avatarProps={{
         src: userInfo?.avatar || config.avatar.src,
@@ -116,21 +109,11 @@ function AdminLayout() {
       }}
       menuItemRender={(item, dom) => {
         if (item.isLink) {
-          return (
-            <a href={item.path} target={"_blank"} rel="noreferrer">
-              {dom}
-            </a>
-          );
+          return <MenuItemOutLink path={item.path!} dom={dom} />;
         }
+
         return (
-          <Link
-            to={`${item.path}`}
-            onClick={() => {
-              setPathname(item.path || "/welcome");
-            }}
-          >
-            {dom}
-          </Link>
+          <MenuItemLink path={item.path!} dom={dom} setPathname={setPathname} />
         );
       }}
     >

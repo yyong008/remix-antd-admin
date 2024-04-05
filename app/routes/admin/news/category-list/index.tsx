@@ -32,7 +32,6 @@ export const meta: MetaFunction = () => {
 // remix:action
 export const action: LoaderFunction = async ({ request }) => {
   const method = request.method;
-  console.log("method", method);
 
   if (method === "POST") {
     const data = await request.json();

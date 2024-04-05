@@ -1,3 +1,6 @@
+// type
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+
 // remix
 import { json, useLoaderData, useParams } from "@remix-run/react";
 
@@ -19,10 +22,12 @@ import { useFetcherChange } from "~/hooks/useFetcherChange";
 // services
 import { auth } from "~/services/common/auth.server";
 import { getFindNewsCategory } from "~/services/news/news-category";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { getBlogById, updateBlog } from "~/services/blog/blog";
 import { getFindBlogCategory } from "~/services/blog/blog-category";
 import { getFindBlogTag } from "~/services/blog/blog-tags";
+
+// utils
+import { from, lastValueFrom, map, switchMap } from "rxjs";
 
 // remix:action
 export const action = async ({ params, request }: ActionFunctionArgs) => {
@@ -33,14 +38,35 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   }
   const method = request.method;
 
+  function validate(data: any) {
+    try {
+      return data;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
   if (method === "PUT") {
-    const data = await request.json();
-    await updateBlog({
-      ...data,
-      userId,
-      categoryId: data.newsId,
-      publishedAt: data.date,
-    });
+    const update$: any = from(request.json()).pipe(
+      map(() => validate(data)),
+      map((data) => ({
+        ...data,
+        userId,
+        categoryId: data.newsId,
+        publishedAt: data.date,
+      })),
+      switchMap((data) => updateBlog(data)),
+    );
+
+    const data = await lastValueFrom(update$);
+    // const data = await request.json();
+    // await updateBlog({
+    //   ...data,
+    //   userId,
+    //   categoryId: data.newsId,
+    //   publishedAt: data.date,
+    // });
     return json({
       code: 0,
       message: "success",
@@ -94,7 +120,6 @@ export default function BlotModRoute() {
   const fetcher = useFetcherChange();
   const { id } = useParams();
   const { data } = useLoaderData<typeof loader>();
-  console.log("data", data);
   return (
     <PageContainer>
       <ProCard>

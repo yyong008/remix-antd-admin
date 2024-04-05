@@ -5,8 +5,8 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 
 // components
-import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { Descriptions, Space, Tag } from "antd";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -118,7 +118,7 @@ const ProjectDevelopmentDep = () => {
   );
 };
 
-export default function SystemUserRoute() {
+export default function AboutRoute() {
   return (
     <PageContainer>
       <Space direction="vertical">

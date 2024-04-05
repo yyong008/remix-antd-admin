@@ -21,8 +21,12 @@ const __APP_INFO__ = {
 };
 
 export default defineConfig({
+  
   server: {
     port: 3333,
+    watch: {
+      depth : 10
+    }
   },
   define: {
     __APP_INFO__: JSON.stringify(__APP_INFO__),
@@ -32,6 +36,7 @@ export default defineConfig({
     remix({
       ssr: true,
       ignoredRouteFiles: ["**/*.css"],
+      
       routes: async (defineRoute) => {
         return defineRoute((route) => {
           createRoutes.createAdmin(route);

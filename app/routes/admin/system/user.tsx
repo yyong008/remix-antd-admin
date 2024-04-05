@@ -10,15 +10,16 @@ import type {
 import { useState } from "react";
 
 // remix
-import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
 
 // components
-import * as _icon from "@ant-design/icons";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
-import { Button, Form, Image, Popconfirm, Space, Tag } from "antd";
+import { Button, Popconfirm, Space, Tag } from "antd";
 import CreateUserModal from "~/components/system/user/CreateUserModel";
 import StatusType from "~/components/common/StatusType";
+import UserAvatar from "~/components/common/UserAvatar";
+import DeleteIt from "~/components/common/DeleteIt";
 
 // services
 import {
@@ -30,10 +31,14 @@ import {
 } from "~/services/system/user";
 import { getRoleList } from "~/services/system/role";
 import { getDeptListTree } from "~/services/system/dept";
+import { auth } from "~/services/common/auth.server";
 
 // utils
 import { formatDate } from "~/utils/utils";
+import { getPaginationByRequest } from "~/utils/pagination.util";
+import { respSuccessJson } from "~/utils/response.json";
 
+// schema
 import {
   userSchema,
   deleteUserSchema,
@@ -42,20 +47,23 @@ import {
 
 // hooks
 import { useFetcherChange } from "~/hooks/useFetcherChange";
-
-// icons
-const { DeleteOutlined, EditOutlined } = _icon;
+import { useUserNav } from "~/hooks/router/user.route";
 
 // remix:meta
 export const meta: MetaFunction = () => {
-  return [
-    { title: "System-User" },
-    { name: "System-User", content: "System-User" },
-  ];
+  return [{ title: "System-User" }];
 };
 
 // remix:action
-export const action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async ({ request, params }) => {
+  const [userId, redirectToLogin] = await auth({
+    request,
+    params,
+  } as LoaderFunctionArgs);
+
+  if (!userId) {
+    return redirectToLogin();
+  }
   const method = request.method;
   if (method === "POST") {
     const userData = await request.json();
@@ -109,14 +117,19 @@ export const action: ActionFunction = async ({ request }) => {
 // remix:loader
 export const loader: LoaderFunction = async ({
   request,
+  params,
 }: LoaderFunctionArgs) => {
-  let { searchParams } = new URL(request.url);
-  let page = Number(searchParams.get("page") ?? 1);
-  let pageSize = Number(searchParams.get("pageSize") ?? 10);
-  let name = searchParams.get("name") ?? "";
+  const [userId, redirectToLogin] = await auth({
+    request,
+    params,
+  } as LoaderFunctionArgs);
 
-  return json({
-    count: await getUserCount(),
+  if (!userId) {
+    return redirectToLogin();
+  }
+  const { page, pageSize, name } = await getPaginationByRequest(request);
+  return respSuccessJson({
+    total: await getUserCount(),
     dataSource: await getUserList({ page, pageSize, name }),
     roles: await getRoleList(),
     depts: await getDeptListTree(),
@@ -124,11 +137,12 @@ export const loader: LoaderFunction = async ({
 };
 
 export default function SystemUserRoute() {
-  const { dataSource, depts, roles, count } = useLoaderData<typeof loader>();
+  const [navUser] = useUserNav();
   const fetcher = useFetcherChange();
-  const navigate = useNavigate();
-  const { lang } = useParams();
   const [selectedRow, setSelectedRow] = useState([]);
+  const {
+    data: { dataSource, depts, roles, total },
+  } = useLoaderData<typeof loader>();
 
   return (
     <PageContainer>
@@ -140,8 +154,8 @@ export default function SystemUserRoute() {
         rowKey="id"
         showSorterTooltip
         rowSelection={{
-          onChange: (_, selectedRows: any) => {
-            setSelectedRow(selectedRows);
+          onChange: (selectedRowKeys, selectedRows: any) => {
+            setSelectedRow(selectedRowKeys);
           },
         }}
         toolBarRender={() => [
@@ -151,13 +165,8 @@ export default function SystemUserRoute() {
             depts={depts}
             roles={roles}
             record={{}}
-            trigger={
-              <Button type="primary" icon={<EditOutlined />}>
-                新建
-              </Button>
-            }
           />,
-          <DeleteIt
+          <DeleteItWithSelect
             key="delete"
             selectedRow={selectedRow}
             fetcher={fetcher}
@@ -171,15 +180,7 @@ export default function SystemUserRoute() {
             title: "头像",
             width: 100,
             render(_, record) {
-              return (
-                <div className="w-[20px] h-[20px] rounded-[20px] overflow-hidden">
-                  {
-                    <Image
-                      src={record.avatar ? record.avatar : "/images/user.jpg"}
-                    />
-                  }
-                </div>
-              );
+              return <UserAvatar avatar={record.avatar} />;
             },
           },
           {
@@ -199,8 +200,8 @@ export default function SystemUserRoute() {
             render(_: any, record) {
               return (
                 <div>
-                  {record.roles.map((_role: any, index: number) => {
-                    return <Tag key={index}>{_role.role.name}</Tag>;
+                  {record.UserRole.map((_role: any, index: number) => {
+                    return <Tag key={index}>{_role.roles.name}</Tag>;
                   })}
                 </div>
               );
@@ -286,32 +287,19 @@ export default function SystemUserRoute() {
                     depts={depts}
                     roles={roles}
                     record={record}
-                    key="user-modal"
-                    trigger={<Button type="link" icon={<EditOutlined />} />}
+                    key="mod-user-modal"
                   />
-                  <Form>
-                    <Popconfirm
-                      title="确定要删除此用户吗?"
-                      onConfirm={() => {
-                        fetcher.submit(
-                          { ids: [record.id] },
-                          { method: "DELETE", encType: "application/json" },
-                        );
-                      }}
-                    >
-                      <Button type="link" danger icon={<DeleteOutlined />} />
-                    </Popconfirm>
-                  </Form>
+                  <DeleteIt fetcher={fetcher} record={record} title={"用户"} />
                 </Space>
               );
             },
           },
         ]}
         pagination={{
-          total: count,
+          total: total,
           pageSize: 10,
           onChange(page, pageSize) {
-            navigate(`/${lang}/system/user?page=${page}&pageSize=${pageSize}`);
+            navUser({ page, pageSize });
           },
         }}
       />
@@ -319,7 +307,7 @@ export default function SystemUserRoute() {
   );
 }
 
-function DeleteIt({ selectedRow, fetcher, setSelectedRow }: any) {
+function DeleteItWithSelect({ selectedRow, fetcher, setSelectedRow }: any) {
   return selectedRow.length > 0 ? (
     <Popconfirm
       key="del"

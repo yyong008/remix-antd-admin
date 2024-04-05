@@ -65,6 +65,11 @@ export async function getMenuRaw(t: () => void, lang: string) {
   return treeData;
 }
 
+export async function getFlatMenu() {
+  let menu = await prisma.menu.findMany();
+  return menu;
+}
+
 export async function getTypeNotPermMenu(t: () => void) {
   try {
     const menuData = await prisma.menu.findMany({

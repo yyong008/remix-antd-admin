@@ -1,5 +1,5 @@
 // type
-
+import type { Prisma } from "@prisma/client";
 // service
 import prisma from "~/services/common/db.server";
 
@@ -108,10 +108,9 @@ export async function getTypeNotPermMenu(t: () => void, lang: string) {
  * @param userId 菜单关联的角色
  * @returns 菜单
  */
-export async function getMenuByUserId(
+export async function getFlatMenuByUserId(
   userId: number,
   t: (v: string) => string,
-  lang: string,
 ) {
   try {
     const user = await prisma.user.findUnique({
@@ -137,24 +136,17 @@ export async function getMenuByUserId(
 
     // 指定角色的菜单
     const flatRoleMenuData =
-      user?.UserRole?.map((_role) => {
-        return _role.roles;
-      })
+      user?.UserRole?.map(({ roles }) => roles)
         ?.map((role) => role.MenuRole)
         ?.reduce((p, c) => p.concat(c), [])
         ?.map((m) => m.menus)
         .map((m) => {
           m.name = t(m.name);
           return m;
-        }) ?? [];
+        })
+        .filter((item) => item.type !== 3) ?? [];
 
-    const menuTree = buildMenuTree(
-      [...new Set(flatRoleMenuData)],
-      null,
-      t,
-      lang,
-    );
-    return menuTree;
+    return [...new Set(flatRoleMenuData)];
   } catch (error) {
     console.error(error);
     return null;
@@ -250,7 +242,7 @@ export const updateMenu = async (data) => {
       data: {
         type: data.type,
         name: data.name,
-        parentId: data.parentId,
+        parent_menu_id: data.parentId,
         permission: data.permission,
         isLink: data.isLink,
         isShow: data.isShow,

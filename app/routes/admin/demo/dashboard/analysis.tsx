@@ -39,7 +39,6 @@ export const meta: MetaFunction = () => {
 export const loader: LoaderFunction = async ({ request, params }) => {
   const { lang } = params;
   const userId = await getUserId(request);
-  console.log("id");
   if (!userId) {
     console.error("No userID dashboard/analysis", userId);
     const session = await getSession(request.headers.get("Cookie"));

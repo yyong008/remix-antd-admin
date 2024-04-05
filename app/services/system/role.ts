@@ -39,14 +39,16 @@ export const getRoleList = async () => {
       description: true,
       createdAt: true,
       updatedAt: true,
-      menus: {
+
+      MenuRole: {
         include: {
-          menu: true,
+          menus: true,
+          // menu: true,
         },
       },
     },
   });
-
+  console.log(roles, "roles");
   return roles;
 };
 
@@ -165,4 +167,32 @@ export const deleteRole = async (ids: number[]) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const getUserRolesById = async (roleId: number) => {
+  const roles = await prisma.menuRole.findMany({
+    where: {
+      roleId,
+    },
+  });
+
+  return roles;
+};
+
+export const getMenuRoles = async () => {
+  const roles = await prisma.menuRole.findMany({
+    select: {
+      id: true,
+      roleId: true,
+      menuId: true,
+      menus: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  });
+
+  return roles;
 };

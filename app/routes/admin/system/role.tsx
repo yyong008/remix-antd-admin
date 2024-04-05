@@ -12,16 +12,12 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
 // components
-import * as _icon from "@ant-design/icons";
-import { Button, Space } from "antd";
+import { Space } from "antd";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 import CreateRoleModal from "~/components/roles/CreateRoleModel";
 import DeleteIt from "~/components/common/DeleteIt";
 import StatusType from "~/components/common/StatusType";
 import FormatTime from "~/components/common/FormatTime";
-
-// i18n
-import i18n from "~/i18n/i18next.server";
 
 // services
 import {
@@ -29,19 +25,18 @@ import {
   handlePostAction,
   handlePutAction,
   handleDeleteAction,
+  getUserRolesById,
+  getMenuRoles,
 } from "~/services/system/role";
-import { getMenuRaw } from "~/services/system/menu-role";
+import { getFlatMenu } from "~/services/system/menu-role";
 import { useFetcherChange } from "~/hooks/useFetcherChange";
-
-// icons
-const { EditOutlined } = _icon;
+import AntdIcon from "~/components/common/AntdIcon";
+import { useTranslation } from "react-i18next";
+import { getUserId } from "~/services/common/auth.server";
 
 // remix:meta
 export const meta: MetaFunction = () => {
-  return [
-    { title: "System-Role" },
-    { name: "System-Role", content: "System-Role" },
-  ];
+  return [{ title: "System-Role" }];
 };
 
 export const action = async ({ request, params }: ActionFunctionArgs) => {
@@ -60,21 +55,46 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
   return json({ code: 1, message: "fail", data: {} });
 };
 
+function buildMenuTreeFunctional(
+  items: any[],
+
+  t: (v: string) => string,
+  parentId?: number | null,
+): any[] {
+  return items
+    .filter((item) => item.parent_menu_id === parentId)
+    .map((item) => ({
+      key: item.id,
+      value: item.id,
+      title: item.icon ? (
+        <Space>
+          <AntdIcon name={item.icon} />
+          {t(item.name)}
+        </Space>
+      ) : (
+        t(item.name)
+      ),
+      children: buildMenuTreeFunctional(items, t, item.id), // 递归构建子树
+    }));
+}
+
 // remix:loader
-export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const { lang } = params;
-  const roles = await getRoleList();
-  let t = await i18n.getFixedT(lang!);
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+  const userId = await getUserId(request);
   return json({
-    dataSource: roles,
-    menuRaw: await getMenuRaw(t),
+    dataSource: await getRoleList(),
+    flatMenu: await getFlatMenu(),
+    roles: await getUserRolesById(userId!),
+    menuRoles: await getMenuRoles(),
   });
 };
 
 export default function SystemRole() {
   const fetcher = useFetcherChange();
   const actionRef = useRef();
-  const { dataSource, menuRaw } = useLoaderData<typeof loader>();
+  const { dataSource, menuRoles, flatMenu } = useLoaderData<typeof loader>();
+  const { t } = useTranslation();
+  const menus = buildMenuTreeFunctional(flatMenu, t, null);
 
   const columns = [
     {
@@ -127,7 +147,8 @@ export default function SystemRole() {
               fetcher={fetcher}
               record={record}
               key="create-role-modal"
-              menu={menuRaw}
+              menu={menus}
+              menuRoles={menuRoles}
             />
             <DeleteIt
               title="确定要删除次角色吗？"
@@ -153,13 +174,9 @@ export default function SystemRole() {
           <CreateRoleModal
             key="create-role-modal"
             record={{}}
-            menu={menuRaw}
+            menu={menus}
+            menuRoles={menuRoles}
             fetcher={fetcher}
-            trigger={
-              <Button type="primary" icon={<EditOutlined />}>
-                新建
-              </Button>
-            }
           />,
         ]}
       />

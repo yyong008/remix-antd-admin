@@ -123,7 +123,7 @@ export const action: ActionFunction = async ({
     ...validateLoginLog,
   });
 
-  const url = "/" + lang + "/" + ADMIN_ROUTE_PREFIX + "/dashboard/main";
+  const url = "/" + lang + "/" + ADMIN_ROUTE_PREFIX + "/dashboard";
 
   return redirect(url, {
     headers: {
@@ -137,7 +137,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
 
   if (session.has("userId")) {
-    return redirect("/" + lang + "/" + ADMIN_ROUTE_PREFIX + "/dashboard/main", {
+    return redirect("/" + lang + "/" + ADMIN_ROUTE_PREFIX + "/dashboard", {
       headers: {
         "Set-Cookie": await destroySession(session),
       },

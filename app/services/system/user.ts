@@ -90,9 +90,9 @@ export const getUserList = async ({
             name: true,
           },
         },
-        roles: {
+        UserRole: {
           include: {
-            role: {
+            roles: {
               select: {
                 name: true,
               },

@@ -1,5 +1,13 @@
 {
-  "include": ["env.d.ts", "**/*.ts", "**/*.tsx", "app/routes/_nav.($lang)_index.tsx"],
+  "include": [
+    "env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/.server/**/*.ts",
+    "**/.server/**/*.tsx",
+    "**/.client/**/*.ts",
+    "**/.client/**/*.tsx"
+  ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "target": "ES2022",
@@ -15,6 +23,8 @@
     "noImplicitAny": true,
     "forceConsistentCasingInFileNames": true,
     "allowImportingTsExtensions": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "noEmit": true,
     "baseUrl": ".",
     "paths": {

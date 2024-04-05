@@ -14,7 +14,7 @@ import { Button, Form } from "antd";
 // utils
 import { genFileListByName } from "~/utils/utils";
 
-const { PlusOutlined } = _icons;
+const { EditOutlined } = _icons;
 
 export default function CreateUserModal({
   trigger,
@@ -35,19 +35,12 @@ export default function CreateUserModal({
         }
         form.setFieldsValue({
           ...record,
-          roles: record.roles.map((role) => role.roleId),
+          roles: record.UserRole.map((role) => role.roleId),
           dept: record?.department?.id,
           file: genFileListByName(record.avatar),
         });
       }}
-      trigger={
-        trigger ?? (
-          <Button type="primary">
-            <PlusOutlined />
-            创建用户
-          </Button>
-        )
-      }
+      trigger={<Button type="link" icon={<EditOutlined />} />}
       form={form}
       autoFocusFirstInput
       modalProps={{

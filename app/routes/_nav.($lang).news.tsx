@@ -23,7 +23,7 @@ export default function NewsPage() {
   );
 }
 
-function NewItem(props) {
+function NewItem(props: any) {
   const { data } = props;
   return (
     <div>

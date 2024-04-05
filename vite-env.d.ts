@@ -6,6 +6,7 @@ interface ImportMetaEnv {
   readonly IS_VERCEL: boolean
   readonly NODE_ENV: string
   readonly TINYMCE_KEY: string
+  readonly PRESENTATION_MODE: boolean
 }
 
 interface ImportMeta {

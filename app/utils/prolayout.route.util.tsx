@@ -1,33 +1,21 @@
 import AntdIcon from "~/components/common/AntdIcon";
+import { ADMIN_ROUTE_PREFIX } from "~/constants";
 
-/**
- * 重构菜单的 icon 为 React 组件
- * @param menuItem 路由
- */
-function refactorMenu(menuItem: any) {
-  const { icon } = menuItem;
-  menuItem.key = menuItem.key + menuItem.path; // https://github.com/ant-design/pro-components/issues/2511
-  menuItem.hideInMenu = !menuItem.isShow;
-  if (icon) {
-    menuItem.icon = <AntdIcon name={icon} />;
-  }
-
-  menuItem.children?.forEach((childMenuItem: any) => {
-    refactorMenu(childMenuItem);
-  });
-}
-
-/**
- * 创建 prolayout 的路由列表（加入 TSX icon）实现
- * @param routes
- * @returns
- */
-function createProLayoutRouteImpl(routes: any[]) {
-  routes.forEach((route) => {
-    refactorMenu(route);
-  });
-
-  return routes;
+function buildMenuTreeFunctional(
+  lang: string,
+  items: any[],
+  parentId?: number | null,
+): any[] {
+  return items
+    .filter((item) => item.parent_menu_id === parentId)
+    .map((item) => ({
+      ...item,
+      path: `/${lang}/${ADMIN_ROUTE_PREFIX}${item.path}`,
+      key: item.key + item.path, // https://github.com/ant-design/pro-components/issues/2511
+      hideInMenu: !item.isShow,
+      icon: item.icon ? <AntdIcon name={item.icon} /> : item.icon,
+      children: buildMenuTreeFunctional(lang, items, item.id), // 递归构建子树
+    }));
 }
 
 /**
@@ -35,9 +23,8 @@ function createProLayoutRouteImpl(routes: any[]) {
  * @param menus 传入字符串 icon 菜单
  * @returns
  */
-export const createProLayoutRoute = (menus: any) => {
-  const route = {
-    routes: createProLayoutRouteImpl(menus ?? []),
+export const createProLayoutRoute = (lang: string, menus: any) => {
+  return {
+    routes: buildMenuTreeFunctional(lang, menus, null),
   };
-  return route;
 };

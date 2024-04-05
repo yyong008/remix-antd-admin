@@ -102,7 +102,6 @@ export default function ToolsMailRoute() {
             },
           }}
           onFinish={async (v) => {
-            debugger;
             fetcher.submit(v, {
               method: "POST", // 修改或新建
               encType: "application/json",

@@ -160,7 +160,6 @@ export default function SystemConfigRoute() {
             dataIndex: "op",
             title: "操作",
             render(_, record) {
-              console.log("id", record);
               return (
                 <Space>
                   <ButtonLink

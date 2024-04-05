@@ -1,5 +1,5 @@
 // react
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // component
 import {
@@ -20,33 +20,39 @@ type CreateRoleModalProps = {
   record: any;
   menu: any[];
   fetcher: any;
+  menuRoles: any[];
 };
 
-export default function CreateRoleModal({
-  trigger,
-  record,
-  menu,
-  fetcher,
-}: CreateRoleModalProps) {
+export default function CreateRoleModal(props: CreateRoleModalProps) {
+  const { trigger, record, menu, fetcher, menuRoles } = props;
   const [form] = Form.useForm();
-  const [checkedKeys, setCheckedKeys] = useState([]);
+  const [checkedKeys, setCheckedKeys] = useState<any[]>([]);
 
   const onCheck = (checkedKeys: any, info: any) => {
     setCheckedKeys(checkedKeys);
   };
 
+  useEffect(() => {
+    if (record.id) {
+      const keys: any[] = menuRoles
+        ?.filter((mr) => mr.roleId === record.id)
+        ?.map((r) => r.menuId);
+      setCheckedKeys(keys);
+    }
+  }, [menuRoles, record]);
   return (
     <ModalForm
       title="创建角色"
       trigger={
-        trigger ?? (
+        trigger ??
+        ((
           <Button
             type={!record.id ? "primary" : "link"}
             icon={<EditOutlined />}
           >
             {!record.id ? "新建" : ""}
           </Button>
-        )
+        ) as any)
       }
       form={form}
       autoFocusFirstInput
@@ -54,9 +60,16 @@ export default function CreateRoleModal({
         if (e) {
           form.setFieldsValue({
             ...record,
-            menus: record.menus?.map((mn) => mn?.menu?.name),
+            menus: menuRoles
+              ?.filter((mr) => mr.roleId === record.id)
+              ?.map((r) => r.menus.key),
           });
-          setCheckedKeys(record.menus?.map((mn) => mn?.menu?.name));
+          if (record.id) {
+            const keys: any[] = menuRoles
+              ?.filter((mr) => mr.roleId === record.id)
+              ?.map((r) => r.menuId);
+            setCheckedKeys(keys);
+          }
         }
       }}
       modalProps={{

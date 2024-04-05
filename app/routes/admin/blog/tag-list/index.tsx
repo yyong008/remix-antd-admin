@@ -3,7 +3,12 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // remix
 import { json } from "@remix-run/node";
-import { Link, useLoaderData, useParams } from "@remix-run/react";
+import {
+  Link,
+  useActionData,
+  useLoaderData,
+  useParams,
+} from "@remix-run/react";
 
 // components
 import { PageContainer, ProTable } from "@ant-design/pro-components";
@@ -87,12 +92,17 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   return json({
     dataSource: await getBlogCategoryTag(userId!),
   });
+  // return json({
+  //   dataSource: []
+  // })
 };
 
 export default function SystemConfigRoute() {
   const { dataSource } = useLoaderData<typeof loader>();
   const { lang } = useParams();
   const fetcher = useFetcherChange();
+  const actionData = useActionData();
+  console.log("actionData", actionData);
 
   return (
     <PageContainer>
