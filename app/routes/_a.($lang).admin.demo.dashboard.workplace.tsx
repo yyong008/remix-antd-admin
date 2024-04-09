@@ -25,7 +25,7 @@ import { getWorkplaceData$ } from "~/__mock__/dashboard/workplace";
 import {
   destroySession,
   getSession,
-  getUserId,
+  getUserId$,
 } from "~/server/services/common/session";
 
 // remix:meta
@@ -37,7 +37,7 @@ export const meta: MetaFunction = () => {
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const { lang } = params;
   const session = await getSession(request.headers.get("Cookie"));
-  const userId = await getUserId(request);
+  const userId = await lastValueFrom(getUserId$(request));
 
   if (!userId) {
     return redirect("/" + lang + "/login", {

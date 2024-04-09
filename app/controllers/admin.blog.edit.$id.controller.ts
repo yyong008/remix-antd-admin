@@ -7,7 +7,7 @@ import { json } from "@remix-run/node";
 import { getFindNewsCategory } from "~/server/services/news/news-category";
 import { getBlogById$, updateBlog$ } from "~/server/services/blog/blog";
 import { getFindBlogCategory$ } from "~/server/services/blog/blog-category";
-import { getFindBlogTag } from "~/server/services/blog/blog-tags";
+import { getAllBlogTag$ } from "~/server/services/blog/blog-tags";
 
 // utils
 import { from, lastValueFrom, map, switchMap } from "rxjs";
@@ -26,7 +26,7 @@ export class AdminBlogEditWithIdController {
           TINYMCE_KEY: process.env.TINYMCE_KEY,
           blogData: await lastValueFrom(getBlogById$(Number(id))),
           categoies: await lastValueFrom(getFindBlogCategory$()),
-          tags: await getFindBlogTag(),
+          tags: await lastValueFrom(getAllBlogTag$()),
         },
         message: "success",
       });
