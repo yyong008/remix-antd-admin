@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "@remix-run/react";
-import { ADMIN_ROUTE_PREFIX } from "~/constants";
 
 type IOptions = {
   page?: number;
@@ -16,7 +15,7 @@ export function useBlogNav() {
     const tag = options.tag ? `&tag=${options.tag}` : "";
     const category = options.category ? `&category=${options.category}` : "";
     return nav(
-      `/${lang}/${ADMIN_ROUTE_PREFIX}/blog?page=${options.page}&pageSize=${options.pageSize}${category}${tag}`,
+      `/${lang}/admin/blog?page=${options.page}&pageSize=${options.pageSize}${category}${tag}`,
     );
   };
   return [navBlog];
@@ -31,5 +30,5 @@ export function useBlogNav() {
 export function goBlogNav(lang: string, options?: IOptions) {
   const tag = options?.tag ? `&tag=${options.tag}` : "";
   const category = options?.category ? `&category=${options.category}` : "";
-  return `/${lang}/${ADMIN_ROUTE_PREFIX}/blog?page=${options?.page ?? 1}&pageSize=${options?.pageSize ?? 10}${category}${tag}`;
+  return `/${lang}/admin/blog?page=${options?.page ?? 1}&pageSize=${options?.pageSize ?? 10}${category}${tag}`;
 }

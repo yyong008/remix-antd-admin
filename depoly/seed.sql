@@ -1,5 +1,5 @@
 --
--- SQLiteStudio v3.4.4 生成的文件，周三 4月 3 12:38:08 2024
+-- SQLiteStudio v3.4.4 生成的文件，周三 4月 10 04:17:29 2024
 --
 -- 所用的文本编码：UTF-8
 --
@@ -25,6 +25,48 @@ INSERT INTO _prisma_migrations (id, checksum, finished_at, migration_name, logs,
 INSERT INTO _prisma_migrations (id, checksum, finished_at, migration_name, logs, rolled_back_at, started_at, applied_steps_count) VALUES ('013c9c97-d317-4a43-ac85-c30d8cd4a099', '5f821070cd3a9778fcc495ba96866b2a9e9cf7fe2316ac08e856dd5dc709c4f4', 1711884266902, '20240331112426_', NULL, NULL, 1711884266867, 1);
 INSERT INTO _prisma_migrations (id, checksum, finished_at, migration_name, logs, rolled_back_at, started_at, applied_steps_count) VALUES ('9c29ae38-66a7-45da-b214-c1060d2c2a9c', 'e5ebfac911ceb415085425b1845671dab9f34b381149d48f2bd40412871cf505', 1711954999617, '20240401070319_link', NULL, NULL, 1711954999594, 1);
 INSERT INTO _prisma_migrations (id, checksum, finished_at, migration_name, logs, rolled_back_at, started_at, applied_steps_count) VALUES ('c593075c-b12b-4044-82ef-f71e3bfe1409', '600c3acbed2b0758e59b1fabcdd1e9521a4073701c33446b693119de65e5277a', 1711961753141, '20240401085553_link_name', NULL, NULL, 1711961753099, 1);
+
+-- 表：blog
+DROP TABLE IF EXISTS blog;
+CREATE TABLE "blog" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "title" TEXT NOT NULL,
+    "content" TEXT NOT NULL,
+    "author" TEXT,
+    "source" TEXT,
+    "viewCount" INTEGER NOT NULL DEFAULT 0,
+    "publishedAt" DATETIME NOT NULL,
+    "category_id" INTEGER NOT NULL,
+    "tag_id" INTEGER NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    CONSTRAINT "blog_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "blog_category" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "blog_tag_id_fkey" FOREIGN KEY ("tag_id") REFERENCES "blog_tag" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+INSERT INTO blog (id, title, content, author, source, viewCount, publishedAt, category_id, tag_id, user_id) VALUES (1, 'JetBrains 全家桶 2024 首个大版本更新 (2024.1)', '<p>sdfsdf</p>', 'sdf', 'sdf', 0, 1712073602000, 1, 1, 1);
+
+-- 表：blog_category
+DROP TABLE IF EXISTS blog_category;
+CREATE TABLE "blog_category" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "user_id" INTEGER NOT NULL
+);
+INSERT INTO blog_category (id, name, description, user_id) VALUES (1, '编程', '', 1);
+INSERT INTO blog_category (id, name, description, user_id) VALUES (2, '开发者手册', 'dfg', 1);
+INSERT INTO blog_category (id, name, description, user_id) VALUES (3, '算法与数学', '算法与数学', 1);
+
+-- 表：blog_tag
+DROP TABLE IF EXISTS blog_tag;
+CREATE TABLE "blog_tag" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "user_id" INTEGER NOT NULL
+);
+INSERT INTO blog_tag (id, name, description, user_id) VALUES (1, 'React', '前端框架', 1);
+INSERT INTO blog_tag (id, name, description, user_id) VALUES (2, 'Vue', '前端框架', 1);
+INSERT INTO blog_tag (id, name, description, user_id) VALUES (3, 'Express', '后端框架', 1);
 
 -- 表：news
 DROP TABLE IF EXISTS news;
@@ -55,11 +97,81 @@ Bun 1.1 对 Node.js 兼容性的改进也非常显著。不仅修复了上千个
 当然，Bun 1.1 在开发者体验方面也下了不少功夫。语法高亮的错误堆栈、更加简洁的调用栈信息、bun --eval 命令行直接执行脚本……Bun 力求为开发者提供更加友好便捷的使用体验。
 
 还有很多很多的新特性，在这里无法一一列举。但可以肯定的是，Bun 1.1 是一个里程碑式的版本，它以其卓越的性能、丰富的功能和贴心的开发体验，势必将 JavaScript 开发推向一个新的高度。期待 Bun 在未来为我们带来更多惊喜！', 'andalousie', '投稿', 0, 1711987201000, 1, 1);
-INSERT INTO news (id, title, content, author, source, viewCount, publishedAt, news_id, user_id) VALUES (2, 'sdfasf', '<p>asfasdf</p>', 'asfsadf', 'asdf', 0, 1712419200000, 2, 1);
-INSERT INTO news (id, title, content, author, source, viewCount, publishedAt, news_id, user_id) VALUES (3, 'xisdf ', '<p>asfasdf</p>', 'asfsadf', 'asdf', 0, 1712419200000, 2, 1);
-INSERT INTO news (id, title, content, author, source, viewCount, publishedAt, news_id, user_id) VALUES (4, '新闻', '<p>asfasdf</p>', 'asfsadf', 'asdf', 0, 1712419200000, 2, 1);
-INSERT INTO news (id, title, content, author, source, viewCount, publishedAt, news_id, user_id) VALUES (5, 'xisdf 地方水电费水电费', '<p>asfasdf</p>', 'asfsadf', 'asdf', 0, 1712419200000, 2, 1);
-INSERT INTO news (id, title, content, author, source, viewCount, publishedAt, news_id, user_id) VALUES (6, '水电费水电费水电费', '<p>asfasdf</p>', 'asfsadf', 'asdf', 0, 1712419200000, 2, 1);
+INSERT INTO news (id, title, content, author, source, viewCount, publishedAt, news_id, user_id) VALUES (2, '搜索引擎大变局：向左AI，向右收费', 'JavaScript 开发者们瞩目已久的 Bun 1.1 版本终于正式发布了！这次大版本更新带来了一系列令人兴奋的新特性和显著的性能提升，将为开发者们提供更加顺畅、高效的开发体验。
+
+首先，让我们为 Bun 1.1 支持 Windows 而欢呼吧！是的，你没有看错，现在 Windows 开发者也能享受到 Bun 带来的极速体验了。通过一行简单的 PowerShell 命令，即可在 Windows 10 及以上系统安装 Bun。更令人惊喜的是，Bun 在 Windows 上的测试覆盖率已经达到了 98%，这意味着你能在 Windows 上尽情使用 Bun 的各项功能，与 macOS 和 Linux 版本几乎完全一致。
+
+说到速度，Bun 1.1 在各个方面都有了大幅提升。在 Windows 上进行依赖安装时，Bun 的表现尤其亮眼。以安装一个 Vite React 应用为例，使用 Bun，安装速度比 Yarn 快 18 倍，比 npm 更是快了 30 倍之多！Bun 还对 Windows 上的文件系统操作进行了深度优化，例如递归读取目录的速度比 Node.js 快了 22 倍。
+
+Bun 1.1 对 Node.js 兼容性的改进也非常显著。不仅修复了上千个 bug，还新增了大量 Node.js API 的支持。现在你可以在 Bun 中使用 HTTP/2 客户端、递归的 fs.readdir()、进程间通信等功能了。值得一提的是，Bun 还支持许多 Node.js 中没有文档说明的内部 API，让你的 npm 包可以在 Bun 下平滑迁移，而无需修改代码。
+
+作为一个多才多艺的 JavaScript 运行时，Bun 1.1 在打包、测试、SQLite 支持等方面也有诸多亮点。全新的 bun build --target=node 命令让你轻松将 TypeScript 代码打包成可在 Node.js 下运行的文件。而 bun build --compile 命令更是一个黑科技，它能将你的 JS/TS 代码连同 SQLite 数据库一起编译成一个单文件可执行程序！
+
+说到 SQLite，Bun 1.1 内置了一个高性能的 SQLite 接口，并且支持了多语句查询、导入预置数据库等实用功能。结合编译成单文件 exe 的功能，Bun 让嵌入式数据库应用开发变得无比简单高效。
+
+当然，Bun 1.1 在开发者体验方面也下了不少功夫。语法高亮的错误堆栈、更加简洁的调用栈信息、bun --eval 命令行直接执行脚本……Bun 力求为开发者提供更加友好便捷的使用体验。
+
+还有很多很多的新特性，在这里无法一一列举。但可以肯定的是，Bun 1.1 是一个里程碑式的版本，它以其卓越的性能、丰富的功能和贴心的开发体验，势必将 JavaScript 开发推向一个新的高度。期待 Bun 在未来为我们带来更多惊喜！', 'asfsadf', 'asdf', 0, 1712419200000, 2, 1);
+INSERT INTO news (id, title, content, author, source, viewCount, publishedAt, news_id, user_id) VALUES (3, '金山办公宣布WPS 365升级发布，已集成文心一言、通义千问', 'JavaScript 开发者们瞩目已久的 Bun 1.1 版本终于正式发布了！这次大版本更新带来了一系列令人兴奋的新特性和显著的性能提升，将为开发者们提供更加顺畅、高效的开发体验。
+
+首先，让我们为 Bun 1.1 支持 Windows 而欢呼吧！是的，你没有看错，现在 Windows 开发者也能享受到 Bun 带来的极速体验了。通过一行简单的 PowerShell 命令，即可在 Windows 10 及以上系统安装 Bun。更令人惊喜的是，Bun 在 Windows 上的测试覆盖率已经达到了 98%，这意味着你能在 Windows 上尽情使用 Bun 的各项功能，与 macOS 和 Linux 版本几乎完全一致。
+
+说到速度，Bun 1.1 在各个方面都有了大幅提升。在 Windows 上进行依赖安装时，Bun 的表现尤其亮眼。以安装一个 Vite React 应用为例，使用 Bun，安装速度比 Yarn 快 18 倍，比 npm 更是快了 30 倍之多！Bun 还对 Windows 上的文件系统操作进行了深度优化，例如递归读取目录的速度比 Node.js 快了 22 倍。
+
+Bun 1.1 对 Node.js 兼容性的改进也非常显著。不仅修复了上千个 bug，还新增了大量 Node.js API 的支持。现在你可以在 Bun 中使用 HTTP/2 客户端、递归的 fs.readdir()、进程间通信等功能了。值得一提的是，Bun 还支持许多 Node.js 中没有文档说明的内部 API，让你的 npm 包可以在 Bun 下平滑迁移，而无需修改代码。
+
+作为一个多才多艺的 JavaScript 运行时，Bun 1.1 在打包、测试、SQLite 支持等方面也有诸多亮点。全新的 bun build --target=node 命令让你轻松将 TypeScript 代码打包成可在 Node.js 下运行的文件。而 bun build --compile 命令更是一个黑科技，它能将你的 JS/TS 代码连同 SQLite 数据库一起编译成一个单文件可执行程序！
+
+说到 SQLite，Bun 1.1 内置了一个高性能的 SQLite 接口，并且支持了多语句查询、导入预置数据库等实用功能。结合编译成单文件 exe 的功能，Bun 让嵌入式数据库应用开发变得无比简单高效。
+
+当然，Bun 1.1 在开发者体验方面也下了不少功夫。语法高亮的错误堆栈、更加简洁的调用栈信息、bun --eval 命令行直接执行脚本……Bun 力求为开发者提供更加友好便捷的使用体验。
+
+还有很多很多的新特性，在这里无法一一列举。但可以肯定的是，Bun 1.1 是一个里程碑式的版本，它以其卓越的性能、丰富的功能和贴心的开发体验，势必将 JavaScript 开发推向一个新的高度。期待 Bun 在未来为我们带来更多惊喜！', 'asfsadf', 'asdf', 0, 1712419200000, 2, 1);
+INSERT INTO news (id, title, content, author, source, viewCount, publishedAt, news_id, user_id) VALUES (4, '10 个 Rust 终端工具，助力开发者提升生产力', 'JavaScript 开发者们瞩目已久的 Bun 1.1 版本终于正式发布了！这次大版本更新带来了一系列令人兴奋的新特性和显著的性能提升，将为开发者们提供更加顺畅、高效的开发体验。
+
+首先，让我们为 Bun 1.1 支持 Windows 而欢呼吧！是的，你没有看错，现在 Windows 开发者也能享受到 Bun 带来的极速体验了。通过一行简单的 PowerShell 命令，即可在 Windows 10 及以上系统安装 Bun。更令人惊喜的是，Bun 在 Windows 上的测试覆盖率已经达到了 98%，这意味着你能在 Windows 上尽情使用 Bun 的各项功能，与 macOS 和 Linux 版本几乎完全一致。
+
+说到速度，Bun 1.1 在各个方面都有了大幅提升。在 Windows 上进行依赖安装时，Bun 的表现尤其亮眼。以安装一个 Vite React 应用为例，使用 Bun，安装速度比 Yarn 快 18 倍，比 npm 更是快了 30 倍之多！Bun 还对 Windows 上的文件系统操作进行了深度优化，例如递归读取目录的速度比 Node.js 快了 22 倍。
+
+Bun 1.1 对 Node.js 兼容性的改进也非常显著。不仅修复了上千个 bug，还新增了大量 Node.js API 的支持。现在你可以在 Bun 中使用 HTTP/2 客户端、递归的 fs.readdir()、进程间通信等功能了。值得一提的是，Bun 还支持许多 Node.js 中没有文档说明的内部 API，让你的 npm 包可以在 Bun 下平滑迁移，而无需修改代码。
+
+作为一个多才多艺的 JavaScript 运行时，Bun 1.1 在打包、测试、SQLite 支持等方面也有诸多亮点。全新的 bun build --target=node 命令让你轻松将 TypeScript 代码打包成可在 Node.js 下运行的文件。而 bun build --compile 命令更是一个黑科技，它能将你的 JS/TS 代码连同 SQLite 数据库一起编译成一个单文件可执行程序！
+
+说到 SQLite，Bun 1.1 内置了一个高性能的 SQLite 接口，并且支持了多语句查询、导入预置数据库等实用功能。结合编译成单文件 exe 的功能，Bun 让嵌入式数据库应用开发变得无比简单高效。
+
+当然，Bun 1.1 在开发者体验方面也下了不少功夫。语法高亮的错误堆栈、更加简洁的调用栈信息、bun --eval 命令行直接执行脚本……Bun 力求为开发者提供更加友好便捷的使用体验。
+
+还有很多很多的新特性，在这里无法一一列举。但可以肯定的是，Bun 1.1 是一个里程碑式的版本，它以其卓越的性能、丰富的功能和贴心的开发体验，势必将 JavaScript 开发推向一个新的高度。期待 Bun 在未来为我们带来更多惊喜！', 'asfsadf', 'asdf', 0, 1712419200000, 2, 1);
+INSERT INTO news (id, title, content, author, source, viewCount, publishedAt, news_id, user_id) VALUES (5, 'JetBrains 全家桶 2024 首个大版本更新 (2024.1)', 'JavaScript 开发者们瞩目已久的 Bun 1.1 版本终于正式发布了！这次大版本更新带来了一系列令人兴奋的新特性和显著的性能提升，将为开发者们提供更加顺畅、高效的开发体验。
+
+首先，让我们为 Bun 1.1 支持 Windows 而欢呼吧！是的，你没有看错，现在 Windows 开发者也能享受到 Bun 带来的极速体验了。通过一行简单的 PowerShell 命令，即可在 Windows 10 及以上系统安装 Bun。更令人惊喜的是，Bun 在 Windows 上的测试覆盖率已经达到了 98%，这意味着你能在 Windows 上尽情使用 Bun 的各项功能，与 macOS 和 Linux 版本几乎完全一致。
+
+说到速度，Bun 1.1 在各个方面都有了大幅提升。在 Windows 上进行依赖安装时，Bun 的表现尤其亮眼。以安装一个 Vite React 应用为例，使用 Bun，安装速度比 Yarn 快 18 倍，比 npm 更是快了 30 倍之多！Bun 还对 Windows 上的文件系统操作进行了深度优化，例如递归读取目录的速度比 Node.js 快了 22 倍。
+
+Bun 1.1 对 Node.js 兼容性的改进也非常显著。不仅修复了上千个 bug，还新增了大量 Node.js API 的支持。现在你可以在 Bun 中使用 HTTP/2 客户端、递归的 fs.readdir()、进程间通信等功能了。值得一提的是，Bun 还支持许多 Node.js 中没有文档说明的内部 API，让你的 npm 包可以在 Bun 下平滑迁移，而无需修改代码。
+
+作为一个多才多艺的 JavaScript 运行时，Bun 1.1 在打包、测试、SQLite 支持等方面也有诸多亮点。全新的 bun build --target=node 命令让你轻松将 TypeScript 代码打包成可在 Node.js 下运行的文件。而 bun build --compile 命令更是一个黑科技，它能将你的 JS/TS 代码连同 SQLite 数据库一起编译成一个单文件可执行程序！
+
+说到 SQLite，Bun 1.1 内置了一个高性能的 SQLite 接口，并且支持了多语句查询、导入预置数据库等实用功能。结合编译成单文件 exe 的功能，Bun 让嵌入式数据库应用开发变得无比简单高效。
+
+当然，Bun 1.1 在开发者体验方面也下了不少功夫。语法高亮的错误堆栈、更加简洁的调用栈信息、bun --eval 命令行直接执行脚本……Bun 力求为开发者提供更加友好便捷的使用体验。
+
+还有很多很多的新特性，在这里无法一一列举。但可以肯定的是，Bun 1.1 是一个里程碑式的版本，它以其卓越的性能、丰富的功能和贴心的开发体验，势必将 JavaScript 开发推向一个新的高度。期待 Bun 在未来为我们带来更多惊喜！', 'asfsadf', 'asdf', 0, 1712419200000, 2, 1);
+INSERT INTO news (id, title, content, author, source, viewCount, publishedAt, news_id, user_id) VALUES (6, '水电费水电费水电费', 'JavaScript 开发者们瞩目已久的 Bun 1.1 版本终于正式发布了！这次大版本更新带来了一系列令人兴奋的新特性和显著的性能提升，将为开发者们提供更加顺畅、高效的开发体验。
+
+首先，让我们为 Bun 1.1 支持 Windows 而欢呼吧！是的，你没有看错，现在 Windows 开发者也能享受到 Bun 带来的极速体验了。通过一行简单的 PowerShell 命令，即可在 Windows 10 及以上系统安装 Bun。更令人惊喜的是，Bun 在 Windows 上的测试覆盖率已经达到了 98%，这意味着你能在 Windows 上尽情使用 Bun 的各项功能，与 macOS 和 Linux 版本几乎完全一致。
+
+说到速度，Bun 1.1 在各个方面都有了大幅提升。在 Windows 上进行依赖安装时，Bun 的表现尤其亮眼。以安装一个 Vite React 应用为例，使用 Bun，安装速度比 Yarn 快 18 倍，比 npm 更是快了 30 倍之多！Bun 还对 Windows 上的文件系统操作进行了深度优化，例如递归读取目录的速度比 Node.js 快了 22 倍。
+
+Bun 1.1 对 Node.js 兼容性的改进也非常显著。不仅修复了上千个 bug，还新增了大量 Node.js API 的支持。现在你可以在 Bun 中使用 HTTP/2 客户端、递归的 fs.readdir()、进程间通信等功能了。值得一提的是，Bun 还支持许多 Node.js 中没有文档说明的内部 API，让你的 npm 包可以在 Bun 下平滑迁移，而无需修改代码。
+
+作为一个多才多艺的 JavaScript 运行时，Bun 1.1 在打包、测试、SQLite 支持等方面也有诸多亮点。全新的 bun build --target=node 命令让你轻松将 TypeScript 代码打包成可在 Node.js 下运行的文件。而 bun build --compile 命令更是一个黑科技，它能将你的 JS/TS 代码连同 SQLite 数据库一起编译成一个单文件可执行程序！
+
+说到 SQLite，Bun 1.1 内置了一个高性能的 SQLite 接口，并且支持了多语句查询、导入预置数据库等实用功能。结合编译成单文件 exe 的功能，Bun 让嵌入式数据库应用开发变得无比简单高效。
+
+当然，Bun 1.1 在开发者体验方面也下了不少功夫。语法高亮的错误堆栈、更加简洁的调用栈信息、bun --eval 命令行直接执行脚本……Bun 力求为开发者提供更加友好便捷的使用体验。
+
+还有很多很多的新特性，在这里无法一一列举。但可以肯定的是，Bun 1.1 是一个里程碑式的版本，它以其卓越的性能、丰富的功能和贴心的开发体验，势必将 JavaScript 开发推向一个新的高度。期待 Bun 在未来为我们带来更多惊喜！', 'asfsadf', 'asdf', 0, 1712419200000, 2, 1);
 
 -- 表：news_category
 DROP TABLE IF EXISTS news_category;
@@ -256,6 +368,60 @@ CREATE TABLE "sys_loginlog" (
     "system" TEXT,
     "browser" TEXT
 );
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (1, 'admin', '本机地址', '未知', 1711887132863, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (2, 'admin', '本机地址', '未知', 1711940509912, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (3, 'super admin', '本机地址', '未知', 1711940516141, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (4, 'admin', '本机地址', '未知', 1711966951241, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (5, 'admin', '本机地址', '未知', 1711966962738, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (6, 'super admin', '本机地址', '未知', 1711967076505, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (7, 'super admin', '本机地址', '未知', 1711977765412, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (8, 'super admin', '本机地址', '未知', 1712017512297, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (9, 'admin', '本机地址', '未知', 1712052640588, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (10, 'admin', '本机地址', '未知', 1712052649973, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (11, 'admin', '本机地址', '未知', 1712053319982, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (12, 'admin', '本机地址', '未知', 1712053346754, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (13, 'admin', '本机地址', '未知', 1712053469160, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (14, 'super admin', '本机地址', '未知', 1712053480895, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (15, 'super admin', '本机地址', '未知', 1712122216960, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (16, 'admin', '本机地址', '未知', 1712132165955, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (17, 'super admin', '本机地址', '未知', 1712132173207, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (18, 'admin', '本机地址', '未知', 1712184523608, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (19, 'super admin', '本机地址', '未知', 1712184569047, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (20, 'super admin', '本机地址', '未知', 1712184662377, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (21, 'admin', '本机地址', '未知', 1712210060564, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (22, 'super admin', '本机地址', '未知', 1712210079496, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (23, 'user1', '本机地址', '未知', 1712210213401, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (24, 'super admin', '本机地址', '未知', 1712210257709, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (25, 'admin', '本机地址', '未知', 1712242406997, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (26, 'super admin', '本机地址', '未知', 1712242415578, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (27, 'super admin', '本机地址', '未知', 1712244508577, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (28, 'super admin', '本机地址', '未知', 1712276233519, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (29, 'super admin', '本机地址', '未知', 1712278835646, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (30, 'admin', '本机地址', '未知', 1712475960943, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (31, 'super admin', '本机地址', '未知', 1712478181909, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (32, 'admin', '本机地址', '未知', 1712487889689, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (33, 'super admin', '本机地址', '未知', 1712487897121, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (34, 'admin', '本机地址', '未知', 1712488959113, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (35, 'super admin', '本机地址', '未知', 1712489041923, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (36, 'super admin', '本机地址', '未知', 1712489523965, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (37, 'super admin', '本机地址', '未知', 1712495878262, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (38, 'admin', '本机地址', '未知', 1712499938967, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (39, 'admin', '本机地址', '未知', 1712499945300, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (40, 'super admin', '本机地址', '未知', 1712499952233, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (41, 'admin', '本机地址', '未知', 1712502361963, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (42, 'super admin', '本机地址', '未知', 1712502368607, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (43, 'admin', '本机地址', '未知', 1712552775265, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (44, 'super admin', '本机地址', '未知', 1712552780917, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (45, 'super admin', '本机地址', '未知', 1712552938831, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (46, 'admin', '本机地址', '未知', 1712633358723, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (47, 'super admin', '本机地址', '未知', 1712633365241, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (48, 'super admin', '本机地址', '未知', 1712670415393, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (49, 'super admin', '本机地址', '未知', 1712672949288, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (50, 'super admin', '本机地址', '未知', 1712681884457, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (51, 'super admin', '本机地址', '未知', 1712682547498, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (52, 'admin', '本机地址', '未知', 1712691065234, 'Windows10', 'Chrome123.0.0.0');
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser) VALUES (53, 'super admin', '本机地址', '未知', 1712692996147, 'Windows10', 'Chrome123.0.0.0');
+
 -- 表：sys_menu
 DROP TABLE IF EXISTS sys_menu;
 CREATE TABLE "sys_menu" (
@@ -360,12 +526,12 @@ INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (80, 'menu.demo.list.search.articles', 2, 'menu: articles', NULL, '', '/demo/list/search/articles', '', 1, 1, 0, NULL, 0, 1, '2024-03-30 13:31:12', NULL, 43);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (81, 'menu.demo.list.search.projects', 2, 'menu: projects', NULL, '', '/demo/list/search/projects', '', 1, 1, 0, NULL, 0, 1, '2024-03-30 13:31:12', NULL, 43);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (82, 'menu.demo.list.search.applications', 2, 'menu: applications', NULL, '', '/demo/list/search/applications', '', 1, 1, 0, NULL, 0, 1, '2024-03-30 13:31:12', NULL, 43);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (83, '项目仓库(外链)', 2, '项目仓库', NULL, 'LinkOutlined', 'https://github.com/yyong008/remix-antd-admin', '', 1, 1, 0, NULL, 1, 11, '2024-03-30 13:31:12', NULL, NULL);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (83, '项目仓库(外链)', 2, '项目仓库', NULL, 'LinkOutlined', 'https://github.com/yyong008/remix-antd-admin', '', 1, 1, 0, NULL, 1, 5, '2024-03-30 13:31:12', NULL, NULL);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (84, 'list', 3, '菜单权限', NULL, '', '', '', 1, 1, 0, NULL, 1, 11, '2024-03-30 13:31:12', NULL, 24);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (85, 'menu.profile.account', 2, 'account', NULL, NULL, '/profile/account', NULL, 1, 1, 0, NULL, NULL, NULL, '2024-03-30 13:31:12', NULL, 86);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (86, 'menu.profile.main', 1, 'menu.profile', NULL, 'UserOutlined', '/profile', NULL, 1, 1, 0, NULL, 0, 1111, '2024-03-30 13:31:12', NULL, NULL);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (87, 'menu.profile.link', 2, 'link', NULL, NULL, '/profile/link', NULL, 1, 1, 0, NULL, NULL, NULL, '2024-03-30 13:31:12', NULL, 86);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (88, 'menu.tools.main', 1, NULL, NULL, 'ToolOutlined', '/tools', NULL, 1, 1, 0, NULL, 0, NULL, '2024-03-30 13:31:12', NULL, NULL);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (86, 'menu.profile.main', 1, 'menu.profile', NULL, 'UserOutlined', '/profile', NULL, 1, 1, 0, NULL, 0, 4, '2024-03-30 13:31:12', NULL, NULL);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (87, 'menu.profile.link', 2, 'link', NULL, NULL, '/profile/link/category', NULL, 1, 1, 0, NULL, NULL, NULL, '2024-03-30 13:31:12', NULL, 86);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (88, 'menu.tools.main', 1, NULL, NULL, 'ToolOutlined', '/tools', NULL, 1, 1, 0, NULL, 0, 4, '2024-03-30 13:31:12', NULL, NULL);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (89, 'menu.tools.mail', 2, NULL, NULL, NULL, '/tools/mail', NULL, 1, 1, 0, NULL, 0, NULL, '2024-03-30 13:31:12', NULL, 88);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (90, 'menu.tools.storage', 2, NULL, NULL, NULL, '/tools/storage', NULL, 1, 1, 0, NULL, 0, NULL, '2024-03-30 13:31:12', NULL, 88);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (91, 'menu.news.main', 1, '新闻目录', NULL, 'FireOutlined', '/news', NULL, 1, 1, 0, NULL, 0, NULL, '2024-03-30 13:31:12', NULL, NULL);
@@ -374,7 +540,7 @@ INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (94, 'menu.blog.edit', 2, NULL, NULL, NULL, '/blog/edit', NULL, 1, 1, NULL, NULL, NULL, NULL, '2024-03-30 13:31:12', NULL, 5);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (95, 'menu.news.sub-category', 2, '新闻子类列表', NULL, NULL, '/news/category/:id', NULL, 1, 1, 0, NULL, 0, NULL, '2024-03-30 13:31:12', NULL, 4);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (96, 'menu.news.category', 2, '新闻分类', NULL, NULL, '/news/category', NULL, 1, 1, 0, NULL, 0, NULL, '2024-03-30 13:31:12', NULL, 4);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (97, 'menu.blog.category', 2, '博客分类', NULL, NULL, '/blog/category', NULL, 1, 1, 0, NULL, 0, NULL, '2024-03-30 13:31:12', NULL, 5);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (97, 'menu.blog.category', 2, '博客分类', NULL, NULL, '/blog/category', NULL, 1, 1, 0, 'blog:category-list:get', 0, NULL, '2024-03-30 13:31:12', NULL, 5);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (98, 'menu.blog.tag', 2, '博客标签', NULL, NULL, '/blog/tag', NULL, 1, 1, 0, NULL, 0, NULL, '2024-03-30 13:31:12', NULL, 5);
 
 -- 表：sys_menu_role
@@ -480,16 +646,14 @@ INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (8
 INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (90, 1, 85, '2024-03-30 13:31:12', NULL);
 INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (91, 1, 87, '2024-03-30 13:31:12', NULL);
 INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (92, 1, 86, '2024-03-30 13:31:12', NULL);
-INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (93, 1, 90, '2024-03-30 13:31:12', NULL);
 INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (94, 1, 89, '2024-03-30 13:31:12', NULL);
 INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (95, 1, 88, '2024-03-30 13:31:12', NULL);
 INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (96, 1, 92, '2024-03-30 13:31:12', NULL);
-INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (97, 1, 91, '2024-03-30 13:31:12', NULL);
-INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (98, 1, 93, '2024-03-30 13:31:12', NULL);
 INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (99, 1, 94, '2024-03-30 13:31:12', NULL);
 INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (100, 1, 96, '2024-03-30 13:31:12', NULL);
-INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (101, 1, 97, '2024-03-30 13:31:12', NULL);
-INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (102, 1, 98, '2024-03-30 13:31:12', NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (103, 1, 97, '2024-03-30 13:31:12', NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (104, 1, 98, '2024-03-30 13:31:12', NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (105, 1, 90, '2024-03-30 13:31:12', NULL);
 
 -- 表：sys_role
 DROP TABLE IF EXISTS sys_role;
@@ -599,6 +763,14 @@ INSERT INTO tools_storage (id, createdAt, updatedAt, user_id, name, file_name, e
 INSERT INTO tools_storage (id, createdAt, updatedAt, user_id, name, file_name, ext_name, path, size, type) VALUES (26, 1711886444091, NULL, 1, 'ollama api 访问的方式-1711886444064.png', 'ollama api 访问的方式-1711886444064.png', '.png', '/uploads/ollama api 访问的方式-1711886444064.png', '136136', 'image/png');
 INSERT INTO tools_storage (id, createdAt, updatedAt, user_id, name, file_name, ext_name, path, size, type) VALUES (27, 1711886444092, NULL, 1, 'open-webui 聊天界面-1711886444064.png', 'open-webui 聊天界面-1711886444064.png', '.png', '/uploads/open-webui 聊天界面-1711886444064.png', '90170', 'image/png');
 INSERT INTO tools_storage (id, createdAt, updatedAt, user_id, name, file_name, ext_name, path, size, type) VALUES (28, 1711886444093, NULL, 1, 'ollama 适用写一个组件-1711886444064.png', 'ollama 适用写一个组件-1711886444064.png', '.png', '/uploads/ollama 适用写一个组件-1711886444064.png', '113208', 'image/png');
+
+-- 索引：blog_category_name_key
+DROP INDEX IF EXISTS blog_category_name_key;
+CREATE UNIQUE INDEX "blog_category_name_key" ON "blog_category"("name");
+
+-- 索引：blog_tag_name_key
+DROP INDEX IF EXISTS blog_tag_name_key;
+CREATE UNIQUE INDEX "blog_tag_name_key" ON "blog_tag"("name");
 
 -- 索引：news_category_name_key
 DROP INDEX IF EXISTS news_category_name_key;

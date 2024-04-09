@@ -1,13 +1,37 @@
+import { type Observable, of } from "rxjs";
+
+type IPagination = {
+  page: number;
+  pageSize: number;
+  name: string;
+};
+
 /**
  * 获取分页相关参数
  * @param request 请求对象
- * @returns 分页
+ * @returns 分页 {IPagination}
  */
-export function getPaginationByRequest(request: Request) {
+export function getPaginationByRequest(request: Request): IPagination {
   let { searchParams } = new URL(request.url);
   let page = Number(searchParams.get("page") ?? 1);
   let pageSize = Number(searchParams.get("pageSize") ?? 10);
   let name = searchParams.get("name") ?? "";
 
   return { page, pageSize, name };
+}
+
+/**
+ * 获取分页相关参数
+ * @param request 请求对象
+ * @returns 分页 {IPagination}
+ */
+export function getPaginationByRequest$(
+  request: Request,
+): Observable<IPagination> {
+  let { searchParams } = new URL(request.url);
+  let page = Number(searchParams.get("page") ?? 1);
+  let pageSize = Number(searchParams.get("pageSize") ?? 10);
+  let name = searchParams.get("name") ?? "";
+
+  return of({ page, pageSize, name });
 }

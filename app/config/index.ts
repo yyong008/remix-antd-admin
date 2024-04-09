@@ -1,4 +1,4 @@
-export const config = {
+export const prolayoutConfig = {
   title: "Remix Antd Admin",
   logo: "/remix.svg",
   layout: "mix",

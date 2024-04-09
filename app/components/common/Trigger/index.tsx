@@ -1,3 +1,3 @@
-export default function Trigger({}) {
+export default function Trigger() {
   return <div></div>;
 }

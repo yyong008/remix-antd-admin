@@ -1,21 +1,27 @@
+import type { Route } from "@ant-design/pro-layout/es/typing";
 import AntdIcon from "~/components/common/AntdIcon";
-import { ADMIN_ROUTE_PREFIX } from "~/constants";
+import { isExternalLink } from "./utils";
 
-function buildMenuTreeFunctional(
+function createProLayoutRouteImpl(
   lang: string,
   items: any[],
-  parentId?: number | null,
+  parentId: number | null,
+  t: (v: string) => string,
 ): any[] {
   return items
     .filter((item) => item.parent_menu_id === parentId)
     .map((item) => ({
       ...item,
-      path: `/${lang}/${ADMIN_ROUTE_PREFIX}${item.path}`,
+      name: t(item.name),
+      path: isExternalLink(item.path)
+        ? item.path
+        : `/${lang}/admin${item.path}`,
       key: item.key + item.path, // https://github.com/ant-design/pro-components/issues/2511
       hideInMenu: !item.isShow,
       icon: item.icon ? <AntdIcon name={item.icon} /> : item.icon,
-      children: buildMenuTreeFunctional(lang, items, item.id), // 递归构建子树
-    }));
+      children: createProLayoutRouteImpl(lang, items, item.id, t), // 递归构建子树
+    }))
+    .sort((a, b) => a.orderNo - b.orderNo);
 }
 
 /**
@@ -23,8 +29,12 @@ function buildMenuTreeFunctional(
  * @param menus 传入字符串 icon 菜单
  * @returns
  */
-export const createProLayoutRoute = (lang: string, menus: any) => {
+export const createProLayoutRoute = (
+  lang: string,
+  menus: any,
+  t: any,
+): Route => {
   return {
-    routes: buildMenuTreeFunctional(lang, menus, null),
+    routes: createProLayoutRouteImpl(lang, menus, null, t),
   };
 };

@@ -48,10 +48,29 @@ export function genFileListByName(name: string) {
   ];
 }
 
+/**
+ * 获取文件后缀名
+ * @param str
+ * @returns
+ */
 export function extname(str: string) {
   var slug = str.split(/\/|\\/).slice(-1)[0];
   var idx = slug.lastIndexOf(".");
   if (idx <= 0) return "";
   var ext = slug.slice(idx);
   return ext;
+}
+
+/**
+ * 是否为外部链接
+ * @param link
+ * @returns
+ */
+export function isExternalLink(str: string) {
+  const linkRegex = /^(?:https?:\/\/)?[\w.-]+\.[a-z]{2,}(?:\/[\w\.-]*)*\/?$/i;
+  return linkRegex.test(str);
+}
+
+export function removeHtmlTag(str: string) {
+  return str.replace(/<[^>]+>/g, ""); //去掉所有的html标记
 }
