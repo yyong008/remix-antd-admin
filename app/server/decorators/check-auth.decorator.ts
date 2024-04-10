@@ -28,7 +28,6 @@ export function checkLogin() {
           } as any),
         );
         if (!userId) {
-          console.log("no user id", userId);
           return redirectToLogin();
         }
         return originalMethod.apply(this, args);
