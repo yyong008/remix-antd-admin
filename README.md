@@ -4,9 +4,14 @@
 
 [Remix Antd Admin](https://github.com/yyong008/remix-antd-admin) 是一个前后端全栈的管理系统。基于 Remix 和 Antd/TailwindCSS 以及 Prisma，包含 rbac 权限管理系统，内置了 remix-i18n 解决方案。
 
-:::tip
-💻💻💻Remix Antd Admin 还在紧锣密鼓的开发和测试中...
-:::
+<p align="center">
+  <img src="https://img.shields.io/github/stars/yyong008/remix-antd-admin.svg?style=flat-square" />
+  <img src="https://img.shields.io/github/forks/yyong008/remix-antd-admin.svg?style=flat-square" />
+  <img src="https://img.shields.io/github/issues/yyong008/remix-antd-admin.svg?style=flat-square" />
+</p>
+
+>💻💻💻Remix Antd Admin 还在紧锣密鼓的开发和测试中...
+
 
 ## 解决方案
 
