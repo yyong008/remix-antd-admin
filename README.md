@@ -1,7 +1,8 @@
+<center>
+  <h1>Remix Antd Admin</h1>
+</center>
 
-# 简介
-
-[Remix Antd Admin](https://github.com/yyong008/remix-antd-admin)是一个前后端全栈的管理系统。基于 Remix 和 Antd/TailwindCSS 以及 Prisma，包含 rbac 权限管理系统，内置了 remix-i18n 解决方案。
+[Remix Antd Admin](https://github.com/yyong008/remix-antd-admin) 是一个前后端全栈的管理系统。基于 Remix 和 Antd/TailwindCSS 以及 Prisma，包含 rbac 权限管理系统，内置了 remix-i18n 解决方案。
 
 :::tip
 💻💻💻Remix Antd Admin 还在紧锣密鼓的开发和测试中...
@@ -9,15 +10,41 @@
 
 ## 解决方案
 
-- 前端版本：[remix-antd-admin(**fe 分支**)](https://github.com/yyong008/remix-antd-admin)
-- 全栈版本：[remix-antd-admin(**feat/full-stack 分支**)](https://github.com/yyong008/remix-antd-admin/tree/feat/fullstack)
-- 桌面端版：[remix-antd-admin-electron](https://github.com/yyong008/remix-antd-admin-electron)
+|版本|地址|
+|---|---|
+|全栈版本|[remix-antd-admin](https://github.com/yyong008/remix-antd-admin) |
+|前端版本|[remix-antd-admin(**fe 分支**)](https://github.com/yyong008/remix-antd-admin/tree/fe)|
+|桌面端版|[remix-antd-admin-electron](https://github.com/yyong008/remix-antd-admin-electron)|
 
 ## 示例在线访问
 
-- 全栈版本访问地址：部署中
-- 前端版本访问地址：[remix-antd-admin(**Vercel**)](https://remix-antd-admin.vercel.app)
-- 文档访问地址：[remix-antd-admin-docs](https://remix-antd-admin-docs.vercel.app/)
+|版本|地址|
+|---|---|
+|全栈版本访问地址|[remix-antd-admin](https://remix-antd-admin.bczhp.top/)|
+|前端版本访问地址|[remix-antd-admin(**Vercel**)](https://remix-antd-admin.vercel.app)|
+|文档访问地址|[remix-antd-admin-docs](https://remix-antd-admin-docs.vercel.app/)|
+
+
+### 业务
+
+>我们将业务分块
+
+|分块|内容|详解|
+|---|---|---|
+|管理块|admin 块|后台管理|
+|客户块|client|管理端对应的前端|
+|服务块|Node.js服务|服务端渲染和数据库|
+
+### 库
+
+| [<img src="https://avatars.githubusercontent.com/u/6407041?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://rxjs.dev/)</br> RxJS  | [<img src="https://github.com/colinhacks/zod/raw/master/logo.svg" alt="pnpm" width="24px" height="24px" />](https://zod.dev/)</br>Zod | [<img src="https://avatars.githubusercontent.com/u/17219288?s=48&v=4" alt="Prisma" width="24px" height="24px" />](https://www.prisma.io/)</br>Prisma | [<img src="https://avatars.githubusercontent.com/u/64235328?s=48&v=4" alt="Remix" width="24px" height="24px" />](https://remix.run/)</br>Remix |  [<img src="https://avatars.githubusercontent.com/u/65625612?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://vitejs.dev/)</br> Vite |[<img src="https://avatars.githubusercontent.com/u/95747107?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://vitest.dev/)</br> Vitest|[<img src="https://avatars.githubusercontent.com/u/12101536?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://ant.design/index-cn/)</br> Antd|[<img src="https://avatars.githubusercontent.com/u/12101536?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://procomponents.ant.design/en-US)</br>ProComponent|
+| --------- | --------- | --------- | --------- |---------|---------|---------|---------|
+| 18.x+ | 8.x+| 5.x+ | 2.x+|5.x+|1.x+|5.9.x|2.6.x|
+
+| [<img src="https://avatars.githubusercontent.com/u/67109815?s=48&v=4" alt="TailwindcCSS" width="24px" height="24px" />](https://tailwindcss.com/)</br> TailwindcCSS  | [<img src="https://avatars.githubusercontent.com/u/125564131?s=48&v=4" alt="pnpm" width="24px" height="24px" />](https://remix-development-tools.fly.dev/)</br>RemixDevTool | [<img src="https://echarts.apache.org/en/images/logo.png" alt="Prisma" width="80px" height="80px" />](https://echarts.apache.org/zh/index.html)</br>Echart | [<img src="https://avatars.githubusercontent.com/u/8546082?s=48&v=4" alt="Remix" width="24px" height="24px" />](https://react.i18next.com/)</br>React i18n |  [<img src="https://avatars.githubusercontent.com/u/8908513?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://www.cypress.io/)</br> Cypress |[<img src="https://www.sqlite.org/images/sqlite370_banner.gif" alt="Sqlite" width="24px" height="24px" />](https://www.sqlite.org/)</br> Sqlite|
+| --------- | --------- | --------- | --------- |---------|---------|
+| 3.3.x+ | 4.0.x+| 5.0+ | 13.2.x+|13.7.x+|3.43.x+|
+
 
 ## 特性
 
@@ -43,76 +70,50 @@
   - $
 ```
 
-### 业务
-
-- admin
-- Components
-- login/logout
-
-### 库
-
-- Remix
-- antd
-- Pro Component
-- Zod
-- RxJS
 
 ## 目录结构
 
 ```tree
-├── app
-│   ├── components
-│   ├── config
-│   ├── context
-│   ├── db
-│   ├── entry.client.tsx
-│   ├── entry.server.tsx
-│   ├── hooks
-│   ├── i18n
-│   ├── layout
-│   ├── root.tsx
-│   ├── routes
-│   ├── services
-│   ├── styles
-│   ├── __tests__
-│   └── utils
-├── CHANGELOG.md
-├── Dockerfile
-├── env.d.ts
-├── LICENSE
-├── node_modules
-├── package.json
-├── pnpm-lock.yaml
-├── postcss.config.mjs
-├── prisma
-│   ├── dev.db
-│   ├── dev.db-journal
-│   ├── migrations
-│   └── schema.prisma
-├── public
-│   ├── favicon.ico
-│   ├── images
-│   ├── locales
-│   ├── logo.png
-│   ├── remix.png
-│   └── remix.svg
-├── README.md
-├── tailwind.config.ts
-├── tsconfig.json
-├── vercel.json
-├── vite.config.ts
-└── vitest.config.ts
+.
+├── ./app
+├── ./build.sh
+├── ./CHANGELOG.md
+├── ./cypress
+├── ./cypress.config.ts
+├── ./depoly
+├── ./Dockerfile
+├── ./env.d.ts
+├── ./LICENSE
+├── ./package.json
+├── ./pnpm-lock.yaml
+├── ./postcss.config.mjs
+├── ./prisma
+├── ./public
+├── ./README.md
+├── ./reset.sh
+├── ./start.sh
+├── ./tailwind.config.ts
+├── ./tsconfig.json
+├── ./vercel.json
+├── ./vite.config.ts
+└── ./vite-env.d.ts
 ```
 
 ## 使用
 
-```sh
-# github
-git clone https://github.com/yyong008/remix-antd-admin.git
+### Github
 
-# gitee
+```sh
+git clone https://github.com/yyong008/remix-antd-admin.git
+```
+
+### Gitee
+
+```sh
 git clone https://gitee.com/yyong008/remix-antd-admin.git
 ```
+
+## 启动服务
 
 ```sh
 cd remix-antd-admin
