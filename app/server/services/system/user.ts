@@ -6,6 +6,8 @@ import { SortOrder } from "~/types";
 
 // services
 import prisma from "~/server/services/common/prisma";
+
+// rxjs
 import { from } from "rxjs";
 
 /**
@@ -44,7 +46,12 @@ export const getUserInfoById = async (id: number) => {
   }
 };
 
-export const getUserInfoById$ = async (id: number) => {
+/**
+ * 根据 id 查询用户信息
+ * @param id {Number} 查询用户的 id
+ * @returns 返回用户 info
+ */
+export const getUserInfoById$ = (id: number) => {
   return from(
     prisma.user.findUnique({
       where: {
@@ -139,7 +146,112 @@ export const getUserList = async ({
   }
 };
 
+export const getUserList$ = ({ page = 1, pageSize = 10, name = "" }: TPage) => {
+  return from(
+    prisma.user.findMany({
+      where: {
+        name: {
+          contains: name,
+        },
+      },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      select: {
+        id: true,
+        avatar: true,
+        email: true,
+        name: true,
+        nickname: true,
+        password: false,
+        lang: true,
+        theme: true,
+        phone: true,
+        remark: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
+        department: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        UserRole: {
+          include: {
+            roles: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        id: SortOrder.DESCENDING,
+      },
+    }),
+  );
+};
+
+/**
+ * 注册创建用户
+ * @param data
+ * @returns
+ */
 export const createUser = async (data: any) => {
+  let user: any;
+  try {
+    await prisma.$transaction(async (tx) => {
+      // 创建用户
+      user = await tx.user.create({
+        data: {
+          avatar: data.avatar,
+          name: data.name,
+          password: data.password,
+          nickname: data.nickname,
+          email: data.email,
+          lang: data.lang,
+          theme: data.theme,
+          remark: data.remark,
+          department: {
+            connect: {
+              id: data.departmentId as number,
+            },
+          },
+          phone: data.phone,
+          status: data.status,
+        },
+      });
+      // 错误-回滚
+      if (!user.id) {
+        throw new Error(`create user fail`);
+      }
+      // 用户-角色关联
+      await Promise.all(
+        data.roles?.map(async (roleId: number) => {
+          await tx.userRole.create({
+            data: {
+              role: { connect: { id: roleId } }, // 关联角色
+              user: { connect: { id: user.id } }, // 关联用户
+            },
+          });
+        }),
+      );
+      return user;
+    });
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+  return user;
+};
+
+/**
+ * 注册创建用户
+ * @param data
+ * @returns
+ */
+export const createUser$ = async (data: any) => {
   let user: any;
   try {
     await prisma.$transaction(async (tx) => {

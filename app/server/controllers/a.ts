@@ -59,13 +59,13 @@ export class LayoutAController {
             getUserInfoById$(data[2]!),
           ]),
         ),
-        map(
-          (data) => () =>
-            respSuccessJson({
-              menu: data[0],
-              userInfo: data[1],
-            }),
-        ),
+        map((data) => () => {
+          console.log(data[1]);
+          return respSuccessJson({
+            menu: data[0],
+            userInfo: data[1],
+          });
+        }),
         catchError((e) => {
           return throwError(() => () => e());
         }),

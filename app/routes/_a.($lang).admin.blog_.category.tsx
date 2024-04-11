@@ -9,16 +9,19 @@ import type {
 import { Link, useLoaderData, useParams } from "@remix-run/react";
 
 // components
-import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { Space } from "antd";
-import DeleteIt from "~/components/common/DeleteIt";
-import CategoryModal from "~/components/blog/category-list/CategoryModal";
 import * as _icon from "@ant-design/icons";
+import DeleteIt from "~/components/common/DeleteIt";
+import { PageContainer, ProTable } from "@ant-design/pro-components";
+import CategoryModal from "~/components/blog/category-list/CategoryModal";
 
 // hooks
 import { useFetcherChange } from "~/hooks/useFetcherChange";
+
+// route
 import { goBlogNav } from "~/hooks/router/blog.route";
 
+// controller
 import { AdminBlogCategoryController } from "~/server/controllers/admin.blog.category.controller";
 
 const { SwitcherOutlined } = _icon;
@@ -28,6 +31,7 @@ export const meta: MetaFunction = () => {
   return [{ title: "Profile-Link" }];
 };
 
+// action-loader
 export const loader: LoaderFunction = AdminBlogCategoryController.loader;
 export const action: ActionFunction = AdminBlogCategoryController.action;
 
@@ -35,7 +39,6 @@ export default function SystemConfigRoute() {
   const {
     data: { dataSource },
   } = useLoaderData<typeof loader>();
-  console.log("data", dataSource);
   const { lang } = useParams();
   const fetcher = useFetcherChange();
 
