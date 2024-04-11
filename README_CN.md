@@ -2,7 +2,7 @@
   <h1>Remix Antd Admin</h1>
 </center>
 
-[Remix Antd Admin](https://github.com/yyong008/remix-antd-admin) is a full-stack management system for both front-end and back-end. Built on Remix and Antd/TailwindCSS, as well as Prisma, it includes an RBAC (Role-Based Access Control) permission management system and integrates the remix-i18n solution.
+[Remix Antd Admin](https://github.com/yyong008/remix-antd-admin) 是一个前后端全栈的管理系统。基于 Remix 和 Antd/TailwindCSS 以及 Prisma，包含 rbac 权限管理系统，内置了 remix-i18n 解决方案。
 
 <p align="center">
   <img src="https://img.shields.io/github/stars/yyong008/remix-antd-admin.svg?style=flat-square" />
@@ -10,35 +10,37 @@
   <img src="https://img.shields.io/github/issues/yyong008/remix-antd-admin.svg?style=flat-square" />
 </p>
 
->💻💻💻Remix Antd Admin still in the midst of intensive development and testing...
+>💻💻💻Remix Antd Admin 还在紧锣密鼓的开发和测试中...
 
 
-## solution
-
-|version|address|
-|---|---|
-|fullstack|[remix-antd-admin](https://github.com/yyong008/remix-antd-admin) |
-|frond end|[remix-antd-admin(**fe 分支**)](https://github.com/yyong008/remix-antd-admin/tree/fe)|
-|electron|[remix-antd-admin-electron](https://github.com/yyong008/remix-antd-admin-electron)|
-
-## you can visit
+## 解决方案
 
 |版本|地址|
 |---|---|
-|visit fullstack|[remix-antd-admin](https://remix-antd-admin.bczhp.top/)|
-|visit front end|[remix-antd-admin(**Vercel**)](https://remix-antd-admin.vercel.app)|
-|visit docs|[remix-antd-admin-docs](https://remix-antd-admin-docs.vercel.app/)|
+|全栈版本|[remix-antd-admin](https://github.com/yyong008/remix-antd-admin) |
+|前端版本|[remix-antd-admin(**fe 分支**)](https://github.com/yyong008/remix-antd-admin/tree/fe)|
+|桌面端版|[remix-antd-admin-electron](https://github.com/yyong008/remix-antd-admin-electron)|
+
+## 示例在线访问
+
+|版本|地址|
+|---|---|
+|全栈版本访问地址|[remix-antd-admin](https://remix-antd-admin.bczhp.top/)|
+|前端版本访问地址|[remix-antd-admin(**Vercel**)](https://remix-antd-admin.vercel.app)|
+|文档访问地址|[remix-antd-admin-docs](https://remix-antd-admin-docs.vercel.app/)|
 
 
-### some part of project
+### 业务
 
-|block|content|description|
+>我们将业务分块
+
+|分块|内容|详解|
 |---|---|---|
-|manager|admin|remix server and admin manager|
-|user|client|public|
-|server|Node.js(remix server)|server and database|
+|管理块|admin 块|后台管理|
+|客户块|client|管理端对应的前端|
+|服务块|Node.js服务|服务端渲染和数据库|
 
-### libs
+### 库
 
 | [<img src="https://avatars.githubusercontent.com/u/6407041?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://rxjs.dev/)</br> RxJS  | [<img src="https://github.com/colinhacks/zod/raw/master/logo.svg" alt="pnpm" width="24px" height="24px" />](https://zod.dev/)</br>Zod | [<img src="https://avatars.githubusercontent.com/u/17219288?s=48&v=4" alt="Prisma" width="24px" height="24px" />](https://www.prisma.io/)</br>Prisma | [<img src="https://avatars.githubusercontent.com/u/64235328?s=48&v=4" alt="Remix" width="24px" height="24px" />](https://remix.run/)</br>Remix |  [<img src="https://avatars.githubusercontent.com/u/65625612?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://vitejs.dev/)</br> Vite |[<img src="https://avatars.githubusercontent.com/u/95747107?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://vitest.dev/)</br> Vitest|[<img src="https://avatars.githubusercontent.com/u/12101536?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://ant.design/index-cn/)</br> Antd|[<img src="https://avatars.githubusercontent.com/u/12101536?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://procomponents.ant.design/en-US)</br>ProComponent|
 | --------- | --------- | --------- | --------- |---------|---------|---------|---------|
@@ -49,16 +51,16 @@
 | 3.3.x+ | 4.0.x+| 5.0+ | 13.2.x+|13.7.x+|3.43.x+|
 
 
-## features
+## 特性
 
 ```sh
 - Admin:Login / Logout
 - RBAC Permission Authentication
 
-- global features
-  - Full-stack integration, unified development for management, front-end, and back-end
-  - Remix I18n Internationalization
-  - CSS hybrid solution, supporting various options like TailWindCSS
+- 全局特性
+  - 全栈一体化，管理端和前端后端一体化开发
+  - Remix I18n 国际化
+  - CSS 混合方案，支持 TailWindCSS 等多种方案
 
 - DOME:Editor
   - Rich Text Editor
@@ -71,12 +73,10 @@
 
 - Fallback Page
   - $
-
-- ... and so on
 ```
 
 
-## Directory Structure
+## 目录结构
 
 ```tree
 .
@@ -104,7 +104,7 @@
 └── ./vite-env.d.ts
 ```
 
-## usage
+## 使用
 
 ### Github
 
@@ -118,14 +118,14 @@ git clone https://github.com/yyong008/remix-antd-admin.git
 git clone https://gitee.com/yyong008/remix-antd-admin.git
 ```
 
-## start server
+## 启动服务
 
 ```sh
 cd remix-antd-admin
 pnpm run dev # open port in your browser
 ```
 
-## Brower support
+## 浏览器支持
 
 Modern browsers last 2 version
 
@@ -133,14 +133,14 @@ Modern browsers last 2 version
 | --------- | --------- | --------- | --------- |
 | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
-## Node.js support
+## Node.js 支持
 
 | [<img src="https://avatars.githubusercontent.com/u/9950313?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://avatars.githubusercontent.com/u/9950313?s=48&v=4)</br> Node.js  | [<img src="https://avatars.githubusercontent.com/u/21320719?s=48&v=4" alt="pnpm" width="24px" height="24px" />](https://avatars.githubusercontent.com/u/21320719?s=48&v=4)</br>pnpm | [<img src="https://avatars.githubusercontent.com/u/17219288?s=48&v=4" alt="Prisma" width="24px" height="24px" />](https://avatars.githubusercontent.com/u/17219288?s=48&v=4)</br>Prisma | [<img src="https://avatars.githubusercontent.com/u/64235328?s=48&v=4" alt="Remix" width="24px" height="24px" />](https://avatars.githubusercontent.com/u/64235328?s=48&v=4)</br>Remix |
 | --------- | --------- | --------- | --------- |
 | 18.x+ | 8.x+| 5.x+ | 2.x+|
 
 
-## A cup of coffee.
+## 请作者和喝一杯咖啡
 
 [💌buy-me-a-coffee💌](https://github.com/yyong008/buy-me-a-coffee)
 
