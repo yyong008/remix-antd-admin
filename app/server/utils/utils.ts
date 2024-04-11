@@ -48,6 +48,11 @@ export function genFileListByName(name: string) {
   ];
 }
 
+/**
+ * 从 url 获取文件后缀（不支持包含参数）
+ * @param str
+ * @returns
+ */
 export function extname(str: string) {
   var slug = str.split(/\/|\\/).slice(-1)[0];
   var idx = slug.lastIndexOf(".");
@@ -56,6 +61,12 @@ export function extname(str: string) {
   return ext;
 }
 
+/**
+ * 获取 Node.js URL search params
+ * @param request
+ * @param name
+ * @returns
+ */
 export function getSearchParams(request: Request, name: string) {
   const r = new URL(request.url).searchParams.get(name);
   return r;

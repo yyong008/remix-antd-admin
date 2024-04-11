@@ -15,12 +15,15 @@ export function identity<T>(value: T): T {
 }
 
 /**
- * 格式字符串
+ * 格式字符串(时间戳不能当做字符串使用)
  * @param time 格式化时间
  * @param format 格式语法
  * @returns
  */
-export function formatDate(time: string, format = "YYYY-MM-DD HH:mm:ss") {
+export function formatDate(
+  time: string | number | Date | dayjs.Dayjs | null | undefined,
+  format = "YYYY-MM-DD HH:mm:ss",
+) {
   return dayjs(time).format(format);
 }
 
@@ -70,7 +73,11 @@ export function isExternalLink(str: string) {
   const linkRegex = /^(?:https?:\/\/)?[\w.-]+\.[a-z]{2,}(?:\/[\w\.-]*)*\/?$/i;
   return linkRegex.test(str);
 }
-
+/**
+ * 移除 html tag
+ * @param str
+ * @returns
+ */
 export function removeHtmlTag(str: string) {
   return str.replace(/<[^>]+>/g, ""); //去掉所有的html标记
 }

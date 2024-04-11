@@ -14,6 +14,12 @@ enum ResMessage {
   fail = "fail",
 }
 
+enum InnerMessage {
+  PresentationMode = "演示模式：仅能进行获取",
+  UnAuth = "未授权",
+  Unsupport = "暂不支持",
+}
+
 /**
  * 响应 JSON 成功
  * @param data
@@ -47,14 +53,14 @@ export const respFailJson = (data: any, message?: string, options?: any) => {
 };
 
 /**
- * 更具数据进行响应
+ * 更具数据进行响应(Observable)
  * @param data
  * @returns
  */
-export const respByData = (data: any | null) => {
+export const respByData$ = (data: any | null) => {
   return from(
     iif(
-      () => data === null,
+      () => data !== null,
       of(() => respSuccessJson(data, "创建成功")),
       of(() => respFailJson({}, "创建失败")),
     ),
@@ -68,7 +74,7 @@ export const respByData = (data: any | null) => {
 export const respPresentationModeJson = () => {
   return json({
     code: ResCode.fail,
-    message: "演示模式：仅能进行获取",
+    message: InnerMessage.PresentationMode,
     data: {},
   });
 };
@@ -80,7 +86,7 @@ export const respPresentationModeJson = () => {
 export const respUnAuthJson = () => {
   return json({
     code: ResCode.fail,
-    message: "未授权",
+    message: InnerMessage.UnAuth,
     data: {},
   });
 };
@@ -92,7 +98,7 @@ export const respUnAuthJson = () => {
 export const respUnSupportJson = () => {
   return json({
     code: ResCode.fail,
-    message: "暂不支持",
+    message: InnerMessage.Unsupport,
     data: {},
   });
 };

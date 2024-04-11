@@ -3,7 +3,7 @@ import { it, expect } from "vitest";
 
 import { getPaginationByRequest$ } from "~/utils/pagination.util";
 
-it("formate", async () => {
+it("formate from observable", async () => {
   expect(
     await lastValueFrom(
       getPaginationByRequest$(
