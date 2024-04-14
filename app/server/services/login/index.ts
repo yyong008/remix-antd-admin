@@ -37,8 +37,7 @@ export const findByUserName = async (name: string) => {
 export const findByUserName$ = (name: string) => {
   return from(
     prisma.user.findFirst({
-      // TODO: findUnique
-      where: { name },
+      where: { name }, // name is no unique
       select: {
         id: true,
         name: true,

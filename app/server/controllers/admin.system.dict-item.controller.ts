@@ -8,7 +8,7 @@ import { json, redirect } from "@remix-run/node";
 import { getDictListByDictionaryId } from "~/server/services/system/dict-item";
 
 // decorators
-import { checkLogin } from "~/server/decorators/check-auth.decorator";
+import { checkLogin } from "../decorators/check-auth.decorator";
 
 export class AdminSystemDictItemController {
   @checkLogin()
@@ -20,5 +20,10 @@ export class AdminSystemDictItemController {
     return json({
       dataSource: await getDictListByDictionaryId(Number(id)),
     });
+  }
+
+  @checkLogin()
+  static async action() {
+    return null;
   }
 }

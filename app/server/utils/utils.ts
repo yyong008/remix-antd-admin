@@ -71,3 +71,14 @@ export function getSearchParams(request: Request, name: string) {
   const r = new URL(request.url).searchParams.get(name);
   return r;
 }
+
+/**
+ * 获取 Node.js URL search params
+ * @param request
+ * @param name
+ * @returns
+ */
+export function getSearchParams$(request: Request, name: string) {
+  const r = new URL(request.url).searchParams.get(name);
+  return r;
+}

@@ -24,7 +24,7 @@ import { useTranslation } from "react-i18next";
 import { useFetcherChange } from "~/hooks/useFetcherChange";
 
 // controller
-import { AdminSystemRoleController } from "~/server/controllers/admin.system.role";
+import { AdminSystemRoleController } from "~/server/controllers/admin.system.role.controller";
 
 // remix
 // remix:meta(client)
@@ -35,12 +35,14 @@ export const action: ActionFunction = AdminSystemRoleController.action;
 export const loader: LoaderFunction = AdminSystemRoleController.loader;
 
 export default function AdminSystemRole() {
-  const { dataSource, menuRoles, flatMenu } = useLoaderData<typeof loader>();
+  const {
+    data: { dataSource, menuRoles, flatMenu },
+  } = useLoaderData<typeof loader>();
 
   const actionRef = useRef();
   const { t } = useTranslation();
   const fetcher = useFetcherChange();
-  const menus = genMenuTree(flatMenu, t, null);
+  const menus = genMenuTreeForRole(flatMenu, t, null);
 
   const columns = [
     {
@@ -130,7 +132,7 @@ export default function AdminSystemRole() {
   );
 }
 
-function genMenuTree(
+function genMenuTreeForRole(
   items: any[],
   t: (v: string) => string,
   parentId?: number | null,
@@ -138,6 +140,8 @@ function genMenuTree(
   return items
     .filter((item) => item.parent_menu_id === parentId)
     .map((item) => ({
+      id: item.id,
+      orderNo: item.orderNo,
       key: item.id,
       value: item.id,
       title: item.icon ? (
@@ -148,6 +152,7 @@ function genMenuTree(
       ) : (
         t(item.name)
       ),
-      children: genMenuTree(items, t, item.id), // 递归构建子树
-    }));
+      children: genMenuTreeForRole(items, t, item.id), // 递归构建子树
+    }))
+    .sort((a, b) => a.orderNo - b.orderNo);
 }

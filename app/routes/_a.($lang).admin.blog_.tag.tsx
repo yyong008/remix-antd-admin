@@ -14,14 +14,16 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { Space } from "antd";
 
 // constants
-import DeleteIt from "~/components/common/DeleteIt";
-import { useFetcherChange } from "~/hooks/useFetcherChange";
-import TagModal from "~/components/blog/tag-list/TagModal";
 import * as _icon from "@ant-design/icons";
+import DeleteIt from "~/components/common/DeleteIt";
+import TagModal from "~/components/blog/tag-list/TagModal";
+import { useFetcherChange } from "~/hooks/useFetcherChange";
 
-// services
+// hooks
 import { goBlogNav } from "~/hooks/router/blog.route";
-import { AdminBlogTagController } from "~/controllers/admin.blog.tag.controller";
+
+// controller
+import { AdminBlogTagController } from "~/server/controllers/admin.blog.tag.controller";
 
 const { SwitcherOutlined } = _icon;
 
@@ -32,12 +34,10 @@ export const meta: MetaFunction = () => {
 
 // remix:action
 export const action: LoaderFunction = AdminBlogTagController.action;
-
-// remix:loader
 export const loader: LoaderFunction = AdminBlogTagController.loader;
 
 export default function SystemConfigRoute() {
-  const { dataSource } = useLoaderData<typeof loader>();
+  const { data } = useLoaderData<typeof loader>();
   const { lang } = useParams();
   const fetcher = useFetcherChange();
   // const actionData = useActionData();
@@ -47,7 +47,7 @@ export default function SystemConfigRoute() {
       <ProTable
         size="small"
         search={false}
-        dataSource={dataSource as any[]}
+        dataSource={data.dataSource as any[]}
         toolBarRender={() => [
           <TagModal fetcher={fetcher} record={{}} key="tag-modal" />,
         ]}

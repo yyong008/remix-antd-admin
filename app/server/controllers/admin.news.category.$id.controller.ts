@@ -6,55 +6,40 @@ import { json } from "@remix-run/node";
 
 // services
 import {
-  createBlogTag$,
-  getBlogTagByUserId$,
-} from "~/server/services/blog/blog-tags";
-import { auth$, getUserId$ } from "~/server/services/common/session";
+  createNewsCategory,
+  getNewsCategoryListByUserId,
+} from "~/server/services/news/news-category";
+import { getUserId$ } from "~/server/services/common/session";
 
-// services
-import { checkLogin } from "~/server/decorators/check-auth.decorator";
+// decorator
+import { checkLogin } from "../decorators/check-auth.decorator";
 
-// lib
+// rxjs
 import { lastValueFrom } from "rxjs";
 
-export class AdminBlogTagController {
+export class AdminNewsCategoryWithIdController {
   @checkLogin()
   static async loader({ request, params }: LoaderFunctionArgs) {
-    const [userId, redirectToLogin] = await lastValueFrom(
-      auth$({ request, params } as any),
-    );
-
-    if (!userId) {
-      return redirectToLogin();
-    }
+    const userId = await lastValueFrom(getUserId$(request));
     return json({
-      dataSource: await lastValueFrom(getBlogTagByUserId$(userId!)),
+      dataSource: await getNewsCategoryListByUserId(userId!),
     });
   }
 
   @checkLogin()
   static async action({ request, params }: ActionFunctionArgs) {
-    const [userId, redirectToLogin] = await lastValueFrom(
-      auth$({ request, params } as any),
-    );
-
-    if (!userId) {
-      return redirectToLogin();
-    }
     const method = request.method;
 
     if (method === "POST") {
       const data = await request.json();
+      const userId = await lastValueFrom(getUserId$(request));
       // 校验数据
 
       // 写入数据
-      const userId = await lastValueFrom(getUserId$(request));
-      const linkCategory = await lastValueFrom(
-        createBlogTag$({
-          ...data,
-          userId,
-        }),
-      );
+      const linkCategory = await createNewsCategory({
+        ...data,
+        userId,
+      });
 
       if (linkCategory === null) {
         return json({
@@ -69,13 +54,15 @@ export class AdminBlogTagController {
         message: "创建成功",
         data: linkCategory,
       });
-    } else if (method === "PUT") {
+    } else if (method === "DELETE") {
+      // 删除
       return json({
         code: 0,
         message: "暂不支持",
         data: {},
       });
-    } else if (method === "DELETE") {
+    } else if (method === "PUT") {
+      // 更新
       return json({
         code: 0,
         message: "暂不支持",

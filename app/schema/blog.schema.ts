@@ -12,7 +12,7 @@ export const UpdateBlogSchema = z.object({
 });
 
 export const DeleteBlogSchema = z.object({
-  id: z.number(),
+  ids: z.array(z.number()),
 });
 
 export const GetBlogSchema = z.object({
@@ -33,7 +33,7 @@ export const UpdateBlogCategorySchema = z.object({
 });
 
 export const DeleteBlogCategorySchema = z.object({
-  id: z.number(),
+  ids: z.array(z.number()),
 });
 
 export const GetBlogCategorySchema = z.object({
@@ -53,7 +53,7 @@ export const UpdateBlogTagSchema = z.object({
 });
 
 export const DeleteBlogTagSchema = z.object({
-  id: z.number(),
+  ids: z.array(z.number()),
 });
 
 export const GetBlogTagSchema = z.object({

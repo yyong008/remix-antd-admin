@@ -60,7 +60,6 @@ export class LayoutAController {
           ]),
         ),
         map((data) => () => {
-          console.log(data[1]);
           return respSuccessJson({
             menu: data[0],
             userInfo: data[1],

@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { from, map, of, switchMap } from "rxjs";
+import { from, of, switchMap } from "rxjs";
 import prisma from "~/server/services/common/prisma";
 
 /**
@@ -8,24 +8,18 @@ import prisma from "~/server/services/common/prisma";
  * @returns
  */
 export const createBlog$ = (data: any) => {
-  return of(data)
-    .pipe(
-      map((d) => {
-        return {
-          ...d,
-          publishedAt: dayjs(data.publishedAt).toISOString(),
-        };
-      }),
-    )
-    .pipe(
-      switchMap((data) =>
-        from(
-          prisma.blog.create({
-            data,
-          }),
-        ),
+  return of({
+    ...data,
+    publishedAt: dayjs(data.publishedAt).toISOString(),
+  }).pipe(
+    switchMap((data) =>
+      from(
+        prisma.blog.create({
+          data,
+        }),
       ),
-    );
+    ),
+  );
 };
 
 /**
@@ -34,27 +28,38 @@ export const createBlog$ = (data: any) => {
  * @returns
  */
 export const updateBlog$ = (data: any) => {
-  return of(data)
-    .pipe(
-      map((d) => {
-        return {
-          ...d,
-          publishedAt: dayjs(data.publishedAt).toISOString(),
-        };
-      }),
-    )
-    .pipe(
-      switchMap((data) =>
-        from(
-          prisma.blog.update({
-            where: {
-              id: data.id,
-            },
-            data,
-          }),
-        ),
+  return of({
+    ...data,
+    publishedAt: dayjs(data.publishedAt).toISOString(),
+  }).pipe(
+    switchMap((data) =>
+      from(
+        prisma.blog.update({
+          where: {
+            id: data.id,
+          },
+          data,
+        }),
       ),
-    );
+    ),
+  );
+};
+
+/**
+ * 更新博客
+ * @param data
+ * @returns
+ */
+export const deleteManyBlogByIds$ = (ids: number[]) => {
+  return from(
+    prisma.blog.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    }),
+  );
 };
 
 /**
@@ -88,17 +93,20 @@ export const getBlogsListByCategoryId$ = (categoryId: number) => {
  * @returns
  */
 export const getBlogsListByIds$ = (
+  userId: number,
   categoryId: number,
   tagId: number,
-  userId: number,
 ) => {
+  const where: any = {
+    userId,
+  };
+
+  if (tagId) where.tagId = tagId;
+  if (categoryId) where.categoryId = categoryId;
+
   return from(
     prisma.blog.findMany({
-      where: {
-        userId,
-        tagId,
-        categoryId,
-      },
+      where,
     }),
   );
 };

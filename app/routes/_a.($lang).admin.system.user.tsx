@@ -24,7 +24,7 @@ import CreateUserModal from "~/components/system/user/CreateUserModel";
 import { formatDate } from "~/utils/utils";
 
 // controller
-import AdminSystemUserController from "~/controllers/admin.system.user.controller";
+import AdminSystemUserController from "~/server/controllers/admin.system.user.controller";
 
 // hooks
 import { useUserNav } from "~/hooks/router/user.route";

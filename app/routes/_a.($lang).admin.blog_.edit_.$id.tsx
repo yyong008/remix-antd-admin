@@ -20,7 +20,7 @@ import EditorRichFromItem from "~/components/editor/EditorRichFromItem";
 import { useFetcherChange } from "~/hooks/useFetcherChange";
 
 // controllers
-import { AdminBlogEditWithIdController } from "~/controllers/admin.blog.edit.$id.controller";
+import { AdminBlogEditWithIdController } from "~/server/controllers/admin.blog.edit.$id.controller";
 
 // remix:action-loader
 export const action: ActionFunction = AdminBlogEditWithIdController.action;
@@ -31,21 +31,31 @@ export default function BlotModWithIdRoute() {
   const fetcher = useFetcherChange();
   const { id } = useParams();
   const { data } = useLoaderData<typeof loader>();
+
   return (
     <PageContainer>
       <ProCard>
         <ProForm
           initialValues={{
             ...data.blogData,
-            date: data.blogData?.publishedAt,
             categoryId: data.blogData.categoryId,
+          }}
+          submitter={{
+            resetButtonProps: {
+              style: {
+                // Hide the reset button
+                display: "none",
+              },
+            },
           }}
           onFinish={async (v) => {
             const vals = v;
+            if (id) vals.id = Number(id);
             fetcher.submit(vals, {
               method: id ? "PUT" : "POST", // 修改或新建
               encType: "application/json",
             });
+            form.resetFields();
             return true;
           }}
         >
@@ -81,7 +91,7 @@ export default function BlotModWithIdRoute() {
           />
           <ProFormDateTimePicker
             label="博客发布时间"
-            name="date"
+            name="publishedAt"
             width={"100%" as any}
             rules={[
               {

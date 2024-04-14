@@ -116,7 +116,6 @@ export default function SystemMenu(props: SystemMenuProps) {
           title: "权限标识",
           dataIndex: "permission",
           tooltip: "权限名称",
-          align: "center",
           width: 200,
           render: (_, record: any) =>
             record?.permission ? (
@@ -209,7 +208,7 @@ export default function SystemMenu(props: SystemMenuProps) {
       ]}
       scroll={{ x: 1300 }}
       dataSource={menuRaw}
-      rowKey="name"
+      rowKey="id"
       pagination={false}
       search={false}
       dateFormatter="string"

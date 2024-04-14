@@ -25,6 +25,41 @@ export const createBlogTag$ = (data: any) => {
 };
 
 /**
+ * 更新博客标签
+ * @param data
+ * @returns
+ */
+export const updateBlogTag$ = (data: any) => {
+  return from(
+    prisma.blogTag.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        name: data.name,
+        description: data.description,
+        userId: data.userId,
+      },
+    }),
+  );
+};
+
+/**
+ * 删除博客标签
+ * @param data
+ * @returns
+ */
+export const deleteBlogTag$ = (id: number) => {
+  return from(
+    prisma.blogTag.delete({
+      where: {
+        id,
+      },
+    }),
+  );
+};
+
+/**
  * 查找所有标签
  * @returns
  */
@@ -33,7 +68,7 @@ export const getAllBlogTag$ = (): Observable<any[]> => {
 };
 
 /**
- * 根据 userId 查找博客分类
+ * 根据 userId 查找博客标签
  * @param userId
  * @returns
  */
@@ -45,6 +80,15 @@ export const getBlogTagByUserId$ = (userId: number): Observable<any[]> => {
       },
     }),
   );
+};
+
+/**
+ * 根据 id 获取博客biaoqian
+ * @param id
+ * @returns
+ */
+export const getBlogTagById$ = (id: number) => {
+  return from(prisma.blogTag.findUnique({ where: { id } }));
 };
 
 /**

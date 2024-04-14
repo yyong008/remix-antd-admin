@@ -12,20 +12,22 @@ import { useLoaderData } from "@remix-run/react";
 import { Image } from "antd";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { StorageModal } from "~/components/tools/StorageModal";
+import FormatTime from "~/components/common/FormatTime";
 
 // hooks
 import { usePagination } from "~/hooks/usePagination";
 import { useStorageNav } from "~/hooks/router/storage.route";
-import { AdminToolsStorage } from "~/controllers/admin.tools.storage.controller";
-import FormatTime from "~/components/common/FormatTime";
+
+// controller
+import { AdminToolsStorageController } from "~/server/controllers/admin.tools.storage.controller";
 
 // remix:meta
 export const meta: MetaFunction = () => {
   return [{ title: "System-User" }];
 };
 
-export const loader: LoaderFunction = AdminToolsStorage.loader;
-export const action: ActionFunction = AdminToolsStorage.action;
+export const loader: LoaderFunction = AdminToolsStorageController.loader;
+export const action: ActionFunction = AdminToolsStorageController.action;
 
 export default function SystemStorageRoute() {
   const { dataSource, total } = useLoaderData<typeof loader>();

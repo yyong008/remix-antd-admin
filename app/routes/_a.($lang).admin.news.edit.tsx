@@ -17,7 +17,7 @@ import { PageContainer } from "@ant-design/pro-layout";
 import { useFetcherChange } from "~/hooks/useFetcherChange";
 
 // controller
-import { AdminNewsEditController } from "~/controllers/admin.news.edit.controller";
+import { AdminNewsEditController } from "~/server/controllers/admin.news.edit.controller";
 
 // action-loader
 export const action = AdminNewsEditController.action;

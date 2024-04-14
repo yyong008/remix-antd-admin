@@ -20,10 +20,10 @@ import { PageContainer } from "@ant-design/pro-layout";
 import { useFetcherChange } from "~/hooks/useFetcherChange";
 
 // constroller
-import { AdminNewsEditWithIdController } from "~/controllers/admin.news.edit.$id.controller";
+import { AdminNewEditWithIdController } from "~/server/controllers/admin.news.edit.$id.controller";
 
-export const action: ActionFunction = AdminNewsEditWithIdController.action;
-export const loader: LoaderFunction = AdminNewsEditWithIdController.loader;
+export const action: ActionFunction = AdminNewEditWithIdController.action;
+export const loader: LoaderFunction = AdminNewEditWithIdController.loader;
 
 export default function NewsEdit() {
   const { id } = useParams();

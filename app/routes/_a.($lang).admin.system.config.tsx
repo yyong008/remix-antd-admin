@@ -8,7 +8,7 @@ import { useLoaderData } from "@remix-run/react";
 import { PageContainer, ProCard, ProTable } from "@ant-design/pro-components";
 
 // controller
-import { AdminSystemConfigController } from "~/controllers/admin.system.config.controller";
+import { AdminSystemConfigController } from "~/server/controllers/admin.system.config.controller";
 
 // remix:meta
 export const meta: MetaFunction = () => {

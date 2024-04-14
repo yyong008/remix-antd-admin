@@ -1,33 +1,12 @@
-import { json } from "@remix-run/node";
+// types
+import type { RoleData, UpdateRoleData } from "~/types/index";
+
 import prisma from "~/server/services/common/prisma";
 
-export async function handlePostAction(data) {
-  try {
-    const role = await addRole(data);
-    return json({ code: 0, message: "success", data: role });
-  } catch (error) {
-    return json({ code: 1, message: "fail", data: [] });
-  }
-}
-
-export async function handlePutAction(data) {
-  try {
-    const role = await updateRole(data);
-    return json({ code: 0, message: "success", data: role });
-  } catch (error) {
-    return json({ code: 1, message: "fail", data: [] });
-  }
-}
-
-export async function handleDeleteAction(ids: number[]) {
-  try {
-    const role = await deleteRole(ids);
-    return json({ code: 0, message: "success", data: role });
-  } catch (error) {
-    return json({ code: 1, message: "fail", data: [] });
-  }
-}
-
+/**
+ * 获取角色列表（包含菜单）
+ * @returns h
+ */
 export const getRoleList = async () => {
   const roles = await prisma.role.findMany({
     select: {
@@ -43,7 +22,6 @@ export const getRoleList = async () => {
       MenuRole: {
         include: {
           menus: true,
-          // menu: true,
         },
       },
     },
@@ -51,8 +29,13 @@ export const getRoleList = async () => {
   return roles;
 };
 
-export const addRole = async (data) => {
-  let role = null;
+/**
+ * 创建角色
+ * @param data
+ * @returns
+ */
+export const addRole = async (data: RoleData) => {
+  let role: any = null;
   try {
     await prisma.$transaction(async (tx) => {
       role = await tx.role.create({
@@ -68,16 +51,10 @@ export const addRole = async (data) => {
         throw new Error(`create user fail`);
       }
 
-      await Promise.all(
-        data.menus?.map(async (menu) => {
-          await tx.menuRole.create({
-            data: {
-              role: { connect: { id: role.id } }, // 关联角色
-              menu: { connect: { id: menu.id } }, // 关联菜单
-            },
-          });
-        }),
-      );
+      // 更具 data 中的 menus 重新关联中的数组
+      await tx.menuRole.createMany({
+        data: data.menus.map((m: any) => ({ roleId: role.id, menuId: m.id })),
+      });
       return role;
     });
   } catch (error) {
@@ -86,7 +63,7 @@ export const addRole = async (data) => {
   return role;
 };
 
-export const updateRole = async (data) => {
+export const updateRole = async (data: UpdateRoleData) => {
   let role: any = null;
   try {
     await prisma.$transaction(async (tx) => {
@@ -113,7 +90,7 @@ export const updateRole = async (data) => {
       if (!role.id) {
         throw new Error(`create user fail`);
       }
-
+      // 删除指定 id 的 menuRole
       const d = await tx.menuRole.deleteMany({
         where: { roleId: data.id },
       });
@@ -122,16 +99,10 @@ export const updateRole = async (data) => {
         throw new Error(`del userRole fail`);
       }
 
-      await Promise.all(
-        data.menus?.map(async (menu) => {
-          await tx.menuRole.create({
-            data: {
-              role: { connect: { id: role.id } }, // 关联角色
-              menu: { connect: { id: menu.id } }, // 关联菜单
-            },
-          });
-        }),
-      );
+      // 更具 data 中的 menus 重新关联中的数组
+      await tx.menuRole.createMany({
+        data: data.menus.map((m: any) => ({ roleId: role.id, menuId: m.id })),
+      });
       return role;
     });
   } catch (error) {
@@ -178,6 +149,10 @@ export const getUserRolesById = async (roleId: number) => {
   return roles;
 };
 
+/**
+ * 获取所有菜单角色
+ * @returns
+ */
 export const getMenuRoles = async () => {
   const roles = await prisma.menuRole.findMany({
     select: {

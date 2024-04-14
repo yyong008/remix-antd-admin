@@ -2,124 +2,124 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 
 // decorators
-import { checkLogin } from "~/server/decorators/check-auth.decorator";
 import { permission } from "~/server/decorators/check-perm";
 import { validate } from "~/server/decorators/validate-schema";
+import { checkLogin } from "~/server/decorators/check-auth.decorator";
 
 // schemas
-import { CreateBlogCategorySchema } from "~/schema/blog.schema";
+import {
+  CreateBlogCategorySchema,
+  DeleteBlogCategorySchema,
+  UpdateBlogCategorySchema,
+} from "~/schema/blog.schema";
 
 // services
 import {
   createBlogCategory$,
   // getBlogCategory$,
   getBlogCategoryByUserId$,
+  updateBlogCategory$,
 } from "~/server/services/blog/blog-category";
 import { getUserId$ } from "~/server/services/common/session";
 
 // utils
-import * as respUtils from "~/server/utils/response.json";
-import { lastValueFrom } from "rxjs";
+import * as rp from "~/server/utils/response.json";
 
-const perms: any = {
-  GET: "blog:category-list:get",
-  POST: "blog:category-list:create",
-  PUT: "blog:category-list:update",
-  DELETE: "blog:category-list:delete",
+// rxjs
+import { firstValueFrom, forkJoin, from, lastValueFrom, switchMap } from "rxjs";
+
+const perms = {
+  READ_LIST: "blog:category:list",
+  READ: "blog:category:read",
+  CREATE: "blog:category:create",
+  UPDATE: "blog:category:update",
+  DELETE: "blog:category:delete",
 };
 
 export class AdminBlogCategoryController {
   @checkLogin()
   static async action({ request, params }: ActionFunctionArgs) {
-    const method = request.method;
-
-    switch (method) {
+    switch (request.method) {
       case "POST":
-        AdminBlogCategoryController.post({
+        return AdminBlogCategoryController.post({
           request,
           params,
         } as ActionFunctionArgs);
-        break;
       case "PUT":
-        AdminBlogCategoryController.put({
+        return AdminBlogCategoryController.put({
           request,
           params,
         } as ActionFunctionArgs);
-        break;
       case "DELETE":
-        AdminBlogCategoryController.delete({
+        return AdminBlogCategoryController.delete({
           request,
           params,
         } as ActionFunctionArgs);
-        break;
       default:
-        respUtils.respUnSupportJson();
-        break;
+        return rp.respUnSupportJson();
     }
   }
 
-  // @permission(perms)
-  // @checkLogin()
+  @checkLogin()
+  @permission(perms.READ_LIST)
   static async loader({ request, params }: LoaderFunctionArgs) {
-    const userId = await lastValueFrom(getUserId$(request));
-    const dataSource = await lastValueFrom(getBlogCategoryByUserId$(userId!));
-    console.log("datasource", dataSource);
-    return respUtils.respSuccessJson({
-      dataSource,
-    });
+    const result$ = getUserId$(request).pipe(
+      switchMap((userId) => getBlogCategoryByUserId$(userId!)),
+    );
+    const dataSource = await lastValueFrom(result$);
+
+    return dataSource
+      ? rp.respSuccessJson({
+          dataSource,
+        })
+      : rp.respFailJson({});
   }
 
-  @permission(perms)
+  @permission(perms.CREATE)
   @validate(CreateBlogCategorySchema)
-  static async post({ request, params }: ActionFunctionArgs) {
-    const data = await request.json();
-    const linkCategory = await lastValueFrom(
-      createBlogCategory$({
-        ...data,
-        userId: await lastValueFrom(getUserId$(request)),
+  static async post({ request }: ActionFunctionArgs) {
+    const result$ = forkJoin({
+      data: request.json(),
+      userId: getUserId$(request),
+    }).pipe(switchMap((data) => createBlogCategory$(data)));
+
+    const blogCategory = await lastValueFrom(result$);
+
+    return blogCategory === null
+      ? rp.respFailJson({}, "创建失败")
+      : rp.respSuccessJson(blogCategory, "创建成功");
+  }
+
+  @permission(perms.UPDATE)
+  @validate(UpdateBlogCategorySchema)
+  static async put({ request }: ActionFunctionArgs) {
+    const result$ = forkJoin({
+      data: from(request.json()),
+      userId: getUserId$(request),
+    }).pipe(
+      switchMap((data) => {
+        return updateBlogCategory$(data);
       }),
     );
 
-    if (linkCategory === null) {
-      return respUtils.respFailJson({}, "创建失败");
-    }
+    const blogCategory = await firstValueFrom(result$);
 
-    return respUtils.respSuccessJson(linkCategory, "创建成功");
+    return blogCategory === null
+      ? rp.respFailJson({}, "更新失败")
+      : rp.respSuccessJson(blogCategory, "更新成功");
   }
 
-  @permission(perms)
-  @validate(CreateBlogCategorySchema)
-  static async put({ request, params }: ActionFunctionArgs) {
-    const data = await request.json();
-    const linkCategory = await lastValueFrom(
-      createBlogCategory$({
-        ...data,
-        userId: await lastValueFrom(getUserId$(request)),
-      }),
-    );
-
-    if (linkCategory === null) {
-      return respUtils.respFailJson({}, "创建失败");
-    }
-
-    return respUtils.respSuccessJson(linkCategory, "创建成功");
-  }
-
-  @permission(perms)
-  @validate(CreateBlogCategorySchema)
+  @permission(perms.DELETE)
+  @validate(DeleteBlogCategorySchema)
   static async delete({ request, params }: ActionFunctionArgs) {
-    const data = await request.json();
-    const linkCategory = await lastValueFrom(
-      createBlogCategory$({
-        ...data,
-        userId: await lastValueFrom(getUserId$(request)),
-      }),
+    const result$ = from(request.json()).pipe(
+      switchMap((data) => deleteindBlogCategory$(data.id)),
     );
 
-    if (linkCategory === null) {
-      return respUtils.respFailJson({}, "创建失败");
-    }
+    const blogCategory = await lastValueFrom(result$);
 
-    return respUtils.respSuccessJson(linkCategory, "创建成功");
+    return blogCategory === null
+      ? rp.respFailJson({}, "删除失败")
+      : rp.respSuccessJson(blogCategory, "删除成功");
   }
 }

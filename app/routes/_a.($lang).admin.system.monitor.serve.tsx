@@ -12,7 +12,7 @@ import { PageContainer } from "@ant-design/pro-components";
 import { useLoaderData } from "@remix-run/react";
 
 // controllers
-import { AdminSystemMonitorServe } from "~/controllers/admin.system.monitor.serve";
+import { AdminSystemMonitorServeController } from "~/server/controllers/admin.system.monitor.serve.controller";
 
 // rxjs
 import { interval } from "rxjs";
@@ -33,7 +33,7 @@ const getPercent = (val: number = 0) => {
 };
 
 // remix:loader
-export const loader: LoaderFunction = AdminSystemMonitorServe.loader;
+export const loader: LoaderFunction = AdminSystemMonitorServeController.loader;
 
 export default function SystemNoticeRoute() {
   const { dataSource } = useLoaderData<typeof loader>();

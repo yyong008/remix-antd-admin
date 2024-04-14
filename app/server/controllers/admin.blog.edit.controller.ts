@@ -1,77 +1,78 @@
 // type
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 
-// remix
-import { json } from "@remix-run/react";
-
 // services
-import { auth$, getUserId$ } from "~/server/services/common/session";
+import { getUserId$ } from "~/server/services/common/session";
 import { getBlogTagByUserId$ } from "~/server/services/blog/blog-tags";
-import { createBlog$, updateBlog$ } from "~/server/services/blog/blog";
-import { getFindBlogCategory$ } from "~/server/services/blog/blog-category";
+import { createBlog$ } from "~/server/services/blog/blog";
+import { getAllBlogCategory$ } from "~/server/services/blog/blog-category";
 
 // decorator
+import { permission } from "../decorators/check-perm";
 import { checkLogin } from "../decorators/check-auth.decorator";
 
-// utils
-import { lastValueFrom } from "rxjs";
+// rxjs
+import { forkJoin, from, lastValueFrom, of, switchMap } from "rxjs";
 
+// utils
+import * as rp from "../utils/response.json";
+
+const perms = {
+  READ_LIST: "blog:list",
+  READ: "blog:read",
+  CREATE: "blog:create",
+  UPDATE: "blog:update",
+  DELETE: "blog:delete",
+};
+
+/**
+ * 编辑并创建博客
+ */
 export class AdminBlogEditController {
   @checkLogin()
+  @permission(perms.CREATE)
   static async loader({ request, params }: LoaderFunctionArgs) {
-    const [userId, redirectToLogin] = await lastValueFrom(
-      auth$({ request, params } as any),
+    const result$ = from(getUserId$(request)).pipe(
+      switchMap((userId) =>
+        forkJoin({
+          TINYMCE_KEY: of(process.env.TINYMCE_KEY!),
+          blogCategory: getAllBlogCategory$(),
+          blogTag: getBlogTagByUserId$(userId!),
+        }),
+      ),
     );
 
-    if (!userId) {
-      return redirectToLogin();
-    }
-    return json({
-      code: 0,
-      message: "success",
-      data: {
-        TINYMCE_KEY: process.env.TINYMCE_KEY,
-        blogCategory: await lastValueFrom(getFindBlogCategory$()),
-        blogTag: await lastValueFrom(getBlogTagByUserId$(userId)),
-      },
-    });
+    const res = await lastValueFrom(result$);
+    return res ? rp.respSuccessJson(res) : rp.respFailJson({});
   }
 
   @checkLogin()
   static async action({ request }: ActionFunctionArgs) {
-    const userId = await lastValueFrom(getUserId$(request));
-    const { method } = request;
+    switch (request.method) {
+      case "POST":
+        return AdminBlogEditController.post({
+          request,
+        } as ActionFunctionArgs);
+      default:
+        return rp.respUnSupportJson();
+    }
+  }
 
-    if (method === "POST") {
-      const data = await request.json();
-      const blog = await lastValueFrom(
+  @permission(perms.CREATE)
+  static post({ request }: ActionFunctionArgs) {
+    const result$ = forkJoin({
+      data: request.json(),
+      userId: getUserId$(request),
+    }).pipe(
+      switchMap(({ data, userId }) =>
         createBlog$({
           ...data,
           userId,
-          publishedAt: data.date,
         }),
-      );
+      ),
+    );
 
-      return json({
-        code: 0,
-        data: blog,
-        message: "success",
-      });
-    } else if (method === "PUT") {
-      const data = await request.json();
-      const blog = await lastValueFrom(
-        updateBlog$({
-          ...data,
-          userId,
-          publishedAt: data.date,
-        }),
-      );
-
-      return json({
-        code: 0,
-        data: blog,
-        message: "success",
-      });
-    }
+    const res = lastValueFrom(result$);
+    return res ? rp.respSuccessJson(res) : rp.respFailJson({});
   }
 }

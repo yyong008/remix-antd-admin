@@ -4,7 +4,8 @@ import { lastValueFrom } from "rxjs";
 import { respFailJson } from "~/server/utils/response.json";
 
 // session
-import { auth$ } from "../services/common/session";
+import { auth$, logout$ } from "../services/common/session";
+import { getUserInfoById$ } from "../services/system/user";
 
 /**
  * 检查登录
@@ -28,6 +29,17 @@ export function checkLogin() {
           } as any),
         );
         if (!userId) {
+          return redirectToLogin();
+        }
+        // 用户被禁用
+        const userInfo = await lastValueFrom(getUserInfoById$(userId));
+
+        if (userInfo && userInfo.status === 0) {
+          // 重定向到登录
+          const redirectToLogin = await lastValueFrom(
+            logout$(request, params.lang!),
+          );
+
           return redirectToLogin();
         }
         return originalMethod.apply(this, args);

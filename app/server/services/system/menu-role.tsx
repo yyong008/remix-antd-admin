@@ -3,58 +3,29 @@ import type { TreeDataNode } from "antd";
 // service
 import prisma from "~/server/services/common/prisma";
 
-function buildTreeData(
-  menuData: any[],
-  parentId = null,
-  t: (v: string) => void,
-) {
-  const menuTree: any[] = [];
-
-  menuData.forEach((menu) => {
-    menu.title = t(menu.name);
-    menu.name = t(menu.name);
-
-    if (menu.parent_menu_id === parentId) {
-      const subMenus = buildTreeData(menuData, menu.id, t);
-      if (subMenus.length) {
-        menu.children = subMenus;
-      }
-      menuTree.push(menu);
-    }
-  });
-
-  return menuTree;
-}
-
 function buildMenuTree(
   menuData: any[],
   parentId = null,
   t: (v: string) => void,
   lang: string,
 ) {
-  const menuTree: any[] = [];
-
-  menuData.forEach((menu) => {
-    menu.name = t(menu.name);
-    menu.title = t(menu.name);
-    menu.hideInMenu = !!menu.isShow;
-
-    if (menu.type !== 3) {
-      if (!menu.isLink && !menu.path.startsWith("/" + lang)) {
-        menu.path = `/${lang}/admin${menu.path}`;
+  return menuData
+    .filter((menu) => menu.parent_menu_id === parentId)
+    .map((menu) => {
+      const _menus = {
+        ...menu,
+        name: t(menu.name),
+        title: t(menu.name),
+        hideInMenu: !!menu.isShow,
+      };
+      const children = buildMenuTree(menuData, menu.id, t, lang);
+      if (children.length > 0) {
+        _menus.children = children;
       }
-    }
 
-    if (menu.parent_menu_id === parentId) {
-      const subMenus = buildMenuTree(menuData, menu.id, t, lang);
-      if (subMenus.length) {
-        menu.children = subMenus;
-      }
-      menuTree.push(menu);
-    }
-  });
-
-  return menuTree;
+      return _menus;
+    })
+    .sort((a, b) => a.orderNo - b.orderNo);
 }
 
 export async function getMenuRaw(t: () => void, lang: string) {
@@ -64,6 +35,10 @@ export async function getMenuRaw(t: () => void, lang: string) {
   return treeData;
 }
 
+/**
+ * 获取所有菜单（扁平，没有处理的， 包含目录，菜单，权限）
+ * @returns
+ */
 export async function getFlatMenu() {
   let menu = await prisma.menu.findMany();
   return menu;
@@ -71,7 +46,7 @@ export async function getFlatMenu() {
 
 export async function getTypeNotPermMenu(t: () => void) {
   try {
-    const menuData = await prisma.menu.findMany({
+    let menuData = await prisma.menu.findMany({
       where: {
         type: {
           not: 3,
@@ -79,7 +54,7 @@ export async function getTypeNotPermMenu(t: () => void) {
       },
     });
 
-    const menuTree = buildTreeData(menuData, null, t);
+    let menuTree = buildMenuTree(menuData, null, t, "en-US");
     return menuTree;
   } catch (error) {
     console.error(error);

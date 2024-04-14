@@ -1,7 +1,13 @@
 import { z } from "zod";
 
+/**
+ * 1. dir
+ * 2. menu
+ * 3. perm
+ */
+
 /*---------------------dir: add/update--------------------------*/
-export const AddMenuDirSchema = z.object({
+export const CreateMenuDirSchema = z.object({
   type: z.number(),
   name: z.string(),
   parentId: z.number(),
@@ -16,7 +22,7 @@ export const AddMenuDirSchema = z.object({
   status: z.number(),
 });
 
-export const UpdateMenuDirSchema = AddMenuDirSchema.extend({
+export const UpdateMenuDirSchema = CreateMenuDirSchema.extend({
   id: z.number(),
 });
 
@@ -56,7 +62,7 @@ export const UpdateMenuPermSchema = AddMenuPermSchema.extend({
   id: z.number(),
 });
 
-/*---------------------menu: delete--------------------------*/
-export const deleteMenuSchema = z.object({
+/*---------------------dir/menu/perm: delete--------------------------*/
+export const DeleteMenuSchema = z.object({
   ids: z.array(z.number()),
 });

@@ -14,7 +14,7 @@ import DictModal from "~/components/system/dict/CreateDictModel";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 // controller
-import { AdminSystemDictController } from "~/controllers/admin.system.dict.controller";
+import { AdminSystemDictController } from "~/server/controllers/admin.system.dict.controller";
 
 export const loader: LoaderFunction = AdminSystemDictController.loader;
 

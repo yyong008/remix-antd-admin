@@ -15,7 +15,7 @@ import DictItemModal from "~/components/system/dict/CreateDictItemModel";
 import { formatDate } from "~/utils/utils";
 
 // service
-import { AdminSystemDictItemController } from "~/controllers/admin.system.dict-item.controller";
+import { AdminSystemDictItemController } from "~/server/controllers/admin.system.dict-item.controller";
 
 // remix:meta
 export const meta: MetaFunction = () => {

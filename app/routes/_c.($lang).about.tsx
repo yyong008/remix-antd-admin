@@ -4,7 +4,9 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 // components
 import { Descriptions, Space, Tag } from "antd";
 import { ProCard, ProConfigProvider } from "@ant-design/pro-components";
-import { AboutController } from "~/controllers/admin.about.controller";
+
+// controller
+import { AdminAboutController } from "~/server/controllers/admin.about.controller";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -12,7 +14,7 @@ export const meta: MetaFunction = () => {
 };
 
 // remix:loader
-export const loader: LoaderFunction = AboutController.loader;
+export const loader: LoaderFunction = AdminAboutController.loader;
 
 const BlankLink = ({ url = "", text = "" }) => {
   const target = /^http(s)?:/.test(url)

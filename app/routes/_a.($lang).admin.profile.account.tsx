@@ -13,15 +13,15 @@ import {
   ProFormText,
 } from "@ant-design/pro-components";
 
-import { AdminProfileAccount } from "~/controllers/admin.profile.account.controller";
+import { AdminProfileAccountController } from "~/server/controllers/admin.profile.account.controller";
 
 // remix:meta
 export const meta: MetaFunction = () => {
   return [{ title: "Profile-Link" }];
 };
 
-export const action: LoaderFunction = AdminProfileAccount.action;
-export const loader: LoaderFunction = AdminProfileAccount.loader;
+export const action: LoaderFunction = AdminProfileAccountController.action;
+export const loader: LoaderFunction = AdminProfileAccountController.loader;
 
 export default function ProfileAccountRoute() {
   const { dataSource } = useLoaderData<typeof loader>();

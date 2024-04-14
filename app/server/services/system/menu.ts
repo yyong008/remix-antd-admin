@@ -1,5 +1,7 @@
 // type
 import type { Prisma } from "@prisma/client";
+import { treeData } from "~/__mock__/db/menu";
+
 // service
 import prisma from "~/server/services/common/prisma";
 
@@ -31,8 +33,7 @@ function buildMenuTree(
       menuTree.push(menu);
     }
   });
-
-  return menuTree;
+  return treeData;
 }
 
 function buildMenuTreeRaw(
@@ -41,21 +42,23 @@ function buildMenuTreeRaw(
   t: (v: string) => void,
   lang: string,
 ) {
-  const menuTree: any[] = [];
-
-  menuData.forEach((menu) => {
-    menu.name = t(menu.name);
-    menu.key = t(menu.name);
-    if (menu.parent_menu_id === parentId) {
-      const subMenus = buildMenuTreeRaw(menuData, menu.id, t, lang);
-      if (subMenus.length) {
-        menu.children = subMenus;
+  return menuData
+    .filter((menu) => menu.parent_menu_id === parentId)
+    .map((menu) => {
+      const _menus = {
+        ...menu,
+        name: t(menu.name),
+        title: t(menu.name),
+        hideInMenu: !!menu.isShow,
+      };
+      const children = buildMenuTree(menuData, menu.id, t, lang);
+      if (children.length > 0) {
+        _menus.children = children;
       }
-      menuTree.push(menu);
-    }
-  });
 
-  return menuTree;
+      return _menus;
+    })
+    .sort((a, b) => a.orderNo - b.orderNo);
 }
 
 export async function getMenu(t: () => void, lang: string) {
@@ -196,7 +199,7 @@ export const createMenu = async (data: Prisma.MenuUncheckedCreateInput) => {
     menuData = {
       type: data.type,
       name: data.name,
-      parentId: data.parentId,
+      parent_menu_id: data.parent_menu_id,
       permission: data.permission,
       isLink: data.isLink,
       isShow: data.isShow,
@@ -208,11 +211,11 @@ export const createMenu = async (data: Prisma.MenuUncheckedCreateInput) => {
       remark: data.remark,
       icon: data.icon,
     };
-  } else if (data.type === 3) {
+  } else {
     menuData = {
       type: data.type,
       name: data.name,
-      parentId: data.parentId,
+      parent_menu_id: data.parent_menu_id,
       permission: data.permission,
       status: data.status,
       orderNo: data.orderNo,
@@ -230,16 +233,16 @@ export const createMenu = async (data: Prisma.MenuUncheckedCreateInput) => {
   }
 };
 
-export const updateMenu = async (data) => {
+export const updateMenu = async (data: Prisma.MenuUncheckedUpdateInput) => {
   try {
     const menu = await prisma.menu.update({
       where: {
-        id: data.id,
+        id: data.id as number,
       },
       data: {
         type: data.type,
         name: data.name,
-        parent_menu_id: data.parentId,
+        parent_menu_id: data.parent_menu_id,
         permission: data.permission,
         isLink: data.isLink,
         isShow: data.isShow,

@@ -1,5 +1,5 @@
 // react
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 // component
 import {
@@ -32,14 +32,22 @@ export default function CreateRoleModal(props: CreateRoleModalProps) {
     setCheckedKeys(checkedKeys);
   };
 
-  useEffect(() => {
+  const initCheckKeys = useMemo(() => {
     if (record.id) {
-      const keys: any[] = menuRoles
+      return menuRoles
         ?.filter((mr) => mr.roleId === record.id)
         ?.map((r) => r.menuId);
-      setCheckedKeys(keys);
+    } else {
+      return [];
     }
   }, [menuRoles, record]);
+
+  useEffect(() => {
+    if (record.id) {
+      setCheckedKeys(initCheckKeys);
+    }
+  }, [initCheckKeys, record.id]);
+
   return (
     <ModalForm
       title="创建角色"
@@ -62,7 +70,11 @@ export default function CreateRoleModal(props: CreateRoleModalProps) {
             ...record,
             menus: menuRoles
               ?.filter((mr) => mr.roleId === record.id)
-              ?.map((r) => r.menus.key),
+              ?.map((r) => ({
+                id: r.menus.id,
+                key: r.menus.id,
+                value: r.menus.id,
+              })),
           });
           if (record.id) {
             const keys: any[] = menuRoles
@@ -84,6 +96,8 @@ export default function CreateRoleModal(props: CreateRoleModalProps) {
               id: record.id,
             }
           : vals;
+
+        debugger;
         fetcher.submit(values, {
           method: record.id ? "PUT" : "POST", // 修改或新建
           encType: "application/json",
@@ -131,7 +145,7 @@ export default function CreateRoleModal(props: CreateRoleModalProps) {
           placeholder="请输入"
         />
       </ProFormGroup>
-      <ProForm.Item label="菜单" name="menus">
+      <ProForm.Item label="菜单权限" name="menus">
         <CustomTree menu={menu} checkedKeys={checkedKeys} onCheck={onCheck} />
       </ProForm.Item>
       <ProFormRadio.Group
@@ -145,6 +159,12 @@ export default function CreateRoleModal(props: CreateRoleModalProps) {
           {
             label: "禁用",
             value: 0,
+          },
+        ]}
+        rules={[
+          {
+            required: true,
+            message: "请输入",
           },
         ]}
       />
@@ -178,7 +198,9 @@ function CustomTree({
         checkedKeys={checkedKeys}
         onCheck={(e, d) => {
           onCheck(e);
-          onChange?.(d.checkedNodes);
+          onChange?.(
+            d.checkedNodes?.map(({ id, key, value }) => ({ id, key, value })),
+          );
         }}
       />
     </div>

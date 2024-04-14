@@ -58,7 +58,7 @@ export const getFindNewsCategory = async () => {
  *  获取所有的新闻分类列表
  * @returns
  */
-export const getFindNewsCategory$ = async () => {
+export const getAllNewsCategory$ = () => {
   return from(prisma.newsCategory.findMany());
 };
 

@@ -1,11 +1,11 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { lastValueFrom } from "rxjs";
+import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
 
 // services
 import { getUserId$ } from "~/server/services/common/session";
 
 // utils
-import * as respUtils from "~/server/utils/response.json";
+import * as rp from "~/server/utils/response.json";
 import { getUserPerms$ } from "../services/system/user-perms.server";
 
 /**
@@ -25,18 +25,24 @@ export function permission(perms: any) {
     descriptor.value = async function (...args: any[]) {
       const { request } = args[0] as ActionFunctionArgs; // 假设 request 对象作为参数的第一个元素
       try {
-        const method = request.method;
-        const userId = await lastValueFrom(getUserId$(request));
-        const usersPerms = await lastValueFrom(getUserPerms$(userId!));
+        const result$ = from(getUserId$(request)).pipe(
+          switchMap((userId) => {
+            return forkJoin({
+              // method: of(request.method),
+              usersPerms: getUserPerms$(userId!),
+            });
+          }),
+        );
 
-        if (!usersPerms.includes(perms[method])) {
-          return respUtils.respUnAuthJson();
+        const { usersPerms } = await lastValueFrom(result$);
+        if (!usersPerms.includes(perms)) {
+          return rp.respUnAuthJson();
         }
         return originalMethod.apply(this, args);
       } catch (error: any) {
         // 如果校验失败，抛出错误
         console.error("Request data validation failed: " + typeof error);
-        return respUtils.respFailJson({}, error.toString());
+        return rp.respFailJson({}, error.toString());
       }
     };
 

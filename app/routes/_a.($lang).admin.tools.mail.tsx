@@ -20,15 +20,15 @@ import {
 // import { formatDate } from "~/utils/utils";
 
 import { useFetcherChange } from "~/hooks/useFetcherChange";
-import { AdminToolsMail } from "~/controllers/admin.tools.mail.controller";
+import { AdminToolsMailsController } from "~/server/controllers/admin.tools.mail.controller";
 
 // remix:meta
 export const meta: MetaFunction = () => {
   return [{ title: "System-User" }];
 };
 
-export const loader: LoaderFunction = AdminToolsMail.loader;
-export const action: ActionFunction = AdminToolsMail.action;
+export const loader: LoaderFunction = AdminToolsMailsController.loader;
+export const action: ActionFunction = AdminToolsMailsController.action;
 
 export default function ToolsMailRoute() {
   const fetcher = useFetcherChange();

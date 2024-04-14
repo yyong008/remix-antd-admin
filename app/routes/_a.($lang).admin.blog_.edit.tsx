@@ -20,7 +20,7 @@ import EditorRichFromItem from "~/components/editor/EditorRichFromItem";
 import { useFetcherChange } from "~/hooks/useFetcherChange";
 
 // controllers
-import { AdminBlogEditController } from "~/controllers/admin.blog.edit.controller";
+import { AdminBlogEditController } from "~/server/controllers/admin.blog.edit.controller";
 
 // remix:action-loader
 export const action: ActionFunction = AdminBlogEditController.action;
@@ -76,7 +76,7 @@ export default function BlotEditRoute() {
           />
           <ProFormDateTimePicker
             label="博客发布时间"
-            name="date"
+            name="publishedAt"
             width={"100%" as any}
             rules={[
               {

@@ -35,7 +35,7 @@ export const meta: MetaFunction = () => {
 export const loader: LoaderFunction = AdminBlogCategoryController.loader;
 export const action: ActionFunction = AdminBlogCategoryController.action;
 
-export default function SystemConfigRoute() {
+export default function AdminBlogCategoryRoute() {
   const {
     data: { dataSource },
   } = useLoaderData<typeof loader>();

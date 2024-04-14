@@ -15,7 +15,6 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
 export default function NewsDetailWithIdPage() {
   const { news } = useLoaderData<typeof loader>();
-  console.log(news);
   return (
     <div className="flex flex-col pt-[140px] w-[40vw] h-[80vh]">
       <div className="text-[30px]">{news.title}</div>

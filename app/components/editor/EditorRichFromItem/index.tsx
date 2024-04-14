@@ -11,9 +11,10 @@ export default function EditorRichFromItem(props: any) {
         toolbar:
           "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table   | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
       }}
-      value={props.value}
+      initialValue={props.value}
       onChange={(e) => {
-        props.onChange(e.target.getContent());
+        const value = e.target.getContent();
+        props.onChange(value);
       }}
     />
   );

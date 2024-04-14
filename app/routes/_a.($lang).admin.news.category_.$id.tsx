@@ -14,7 +14,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { useFetcherChange } from "~/hooks/useFetcherChange";
 
 // controller
-import { AdminNewsCateogryWithIdController } from "~/controllers/admin.news.category.$id.controller";
+import { AdminNewsCategoryWithIdController } from "~/server/controllers/admin.news.category.$id.controller";
 import { defaultLang } from "~/config/lang";
 
 // remix:meta
@@ -22,8 +22,8 @@ export const meta: MetaFunction = () => {
   return [{ title: "Profile-Link" }];
 };
 
-export const action: LoaderFunction = AdminNewsCateogryWithIdController.action;
-export const loader: LoaderFunction = AdminNewsCateogryWithIdController.loader;
+export const action: LoaderFunction = AdminNewsCategoryWithIdController.action;
+export const loader: LoaderFunction = AdminNewsCategoryWithIdController.loader;
 
 export default function AdminNewsCategoryWithCategoryIdRoute() {
   const { dataSource } = useLoaderData<typeof loader>();

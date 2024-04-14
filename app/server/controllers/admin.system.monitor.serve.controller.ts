@@ -1,5 +1,4 @@
 // types
-import type { LoaderFunctionArgs } from "@remix-run/node";
 
 // remix
 import { json } from "@remix-run/node";
@@ -7,17 +6,22 @@ import { json } from "@remix-run/node";
 // utils
 import { getSystemInfo$ } from "~/server/services/common/systemInfo";
 
+// decorator
+import { checkLogin } from "../decorators/check-auth.decorator";
+
 // rxjs
 import { lastValueFrom } from "rxjs";
 
-// decorator
-import { checkLogin } from "~/server/decorators/check-auth.decorator";
-
-export class AdminSystemMonitorServe {
+export class AdminSystemMonitorServeController {
   @checkLogin()
-  static async loader(_: LoaderFunctionArgs) {
+  static async loader() {
     return json({
       dataSource: await lastValueFrom(getSystemInfo$()),
     });
+  }
+
+  @checkLogin()
+  static async action() {
+    return null;
   }
 }

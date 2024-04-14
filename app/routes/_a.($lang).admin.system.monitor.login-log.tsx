@@ -11,14 +11,16 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { formatDate } from "~/utils/utils";
 
 // controller
-import { AdminSystemMonitorLoginLog } from "~/controllers/admin.system.monitor.login-log";
+import { AdminSystemMonitorLoginLogController } from "~/server/controllers/admin.system.monitor.login-log.controller";
 
 // remix:meta
 export const meta: MetaFunction = () => {
   return [{ title: "System-User" }];
 };
+
 // remix:loader
-export const loader: LoaderFunction = AdminSystemMonitorLoginLog.loader;
+export const loader: LoaderFunction =
+  AdminSystemMonitorLoginLogController.loader;
 
 export default function SystemUserRoute() {
   const { dataSource, count } = useLoaderData<typeof loader>();

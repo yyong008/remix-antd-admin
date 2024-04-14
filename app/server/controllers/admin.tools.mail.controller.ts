@@ -4,7 +4,7 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 // remix
 import { redirect } from "@remix-run/node";
 
-import { LANG } from "~/constants";
+// server
 import {
   destroySession,
   getSession,
@@ -12,16 +12,19 @@ import {
 } from "~/server/services/common/session";
 import { sendMail } from "~/server/services/tools/mail";
 
-import { checkLogin } from "~/server/decorators/check-auth.decorator";
+// decorator
+import { checkLogin } from "../decorators/check-auth.decorator";
+
+// rxjs
 import { lastValueFrom } from "rxjs";
 
-export class AdminToolsMail {
+export class AdminToolsMailsController {
   @checkLogin()
-  static async loader({ request }: LoaderFunctionArgs) {
+  static async loader({ request, params }: LoaderFunctionArgs) {
     const userId = await lastValueFrom(getUserId$(request));
     const session = await getSession(request.headers.get("Cookie"));
     if (!userId) {
-      return redirect(`/${LANG}/admin/login`, {
+      return redirect(`/${params.lang!}/admin/login`, {
         headers: {
           "Set-Cookie": await destroySession(session),
         },
@@ -36,7 +39,7 @@ export class AdminToolsMail {
     const userId = await lastValueFrom(getUserId$(request));
     const session = await getSession(request.headers.get("Cookie"));
     if (!userId) {
-      return redirect(`/${LANG}/admin/login`, {
+      return redirect(`/${params.lang!}/admin/login`, {
         headers: {
           "Set-Cookie": await destroySession(session),
         },

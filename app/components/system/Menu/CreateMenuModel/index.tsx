@@ -31,7 +31,16 @@ export default function MenuModal({
   const [innerMenuNotPerm, setInnerMenuNotPerm] = useState<any>();
 
   useEffect(() => {
-    setInnerMenuNotPerm(menuNotPerm);
+    const n = [
+      {
+        name: "根目录",
+        key: "root",
+        id: -1,
+        children: menuNotPerm,
+      },
+    ];
+
+    setInnerMenuNotPerm([...n]);
   }, [menuNotPerm]);
   return (
     <ModalForm
@@ -44,8 +53,15 @@ export default function MenuModal({
         if (!c || !record.id) {
           return;
         }
+        let parentId = null;
+        if (record.id && record.parent_menu_id) {
+          parentId = record.parent_menu_id;
+        } else if (record.parent_menu_id === null) {
+          parentId = -1;
+        }
         form.setFieldsValue({
           ...record,
+          parentId,
           type: Number(record.type),
         });
       }}

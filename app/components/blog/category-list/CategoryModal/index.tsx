@@ -50,10 +50,10 @@ export default function TagModal({ trigger, record, fetcher }: any) {
         const vals = {
           ...values,
         };
+        debugger;
+        if (id) vals.categoryId = Number(id);
+        if (record.id) vals.id = record.id;
 
-        if (id) {
-          vals.categoryId = Number(id);
-        }
         fetcher.submit(vals, {
           method: record.id ? "PUT" : "POST", // 修改或新建
           encType: "application/json",

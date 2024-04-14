@@ -15,7 +15,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { formatDate } from "~/utils/utils";
 
 // controller
-import { AdminSystemDeptController } from "~/controllers/admin.system.dept.controller";
+import { AdminAdminSystemDeptController } from "~/server/controllers/admin.system.dept.controller";
 
 // icons
 const { EditOutlined } = _icons;
@@ -26,7 +26,7 @@ export const meta: MetaFunction = () => {
 };
 
 // remix:loader
-export const loader: LoaderFunction = AdminSystemDeptController.loader;
+export const loader: LoaderFunction = AdminAdminSystemDeptController.loader;
 
 export default function SystemDeptRoute() {
   const { dataSource } = useLoaderData<typeof loader>();
