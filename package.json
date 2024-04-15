@@ -119,6 +119,7 @@
     "@changesets/cli": "^2.26.2",
     "@remix-run/dev": "^2.8.1",
     "@remix-run/eslint-config": "^2.8.1",
+    "@testing-library/react": "^15.0.2",
     "@types/bcryptjs": "^2.4.4",
     "@types/canvas-confetti": "^1.6.1",
     "@types/crypto-js": "^4.2.2",
