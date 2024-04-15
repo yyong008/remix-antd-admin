@@ -10,6 +10,7 @@ const Footer: React.FC = () => {
 
   return (
     <DefaultFooter
+      data-testid="default-footer"
       copyright={`${currentYear} ${"By Magnesium-"}`}
       links={[
         {

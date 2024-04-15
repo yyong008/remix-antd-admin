@@ -70,7 +70,7 @@ export function extname(str: string) {
  * @returns
  */
 export function isExternalLink(str: string) {
-  const linkRegex = /^(?:https?:\/\/)?[\w.-]+\.[a-z]{2,}(?:\/[\w\.-]*)*\/?$/i;
+  const linkRegex = /^(?:https?:\/\/)?[\w.-]+\.[a-z]{2,}(?:\/[\w\\.-]*)*\/?$/i;
   return linkRegex.test(str);
 }
 /**

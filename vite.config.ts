@@ -35,8 +35,10 @@ export default defineConfig({
     tsconfigPaths(),
     Inspect()
   ],
-  test: {
-    globals: true,
-  },
+  // test: {
+  //   globals: true,
+  //   environment: "jsdom",
+  //   setupFiles: "./app/__tests__/setup.js"
+  // },
 });
 
