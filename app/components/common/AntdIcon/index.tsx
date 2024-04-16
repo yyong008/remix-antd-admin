@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 
 import * as _icons from "@ant-design/icons";
+import type Icon from "@ant-design/icons/lib/components/Icon";
 
 type AntdIconProps = {
   styles?: CSSProperties;
@@ -9,13 +10,14 @@ type AntdIconProps = {
 };
 
 export default function AntdIcon({ name, styles, className }: AntdIconProps) {
-  const keys = Object.keys(_icons);
-  let IconComponent;
+  const keys = Object.keys(_icons)
+    .filter((icon) => /[A-Z]/.test(icon[0]))
+    .filter((icon) => icon !== "IconProvider");
+
   if (name && keys.includes(name)) {
-    IconComponent = _icons[name];
+    const IconComponent = _icons[name as keyof typeof _icons] as typeof Icon;
+    return <IconComponent style={styles} className={className} />;
   } else {
     return <>-</>;
   }
-
-  return <IconComponent style={styles} className={className} />;
 }
