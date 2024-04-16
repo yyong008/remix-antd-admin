@@ -13,6 +13,10 @@
 >💻💻💻Remix Antd Admin still in the midst of intensive development and testing...
 
 
+## 语言
+
+- [中文文档](./README_CN)
+
 ## solution
 
 |version|address|
@@ -21,13 +25,13 @@
 |frond end|[remix-antd-admin(**fe 分支**)](https://github.com/yyong008/remix-antd-admin/tree/fe)|
 |electron|[remix-antd-admin-electron](https://github.com/yyong008/remix-antd-admin-electron)|
 
-## you can visit
+## visit
 
-|版本|地址|
+|version|visit|
 |---|---|
-|visit fullstack|[remix-antd-admin](https://remix-antd-admin.bczhp.top/)|
-|visit front end|[remix-antd-admin(**Vercel**)](https://remix-antd-admin.vercel.app)|
-|visit docs|[remix-antd-admin-docs](https://remix-antd-admin-docs.vercel.app/)|
+|fullstack|[remix-antd-admin](https://remix-antd-admin.bczhp.top/)|
+|front end|[remix-antd-admin(**Vercel**)](https://remix-antd-admin.vercel.app)|
+|docs|[remix-antd-admin-docs](https://remix-antd-admin-docs.vercel.app/)|
 
 
 ### some part of project
@@ -40,7 +44,7 @@
 
 ### libs
 
-| [<img src="https://avatars.githubusercontent.com/u/6407041?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://rxjs.dev/)</br> RxJS  | [<img src="https://github.com/colinhacks/zod/raw/master/logo.svg" alt="pnpm" width="24px" height="24px" />](https://zod.dev/)</br>Zod | [<img src="https://avatars.githubusercontent.com/u/17219288?s=48&v=4" alt="Prisma" width="24px" height="24px" />](https://www.prisma.io/)</br>Prisma | [<img src="https://avatars.githubusercontent.com/u/64235328?s=48&v=4" alt="Remix" width="24px" height="24px" />](https://remix.run/)</br>Remix |  [<img src="https://avatars.githubusercontent.com/u/65625612?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://vitejs.dev/)</br> Vite |[<img src="https://avatars.githubusercontent.com/u/95747107?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://vitest.dev/)</br> Vitest|[<img src="https://avatars.githubusercontent.com/u/12101536?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://ant.design/index-cn/)</br> Antd|[<img src="https://avatars.githubusercontent.com/u/12101536?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://procomponents.ant.design/en-US)</br>ProComponent|
+| [<img src="https://avatars.githubusercontent.com/react" alt="Node.js" width="24px" height="24px" />](https://rxjs.dev/)</br> React  | [<img src="https://github.com/colinhacks/zod/raw/master/logo.svg" alt="pnpm" width="24px" height="24px" />](https://zod.dev/)</br>Zod | [<img src="https://avatars.githubusercontent.com/u/17219288?s=48&v=4" alt="Prisma" width="24px" height="24px" />](https://www.prisma.io/)</br>Prisma | [<img src="https://avatars.githubusercontent.com/u/64235328?s=48&v=4" alt="Remix" width="24px" height="24px" />](https://remix.run/)</br>Remix |  [<img src="https://avatars.githubusercontent.com/u/65625612?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://vitejs.dev/)</br> Vite |[<img src="https://avatars.githubusercontent.com/u/95747107?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://vitest.dev/)</br> Vitest|[<img src="https://avatars.githubusercontent.com/u/12101536?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://ant.design/index-cn/)</br> Antd|[<img src="https://avatars.githubusercontent.com/u/12101536?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://procomponents.ant.design/en-US)</br>ProComponent|
 | --------- | --------- | --------- | --------- |---------|---------|---------|---------|
 | 18.x+ | 8.x+| 5.x+ | 2.x+|5.x+|1.x+|5.9.x|2.6.x|
 
