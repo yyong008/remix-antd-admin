@@ -41,6 +41,6 @@ describe("test Footer component", () => {
     ]);
     render(<RemixStub />);
     buttonLink = screen.getByRole("button-link");
-    expect(buttonLink).contains("new");
+    expect(buttonLink.innerHTML).toContain("new");
   });
 });
