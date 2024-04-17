@@ -1,6 +1,10 @@
 import { Tag } from "antd";
 
-export default function CacheType({ isCache }: any) {
+type CacheTypeProps = {
+  isCache: 0 | 1 | null;
+};
+
+export default function CacheType({ isCache }: CacheTypeProps) {
   return (
     <>
       {isCache === null && <>-</>}
