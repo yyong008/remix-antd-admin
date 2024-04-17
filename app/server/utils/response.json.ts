@@ -38,6 +38,33 @@ export const respSuccessJson = (data: any, message?: string, options?: any) => {
 };
 
 /**
+ *
+ * @param list {any[]} 数据列表
+ * @param total {Number} 数据总量
+ * @param message {String} 字符串
+ * @param options {Object} json 的字符串
+ * @returns
+ */
+export const respPageSuccessJson = (
+  list: any,
+  total: number,
+  message?: string,
+  options?: any,
+) => {
+  return json(
+    {
+      code: ResCode.success,
+      message: message ?? ResMessage.succes,
+      data: {
+        list,
+        total,
+      },
+    },
+    options,
+  );
+};
+
+/**
  * 响应 JSON 失败
  * @param data
  * @param message
