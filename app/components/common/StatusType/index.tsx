@@ -1,6 +1,15 @@
 import { Tag } from "antd";
 
-export default function StatusType({ status }: any) {
+enum EStatusType {
+  disable = 0,
+  undisable = 1,
+}
+
+type StatusTypeProps = {
+  status: EStatusType | null;
+};
+
+export default function StatusType({ status }: StatusTypeProps) {
   return (
     <>
       {status === null && <>-</>}
