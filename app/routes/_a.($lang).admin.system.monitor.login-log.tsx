@@ -2,7 +2,7 @@
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // remix
-import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 
 // components
 import { PageContainer, ProTable } from "@ant-design/pro-components";
@@ -12,6 +12,9 @@ import { formatDate } from "~/utils/utils";
 
 // controller
 import { AdminSystemMonitorLoginLogController } from "~/server/controllers/admin.system.monitor.login-log.controller";
+
+// hooks
+import { useLoginLogNav } from "~/hooks/router/login-login.route";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -24,8 +27,7 @@ export const loader: LoaderFunction =
 
 export default function SystemUserRoute() {
   const { dataSource, count } = useLoaderData<typeof loader>();
-  const nav = useNavigate();
-  const { lang } = useParams();
+  const [navLoginLog] = useLoginLogNav();
 
   return (
     <PageContainer>
@@ -77,9 +79,10 @@ export default function SystemUserRoute() {
           total: count,
           pageSize: 10,
           onChange(page, pageSize) {
-            nav(
-              `/${lang}/admin/system/serve/loginlog?page=${page}&pageSize=${pageSize}`,
-            );
+            navLoginLog({
+              page,
+              pageSize,
+            });
           },
         }}
       />
