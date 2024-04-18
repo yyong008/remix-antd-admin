@@ -1,3 +1,6 @@
+// types
+import type SMTPConnection from "nodemailer/lib/smtp-connection";
+
 import nodemailer from "nodemailer";
 
 type SendMailOptions = {
@@ -8,7 +11,6 @@ type SendMailOptions = {
     pass: string;
   };
 
-  from: string; // 发送者昵称和地址
   to: string; // 接收者的邮箱地址
   subject: string; // 邮件主题
   // text?: string; //邮件的text
@@ -21,21 +23,17 @@ export function sendMail(options: SendMailOptions) {
     host: options.host, // 发送者的邮箱厂商，支持列表：https://nodemailer.com/smtp/well-known/
     port: options.port, // SMTP 端口
     secureConnection: false, // SSL安全链接
-    secure: false,
+    secure: true,
     requireTLS: true,
     auth: {
       //发送者的账户密码
       user: options.auth.user, //账户
       pass: options.auth.pass, //smtp授权码，到邮箱设置下获取
     },
-    tls: {
-      ciphers: "SSLv3",
-      rejectUnauthorized: false,
-    },
-  });
+  } as SMTPConnection.Options);
 
   let mailOptions = {
-    from: options.from, // 发送者昵称和地址
+    from: `<${options.auth.user}>`, // 发送者昵称和地址
     to: options.to, // 接收者的邮箱地址
     subject: options.subject, // 邮件主题
     html: options.content, //也可以用html发送
