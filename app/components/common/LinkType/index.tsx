@@ -1,6 +1,10 @@
 import { Tag } from "antd";
 
-export default function LinkType({ isLink }: any) {
+type LinkTypeProps = {
+  isLink: null | 0 | 1;
+};
+
+export default function LinkType({ isLink }: LinkTypeProps) {
   return (
     <>
       {isLink === null && <>-</>}
