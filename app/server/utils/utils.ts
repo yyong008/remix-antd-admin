@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { of } from "rxjs";
 
 /**
  * noop 空函数
@@ -80,5 +81,5 @@ export function getSearchParams(request: Request, name: string) {
  */
 export function getSearchParams$(request: Request, name: string) {
   const r = new URL(request.url).searchParams.get(name);
-  return r;
+  return of(r);
 }

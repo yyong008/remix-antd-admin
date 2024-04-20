@@ -214,7 +214,8 @@ model News {
   publishedAt DateTime
   newsId      Int          @map("news_id")
   news        NewsCategory @relation(fields: [newsId], references: [id])
-  userId      Int     @map("user_id") // 上传用户
+  userId      Int          @map("user_id") // 上传用户
+
   @@map("news")
 }
 
@@ -228,7 +229,6 @@ model NewsCategory {
 
   @@map("news_category")
 }
-
 
 model Blog {
   id          Int          @id @default(autoincrement())
@@ -267,4 +267,22 @@ model BlogTag {
   blog Blog[]
 
   @@map("blog_tag")
+}
+
+model Mail {
+  id      Int     @id @default(autoincrement())
+  name    String?
+  title   String?
+  host    String?
+  port    Int?
+  user    String?
+  pass    String?
+  from    String?
+  to      String?
+  subject String?
+  content String?
+  html    String?
+  text    String?
+
+  @@map("mail")
 }

@@ -9,6 +9,7 @@ import type {
 import {
   Link,
   isRouteErrorResponse,
+  useLoaderData,
   useParams,
   useRouteError,
 } from "@remix-run/react";
@@ -38,6 +39,7 @@ export const loader: LoaderFunction = AdminToolsMailsController.loader;
 export const action: ActionFunction = AdminToolsMailsController.action;
 
 export default function ToolsMailRoute() {
+  const { data } = useLoaderData<typeof loader>();
   const [form] = Form.useForm();
   const fetcher = useFetcherChange();
   const { lang } = useParams();
@@ -73,6 +75,9 @@ export default function ToolsMailRoute() {
       >
         <ProForm
           form={form}
+          initialValues={{
+            ...data,
+          }}
           submitter={{
             render: (props, doms) => {
               console.log(props);
