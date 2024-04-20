@@ -5,7 +5,6 @@ export function Loader(
   propertyKey: string,
   descriptor: PropertyDescriptor,
 ) {
-  console.log("action target", target);
   descriptor.value = function (...args: any[]) {
     return target.get();
   };

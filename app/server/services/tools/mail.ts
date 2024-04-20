@@ -131,7 +131,6 @@ export function getEmailTemplateById$(id: number) {
  * @returns
  */
 export function getEmailTemplatePage$(options: EmailTemplateOptions) {
-  console.log("options", options);
   return from(
     prisma.mail.findMany({
       skip: (options.page - 1) * options.pageSize,
