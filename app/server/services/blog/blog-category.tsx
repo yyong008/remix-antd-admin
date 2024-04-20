@@ -3,12 +3,34 @@ import type { Observable } from "rxjs";
 import { catchError, from, map, of, switchMap } from "rxjs";
 import prisma from "~/server/services/common/prisma";
 
+type BlogCategoryData = {
+  name: string;
+  description: string;
+  userId: number;
+};
+
+export interface IBlogCategory {
+  createBlogCategory$(data: BlogCategoryData): Observable<any>;
+  updateBlogCategory$(data: BlogCategoryData & { id: number }): Observable<any>;
+  deleteBlogCategoryById$(id: number): Observable<any>;
+  getBlogCategoryByUserId$(userId: number): Observable<any>;
+  getBlogCategoryById$(id: number): Observable<any>;
+  getAllBlogCategory$(id: number): Observable<any>;
+  getBlogListById$(
+    userId: number,
+    categoryId?: number,
+    tagId?: number,
+  ): Observable<any>;
+}
+
 /**
  * 创建博客分类
  * @param data
  * @returns
  */
-export const createBlogCategory$ = (data: any) => {
+export const createBlogCategory$: IBlogCategory["createBlogCategory$"] = (
+  data: any,
+) => {
   return from(data).pipe(
     map((data: any) => ({
       name: data.name,
@@ -28,7 +50,9 @@ export const createBlogCategory$ = (data: any) => {
  * @param data
  * @returns
  */
-export const updateBlogCategory$ = (data: any) => {
+export const updateBlogCategory$: IBlogCategory["updateBlogCategory$"] = (
+  data: BlogCategoryData & { id: number },
+) => {
   return of(data).pipe(
     map((data: any) => ({
       ...data.data,
@@ -44,10 +68,6 @@ export const updateBlogCategory$ = (data: any) => {
         data,
       }),
     ),
-    // catchError((e) => {
-    //   console.error(e);
-    //   return of(e);
-    // }),
   );
 };
 
@@ -55,38 +75,40 @@ export const updateBlogCategory$ = (data: any) => {
  * 删除指定id博客分类
  * @returns
  */
-export const deleteBlogCategoryById$ = (
-  id: number,
-): Observable<number | Error> => {
-  return from(prisma.blogCategory.delete({ where: { id } })).pipe(
-    catchError((e) => {
-      console.error(e);
-      return of(e);
-    }),
-  );
-};
+export const deleteBlogCategoryById$: IBlogCategory["deleteBlogCategoryById$"] =
+  (id: number): Observable<number | Error> => {
+    return from(prisma.blogCategory.delete({ where: { id } })).pipe(
+      catchError((e) => {
+        console.error(e);
+        return of(e);
+      }),
+    );
+  };
 
 /**
  * 根据 userId 获取博客分类
  * @param userId
  * @returns
  */
-export const getBlogCategoryByUserId$ = (userId: number) => {
-  return of({ userId }).pipe(
-    switchMap((where) => prisma.blogCategory.findMany({ where })),
-    catchError((e) => {
-      console.log(e);
-      return of(e);
-    }),
-  );
-};
+export const getBlogCategoryByUserId$: IBlogCategory["getBlogCategoryByUserId$"] =
+  (userId: number) => {
+    return of({ userId }).pipe(
+      switchMap((where) => prisma.blogCategory.findMany({ where })),
+      catchError((e) => {
+        console.log(e);
+        return of(e);
+      }),
+    );
+  };
 
 /**
  * 根据 id 获取博客分类
  * @param userId
  * @returns
  */
-export const getBlogCategoryById$ = (id: number) => {
+export const getBlogCategoryById$: IBlogCategory["getBlogCategoryById$"] = (
+  id: number,
+) => {
   return from(prisma.blogCategory.findUnique({ where: { id } }));
 };
 
@@ -95,7 +117,7 @@ export const getBlogCategoryById$ = (id: number) => {
  * @param userId
  * @returns
  */
-export const getAllBlogCategory$ = () => {
+export const getAllBlogCategory$: IBlogCategory["getAllBlogCategory$"] = () => {
   return from(prisma.blogCategory.findMany());
 };
 
@@ -106,7 +128,7 @@ export const getAllBlogCategory$ = () => {
  * @param tagId
  * @returns
  */
-export const getBlogListById$ = (
+export const getBlogListById$: IBlogCategory["getBlogListById$"] = (
   // TODO: 迁移
   userId: number,
   categoryId?: number,
