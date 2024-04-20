@@ -164,6 +164,9 @@ dependencies:
   reactflow:
     specifier: ^11.9.2
     version: 11.10.4(@types/react@18.2.64)(react-dom@18.2.0)(react@18.2.0)
+  reflect-metadata:
+    specifier: ^0.2.2
+    version: 0.2.2
   remix-auth:
     specifier: ^3.5.1
     version: 3.6.0(@remix-run/react@2.8.1)(@remix-run/server-runtime@2.8.1)
@@ -12761,6 +12764,10 @@ packages:
   /redux@5.0.1:
     resolution: {integrity: sha512-M9/ELqF6fy8FwmkpnF0S3YKOqMyoWJ4+CS5Efg2ct3oY9daQvd/Pc71FpGZsVsbl3Cpb+IIcjBDUnnyBdQbq4w==}
     dev: true
+
+  /reflect-metadata@0.2.2:
+    resolution: {integrity: sha512-urBwgfrvVP/eAyXx4hluJivBKzuEbSQs9rKWCrCkbSxNv8mxPcUZKeuoF3Uy4mJl3Lwprp6yy5/39VWigZ4K6Q==}
+    dev: false
 
   /reflect.getprototypeof@1.0.5:
     resolution: {integrity: sha512-62wgfC8dJWrmxv44CA36pLDnP6KKl3Vhxb7PL+8+qrrFMMoJij4vgiMP8zV4O8+CBMXY1mHxI5fITGHXFHVmQQ==}
