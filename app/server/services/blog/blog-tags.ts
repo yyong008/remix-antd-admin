@@ -7,6 +7,16 @@ import { from } from "rxjs";
 // prisma
 import prisma from "~/server/services/common/prisma";
 
+export interface IBlogTag {
+  createBlogTag$(data: any): Observable<any[]>;
+  updateBlogTag$(data: any): Observable<any[]>;
+  deleteBlogTag$(id: number): Observable<any[]>;
+  getAllBlogTag$(): Observable<any[]>;
+  getBlogTagByUserId$(userId: number): Observable<any[]>;
+  getBlogTagById$(id: number): Observable<any[]>;
+  getBlogCategoryTag$(userId: number): Observable<any[]>;
+}
+
 /**
  * 创建博客标签
  * @param data

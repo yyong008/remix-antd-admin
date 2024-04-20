@@ -1,5 +1,6 @@
 // import type { Prisma, User } from "@prisma/client";
 import type { TPage } from "~/types";
+import type { Observable } from "rxjs";
 
 // enum
 import { SortOrder } from "~/types";
@@ -9,6 +10,18 @@ import prisma from "~/server/services/common/prisma";
 
 // rxjs
 import { from } from "rxjs";
+
+export interface IUser {
+  getUserInfoById(id: number): any;
+  getUserInfoById$(id: number): Observable<any>;
+  getUserCount(): any;
+  getUserList(page: number, pageSize: number, name: string): any;
+  getUserList$(page: number, pageSize: number, name: string): Observable<any>;
+  createUser(data: any): any;
+  createUser$(data: any): Observable<any>;
+  deleteUserByIds(ids: number[]): any;
+  updateUserById(id: number, data: any): any;
+}
 
 /**
  * 根据 id 查询用户信息

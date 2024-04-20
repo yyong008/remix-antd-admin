@@ -1,5 +1,9 @@
 import prisma from "~/server/services/common/prisma";
 
+export interface IDepartement {
+  getDeptListTree(): any;
+}
+
 /**
  * 获取所有部门列表
  * @returns 树形结构列表

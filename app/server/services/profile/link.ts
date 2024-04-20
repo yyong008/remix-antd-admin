@@ -1,7 +1,17 @@
+import type { Observable } from "rxjs";
 import { from } from "rxjs";
 
 // server
 import prisma from "~/server/services/common/prisma";
+
+export interface IProfileLink {
+  createLink(data: any): any;
+  createLink$(data: any): Observable<any>;
+  getLinkAll(): any;
+  getLinkAll$(): Observable<any>;
+  getLinkListById(categoryId: number): any;
+  getLinkListById$(categoryId: number): Observable<any>;
+}
 
 /**
  * 创建链接

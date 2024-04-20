@@ -1,11 +1,19 @@
 // type
 import type { TRegister } from "~/schema/login.schema";
+import type { Observable } from "rxjs";
 
 // rxjs
 import { from } from "rxjs";
 
 // prisma
 import prisma from "~/server/services/common/prisma";
+
+export interface IRegister {
+  createUserFromRegister(data: Exclude<TRegister, "passwordRe">): any;
+  createUserFromRegister$(
+    data: Exclude<TRegister, "passwordRe">,
+  ): Observable<any>;
+}
 
 /**
  * 从注册接口创建用户

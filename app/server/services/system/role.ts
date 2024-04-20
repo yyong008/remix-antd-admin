@@ -3,6 +3,14 @@ import type { RoleData, UpdateRoleData } from "~/types/index";
 
 import prisma from "~/server/services/common/prisma";
 
+export interface IRole {
+  getRoleList(): any;
+  addRole(data: RoleData): any;
+  updateRole(data: UpdateRoleData): any;
+  deleteRole(ids: number[]): any;
+  getUserRolesById(roleId: number): any;
+  getMenuRoles(): any;
+}
 /**
  * 获取角色列表（包含菜单）
  * @returns h

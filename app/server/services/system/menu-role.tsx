@@ -3,6 +3,12 @@ import type { TreeDataNode } from "antd";
 // service
 import prisma from "~/server/services/common/prisma";
 
+export interface IMenuRole {
+  getMenu(t: () => void, lang: string): any;
+  getMenuRaw(t: () => void, lang: string): any;
+  getTypeNotPermMenu(t: () => void, lang: string): any;
+}
+
 function buildMenuTree(
   menuData: any[],
   parentId = null,

@@ -1,6 +1,6 @@
 import type { Prisma } from "@prisma/client";
 import type { TPage } from "~/types";
-
+import type { Observable } from "rxjs";
 // enum
 import { SortOrder } from "~/types";
 
@@ -8,6 +8,13 @@ import { SortOrder } from "~/types";
 import prisma from "~/server/services/common/prisma";
 import { from } from "rxjs";
 
+export interface IStorage {
+  createStorage(data: Prisma.StorageCreateInput): any;
+  createStorage$(data: Prisma.StorageCreateInput): Observable<any>;
+  storageCount$(): Observable<any>;
+  getStorageList(data: TPage): any;
+  getStorageList$(data: TPage): Observable<any>;
+}
 /**
  * create storage info
  * @param data  Prisma.StorageCreateInput

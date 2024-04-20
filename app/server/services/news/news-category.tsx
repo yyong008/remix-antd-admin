@@ -1,8 +1,20 @@
+// types
+import type { Observable } from "rxjs";
+
 // rxjs
 import { from } from "rxjs";
 
 // server
 import prisma from "~/server/services/common/prisma";
+
+export interface INewsCategory {
+  createNewsCategory(data: any): any;
+  createNewsCategory$(data: any): Observable<any>;
+  getFindNewsCategory(): any;
+  getFindNewsCategory$(): Observable<any>;
+  getNewsCategoryListByUserId(userId: number): any;
+  getNewsCategoryListByUserId$(userId: number): Observable<any>;
+}
 
 /**
  * 创建新闻分类

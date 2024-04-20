@@ -1,10 +1,18 @@
 // import type { Prisma } from "@prisma/client";
+import type { Observable } from "rxjs";
 
 // rxjs
 import { from } from "rxjs";
 
 // server
 import prisma from "~/server/services/common/prisma";
+
+export interface IProfileLinkCategory {
+  createLinkCategory(data: any): any;
+  createLinkCategory$(data: any): Observable<any>;
+  getLinkCategoryListByUserId(userId: number): any;
+  getLinkCategoryListByUserId$(userId: number): Observable<any>;
+}
 
 /**
  * 创建链接分类

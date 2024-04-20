@@ -1,6 +1,24 @@
+// types
+import type { Observable } from "rxjs";
+
 import dayjs from "dayjs";
 import { from, of, switchMap } from "rxjs";
 import prisma from "~/server/services/common/prisma";
+
+export interface IBlog {
+  createBlog$(data: any): Observable<any>;
+  updateBlog$(data: any): Observable<any>;
+  deleteManyBlogByIds$(ids: number[]): Observable<any>;
+  deleteManyBlogByIds$(ids: number[]): Observable<any>;
+  getAllBlog$(): Observable<any>;
+  getBlogsListByCategoryId$(categoryId: number): Observable<any>;
+  getBlogsListByIds$(
+    userId: number,
+    categoryId: number,
+    tagId: number,
+  ): Observable<any>;
+  getBlogById$(id: number): Observable<any>;
+}
 
 /**
  * 创建博客

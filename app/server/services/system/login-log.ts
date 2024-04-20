@@ -7,6 +7,12 @@ import { SortOrder } from "~/types";
 // service
 import prisma from "~/server/services/common/prisma";
 
+export interface ILoginLog {
+  createLoginLog(data: Prisma.LoginlogCreateInput): any;
+  loginLogCount(): any;
+  getLoginLogList(data: TPage): any;
+}
+
 /**
  * create login log info
  * @param data  Prisma.LoginLogCreateInput

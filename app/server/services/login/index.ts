@@ -1,8 +1,16 @@
+// types
+import type { Observable } from "rxjs";
+
 // rxjs
 import { catchError, from, of } from "rxjs";
 
 // services
 import prisma from "~/server/services/common/prisma";
+
+export interface ILogin {
+  findByUserName(name: string): any;
+  findByUserName$(name: string): Observable<any>;
+}
 
 /**
  * 根据用户名查找用户

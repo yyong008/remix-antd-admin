@@ -6,6 +6,19 @@ import { from } from "rxjs";
 // server
 import prisma from "~/server/services/common/prisma";
 
+export interface INews {
+  createNews(data: any): any;
+  createNews$(data: any): Observable<any>;
+  updateNews(data: any): any;
+  updateNews$(data: any): Observable<any>;
+  getNewsListByCategoryId(categoryId: number): any;
+  getNewsListByCategoryId$(categoryId: number): Observable<any>;
+  getNewsById(id: number): any;
+  getNewsById$(id: number): Observable<any>;
+  getNews(): any;
+  getNews$(): Observable<any>;
+}
+
 /**
  * 创建新闻
  * @param data

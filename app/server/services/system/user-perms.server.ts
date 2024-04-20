@@ -7,6 +7,13 @@ import { from, map, of, switchMap } from "rxjs";
 // server
 import prisma from "~/server/services/common/prisma";
 
+export interface IUserPerms {
+  getMenuTreeByUserId$(id: number): Observable<any>;
+  getFlatMenuByUserId$(userId: number): Observable<any>;
+  getAllFlatMenuByUserId$(userId: number): Observable<any>;
+  getAllFlatMenuByUserId$(userId: number): Observable<any>;
+}
+
 /**
  * 更具 userId 级联表查询到用户菜单
  * @param id

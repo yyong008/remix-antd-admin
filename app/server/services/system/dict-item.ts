@@ -1,5 +1,10 @@
 import prisma from "~/server/services/common/prisma";
 
+export interface IDictItem {
+  getDictItemList(): any[];
+  getDictListByDictionaryId(dictionary_id: number): any;
+}
+
 /**
  * 获取所有字典条目列表
  * @returns 字典条目列表
