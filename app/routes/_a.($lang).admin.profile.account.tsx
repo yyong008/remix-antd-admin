@@ -39,6 +39,7 @@ export default function ProfileAccountRoute() {
           readonly={true}
           layout="horizontal"
           labelCol={{ span: 1.7 }}
+          submitter={false}
         >
           {/* <ProFormUploadButton
             name="file"
