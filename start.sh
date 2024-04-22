@@ -2,6 +2,10 @@
 
 pnpm i
 
+cp .env.tpl .env
+
+rm -rf ./prisma/dev.db
+
 npx prisma init --datasource-provider sqlite # 初始化
 
 cp ./depoly/schema.prisma ./prisma/schema.prisma
