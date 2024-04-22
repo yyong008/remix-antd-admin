@@ -1,4 +1,4 @@
-import "reflect-metadata";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 
 export function Loader(
   target: any,
@@ -6,6 +6,7 @@ export function Loader(
   descriptor: PropertyDescriptor,
 ) {
   descriptor.value = function (...args: any[]) {
-    return target.get();
+    const { request, params } = args[0] as LoaderFunctionArgs;
+    return target.get({ request, params });
   };
 }
