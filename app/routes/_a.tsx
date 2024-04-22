@@ -22,7 +22,7 @@ import {
 } from "~/layout";
 
 // context
-import SettingContext from "~/context/settingContext";
+import { SettingContext } from "~/context";
 
 // config
 import { prolayoutConfig } from "~/config/index";

@@ -14,7 +14,7 @@ import { I18nextProvider, initReactI18next } from "react-i18next";
 import { getInitialNamespaces } from "remix-i18next/client";
 
 // context
-import SettingContext from "~/context/settingContext";
+import { SettingContext } from "~/context";
 
 i18next
   // Use the react-i18next plugin.

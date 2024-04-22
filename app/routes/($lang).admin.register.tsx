@@ -25,7 +25,7 @@ import { Footer } from "~/components/common";
 import { AccountLogin, MobileLogin } from "~/components/login";
 
 // context
-import SettingContext from "~/context/settingContext";
+import { SettingContext } from "~/context";
 
 // service
 import { findByUserName } from "~/server/services/login";

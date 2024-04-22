@@ -23,7 +23,7 @@ import { ActionIcons } from "~/components/userLogin";
 import { AccountLogin, MobileLogin } from "~/components/login";
 
 // context
-import SettingContext from "~/context/settingContext";
+import { SettingContext } from "~/context";
 
 // libs
 import * as clientUtils from "~/utils";
