@@ -20,8 +20,7 @@ import {
 import { langs } from "~/config/lang";
 
 // utils
-import * as clientUtils from "~/utils";
-import { respSuccessJson } from "~/server/utils";
+import { respSuccessJson, createT$ } from "~/server/utils";
 
 // decorators
 import { checkLogin } from "~/server/decorators/check-auth.decorator";
@@ -51,11 +50,7 @@ export class LayoutAController {
       )
       .pipe(
         switchMap(() =>
-          forkJoin([
-            of(params),
-            clientUtils.createT$(params),
-            getUserId$(request),
-          ]),
+          forkJoin([of(params), createT$(params), getUserId$(request)]),
         ),
         switchMap((data) =>
           forkJoin([
