@@ -1,7 +1,7 @@
-export { Action } from "./action.decorator";
-export { Loader } from "./loader.decorator";
-export { Logger } from "./logger.decorator";
+export * from "./action.decorator";
+export * from "./loader.decorator";
+export * from "./logger.decorator";
 
-export { checkLogin } from "./check-auth.decorator";
-export { permission } from "./check-perm";
-export { validate } from "./validate-schema";
+export * from "./check-auth.decorator";
+export * from "./check-perm";
+export * from "./validate-schema";
