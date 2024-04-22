@@ -13,12 +13,11 @@ export function Logger() {
     const originalMethod = descriptor.value;
     // 重写原始方法
     descriptor.value = async function (...args: any[]) {
-      const { request, params } = args[0] as ActionFunctionArgs;
+      const { request } = args[0] as ActionFunctionArgs;
 
       console.log(`
-        请求方法: ${request.method};
-        请求地址: ${request.url};
-        params: ${params}
+      请求方法: ${request.method};
+      请求地址: ${request.url};
       `);
       return originalMethod.apply(this, args); // 继续执行函数
     };
