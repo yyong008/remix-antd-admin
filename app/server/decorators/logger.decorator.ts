@@ -16,8 +16,8 @@ export function Logger() {
       const { request } = args[0] as ActionFunctionArgs;
 
       console.log(`
-      请求方法: ${request.method};
-      请求地址: ${request.url};
+请求方法: ${request.method};
+请求地址: ${request.url};
       `);
       return originalMethod.apply(this, args); // 继续执行函数
     };
