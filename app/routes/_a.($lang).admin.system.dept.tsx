@@ -7,7 +7,7 @@ import { useFetcher, useLoaderData } from "@remix-run/react";
 // component
 import { Button, Space } from "antd";
 import * as _icons from "@ant-design/icons";
-import DeleteIt from "~/components/common/DeleteIt";
+import { DeleteIt } from "~/components/common";
 import DeptModal from "~/components/system/dept/CreateDeptModel";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 

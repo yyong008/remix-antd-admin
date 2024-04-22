@@ -6,8 +6,8 @@ import { Link, Outlet, useLoaderData, useParams } from "@remix-run/react";
 
 // components
 import { Space, Tag } from "antd";
-import DeleteIt from "~/components/common/DeleteIt";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { DeleteIt } from "~/components/common";
 import NewsCategoryModal from "~/components/news/category-list/NewsCategoryModal";
 
 // hooks

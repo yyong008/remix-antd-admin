@@ -1,5 +1,8 @@
 import type { Route } from "@ant-design/pro-layout/es/typing";
-import AntdIcon from "~/components/common/AntdIcon";
+
+// components
+import { AntdIcon } from "~/components/common";
+
 import { isExternalLink } from "./utils";
 
 function createProLayoutRouteImpl(

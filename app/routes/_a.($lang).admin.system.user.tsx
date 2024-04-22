@@ -12,11 +12,13 @@ import { useState } from "react";
 import { useLoaderData } from "@remix-run/react";
 
 // components
-
-import DeleteIt from "~/components/common/DeleteIt";
+import {
+  DeleteIt,
+  StatusType,
+  UserAvatar,
+  FormatTime,
+} from "~/components/common";
 import { Button, Popconfirm, Space, Tag } from "antd";
-import StatusType from "~/components/common/StatusType";
-import UserAvatar from "~/components/common/UserAvatar";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 import CreateUserModal from "~/components/system/user/CreateUserModel";
 
@@ -28,7 +30,6 @@ import AdminSystemUserController from "~/server/controllers/admin.system.user.co
 
 // hooks
 import { useUserNav, useFetcherChange } from "~/hooks";
-import FormatTime from "~/components/common/FormatTime";
 
 // remix:meta(client)
 export const meta: MetaFunction = () => {

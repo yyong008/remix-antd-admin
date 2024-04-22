@@ -18,10 +18,8 @@ import { useEffect, useMemo } from "react";
 
 // components
 import { Space, Tag, message } from "antd";
-import DeleteIt from "~/components/common/DeleteIt";
-import ButtonLink from "~/components/common/ButtonLink";
-import FormatTime from "~/components/common/FormatTime";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { DeleteIt, ButtonLink, FormatTime } from "~/components/common";
 
 // hooks
 import { useFetcherChange } from "~/hooks";

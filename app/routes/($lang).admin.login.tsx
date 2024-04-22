@@ -20,7 +20,6 @@ import {
 } from "@ant-design/pro-components";
 import { Tabs, ConfigProvider, Button } from "antd";
 import { ActionIcons } from "~/components/userLogin";
-// import Footer from "~/components/common/Footer";
 import AccountLogin from "~/components/login/AccountLogin";
 import MobileLogin from "~/components/login/MobileLogin";
 

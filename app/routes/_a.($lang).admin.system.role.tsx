@@ -11,11 +11,13 @@ import { useRef } from "react";
 import { useLoaderData } from "@remix-run/react";
 
 // components
+import {
+  DeleteIt,
+  StatusType,
+  FormatTime,
+  AntdIcon,
+} from "~/components/common";
 import { Space } from "antd";
-import DeleteIt from "~/components/common/DeleteIt";
-import AntdIcon from "~/components/common/AntdIcon";
-import StatusType from "~/components/common/StatusType";
-import FormatTime from "~/components/common/FormatTime";
 import CreateRoleModal from "~/components/roles/CreateRoleModel";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 

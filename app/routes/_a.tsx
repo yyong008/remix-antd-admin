@@ -9,9 +9,7 @@ import { Outlet, useLoaderData, useParams } from "@remix-run/react";
 
 // components
 import { ProLayout } from "@ant-design/pro-components";
-import Footer from "~/components/common/Footer";
-import MenuItemOutLink from "~/components/common/MenuItemOuterLink";
-import MenuItemLink from "~/components/common/MenuItemLink";
+import { Footer, MenuItemOutLink, MenuItemLink } from "~/components/common";
 
 // layout
 // layout

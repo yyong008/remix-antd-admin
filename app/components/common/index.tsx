@@ -8,7 +8,7 @@ import FormatTime from "./FormatTime";
 import LinkType from "./LinkType";
 import ListHeaderSearch from "./ListHeaderSearch";
 import MenuItemLink from "./MenuItemLink";
-import MenuItemOuterLink from "./MenuItemOuterLink";
+import MenuItemOutLink from "./MenuItemOuterLink";
 import MenuType from "./MenuType";
 import ShowType from "./ShowType";
 import StatusType from "./StatusType";
@@ -25,7 +25,7 @@ export {
   LinkType,
   ListHeaderSearch,
   MenuItemLink,
-  MenuItemOuterLink,
+  MenuItemOutLink,
   MenuType,
   ShowType,
   StatusType,

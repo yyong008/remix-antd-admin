@@ -5,16 +5,15 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { useLoaderData, useParams } from "@remix-run/react";
 
 // components
+import { Space } from "antd";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { ButtonLink, DeleteIt } from "~/components/common";
 
 // controller
 import { AdminToolsMailTemplateListController } from "~/server/controllers/admin.tools.mail.list.controller";
 
 // hooks
 import { useMailNav, useFetcherChange } from "~/hooks";
-import ButtonLink from "~/components/common/ButtonLink";
-import DeleteIt from "~/components/common/DeleteIt";
-import { Space } from "antd";
 
 // remix:meta
 export const meta: MetaFunction = () => {

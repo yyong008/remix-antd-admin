@@ -8,14 +8,16 @@
 import { ProTable } from "@ant-design/pro-components";
 import { Space, Tag, Tooltip } from "antd";
 import MenuModal from "./CreateMenuModel";
-import AntdIcon from "~/components/common/AntdIcon";
-import MenuType from "~/components/common/MenuType";
-import StatusType from "~/components/common/StatusType";
-import ShowType from "~/components/common/ShowType";
-import LinkType from "~/components/common/LinkType";
-import FormatTime from "~/components/common/FormatTime";
-import DeleteIt from "~/components/common/DeleteIt";
-import CacheType from "~/components/common/CacheType";
+import {
+  AntdIcon,
+  MenuType,
+  StatusType,
+  ShowType,
+  LinkType,
+  FormatTime,
+  DeleteIt,
+  CacheType,
+} from "~/components/common";
 
 export type Status = {
   color: string;

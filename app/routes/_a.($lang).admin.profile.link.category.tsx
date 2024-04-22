@@ -6,7 +6,7 @@ import { Link, useLoaderData, useParams } from "@remix-run/react";
 
 // components
 import { Space, Tag } from "antd";
-import DeleteIt from "~/components/common/DeleteIt";
+import { DeleteIt } from "~/components/common";
 import LinkCategoryModal from "~/components/link/LinkCategoryModal";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 

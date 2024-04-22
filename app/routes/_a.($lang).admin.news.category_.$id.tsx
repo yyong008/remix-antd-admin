@@ -6,9 +6,8 @@ import { Link, useLoaderData, useParams } from "@remix-run/react";
 
 // components
 import { Space } from "antd";
-import DeleteIt from "~/components/common/DeleteIt";
-import ButtonLink from "~/components/common/ButtonLink";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { DeleteIt, ButtonLink } from "~/components/common";
 
 // hooks
 import { useFetcherChange } from "~/hooks";

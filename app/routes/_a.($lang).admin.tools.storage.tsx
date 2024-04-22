@@ -12,7 +12,7 @@ import { useLoaderData } from "@remix-run/react";
 import { Image } from "antd";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { StorageModal } from "~/components/tools/StorageModal";
-import FormatTime from "~/components/common/FormatTime";
+import { FormatTime } from "~/components/common";
 
 // hooks
 import { usePagination, useStorageNav } from "~/hooks";

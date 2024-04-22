@@ -11,8 +11,9 @@ import { Link, useLoaderData, useParams } from "@remix-run/react";
 // components
 import { Space } from "antd";
 import * as _icon from "@ant-design/icons";
-import DeleteIt from "~/components/common/DeleteIt";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
+
+import { DeleteIt } from "~/components/common";
 import CategoryModal from "~/components/blog/category-list/CategoryModal";
 
 // hooks

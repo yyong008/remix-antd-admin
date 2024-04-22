@@ -5,11 +5,9 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { Link, useFetcher, useLoaderData, useParams } from "@remix-run/react";
 
 // components
+import { DeleteIt, StatusType, FormatTime } from "~/components/common";
 import * as _icon from "@ant-design/icons";
 import { Button, Space, Tag, Tooltip } from "antd";
-import DeleteIt from "~/components/common/DeleteIt";
-import StatusType from "~/components/common/StatusType";
-import FormatTime from "~/components/common/FormatTime";
 import DictModal from "~/components/system/dict/CreateDictModel";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 

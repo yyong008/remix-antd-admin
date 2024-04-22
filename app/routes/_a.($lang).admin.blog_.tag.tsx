@@ -15,7 +15,7 @@ import { Space } from "antd";
 
 // constants
 import * as _icon from "@ant-design/icons";
-import DeleteIt from "~/components/common/DeleteIt";
+import { DeleteIt } from "~/components/common";
 import TagModal from "~/components/blog/tag-list/TagModal";
 
 // hooks
