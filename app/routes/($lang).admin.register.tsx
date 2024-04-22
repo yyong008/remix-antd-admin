@@ -22,8 +22,7 @@ import { LoginForm, ProFormCheckbox } from "@ant-design/pro-components";
 import { Tabs, ConfigProvider } from "antd";
 import { ActionIcons } from "~/components/userLogin";
 import { Footer } from "~/components/common";
-import AccountLogin from "~/components/login/AccountLogin";
-import MobileLogin from "~/components/login/MobileLogin";
+import { AccountLogin, MobileLogin } from "~/components/login";
 
 // context
 import SettingContext from "~/context/settingContext";
