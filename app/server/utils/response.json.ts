@@ -2,7 +2,7 @@
 import { json } from "@remix-run/node";
 
 // rxjs
-import { from, iif, of } from "rxjs";
+import { from, iif, lastValueFrom, of, switchMap } from "rxjs";
 
 enum ResCode {
   success,
@@ -92,6 +92,28 @@ export const respByData$ = (data: any | null) => {
       of(() => respFailJson({}, "创建失败")),
     ),
   );
+};
+
+/**
+ * 更具数据进行响应(Observable)
+ * @param data
+ * @returns
+ */
+export const resp = async (data$: any | null) => {
+  const res$ = from(data$).pipe(
+    switchMap((data) =>
+      iif(
+        () => {
+          return data !== null;
+        },
+        of(() => respSuccessJson(data)),
+        of(() => respFailJson({})),
+      ),
+    ),
+  );
+
+  const res = await lastValueFrom(res$);
+  return res();
 };
 
 /**
