@@ -21,7 +21,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import CreateUserModal from "~/components/system/user/CreateUserModel";
 
 // utils
-import { formatDate } from "~/utils/utils";
+import * as clientUtils from "~/utils";
 
 // controller
 import AdminSystemUserController from "~/server/controllers/admin.system.user.controller";
@@ -153,7 +153,11 @@ export default function AdminSystemUserRoute() {
             ellipsis: true,
             render(_, record) {
               return (
-                <>{record.createdAt ? formatDate(record.createdAt) : "-"}</>
+                <>
+                  {record.createdAt
+                    ? clientUtils.formatDate(record.createdAt)
+                    : "-"}
+                </>
               );
             },
           },

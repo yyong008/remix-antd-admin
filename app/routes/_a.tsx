@@ -30,8 +30,7 @@ import SettingContext from "~/context/settingContext";
 import { prolayoutConfig } from "~/config/index";
 
 // utils
-import { createProLayoutRoute } from "~/utils/prolayout.route.util";
-
+import * as clientUtils from "~/utils";
 // hooks
 import { useNProgress } from "~/hooks";
 
@@ -58,7 +57,7 @@ function AdminLayout() {
   const token = useMemo(() => createTokens(value), [value]);
   const { t } = useTranslation();
   const route = useMemo(
-    () => createProLayoutRoute(lang!, menu, t),
+    () => clientUtils.createProLayoutRoute(lang!, menu, t),
     [lang, menu, t],
   );
 

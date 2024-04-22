@@ -8,7 +8,7 @@ import { useLoaderData } from "@remix-run/react";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 // utils
-import { formatDate } from "~/utils/utils";
+import * as clientUtils from "~/utils";
 
 // controller
 import { AdminSystemMonitorLoginLogController } from "~/server/controllers/admin.system.monitor.login-log.controller";
@@ -70,7 +70,11 @@ export default function SystemUserRoute() {
             ellipsis: true,
             render(_, record) {
               return (
-                <div>{record.loginAt ? formatDate(record.loginAt) : "-"}</div>
+                <div>
+                  {record.loginAt
+                    ? clientUtils.formatDate(record.loginAt)
+                    : "-"}
+                </div>
               );
             },
           },

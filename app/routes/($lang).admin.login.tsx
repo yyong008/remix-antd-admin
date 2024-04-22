@@ -28,7 +28,7 @@ import MobileLogin from "~/components/login/MobileLogin";
 import SettingContext from "~/context/settingContext";
 
 // libs
-import { genHashedPassword } from "~/utils/bcrypt.util";
+import * as clientUtils from "~/utils";
 
 // hooks
 import { useFetcherChange, useNProgress } from "~/hooks";
@@ -59,7 +59,7 @@ export default function LoginPage() {
   const handleSubmit = async (values: any) => {
     const vals = {
       ...values,
-      password: genHashedPassword(values.password),
+      password: clientUtils.genHashedPassword(values.password),
     };
     // TODO: 校验数据
     fetcher.submit(vals, { method: "POST", encType: "application/json" });

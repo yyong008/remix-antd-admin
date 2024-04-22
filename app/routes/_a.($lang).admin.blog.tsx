@@ -30,7 +30,7 @@ import { useFetcherChange } from "~/hooks";
 import { AdminBlogController } from "~/server/controllers/admin.blog.controller";
 
 // utils
-import { removeHtmlTag } from "~/utils";
+import * as clientUtils from "~/utils";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -90,7 +90,7 @@ export default function AdminBlog() {
             dataIndex: "content",
             title: "文章",
             renderText(text) {
-              return <div>{removeHtmlTag(text).slice(0, 50)}</div>;
+              return <div>{clientUtils.removeHtmlTag(text).slice(0, 50)}</div>;
             },
           },
           {

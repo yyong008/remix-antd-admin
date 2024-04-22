@@ -35,7 +35,7 @@ import { createLoginLog } from "~/server/services/system/login-log";
 
 // libs
 import { getLoginInfo } from "~/server/utils/ip.util";
-import * as bcryptUtil from "~/utils/bcrypt.util";
+import * as clientUtils from "~/utils";
 import { hashPassword } from "~/server/utils/bcrypt.util";
 
 // auth
@@ -159,7 +159,7 @@ export default function RegisterPage() {
   const handleSubmit = async (values: any) => {
     const vals = {
       ...values,
-      password: bcryptUtil.genHashedPassword(values.password),
+      password: clientUtils.genHashedPassword(values.password),
     };
     fetcher.submit(vals, { method: "POST", encType: "application/json" });
   };

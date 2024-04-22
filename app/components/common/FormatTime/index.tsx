@@ -1,7 +1,7 @@
 // types
 import type dayjs from "dayjs";
 
-import { formatDate } from "~/utils/utils";
+import * as clientUtils from "~/utils";
 
 type FormatTimeProps = {
   timeStr: string | number | Date | dayjs.Dayjs | null | undefined;
@@ -9,5 +9,5 @@ type FormatTimeProps = {
 };
 
 export default function FormatTime({ timeStr, format }: FormatTimeProps) {
-  return <>{timeStr ? formatDate(timeStr, format) : "-"}</>;
+  return <>{timeStr ? clientUtils.formatDate(timeStr, format) : "-"}</>;
 }

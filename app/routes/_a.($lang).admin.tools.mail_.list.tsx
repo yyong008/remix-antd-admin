@@ -7,9 +7,6 @@ import { useLoaderData, useParams } from "@remix-run/react";
 // components
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
-// utils
-// import { formatDate } from "~/utils/utils";
-
 // controller
 import { AdminToolsMailTemplateListController } from "~/server/controllers/admin.tools.mail.list.controller";
 

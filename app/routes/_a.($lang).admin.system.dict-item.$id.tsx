@@ -12,7 +12,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import DictItemModal from "~/components/system/dict/CreateDictItemModel";
 
 // utils
-import { formatDate } from "~/utils/utils";
+import * as clientUtils from "~/utils";
 
 // service
 import { AdminSystemDictItemController } from "~/server/controllers/admin.system.dict-item.controller";
@@ -77,7 +77,9 @@ export default function SystemDictItemWithIdRoute() {
             render(_, record) {
               return (
                 <div>
-                  {record.createdAt ? formatDate(record.createdAt) : "-"}
+                  {record.createdAt
+                    ? clientUtils.formatDate(record.createdAt)
+                    : "-"}
                 </div>
               );
             },
@@ -88,7 +90,9 @@ export default function SystemDictItemWithIdRoute() {
             render(_, record) {
               return (
                 <div>
-                  {record.updatedAt ? formatDate(record.updatedAt) : "-"}
+                  {record.updatedAt
+                    ? clientUtils.formatDate(record.updatedAt)
+                    : "-"}
                 </div>
               );
             },

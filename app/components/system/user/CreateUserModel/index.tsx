@@ -12,7 +12,7 @@ import * as _icons from "@ant-design/icons";
 import { Button, Form } from "antd";
 
 // utils
-import { genFileListByName } from "~/utils/utils";
+import * as clientUtils from "~/utils";
 
 const { EditOutlined } = _icons;
 
@@ -37,7 +37,7 @@ export default function CreateUserModal({
           ...record,
           roles: record.UserRole.map((role) => role.roleId),
           dept: record?.department?.id,
-          file: genFileListByName(record.avatar),
+          file: clientUtils.genFileListByName(record.avatar),
         });
       }}
       trigger={<Button type="link" icon={<EditOutlined />} />}

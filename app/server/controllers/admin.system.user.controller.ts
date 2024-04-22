@@ -16,7 +16,7 @@ import { getRoleList } from "~/server/services/system/role";
 import { getDeptListTree } from "~/server/services/system/dept";
 
 // utils
-import { getPaginationByRequest } from "~/utils/pagination.util";
+import * as clientUtils from "~/utils";
 import { respSuccessJson } from "~/server/utils/response.json";
 
 // schema
@@ -82,7 +82,8 @@ export default class AdminSystemUserController {
 
   @checkLogin()
   static async loader({ request, params }: LoaderFunctionArgs) {
-    const { page, pageSize, name } = await getPaginationByRequest(request);
+    const { page, pageSize, name } =
+      await clientUtils.getPaginationByRequest(request);
     return respSuccessJson({
       total: await getUserCount(),
       dataSource: await getUserList({ page, pageSize, name }),

@@ -12,7 +12,7 @@ import {
 import prisma from "~/server/services/common/prisma";
 import { getUserId$ } from "~/server/services/common/session";
 
-import { extname } from "~/utils/utils";
+import * as clientUtils from "~/utils";
 import { lastValueFrom } from "rxjs";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -48,7 +48,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         userId,
         name: file.name,
         fileName: file.name,
-        extName: extname(file.name),
+        extName: clientUtils.extname(file.name),
         path: "/uploads/" + file.name,
         size: file.size.toString(),
         type: file.type,

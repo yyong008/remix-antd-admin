@@ -1,6 +1,6 @@
 import { it, expect } from "vitest";
 
-import { genFileListByName } from "~/utils/utils";
+import { genFileListByName } from "~/utils";
 
 it("formate", () => {
   const name = "remix";

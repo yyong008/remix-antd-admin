@@ -12,7 +12,7 @@ import DeptModal from "~/components/system/dept/CreateDeptModel";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 // utils
-import { formatDate } from "~/utils/utils";
+import * as clientUtils from "~/utils";
 
 // controller
 import { AdminAdminSystemDeptController } from "~/server/controllers/admin.system.dept.controller";
@@ -65,7 +65,9 @@ export default function SystemDeptRoute() {
             render(_, record) {
               return (
                 <div>
-                  {record.createdAt ? formatDate(record.createdAt) : "-"}
+                  {record.createdAt
+                    ? clientUtils.formatDate(record.createdAt)
+                    : "-"}
                 </div>
               );
             },
@@ -76,7 +78,9 @@ export default function SystemDeptRoute() {
             render(_, record) {
               return (
                 <div>
-                  {record.updatedAt ? formatDate(record.updatedAt) : "-"}
+                  {record.updatedAt
+                    ? clientUtils.formatDate(record.updatedAt)
+                    : "-"}
                 </div>
               );
             },

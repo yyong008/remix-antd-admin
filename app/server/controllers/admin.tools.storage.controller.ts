@@ -9,7 +9,7 @@ import { auth$ } from "~/server/services/common/session";
 import { getStorageList, storageCount$ } from "~/server/services/tools/storage";
 
 // utils
-import { getPaginationByRequest } from "~/utils/pagination.util";
+import * as clientUtils from "~/utils";
 
 // decorator
 import { checkLogin } from "../decorators/check-auth.decorator";
@@ -30,7 +30,8 @@ export class AdminToolsStorageController {
     if (!userId) {
       return redirectToLogin();
     }
-    const { page, pageSize, name } = getPaginationByRequest(request);
+    const { page, pageSize, name } =
+      clientUtils.getPaginationByRequest(request);
 
     return json({
       total: await lastValueFrom(storageCount$()),
