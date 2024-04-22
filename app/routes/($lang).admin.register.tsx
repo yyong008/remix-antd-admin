@@ -15,7 +15,7 @@ import { json, redirect } from "@remix-run/node";
 
 // hooks
 import { useTranslation } from "react-i18next";
-import { useNProgress } from "~/hooks/useNProgress";
+import { useNProgress, useFetcherChange } from "~/hooks";
 
 // components
 import { LoginForm, ProFormCheckbox } from "@ant-design/pro-components";
@@ -37,9 +37,6 @@ import { createLoginLog } from "~/server/services/system/login-log";
 import { getLoginInfo } from "~/server/utils/ip.util";
 import * as bcryptUtil from "~/utils/bcrypt.util";
 import { hashPassword } from "~/server/utils/bcrypt.util";
-
-// hooks
-import { useFetcherChange } from "~/hooks/useFetcherChange";
 
 // auth
 import {

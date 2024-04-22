@@ -8,7 +8,7 @@ import { PageContainer, ProCard } from "@ant-design/pro-components";
 import classNames from "classnames";
 
 // hooks
-import useKeyPress from "~/hooks/useKeyPress";
+import { useKeyPress } from "~/hooks";
 
 // remix:meta
 export const meta: MetaFunction = () => {

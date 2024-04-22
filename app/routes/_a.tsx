@@ -29,7 +29,7 @@ import { createTokens } from "~/layout/createToken";
 import { createProLayoutRoute } from "~/utils/prolayout.route.util";
 
 // hooks
-import { useNProgress } from "~/hooks/useNProgress";
+import { useNProgress } from "~/hooks";
 
 // controller
 import { LayoutAController } from "~/server/controllers/a";

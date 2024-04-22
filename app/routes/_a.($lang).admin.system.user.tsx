@@ -27,9 +27,8 @@ import { formatDate } from "~/utils/utils";
 import AdminSystemUserController from "~/server/controllers/admin.system.user.controller";
 
 // hooks
-import { useUserNav } from "~/hooks/router/user.route";
+import { useUserNav, useFetcherChange } from "~/hooks";
 import FormatTime from "~/components/common/FormatTime";
-import { useFetcherChange } from "~/hooks/useFetcherChange";
 
 // remix:meta(client)
 export const meta: MetaFunction = () => {

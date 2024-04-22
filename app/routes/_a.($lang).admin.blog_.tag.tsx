@@ -17,10 +17,9 @@ import { Space } from "antd";
 import * as _icon from "@ant-design/icons";
 import DeleteIt from "~/components/common/DeleteIt";
 import TagModal from "~/components/blog/tag-list/TagModal";
-import { useFetcherChange } from "~/hooks/useFetcherChange";
 
 // hooks
-import { goBlogNav } from "~/hooks/router/blog.route";
+import { useFetcherChange, goBlogNav } from "~/hooks";
 
 // controller
 import { AdminBlogTagController } from "~/server/controllers/admin.blog.tag.controller";

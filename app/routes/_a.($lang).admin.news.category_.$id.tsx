@@ -11,7 +11,7 @@ import ButtonLink from "~/components/common/ButtonLink";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 // hooks
-import { useFetcherChange } from "~/hooks/useFetcherChange";
+import { useFetcherChange } from "~/hooks";
 
 // controller
 import { AdminNewsCategoryWithIdController } from "~/server/controllers/admin.news.category.$id.controller";

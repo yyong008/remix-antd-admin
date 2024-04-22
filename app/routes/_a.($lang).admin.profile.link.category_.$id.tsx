@@ -8,10 +8,12 @@ import { Link, useLoaderData } from "@remix-run/react";
 // components
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { createLink, getLinkListById } from "~/server/services/profile/link";
-import { useFetcherChange } from "~/hooks/useFetcherChange";
 import LinkModal from "~/components/link/LinkModal";
 import { Space, Tag } from "antd";
 import LinkSvg from "~/components/svg/LinkSvg";
+
+// hooks
+import { useFetcherChange } from "~/hooks";
 
 // remix:meta
 export const meta: MetaFunction = () => {

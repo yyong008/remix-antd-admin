@@ -21,7 +21,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 // hooks
 import { useTranslation } from "react-i18next";
-import { useFetcherChange } from "~/hooks/useFetcherChange";
+import { useFetcherChange } from "~/hooks";
 
 // controller
 import { AdminSystemRoleController } from "~/server/controllers/admin.system.role.controller";

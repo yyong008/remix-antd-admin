@@ -13,7 +13,7 @@ import { PageContainer } from "@ant-design/pro-components";
 import SystemMenu from "~/components/system/Menu";
 
 // hooks
-import { useFetcherChange } from "~/hooks/useFetcherChange";
+import { useFetcherChange } from "~/hooks";
 
 // controllers
 import { AdminSystemMenuController } from "~/server/controllers/admin.system.menu.controller";

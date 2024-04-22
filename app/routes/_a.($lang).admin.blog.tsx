@@ -24,7 +24,7 @@ import FormatTime from "~/components/common/FormatTime";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 // hooks
-import { useFetcherChange } from "~/hooks/useFetcherChange";
+import { useFetcherChange } from "~/hooks";
 
 // controller
 import { AdminBlogController } from "~/server/controllers/admin.blog.controller";

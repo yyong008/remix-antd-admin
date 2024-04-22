@@ -14,7 +14,7 @@ import { formatDate } from "~/utils/utils";
 import { AdminSystemMonitorLoginLogController } from "~/server/controllers/admin.system.monitor.login-log.controller";
 
 // hooks
-import { useLoginLogNav } from "~/hooks/router/login-login.route";
+import { useLoginLogNav } from "~/hooks";
 
 // remix:meta
 export const meta: MetaFunction = () => {

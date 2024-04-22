@@ -16,10 +16,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import CategoryModal from "~/components/blog/category-list/CategoryModal";
 
 // hooks
-import { useFetcherChange } from "~/hooks/useFetcherChange";
-
-// route
-import { goBlogNav } from "~/hooks/router/blog.route";
+import { useFetcherChange, goBlogNav } from "~/hooks";
 
 // controller
 import { AdminBlogCategoryController } from "~/server/controllers/admin.blog.category.controller";

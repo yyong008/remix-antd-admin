@@ -17,7 +17,7 @@ import { Form } from "antd";
 import EditorRichFromItem from "~/components/editor/EditorRichFromItem";
 
 // hooks
-import { useFetcherChange } from "~/hooks/useFetcherChange";
+import { useFetcherChange } from "~/hooks";
 
 // controllers
 import { AdminBlogEditController } from "~/server/controllers/admin.blog.edit.controller";

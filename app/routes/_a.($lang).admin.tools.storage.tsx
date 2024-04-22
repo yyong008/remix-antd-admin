@@ -15,8 +15,7 @@ import { StorageModal } from "~/components/tools/StorageModal";
 import FormatTime from "~/components/common/FormatTime";
 
 // hooks
-import { usePagination } from "~/hooks/usePagination";
-import { useStorageNav } from "~/hooks/router/storage.route";
+import { usePagination, useStorageNav } from "~/hooks";
 
 // controller
 import { AdminToolsStorageController } from "~/server/controllers/admin.tools.storage.controller";

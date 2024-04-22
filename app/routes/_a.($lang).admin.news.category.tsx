@@ -11,7 +11,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import NewsCategoryModal from "~/components/news/category-list/NewsCategoryModal";
 
 // hooks
-import { useFetcherChange } from "~/hooks/useFetcherChange";
+import { useFetcherChange } from "~/hooks";
 
 // controller
 import { AdminNewsCategoryController } from "~/server/controllers/admin.news.category.controller";

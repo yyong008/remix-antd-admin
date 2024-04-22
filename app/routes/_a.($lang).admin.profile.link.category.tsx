@@ -7,11 +7,13 @@ import { Link, useLoaderData, useParams } from "@remix-run/react";
 // components
 import { Space, Tag } from "antd";
 import DeleteIt from "~/components/common/DeleteIt";
-import { useFetcherChange } from "~/hooks/useFetcherChange";
 import LinkCategoryModal from "~/components/link/LinkCategoryModal";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 import { AdminProfileLinkCategoryController } from "~/server/controllers/admin.profile.link.category.controller";
+
+// hooks
+import { useFetcherChange } from "~/hooks";
 
 // remix:meta
 export const meta: MetaFunction = () => {

@@ -17,7 +17,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { PageContainer } from "@ant-design/pro-layout";
 
 // hooks
-import { useFetcherChange } from "~/hooks/useFetcherChange";
+import { useFetcherChange } from "~/hooks";
 
 // constroller
 import { AdminNewEditWithIdController } from "~/server/controllers/admin.news.edit.$id.controller";

@@ -31,8 +31,7 @@ import SettingContext from "~/context/settingContext";
 import { genHashedPassword } from "~/utils/bcrypt.util";
 
 // hooks
-import { useFetcherChange } from "~/hooks/useFetcherChange";
-import { useNProgress } from "~/hooks/useNProgress";
+import { useFetcherChange, useNProgress } from "~/hooks";
 
 import { LoginController } from "~/server/controllers/admin.login.controller";
 import { Link, useParams } from "@remix-run/react";

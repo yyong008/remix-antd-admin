@@ -14,11 +14,10 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { AdminToolsMailTemplateListController } from "~/server/controllers/admin.tools.mail.list.controller";
 
 // hooks
-import { useMailNav } from "~/hooks/router/useMailNav";
+import { useMailNav, useFetcherChange } from "~/hooks";
 import ButtonLink from "~/components/common/ButtonLink";
 import DeleteIt from "~/components/common/DeleteIt";
 import { Space } from "antd";
-import { useFetcherChange } from "~/hooks/useFetcherChange";
 
 // remix:meta
 export const meta: MetaFunction = () => {

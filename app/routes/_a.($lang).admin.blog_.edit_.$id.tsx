@@ -17,7 +17,7 @@ import { PageContainer } from "@ant-design/pro-layout";
 import EditorRichFromItem from "~/components/editor/EditorRichFromItem";
 
 // hooks
-import { useFetcherChange } from "~/hooks/useFetcherChange";
+import { useFetcherChange } from "~/hooks";
 
 // controllers
 import { AdminBlogEditWithIdController } from "~/server/controllers/admin.blog.edit.$id.controller";

@@ -1,6 +1,8 @@
 import { NavLink, Outlet, useParams } from "@remix-run/react";
 import { defaultLang } from "~/config/lang";
-import { useNProgress } from "~/hooks/useNProgress";
+
+// hooks
+import { useNProgress } from "~/hooks";
 
 export default function Nav() {
   const { lang = defaultLang } = useParams();
