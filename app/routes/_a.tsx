@@ -10,20 +10,24 @@ import { Outlet, useLoaderData, useParams } from "@remix-run/react";
 // components
 import { ProLayout } from "@ant-design/pro-components";
 import Footer from "~/components/common/Footer";
-import MenuFooterRender from "~/layout/MenuFooterRender";
-import { AvatarDropDown } from "~/layout/AvatarDropDown";
-import { SettingDrawerWrap } from "~/layout/SettingDrawerWrap";
-import { createActionRenderWrap } from "~/layout/createActionsRender";
 import MenuItemOutLink from "~/components/common/MenuItemOuterLink";
 import MenuItemLink from "~/components/common/MenuItemLink";
+
+// layout
+// layout
+import {
+  MenuFooterRender,
+  AvatarDropDown,
+  SettingDrawerWrap,
+  createActionRenderWrap,
+  createTokens,
+} from "~/layout";
 
 // context
 import SettingContext from "~/context/settingContext";
 
 // config
 import { prolayoutConfig } from "~/config/index";
-
-import { createTokens } from "~/layout/createToken";
 
 // utils
 import { createProLayoutRoute } from "~/utils/prolayout.route.util";
