@@ -23,7 +23,7 @@ import {
 import { getUserId$ } from "~/server/services/common/session";
 
 // utils
-import * as rp from "~/server/utils/response.json";
+import * as rp from "~/server/utils";
 
 // rxjs
 import { firstValueFrom, forkJoin, from, lastValueFrom, switchMap } from "rxjs";

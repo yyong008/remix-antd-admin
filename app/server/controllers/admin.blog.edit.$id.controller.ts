@@ -18,7 +18,7 @@ import { permission } from "../decorators/check-perm";
 import { validate } from "../decorators/validate-schema";
 
 // utils
-import * as rp from "~/server/utils/response.json";
+import * as rp from "~/server/utils";
 
 const perms = {
   READ_LIST: "blog:list",

@@ -21,7 +21,7 @@ import { langs } from "~/config/lang";
 
 // utils
 import * as clientUtils from "~/utils";
-import { respSuccessJson } from "~/server/utils/response.json";
+import { respSuccessJson } from "~/server/utils";
 
 // decorators
 import { checkLogin } from "~/server/decorators/check-auth.decorator";

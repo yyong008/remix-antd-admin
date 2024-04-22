@@ -1,7 +1,7 @@
 import { lastValueFrom } from "rxjs";
 
 // utils
-import { respFailJson } from "~/server/utils/response.json";
+import { respFailJson } from "~/server/utils";
 
 // session
 import { auth$, logout$ } from "../services/common/session";

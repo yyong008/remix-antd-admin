@@ -25,7 +25,7 @@ import { validate } from "../decorators/validate-schema";
 import { checkLogin } from "../decorators/check-auth.decorator";
 
 // json
-import * as rp from "~/server/utils/response.json";
+import * as rp from "~/server/utils";
 
 // schemas
 import {

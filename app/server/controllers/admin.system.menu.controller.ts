@@ -18,7 +18,7 @@ import {
 import i18n from "~/i18n/i18next.server";
 
 // utils
-import * as rp from "~/server/utils/response.json";
+import * as rp from "~/server/utils";
 
 // schema
 import { DeleteMenuSchema } from "~/schema/menu.schema";

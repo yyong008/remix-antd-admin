@@ -1,6 +1,6 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
 
-import { respFailJson } from "~/server/utils/response.json";
+import { respFailJson } from "~/server/utils";
 
 import {
   CreateMenuDirSchema,

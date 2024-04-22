@@ -1,5 +1,5 @@
 import { it, expect } from "vitest";
-import { getSearchParams } from "~/server/utils/utils";
+import { getSearchParams } from "~/server/utils";
 
 it("test requtes empty", () => {
   const request = new Request("https://www.example.com/abc");

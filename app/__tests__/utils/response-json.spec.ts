@@ -8,7 +8,7 @@ import {
   respPresentationModeJson,
   respUnAuthJson,
   respUnSupportJson,
-} from "~/server/utils/response.json";
+} from "~/server/utils";
 
 describe("test response json success", () => {
   it("snapshot test empty json  ok/status", async () => {

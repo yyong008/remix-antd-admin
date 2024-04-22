@@ -16,7 +16,7 @@ import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
 // decoartor
 import { checkLogin } from "../decorators/check-auth.decorator";
 
-import * as rp from "~/server/utils/response.json";
+import * as rp from "~/server/utils";
 import { validate } from "../decorators/validate-schema";
 
 // schema

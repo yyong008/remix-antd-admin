@@ -21,7 +21,7 @@ import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
 import { permission } from "../decorators/check-perm";
 
 // response
-import * as rp from "~/server/utils/response.json";
+import * as rp from "~/server/utils";
 
 const profilePerms = {
   READ_LIST: "profile:link-category:list",

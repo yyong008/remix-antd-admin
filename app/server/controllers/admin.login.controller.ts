@@ -19,21 +19,17 @@ import {
   throwError,
 } from "rxjs";
 
-// decorators
-
 import { defaultLang } from "~/config/lang";
+
+// utils
+import * as serverUtils from "~/server/utils";
 
 // schemas
 import { loginLogSchema } from "~/schema/login.schema";
+
+// server
 import { commitSession, getSession } from "~/server/services/common/session";
 import { findByUserName$ } from "~/server/services/login";
-import { comparePassword } from "~/server/utils/bcrypt.util";
-
-// services
-
-// utils
-import * as respUtils from "~/server/utils/response.json";
-import { getLoginInfo } from "../utils/ip.util";
 import { createLoginLog } from "../services/system/login-log";
 
 export class LoginController {
@@ -44,13 +40,13 @@ export class LoginController {
       case "POST":
         return LoginController.post({ request, params } as ActionFunctionArgs);
       default:
-        respUtils.respUnSupportJson();
+        serverUtils.respUnSupportJson();
         break;
     }
   }
 
   static async loader() {
-    return respUtils.respSuccessJson({});
+    return serverUtils.respSuccessJson({});
   }
 
   static async post({ request, params }: ActionFunctionArgs) {
@@ -59,7 +55,7 @@ export class LoginController {
     const dataDto$ = from(request.json());
 
     const crreateErrorHandle = (message?: string) => () => {
-      return respUtils.respFailJson(
+      return serverUtils.respFailJson(
         {},
         message ?? "登录失败,用户名或密码错误!",
       );
@@ -100,7 +96,10 @@ export class LoginController {
       }),
       map((v) => ({
         user: v[1],
-        passwordMatch: comparePassword(v[0].password, v[1].password),
+        passwordMatch: serverUtils.comparePassword(
+          v[0].password,
+          v[1].password,
+        ),
       })),
       switchMap(({ user, passwordMatch }) => {
         return iif(
@@ -110,7 +109,7 @@ export class LoginController {
         );
       }),
       switchMap((user) =>
-        from(getLoginInfo(request)).pipe(
+        from(serverUtils.getLoginInfo(request)).pipe(
           map((loginLog) =>
             loginLogSchema.parse({ ...loginLog, name: user.name }),
           ),

@@ -22,7 +22,7 @@ import { forkJoin, from, lastValueFrom, of } from "rxjs";
 import { catchError, switchMap } from "rxjs/operators";
 
 // utils
-import * as rp from "~/server/utils/response.json";
+import * as rp from "~/server/utils";
 
 import {
   CreateBlogSchema,

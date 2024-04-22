@@ -5,7 +5,7 @@ import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
 import { getUserId$ } from "~/server/services/common/session";
 
 // utils
-import * as rp from "~/server/utils/response.json";
+import * as rp from "~/server/utils";
 import { getUserPerms$ } from "../services/system/user-perms.server";
 
 /**

@@ -11,8 +11,7 @@ import { createUserFromRegister } from "~/server/services/register";
 import { createLoginLog } from "~/server/services/system/login-log";
 
 // libs
-import { getLoginInfo } from "~/server/utils/ip.util";
-import { hashPassword } from "~/server/utils/bcrypt.util";
+import { getLoginInfo, hashPassword } from "~/server/utils";
 
 // auth
 import {
