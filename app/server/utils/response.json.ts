@@ -99,7 +99,7 @@ export const respByData$ = (data: any | null) => {
  * @param data
  * @returns
  */
-export const resp = async (data$: any | null) => {
+export const resp$ = async (data$: any | null) => {
   const res$ = from(data$).pipe(
     switchMap((data) =>
       iif(

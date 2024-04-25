@@ -12,7 +12,7 @@ type BlogCategoryData = {
 export interface IBlogCategory {
   createBlogCategory$(data: BlogCategoryData): Observable<any>;
   updateBlogCategory$(data: BlogCategoryData & { id: number }): Observable<any>;
-  deleteBlogCategoryById$(id: number): Observable<any>;
+  deleteBlogCategoryByIds$(ids: number[]): Observable<any>;
   getBlogCategoryByUserId$(userId: number): Observable<any>;
   getBlogCategoryById$(id: number): Observable<any>;
   getAllBlogCategory$(id: number): Observable<any>;
@@ -75,9 +75,17 @@ export const updateBlogCategory$: IBlogCategory["updateBlogCategory$"] = (
  * 删除指定id博客分类
  * @returns
  */
-export const deleteBlogCategoryById$: IBlogCategory["deleteBlogCategoryById$"] =
-  (id: number): Observable<number | Error> => {
-    return from(prisma.blogCategory.delete({ where: { id } })).pipe(
+export const deleteBlogCategoryByIds$: IBlogCategory["deleteBlogCategoryByIds$"] =
+  (ids: number[]): Observable<number | Error> => {
+    return from(
+      prisma.blogCategory.deleteMany({
+        where: {
+          id: {
+            in: ids,
+          },
+        },
+      }),
+    ).pipe(
       catchError((e) => {
         console.error(e);
         return of(e);
