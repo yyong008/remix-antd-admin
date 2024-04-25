@@ -10,7 +10,7 @@ import { getUserInfoById } from "~/server/services/system/user";
 import { createLinkCategory } from "~/server/services/profile/link-category";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 // rxjs
 import { lastValueFrom } from "rxjs";

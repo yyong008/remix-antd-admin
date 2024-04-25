@@ -12,13 +12,13 @@ import {
 import { getUserId$ } from "~/server/services/common/session";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 // rxjs
 import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
 
 // decorators
-import { permission } from "../decorators/check-perm";
+import { permission } from "../../decorators/check-perm";
 
 // response
 import * as rp from "~/server/utils";

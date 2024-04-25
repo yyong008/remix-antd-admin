@@ -10,7 +10,7 @@ import { DeleteIt } from "~/components/common";
 import LinkCategoryModal from "~/components/link/LinkCategoryModal";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
-import { AdminProfileLinkCategoryController } from "~/server/controllers/admin.profile.link.category.controller";
+import { AdminProfileLinkCategoryController } from "~/server/controllers/profile/admin.profile.link.category.controller";
 
 // hooks
 import { useFetcherChange } from "~/hooks";

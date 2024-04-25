@@ -6,7 +6,7 @@ import { json } from "@remix-run/node";
 
 // components
 import { createLink, getLinkListById } from "~/server/services/profile/link";
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminProfileLinkController {
   @checkLogin()

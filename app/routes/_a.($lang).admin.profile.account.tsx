@@ -13,7 +13,7 @@ import {
   ProFormText,
 } from "@ant-design/pro-components";
 
-import { AdminProfileAccountController } from "~/server/controllers/admin.profile.account.controller";
+import { AdminProfileAccountController } from "~/server/controllers/profile/admin.profile.account.controller";
 
 // remix:meta
 export const meta: MetaFunction = () => {
