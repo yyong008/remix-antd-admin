@@ -6,7 +6,7 @@ import { Descriptions, Space, Tag } from "antd";
 import { ProCard, ProConfigProvider } from "@ant-design/pro-components";
 
 // controller
-import { AdminAboutController } from "~/server/controllers/admin.about.controller";
+import { AdminAboutController } from "~/server/controllers/about/admin.about.controller";
 
 // remix:meta
 export const meta: MetaFunction = () => {

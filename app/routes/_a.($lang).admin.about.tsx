@@ -5,7 +5,7 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { Descriptions, Space, Tag } from "antd";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
-import { AdminAboutController } from "~/server/controllers/admin.about.controller";
+import { AdminAboutController } from "~/server/controllers/about/admin.about.controller";
 
 // remix:meta
 export const meta: MetaFunction = () => {
