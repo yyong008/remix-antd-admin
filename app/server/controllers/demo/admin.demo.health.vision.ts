@@ -8,15 +8,15 @@ import { json } from "@remix-run/node";
 import { lastValueFrom } from "rxjs";
 
 // db
-import { getSportData$ } from "~/__mock__/health/sport";
+import { getVisionData$ } from "~/__mock__/health/vision";
 
-// decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+// config
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
-export class AdminDemoHealthSportController {
+export class AdminDemoHealthVisionController {
   @checkLogin()
   static async loader() {
-    const data = await lastValueFrom(getSportData$());
+    const data = await lastValueFrom(getVisionData$());
     return json(data);
   }
 }

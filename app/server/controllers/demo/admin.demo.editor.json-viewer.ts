@@ -11,7 +11,7 @@ import { lastValueFrom } from "rxjs";
 import { getPackageJsonData$ } from "~/__mock__/editor/json.service";
 
 // decorators
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminDemoEditorJsonViewer {
   @checkLogin()

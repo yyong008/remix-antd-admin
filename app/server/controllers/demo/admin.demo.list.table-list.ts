@@ -11,7 +11,7 @@ import { lastValueFrom } from "rxjs";
 import { getTableListDataSource$ } from "~/__mock__/profile/profile.server";
 
 // decorators
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminDemoListTableListController {
   @checkLogin()

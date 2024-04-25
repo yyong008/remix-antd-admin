@@ -15,7 +15,7 @@ import { lastValueFrom } from "rxjs";
 import { getSearchApplicationCardList$ } from "~/__mock__/list/search.applications";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminDemoListSearchProjectsController {
   @checkLogin()

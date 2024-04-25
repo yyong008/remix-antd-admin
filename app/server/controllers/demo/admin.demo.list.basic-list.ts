@@ -11,7 +11,7 @@ import { lastValueFrom } from "rxjs";
 import { getBasicList$ } from "~/__mock__/list/basic.list";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminDemoLibSplitPaneControler {
   @checkLogin()

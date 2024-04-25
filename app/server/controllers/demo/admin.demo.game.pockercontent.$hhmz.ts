@@ -12,7 +12,7 @@ import { lastValueFrom } from "rxjs";
 
 // services
 import { getPockeraData$ } from "~/__mock__/game/pocker";
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminDemoGamePockerContentWithHHMZController {
   @checkLogin()

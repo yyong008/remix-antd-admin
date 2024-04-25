@@ -11,7 +11,7 @@ import { lastValueFrom } from "rxjs";
 import { getSleepData$ } from "~/__mock__/health/sleep";
 
 // config
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminDemoHealthSleepController {
   @checkLogin()

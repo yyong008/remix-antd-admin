@@ -11,7 +11,7 @@ import { lastValueFrom } from "rxjs";
 import { getExcelDisease$ } from "~/__mock__/db/excel/export";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminDemoExcelExport {
   @checkLogin()

@@ -7,16 +7,16 @@ import { json } from "@remix-run/node";
 // libs
 import { lastValueFrom } from "rxjs";
 
-// db
-import { getVisionData$ } from "~/__mock__/health/vision";
+// services
+import { getObesityData$ } from "~/__mock__/health/obesity";
 
 // config
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
-export class AdminDemoHealthVisionController {
+export class AdminDemoHealthHandController {
   @checkLogin()
   static async loader() {
-    const data = await lastValueFrom(getVisionData$());
+    const data = await lastValueFrom(getObesityData$());
     return json(data);
   }
 }

@@ -10,7 +10,7 @@ import { lastValueFrom } from "rxjs";
 import { getCervicalData$ } from "~/__mock__/health/cervical-vertebra";
 
 // config
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminDemoHealthCervialVertebraController {
   @checkLogin()

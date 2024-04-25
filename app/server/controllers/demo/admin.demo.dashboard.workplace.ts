@@ -21,7 +21,7 @@ import {
 } from "~/server/services/common/session";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdmindemoDashboardWorkplaceController {
   @checkLogin()

@@ -11,7 +11,7 @@ import { lastValueFrom } from "rxjs";
 import { getFlowData$ } from "~/__mock__/editor/flow.service";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminDemoEditorFlow {
   @checkLogin()

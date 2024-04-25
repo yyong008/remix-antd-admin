@@ -11,7 +11,7 @@ import { lastValueFrom } from "rxjs";
 import { getAccountSettingsData$ } from "~/__mock__/account/settings";
 
 // decorators
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminDemoAccoutCenterController {
   @checkLogin()

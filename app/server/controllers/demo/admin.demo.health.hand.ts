@@ -11,7 +11,7 @@ import { lastValueFrom } from "rxjs";
 import { gethandData$ } from "~/__mock__/health/hand";
 
 // config
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 // remix:meta
 export const meta: MetaFunction = () => {

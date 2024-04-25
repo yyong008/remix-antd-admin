@@ -11,7 +11,7 @@ import { lastValueFrom } from "rxjs";
 import { getQrCodeList$ } from "~/__mock__/lib/qrcode";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminDemoLibQrCodeController {
   @checkLogin()
