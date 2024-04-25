@@ -25,7 +25,7 @@ import { DeleteIt, ButtonLink, FormatTime } from "~/components/common";
 import { useFetcherChange } from "~/hooks";
 
 // controller
-import { AdminBlogController } from "~/server/controllers/admin.blog.controller";
+import { AdminBlogController } from "~/server/controllers/blog/admin.blog.controller";
 
 // utils
 import * as clientUtils from "~/utils";

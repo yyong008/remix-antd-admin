@@ -20,7 +20,7 @@ import EditorRichFromItem from "~/components/editor/EditorRichFromItem";
 import { useFetcherChange } from "~/hooks";
 
 // controllers
-import { AdminBlogEditController } from "~/server/controllers/admin.blog.edit.controller";
+import { AdminBlogEditController } from "~/server/controllers/blog/admin.blog.edit.controller";
 
 // remix:action-loader
 export const action: ActionFunction = AdminBlogEditController.action;

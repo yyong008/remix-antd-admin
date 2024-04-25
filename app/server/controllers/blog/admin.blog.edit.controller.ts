@@ -8,14 +8,14 @@ import { createBlog$ } from "~/server/services/blog/blog";
 import { getAllBlogCategory$ } from "~/server/services/blog/blog-category";
 
 // decorator
-import { permission } from "../decorators/check-perm";
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { permission } from "../../decorators/check-perm";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 // rxjs
 import { forkJoin, from, lastValueFrom, of, switchMap } from "rxjs";
 
 // utils
-import * as rp from "../utils/response.json";
+import * as rp from "../../utils/response.json";
 
 const perms = {
   READ_LIST: "blog:list",

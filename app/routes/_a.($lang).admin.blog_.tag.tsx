@@ -22,7 +22,7 @@ import TagModal from "~/components/blog/tag-list/TagModal";
 import { useFetcherChange, goBlogNav } from "~/hooks";
 
 // controller
-import { AdminBlogTagController } from "~/server/controllers/admin.blog.tag.controller";
+import { AdminBlogTagController } from "~/server/controllers/blog/admin.blog.tag.controller";
 
 const { SwitcherOutlined } = _icon;
 

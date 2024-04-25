@@ -11,11 +11,11 @@ import { getAllBlogTag$ } from "~/server/services/blog/blog-tags";
 import { forkJoin, lastValueFrom, of, switchMap } from "rxjs";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 import { UpdateBlogSchema } from "~/schema/blog.schema";
-import { permission } from "../decorators/check-perm";
-import { validate } from "../decorators/validate-schema";
+import { permission } from "../../decorators/check-perm";
+import { validate } from "../../decorators/validate-schema";
 
 // utils
 import * as rp from "~/server/utils";

@@ -20,7 +20,7 @@ import CategoryModal from "~/components/blog/category-list/CategoryModal";
 import { useFetcherChange, goBlogNav } from "~/hooks";
 
 // controller
-import { AdminBlogCategoryController } from "~/server/controllers/admin.blog.category.controller";
+import { AdminBlogCategoryController } from "~/server/controllers/blog/admin.blog.category.controller";
 
 const { SwitcherOutlined } = _icon;
 

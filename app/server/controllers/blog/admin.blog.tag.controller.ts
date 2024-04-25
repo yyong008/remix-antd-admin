@@ -16,13 +16,13 @@ import {
   getBlogCategoryTag$,
   getBlogTagByUserId$,
 } from "~/server/services/blog/blog-tags";
-import { deleteManyBlogByIds$ } from "../services/blog/blog";
+import { deleteManyBlogByIds$ } from "../../services/blog/blog";
 import { auth$, getUserId$ } from "~/server/services/common/session";
 
 // decorator
-import { permission } from "../decorators/check-perm";
-import { validate } from "../decorators/validate-schema";
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { permission } from "../../decorators/check-perm";
+import { validate } from "../../decorators/validate-schema";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 // json
 import * as rp from "~/server/utils";
