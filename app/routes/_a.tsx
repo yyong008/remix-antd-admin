@@ -33,7 +33,7 @@ import * as clientUtils from "~/utils";
 import { useNProgress } from "~/hooks";
 
 // controller
-import { LayoutAController } from "~/server/controllers/a";
+import { LayoutAController } from "~/server/controllers/layout/a";
 import { useTranslation } from "react-i18next";
 
 export const loader: LoaderFunction = LayoutAController.loader;
