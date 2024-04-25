@@ -2,13 +2,20 @@
 
 pnpm i
 
-cp .env.tpl .env
+rm -rf .env ./prisma
 
-rm -rf ./prisma/dev.db
+echo
+echo "👌清除 .env 和 ./prisma 文件夹完成"
+echo
 
 npx prisma init --datasource-provider sqlite # 初始化
 
+cp .env.tpl .env
 cp ./depoly/schema.prisma ./prisma/schema.prisma
+
+echo
+echo "👌复制 .env.tpl 和 ./prisma/schema.prisma 文件完成"
+echo
 
 npx prisma migrate dev --name init # 迁移数据
 
