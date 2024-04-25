@@ -5,7 +5,7 @@ import type { LoaderFunction } from "@remix-run/node";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 // controller
-import { AdminDashboardController } from "~/server/controllers/admin.dashboard.controller";
+import { AdminDashboardController } from "~/server/controllers/dashboard/admin.dashboard.controller";
 
 export const loader: LoaderFunction = AdminDashboardController.loader;
 
