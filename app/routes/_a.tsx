@@ -25,7 +25,7 @@ import {
 import { SettingContext } from "~/context";
 
 // config
-import { prolayoutConfig } from "~/config/index";
+import { prolayoutConfig } from "~/config/prolayout";
 
 // utils
 import * as clientUtils from "~/utils";
