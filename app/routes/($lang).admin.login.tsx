@@ -31,7 +31,7 @@ import * as clientUtils from "~/utils";
 // hooks
 import { useFetcherChange, useNProgress } from "~/hooks";
 
-import { LoginController } from "~/server/controllers/admin.login.controller";
+import { LoginController } from "~/server/controllers/login/index";
 import { Link, useParams } from "@remix-run/react";
 import { defaultLang } from "~/config/lang";
 // remix:meta

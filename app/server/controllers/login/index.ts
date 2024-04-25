@@ -1,5 +1,5 @@
 // types
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs } from "@remix-run/node";
 
 //remix
 import { redirect } from "@remix-run/node";
@@ -25,29 +25,30 @@ import { defaultLang } from "~/config/lang";
 import * as serverUtils from "~/server/utils";
 
 // schemas
-import * as schemas from "~/schema";
+import { loginLogSchema } from "~/schema/login.schema";
 
 // server
 import { commitSession, getSession } from "~/server/services/common/session";
 import { findByUserName$ } from "~/server/services/login";
 import { createLoginLog } from "../../services/system/login-log";
 
-// decorators
-import * as ds from "~/server/decorators";
-
 export class LoginController {
-  @ds.Loader
-  static async loader({ request, params }: LoaderFunctionArgs) {}
-
   // @validate(LoginSchema)
-  @ds.Action
-  static async action({ request, params }: ActionFunctionArgs) {}
-
-  static async get({ request, params }: LoaderFunctionArgs) {
-    return null;
+  static async action({ request, params }: ActionFunctionArgs) {
+    const method = request.method;
+    switch (method) {
+      case "POST":
+        return LoginController.post({ request, params } as ActionFunctionArgs);
+      default:
+        serverUtils.respUnSupportJson();
+        break;
+    }
   }
 
-  // @ds.validate(schemas.LoginSchema)
+  static async loader() {
+    return serverUtils.respSuccessJson({});
+  }
+
   static async post({ request, params }: ActionFunctionArgs) {
     const session$ = from(getSession(request.headers.get("Cookie")));
     const lang$ = of(params?.lang).pipe(defaultIfEmpty(defaultLang));
@@ -110,7 +111,7 @@ export class LoginController {
       switchMap((user) =>
         from(serverUtils.getLoginInfo(request)).pipe(
           map((loginLog) =>
-            schemas.loginLogSchema.parse({ ...loginLog, name: user.name }),
+            loginLogSchema.parse({ ...loginLog, name: user.name }),
           ),
           switchMap((validateLoginLog) =>
             from(createLoginLog({ ...validateLoginLog })),
