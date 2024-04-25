@@ -1,9 +1,14 @@
+import type * as rrn from "@remix-run/node";
+
 // decorators
-import { checkLogin } from "~/server/decorators/check-auth.decorator";
+import * as ds from "~/server/decorators";
 
 export class AdminAboutController {
-  @checkLogin()
-  static async loader() {
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.checkLogin()
+  static async get({ request, params }: rrn.LoaderFunctionArgs) {
     return null;
   }
 }
