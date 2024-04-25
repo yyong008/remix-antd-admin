@@ -8,7 +8,7 @@ import { defaultLang } from "~/config/lang";
 import { logout$ } from "~/server/services/common/session";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 import { lastValueFrom } from "rxjs";
 
 export class AdminLogoutController {
