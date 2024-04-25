@@ -59,7 +59,7 @@
     "@bytemd/plugin-gfm": "^1.21.0",
     "@bytemd/react": "^1.21.0",
     "@js-temporal/polyfill": "^0.4.4",
-    "@prisma/client": "5.12.1",
+    "@prisma/client": "5.13.0",
     "@remix-run/css-bundle": "^2.9.1",
     "@remix-run/node": "^2.9.1",
     "@remix-run/react": "^2.9.1",
