@@ -26,7 +26,7 @@ import { useTranslation } from "react-i18next";
 import { useFetcherChange } from "~/hooks";
 
 // controller
-import { AdminSystemRoleController } from "~/server/controllers/admin.system.role.controller";
+import { AdminSystemRoleController } from "~/server/controllers/system/admin.system.role.controller";
 
 // remix
 // remix:meta(client)

@@ -1,6 +1,6 @@
 // remix
 import { json } from "@remix-run/node";
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminSystemConfigController {
   @checkLogin()

@@ -7,7 +7,7 @@ import { json } from "@remix-run/node";
 import { getSystemInfo$ } from "~/server/services/common/systemInfo";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 // rxjs
 import { lastValueFrom } from "rxjs";

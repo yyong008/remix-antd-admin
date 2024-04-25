@@ -15,7 +15,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import * as clientUtils from "~/utils";
 
 // controller
-import { AdminAdminSystemDeptController } from "~/server/controllers/admin.system.dept.controller";
+import { AdminAdminSystemDeptController } from "~/server/controllers/system/admin.system.dept.controller";
 
 // icons
 const { EditOutlined } = _icons;

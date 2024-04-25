@@ -14,10 +14,10 @@ import { getFlatMenu } from "~/server/services/system/menu-role";
 import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
 
 // decoartor
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 import * as rp from "~/server/utils";
-import { validate } from "../decorators/validate-schema";
+import { validate } from "../../decorators/validate-schema";
 
 // schema
 import {

@@ -11,7 +11,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import * as clientUtils from "~/utils";
 
 // controller
-import { AdminSystemMonitorLoginLogController } from "~/server/controllers/admin.system.monitor.login-log.controller";
+import { AdminSystemMonitorLoginLogController } from "~/server/controllers/system/admin.system.monitor.login-log.controller";
 
 // hooks
 import { useLoginLogNav } from "~/hooks";

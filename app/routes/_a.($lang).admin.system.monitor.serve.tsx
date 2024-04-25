@@ -12,7 +12,7 @@ import { PageContainer } from "@ant-design/pro-components";
 import { useLoaderData } from "@remix-run/react";
 
 // controllers
-import { AdminSystemMonitorServeController } from "~/server/controllers/admin.system.monitor.serve.controller";
+import { AdminSystemMonitorServeController } from "~/server/controllers/system/admin.system.monitor.serve.controller";
 
 // rxjs
 import { interval } from "rxjs";

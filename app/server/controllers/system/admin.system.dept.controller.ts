@@ -5,7 +5,7 @@ import { json } from "@remix-run/node";
 import { getDeptListTree } from "~/server/services/system/dept";
 
 // utils
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminAdminSystemDeptController {
   @checkLogin()

@@ -24,9 +24,9 @@ import * as rp from "~/server/utils";
 import { DeleteMenuSchema } from "~/schema/menu.schema";
 
 // decoartor
-import { checkLogin } from "../decorators/check-auth.decorator";
-import { permission } from "../decorators/check-perm";
-import { validate, validateMenuSchema } from "../decorators/validate-schema";
+import { checkLogin } from "../../decorators/check-auth.decorator";
+import { permission } from "../../decorators/check-perm";
+import { validate, validateMenuSchema } from "../../decorators/validate-schema";
 import { from, lastValueFrom, switchMap } from "rxjs";
 
 const perms = {

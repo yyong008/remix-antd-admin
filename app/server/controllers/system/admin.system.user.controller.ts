@@ -25,7 +25,7 @@ import {
   deleteUserSchema,
   userUpdateSchema,
 } from "~/schema/user.schema";
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export default class AdminSystemUserController {
   @checkLogin()

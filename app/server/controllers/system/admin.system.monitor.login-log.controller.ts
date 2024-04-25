@@ -9,7 +9,7 @@ import {
 } from "~/server/services/system/login-log";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminSystemMonitorLoginLogController {
   @checkLogin()

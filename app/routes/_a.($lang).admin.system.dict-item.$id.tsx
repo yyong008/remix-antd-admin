@@ -14,7 +14,7 @@ import DictItemModal from "~/components/system/dict/CreateDictItemModel";
 import * as clientUtils from "~/utils";
 
 // service
-import { AdminSystemDictItemController } from "~/server/controllers/admin.system.dict-item.controller";
+import { AdminSystemDictItemController } from "~/server/controllers/system/admin.system.dict-item.controller";
 
 // remix:meta
 export const meta: MetaFunction = () => {

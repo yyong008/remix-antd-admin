@@ -16,7 +16,7 @@ import SystemMenu from "~/components/system/Menu";
 import { useFetcherChange } from "~/hooks";
 
 // controllers
-import { AdminSystemMenuController } from "~/server/controllers/admin.system.menu.controller";
+import { AdminSystemMenuController } from "~/server/controllers/system/admin.system.menu.controller";
 
 // remix:meta
 export const meta: MetaFunction = () => {

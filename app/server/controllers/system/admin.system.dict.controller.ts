@@ -8,7 +8,7 @@ import { json } from "@remix-run/node";
 import { getDictList } from "~/server/services/system/dict";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminSystemDictController {
   @checkLogin()
