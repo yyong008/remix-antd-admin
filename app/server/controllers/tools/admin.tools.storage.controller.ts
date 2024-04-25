@@ -12,7 +12,7 @@ import { getStorageList, storageCount$ } from "~/server/services/tools/storage";
 import * as clientUtils from "~/utils";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 // rxjs
 import { lastValueFrom } from "rxjs";

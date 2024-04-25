@@ -6,11 +6,11 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { getEmailTemplateById$, sendMail$ } from "~/server/services/tools/mail";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 // rxjs
 import { from, lastValueFrom, map, of, switchMap } from "rxjs";
-import { respFailJson, respSuccessJson } from "../utils/response.json";
+import { respFailJson, respSuccessJson } from "../../utils/response.json";
 
 export class AdminToolsMailsController {
   @checkLogin()

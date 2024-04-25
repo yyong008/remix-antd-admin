@@ -18,7 +18,7 @@ import { FormatTime } from "~/components/common";
 import { usePagination, useStorageNav } from "~/hooks";
 
 // controller
-import { AdminToolsStorageController } from "~/server/controllers/admin.tools.storage.controller";
+import { AdminToolsStorageController } from "~/server/controllers/tools/admin.tools.storage.controller";
 
 // remix:meta
 export const meta: MetaFunction = () => {

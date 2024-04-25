@@ -23,7 +23,7 @@ import {
 } from "@ant-design/pro-components";
 
 import { useFetcherChange } from "~/hooks";
-import { AdminToolsMailsController } from "~/server/controllers/admin.tools.mail.controller";
+import { AdminToolsMailsController } from "~/server/controllers/tools/admin.tools.mail.controller";
 import { Button, Form } from "antd";
 
 // remix:meta
