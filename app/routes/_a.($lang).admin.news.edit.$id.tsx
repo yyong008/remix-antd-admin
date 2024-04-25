@@ -20,7 +20,7 @@ import { PageContainer } from "@ant-design/pro-layout";
 import { useFetcherChange } from "~/hooks";
 
 // constroller
-import { AdminNewEditWithIdController } from "~/server/controllers/admin.news.edit.$id.controller";
+import { AdminNewEditWithIdController } from "~/server/controllers/news/admin.news.edit.$id.controller";
 
 export const action: ActionFunction = AdminNewEditWithIdController.action;
 export const loader: LoaderFunction = AdminNewEditWithIdController.loader;

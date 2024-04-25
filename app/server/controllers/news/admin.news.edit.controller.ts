@@ -7,7 +7,7 @@ import { createNews } from "~/server/services/news/news";
 import { getFindNewsCategory } from "~/server/services/news/news-category";
 
 // decorators
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 // rxjs
 import { lastValueFrom } from "rxjs";

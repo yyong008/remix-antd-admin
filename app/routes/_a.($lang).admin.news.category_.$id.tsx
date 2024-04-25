@@ -13,7 +13,7 @@ import { DeleteIt, ButtonLink } from "~/components/common";
 import { useFetcherChange } from "~/hooks";
 
 // controller
-import { AdminNewsCategoryWithIdController } from "~/server/controllers/admin.news.category.$id.controller";
+import { AdminNewsCategoryWithIdController } from "~/server/controllers/news/admin.news.category.$id.controller";
 import { defaultLang } from "~/config/lang";
 
 // remix:meta

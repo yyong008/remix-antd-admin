@@ -10,7 +10,7 @@ import { createNews, getNewsById } from "~/server/services/news/news";
 import { getFindNewsCategory } from "~/server/services/news/news-category";
 
 // decorators
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 // lib
 import { lastValueFrom } from "rxjs";

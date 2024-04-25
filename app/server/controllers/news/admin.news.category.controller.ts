@@ -9,7 +9,7 @@ import { createLink } from "~/server/services/profile/link";
 import { getNewsListByCategoryId } from "~/server/services/news/news";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 export class AdminNewsCategoryController {
   @checkLogin()

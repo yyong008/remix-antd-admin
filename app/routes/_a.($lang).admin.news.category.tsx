@@ -14,7 +14,7 @@ import NewsCategoryModal from "~/components/news/category-list/NewsCategoryModal
 import { useFetcherChange } from "~/hooks";
 
 // controller
-import { AdminNewsCategoryController } from "~/server/controllers/admin.news.category.controller";
+import { AdminNewsCategoryController } from "~/server/controllers/news/admin.news.category.controller";
 
 // remix:meta
 export const meta: MetaFunction = () => {

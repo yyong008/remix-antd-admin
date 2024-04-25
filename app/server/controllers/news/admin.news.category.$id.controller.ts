@@ -12,7 +12,7 @@ import {
 import { getUserId$ } from "~/server/services/common/session";
 
 // decorator
-import { checkLogin } from "../decorators/check-auth.decorator";
+import { checkLogin } from "../../decorators/check-auth.decorator";
 
 // rxjs
 import { lastValueFrom } from "rxjs";
