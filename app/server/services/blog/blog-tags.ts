@@ -70,6 +70,23 @@ export const deleteBlogTag$ = (id: number) => {
 };
 
 /**
+ * 删除博客标签
+ * @param data
+ * @returns
+ */
+export const deleteBlogTagByIds$ = (ids: number[]) => {
+  return from(
+    prisma.blogTag.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    }),
+  );
+};
+
+/**
  * 查找所有标签
  * @returns
  */

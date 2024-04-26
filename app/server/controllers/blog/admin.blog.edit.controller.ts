@@ -1,78 +1,72 @@
 // type
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type * as rrn from "@remix-run/node";
+
+// decorators
+import * as ds from "~/server/decorators";
+
+// schemas
+import * as schemas from "~/schema";
 
 // services
-import { getUserId$ } from "~/server/services/common/session";
-import { getBlogTagByUserId$ } from "~/server/services/blog/blog-tags";
-import { createBlog$ } from "~/server/services/blog/blog";
-import { getAllBlogCategory$ } from "~/server/services/blog/blog-category";
-
-// decorator
-import { permission } from "../../decorators/check-perm";
-import { checkLogin } from "../../decorators/check-auth.decorator";
+import * as blogServices from "~/server/services/blog";
+import * as sessionServices from "~/server/services/common/session";
 
 // rxjs
-import { forkJoin, from, lastValueFrom, of, switchMap } from "rxjs";
+import { forkJoin, from, of, switchMap } from "rxjs";
+
+// permissions
+import { blogPermissions } from "~/server/permission";
 
 // utils
-import * as rp from "../../utils/response.json";
-
-const perms = {
-  READ_LIST: "blog:list",
-  READ: "blog:read",
-  CREATE: "blog:create",
-  UPDATE: "blog:update",
-  DELETE: "blog:delete",
-};
+import * as serverUtils from "~/server/utils";
 
 /**
- * 编辑并创建博客
+ * //新建/编辑/获取(没有删除,没有列表)
  */
 export class AdminBlogEditController {
-  @checkLogin()
-  @permission(perms.CREATE)
-  static async loader({ request, params }: LoaderFunctionArgs) {
-    const result$ = from(getUserId$(request)).pipe(
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+
+  @ds.checkLogin()
+  @ds.permission(blogPermissions.CREATE)
+  static async get({ request, params }: rrn.LoaderFunctionArgs) {
+    const result$ = from(sessionServices.getUserId$(request)).pipe(
       switchMap((userId) =>
         forkJoin({
           TINYMCE_KEY: of(process.env.TINYMCE_KEY!),
-          blogCategory: getAllBlogCategory$(),
-          blogTag: getBlogTagByUserId$(userId!),
+          blogCategory: blogServices.getAllBlogCategory$(),
+          blogTag: blogServices.getBlogTagByUserId$(userId!),
         }),
       ),
     );
 
-    const res = await lastValueFrom(result$);
-    return res ? rp.respSuccessJson(res) : rp.respFailJson({});
+    return serverUtils.resp$(result$);
   }
 
-  @checkLogin()
-  static async action({ request }: ActionFunctionArgs) {
-    switch (request.method) {
-      case "POST":
-        return AdminBlogEditController.post({
-          request,
-        } as ActionFunctionArgs);
-      default:
-        return rp.respUnSupportJson();
-    }
-  }
-
-  @permission(perms.CREATE)
-  static post({ request }: ActionFunctionArgs) {
+  @ds.checkLogin()
+  @ds.permission(blogPermissions.CREATE)
+  @ds.validate(schemas.CreateBlogSchema)
+  static async post({ request }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: request.json(),
-      userId: getUserId$(request),
-    }).pipe(
-      switchMap(({ data, userId }) =>
-        createBlog$({
-          ...data,
-          userId,
-        }),
-      ),
-    );
+      userId: sessionServices.getUserId$(request),
+    }).pipe(switchMap((data) => blogServices.createBlog$(data)));
 
-    const res = lastValueFrom(result$);
-    return res ? rp.respSuccessJson(res) : rp.respFailJson({});
+    return serverUtils.resp$(result$);
+  }
+
+  @ds.checkLogin()
+  @ds.permission(blogPermissions.UPDATE)
+  @ds.validate(schemas.UpdateBlogSchema)
+  static async put({ request }: rrn.ActionFunctionArgs) {
+    const result$ = forkJoin({
+      data: request.json(),
+      userId: sessionServices.getUserId$(request),
+    }).pipe(switchMap((data) => blogServices.updateBlog$(data)));
+
+    return serverUtils.resp$(result$);
   }
 }

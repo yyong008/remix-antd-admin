@@ -5,3 +5,19 @@ export const blogCategoryPermissions = {
   UPDATE: "blog:category:update",
   DELETE: "blog:category:delete",
 };
+
+export const blogPermissions = {
+  READ_LIST: "blog:list",
+  READ: "blog:get",
+  CREATE: "blog:create",
+  UPDATE: "blog:update",
+  DELETE: "blog:delete",
+};
+
+export const blogTagPermissions = {
+  READ_LIST: "blog:tag:list",
+  READ: "blog:tag:read",
+  CREATE: "blog:tag:create",
+  UPDATE: "blog:tag:update",
+  DELETE: "blog:tag:delete",
+};

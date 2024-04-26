@@ -20,11 +20,11 @@ import EditorRichFromItem from "~/components/editor/EditorRichFromItem";
 import { useFetcherChange } from "~/hooks";
 
 // controllers
-import { AdminBlogEditWithIdController } from "~/server/controllers/blog/admin.blog.edit.$id.controller";
+import { AdminBlogEditController } from "~/server/controllers/blog/admin.blog.edit.controller";
 
 // remix:action-loader
-export const action: ActionFunction = AdminBlogEditWithIdController.action;
-export const loader: LoaderFunction = AdminBlogEditWithIdController.loader;
+export const action: ActionFunction = AdminBlogEditController.action;
+export const loader: LoaderFunction = AdminBlogEditController.loader;
 
 export default function BlotModWithIdRoute() {
   const [form] = Form.useForm();

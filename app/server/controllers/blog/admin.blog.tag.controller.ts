@@ -1,199 +1,83 @@
-// types
-import type {
-  ActionFunctionArgs,
-  LoaderFunction,
-  LoaderFunctionArgs,
-} from "@remix-run/node";
+// type
+import type * as rrn from "@remix-run/node";
 
 // remix
-import { json } from "@remix-run/node";
-import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
+import { forkJoin, from, switchMap } from "rxjs";
 
-// services
-import {
-  createBlogTag$,
-  updateBlogTag$,
-  getBlogCategoryTag$,
-  getBlogTagByUserId$,
-} from "~/server/services/blog/blog-tags";
-import { deleteManyBlogByIds$ } from "../../services/blog/blog";
-import { auth$, getUserId$ } from "~/server/services/common/session";
-
-// decorator
-import { permission } from "../../decorators/check-perm";
-import { validate } from "../../decorators/validate-schema";
-import { checkLogin } from "../../decorators/check-auth.decorator";
-
-// json
-import * as rp from "~/server/utils";
+// decorators
+import * as ds from "~/server/decorators";
 
 // schemas
-import {
-  CreateBlogTagSchema,
-  DeleteBlogTagSchema,
-  UpdateBlogTagSchema,
-} from "~/schema/blog.schema";
+import * as schemas from "~/schema";
 
-// remix:action
-export const action: LoaderFunction = async ({ request, params }) => {
-  const [userId, redirectToLogin] = await lastValueFrom(
-    auth$({ request, params } as any),
-  );
+// services
+import * as blogTagServices from "~/server/services/blog/blog-tags";
+import * as sessionServices from "~/server/services/common/session";
 
-  if (!userId) {
-    return redirectToLogin();
-  }
-  const method = request.method;
+// permissions
+import { blogTagPermissions } from "~/server/permission";
 
-  if (method === "POST") {
-    const data = await request.json();
-    const userId = await getUserId$(request);
-    const linkCategory = await createBlogTag$({
-      ...data,
-      userId,
-    });
-
-    if (linkCategory === null) {
-      return json({
-        code: 0,
-        message: "创建失败",
-        data: {},
-      });
-    }
-
-    return json({
-      code: 0,
-      message: "创建成功",
-      data: linkCategory,
-    });
-  } else if (method === "PUT") {
-    return json({
-      code: 0,
-      message: "暂不支持",
-      data: {},
-    });
-  } else if (method === "DELETE") {
-    return json({
-      code: 0,
-      message: "暂不支持",
-      data: {},
-    });
-  }
-};
-
-// remix:loader
-export const loader: LoaderFunction = async ({ request, params }) => {
-  const [userId, redirectToLogin] = await lastValueFrom(
-    auth$({ request, params } as any),
-  );
-
-  if (!userId) {
-    return redirectToLogin();
-  }
-  // const { id } = params;
-  // const userId = await getUserId(request);
-  return json({
-    dataSource: await lastValueFrom(getBlogCategoryTag$(userId!)),
-  });
-  // return json({
-  //   dataSource: []
-  // })
-};
-
-const perms = {
-  READ_LIST: "blog:tag:list",
-  READ: "blog:tag:read",
-  CREATE: "blog:tag:create",
-  UPDATE: "blog:tag:update",
-  DELETE: "blog:tag:delete",
-};
+// utils
+import * as serverUtils from "~/server/utils";
 
 export class AdminBlogTagController {
-  @checkLogin()
-  @permission(perms.READ_LIST)
-  static async loader({ request, params }: LoaderFunctionArgs) {
-    const result$ = getUserId$(request).pipe(
-      switchMap((userId) => getBlogTagByUserId$(userId!)),
-    );
-    const dataSource = await lastValueFrom(result$);
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
 
-    return dataSource
-      ? rp.respSuccessJson({
-          dataSource,
-        })
-      : rp.respFailJson({});
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+
+  @ds.checkLogin()
+  @ds.permission(blogTagPermissions.READ_LIST)
+  static async get({ request, params }: rrn.LoaderFunctionArgs) {
+    const result$ = sessionServices
+      .getUserId$(request)
+      .pipe(
+        switchMap((userId) => blogTagServices.getBlogTagByUserId$(userId!)),
+      );
+
+    return serverUtils.resp$(result$);
   }
 
-  @checkLogin()
-  static async action({ request, params }: ActionFunctionArgs) {
-    switch (request.method) {
-      case "POST":
-        return AdminBlogTagController.post({
-          request,
-          params,
-        } as ActionFunctionArgs);
-      case "PUT":
-        return AdminBlogTagController.put({
-          request,
-          params,
-        } as ActionFunctionArgs);
-      case "DELETE":
-        return AdminBlogTagController.delete({
-          request,
-          params,
-        } as ActionFunctionArgs);
-      default:
-        break;
-    }
-  }
-
-  @permission(perms.CREATE)
-  @validate(CreateBlogTagSchema)
-  static async post({ request }: ActionFunctionArgs) {
+  @ds.checkLogin()
+  @ds.permission(blogTagPermissions.CREATE)
+  @ds.validate(schemas.CreateBlogTagSchema)
+  static async post({ request }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: request.json(),
-      userId: getUserId$(request),
-    }).pipe(switchMap((data) => createBlogTag$(data)));
+      userId: sessionServices.getUserId$(request),
+    }).pipe(switchMap((data) => blogTagServices.createBlogTag$(data)));
 
-    const blogCategory = await lastValueFrom(result$);
-
-    return blogCategory === null
-      ? rp.respFailJson({}, "创建失败")
-      : rp.respSuccessJson(blogCategory, "创建成功");
+    return serverUtils.resp$(result$);
   }
 
-  @permission(perms.UPDATE)
-  @validate(UpdateBlogTagSchema)
-  static async put({ request }: ActionFunctionArgs) {
+  @ds.checkLogin()
+  @ds.permission(blogTagPermissions.UPDATE)
+  @ds.validate(schemas.UpdateBlogTagSchema)
+  static async put({ request }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: from(request.json()),
-      userId: getUserId$(request),
+      userId: sessionServices.getUserId$(request),
     }).pipe(
       switchMap(({ data, userId }) =>
-        updateBlogTag$({
+        blogTagServices.updateBlogTag$({
           ...data,
           userId,
         }),
       ),
     );
 
-    const blogCategory = await lastValueFrom(result$);
-    return blogCategory === null
-      ? rp.respFailJson({}, "更新失败")
-      : rp.respSuccessJson(blogCategory, "更新成功");
+    return serverUtils.resp$(result$);
   }
 
-  @permission(perms.DELETE)
-  @validate(DeleteBlogTagSchema)
-  static async delete({ request, params }: ActionFunctionArgs) {
+  @ds.checkLogin()
+  @ds.permission(blogTagPermissions.DELETE)
+  @ds.validate(schemas.DeleteBlogTagSchema)
+  static async delete({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
-      switchMap(({ ids }) => deleteManyBlogByIds$(ids)),
+      switchMap(({ ids }) => blogTagServices.deleteBlogTagByIds$(ids)),
     );
 
-    const blogCategory = await lastValueFrom(result$);
-
-    return blogCategory === null
-      ? rp.respFailJson({}, "删除失败")
-      : rp.respSuccessJson(blogCategory, "删除成功");
+    return serverUtils.resp$(result$);
   }
 }

@@ -1,5 +1,20 @@
 // types
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type * as rrn from "@remix-run/node";
+
+// decorators
+import * as ds from "~/server/decorators";
+
+// schemas
+import * as schemas from "~/schema";
+
+// utils
+import * as serverUtils from "~/server/utils";
+
+// rxjs
+import { forkJoin, from, of, switchMap } from "rxjs";
+
+// permissions
+import { blogPermissions } from "~/server/permission";
 
 // services
 import {
@@ -10,52 +25,22 @@ import {
 } from "../../services/blog/blog";
 import { getUserId$ } from "~/server/services/common/session";
 
-// decorators
-import { checkLogin } from "../../decorators/check-auth.decorator";
-import { permission } from "../../decorators/check-perm";
-import { validate } from "../../decorators/validate-schema";
-
 import { getSearchParams } from "../../utils/utils";
 
-// rxjs
-import { forkJoin, from, lastValueFrom, of } from "rxjs";
-import { catchError, switchMap } from "rxjs/operators";
-
-// utils
-import * as rp from "~/server/utils";
-
-import {
-  CreateBlogSchema,
-  DeleteBlogSchema,
-  UpdateBlogSchema,
-} from "~/schema/blog.schema";
 import { getBlogCategoryById$ } from "../../services/blog/blog-category";
 import { getBlogTagById$ } from "../../services/blog/blog-tags";
 
-const perms = {
-  READ_LIST: "blog:list",
-  READ: "blog:get",
-  CREATE: "blog:create",
-  UPDATE: "blog:update",
-  DELETE: "blog:delete",
-};
-
 export class AdminBlogController {
-  @checkLogin()
-  static async action({ request, params }: ActionFunctionArgs) {
-    switch (request.method) {
-      case "DELETE":
-        return AdminBlogController.delete({
-          request,
-          params,
-        } as ActionFunctionArgs);
-      default:
-    }
-  }
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
 
-  @checkLogin()
-  @permission(perms.READ_LIST)
-  static async loader({ request }: LoaderFunctionArgs) {
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+
+  @ds.checkLogin()
+  @ds.permission(blogPermissions.READ_LIST)
+  // @ds.validate(schemas.GetBlogSchema)
+  static async get({ request }: rrn.LoaderFunctionArgs) {
     const result$ = forkJoin({
       userId: getUserId$(request),
       category: of(Number(getSearchParams(request, "category"))),
@@ -68,60 +53,43 @@ export class AdminBlogController {
           tag: getBlogTagById$(data.tag),
         });
       }),
-      catchError((err) => {
-        console.log(err);
-        return of(err);
-      }),
     );
 
-    const { dataSource, category, tag } = await lastValueFrom(result$);
-
-    return dataSource === null
-      ? rp.respFailJson({ dataSource, category, tag }, "fail")
-      : rp.respSuccessJson({ dataSource, category, tag }, "success");
+    return serverUtils.resp$(result$);
   }
 
-  @permission(perms.CREATE)
-  @validate(CreateBlogSchema)
-  static async post({ request }: ActionFunctionArgs) {
+  @ds.checkLogin()
+  @ds.permission(blogPermissions.CREATE)
+  @ds.validate(schemas.CreateBlogSchema)
+  static async post({ request }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: request.json(),
       userId: getUserId$(request),
     }).pipe(switchMap((data) => createBlog$(data)));
 
-    const blogCategory = await lastValueFrom(result$);
-
-    return blogCategory === null
-      ? rp.respFailJson({}, "创建失败")
-      : rp.respSuccessJson(blogCategory, "创建成功");
+    return serverUtils.resp$(result$);
   }
 
-  @permission(perms.UPDATE)
-  @validate(UpdateBlogSchema)
-  static async put({ request }: ActionFunctionArgs) {
+  @ds.checkLogin()
+  @ds.permission(blogPermissions.UPDATE)
+  @ds.validate(schemas.UpdateBlogSchema)
+  static async put({ request }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: request.json(),
       userId: getUserId$(request),
     }).pipe(switchMap((data) => updateBlog$(data)));
 
-    const blog = await lastValueFrom(result$);
-
-    return blog === null
-      ? rp.respFailJson({}, "更新失败")
-      : rp.respSuccessJson(blog, "更新成功");
+    return serverUtils.resp$(result$);
   }
 
-  @permission(perms.DELETE)
-  @validate(DeleteBlogSchema)
-  static async delete({ request }: ActionFunctionArgs) {
+  @ds.checkLogin()
+  @ds.permission(blogPermissions.DELETE)
+  @ds.validate(schemas.DeleteBlogSchema)
+  static async delete({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap(({ ids }) => deleteManyBlogByIds$(ids)),
     );
 
-    const blog = await lastValueFrom(result$);
-
-    return blog === null
-      ? rp.respFailJson({}, "删除失败")
-      : rp.respSuccessJson(blog, "删除成功");
+    return serverUtils.resp$(result$);
   }
 }

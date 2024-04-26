@@ -15,7 +15,7 @@ export interface IBlogCategory {
   deleteBlogCategoryByIds$(ids: number[]): Observable<any>;
   getBlogCategoryByUserId$(userId: number): Observable<any>;
   getBlogCategoryById$(id: number): Observable<any>;
-  getAllBlogCategory$(id: number): Observable<any>;
+  getAllBlogCategory$(): Observable<any>;
   getBlogListById$(
     userId: number,
     categoryId?: number,
