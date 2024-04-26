@@ -29,11 +29,17 @@ import { SettingContext } from "~/context";
 import * as clientUtils from "~/utils";
 
 // hooks
-import { useFetcherChange, useNProgress } from "~/hooks";
+import { useNProgress, useActionDataChange } from "~/hooks";
 
+// controller
 import { LoginController } from "~/server/controllers/login/index";
-import { Link, useParams } from "@remix-run/react";
+
+// remix
+import { Link, useParams, useSubmit } from "@remix-run/react";
+
+// config
 import { defaultLang } from "~/config/lang";
+
 // remix:meta
 export const meta: MetaFunction = () => {
   return [
@@ -48,8 +54,10 @@ export const loader: LoaderFunction = LoginController.loader;
 
 export default function LoginPage() {
   useNProgress();
+
   const value = useContext(SettingContext);
-  const fetcher = useFetcherChange();
+  const { loading, setLoading } = useActionDataChange();
+  const submit = useSubmit();
   const { t } = useTranslation();
   const [type, setType] = useState<string>("account");
   const { lang = defaultLang } = useParams();
@@ -59,8 +67,9 @@ export default function LoginPage() {
       ...values,
       password: clientUtils.genHashedPassword(values.password),
     };
-    // TODO: 校验数据
-    fetcher.submit(vals, { method: "POST", encType: "application/json" });
+    submit(vals, { method: "POST", encType: "application/json" });
+    setLoading(true);
+    return true;
   };
 
   return (
@@ -104,9 +113,7 @@ export default function LoginPage() {
                 </Link>
               ),
             }}
-            loading={
-              fetcher.state === "loading" || fetcher.state === "submitting"
-            }
+            loading={loading}
             logo={
               <img
                 alt="logo"

@@ -1,5 +1,5 @@
 // types
-import type { ActionFunctionArgs } from "@remix-run/node";
+import type * as rrn from "@remix-run/node";
 
 //remix
 import { redirect } from "@remix-run/node";
@@ -24,40 +24,43 @@ import { defaultLang } from "~/config/lang";
 // utils
 import * as serverUtils from "~/server/utils";
 
+// decorators
+import * as ds from "~/server/decorators";
+
 // schemas
-import { loginLogSchema } from "~/schema/login.schema";
+import * as schemas from "~/schema";
 
 // server
-import { commitSession, getSession } from "~/server/services/common/session";
-import { findByUserName$ } from "~/server/services/login";
-import { createLoginLog } from "../../services/system/login-log";
+import * as sessionServices from "~/server/services/common/session";
+import * as loginServices from "~/server/services/login";
+import * as LoginLogServices from "../../services/system/login-log";
+
+// constants
+import * as errorTypeConstants from "~/server/constants/error.type";
 
 export class LoginController {
-  // @validate(LoginSchema)
-  static async action({ request, params }: ActionFunctionArgs) {
-    const method = request.method;
-    switch (method) {
-      case "POST":
-        return LoginController.post({ request, params } as ActionFunctionArgs);
-      default:
-        serverUtils.respUnSupportJson();
-        break;
-    }
-  }
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
 
-  static async loader() {
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+
+  static async get() {
     return serverUtils.respSuccessJson({});
   }
 
-  static async post({ request, params }: ActionFunctionArgs) {
-    const session$ = from(getSession(request.headers.get("Cookie")));
+  @ds.validate(schemas.LoginSchema)
+  static async post({ request, params }: rrn.ActionFunctionArgs) {
+    const session$ = from(
+      sessionServices.getSession(request.headers.get("Cookie")),
+    );
     const lang$ = of(params?.lang).pipe(defaultIfEmpty(defaultLang));
     const dataDto$ = from(request.json());
 
     const crreateErrorHandle = (message?: string) => () => {
       return serverUtils.respFailJson(
         {},
-        message ?? "登录失败,用户名或密码错误!",
+        message ?? errorTypeConstants.ERROR_USER_OR_PASSWORD,
       );
     };
     const redirectToDashboard =
@@ -70,79 +73,100 @@ export class LoginController {
       };
 
     const user$ = dataDto$.pipe(
-      switchMap((dataDto) => findByUserName$(dataDto.username)),
-      catchError((e) => throwError(crreateErrorHandle(e ?? "未注册"))),
-    );
-
-    const loginResult$ = forkJoin([dataDto$, user$, session$]).pipe(
-      switchMap((v) => {
-        const [dataDto, user, session] = v;
-        return iif(
-          () => dataDto === null,
-          from([]).pipe(
-            switchMap(() => {
-              session.flash("error", "Invalid username/password");
-              return throwError(
-                crreateErrorHandle("Invalid username/password"),
-              );
-            }),
-          ),
-          of([dataDto, user]).pipe(
-            tap(() => {
-              session.set("userId", String(user?.id));
-            }),
-          ),
-        );
-      }),
-      map((v) => ({
-        user: v[1],
-        passwordMatch: serverUtils.comparePassword(
-          v[0].password,
-          v[1].password,
-        ),
-      })),
-      switchMap(({ user, passwordMatch }) => {
-        return iif(
-          () => passwordMatch,
-          of(user),
-          throwError(crreateErrorHandle("Invalid username/password")),
-        );
-      }),
-      switchMap((user) =>
-        from(serverUtils.getLoginInfo(request)).pipe(
-          map((loginLog) =>
-            loginLogSchema.parse({ ...loginLog, name: user.name }),
-          ),
-          switchMap((validateLoginLog) =>
-            from(createLoginLog({ ...validateLoginLog })),
-          ),
-          switchMap(() => of(user)),
+      switchMap((dataDto) => loginServices.findByUserName$(dataDto.username)),
+      catchError((e) =>
+        throwError(
+          crreateErrorHandle(e ?? errorTypeConstants.ERROR_UNREGISTER),
         ),
       ),
     );
 
-    const url$ = forkJoin([loginResult$, lang$]).pipe(
-      map((v) => `/${v[1]}/admin/dashboard?${v[0].username}`),
-    );
-    const result$ = url$.pipe(
-      switchMap((url) =>
-        from(session$).pipe(
-          switchMap((session) =>
-            forkJoin([of(url), from(commitSession(session)), lang$]),
+    const result$ = forkJoin({
+      dataDto: dataDto$,
+      user: user$,
+      session: session$,
+    })
+      .pipe(
+        switchMap(({ dataDto, user, session }) => {
+          return iif(
+            () => dataDto === null,
+            from([]).pipe(
+              switchMap(() => {
+                session.flash("error", errorTypeConstants.ERROR_PASSWWORD);
+                return throwError(
+                  crreateErrorHandle(errorTypeConstants.ERROR_PASSWWORD),
+                );
+              }),
+            ),
+            of({ dataDto, user }).pipe(
+              tap(() => {
+                session.set("userId", String(user!.id));
+              }),
+            ),
+          );
+        }),
+        map(({ dataDto, user }) => ({
+          user,
+          passwordMatch: serverUtils.comparePassword(
+            dataDto.password,
+            user!.password,
           ),
-          map((data) => ({ url: data[0], cookie: data[1], lang: data[2] })),
-          map(({ url, cookie, lang }) => {
-            return redirectToDashboard(url, cookie, lang!);
-          }),
+        })),
+        switchMap(({ user, passwordMatch }) => {
+          return iif(
+            () => passwordMatch,
+            of(user),
+            throwError(() =>
+              crreateErrorHandle(errorTypeConstants.ERROR_PASSWWORD),
+            ),
+          );
+        }),
+        switchMap((user) => {
+          return iif(
+            () => user!.status === 1,
+            of(user),
+            throwError(() =>
+              crreateErrorHandle(errorTypeConstants.ERRIR_USER_DISABLED),
+            ),
+          );
+        }),
+        switchMap((user) =>
+          from(serverUtils.getLoginInfo(request)).pipe(
+            switchMap((loginLog) =>
+              from(
+                LoginLogServices.createLoginLog({
+                  ...loginLog,
+                  name: user!.name,
+                }),
+              ),
+            ),
+            switchMap(() => of(user)),
+          ),
         ),
-      ),
-      catchError((e) => {
-        return throwError(crreateErrorHandle(e.message));
-      }),
-    );
+      )
+      .pipe(
+        switchMap(() => lang$),
+        map((lang) => `/${lang}/admin/dashboard`),
+      )
+      .pipe(
+        switchMap((url) =>
+          from(session$).pipe(
+            switchMap((session) =>
+              forkJoin({
+                url: of(url),
+                cookie: from(sessionServices.commitSession(session)),
+                lang: lang$,
+              }),
+            ),
+            map(({ url, cookie, lang }) => {
+              return redirectToDashboard(url, cookie, lang!);
+            }),
+          ),
+        ),
+      )
+      .pipe(catchError((fn) => of(typeof fn === "function" ? fn : () => fn)));
 
-    const fn = await lastValueFrom(result$);
-    const a = fn();
-    return a;
+    const resultFn = await lastValueFrom(result$);
+    return resultFn();
   }
 }

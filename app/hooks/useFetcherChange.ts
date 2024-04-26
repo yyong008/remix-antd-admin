@@ -4,7 +4,7 @@ import { message } from "antd";
 
 export const useFetcherChange = () => {
   const [, setState] = useState("");
-  const fetcher = useFetcher();
+  let fetcher = useFetcher();
 
   useEffect(() => {
     if (!fetcher.data) {

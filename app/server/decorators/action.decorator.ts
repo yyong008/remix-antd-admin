@@ -9,24 +9,28 @@ export function Action(
 ) {
   const originalMethod = descriptor.value;
   descriptor.value = function (...args: any[]) {
-    const { request } = args[0];
+    const { request, params } = args[0];
 
     switch (request.method) {
       case "POST":
         return target.post({
           request,
+          params,
         } as ActionFunctionArgs);
       case "PUT":
         return target.put({
           request,
+          params,
         } as ActionFunctionArgs);
       case "PATCH":
         return target.patch({
           request,
+          params,
         } as ActionFunctionArgs);
       case "DELETE":
         return target.delete({
           request,
+          params,
         } as ActionFunctionArgs);
       default:
         break;

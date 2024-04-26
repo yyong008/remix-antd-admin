@@ -50,6 +50,7 @@ export const findByUserName$ = (name: string) => {
         id: true,
         name: true,
         password: true,
+        status: true,
       },
     }),
   ).pipe(
