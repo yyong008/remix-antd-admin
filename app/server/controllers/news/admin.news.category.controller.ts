@@ -1,58 +1,56 @@
 // types
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-
-// remix
-import { json } from "@remix-run/node";
+import type * as rrn from "@remix-run/node";
 
 // services
-import { createLink } from "~/server/services/profile/link";
-import { getNewsListByCategoryId } from "~/server/services/news/news";
+import * as newsCategoryServices from "~/server/services/news/news-category";
 
-// decorator
-import { checkLogin } from "../../decorators/check-auth.decorator";
+// decorators
+import * as ds from "~/server/decorators";
+
+// rxjs
+import { from, switchMap } from "rxjs";
+
+// utils
+import * as utils from "~/server/utils";
 
 export class AdminNewsCategoryController {
-  @checkLogin()
-  static async loader({ params }: LoaderFunctionArgs) {
-    const { id } = params;
-    return json({
-      dataSource: await getNewsListByCategoryId(Number(id)),
-    });
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+
+  @ds.checkLogin()
+  static async get({ params }: rrn.LoaderFunctionArgs) {
+    return utils.resp$(newsCategoryServices.getAllNewsCategory$());
   }
 
-  @checkLogin()
-  static async action({ request }: ActionFunctionArgs) {
-    const method = request.method;
+  @ds.checkLogin()
+  static async post({ request }: rrn.ActionFunctionArgs) {
+    const result$ = from(request.json()).pipe(
+      switchMap((data) => newsCategoryServices.createNewsCategory$(data)),
+    );
 
-    if (method === "POST") {
-      const data = await request.json();
-      const linkCategory = await createLink(data);
+    return utils.resp$(result$);
+  }
 
-      if (linkCategory === null) {
-        return json({
-          code: 0,
-          message: "创建失败",
-          data: {},
-        });
-      }
+  @ds.checkLogin()
+  static async put({ request }: rrn.ActionFunctionArgs) {
+    const result$ = from(request.json()).pipe(
+      switchMap((data) => newsCategoryServices.updateNewsCategory$(data)),
+    );
 
-      return json({
-        code: 0,
-        message: "创建成功",
-        data: linkCategory,
-      });
-    } else if (method === "PUT") {
-      return json({
-        code: 0,
-        message: "暂不支持",
-        data: {},
-      });
-    } else if (method === "DELETE") {
-      return json({
-        code: 0,
-        message: "暂不支持",
-        data: {},
-      });
-    }
+    return utils.resp$(result$);
+  }
+
+  @ds.checkLogin()
+  static async delete({ request }: rrn.ActionFunctionArgs) {
+    const result$ = from(request.json()).pipe(
+      switchMap((ids: number[]) =>
+        newsCategoryServices.deleteNewsCategoryByIds$(ids),
+      ),
+    );
+
+    return utils.resp$(result$);
   }
 }

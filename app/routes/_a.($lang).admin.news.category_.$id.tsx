@@ -13,7 +13,7 @@ import { DeleteIt, ButtonLink } from "~/components/common";
 import { useFetcherChange } from "~/hooks";
 
 // controller
-import { AdminNewsCategoryWithIdController } from "~/server/controllers/news/admin.news.category.$id.controller";
+import { AdminNewsController } from "~/server/controllers/news/admin.news";
 import { defaultLang } from "~/config/lang";
 
 // remix:meta
@@ -21,17 +21,17 @@ export const meta: MetaFunction = () => {
   return [{ title: "Profile-Link" }];
 };
 
-export const action: LoaderFunction = AdminNewsCategoryWithIdController.action;
-export const loader: LoaderFunction = AdminNewsCategoryWithIdController.loader;
+export const action: LoaderFunction = AdminNewsController.action;
+export const loader: LoaderFunction = AdminNewsController.loader;
 
 export default function AdminNewsCategoryWithCategoryIdRoute() {
-  const { dataSource } = useLoaderData<typeof loader>();
+  const { data: dataSource } = useLoaderData<typeof loader>();
   const { lang = defaultLang } = useParams();
   const fetcher = useFetcherChange();
   return (
     <PageContainer>
       <ProTable
-        headerTitle="新闻分类"
+        headerTitle="新闻"
         size="small"
         search={false}
         dataSource={dataSource as any[]}

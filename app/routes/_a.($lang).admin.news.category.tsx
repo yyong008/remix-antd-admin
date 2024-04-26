@@ -14,7 +14,7 @@ import NewsCategoryModal from "~/components/news/category-list/NewsCategoryModal
 import { useFetcherChange } from "~/hooks";
 
 // controller
-import { AdminNewsCategoryController } from "~/server/controllers/news/admin.news.category.controller";
+import { AdminNewsCategoryController } from "~/server/controllers/news";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -26,7 +26,7 @@ export const action: LoaderFunction = AdminNewsCategoryController.action;
 export const loader: LoaderFunction = AdminNewsCategoryController.loader;
 
 export default function NewsCategoryWithIdList() {
-  const { dataSource } = useLoaderData<typeof loader>();
+  const { data: dataSource } = useLoaderData<typeof loader>();
   const fetcher = useFetcherChange();
   const { lang } = useParams();
 

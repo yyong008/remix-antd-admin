@@ -8,14 +8,18 @@ import prisma from "~/server/services/common/prisma";
 
 export interface INews {
   createNews(data: any): any;
-  createNews$(data: any): Observable<any>;
   updateNews(data: any): any;
-  updateNews$(data: any): Observable<any>;
   getNewsListByCategoryId(categoryId: number): any;
-  getNewsListByCategoryId$(categoryId: number): Observable<any>;
   getNewsById(id: number): any;
-  getNewsById$(id: number): Observable<any>;
   getNews(): any;
+}
+
+export interface INews {
+  createNews$(data: any): Observable<any>;
+  updateNews$(data: any): Observable<any>;
+  deleteNewsByIds$(data: any): Observable<any>;
+  getNewsListByCategoryId$(categoryId: number): Observable<any>;
+  getNewsById$(id: number): Observable<any>;
   getNews$(): Observable<any>;
 }
 
@@ -110,6 +114,23 @@ export const updateNews$ = (data: any): Observable<any> => {
         publishedAt: dayjs(data.publishedAt).toISOString(),
         newsId: data.categoryId, // mod
         userId: data.userId,
+      },
+    }),
+  );
+};
+
+/**
+ * 更新新闻
+ * @param data
+ * @returns
+ */
+export const deleteNewsByIds$ = (ids: number[]): Observable<any> => {
+  return from(
+    prisma.news.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
       },
     }),
   );

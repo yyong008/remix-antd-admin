@@ -10,6 +10,8 @@ import prisma from "~/server/services/common/prisma";
 export interface INewsCategory {
   createNewsCategory(data: any): any;
   createNewsCategory$(data: any): Observable<any>;
+  updateNewsCategory$(data: any): Observable<any>;
+  deleteNewsCategoryByIds$(ids: number[]): Observable<any>;
   getFindNewsCategory(): any;
   getFindNewsCategory$(): Observable<any>;
   getNewsCategoryListByUserId(userId: number): any;
@@ -52,6 +54,46 @@ export const createNewsCategory$ = (data: any) => {
     }),
   );
 };
+
+/**
+ * 创建新闻分类
+ * @param data
+ * @returns
+ */
+export const updateNewsCategory$: INewsCategory["updateNewsCategory$"] = (
+  data: any,
+) => {
+  return from(
+    prisma.newsCategory.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        name: data.name,
+        description: data.description,
+        userId: data.userId,
+      },
+    }),
+  );
+};
+
+/**
+ * 创建新闻分类
+ * @param data
+ * @returns
+ */
+export const deleteNewsCategoryByIds$: INewsCategory["deleteNewsCategoryByIds$"] =
+  (ids: number[]) => {
+    return from(
+      prisma.newsCategory.deleteMany({
+        where: {
+          id: {
+            in: ids,
+          },
+        },
+      }),
+    );
+  };
 
 /**
  * 查找所有新闻

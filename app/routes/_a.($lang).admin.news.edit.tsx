@@ -1,3 +1,6 @@
+// types
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
+
 // remix
 import { useLoaderData, useParams } from "@remix-run/react";
 
@@ -16,12 +19,11 @@ import { PageContainer } from "@ant-design/pro-layout";
 // hooks
 import { useFetcherChange } from "~/hooks";
 
-// controller
-import { AdminNewsEditController } from "~/server/controllers/news/admin.news.edit.controller";
+// constroller
+import { AdminNewsEditController } from "~/server/controllers/news";
 
-// action-loader
-export const action = AdminNewsEditController.action;
-export const loader = AdminNewsEditController.loader;
+export const action: ActionFunction = AdminNewsEditController.action;
+export const loader: LoaderFunction = AdminNewsEditController.loader;
 
 export default function NewsEdit() {
   const { id } = useParams();
@@ -88,7 +90,7 @@ export default function NewsEdit() {
             name="newsId"
             request={async () => {
               const ncs = data.newsCategory;
-              return ncs?.map((c) => {
+              return ncs?.map((c: any) => {
                 return {
                   label: c.name,
                   value: c.id,

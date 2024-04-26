@@ -5,11 +5,15 @@ import {
 } from "@ant-design/pro-components";
 import * as _icons from "@ant-design/icons";
 import { Button, Form } from "antd";
+import { useAntdThemeToken } from "~/hooks";
 
 const { EditOutlined } = _icons;
 
 export default function NewsCategoryModal({ trigger, record, fetcher }: any) {
   const [form] = Form.useForm();
+  const token = useAntdThemeToken();
+  const iconStyles = record.id ? { style: { color: token.colorPrimary } } : {};
+
   return (
     <ModalForm
       key={Date.now()}
@@ -27,7 +31,7 @@ export default function NewsCategoryModal({ trigger, record, fetcher }: any) {
         trigger ?? (
           <Button
             type={!record.id ? "primary" : "link"}
-            icon={<EditOutlined />}
+            icon={<EditOutlined {...iconStyles} />}
           >
             {!record.id ? "新建" : ""}
           </Button>

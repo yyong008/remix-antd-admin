@@ -102,8 +102,30 @@ export const respByData$ = (data: any | null) => {
  * @param data
  * @returns
  */
-export const resp$ = async (data$: any | null) => {
-  const res$ = from(data$).pipe(
+export const resp$ = async (data$: Observable<any>) => {
+  const res$ = data$.pipe(
+    switchMap((data) =>
+      iif(
+        () => {
+          return data !== null;
+        },
+        of(() => respSuccessJson(data)),
+        of(() => respFailJson({})),
+      ),
+    ),
+  );
+
+  const res = await lastValueFrom(res$);
+  return res();
+};
+
+/**
+ * 更具数据进行响应
+ * @param data
+ * @returns
+ */
+export const resp = async (data: any | null) => {
+  const res$ = of(data).pipe(
     switchMap((data) =>
       iif(
         () => {
