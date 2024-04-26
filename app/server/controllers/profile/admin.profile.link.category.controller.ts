@@ -1,27 +1,18 @@
 // types
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-
-// remix
-import { json } from "@remix-run/node";
-
-// server
-import {
-  createLinkCategory$,
-  getLinkCategoryListByUserId$,
-} from "~/server/services/profile/link-category";
-import { getUserId$ } from "~/server/services/common/session";
-
-// decorator
-import { checkLogin } from "../../decorators/check-auth.decorator";
-
-// rxjs
-import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
+import type * as rrn from "@remix-run/node";
 
 // decorators
-import { permission } from "../../decorators/check-perm";
+import * as ds from "~/server/decorators";
+
+// server
+import * as linkCategoryServices from "~/server/services/profile/link-category";
+import { getUserId$ } from "~/server/services/common/session";
+
+// rxjs
+import { forkJoin, from, switchMap } from "rxjs";
 
 // response
-import * as rp from "~/server/utils";
+import * as utils from "~/server/utils";
 
 const profilePerms = {
   READ_LIST: "profile:link-category:list",
@@ -29,43 +20,55 @@ const profilePerms = {
 };
 
 export class AdminProfileLinkCategoryController {
-  @checkLogin()
-  @permission(profilePerms.READ_LIST)
-  static async loader({ request }: LoaderFunctionArgs) {
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+
+  @ds.checkLogin()
+  @ds.permission(profilePerms.READ_LIST)
+  static async get({ request }: rrn.LoaderFunctionArgs) {
     const result$ = from(getUserId$(request)).pipe(
-      switchMap((userId) => getLinkCategoryListByUserId$(userId!)),
+      switchMap((userId) =>
+        linkCategoryServices.getLinkCategoryListByUserId$(userId!),
+      ),
     );
-    const dataSource = await lastValueFrom(result$);
-    return json({
-      dataSource,
-    });
+
+    return utils.resp$(result$);
   }
 
-  @checkLogin()
-  static async action({ request }: ActionFunctionArgs) {
-    switch (request.method) {
-      case "POST":
-        return AdminProfileLinkCategoryController.post({
-          request,
-        } as ActionFunctionArgs);
-      default:
-        break;
-    }
-  }
-
-  static async post({ request }: ActionFunctionArgs) {
+  @ds.checkLogin()
+  static async post({ request }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: from(request.json()),
       userId: getUserId$(request),
     }).pipe(
-      switchMap(({ data, userId }) => createLinkCategory$({ ...data, userId })),
+      switchMap(({ data, userId }) =>
+        linkCategoryServices.createLinkCategory$({ ...data, userId }),
+      ),
     );
 
-    const linkCategory = await lastValueFrom(result$);
-    if (linkCategory === null) {
-      return rp.respFailJson({});
-    }
+    return utils.resp$(result$);
+  }
 
-    return rp.respSuccessJson(linkCategory);
+  @ds.checkLogin()
+  static async put({ request }: rrn.ActionFunctionArgs) {
+    const result$ = from(request.json()).pipe(
+      switchMap((data) => linkCategoryServices.updateLinkCategory$(data)),
+    );
+
+    return utils.resp$(result$);
+  }
+
+  @ds.checkLogin()
+  static async delete({ request }: rrn.ActionFunctionArgs) {
+    const result$ = from(request.json()).pipe(
+      switchMap((ids: number[]) =>
+        linkCategoryServices.deleteLinkCategoryByIds$(ids),
+      ),
+    );
+
+    return utils.resp$(result$);
   }
 }

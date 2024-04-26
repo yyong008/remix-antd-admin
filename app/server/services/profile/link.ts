@@ -6,10 +6,15 @@ import prisma from "~/server/services/common/prisma";
 
 export interface IProfileLink {
   createLink(data: any): any;
-  createLink$(data: any): Observable<any>;
   getLinkAll(): any;
-  getLinkAll$(): Observable<any>;
   getLinkListById(categoryId: number): any;
+}
+
+export interface IProfileLink {
+  createLink$(data: any): Observable<any>;
+  updataLink$(data: any): Observable<any>;
+  deleteLinkByIds$(ids: number[]): Observable<any>;
+  getLinkAll$(): Observable<any>;
   getLinkListById$(categoryId: number): Observable<any>;
 }
 
@@ -47,6 +52,44 @@ export const createLink$ = (data: any) => {
         name: data.name,
         url: data.url,
         categoryId: data.categoryId,
+      },
+    }),
+  );
+};
+
+/**
+ * 更新链接
+ * @param data
+ * @returns
+ */
+export const updateLink$ = (data: any) => {
+  return from(
+    prisma.link.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        description: data.description,
+        name: data.name,
+        url: data.url,
+        categoryId: data.categoryId,
+      },
+    }),
+  );
+};
+
+/**
+ * 更新链接
+ * @param data
+ * @returns
+ */
+export const deleteLinkByIds$ = (ids: number[]) => {
+  return from(
+    prisma.link.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
       },
     }),
   );

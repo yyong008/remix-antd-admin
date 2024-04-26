@@ -13,7 +13,7 @@ import {
   ProFormText,
 } from "@ant-design/pro-components";
 
-import { AdminProfileAccountController } from "~/server/controllers/profile/admin.profile.account.controller";
+import { AdminProfileAccountController } from "~/server/controllers/profile";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -24,9 +24,7 @@ export const action: LoaderFunction = AdminProfileAccountController.action;
 export const loader: LoaderFunction = AdminProfileAccountController.loader;
 
 export default function ProfileAccountRoute() {
-  const { dataSource } = useLoaderData<typeof loader>();
-  // const fetcher = useFetcherChange();
-  // const { lang } = useParams();
+  const { data: dataSource } = useLoaderData<typeof loader>();
 
   return (
     <PageContainer>

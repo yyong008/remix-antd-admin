@@ -2,12 +2,10 @@
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 
 // remix
-import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 
 // components
 import { PageContainer, ProTable } from "@ant-design/pro-components";
-import { createLink, getLinkListById } from "~/server/services/profile/link";
 import LinkModal from "~/components/link/LinkModal";
 import { Space, Tag } from "antd";
 import LinkSvg from "~/components/svg/LinkSvg";
@@ -15,44 +13,19 @@ import LinkSvg from "~/components/svg/LinkSvg";
 // hooks
 import { useFetcherChange } from "~/hooks";
 
+// controllers
+import { AdminProfileLinkController } from "~/server/controllers/profile";
+
 // remix:meta
 export const meta: MetaFunction = () => {
   return [{ title: "Profile-Link" }];
 };
 
-// remix:action
-export const action: LoaderFunction = async ({ request }) => {
-  const data = await request.json();
-  // 校验数据
-
-  // 写入数据
-  const linkCategory = await createLink(data);
-
-  if (linkCategory === null) {
-    return json({
-      code: 0,
-      message: "创建失败",
-      data: {},
-    });
-  }
-
-  return json({
-    code: 0,
-    message: "创建成功",
-    data: linkCategory,
-  });
-};
-
-// remix:loader
-export const loader: LoaderFunction = async ({ request, params }) => {
-  const { id } = params;
-  return json({
-    dataSource: await getLinkListById(Number(id)),
-  });
-};
+export const action: LoaderFunction = AdminProfileLinkController.action;
+export const loader: LoaderFunction = AdminProfileLinkController.loader;
 
 export default function SystemConfigRoute() {
-  const { dataSource } = useLoaderData<typeof loader>();
+  const { data: dataSource } = useLoaderData<typeof loader>();
   const fetcher = useFetcherChange();
 
   return (

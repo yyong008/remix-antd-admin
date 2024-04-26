@@ -1,50 +1,45 @@
 // types
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type * as rrn from "@remix-run/node";
 
-// remix
-import { json } from "@remix-run/node";
+// decorators
+import * as ds from "~/server/decorators";
 
 // server
-import { getUserId$ } from "~/server/services/common/session";
-import { getUserInfoById } from "~/server/services/system/user";
-import { createLinkCategory } from "~/server/services/profile/link-category";
-
-// decorator
-import { checkLogin } from "../../decorators/check-auth.decorator";
+import * as userServices from "~/server/services/system/user";
+import * as sessionServices from "~/server/services/common/session";
 
 // rxjs
-import { lastValueFrom } from "rxjs";
+import { from, switchMap } from "rxjs";
+
+// utils
+import * as utils from "~/server/utils";
 
 export class AdminProfileAccountController {
-  @checkLogin()
-  static async loader({ request }: LoaderFunctionArgs) {
-    const userId = await lastValueFrom(getUserId$(request));
-    return json({
-      dataSource: await getUserInfoById(userId!),
-    });
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+
+  @ds.checkLogin()
+  static async get({ request }: rrn.LoaderFunctionArgs) {
+    const result$ = sessionServices
+      .getUserId$(request)
+      .pipe(switchMap((userId) => from(userServices.getUserInfoById(userId!))));
+
+    return utils.resp$(result$);
   }
 
-  @checkLogin()
-  static async action({ request }: ActionFunctionArgs) {
-    const data = await request.json();
-    const userId = await lastValueFrom(getUserId$(request));
-    const linkCategory = await createLinkCategory({
-      ...data,
-      userId,
-    });
+  @ds.checkLogin()
+  static async post({ request }: rrn.ActionFunctionArgs) {
+    const result$ = sessionServices
+      .getUserId$(request)
+      .pipe(
+        switchMap(({ id, ...data }: any) =>
+          from(userServices.updateUserById(id, data!)),
+        ),
+      );
 
-    if (linkCategory === null) {
-      return json({
-        code: 0,
-        message: "创建失败",
-        data: {},
-      });
-    }
-
-    return json({
-      code: 0,
-      message: "创建成功",
-      data: linkCategory,
-    });
+    return utils.resp$(result$);
   }
 }

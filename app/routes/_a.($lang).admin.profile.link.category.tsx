@@ -10,7 +10,7 @@ import { DeleteIt } from "~/components/common";
 import LinkCategoryModal from "~/components/link/LinkCategoryModal";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
-import { AdminProfileLinkCategoryController } from "~/server/controllers/profile/admin.profile.link.category.controller";
+import { AdminProfileLinkCategoryController } from "~/server/controllers/profile/";
 
 // hooks
 import { useFetcherChange } from "~/hooks";
@@ -24,7 +24,7 @@ export const action: LoaderFunction = AdminProfileLinkCategoryController.action;
 export const loader: LoaderFunction = AdminProfileLinkCategoryController.loader;
 
 export default function SystemConfigRoute() {
-  const { dataSource } = useLoaderData<typeof loader>();
+  const { data: dataSource } = useLoaderData<typeof loader>();
   const fetcher = useFetcherChange();
 
   return (

@@ -10,6 +10,8 @@ import prisma from "~/server/services/common/prisma";
 export interface IProfileLinkCategory {
   createLinkCategory(data: any): any;
   createLinkCategory$(data: any): Observable<any>;
+  updateLinkCategory$(data: any): Observable<any>;
+  deleteLinkCategoryByIds$(ids: number[]): Observable<any>;
   getLinkCategoryListByUserId(userId: number): any;
   getLinkCategoryListByUserId$(userId: number): Observable<any>;
 }
@@ -39,6 +41,39 @@ export const createLinkCategory$ = (data: any) => {
   return from(
     prisma.linkCategory.create({
       data,
+    }),
+  );
+};
+
+/**
+ * 创建链接分类
+ * @param data
+ * @returns
+ */
+export const updateLinkCategory$ = (data: any) => {
+  return from(
+    prisma.linkCategory.update({
+      where: {
+        id: data.id,
+      },
+      data,
+    }),
+  );
+};
+
+/**
+ * 创建链接分类
+ * @param data
+ * @returns
+ */
+export const deleteLinkCategoryByIds$ = (ids: number[]) => {
+  return from(
+    prisma.linkCategory.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
     }),
   );
 };
