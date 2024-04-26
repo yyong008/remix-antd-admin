@@ -1,75 +1,71 @@
 // import type { ActionArgs } from "@remix-run/node";
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import type * as rrn from "@remix-run/node";
+
+// decorators
+import * as ds from "~/server/decorators";
 
 // remix
 import { redirect } from "@remix-run/node";
 
 // rxjs
 import {
-  catchError,
-  forkJoin,
-  iif,
-  lastValueFrom,
   map,
   of,
+  iif,
+  forkJoin,
   switchMap,
+  catchError,
   throwError,
+  lastValueFrom,
 } from "rxjs";
 
 // config
 import { langs } from "~/config/lang";
 
-// utils
-import { respSuccessJson, createT$ } from "~/server/utils";
-
-// decorators
-import { checkLogin } from "~/server/decorators/check-auth.decorator";
-
 // servies
-import { getUserInfoById$ } from "~/server/services/system/user";
-import { getUserId$ } from "~/server/services/common/session";
-import { getFlatMenuByUserId$ } from "~/server/services/system/user-perms.server";
+import * as userServices from "~/server/services/system/user";
+import * as sessionServices from "~/server/services/common/session";
+import * as userPermsServices from "~/server/services/system/user-perms.server";
+
+// utils
+import * as serverUtils from "~/server/utils";
 
 export class LayoutAController {
-  @checkLogin()
-  static async loader({ request, params }: LoaderFunctionArgs) {
-    const layout$ = of(params)
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.checkLogin()
+  static async get({ request, params }: rrn.LoaderFunctionArgs) {
+    const higherOrderRedirect404 = () => {
+      return () => redirect("/404");
+    };
+    const higherOrderThrowError = (e: () => any) => () => e();
+    const LangInParams = () =>
+      langs.includes(typeof params.lang === "string" ? params.lang : "");
+
+    const result$ = of(params)
       .pipe(
         switchMap((params) =>
-          iif(
-            () =>
-              langs.includes(
-                typeof params.lang === "string" ? params.lang : "",
-              ),
-            of(true),
-            throwError(() => {
-              return () => redirect("/404");
-            }),
-          ),
+          iif(LangInParams, of(true), throwError(higherOrderRedirect404)),
         ),
       )
       .pipe(
-        switchMap(() =>
-          forkJoin([of(params), createT$(params), getUserId$(request)]),
-        ),
+        switchMap(() => sessionServices.getUserId$(request)),
         switchMap((data) =>
-          forkJoin([
-            getFlatMenuByUserId$(data[2]!),
-            getUserInfoById$(data[2]!),
-          ]),
+          forkJoin({
+            menu: userPermsServices.getFlatMenuByUserId$(data!),
+            userInfo: userServices.getUserInfoById$(data!),
+          }),
         ),
         map((data) => () => {
-          return respSuccessJson({
-            menu: data[0],
-            userInfo: data[1],
-          });
+          return serverUtils.resp$(of(data));
         }),
         catchError((e) => {
-          return throwError(() => () => e());
+          return throwError(() => higherOrderThrowError(e));
         }),
       );
 
-    const overFn = await lastValueFrom(layout$);
-    return overFn();
+    const resultFn = await lastValueFrom(result$);
+    return resultFn();
   }
 }
