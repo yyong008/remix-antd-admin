@@ -1,3 +1,6 @@
+// types
+import type { Observable } from "rxjs";
+
 // remix
 import { json } from "@remix-run/node";
 
@@ -117,6 +120,16 @@ export const resp$ = async (data$: any | null) => {
 };
 
 /**
+ * 函数响应
+ * @param data
+ * @returns
+ */
+export const respFn$ = async (resultFn$: Observable<any>) => {
+  const resultFn = await lastValueFrom(resultFn$);
+  return resultFn();
+};
+
+/**
  * 响应样式模式
  * @returns
  */
@@ -151,3 +164,17 @@ export const respUnSupportJson = () => {
     data: {},
   });
 };
+
+export const HigherOrderCreateRespWithTime =
+  (data: any, startTimeStamp?: number, code?: boolean, message?: string) =>
+  () => {
+    const idata: any = {
+      code: code ?? 0,
+      data,
+      message: message ?? "success",
+    };
+    if (startTimeStamp) {
+      data.time = Date.now() - startTimeStamp;
+    }
+    return json(idata);
+  };

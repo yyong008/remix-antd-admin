@@ -1,27 +1,33 @@
-// learn more: https://fly.io/docs/reference/configuration/#services-http_checks
-import type { LoaderFunctionArgs, LoaderFunction } from "@remix-run/node";
+// types
+import type * as rrn from "@remix-run/node";
 
-import prisma from "~/server/services/common/prisma";
+// decorators
+import * as ds from "~/server/decorators";
 
-export const loader: LoaderFunction = async ({
-  request,
-}: LoaderFunctionArgs) => {
-  const host =
-    request.headers.get("X-Forwarded-Host") ?? request.headers.get("host");
+// services
+import { getUserCount } from "~/server/services/system.user.service";
 
-  try {
-    const url = new URL("/", `http://${host}`);
-    // if we can connect to the database and make a simple query
-    // and make a HEAD request to ourselves, then we're good.
-    await Promise.all([
-      prisma.user.count(),
-      fetch(url.toString(), { method: "HEAD" }).then((r) => {
-        if (!r.ok) return Promise.reject(r);
-      }),
-    ]);
-    return new Response("OK");
-  } catch (error: unknown) {
-    console.log("healthcheck ❌", { error });
-    return new Response("ERROR", { status: 500 });
+export class ApiHealthCheckController {
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.checkLogin()
+  static async get({ request, params }: rrn.LoaderFunctionArgs) {
+    const host =
+      request.headers.get("X-Forwarded-Host") ?? request.headers.get("host");
+
+    try {
+      const url = new URL("/", `http://${host}`);
+      await Promise.all([
+        getUserCount(),
+        fetch(url.toString(), { method: "HEAD" }).then((r) => {
+          if (!r.ok) return Promise.reject(r);
+        }),
+      ]);
+      return new Response("OK");
+    } catch (error: unknown) {
+      console.log("healthcheck ❌", { error });
+      return new Response("ERROR", { status: 500 });
+    }
   }
-};
+}

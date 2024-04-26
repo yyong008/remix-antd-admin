@@ -1,5 +1,8 @@
-// remix
-import { json } from "@remix-run/node";
+// types
+import type * as rrn from "@remix-run/node";
+
+// decorators
+import * as ds from "~/server/decorators";
 
 // rxjs
 import { catchError, map, throwError } from "rxjs";
@@ -7,26 +10,23 @@ import { catchError, map, throwError } from "rxjs";
 // server
 import { getSystemInfo$ } from "~/server/services/common/systemInfo";
 
-export const loader = async () => {
-  const t = Date.now();
-  const createResp = (data: any, message?: string) => () =>
-    json({
-      code: 0,
-      data,
-      time: Date.now() - t,
-      message: message ?? "success",
-    });
-  getSystemInfo$()
-    .pipe(
-      map((data) => createResp(data)),
-      catchError(() => throwError(createResp({}))),
-    )
-    .subscribe({
-      next(v) {
-        return v?.();
-      },
-      error(err) {
-        return err?.();
-      },
-    });
-};
+// utils
+import { HigherOrderCreateRespWithTime, respFn$ } from "~/server/utils";
+
+export class ApiSystemMonitorServeController {
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.checkLogin()
+  static async get({ request, params }: rrn.LoaderFunctionArgs) {
+    const startTimeStamp = Date.now();
+    const resultFn$ = getSystemInfo$().pipe(
+      map((data) => HigherOrderCreateRespWithTime(data, startTimeStamp)),
+      catchError(() =>
+        throwError(HigherOrderCreateRespWithTime({}, startTimeStamp)),
+      ),
+    );
+
+    return respFn$(resultFn$);
+  }
+}

@@ -1,63 +1,73 @@
-// type
-import type { ActionFunctionArgs } from "@remix-run/node";
+// types
+import type * as rrn from "@remix-run/node";
+
+// decorators
+import * as ds from "~/server/decorators";
 
 // remix
 import {
-  json,
-  unstable_composeUploadHandlers,
-  unstable_createFileUploadHandler,
-  unstable_createMemoryUploadHandler,
-  unstable_parseMultipartFormData,
+  unstable_composeUploadHandlers as composeUploadHandlers,
+  unstable_createFileUploadHandler as createFileUploadHandler,
+  unstable_createMemoryUploadHandler as createMemoryUploadHandler,
+  unstable_parseMultipartFormData as uparseMultipartFormData,
 } from "@remix-run/node";
-import prisma from "~/server/services/common/prisma";
-import { getUserId$ } from "~/server/services/common/session";
 
+// services
+import * as sessionServices from "~/server/services/common/session";
+import * as storageServices from "~/server/services/tools/storage";
+
+// utils
 import * as clientUtils from "~/utils";
-import { lastValueFrom } from "rxjs";
+import { resp$ } from "~/server/utils";
 
-export const action = async ({ request }: ActionFunctionArgs) => {
-  const userId = await lastValueFrom(getUserId$(request));
+// rxjs
+import { forkJoin, from, lastValueFrom, of, switchMap } from "rxjs";
 
-  if (!userId) {
-    return json({
-      code: 1,
-      message: "未授权",
-      data: {},
-    });
+export class ApiUploadController {
+  @ds.Action
+  static async action({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.checkLogin()
+  static async post({ request, params }: rrn.LoaderFunctionArgs) {
+    const userId = await lastValueFrom(sessionServices.getUserId$(request));
+
+    if (!userId) {
+      return resp$(of(null));
+    }
+
+    const result$ = forkJoin({
+      fileUploader: of(
+        createFileUploadHandler({
+          maxPartSize: 2 * 1024 * 1024,
+          directory: "public/uploads",
+          file: ({ filename }) => filename,
+        }),
+      ),
+      memoryUploader: of(createMemoryUploadHandler()),
+    })
+      .pipe(
+        switchMap((data) =>
+          of(composeUploadHandlers(data.fileUploader, data.memoryUploader)),
+        ),
+        switchMap((uploadHandler) =>
+          from(uparseMultipartFormData(request, uploadHandler)),
+        ),
+        switchMap((formData) => of(formData.get("file"))),
+      )
+      .pipe(
+        switchMap((file: any) =>
+          storageServices.createStorage$({
+            userId,
+            name: file.name,
+            fileName: file.name,
+            extName: clientUtils.extname(file.name),
+            path: "/uploads/" + file.name,
+            size: file.size.toString(),
+            type: file.type,
+          }),
+        ),
+      );
+
+    return resp$(result$);
   }
-  const method = request.method;
-  if (method === "POST") {
-    const uploadHandler = unstable_composeUploadHandlers(
-      unstable_createFileUploadHandler({
-        maxPartSize: 2 * 1024 * 1024,
-        directory: "public/uploads", // 指定上传目录
-        file: ({ filename }) => filename,
-      }),
-      // parse everything else into memory
-      unstable_createMemoryUploadHandler(),
-    );
-    const formData = await unstable_parseMultipartFormData(
-      request,
-      uploadHandler,
-    );
-
-    const file: any = formData.get("file");
-
-    const _file = await prisma.storage.create({
-      data: {
-        userId,
-        name: file.name,
-        fileName: file.name,
-        extName: clientUtils.extname(file.name),
-        path: "/uploads/" + file.name,
-        size: file.size.toString(),
-        type: file.type,
-      },
-    });
-    return json({
-      code: 0,
-      message: "ok",
-      data: _file,
-    });
-  }
-};
+}
