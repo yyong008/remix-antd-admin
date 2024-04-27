@@ -36,7 +36,7 @@ const getPercent = (val: number = 0) => {
 export const loader: LoaderFunction = AdminSystemMonitorServeController.loader;
 
 export default function SystemNoticeRoute() {
-  const { dataSource } = useLoaderData<typeof loader>();
+  const { data: dataSource } = useLoaderData<typeof loader>();
   const [data, setData] = useState({
     nodeRuntime: {},
     osRuntime: {},

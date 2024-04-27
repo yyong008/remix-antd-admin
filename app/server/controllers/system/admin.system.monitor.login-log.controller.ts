@@ -1,32 +1,44 @@
 // types
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import type * as rrn from "@remix-run/node";
 
-import { json } from "@remix-run/node";
+// decorators
+import * as ds from "~/server/decorators";
 
-import {
-  loginLogCount,
-  getLoginLogList,
-} from "~/server/services/system/login-log";
+// services
+import * as systemLoginlogServices from "~/server/services/system/login-log";
 
-// decorator
-import { checkLogin } from "../../decorators/check-auth.decorator";
+// rxjs
+import { forkJoin, from } from "rxjs";
+
+// utils
+import * as serviceUtils from "~/server/utils";
 
 export class AdminSystemMonitorLoginLogController {
-  @checkLogin()
-  static async loader({ request }: LoaderFunctionArgs) {
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+
+  @ds.checkLogin()
+  static async get({ request }: rrn.LoaderFunctionArgs) {
     let { searchParams } = new URL(request.url);
     let page = Number(searchParams.get("page") ?? 1);
     let pageSize = Number(searchParams.get("pageSize") ?? 10);
     let name = searchParams.get("name") ?? "";
 
-    return json({
-      count: await loginLogCount(),
-      dataSource: await getLoginLogList({ page, pageSize, name }),
+    const result$ = forkJoin({
+      count: from(systemLoginlogServices.loginLogCount()),
+      list: from(
+        systemLoginlogServices.getLoginLogList({ page, pageSize, name }),
+      ),
     });
+
+    return serviceUtils.resp$(result$);
   }
 
-  @checkLogin()
-  static async action() {
+  @ds.checkLogin()
+  static async post() {
     return null;
   }
 }

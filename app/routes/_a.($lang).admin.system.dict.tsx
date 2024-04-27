@@ -27,7 +27,7 @@ export const meta: MetaFunction = () => {
 const { EyeOutlined } = _icon;
 
 export default function SystemDictItemRoute() {
-  const { dataSource } = useLoaderData<typeof loader>();
+  const { data: dataSource } = useLoaderData<typeof loader>();
   const { lang } = useParams();
   const fetcher = useFetcher();
 

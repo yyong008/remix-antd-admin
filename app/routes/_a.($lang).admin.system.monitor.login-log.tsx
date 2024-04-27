@@ -26,7 +26,9 @@ export const loader: LoaderFunction =
   AdminSystemMonitorLoginLogController.loader;
 
 export default function SystemUserRoute() {
-  const { dataSource, count } = useLoaderData<typeof loader>();
+  const {
+    data: { list: dataSource, count },
+  } = useLoaderData<typeof loader>();
   const [navLoginLog] = useLoginLogNav();
 
   return (

@@ -1,92 +1,66 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+// types
+import type * as rrn from "@remix-run/node";
+
+// decorators
+import * as ds from "~/server/decorators";
 
 // services
-import {
-  addRole,
-  deleteRole,
-  updateRole,
-  getRoleList,
-  getMenuRoles,
-} from "~/server/services/system/role";
-import { getFlatMenu } from "~/server/services/system/menu-role";
+import * as systemRoleServices from "~/server/services/system/role";
+import * as SystemMenuRoleServices from "~/server/services/system/menu-role";
 
 // rxjs
 import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
 
-// decoartor
-import { checkLogin } from "../../decorators/check-auth.decorator";
-
-import * as rp from "~/server/utils";
-import { validate } from "../../decorators/validate-schema";
+import * as serverUtils from "~/server/utils";
 
 // schema
-import {
-  CreateRoleSchema,
-  DeleteRoleSchema,
-  UpdateRoleSchema,
-} from "~/schema/role.schema";
+import * as roleSchemas from "~/schema/role.schema";
 
 export class AdminSystemRoleController {
-  @checkLogin()
-  static async action({ request }: ActionFunctionArgs) {
-    switch (request.method) {
-      case "POST":
-        return AdminSystemRoleController.post({
-          request,
-        } as ActionFunctionArgs);
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
 
-      case "PUT":
-        return AdminSystemRoleController.put({ request } as ActionFunctionArgs);
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
 
-      case "DELETE":
-        return AdminSystemRoleController.delete({
-          request,
-        } as ActionFunctionArgs);
-
-      default:
-        return rp.respFailJson({});
-    }
-  }
-
-  @checkLogin()
-  static async loader({ request }: LoaderFunctionArgs) {
+  @ds.checkLogin()
+  static async get({ request }: rrn.LoaderFunctionArgs) {
     const result$ = forkJoin({
-      dataSource: from(getRoleList()),
-      flatMenu: from(getFlatMenu()),
-      menuRoles: from(getMenuRoles()),
+      dataSource: from(systemRoleServices.getRoleList()),
+      flatMenu: from(SystemMenuRoleServices.getFlatMenu()),
+      menuRoles: from(systemRoleServices.getMenuRoles()),
     });
 
     const data = await lastValueFrom(result$);
-    return data ? rp.respSuccessJson(data) : rp.respFailJson({});
+    return data
+      ? serverUtils.respSuccessJson(data)
+      : serverUtils.respFailJson({});
   }
 
-  @validate(CreateRoleSchema)
-  static async post({ request }: ActionFunctionArgs) {
+  @ds.validate(roleSchemas.CreateRoleSchema)
+  static async post({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
-      switchMap((roleInfo) => from(addRole(roleInfo))),
+      switchMap((roleInfo) => from(systemRoleServices.addRole(roleInfo))),
     );
 
-    const data = await lastValueFrom(result$);
-    return data ? rp.respSuccessJson(data) : rp.respFailJson({});
+    return serverUtils.resp$(result$);
   }
 
-  @validate(UpdateRoleSchema)
-  static async put({ request }: ActionFunctionArgs) {
+  @ds.validate(roleSchemas.UpdateRoleSchema)
+  static async put({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
-      switchMap((roleInfo) => from(updateRole(roleInfo))),
+      switchMap((roleInfo) => from(systemRoleServices.updateRole(roleInfo))),
     );
 
-    const data = await lastValueFrom(result$);
-    return data ? rp.respSuccessJson(data) : rp.respFailJson({});
+    return serverUtils.resp$(result$);
   }
 
-  @validate(DeleteRoleSchema)
-  static async delete({ request, params }: ActionFunctionArgs) {
+  @ds.validate(roleSchemas.DeleteRoleSchema)
+  static async delete({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
-      switchMap(({ ids }) => from(deleteRole(ids))),
+      switchMap(({ ids }) => from(systemRoleServices.deleteRole(ids))),
     );
 
-    const data: any = await lastValueFrom(result$);
-    return data ? rp.respSuccessJson(data) : rp.respFailJson({});
+    return serverUtils.resp$(result$);
   }
 }

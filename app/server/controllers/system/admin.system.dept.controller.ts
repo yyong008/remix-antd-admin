@@ -1,20 +1,37 @@
-// remix
-import { json } from "@remix-run/node";
+// types
+import type * as rrn from "@remix-run/node";
 
-// services
-import { getDeptListTree } from "~/server/services/system/dept";
+// decorators
+import * as ds from "~/server/decorators";
 
 // utils
-import { checkLogin } from "../../decorators/check-auth.decorator";
+import * as serverUtils from "~/server/utils";
+
+// services
+import * as systemDeptServices from "~/server/services/system/dept";
+
+// rxjs
+import { from } from "rxjs";
 
 export class AdminAdminSystemDeptController {
-  @checkLogin()
-  static async loader() {
-    return json({
-      dataSource: await getDeptListTree(),
-    });
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+
+  @ds.checkLogin()
+  static async get() {
+    const result$ = from(systemDeptServices.getDeptListTree());
+    return serverUtils.resp$(result$);
   }
 
-  @checkLogin()
-  static async action() {}
+  @ds.checkLogin()
+  static async post({ request, params }: rrn.ActionFunctionArgs) {}
+
+  @ds.checkLogin()
+  static async put({ request, params }: rrn.ActionFunctionArgs) {}
+
+  @ds.checkLogin()
+  static async delete({ request, params }: rrn.ActionFunctionArgs) {}
 }

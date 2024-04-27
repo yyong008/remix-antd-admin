@@ -19,12 +19,13 @@ export const meta: MetaFunction = () => {
 export const loader: LoaderFunction = AdminSystemConfigController.loader;
 
 export default function SystemConfigRoute() {
-  const { dataSource } = useLoaderData<typeof loader>();
+  const { data: dataSource } = useLoaderData<typeof loader>();
 
   return (
     <PageContainer>
       <ProCard>
         <ProTable
+          search={false}
           dataSource={dataSource as any[]}
           columns={[
             {

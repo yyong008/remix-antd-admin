@@ -1,94 +1,76 @@
 // types
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type * as rrn from "@remix-run/node";
 
-// remix
-import { json } from "@remix-run/node";
+// decorators
+import * as ds from "~/server/decorators";
 
 // services
-import {
-  createUser,
-  deleteUserByIds,
-  getUserList,
-  updateUserById,
-  getUserCount,
-} from "~/server/services/system/user";
-import { getRoleList } from "~/server/services/system/role";
-import { getDeptListTree } from "~/server/services/system/dept";
+import * as systemUserServices from "~/server/services/system/user";
+import * as systemRoleServices from "~/server/services/system/role";
+import * as systemDeptServices from "~/server/services/system/dept";
 
 // utils
 import * as clientUtils from "~/utils";
-import { respSuccessJson } from "~/server/utils";
+import * as serviceUtils from "~/server/utils";
 
 // schema
-import {
-  userSchema,
-  deleteUserSchema,
-  userUpdateSchema,
-} from "~/schema/user.schema";
-import { checkLogin } from "../../decorators/check-auth.decorator";
+import * as userSchemas from "~/schema/user.schema";
+
+// rxjs
+import { forkJoin, from, switchMap } from "rxjs";
 
 export default class AdminSystemUserController {
-  @checkLogin()
-  static async action({ request, params }: ActionFunctionArgs) {
-    const method = request.method;
-    if (method === "POST") {
-      const userData = await request.json();
-      try {
-        const validatedUser = userSchema.parse(userData);
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
 
-        const user = await createUser(validatedUser);
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
 
-        if (user) {
-          return json({ code: 0, data: {}, message: "success" });
-        } else {
-          return json({ code: 1, data: {}, message: "fail" });
-        }
-      } catch (error: any) {
-        // 如果验证失败，捕获并处理错误
-        console.error("Validation error:", error.errors);
-        return json({ code: 1, data: {}, message: error?.errors });
-      }
-    } else if (method === "DELETE") {
-      const userData = await request.json();
-
-      try {
-        const validateUserData = deleteUserSchema.parse(userData);
-        const data: any = await deleteUserByIds(validateUserData.ids);
-        if (data) {
-          return json({ code: 0, data: {}, message: "success" });
-        } else {
-          return json({ code: 1, data: {}, message: data });
-        }
-      } catch (error: any) {
-        console.error("Validation error:", error.errors);
-        return json({ code: 1, data: {}, message: error?.errors });
-      }
-    } else if (method === "PUT") {
-      const userData = await request.json();
-      try {
-        const validateUserData = userUpdateSchema.parse(userData);
-        const data = await updateUserById(userData.id, validateUserData);
-        if (data) {
-          return json({ code: 0, data: {}, message: "success" });
-        } else {
-          return json({ code: 1, data: {}, message: data });
-        }
-      } catch (error: any) {
-        console.error("Validation error:", error?.errors);
-        return json({ code: 1, data: {}, message: error?.errors });
-      }
-    }
-  }
-
-  @checkLogin()
-  static async loader({ request, params }: LoaderFunctionArgs) {
+  @ds.checkLogin()
+  static async get({ request, params }: rrn.LoaderFunctionArgs) {
     const { page, pageSize, name } =
       await clientUtils.getPaginationByRequest(request);
-    return respSuccessJson({
-      total: await getUserCount(),
-      dataSource: await getUserList({ page, pageSize, name }),
-      roles: await getRoleList(),
-      depts: await getDeptListTree(),
+
+    const result$ = forkJoin({
+      total: from(systemUserServices.getUserCount()),
+      dataSource: from(
+        systemUserServices.getUserList({ page, pageSize, name }),
+      ),
+      roles: from(systemRoleServices.getRoleList()),
+      depts: from(systemDeptServices.getDeptListTree()),
     });
+    return serviceUtils.resp$(result$);
+  }
+
+  @ds.checkLogin()
+  @ds.validate(userSchemas.userSchema)
+  static async post({ request, params }: rrn.LoaderFunctionArgs) {
+    const result$ = from(request.json()).pipe(
+      switchMap((data) => from(systemUserServices.createUser(data))),
+    );
+
+    return serviceUtils.resp$(result$);
+  }
+
+  @ds.checkLogin()
+  @ds.validate(userSchemas.userUpdateSchema)
+  static async put({ request, params }: rrn.LoaderFunctionArgs) {
+    const result$ = from(request.json()).pipe(
+      switchMap((data) =>
+        from(systemUserServices.updateUserById(data.id, data)),
+      ),
+    );
+
+    return serviceUtils.resp$(result$);
+  }
+
+  @ds.checkLogin()
+  @ds.validate(userSchemas.deleteUserSchema)
+  static async delete({ request, params }: rrn.LoaderFunctionArgs) {
+    const result$ = from(request.json()).pipe(
+      switchMap((ids) => from(systemUserServices.deleteUserByIds(ids))),
+    );
+
+    return serviceUtils.resp$(result$);
   }
 }

@@ -1,33 +1,24 @@
 // types
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type * as rrn from "@remix-run/node";
 
-// remix
-import { json } from "@remix-run/node";
+// decorators
+import * as ds from "~/server/decorators";
 
 // service
-import {
-  createMenu,
-  deleteMenu,
-  getMenu,
-  updateMenu,
-} from "~/server/services/system/menu";
-import {
-  getMenuRaw,
-  getTypeNotPermMenu,
-} from "~/server/services/system/menu-role";
+import * as systemMenuServices from "~/server/services/system/menu";
+import * as systemMenuRoleServices from "~/server/services/system/menu-role";
+
+// i18
 import i18n from "~/i18n/i18next.server";
 
 // utils
-import * as rp from "~/server/utils";
+import * as serviceUtils from "~/server/utils";
 
 // schema
 import { DeleteMenuSchema } from "~/schema/menu.schema";
 
 // decoartor
-import { checkLogin } from "../../decorators/check-auth.decorator";
-import { permission } from "../../decorators/check-perm";
-import { validate, validateMenuSchema } from "../../decorators/validate-schema";
-import { from, lastValueFrom, switchMap } from "rxjs";
+import { forkJoin, from, switchMap } from "rxjs";
 
 const perms = {
   READ_LIST: "system:user:list",
@@ -38,75 +29,63 @@ const perms = {
 };
 
 export class AdminSystemMenuController {
-  @checkLogin()
-  @permission(perms.READ_LIST)
-  static async loader({ params }: LoaderFunctionArgs) {
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+
+  @ds.checkLogin()
+  @ds.permission(perms.READ_LIST)
+  static async get({ params }: rrn.LoaderFunctionArgs) {
     const { lang } = params;
     let t = await i18n.getFixedT(lang!);
-    return json({
-      menu: await getMenu(t, lang!),
-      menuRaw: await getMenuRaw(t, lang!),
-      menuNotPerm: await getTypeNotPermMenu(t),
-    });
-  }
 
-  @checkLogin()
-  static async action({ request }: ActionFunctionArgs) {
-    switch (request.method) {
-      case "POST":
-        return AdminSystemMenuController.post({
-          request,
-        } as ActionFunctionArgs);
-      case "PUT":
-        return AdminSystemMenuController.put({ request } as ActionFunctionArgs);
-      case "DELETE":
-        return AdminSystemMenuController.delete({
-          request,
-        } as ActionFunctionArgs);
-      default:
-        break;
-    }
+    const result$ = forkJoin({
+      menu: from(systemMenuServices.getMenu(t, lang!)),
+      menuRaw: from(systemMenuRoleServices.getMenuRaw(t, lang!)),
+      menuNotPerm: from(systemMenuRoleServices.getTypeNotPermMenu(t)),
+    });
+
+    return serviceUtils.resp$(result$);
   }
 
   /**
    * 创建菜单
    */
-  @permission(perms.CREATE)
-  @validateMenuSchema("create")
-  static async post({ request }: ActionFunctionArgs) {
+  @ds.permission(perms.CREATE)
+  @ds.validateMenuSchema("create")
+  static async post({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
-      switchMap((data) => from(createMenu(data))),
+      switchMap((data) => from(systemMenuServices.createMenu(data))),
     );
 
-    const menu = await lastValueFrom(result$);
-    return menu ? rp.respSuccessJson({}) : rp.respFailJson({});
+    return serviceUtils.resp$(result$);
   }
 
   /**
    * 更新菜单
    */
-  @permission(perms.UPDATE)
-  @validateMenuSchema("update")
-  static async put({ request }: ActionFunctionArgs) {
+  @ds.permission(perms.UPDATE)
+  @ds.validateMenuSchema("update")
+  static async put({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
-      switchMap((data) => from(updateMenu(data))),
+      switchMap((data) => from(systemMenuServices.updateMenu(data))),
     );
 
-    const menu = await lastValueFrom(result$);
-    return menu ? rp.respSuccessJson({}) : rp.respFailJson({});
+    return serviceUtils.resp$(result$);
   }
 
   /**
    * 删除菜单
    */
-  @permission(perms.DELETE)
-  @validate(DeleteMenuSchema)
-  static async delete({ request }: ActionFunctionArgs) {
+  @ds.permission(perms.DELETE)
+  @ds.validate(DeleteMenuSchema)
+  static async delete({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
-      switchMap((data) => from(deleteMenu(data))),
+      switchMap((data) => from(systemMenuServices.deleteMenu(data))),
     );
 
-    const menu = await lastValueFrom(result$);
-    return menu ? rp.respSuccessJson({}) : rp.respFailJson({});
+    return serviceUtils.resp$(result$);
   }
 }

@@ -25,7 +25,7 @@ export const meta: MetaFunction = () => {
 export const loader: LoaderFunction = AdminSystemDictItemController.loader;
 
 export default function SystemDictItemWithIdRoute() {
-  const { dataSource } = useLoaderData<typeof loader>();
+  const { data: dataSource } = useLoaderData<typeof loader>();
   const nav = useNavigate();
   const fetcher = useFetcher();
   return (

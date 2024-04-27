@@ -27,7 +27,9 @@ export const action: ActionFunction = AdminSystemMenuController.action;
 export const loader: LoaderFunction = AdminSystemMenuController.loader;
 
 export default function AdminSystemMenuRoute() {
-  const { menuRaw, menuNotPerm } = useLoaderData<typeof loader>();
+  const {
+    data: { menuRaw, menuNotPerm },
+  } = useLoaderData<typeof loader>();
   const fetcher = useFetcherChange();
   return (
     <PageContainer>

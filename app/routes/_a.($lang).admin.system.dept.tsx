@@ -29,7 +29,7 @@ export const meta: MetaFunction = () => {
 export const loader: LoaderFunction = AdminAdminSystemDeptController.loader;
 
 export default function SystemDeptRoute() {
-  const { dataSource } = useLoaderData<typeof loader>();
+  const { data: dataSource } = useLoaderData<typeof loader>();
   const fetcher = useFetcher();
 
   return (

@@ -51,7 +51,6 @@ export default function ToolsMailRoute() {
       user: form.getFieldValue("user"),
       pass: form.getFieldValue("pass"),
     };
-    console.log("vals", vals);
     debugger;
     fetcher.submit(vals, {
       encType: "application/json",

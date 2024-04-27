@@ -1,25 +1,33 @@
 // types
-// import type { LoaderFunction } from "@remix-run/node";
+import type * as rrn from "@remix-run/node";
 
-// remix
-import { json } from "@remix-run/node";
+// decorators
+import * as ds from "~/server/decorators";
+
+// utils
+import * as serverUtils from "~/server/utils";
 
 // service
-import { getDictList } from "~/server/services/system/dict";
+import * as systemDictServices from "~/server/services/system/dict";
 
-// decorator
-import { checkLogin } from "../../decorators/check-auth.decorator";
+// rxjs
+import { from } from "rxjs";
 
 export class AdminSystemDictController {
-  @checkLogin()
-  static async loader() {
-    return json({
-      dataSource: await getDictList(),
-    });
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+
+  @ds.checkLogin()
+  static async get() {
+    const result$ = from(systemDictServices.getDictList());
+    return serverUtils.resp$(result$);
   }
 
-  @checkLogin()
-  static async action() {
+  @ds.checkLogin()
+  static async post() {
     return null;
   }
 }

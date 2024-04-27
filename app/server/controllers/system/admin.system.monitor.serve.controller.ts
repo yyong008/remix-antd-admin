@@ -1,7 +1,8 @@
 // types
+import type * as rrn from "@remix-run/node";
 
-// remix
-import { json } from "@remix-run/node";
+// decorators
+import * as ds from "~/server/decorators";
 
 // utils
 import { getSystemInfo$ } from "~/server/services/common/systemInfo";
@@ -9,19 +10,23 @@ import { getSystemInfo$ } from "~/server/services/common/systemInfo";
 // decorator
 import { checkLogin } from "../../decorators/check-auth.decorator";
 
-// rxjs
-import { lastValueFrom } from "rxjs";
+// utils
+import * as serviceUtils from "~/server/utils";
 
 export class AdminSystemMonitorServeController {
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+
   @checkLogin()
-  static async loader() {
-    return json({
-      dataSource: await lastValueFrom(getSystemInfo$()),
-    });
+  static async get() {
+    return serviceUtils.resp$(getSystemInfo$());
   }
 
   @checkLogin()
-  static async action() {
+  static async post() {
     return null;
   }
 }
