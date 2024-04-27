@@ -10,11 +10,16 @@ import { from } from "rxjs";
 
 export interface IStorage {
   createStorage(data: Prisma.StorageCreateInput): any;
-  createStorage$(data: Prisma.StorageCreateInput): Observable<any>;
-  storageCount$(): Observable<any>;
   getStorageList(data: TPage): any;
+}
+
+export interface IStorage {
+  createStorage$(data: Prisma.StorageCreateInput): Observable<any>;
+  deleteByIds$(ids: number[]): Observable<any>;
+  storageCount$(): Observable<any>;
   getStorageList$(data: TPage): Observable<any>;
 }
+
 /**
  * create storage info
  * @param data  Prisma.StorageCreateInput
@@ -41,6 +46,23 @@ export const createStorage$ = (data: Prisma.StorageCreateInput) => {
   return from(
     prisma.storage.create({
       data,
+    }),
+  );
+};
+
+/**
+ * delete storage
+ * @param ids  Prisma.StorageCreateInput
+ * @returns
+ */
+export const deleteStorageByIds$ = (ids: number[]) => {
+  return from(
+    prisma.storage.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
     }),
   );
 };

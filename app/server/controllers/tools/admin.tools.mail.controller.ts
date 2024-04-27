@@ -1,34 +1,39 @@
 // types
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type * as rrn from "@remix-run/node";
+
+// decorators
+import * as ds from "~/server/decorators";
 
 // server
-
-import { getEmailTemplateById$, sendMail$ } from "~/server/services/tools/mail";
-
-// decorator
-import { checkLogin } from "../../decorators/check-auth.decorator";
+import * as toolsMailServices from "~/server/services/tools/mail";
 
 // rxjs
-import { from, lastValueFrom, map, of, switchMap } from "rxjs";
-import { respFailJson, respSuccessJson } from "../../utils/response.json";
+import { from, map, of, switchMap } from "rxjs";
+
+// utils
+import * as utils from "~/server/utils";
 
 export class AdminToolsMailsController {
-  @checkLogin()
-  static async loader({ params }: LoaderFunctionArgs) {
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+
+  @ds.checkLogin()
+  static async get({ params }: rrn.LoaderFunctionArgs) {
     if (!params || !params.id) {
       return null;
     }
     const result$ = of(params.id).pipe(
-      switchMap((id) => getEmailTemplateById$(Number(id))),
+      switchMap((id) => toolsMailServices.getEmailTemplateById$(Number(id))),
     );
 
-    const result = await lastValueFrom(result$);
-
-    return result ? respSuccessJson(result) : respFailJson({});
+    return utils.resp$(result$);
   }
 
-  @checkLogin()
-  static async action({ request, params }: ActionFunctionArgs) {
+  @ds.checkLogin()
+  static async post({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       map(
         (data: any) =>
@@ -47,10 +52,9 @@ export class AdminToolsMailsController {
           }) as any,
       ),
       switchMap((data: any) => {
-        return sendMail$(data);
+        return toolsMailServices.sendMail$(data);
       }),
     );
-    const info = await lastValueFrom(result$);
-    return info ? respSuccessJson(info) : respFailJson({});
+    return utils.resp$(result$);
   }
 }

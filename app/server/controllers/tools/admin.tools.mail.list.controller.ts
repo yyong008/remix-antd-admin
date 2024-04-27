@@ -1,31 +1,30 @@
 // types
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type * as rrn from "@remix-run/node";
+
+// decorators
+import * as ds from "~/server/decorators";
 
 // server
-import {
-  count$,
-  createEmailTemplate$,
-  getEmailTemplatePage$,
-  // sendMail,
-  updateEmailTemplate$,
-} from "~/server/services/tools/mail";
-
-// decorator
-import { checkLogin } from "../../decorators/check-auth.decorator";
+import * as toolsMailServices from "~/server/services/tools/mail";
 
 // rxjs
-import { forkJoin, from, lastValueFrom, map, switchMap } from "rxjs";
-import { respFailJson, respSuccessJson } from "../../utils/response.json";
-// import { validate } from "../decorators/validate-schema";
-import { deleteBlogCategoryById$ } from "../../services/blog/blog-category";
-import { getSearchParams$ } from "../../utils/utils";
+import { forkJoin, from, map, switchMap } from "rxjs";
+
+// utils
+import * as utils from "~/server/utils";
 
 export class AdminToolsMailTemplateListController {
-  @checkLogin()
-  static async loader({ request }: LoaderFunctionArgs) {
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+
+  @ds.checkLogin()
+  static async get({ request }: rrn.LoaderFunctionArgs) {
     const result$ = forkJoin({
-      page: getSearchParams$(request, "page"),
-      pageSize: getSearchParams$(request, "pageSize"),
+      page: utils.getSearchParams$(request, "page"),
+      pageSize: utils.getSearchParams$(request, "pageSize"),
     }).pipe(
       map((data) => ({
         page: Number(data.page ?? 1),
@@ -33,66 +32,40 @@ export class AdminToolsMailTemplateListController {
       })),
       switchMap((data) =>
         forkJoin({
-          total: count$(),
-          list: getEmailTemplatePage$(data),
+          total: toolsMailServices.count$(),
+          list: toolsMailServices.getEmailTemplatePage$(data),
         }),
       ),
     );
-    const { total, list } = await lastValueFrom(result$);
-    return respSuccessJson({ total, list });
+    return utils.resp$(result$);
   }
 
-  @checkLogin()
-  static async action({ request }: ActionFunctionArgs) {
-    switch (request.method) {
-      case "POST":
-        return AdminToolsMailTemplateListController.createMailTemplate({
-          request,
-        } as ActionFunctionArgs);
-      case "PUT":
-        return AdminToolsMailTemplateListController.updateEmailTemplate({
-          request,
-        } as ActionFunctionArgs);
-      case "DELETE":
-        return AdminToolsMailTemplateListController.deleteEmailTemplate({
-          request,
-        } as ActionFunctionArgs);
-      default:
-        break;
-    }
-  }
-
-  // @validate()
-  // TODO
-  static async createMailTemplate({ request }: ActionFunctionArgs) {
+  @ds.checkLogin()
+  static async post({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
-      switchMap((data) => createEmailTemplate$(data)),
+      switchMap((data) => toolsMailServices.createEmailTemplate$(data)),
     );
 
-    const res = await lastValueFrom(result$);
-
-    return res ? respSuccessJson(res) : respFailJson({});
+    return utils.resp$(result$);
   }
-  // @validate()
-  // TODO
-  static async updateEmailTemplate({ request }: ActionFunctionArgs) {
+
+  @ds.checkLogin()
+  static async put({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
-      switchMap((data) => updateEmailTemplate$(data)),
+      switchMap((data) => toolsMailServices.updateEmailTemplate$(data)),
     );
 
-    const res = await lastValueFrom(result$);
-
-    return res ? respSuccessJson(res) : respFailJson({});
+    return utils.resp$(result$);
   }
-  // @validate()
-  // TODO
-  static async deleteEmailTemplate({ request }: ActionFunctionArgs) {
+
+  @ds.checkLogin()
+  static async delete({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
-      switchMap((data) => deleteBlogCategoryById$(data)),
+      switchMap((ids: number[]) =>
+        toolsMailServices.deleteEmailTemplateByIds$(ids),
+      ),
     );
 
-    const res = await lastValueFrom(result$);
-
-    return res ? respSuccessJson(res) : respFailJson({});
+    return utils.resp$(result$);
   }
 }

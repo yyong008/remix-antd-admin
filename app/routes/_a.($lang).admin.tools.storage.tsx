@@ -18,7 +18,7 @@ import { FormatTime } from "~/components/common";
 import { usePagination, useStorageNav } from "~/hooks";
 
 // controller
-import { AdminToolsStorageController } from "~/server/controllers/tools/admin.tools.storage.controller";
+import { AdminToolsStorageController } from "~/server/controllers/tools";
 
 // remix:meta
 export const meta: MetaFunction = () => {
@@ -29,7 +29,7 @@ export const loader: LoaderFunction = AdminToolsStorageController.loader;
 export const action: ActionFunction = AdminToolsStorageController.action;
 
 export default function SystemStorageRoute() {
-  const { dataSource, total } = useLoaderData<typeof loader>();
+  const { data } = useLoaderData<typeof loader>();
   const { pageSize, current } = usePagination();
   const [navStorage] = useStorageNav();
 
@@ -41,7 +41,7 @@ export default function SystemStorageRoute() {
         headerTitle="文件上传"
         rowKey="id"
         showSorterTooltip
-        dataSource={dataSource as any[]}
+        dataSource={data.dataSource as any[]}
         toolBarRender={() => [<StorageModal key="storage" />]}
         columns={[
           {
@@ -94,7 +94,7 @@ export default function SystemStorageRoute() {
           },
         ]}
         pagination={{
-          total,
+          total: data.total,
           pageSize,
           current,
           onChange(page, pageSize) {

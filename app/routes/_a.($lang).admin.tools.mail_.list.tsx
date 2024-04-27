@@ -10,7 +10,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { ButtonLink, DeleteIt } from "~/components/common";
 
 // controller
-import { AdminToolsMailTemplateListController } from "~/server/controllers/tools/admin.tools.mail.list.controller";
+import { AdminToolsMailTemplateListController } from "~/server/controllers/tools";
 
 // hooks
 import { useMailNav, useFetcherChange } from "~/hooks";

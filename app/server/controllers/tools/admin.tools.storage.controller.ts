@@ -1,41 +1,52 @@
 // types
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import type * as rrn from "@remix-run/node";
 
-// remix
-import { json } from "@remix-run/node";
+// decorators
+import * as ds from "~/server/decorators";
 
-// services
-import { auth$ } from "~/server/services/common/session";
-import { getStorageList, storageCount$ } from "~/server/services/tools/storage";
+import * as toolsStorageServices from "~/server/services/tools/storage";
 
 // utils
 import * as clientUtils from "~/utils";
 
-// decorator
-import { checkLogin } from "../../decorators/check-auth.decorator";
-
 // rxjs
-import { lastValueFrom } from "rxjs";
+import { forkJoin, from, switchMap } from "rxjs";
+
+// utils
+import * as utils from "~/server/utils";
 
 export class AdminToolsStorageController {
-  @checkLogin()
-  static async loader({ params, request }: LoaderFunctionArgs) {
-    const [userId, redirectToLogin] = await lastValueFrom(
-      auth$({
-        request,
-        params,
-      } as LoaderFunctionArgs),
-    );
+  @ds.Loader
+  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
 
-    if (!userId) {
-      return redirectToLogin();
-    }
+  @ds.Action
+  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+
+  @ds.checkLogin()
+  static async get({ params, request }: rrn.LoaderFunctionArgs) {
     const { page, pageSize, name } =
       clientUtils.getPaginationByRequest(request);
 
-    return json({
-      total: await lastValueFrom(storageCount$()),
-      dataSource: await getStorageList({ page, pageSize, name }),
+    const result$ = forkJoin({
+      total: toolsStorageServices.storageCount$(),
+      dataSource: toolsStorageServices.getStorageList$({
+        page,
+        pageSize,
+        name,
+      }),
     });
+
+    return utils.resp$(result$);
+  }
+
+  @ds.checkLogin()
+  static async delete({ params, request }: rrn.LoaderFunctionArgs) {
+    const result$ = from(request.json()).pipe(
+      switchMap((ids: number[]) =>
+        toolsStorageServices.deleteStorageByIds$(ids),
+      ),
+    );
+
+    return utils.resp$(result$);
   }
 }

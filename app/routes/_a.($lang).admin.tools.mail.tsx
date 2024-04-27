@@ -21,10 +21,12 @@ import {
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components";
+import { Button, Form } from "antd";
 
 import { useFetcherChange } from "~/hooks";
-import { AdminToolsMailsController } from "~/server/controllers/tools/admin.tools.mail.controller";
-import { Button, Form } from "antd";
+
+// controllers
+import { AdminToolsMailsController } from "~/server/controllers/tools";
 
 // remix:meta
 export const meta: MetaFunction = () => {

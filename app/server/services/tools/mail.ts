@@ -1,12 +1,18 @@
-import { from, type Observable } from "rxjs";
-
-import prisma from "../common/prisma";
-
 // types
+import type { Observable } from "rxjs";
 import type SMTPConnection from "nodemailer/lib/smtp-connection";
 
-import nodemailer from "nodemailer";
+// enums
 import { SortOrder } from "~/types";
+
+// rxjs
+import { from } from "rxjs";
+
+// prisma
+import prisma from "../common/prisma";
+
+// nodemail
+import nodemailer from "nodemailer";
 
 type EmailTemplateOptions = {
   page: number;
@@ -17,11 +23,23 @@ type EmailTemplateOptions = {
 export interface ToolsMail {
   sendMail(options: SendMailOptions): Promise<any>;
   count(): Observable<any>;
+}
+
+export interface ToolsMail {
+  // sendMail
+  sendMail$(options: SendMailOptions): Observable<any>;
+  // get
   getEmailTemplateById$(id: number): Observable<any>;
   getEmailTemplatePage$(options: EmailTemplateOptions): Observable<any[]>;
+  // create
   createEmailTemplate$(data: any): Observable<any[]>;
+  // update
   updateEmailTemplate$(data: any): Observable<any[]>;
+  // delete
   deleteEmailTemplateById$(id: number): Observable<any[]>;
+  deleteEmailTemplateByIds$(ids: number[]): Observable<any>;
+  // count
+  count$(): Observable<any>;
 }
 
 type SendMailOptions = {
@@ -181,6 +199,23 @@ export function deleteEmailTemplateById$(id: number) {
     prisma.mail.delete({
       where: {
         id,
+      },
+    }),
+  );
+}
+
+/**
+ * 根据 id 删除邮件模板
+ * @param id
+ * @returns
+ */
+export function deleteEmailTemplateByIds$(ids: number[]) {
+  return from(
+    prisma.mail.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
       },
     }),
   );
