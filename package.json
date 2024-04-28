@@ -5,22 +5,12 @@
   "type": "module",
   "keywords": [
     "remix",
-    "admin",
-    "echarts",
-    "i18n",
-    "css-in-js",
-    "remix-utils",
-    "react-mind",
-    "react-mindmap",
-    "react-wordcloud",
-    "reactflow",
-    "echarts-liquidfill-ssr",
-    "ssr",
-    "copper",
-    "prettier",
     "antd",
-    "pro-components",
-    "antd pro"
+    "tailwindcss",
+    "express",
+    "admin",
+    "prisma",
+    "sqlite"
   ],
   "repository": {
     "type": "git",
