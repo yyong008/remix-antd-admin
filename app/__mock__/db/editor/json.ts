@@ -57,11 +57,8 @@ export const packageJson = {
     "react-dom": "^18.2.0",
     "react-i18next": "^12.2.2",
     "react-json-view": "^1.21.3",
-    "react-mindmap": "^2.1.6",
     "react-wordcloud": "^1.2.7",
     reactflow: "^11.7.0",
-    "remix-auth": "^3.4.0",
-    "remix-auth-form": "^1.3.0",
     "remix-i18next": "^5.1.1",
   },
   devDependencies: {
