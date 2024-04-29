@@ -286,3 +286,24 @@ model Mail {
 
   @@map("mail")
 }
+
+model UserSignLog {
+  id        Int       @id @default(autoincrement())
+  userId    Int // 签到用户 id
+  signType  Int       @map("sign_type") // 签到类型：1: 签到 2: 补签
+  signTime  DateTime  @map("sign_time") // 签到时间
+  createdAt DateTime  @default(now()) // 数据创建时间
+  updatedAt DateTime? // 数据更新时间
+
+  @@map("user_sign_log")
+}
+
+model UserSign {
+  id                   Int @id @default(autoincrement())
+  userId               Int // 签到用户 id
+  resignNums           Int @map("resign_nums") // 剩余补签数量
+  signedNums           Int @map("signed_nums") // 已签到数量
+  continuitySignedNums Int @map("continuity_signed_nums") // 已连续签到数据量
+
+  @@map("user_sign")
+}
