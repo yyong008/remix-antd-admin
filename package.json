@@ -37,7 +37,6 @@
     "changeset": "changeset",
     "version": "changeset version",
     "prepare": "husky install",
-    "seed": "esno ./seed.ts",
     "docker:build": "docker build -t remix-antd-admin ."
   },
   "dependencies": {
