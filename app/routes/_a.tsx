@@ -41,6 +41,7 @@ export const loader: LoaderFunction = LayoutAController.loader;
 const resetStyles = {
   padding: "0px",
   margin: "0px",
+  height: "100vh",
 };
 
 function AdminLayout() {
