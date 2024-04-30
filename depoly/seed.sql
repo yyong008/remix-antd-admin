@@ -1,5 +1,5 @@
 --
--- SQLiteStudio v3.4.4 生成的文件，周五 4月 19 23:44:35 2024
+-- SQLiteStudio v3.4.4 生成的文件，周三 5月 1 00:53:11 2024
 --
 -- 所用的文本编码：UTF-8
 --
@@ -69,6 +69,24 @@ INSERT INTO blog_tag (id, name, description, user_id) VALUES (1, 'React', '前�
 ', 1);
 INSERT INTO blog_tag (id, name, description, user_id) VALUES (2, 'Vue', '前端框架', 1);
 INSERT INTO blog_tag (id, name, description, user_id) VALUES (3, 'Express', '后端框架', 1);
+
+-- 表：mail
+DROP TABLE IF EXISTS mail;
+CREATE TABLE "mail" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT,
+    "title" TEXT,
+    "host" TEXT,
+    "port" INTEGER,
+    "user" TEXT,
+    "pass" TEXT,
+    "from" TEXT,
+    "to" TEXT,
+    "subject" TEXT,
+    "content" TEXT,
+    "html" TEXT,
+    "text" TEXT
+);
 
 -- 表：news
 DROP TABLE IF EXISTS news;
@@ -359,6 +377,21 @@ INSERT INTO sys_dictionary_entry (id, key, value, order_no, status, remark, crea
 INSERT INTO sys_dictionary_entry (id, key, value, order_no, status, remark, createdAt, updatedAt, dictionary_id) VALUES (3, '启用', '1', 1, 1, '启用状态', '2024-03-30 13:31:12', NULL, 2);
 INSERT INTO sys_dictionary_entry (id, key, value, order_no, status, remark, createdAt, updatedAt, dictionary_id) VALUES (4, '禁用', '0', 2, 1, '禁用状态', '2024-03-30 13:31:12', NULL, 2);
 
+-- 表：sys_loginlog
+DROP TABLE IF EXISTS sys_loginlog;
+CREATE TABLE "sys_loginlog" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "ip" TEXT,
+    "address" TEXT,
+    "login_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "system" TEXT,
+    "browser" TEXT,
+    "userId" INTEGER NOT NULL
+);
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser, userId) VALUES (1, 'super admin', '本机地址', '湖南省张家界市', 1714472417966, 'Windows10', 'Chrome124.0.0.0', 1);
+INSERT INTO sys_loginlog (id, name, ip, address, login_at, system, browser, userId) VALUES (2, 'super admin', '本机地址', '湖南省张家界市', 1714483049858, 'Windows10', 'Chrome124.0.0.0', 1);
+
 -- 表：sys_menu
 DROP TABLE IF EXISTS sys_menu;
 CREATE TABLE "sys_menu" (
@@ -384,8 +417,8 @@ CREATE TABLE "sys_menu" (
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (1, 'menu.dashboard.main', 1, 'dashboard', NULL, 'DashboardOutlined', '/dashboard', '', 1, 1, 0, NULL, 0, 1, '2024-03-30 13:31:12', NULL, NULL);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (2, 'menu.demo.main', 1, 'demo', NULL, 'UnorderedListOutlined', '/demo', '', 1, 1, 0, NULL, 0, 2, '2024-03-30 13:31:12', NULL, NULL);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (3, 'menu.system.main', 1, 'system', NULL, 'KeyOutlined', '/system', '', 1, 1, 0, NULL, 0, 3, '2024-03-30 13:31:12', NULL, NULL);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (4, 'menu.news.main', 1, 'news', NULL, 'FieldTimeOutlined', '/news', '', 1, 1, 0, 'news:list', 0, 4, '2024-03-30 13:31:12', NULL, NULL);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (5, 'menu.blog.main', 1, 'system', NULL, 'BookOutlined', '/blog', '', 1, 1, 0, 'blog:list', 0, 5, '2024-03-30 13:31:12', NULL, NULL);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (4, 'menu.news.main', 1, 'news', NULL, 'FieldTimeOutlined', '/news', '', 1, 1, 0, '', 0, 4, '2024-03-30 13:31:12', NULL, NULL);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (5, 'menu.blog.main', 1, 'system', NULL, 'BookOutlined', '/blog', '', 1, 1, 0, '', 0, 5, '2024-03-30 13:31:12', NULL, NULL);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (6, 'menu.about.main', 2, 'about', NULL, 'ExclamationCircleOutlined', '/about', '', 1, 1, 0, NULL, 0, 6, '2024-03-30 13:31:12', NULL, NULL);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (7, 'menu.dashboard.workplace', 2, 'dashboard', NULL, '', '/dashboard', '', 1, 1, 0, NULL, 0, 1, '2024-03-30 13:31:12', NULL, 1);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (8, 'menu.demo.dashboard.main', 1, 'dashboard', NULL, '', '/demo/dashboard', '', 1, 1, 0, NULL, 0, 1, '2024-03-30 13:31:12', NULL, 2);
@@ -402,12 +435,12 @@ INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (19, 'menu.demo.stack.main', 1, 'stack', NULL, '', '/demo/stack', '', 1, 1, 0, NULL, 0, 12, '2024-03-30 13:31:12', NULL, 2);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (20, 'menu.demo.calendar.main', 1, 'calendar', NULL, '', '/demo/calendar', '', 1, 1, 0, NULL, 0, 13, '2024-03-30 13:31:12', NULL, 2);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (21, 'menu.demo.lib.main', 1, 'lib', NULL, '', '/demo/lib', '', 1, 1, 0, NULL, 0, 14, '2024-03-30 13:31:12', NULL, 2);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (22, 'menu.system.user.main', 2, 'menu: user', NULL, '', '/system/user', '', 1, 1, 0, 'system:user:list', 0, 1, '2024-03-30 13:31:12', NULL, 3);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (23, 'menu.system.role.main', 2, 'menu: role', NULL, '', '/system/role', '', 1, 1, 0, 'system:role:list', 0, 2, '2024-03-30 13:31:12', NULL, 3);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (24, 'menu.system.menu.main', 2, 'menu: menu', NULL, '', '/system/menu', '', 1, 1, 0, 'system:menu:list', 0, 3, '2024-03-30 13:31:12', NULL, 3);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (25, 'menu.system.dept.main', 2, 'menu: dept', NULL, '', '/system/dept', '', 1, 1, 0, 'system:dept:list', 0, 4, '2024-03-30 13:31:12', NULL, 3);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (26, 'menu.system.dict', 2, 'menu: dict', NULL, '', '/system/dict', '', 1, 1, 0, 'system:dict:list', 0, 6, '2024-03-30 13:31:12', NULL, 3);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (27, 'menu.system.config', 2, 'menu: config', NULL, '', '/system/config', '', 1, 1, 0, 'system:config:list', 0, 7, '2024-03-30 13:31:12', NULL, 3);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (22, 'menu.system.user.main', 2, 'menu: user', NULL, '', '/system/user', '', 1, 1, 0, NULL, 0, 1, '2024-03-30 13:31:12', NULL, 3);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (23, 'menu.system.role.main', 2, 'menu: role', NULL, '', '/system/role', '', 1, 1, 0, '', 0, 2, '2024-03-30 13:31:12', NULL, 3);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (24, 'menu.system.menu.main', 2, 'menu: menu', NULL, '', '/system/menu', '', 1, 1, 0, '', 0, 3, '2024-03-30 13:31:12', NULL, 3);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (25, 'menu.system.dept.main', 2, 'menu: dept', NULL, '', '/system/dept', '', 1, 1, 0, '', 0, 4, '2024-03-30 13:31:12', NULL, 3);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (26, 'menu.system.dict', 2, 'menu: dict', NULL, '', '/system/dict', '', 1, 1, 0, '', 0, 6, '2024-03-30 13:31:12', NULL, 3);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (27, 'menu.system.config', 2, 'menu: config', NULL, '', '/system/config', '', 1, 1, 0, '', 0, 7, '2024-03-30 13:31:12', NULL, 3);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (28, 'menu.system.monitor.main', 1, 'menu: monitor', NULL, '', '/system/monitor', '', 1, 1, 0, NULL, 0, 11, '2024-03-30 13:31:12', NULL, 3);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (29, 'menu.demo.dashboard.analysis', 2, 'menu: analysis', NULL, '', '/demo/dashboard/analysis', '', 1, 1, 0, NULL, 0, 1, '2024-03-30 13:31:12', NULL, 8);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (30, 'menu.demo.dashboard.monitor', 2, 'menu: monitor', NULL, '', '/demo/dashboard/monitor', '', 1, 1, 0, NULL, 0, 2, '2024-03-30 13:31:12', NULL, 8);
@@ -467,20 +500,20 @@ INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (84, '创建', 3, '菜单权限', NULL, '', '', '', 1, 1, 0, 'system:menu:create', 1, 1, '2024-03-30 13:31:12', NULL, 24);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (85, 'menu.profile.account', 2, 'account', NULL, NULL, '/profile/account', NULL, 1, 1, 0, NULL, NULL, NULL, '2024-03-30 13:31:12', NULL, 86);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (86, 'menu.profile.main', 1, 'menu.profile', NULL, 'UserOutlined', '/profile', NULL, 1, 1, 0, NULL, 0, 5, '2024-03-30 13:31:12', NULL, NULL);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (87, 'menu.profile.link', 2, 'link', NULL, NULL, '/profile/link/category', NULL, 1, 1, 0, 'profile:link-category:list', NULL, NULL, '2024-03-30 13:31:12', NULL, 86);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (87, 'menu.profile.link', 2, 'link', NULL, NULL, '/profile/link/category', NULL, 1, 1, 0, '', NULL, NULL, '2024-03-30 13:31:12', NULL, 86);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (88, 'menu.tools.main', 1, NULL, NULL, 'ToolOutlined', '/tools', NULL, 1, 1, 0, NULL, 0, 5, '2024-03-30 13:31:12', NULL, NULL);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (89, 'menu.tools.mail', 2, NULL, NULL, NULL, '/tools/mail', NULL, 1, 1, 0, 'tools:email', 0, NULL, '2024-03-30 13:31:12', NULL, 88);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (90, 'menu.tools.storage', 2, NULL, NULL, NULL, '/tools/storage', NULL, 1, 1, 0, 'tool:storage:list', 0, NULL, '2024-03-30 13:31:12', NULL, 88);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (92, 'menu.news.edit', 2, '编辑新闻', NULL, NULL, '/news/edit', NULL, 1, 1, 0, 'news:create', 0, NULL, '2024-03-30 13:31:12', NULL, 4);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (94, 'menu.blog.edit', 2, NULL, NULL, NULL, '/blog/edit', NULL, 1, 1, NULL, 'blog:create', 0, NULL, '2024-03-30 13:31:12', NULL, 5);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (95, '更新新闻', 3, '', NULL, NULL, '', NULL, 1, 1, 0, 'news:update', 0, NULL, '2024-03-30 13:31:12', NULL, 4);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (96, 'menu.news.category', 2, '新闻分类', NULL, NULL, '/news/category', NULL, 1, 1, 0, 'news:category:list', 0, 10, '2024-03-30 13:31:12', NULL, 4);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (97, 'menu.blog.category', 2, '博客分类（列表）', NULL, NULL, '/blog/category', NULL, 1, 1, 0, 'blog:category:list', 0, 11, '2024-03-30 13:31:12', NULL, 5);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (98, 'menu.blog.tag', 2, '博客标签', NULL, NULL, '/blog/tag', NULL, 1, 1, 0, 'blog:tag:list', 0, 12, '2024-03-30 13:31:12', NULL, 5);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (89, 'menu.tools.mail', 2, NULL, NULL, NULL, '/tools/mail', NULL, 1, 1, 0, '', 0, NULL, '2024-03-30 13:31:12', NULL, 88);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (90, 'menu.tools.storage', 2, NULL, NULL, NULL, '/tools/storage', NULL, 1, 1, 0, '', 0, NULL, '2024-03-30 13:31:12', NULL, 88);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (92, 'menu.news.edit', 2, '编辑新闻', NULL, NULL, '/news/edit', NULL, 1, 1, 0, '', 0, NULL, '2024-03-30 13:31:12', NULL, 4);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (94, 'menu.blog.edit', 2, NULL, NULL, NULL, '/blog/edit', NULL, 1, 1, NULL, '', 0, NULL, '2024-03-30 13:31:12', NULL, 5);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (95, '更新新闻', 3, '', NULL, NULL, '', NULL, 1, 1, 0, 'news:update', 0, NULL, '2024-03-30 13:31:12', NULL, 92);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (96, 'menu.news.category', 2, '新闻分类', NULL, NULL, '/news/category', NULL, 1, 1, 0, '', 0, 10, '2024-03-30 13:31:12', NULL, 4);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (97, 'menu.blog.category', 2, '博客分类（列表）', NULL, NULL, '/blog/category', NULL, 1, 1, 0, '', 0, 11, '2024-03-30 13:31:12', NULL, 5);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (98, 'menu.blog.tag', 2, '博客标签', NULL, NULL, '/blog/tag', NULL, 1, 1, 0, '', 0, 12, '2024-03-30 13:31:12', NULL, 5);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (99, '更新', 3, '博客分类（更新）', NULL, NULL, '', NULL, 1, 1, 1, 'blog:category:update', 0, 0, '2024-03-30 13:31:12', NULL, 97);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (100, '更新博客', 3, 'system', NULL, NULL, '', NULL, 1, 1, 0, 'blog:update', 0, NULL, '2024-03-30 13:31:12', NULL, 5);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (101, '删除博客', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 'blog:delete', 0, NULL, '2024-03-30 13:31:12', NULL, 5);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (102, '读取博客', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 'blog:read', 0, NULL, '2024-03-30 13:31:12', NULL, 5);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (100, '更新博客', 3, 'system', NULL, NULL, '', NULL, 1, 1, 0, 'blog:update', 0, NULL, '2024-03-30 13:31:12', NULL, 94);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (101, '删除博客', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 'blog:delete', 0, NULL, '2024-03-30 13:31:12', NULL, 94);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (102, '读取博客', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 'blog:read', 0, NULL, '2024-03-30 13:31:12', NULL, 94);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (103, '创建', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 'blog:category:create', NULL, NULL, '2024-04-12 08:58:43', NULL, 97);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (104, '删除', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 'blog:category:delete', NULL, NULL, '2024-04-12 08:58:43', NULL, 97);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (105, '读取', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 'blog:category:read', NULL, NULL, '2024-03-30 13:31:12', NULL, 97);
@@ -511,8 +544,8 @@ INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (130, '删除', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'system:config:delete', 0, 2, '2024-03-30 13:31:12', NULL, 27);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (131, '更新', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'system:config:update', 0, 3, '2024-03-30 13:31:12', NULL, 27);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (132, '查找', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'system:config:read', 0, 4, '2024-03-30 13:31:12', NULL, 27);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (133, '删除博客', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'news:delete', 0, NULL, '2024-03-30 13:31:12', NULL, 4);
-INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (134, '读取博客', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'news:read', 0, NULL, '2024-03-30 13:31:12', NULL, 4);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (133, '删除新闻', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'news:delete', 0, NULL, '2024-03-30 13:31:12', NULL, 92);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (134, '读取新闻', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'news:read', 0, NULL, '2024-03-30 13:31:12', NULL, 92);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (135, '创建', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'news:category:create', 0, NULL, '2024-03-30 13:31:12', NULL, 96);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (136, '删除', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'news:category:delete', 0, NULL, '2024-03-30 13:31:12', NULL, 96);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (137, '更新', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'news:category:update', 0, NULL, '2024-03-30 13:31:12', NULL, 96);
@@ -526,6 +559,29 @@ INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (145, '删除', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'profile:link-category:delete', NULL, NULL, '2024-03-30 13:31:12', NULL, 87);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (146, '更新', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'profile:link-category:update', NULL, NULL, '2024-03-30 13:31:12', NULL, 87);
 INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (147, '查找', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'profile:link-category:read', NULL, NULL, '2024-03-30 13:31:12', NULL, 87);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (148, '列表', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'system:user:list', 0, NULL, '2024-04-12 09:12:22', NULL, 22);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (149, '列表', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'system:role:list', 0, NULL, '2024-03-30 13:31:12', NULL, 23);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (150, '列表', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'system:menu:list', NULL, NULL, '2024-03-30 13:31:12', NULL, 24);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (151, '列表', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'system:dept:list', 0, NULL, '2024-04-30 14:45:15', NULL, 25);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (152, '列表', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'system:dict:list', 0, NULL, '2024-03-30 13:31:12', NULL, 26);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (153, '列表', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'system:config:list', 0, NULL, '2024-03-30 13:31:12', NULL, 27);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (154, '列表', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'news:list', 0, NULL, '2024-03-30 13:31:12', NULL, 92);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (155, '列表', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'news:category:list', NULL, NULL, '2024-03-30 13:31:12', NULL, 96);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (156, '创建新闻', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'news:create', NULL, NULL, '2024-03-30 13:31:12', NULL, 92);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (157, '列表', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'blog:list', 0, NULL, '2024-03-30 13:31:12', NULL, 94);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (158, '创建', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'blog:create', NULL, NULL, '2024-03-30 13:31:12', NULL, 94);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (159, '列表', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'blog:category:list', NULL, NULL, '2024-03-30 13:31:12', NULL, 97);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (160, '列表', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'blog:tag:list', 0, NULL, '2024-03-30 13:31:12', NULL, 98);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (161, '列表', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'profile:link-category:list', NULL, NULL, '2024-03-30 13:31:12', NULL, 87);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (162, '列表', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'tool:storage:list', NULL, NULL, '2024-03-30 13:31:12', NULL, 90);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (163, '模板列表', 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 0, 'tools:email', 0, NULL, '2024-03-30 13:31:12', NULL, 89);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (164, '文档中心', 1, '文档中心', NULL, 'FileSearchOutlined', '/docs', NULL, 1, 1, 0, NULL, 0, 5, '2024-03-30 13:31:12', NULL, NULL);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (165, '项目反馈', 2, '项目反馈', NULL, NULL, NULL, NULL, 1, 1, 0, NULL, 0, NULL, '2024-03-30 13:31:12', NULL, 164);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (166, '项目反馈', 2, '项目反馈', NULL, NULL, '/docs/feedback', NULL, 1, 1, 0, NULL, 0, NULL, '2024-03-30 13:31:12', NULL, 164);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (167, '更新日志', 2, NULL, '更新日志', NULL, '/docs/change-log', NULL, 1, 1, 0, NULL, 0, NULL, '2024-03-30 13:31:12', NULL, 164);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (168, '开发文档(外链)', 2, '开发文档', NULL, NULL, 'https://remix-antd-admin-docs.vercel.app/', NULL, 1, 1, 0, NULL, 1, NULL, '2024-03-30 13:31:12', NULL, 164);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (170, 'github(外链)', 2, NULL, NULL, NULL, 'https://github.com/yyong008/remix-antd-admin', NULL, 1, 1, 0, NULL, 1, NULL, '2024-03-30 13:31:12', NULL, 164);
+INSERT INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, isShow, isCache, permission, isLink, order_no, createdAt, updatedAt, parent_menu_id) VALUES (171, 'githee(外链)', 2, NULL, NULL, NULL, 'https://gitee.com/yyong008/remix-antd-admin', NULL, 1, 1, 0, NULL, 1, NULL, '2024-03-30 13:31:12', NULL, 164);
 
 -- 表：sys_menu_role
 DROP TABLE IF EXISTS sys_menu_role;
@@ -715,6 +771,19 @@ INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (3
 INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (391, 3, 136, 1713539889570, NULL);
 INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (392, 3, 137, 1713539889570, NULL);
 INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (393, 3, 138, 1713539889570, NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (394, 1, 148, 1713539889570, NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (395, 3, 149, 1713539889570, NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (396, 1, 150, 1713539889570, NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (397, 1, 151, 1713539889570, NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (398, 1, 152, 1713539889570, NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (399, 1, 155, 1713539889570, NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (400, 1, 156, 1713539889570, NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (401, 1, 164, 1713539889570, NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (402, 1, 166, 1713539889570, NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (403, 1, 167, 1713539889570, NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (404, 1, 170, 1713539889570, NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (405, 1, 168, 1713539889570, NULL);
+INSERT INTO sys_menu_role (id, role_id, menu_id, createdAt, updatedAt) VALUES (406, 1, 171, 1713539889570, NULL);
 
 -- 表：sys_role
 DROP TABLE IF EXISTS sys_role;
@@ -825,6 +894,28 @@ INSERT INTO tools_storage (id, createdAt, updatedAt, user_id, name, file_name, e
 INSERT INTO tools_storage (id, createdAt, updatedAt, user_id, name, file_name, ext_name, path, size, type) VALUES (26, 1711886444091, NULL, 1, 'ollama api 访问的方式-1711886444064.png', 'ollama api 访问的方式-1711886444064.png', '.png', '/uploads/ollama api 访问的方式-1711886444064.png', '136136', 'image/png');
 INSERT INTO tools_storage (id, createdAt, updatedAt, user_id, name, file_name, ext_name, path, size, type) VALUES (27, 1711886444092, NULL, 1, 'open-webui 聊天界面-1711886444064.png', 'open-webui 聊天界面-1711886444064.png', '.png', '/uploads/open-webui 聊天界面-1711886444064.png', '90170', 'image/png');
 INSERT INTO tools_storage (id, createdAt, updatedAt, user_id, name, file_name, ext_name, path, size, type) VALUES (28, 1711886444093, NULL, 1, 'ollama 适用写一个组件-1711886444064.png', 'ollama 适用写一个组件-1711886444064.png', '.png', '/uploads/ollama 适用写一个组件-1711886444064.png', '113208', 'image/png');
+
+-- 表：user_sign
+DROP TABLE IF EXISTS user_sign;
+CREATE TABLE "user_sign" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "userId" INTEGER NOT NULL,
+    "resign_nums" INTEGER NOT NULL,
+    "signed_nums" INTEGER NOT NULL,
+    "continuity_signed_nums" INTEGER NOT NULL
+);
+
+-- 表：user_sign_log
+DROP TABLE IF EXISTS user_sign_log;
+CREATE TABLE "user_sign_log" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "userId" INTEGER NOT NULL,
+    "sign_type" INTEGER NOT NULL,
+    "sign_time" DATETIME NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME
+);
+INSERT INTO user_sign_log (id, userId, sign_type, sign_time, createdAt, updatedAt) VALUES (4, 1, 1, 1714493781211, 1714493781213, NULL);
 
 -- 索引：blog_category_name_key
 DROP INDEX IF EXISTS blog_category_name_key;
