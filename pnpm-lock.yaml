@@ -161,6 +161,9 @@ importers:
       react-i18next:
         specifier: ^13.2.2
         version: 13.5.0(i18next@23.10.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      react-icons:
+        specifier: ^5.1.0
+        version: 5.1.0(react@18.2.0)
       react-json-view-lite:
         specifier: ^1.0.0
         version: 1.2.1(react@18.2.0)
@@ -6121,6 +6124,11 @@ packages:
         optional: true
       react-native:
         optional: true
+
+  react-icons@5.1.0:
+    resolution: {integrity: sha512-D3zug1270S4hbSlIRJ0CUS97QE1yNNKDjzQe3HqY0aefp2CBn9VgzgES27sRR2gOvFK+0CNx/BW0ggOESp6fqQ==}
+    peerDependencies:
+      react: '*'
 
   react-immutable-proptypes@2.2.0:
     resolution: {integrity: sha512-Vf4gBsePlwdGvSZoLSBfd4HAP93HDauMY4fDjXhreg/vg6F3Fj/MXDNyTbltPC/xZKmZc+cjLu3598DdYK6sgQ==}
@@ -14992,6 +15000,10 @@ snapshots:
       react: 18.2.0
     optionalDependencies:
       react-dom: 18.2.0(react@18.2.0)
+
+  react-icons@5.1.0(react@18.2.0):
+    dependencies:
+      react: 18.2.0
 
   react-immutable-proptypes@2.2.0(immutable@3.8.2):
     dependencies:

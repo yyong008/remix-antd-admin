@@ -5,7 +5,7 @@ import { Dropdown, Form } from "antd";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-const { LogoutOutlined, SettingOutlined, UserOutlined } = _icons;
+const { LogoutOutlined, UserOutlined } = _icons;
 
 type AvatarDropDownProps = {
   dom: any;
@@ -26,15 +26,7 @@ export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
             icon: <UserOutlined />,
             label: t("personal-center"),
             onClick: () => {
-              navigate("/");
-            },
-          },
-          {
-            key: "profile-settings",
-            icon: <SettingOutlined />,
-            label: t("personal-settings"),
-            onClick: () => {
-              navigate("/");
+              navigate(`/${lang}/admin/profile/account`);
             },
           },
           {
