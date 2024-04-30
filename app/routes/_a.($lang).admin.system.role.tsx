@@ -8,15 +8,10 @@ import type {
 import { useRef } from "react";
 
 // remix
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData, useParams } from "@remix-run/react";
 
 // components
-import {
-  DeleteIt,
-  StatusType,
-  FormatTime,
-  AntdIcon,
-} from "~/components/common";
+import { DeleteIt, StatusType, AntdIcon } from "~/components/common";
 import { Space } from "antd";
 import CreateRoleModal from "~/components/roles/CreateRoleModel";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
@@ -40,6 +35,7 @@ export default function AdminSystemRole() {
   const {
     data: { dataSource, menuRoles, flatMenu },
   } = useLoaderData<typeof loader>();
+  const { lang } = useParams();
 
   const actionRef = useRef();
   const { t } = useTranslation();
@@ -47,10 +43,6 @@ export default function AdminSystemRole() {
   const menus = genMenuTreeForRole(flatMenu, t, null);
 
   const columns = [
-    {
-      title: "id",
-      dataIndex: "id",
-    },
     {
       title: "角色名",
       dataIndex: "name",
@@ -73,19 +65,13 @@ export default function AdminSystemRole() {
       },
     },
     {
-      dataIndex: "createdAt",
-      title: "创建时间",
+      title: "查看该权限用户",
+      width: 200,
       ellipsis: true,
       render(_: any, record: any) {
-        return <FormatTime timeStr={record.createdAt} />;
-      },
-    },
-    {
-      dataIndex: "updatedAt",
-      title: "更新时间",
-      ellipsis: true,
-      render(_: any, record: any) {
-        return <FormatTime timeStr={record.updatedAt} />;
+        return (
+          <Link to={`/${lang}/admin/system/user?role=${record.id}`}>查看</Link>
+        );
       },
     },
     {

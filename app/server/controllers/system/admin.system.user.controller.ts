@@ -28,13 +28,15 @@ export default class AdminSystemUserController {
 
   @ds.checkLogin()
   static async get({ request, params }: rrn.LoaderFunctionArgs) {
-    const { page, pageSize, name } =
+    const { page, pageSize, name, role } =
       await clientUtils.getPaginationByRequest(request);
 
     const result$ = forkJoin({
-      total: from(systemUserServices.getUserCount()),
+      total: from(
+        systemUserServices.getUserCount({ page, pageSize, name, role }),
+      ),
       dataSource: from(
-        systemUserServices.getUserList({ page, pageSize, name }),
+        systemUserServices.getUserList({ page, pageSize, name, role }),
       ),
       roles: from(systemRoleServices.getRoleList()),
       depts: from(systemDeptServices.getDeptListTree()),

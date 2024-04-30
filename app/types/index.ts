@@ -2,6 +2,7 @@ export type TPage = {
   page?: number;
   pageSize?: number;
   name?: string;
+  role?: string;
 };
 
 export enum SortOrder {

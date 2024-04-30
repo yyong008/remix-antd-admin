@@ -4,6 +4,7 @@ type IPagination = {
   page: number;
   pageSize: number;
   name: string;
+  role: string;
 };
 
 /**
@@ -16,8 +17,9 @@ export function getPaginationByRequest(request: Request): IPagination {
   let page = Number(searchParams.get("page") ?? 1);
   let pageSize = Number(searchParams.get("pageSize") ?? 10);
   let name = searchParams.get("name") ?? "";
+  let role = searchParams.get("role") ?? "";
 
-  return { page, pageSize, name };
+  return { page, pageSize, name, role };
 }
 
 /**

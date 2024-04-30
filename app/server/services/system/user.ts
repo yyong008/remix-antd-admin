@@ -96,9 +96,27 @@ export const getUserInfoById$ = (id: number) => {
  * 获取 user 数据
  * @returns user count
  */
-export const getUserCount = async () => {
+export const getUserCount = async ({
+  page = 1,
+  pageSize = 10,
+  name = "",
+  role,
+}: TPage) => {
   try {
-    return await prisma.user.count();
+    return await prisma.user.count({
+      where: {
+        name: {
+          contains: name,
+        },
+        UserRole: {
+          some: {
+            roleId: {
+              equals: Number(role),
+            },
+          },
+        },
+      },
+    });
   } catch (error) {
     console.log(error);
     return null;
@@ -109,12 +127,20 @@ export const getUserList = async ({
   page = 1,
   pageSize = 10,
   name = "",
+  role,
 }: TPage) => {
   try {
     return await prisma.user.findMany({
       where: {
         name: {
           contains: name,
+        },
+        UserRole: {
+          some: {
+            roleId: {
+              equals: Number(role),
+            },
+          },
         },
       },
       skip: (page - 1) * pageSize,
@@ -143,6 +169,7 @@ export const getUserList = async ({
           include: {
             roles: {
               select: {
+                id: true,
                 name: true,
               },
             },
