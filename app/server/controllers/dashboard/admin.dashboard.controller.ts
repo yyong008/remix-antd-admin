@@ -4,11 +4,15 @@ import type * as rrn from "@remix-run/node";
 // decorators
 import * as ds from "~/server/decorators";
 
+// services
 import * as singInLog from "~/server/services/sign-in/signInLog";
 import * as sessionServices from "~/server/services/common/session";
+import * as loginLogServices from "~/server/services/system/login-log";
 
+// rxjs
 import { forkJoin, from, switchMap } from "rxjs";
 
+// utils
 import * as utils from "~/server/utils";
 
 export class AdminDashboardController {
@@ -20,6 +24,7 @@ export class AdminDashboardController {
       switchMap((userId) =>
         forkJoin({
           isLogin: singInLog.getUserTodayIsSignInById$(userId!),
+          latestLoginLog: loginLogServices.getLoginLogLatestByUserId(userId),
         }),
       ),
     );

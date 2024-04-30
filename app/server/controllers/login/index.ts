@@ -137,6 +137,7 @@ export class LoginController {
                 LoginLogServices.createLoginLog({
                   ...loginLog,
                   name: user!.name,
+                  userId: user!.id,
                 }),
               ),
             ),

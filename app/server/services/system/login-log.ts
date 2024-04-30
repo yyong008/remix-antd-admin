@@ -68,3 +68,21 @@ export const getLoginLogList = async (data: TPage) => {
     return null;
   }
 };
+
+/**
+ * 获取分页获取登录信息的列表
+ * @param param0 TPage
+ * @returns
+ */
+export const getLoginLogLatestByUserId = async (userId: number) => {
+  try {
+    return await prisma.loginlog.findFirst({
+      where: {
+        userId,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
