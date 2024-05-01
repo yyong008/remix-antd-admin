@@ -102,20 +102,18 @@ export const getUserCount = async ({
   name = "",
   role,
 }: TPage) => {
+  const where: any = {};
+
+  if (name) {
+    where.name.contains = name;
+  }
+
+  if (role) {
+    where.UserRole.some.roleId.equals = Number(role);
+  }
   try {
     return await prisma.user.count({
-      where: {
-        name: {
-          contains: name,
-        },
-        UserRole: {
-          some: {
-            roleId: {
-              equals: Number(role),
-            },
-          },
-        },
-      },
+      where,
     });
   } catch (error) {
     console.log(error);
@@ -129,20 +127,18 @@ export const getUserList = async ({
   name = "",
   role,
 }: TPage) => {
+  const where: any = {};
+
+  if (name) {
+    where.name.contains = name;
+  }
+
+  if (role) {
+    where.UserRole.some.roleId.equals = Number(role);
+  }
   try {
     return await prisma.user.findMany({
-      where: {
-        name: {
-          contains: name,
-        },
-        UserRole: {
-          some: {
-            roleId: {
-              equals: Number(role),
-            },
-          },
-        },
-      },
+      where,
       skip: (page - 1) * pageSize,
       take: pageSize,
       select: {
