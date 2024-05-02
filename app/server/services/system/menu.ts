@@ -32,7 +32,7 @@ function buildMenuTree(
 
     if (menu.type === 3) return;
 
-    if (!menu.isLink && !menu.path.startsWith("/" + lang)) {
+    if (!menu.isLink && !menu.path?.startsWith("/" + lang)) {
       menu.path = `/${lang}/admin${menu.path}`;
     }
 
