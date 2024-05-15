@@ -1,5 +1,11 @@
 # remix-antd-admin
 
+## 0.1.5
+
+### Patch Changes
+
+- ✨ features impls remix client layout
+
 ## 0.1.4
 
 ### Patch Changes
