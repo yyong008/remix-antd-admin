@@ -1,45 +1,7 @@
-// types
-import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { Component } from "~/features/admin/demo/editor/json-viewer/Component";
+export { meta } from "~/features/admin/demo/editor/json-viewer/meta";
+export { loader } from "~/features/admin/demo/editor/json-viewer/loader";
 
-// remix
-import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-
-// components
-import { JsonView } from "react-json-view-lite";
-import { PageContainer, ProCard } from "@ant-design/pro-components";
-
-// styles
-import "react-json-view-lite/dist/index.css";
-import { lastValueFrom } from "rxjs";
-
-// services
-import { getPackageJsonData$ } from "~/__mock__/editor/json.service";
-
-// remix:meta
-export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "editor-json-viewer",
-    },
-  ];
-};
-
-// remix:loader
-export const loader: LoaderFunction = async () => {
-  const { packageJson } = await lastValueFrom(getPackageJsonData$());
-  return json({
-    packageJson,
-  });
-};
-
-export default function EditorJsonViewer() {
-  const { packageJson } = useLoaderData<typeof loader>();
-  return (
-    <PageContainer>
-      <ProCard>
-        <JsonView data={packageJson} />
-      </ProCard>
-    </PageContainer>
-  );
+export default function Route() {
+  return <Component />;
 }
