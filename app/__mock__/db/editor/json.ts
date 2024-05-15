@@ -43,7 +43,6 @@ export const packageJson = {
     antd: "^5.4.7",
     bcryptjs: "^2.4.3",
     bytemd: "^1.21.0",
-    "china-division": "^2.6.1",
     echarts: "^5.4.2",
     "echarts-for-react": "^3.0.2",
     "echarts-liquidfill-ssr": "^3.1.0",

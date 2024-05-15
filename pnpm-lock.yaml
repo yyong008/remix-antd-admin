@@ -71,9 +71,6 @@ importers:
       canvas-confetti:
         specifier: ^1.6.1
         version: 1.9.2
-      china-division:
-        specifier: ^2.7.0
-        version: 2.7.0
       classnames:
         specifier: ^2.3.2
         version: 2.5.1
@@ -2783,9 +2780,6 @@ packages:
   check-more-types@2.24.0:
     resolution: {integrity: sha512-Pj779qHxV2tuapviy1bSZNEL1maXr13bPYpsvSDB68HlYcYuhlDrmGd63i0JHMCLKzc7rUSNIrpdJlhVlNwrxA==}
     engines: {node: '>= 0.8.0'}
-
-  china-division@2.7.0:
-    resolution: {integrity: sha512-4uUPAT+1WfqDh5jytq7omdCmHNk3j+k76zEG/2IqaGcYB90c2SwcixttcypdsZ3T/9tN1TTpBDoeZn+Yw/qBEA==}
 
   chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
@@ -10999,8 +10993,6 @@ snapshots:
       get-func-name: 2.0.2
 
   check-more-types@2.24.0: {}
-
-  china-division@2.7.0: {}
 
   chokidar@3.6.0:
     dependencies:

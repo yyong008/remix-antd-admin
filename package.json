@@ -1,6 +1,6 @@
 {
   "name": "remix-antd-admin",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A Remix Antd Admin",
   "type": "module",
   "keywords": [
@@ -61,7 +61,6 @@
     "bcryptjs": "^2.4.3",
     "bytemd": "^1.21.0",
     "canvas-confetti": "^1.6.1",
-    "china-division": "^2.7.0",
     "classnames": "^2.3.2",
     "crypto-js": "^4.2.0",
     "daisyui": "^4.9.0",
