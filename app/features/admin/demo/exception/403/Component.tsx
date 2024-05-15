@@ -3,7 +3,7 @@ import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 import { useTranslation } from "react-i18next";
 
-export default function Exception403Route() {
+export function Component() {
   const { t } = useTranslation();
 
   return (

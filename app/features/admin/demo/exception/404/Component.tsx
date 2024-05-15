@@ -3,7 +3,7 @@ import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 import { useTranslation } from "react-i18next";
 
-export default function Expection404() {
+export function Component() {
   const { t } = useTranslation();
 
   return (

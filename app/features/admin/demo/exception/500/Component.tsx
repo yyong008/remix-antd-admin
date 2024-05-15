@@ -4,7 +4,7 @@ import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 import { useTranslation } from "react-i18next";
 
-export default function Expection500Route() {
+export function Component() {
   const { t } = useTranslation();
 
   return (
