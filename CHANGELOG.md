@@ -1,5 +1,11 @@
 # remix-antd-admin
 
+## 0.1.2
+
+### Patch Changes
+
+- features impls remix route, impl demo/account/center
+
 ## 0.1.1
 
 ### Patch Changes

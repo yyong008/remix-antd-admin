@@ -1,25 +1,25 @@
-// type
-import type { CropperRef } from "react-advanced-cropper";
-// core
-import { useRef, useState } from "react";
-
-// components:vendor
-import {
-  ProForm,
-  ProFormText,
-  ProFormTextArea,
-  ProFormSelect,
-  ProFormDependency,
-  ProFormGroup,
-  ProCard,
-} from "@ant-design/pro-components";
-import { Avatar, Button, Modal, message } from "antd";
-import { Cropper } from "react-advanced-cropper";
-
 // styles
 import "react-advanced-cropper/dist/style.css";
 
-const BasicSetting: React.FC = ({ provinces = [], cities = [] }: any) => {
+import { Avatar, Button, Modal, message } from "antd";
+// components:vendor
+import {
+  ProCard,
+  ProForm,
+  ProFormDependency,
+  ProFormGroup,
+  ProFormSelect,
+  ProFormText,
+  ProFormTextArea,
+} from "@ant-design/pro-components";
+// core
+import { useRef, useState } from "react";
+
+import { Cropper } from "react-advanced-cropper";
+// type
+import type { CropperRef } from "react-advanced-cropper";
+
+const BasicSetting: React.FC = ({ provinces, cities = [] }: any) => {
   const inputRef = useRef<any>();
   const [visible, setVisible] = useState(false);
   const [croppedImage, setCroppedImage] = useState<string>("");
