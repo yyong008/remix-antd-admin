@@ -1,15 +1,7 @@
-// types
-import type { MetaFunction } from "@remix-run/node";
+import { Component } from "~/features/admin/demo/chat/Component";
+export { meta } from "~/features/admin/demo/chat/meta";
+export { loader } from "~/features/admin/demo/chat/loader";
 
-// remix:meta
-export const meta: MetaFunction = () => {
-  return [
-    {
-      title: "chat",
-    },
-  ];
-};
-
-export default function ChatRoute() {
-  return <div>ChatRoute13123</div>;
+export default function Route() {
+  return <Component />;
 }
