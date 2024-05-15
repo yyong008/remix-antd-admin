@@ -1,3 +1,5 @@
+import "./index";
+
 export type TPage = {
   page?: number;
   pageSize?: number;
