@@ -1,5 +1,11 @@
 # remix-antd-admin
 
+## 0.1.11
+
+### Patch Changes
+
+- ✨ features impls remix exception
+
 ## 0.1.10
 
 ### Patch Changes
