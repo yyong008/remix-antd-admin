@@ -1,5 +1,11 @@
 # remix-antd-admin
 
+## 0.1.17
+
+### Patch Changes
+
+- ✨ features impls remix profile
+
 ## 0.1.16
 
 ### Patch Changes
