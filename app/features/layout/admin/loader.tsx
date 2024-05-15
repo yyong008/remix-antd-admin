@@ -1,34 +1,23 @@
-// import type { ActionArgs } from "@remix-run/node";
-import type * as rrn from "@remix-run/node";
-
-// decorators
 import * as ds from "~/server/decorators";
-
-// remix
-import { redirect } from "@remix-run/node";
-
-// rxjs
-import {
-  map,
-  of,
-  iif,
-  forkJoin,
-  switchMap,
-  catchError,
-  throwError,
-  lastValueFrom,
-} from "rxjs";
-
-// config
-import { langs } from "~/config/lang";
-
-// servies
-import * as userServices from "~/server/services/system/user";
+import type * as rrn from "@remix-run/node";
+import * as serverUtils from "~/server/utils";
 import * as sessionServices from "~/server/services/common/session";
 import * as userPermsServices from "~/server/services/system/user-perms.server";
+import * as userServices from "~/server/services/system/user";
 
-// utils
-import * as serverUtils from "~/server/utils";
+import {
+  catchError,
+  forkJoin,
+  iif,
+  lastValueFrom,
+  map,
+  of,
+  switchMap,
+  throwError,
+} from "rxjs";
+
+import { langs } from "~/config/lang";
+import { redirect } from "@remix-run/node";
 
 export class LayoutAController {
   @ds.Loader
@@ -69,3 +58,5 @@ export class LayoutAController {
     return resultFn();
   }
 }
+
+export const loader = LayoutAController.loader;
