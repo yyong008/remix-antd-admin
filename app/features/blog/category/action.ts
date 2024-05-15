@@ -1,51 +1,32 @@
-// types
-import type * as rrn from "@remix-run/node";
-
-// decorators
-import * as ds from "~/server/decorators";
-
-// schemas
-import * as schemas from "~/schema";
-
-// services
-import * as sessionServices from "~/server/services/common/session";
 import * as blogCategoryServices from "~/server/services/blog/blog-category";
-
-// utils
+import * as ds from "~/server/decorators";
+import type * as rrn from "@remix-run/node";
+import * as schemas from "~/schema";
 import * as serverUtils from "~/server/utils";
+import * as sessionServices from "~/server/services/common/session";
 
-// rxjs
 import { forkJoin, from, switchMap } from "rxjs";
 
-// permissions
 import { blogCategoryPermissions } from "~/server/permission";
 
-export class AdminBlogCategoryController {
-  @ds.Loader
-  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+interface BlogCategoryActionInterface {
+  action(actionArgs: rrn.ActionFunctionArgs): any;
+  POST(actionArgs: rrn.ActionFunctionArgs): any;
+  PUT(actionArgs: rrn.ActionFunctionArgs): any;
+  DELETE(actionArgs: rrn.ActionFunctionArgs): any;
+}
 
-  @ds.Action
-  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+type TM = keyof Omit<BlogCategoryActionInterface, "action">;
 
-  @ds.checkLogin()
-  @ds.permission(blogCategoryPermissions.READ_LIST)
-  // @ds.validate(schemas.GetBlogCategorySchema)
-  static async get({ request, params }: rrn.LoaderFunctionArgs) {
-    const result$ = sessionServices
-      .getUserId$(request)
-      .pipe(
-        switchMap((userId) =>
-          blogCategoryServices.getBlogCategoryByUserId$(userId!),
-        ),
-      );
-
-    return serverUtils.resp$(result$);
+export class BlogCategoryAction implements BlogCategoryActionInterface {
+  action(actionArgs: rrn.ActionFunctionArgs) {
+    return this?.[actionArgs.request.method as TM]?.(actionArgs);
   }
 
   @ds.checkLogin()
   @ds.permission(blogCategoryPermissions.CREATE)
   @ds.validate(schemas.CreateBlogCategorySchema)
-  static async post({ request }: rrn.ActionFunctionArgs) {
+  async POST({ request }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: request.json(),
       userId: sessionServices.getUserId$(request),
@@ -59,7 +40,7 @@ export class AdminBlogCategoryController {
   @ds.checkLogin()
   @ds.permission(blogCategoryPermissions.UPDATE)
   @ds.validate(schemas.UpdateBlogCategorySchema)
-  static async put({ request }: rrn.ActionFunctionArgs) {
+  async PUT({ request }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: from(request.json()),
       userId: sessionServices.getUserId$(request),
@@ -77,7 +58,7 @@ export class AdminBlogCategoryController {
   @ds.checkLogin()
   @ds.permission(blogCategoryPermissions.DELETE)
   @ds.validate(schemas.DeleteBlogCategorySchema)
-  static async delete({ request }: rrn.ActionFunctionArgs) {
+  async DELETE({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((ids: number[]) =>
         blogCategoryServices.deleteBlogCategoryByIds$(ids),
@@ -87,3 +68,5 @@ export class AdminBlogCategoryController {
     return serverUtils.resp$(result$);
   }
 }
+
+export const action = new BlogCategoryAction().action;

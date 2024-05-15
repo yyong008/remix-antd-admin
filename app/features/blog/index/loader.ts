@@ -5,19 +5,22 @@ import * as serverUtils from "~/server/utils";
 
 import { forkJoin, of, switchMap } from "rxjs";
 
-import { Loader } from "~/utils/Loader";
-import { blogPermissions } from "~/server/permission";
+// import { blogPermissions } from "~/server/permission";
 import { getBlogCategoryById$ } from "~/server/services/blog/blog-category";
 import { getBlogTagById$ } from "~/server/services/blog/blog-tags";
 import { getBlogsListByIds$ } from "~/server/services/blog/blog";
 import { getSearchParams } from "~/server/utils";
 import { getUserId$ } from "~/server/services/common/session";
 
-class BlogLoader extends Loader {
+interface BlogLoaderInterface {
+  loader(laoderArgs: rrn.ActionFunctionArgs): any;
+}
+
+class BlogLoader implements BlogLoaderInterface {
   @ds.checkLogin()
-  @ds.permission(blogPermissions.READ_LIST)
+  // @ds.permission(blogPermissions.READ_LIST)
   // @ds.validate(schemas.GetBlogSchema)
-  async GET({ request }: rrn.LoaderFunctionArgs) {
+  async loader({ request }: rrn.LoaderFunctionArgs) {
     const result$ = forkJoin({
       userId: getUserId$(request),
       category: of(Number(getSearchParams(request, "category"))),

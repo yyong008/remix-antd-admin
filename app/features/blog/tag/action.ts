@@ -1,48 +1,39 @@
+// services
+import * as blogTagServices from "~/server/services/blog/blog-tags";
+// decorators
+import * as ds from "~/server/decorators";
 // type
 import type * as rrn from "@remix-run/node";
+// schemas
+import * as schemas from "~/schema";
+// utils
+import * as serverUtils from "~/server/utils";
+import * as sessionServices from "~/server/services/common/session";
 
 // remix
 import { forkJoin, from, switchMap } from "rxjs";
 
-// decorators
-import * as ds from "~/server/decorators";
-
-// schemas
-import * as schemas from "~/schema";
-
-// services
-import * as blogTagServices from "~/server/services/blog/blog-tags";
-import * as sessionServices from "~/server/services/common/session";
-
 // permissions
 import { blogTagPermissions } from "~/server/permission";
 
-// utils
-import * as serverUtils from "~/server/utils";
+interface BlogTagActionInterface {
+  action(actionArgs: rrn.ActionFunctionArgs): any;
+  POST(actionArgs: rrn.ActionFunctionArgs): any;
+  PUT(actionArgs: rrn.ActionFunctionArgs): any;
+  DELETE(actionArgs: rrn.ActionFunctionArgs): any;
+}
 
-export class AdminBlogTagController {
-  @ds.Loader
-  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+type TM = keyof Omit<BlogTagActionInterface, "action">;
 
-  @ds.Action
-  static async action({ request, params }: rrn.ActionFunctionArgs) {}
-
-  @ds.checkLogin()
-  @ds.permission(blogTagPermissions.READ_LIST)
-  static async get({ request, params }: rrn.LoaderFunctionArgs) {
-    const result$ = sessionServices
-      .getUserId$(request)
-      .pipe(
-        switchMap((userId) => blogTagServices.getBlogTagByUserId$(userId!)),
-      );
-
-    return serverUtils.resp$(result$);
+class BlogTagAction implements BlogTagActionInterface {
+  async action(actionArgs: rrn.ActionFunctionArgs) {
+    return this?.[actionArgs.request.method as TM]?.(actionArgs);
   }
 
   @ds.checkLogin()
   @ds.permission(blogTagPermissions.CREATE)
   @ds.validate(schemas.CreateBlogTagSchema)
-  static async post({ request }: rrn.ActionFunctionArgs) {
+  async POST({ request }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: request.json(),
       userId: sessionServices.getUserId$(request),
@@ -54,7 +45,7 @@ export class AdminBlogTagController {
   @ds.checkLogin()
   @ds.permission(blogTagPermissions.UPDATE)
   @ds.validate(schemas.UpdateBlogTagSchema)
-  static async put({ request }: rrn.ActionFunctionArgs) {
+  async PUT({ request }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: from(request.json()),
       userId: sessionServices.getUserId$(request),
@@ -73,7 +64,7 @@ export class AdminBlogTagController {
   @ds.checkLogin()
   @ds.permission(blogTagPermissions.DELETE)
   @ds.validate(schemas.DeleteBlogTagSchema)
-  static async delete({ request, params }: rrn.ActionFunctionArgs) {
+  async DELETE({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap(({ ids }) => blogTagServices.deleteBlogTagByIds$(ids)),
     );
@@ -81,3 +72,5 @@ export class AdminBlogTagController {
     return serverUtils.resp$(result$);
   }
 }
+
+export const action = new BlogTagAction().action;

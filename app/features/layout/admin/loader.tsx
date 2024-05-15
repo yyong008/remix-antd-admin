@@ -19,12 +19,9 @@ import {
 import { langs } from "~/config/lang";
 import { redirect } from "@remix-run/node";
 
-export class LayoutAController {
-  @ds.Loader
-  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
-
+export class LayoutALoader {
   @ds.checkLogin()
-  static async get({ request, params }: rrn.LoaderFunctionArgs) {
+  async loader({ request, params }: rrn.LoaderFunctionArgs) {
     const higherOrderRedirect404 = () => {
       return () => redirect("/404");
     };
@@ -59,4 +56,4 @@ export class LayoutAController {
   }
 }
 
-export const loader = LayoutAController.loader;
+export const loader = new LayoutALoader().loader;

@@ -10,15 +10,26 @@ import {
 } from "~/server/services/blog/blog";
 import { forkJoin, from, switchMap } from "rxjs";
 
-import { Action } from "~/utils/Action";
 import { blogPermissions } from "~/server/permission";
 import { getUserId$ } from "~/server/services/common/session";
 
-export class BlogAction extends Action {
+interface BlogActionInterface {
+  action(actionArgs: rrn.ActionFunctionArgs): any;
+  POST(actionArgs: rrn.ActionFunctionArgs): any;
+  PUT(actionArgs: rrn.ActionFunctionArgs): any;
+  DELETE(actionArgs: rrn.ActionFunctionArgs): any;
+}
+
+type TM = keyof Omit<BlogActionInterface, "action">;
+
+export class BlogAction implements BlogActionInterface {
+  async action(actionArgs: rrn.ActionFunctionArgs) {
+    return this?.[actionArgs.request.method as TM]?.(actionArgs);
+  }
   @ds.checkLogin()
   @ds.permission(blogPermissions.CREATE)
   @ds.validate(schemas.CreateBlogSchema)
-  static async POST({ request }: rrn.ActionFunctionArgs) {
+  async POST({ request }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: request.json(),
       userId: getUserId$(request),
@@ -30,7 +41,7 @@ export class BlogAction extends Action {
   @ds.checkLogin()
   @ds.permission(blogPermissions.UPDATE)
   @ds.validate(schemas.UpdateBlogSchema)
-  static async PUT({ request }: rrn.ActionFunctionArgs) {
+  async PUT({ request }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: request.json(),
       userId: getUserId$(request),
@@ -42,7 +53,7 @@ export class BlogAction extends Action {
   @ds.checkLogin()
   @ds.permission(blogPermissions.DELETE)
   @ds.validate(schemas.DeleteBlogSchema)
-  static async DELETE({ request }: rrn.ActionFunctionArgs) {
+  async DELETE({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap(({ ids }) => deleteManyBlogByIds$(ids)),
     );
