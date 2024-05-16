@@ -1,13 +1,14 @@
-// types
+import * as LoginLogServices from "~/server/services/system/login-log";
+import * as ds from "~/server/decorators";
+import * as errorTypeConstants from "~/server/constants/error.type";
+import * as loginServices from "~/server/services/login";
 import type * as rrn from "@remix-run/node";
+// import * as schemas from "~/schema";
+import * as serverUtils from "~/server/utils";
+import * as sessionServices from "~/server/services/common/session";
 
-//remix
-import { redirect } from "@remix-run/node";
-
-// rxjs
 import {
   catchError,
-  tap,
   defaultIfEmpty,
   forkJoin,
   from,
@@ -16,41 +17,30 @@ import {
   map,
   of,
   switchMap,
+  tap,
   throwError,
 } from "rxjs";
 
 import { defaultLang } from "~/config/lang";
+import { redirect } from "@remix-run/node";
 
-// utils
-import * as serverUtils from "~/server/utils";
+interface LoginActionInterface {
+  action(actionArgs: rrn.ActionFunctionArgs): any;
+  POST(actionArgs: rrn.ActionFunctionArgs): any;
+  // PUT(actionArgs: rrn.ActionFunctionArgs): any;
+  // DELETE(actionArgs: rrn.ActionFunctionArgs): any;
+}
 
-// decorators
-import * as ds from "~/server/decorators";
+type TM = keyof Omit<LoginActionInterface, "action">;
 
-// schemas
-import * as schemas from "~/schema";
-
-// server
-import * as sessionServices from "~/server/services/common/session";
-import * as loginServices from "~/server/services/login";
-import * as LoginLogServices from "../../services/system/login-log";
-
-// constants
-import * as errorTypeConstants from "~/server/constants/error.type";
-
-export class LoginController {
-  @ds.Loader
-  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
-
+class Action {
   @ds.Action
-  static async action({ request, params }: rrn.ActionFunctionArgs) {}
-
-  static async get() {
-    return serverUtils.respSuccessJson({});
+  async action(actionArgs: rrn.ActionFunctionArgs) {
+    return this?.[actionArgs.request.method as TM]?.(actionArgs);
   }
 
-  @ds.validate(schemas.LoginSchema)
-  static async post({ request, params }: rrn.ActionFunctionArgs) {
+  // @ds.validate(schemas.LoginSchema)
+  async POST({ request, params }: rrn.ActionFunctionArgs) {
     const session$ = from(
       sessionServices.getSession(request.headers.get("Cookie")),
     );
@@ -171,3 +161,5 @@ export class LoginController {
     return resultFn();
   }
 }
+
+export const action = new Action().action;

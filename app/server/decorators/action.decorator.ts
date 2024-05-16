@@ -11,22 +11,22 @@ export function Action(
 
     switch (request.method) {
       case "POST":
-        return target.post({
+        return target.POST({
           request,
           params,
         } as ActionFunctionArgs);
       case "PUT":
-        return target.put({
+        return target.PUT({
           request,
           params,
         } as ActionFunctionArgs);
       case "PATCH":
-        return target.patch({
+        return target.PATCH({
           request,
           params,
         } as ActionFunctionArgs);
       case "DELETE":
-        return target.delete({
+        return target.DELETE({
           request,
           params,
         } as ActionFunctionArgs);
