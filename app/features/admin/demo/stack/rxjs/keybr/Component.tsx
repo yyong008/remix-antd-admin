@@ -1,7 +1,5 @@
-// component
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
-import classNames from "classnames";
 import { useKeyPress } from "~/hooks";
 
 export function Component() {
@@ -29,12 +27,7 @@ export function Component() {
                   {row.map((rowKey, keyIndex) => (
                     <div
                       key={keyIndex}
-                      className={classNames(
-                        "flex align-center justify-center w-[80px] h-[80px] bg-slate-300 m-[4px] rounded-sm",
-                        {
-                          "bg-yellow-500": rowKey === key,
-                        },
-                      )}
+                      className={`flex align-center justify-center w-[80px] h-[80px] bg-slate-300 m-[4px] rounded-sm ${rowKey === key ? "bg-yellow-500" : ""}`}
                     >
                       {rowKey.toUpperCase()}
                     </div>
