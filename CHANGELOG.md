@@ -1,5 +1,12 @@
 # remix-antd-admin
 
+## 0.1.26
+
+### Patch Changes
+
+- ✨ features impls news
+- 6e0bc14: ✨ features impls docs
+
 ## 0.1.25
 
 ### Patch Changes
