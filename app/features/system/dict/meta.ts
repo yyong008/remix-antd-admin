@@ -1,0 +1,8 @@
+import type { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "System-Dict" },
+    { name: "System-Dict", content: "System-Dict" },
+  ];
+};

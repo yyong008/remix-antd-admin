@@ -1,27 +1,13 @@
-// types
-import type * as rrn from "@remix-run/node";
-
-// decorators
 import * as ds from "~/server/decorators";
-
-// services
+import type * as rrn from "@remix-run/node";
+import * as serviceUtils from "~/server/utils";
 import * as systemLoginlogServices from "~/server/services/system/login-log";
 
-// rxjs
 import { forkJoin, from } from "rxjs";
 
-// utils
-import * as serviceUtils from "~/server/utils";
-
-export class AdminSystemMonitorLoginLogController {
-  @ds.Loader
-  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
-
-  @ds.Action
-  static async action({ request, params }: rrn.ActionFunctionArgs) {}
-
+class Loader {
   @ds.checkLogin()
-  static async get({ request }: rrn.LoaderFunctionArgs) {
+  async loader({ request }: rrn.LoaderFunctionArgs) {
     let { searchParams } = new URL(request.url);
     let page = Number(searchParams.get("page") ?? 1);
     let pageSize = Number(searchParams.get("pageSize") ?? 10);
@@ -36,9 +22,6 @@ export class AdminSystemMonitorLoginLogController {
 
     return serviceUtils.resp$(result$);
   }
-
-  @ds.checkLogin()
-  static async post() {
-    return null;
-  }
 }
+
+export const loader = new Loader().loader;
