@@ -1,18 +1,11 @@
-// types
+import * as ds from "~/server/decorators";
 import type * as rrn from "@remix-run/node";
 
-// decorators
-import * as ds from "~/server/decorators";
-
-// services
 import { getUserCount } from "~/server/services/system.user.service";
 
-export class ApiHealthCheckController {
-  @ds.Loader
-  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
-
+class Loader {
   @ds.checkLogin()
-  static async get({ request, params }: rrn.LoaderFunctionArgs) {
+  async loader({ request, params }: rrn.LoaderFunctionArgs) {
     const host =
       request.headers.get("X-Forwarded-Host") ?? request.headers.get("host");
 
@@ -31,3 +24,5 @@ export class ApiHealthCheckController {
     }
   }
 }
+
+export const loader = new Loader().loader;

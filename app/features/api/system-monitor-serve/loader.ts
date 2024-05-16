@@ -1,24 +1,14 @@
-// types
+import * as ds from "~/server/decorators";
 import type * as rrn from "@remix-run/node";
 
-// decorators
-import * as ds from "~/server/decorators";
-
-// rxjs
+import { HigherOrderCreateRespWithTime, respFn$ } from "~/server/utils";
 import { catchError, map, throwError } from "rxjs";
 
-// server
 import { getSystemInfo$ } from "~/server/services/common/systemInfo";
 
-// utils
-import { HigherOrderCreateRespWithTime, respFn$ } from "~/server/utils";
-
-export class ApiSystemMonitorServeController {
-  @ds.Loader
-  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
-
+class Loader {
   @ds.checkLogin()
-  static async get({ request, params }: rrn.LoaderFunctionArgs) {
+  async loader({ request, params }: rrn.LoaderFunctionArgs) {
     const startTimeStamp = Date.now();
     const resultFn$ = getSystemInfo$().pipe(
       map((data) => HigherOrderCreateRespWithTime(data, startTimeStamp)),
@@ -30,3 +20,5 @@ export class ApiSystemMonitorServeController {
     return respFn$(resultFn$);
   }
 }
+
+export const loader = new Loader().loader;
