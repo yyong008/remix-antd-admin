@@ -2,16 +2,15 @@
 import "animate.css";
 import "~/styles/game/pocker-card.css";
 
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 // components
 import { Toaster, toast } from "sonner";
 // react
 import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
 
-import { PageContainer } from "@ant-design/pro-layout";
 import PockerItem from "~/components/game/pockers/PockerItem";
 import PockerList from "~/components/game/pockers/PockerList";
-import { ProCard } from "@ant-design/pro-components";
 
 export function Component() {
   const hs: any = useLoaderData();

@@ -45,7 +45,6 @@
     "@ant-design/pro-chat": "^1.13.7",
     "@ant-design/pro-components": "^2.7.1",
     "@ant-design/pro-editor": "^1.2.1",
-    "@ant-design/pro-layout": "^7.19.0",
     "@bytemd/plugin-gfm": "^1.21.0",
     "@bytemd/react": "^1.21.0",
     "@js-temporal/polyfill": "^0.4.4",

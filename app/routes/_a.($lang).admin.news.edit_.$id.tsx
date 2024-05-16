@@ -1,26 +1,23 @@
 // types
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
-
+// component
+import {
+  PageContainer,
+  ProCard,
+  ProForm,
+  ProFormDateTimePicker,
+  ProFormSelect,
+  ProFormText,
+} from "@ant-design/pro-components";
 // remix
 import { useLoaderData, useParams } from "@remix-run/react";
 
-// component
-import {
-  ProCard,
-  ProForm,
-  ProFormText,
-  ProFormSelect,
-  ProFormDateTimePicker,
-} from "@ant-design/pro-components";
-import { Form } from "antd";
-import { Editor } from "@tinymce/tinymce-react";
-import { PageContainer } from "@ant-design/pro-layout";
-
-// hooks
-import { useFetcherChange } from "~/hooks";
-
 // constroller
 import { AdminNewsEditController } from "~/server/controllers/news";
+import { Editor } from "@tinymce/tinymce-react";
+import { Form } from "antd";
+// hooks
+import { useFetcherChange } from "~/hooks";
 
 export const action: ActionFunction = AdminNewsEditController.action;
 export const loader: LoaderFunction = AdminNewsEditController.loader;

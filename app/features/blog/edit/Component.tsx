@@ -1,4 +1,5 @@
 import {
+  PageContainer,
   ProCard,
   ProForm,
   ProFormDateTimePicker,
@@ -9,7 +10,6 @@ import { useLoaderData, useParams } from "@remix-run/react";
 
 import EditorRichFromItem from "~/components/editor/EditorRichFromItem";
 import { Form } from "antd";
-import { PageContainer } from "@ant-design/pro-layout";
 import type { loader } from "./loader";
 import { useFetcherChange } from "~/hooks";
 

@@ -1,8 +1,7 @@
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { map, scan } from "rxjs/operators";
 import { useEffect, useRef } from "react";
 
-import { PageContainer } from "@ant-design/pro-layout";
-import { ProCard } from "@ant-design/pro-components";
 import { fromEvent } from "rxjs";
 
 const step = 10;

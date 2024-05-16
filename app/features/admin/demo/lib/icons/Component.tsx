@@ -1,10 +1,8 @@
 import * as Icons from "@ant-design/icons";
 
 import { Alert, Card, Row, Space } from "antd";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 import React, { useMemo } from "react";
-
-import { PageContainer } from "@ant-design/pro-layout";
-import { ProCard } from "@ant-design/pro-components";
 
 const gridStyle: React.CSSProperties = {
   width: "10%",

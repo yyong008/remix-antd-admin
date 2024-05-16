@@ -1,12 +1,9 @@
+import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { filter, map, scan } from "rxjs/operators";
 // rxjs
 import { fromEvent, merge } from "rxjs";
 // react
 import { useEffect, useRef } from "react";
-
-import { PageContainer } from "@ant-design/pro-layout";
-// types
-import { ProCard } from "@ant-design/pro-components";
 
 const step = 10;
 

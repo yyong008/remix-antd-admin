@@ -1,7 +1,7 @@
 import "~/styles/stack/laxjs.cursor.css";
 
-import { PageContainer } from "@ant-design/pro-layout";
-import { ProCard } from "@ant-design/pro-components";
+import { PageContainer, ProCard } from "@ant-design/pro-components";
+
 import lax from "lax.js";
 import { useEffect } from "react";
 

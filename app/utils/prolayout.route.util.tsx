@@ -1,8 +1,4 @@
-import type { Route } from "@ant-design/pro-layout/es/typing";
-
-// components
 import { AntdIcon } from "~/components/common";
-
 import { isExternalLink } from "./utils";
 
 function createProLayoutRouteImpl(
@@ -32,11 +28,7 @@ function createProLayoutRouteImpl(
  * @param menus 传入字符串 icon 菜单
  * @returns
  */
-export const createProLayoutRoute = (
-  lang: string,
-  menus: any,
-  t: any,
-): Route => {
+export const createProLayoutRoute = (lang: string, menus: any, t: any): any => {
   return {
     routes: createProLayoutRouteImpl(lang, menus, null, t),
   };
