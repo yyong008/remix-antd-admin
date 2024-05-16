@@ -1,6 +1,5 @@
 /// <reference types="vitest" />
 
-import Inspect from 'vite-plugin-inspect'
 import dayjs from "dayjs";
 import { defineConfig } from "vite";
 import { installGlobals } from "@remix-run/node";
@@ -19,7 +18,6 @@ const __APP_INFO__ = {
 export default defineConfig({
   server: {
     port: 3333,
-
   },
    ssr: {
     noExternal: [
@@ -46,6 +44,5 @@ export default defineConfig({
       ignoredRouteFiles: ["**/*.css"],
     }),
     tsconfigPaths(),
-    Inspect()
   ],
 });

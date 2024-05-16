@@ -1,7 +1,5 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
 
-import "reflect-metadata";
-
 export function Action(
   target: any,
   propertyKey: string,

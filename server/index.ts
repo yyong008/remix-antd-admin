@@ -1,6 +1,6 @@
 import { createRequestHandler } from "@remix-run/express";
-import { installGlobals } from "@remix-run/node";
 import express from "express";
+import { installGlobals } from "@remix-run/node";
 
 installGlobals();
 
@@ -45,5 +45,5 @@ app.all(
 
 const port = process.env.PORT || 3333;
 app.listen(port, () =>
-  console.log("http://localhost:" + port)
+  console.log("Server on: http://localhost:" + port + "\n")
 );
