@@ -1,14 +1,12 @@
-import { useRef } from "react";
-
-import { Row, Col, Card, Space } from "antd";
+import { Card, Col, Row, Space } from "antd";
+// cols
+import { colProps, colPropsSS } from "../col";
 
 // components
 import ChinaMap from "./Map";
 import DChart from "./DynamicData";
 import MainGauge from "./Gauge";
-
-// cols
-import { colProps, colPropsSS } from "../col";
+import { useRef } from "react";
 
 export default function RowOne(props: {
   geoJson: any;
@@ -24,7 +22,7 @@ export default function RowOne(props: {
           ref={CardRef}
           style={{ height: "810px" }}
         >
-          <ChinaMap geoJson={props.geoJson} />
+          {props.geoJson && <ChinaMap geoJson={props.geoJson} />}
         </Card>
       </Col>
       <Col {...colPropsSS}>
