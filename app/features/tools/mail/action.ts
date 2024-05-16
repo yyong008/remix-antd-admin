@@ -1,39 +1,16 @@
-// types
-import type * as rrn from "@remix-run/node";
-
-// decorators
 import * as ds from "~/server/decorators";
-
-// server
+import type * as rrn from "@remix-run/node";
 import * as toolsMailServices from "~/server/services/tools/mail";
-
-// rxjs
-import { from, map, of, switchMap } from "rxjs";
-
-// utils
 import * as utils from "~/server/utils";
 
-export class AdminToolsMailsController {
-  @ds.Loader
-  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+import { from, map, switchMap } from "rxjs";
 
+export class Action {
   @ds.Action
-  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+  async action({ request, params }: rrn.ActionFunctionArgs) {}
 
   @ds.checkLogin()
-  static async get({ params }: rrn.LoaderFunctionArgs) {
-    if (!params || !params.id) {
-      return null;
-    }
-    const result$ = of(params.id).pipe(
-      switchMap((id) => toolsMailServices.getEmailTemplateById$(Number(id))),
-    );
-
-    return utils.resp$(result$);
-  }
-
-  @ds.checkLogin()
-  static async post({ request, params }: rrn.ActionFunctionArgs) {
+  async POST({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       map(
         (data: any) =>
@@ -58,3 +35,5 @@ export class AdminToolsMailsController {
     return utils.resp$(result$);
   }
 }
+
+export const action = new Action().action;
