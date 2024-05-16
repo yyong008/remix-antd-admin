@@ -1,5 +1,11 @@
 # remix-antd-admin
 
+## 0.1.31
+
+### Patch Changes
+
+- ✨ features impls logout
+
 ## 0.1.30
 
 ### Patch Changes
