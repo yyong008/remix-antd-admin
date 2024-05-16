@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { LocalModels } from "./components/LocalModels";
-import { Ollama } from "ollama";
+import { Ollama } from "ollama/browser";
 import { ProChat } from "@ant-design/pro-chat";
 import type { loader } from "./loader";
 import { useLoaderData } from "@remix-run/react";
