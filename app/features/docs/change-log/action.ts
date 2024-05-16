@@ -1,41 +1,28 @@
-// types
-import type * as rrn from "@remix-run/node";
-
-// services
 import * as changeLogServices from "~/server/services/docs/change-log";
-
-// decorators
 import * as ds from "~/server/decorators";
-
-// utils
+import type * as rrn from "@remix-run/node";
 import * as utils from "~/server/utils";
 
-// rxjs
 import { forkJoin, from, switchMap } from "rxjs";
+
 import { getUserId$ } from "~/server/services/common/session";
 
-export class AdminChangeLogController {
-  @ds.Loader
-  static async loader({ request, params }: rrn.LoaderFunctionArgs) {}
+interface AdminChangeLogActionInterface {
+  action(actionArgs: rrn.ActionFunctionArgs): any;
+  POST(actionArgs: rrn.ActionFunctionArgs): any;
+  PUT(actionArgs: rrn.ActionFunctionArgs): any;
+  DELETE(actionArgs: rrn.ActionFunctionArgs): any;
+}
 
-  @ds.Action
-  static async action({ request, params }: rrn.ActionFunctionArgs) {}
+type TM = keyof Omit<AdminChangeLogActionInterface, "action">;
 
-  @ds.checkLogin()
-  static async get({ request, params }: rrn.LoaderFunctionArgs) {
-    // 新闻列表
-    const result$ = forkJoin({
-      total: changeLogServices.getChangeLogCount$(),
-      list: changeLogServices.findChangeLogByPage$({
-        page: Number(params.page ?? 1),
-        pageSize: Number(params.pageSize ?? 10),
-      }),
-    });
-    return utils.resp$(result$);
+class AdminChangeLogAction {
+  async action(actionArgs: rrn.ActionFunctionArgs) {
+    return this?.[actionArgs.request.method as TM]?.(actionArgs);
   }
 
   @ds.checkLogin()
-  static async post({ request, params }: rrn.ActionFunctionArgs) {
+  async POST({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: request.json(),
       userId: getUserId$(request),
@@ -48,7 +35,7 @@ export class AdminChangeLogController {
   }
 
   @ds.checkLogin()
-  static async put({ request, params }: rrn.ActionFunctionArgs) {
+  async PUT({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: request.json(),
       userId: getUserId$(request),
@@ -61,7 +48,7 @@ export class AdminChangeLogController {
   }
 
   @ds.checkLogin()
-  static async delete({ request, params }: rrn.ActionFunctionArgs) {
+  async DELETE({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap(({ ids }: { ids: number[] }) =>
         changeLogServices.deleteChangeLogByIds$(ids),
@@ -70,3 +57,5 @@ export class AdminChangeLogController {
     return utils.resp$(result$);
   }
 }
+
+export const action = new AdminChangeLogAction().action;
