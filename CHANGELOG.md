@@ -1,5 +1,11 @@
 # remix-antd-admin
 
+## 0.1.34
+
+### Patch Changes
+
+- ✨ features impls register
+
 ## 0.1.33
 
 ### Patch Changes
