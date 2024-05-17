@@ -22,6 +22,7 @@ export default defineConfig({
   },
    ssr: {
     noExternal: [
+      "@ant-design/icons",
       "@ant-design/pro-chat",
       "@ant-design/pro-editor",
       "react-intersection-observer",
