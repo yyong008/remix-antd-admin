@@ -6,12 +6,17 @@ import { createUserSignInLog$ } from "~/server/services/sign-in";
 import { getUserId$ } from "~/server/services/common/session";
 import { switchMap } from "rxjs";
 
-class Action {
+interface SignInInterface {
+  action(actionArgs: rrn.ActionFunctionArgs): any;
+  POST(actionArgs: rrn.ActionFunctionArgs): any;
+}
+
+class Action implements SignInInterface {
   @ds.Action
-  async action({ request, params }: rrn.LoaderFunctionArgs) {}
+  action(actionArgs: rrn.ActionFunctionArgs) {}
 
   @ds.checkLogin()
-  async post({ request, params }: rrn.LoaderFunctionArgs) {
+  async POST({ request, params }: rrn.LoaderFunctionArgs) {
     const result$ = getUserId$(request).pipe(
       switchMap((userId) => {
         return createUserSignInLog$({

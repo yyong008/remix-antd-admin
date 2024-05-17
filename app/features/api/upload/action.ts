@@ -17,17 +17,11 @@ import { resp$ } from "~/server/utils";
 interface UploadInterface {
   action(actionArgs: rrn.ActionFunctionArgs): any;
   POST(actionArgs: rrn.ActionFunctionArgs): any;
-  // PUT(actionArgs: rrn.ActionFunctionArgs): any;
-  // DELETE(actionArgs: rrn.ActionFunctionArgs): any;
 }
 
-type TM = keyof Omit<UploadInterface, "action">;
-
-export class Action {
+export class Action implements UploadInterface {
   @ds.Action
-  action(actionArgs: rrn.ActionFunctionArgs) {
-    return this?.[actionArgs.request.method as TM]?.(actionArgs);
-  }
+  action(actionArgs: rrn.ActionFunctionArgs) {}
 
   @ds.checkLogin()
   async POST({ request, params }: rrn.LoaderFunctionArgs) {
