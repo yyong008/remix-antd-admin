@@ -1,15 +1,13 @@
-// react
-import { hydrateRoot } from "react-dom/client";
+// i18n
+import { I18nextProvider, i18next } from "~/i18n/client";
 import { startTransition, useState } from "react";
 
 // remix
 import { RemixBrowser } from "@remix-run/react";
-
-// i18n
-import { I18nextProvider, i18next } from "~/i18n/client";
-
 // context
 import { SettingContext } from "~/context";
+// react
+import { hydrateRoot } from "react-dom/client";
 
 const AppClient = () => {
   const [theme, setTheme] = useState({
@@ -26,10 +24,20 @@ const AppClient = () => {
   );
 };
 
-startTransition(() => {
-  hydrateRoot(
-    document,
-    // @ts-ignore
-    <AppClient />,
-  );
-});
+async function hydrate() {
+  startTransition(() => {
+    hydrateRoot(
+      document,
+      // @ts-ignore
+      <AppClient />,
+    );
+  });
+}
+
+if (window.requestIdleCallback) {
+  window.requestIdleCallback(hydrate);
+} else {
+  // Safari doesn't support requestIdleCallback
+  // https://caniuse.com/requestidlecallback
+  window.setTimeout(hydrate, 1);
+}

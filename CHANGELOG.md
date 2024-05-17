@@ -1,5 +1,11 @@
 # remix-antd-admin
 
+## 0.1.36
+
+### Patch Changes
+
+- i18n en and fix some question
+
 ## 0.1.35
 
 ### Patch Changes
