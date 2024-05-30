@@ -10,7 +10,7 @@
     "express",
     "admin",
     "prisma",
-    "sqlite"
+    "postresql"
   ],
   "repository": {
     "type": "git",
@@ -29,7 +29,8 @@
     "dev": "tsx ./server/index.ts",
     "lint": "eslint ./app",
     "format": "prettier --write app/ public/locales",
-    "start": "remix-serve ./build/server/index.js",
+    "start": "tsx ./server/index.ts",
+    "start:remix": "remix-serve ./build/server/index.js",
     "test": "vitest",
     "test:cypress": "cypress open",
     "typecheck": "tsc",

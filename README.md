@@ -146,7 +146,7 @@ Modern browsers last 2 version
 
 ## A cup of coffee.
 
-[💌buy-me-a-coffee💌](https://github.com/yyong008/buy-me-a-coffee)
+If my project helps you, buy me a cup of coffee [💌buy-me-a-coffee💌](https://github.com/yyong008/buy-me-a-coffee)
 
 ## License
 

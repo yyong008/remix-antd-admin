@@ -10,7 +10,7 @@ const viteDevServer =
     : await import("vite").then((vite) =>
         vite.createServer({
           server: { middlewareMode: true },
-        })
+        }),
       );
 
 const app = express();
@@ -24,7 +24,7 @@ if (viteDevServer) {
     express.static("build/client/assets", {
       immutable: true,
       maxAge: "1y",
-    })
+    }),
   );
 }
 app.use(express.static("build/client", { maxAge: "1h" }));
@@ -33,17 +33,18 @@ app.use(express.static("build/client", { maxAge: "1h" }));
 app.all(
   "*",
   createRequestHandler({
+    // @ts-ignore
     build: viteDevServer
-      ? () =>
-          viteDevServer.ssrLoadModule(
-            "virtual:remix/server-build"
-          )
-        // @ts-ignore
-      : await import("./build/server/index.js"),
-  })
+      ? () => viteDevServer.ssrLoadModule("virtual:remix/server-build")
+      : // @ts-ignore
+        await import("../build/server/index"),
+  }),
 );
 
-const port = process.env.PORT || 3333;
+// dev default 3333
+const port = Number(process.env.PORT || 3333)
+
+// Dockerfile EXPOSE 3000
 app.listen(port, () =>
-  console.log("Server on: http://localhost:" + port + "\n")
+  console.log("Server on: http://localhost:" + port + "\n"),
 );

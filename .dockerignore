@@ -17,4 +17,7 @@ TODO.md
 
 .vscode
 
-prisma/
+prisma/migrations
+
+.env
+.env*

@@ -1,9 +1,7 @@
 import type { Prisma } from "@prisma/client";
-import type { TPage } from "~/types";
-
 // enum
 import { SortOrder } from "~/types";
-
+import type { TPage } from "~/types";
 // service
 import prisma from "~/server/services/common/prisma";
 
