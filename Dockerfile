@@ -66,5 +66,6 @@ ENV PORT={PROT}
 ENV OLLAMA_URL={OLLAMA_URL}
 
 EXPOSE 3000
+EXPOSE 3333
 
 CMD ["pnpm", "run", "start"]

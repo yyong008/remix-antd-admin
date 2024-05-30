@@ -42,7 +42,11 @@ app.all(
 );
 
 // dev default 3333
-const port = Number(process.env.PORT || 3333)
+let port = 3333
+
+if(process.env.NODE_ENV === 'production') {
+  port = 3000
+}
 
 // Dockerfile EXPOSE 3000
 app.listen(port, () =>
