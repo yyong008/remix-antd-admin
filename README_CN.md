@@ -51,9 +51,9 @@
 | --------- | --------- | --------- | --------- |---------|---------|---------|---------|
 | 18.x+ | 8.x+| 5.x+ | 2.x+|5.x+|1.x+|5.9.x|2.6.x|
 
-| [<img src="https://avatars.githubusercontent.com/u/67109815?s=48&v=4" alt="TailwindcCSS" width="24px" height="24px" />](https://tailwindcss.com/)</br> TailwindcCSS  | [<img src="https://avatars.githubusercontent.com/u/125564131?s=48&v=4" alt="pnpm" width="24px" height="24px" />](https://remix-development-tools.fly.dev/)</br>RemixDevTool | [<img src="https://echarts.apache.org/en/images/logo.png" alt="Prisma" width="80px" />](https://echarts.apache.org/zh/index.html)</br>Echart | [<img src="https://avatars.githubusercontent.com/u/8546082?s=48&v=4" alt="Remix" width="24px" height="24px" />](https://react.i18next.com/)</br>React i18n |  [<img src="https://avatars.githubusercontent.com/u/8908513?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://www.cypress.io/)</br> Cypress |[<img src="https://www.sqlite.org/images/sqlite370_banner.gif" alt="Sqlite" width="24px" height="24px" />](https://www.sqlite.org/)</br> Sqlite|
+| [<img src="https://avatars.githubusercontent.com/u/67109815?s=48&v=4" alt="TailwindcCSS" width="24px" height="24px" />](https://tailwindcss.com/)</br> TailwindcCSS  | [<img src="https://avatars.githubusercontent.com/u/125564131?s=48&v=4" alt="pnpm" width="24px" height="24px" />](https://remix-development-tools.fly.dev/)</br>RemixDevTool | [<img src="https://echarts.apache.org/en/images/logo.png" alt="Prisma" width="80px" />](https://echarts.apache.org/zh/index.html)</br>Echart | [<img src="https://avatars.githubusercontent.com/u/8546082?s=48&v=4" alt="Remix" width="24px" height="24px" />](https://react.i18next.com/)</br>React i18n |  [<img src="https://avatars.githubusercontent.com/u/8908513?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://www.cypress.io/)</br> Cypress |[<img src="https://avatars.githubusercontent.com/u/177543?s=200&v=4" alt="Node.js" width="24px" height="24px" />](https://www.postgresql.org/)</br> PostgreSQL|
 | --------- | --------- | --------- | --------- |---------|---------|
-| 3.3.x+ | 4.0.x+| 5.0+ | 13.2.x+|13.7.x+|3.43.x+|
+| 3.3.x+ | 4.0.x+| 5.0+ | 13.2.x+|13.7.x+|16.x+|
 
 
 ## 特性

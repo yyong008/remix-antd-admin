@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -145,7 +145,7 @@ model User {
   updatedAt DateTime? @map("updatedAt")
 
   departmentId Int?        @map("department_id")
-  department   Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  department   Department? @relation(fields: [departmentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   UserRole     UserRole[]
 
   @@map("sys_user")
