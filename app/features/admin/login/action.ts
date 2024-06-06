@@ -1,6 +1,6 @@
 import * as LoginLogServices from "~/server/services/system/login-log";
 import * as ds from "~/server/decorators";
-import * as errorTypeConstants from "~/server/constants/error.type";
+import * as errorTypeConstants from "~/constants/error.type";
 import * as loginServices from "~/server/services/login";
 import type * as rrn from "@remix-run/node";
 // import * as schemas from "~/schema";
