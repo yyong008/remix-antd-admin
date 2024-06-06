@@ -1,1 +1,1 @@
-export { action } from "~/features/api/upload/action";
+export { action } from "~/modules/api/upload/action";

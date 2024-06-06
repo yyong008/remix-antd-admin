@@ -1,1 +1,1 @@
-export { loader } from "~/features/api/geojson/loader";
+export { loader } from "~/modules/api/geojson/loader";

@@ -1,1 +1,1 @@
-export { action } from "~/features/api/signin/action";
+export { action } from "~/modules/api/signin/action";

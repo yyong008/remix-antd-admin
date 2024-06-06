@@ -1,1 +1,1 @@
-export { loader } from "~/features/api/healthcheck/loader";
+export { loader } from "~/modules/api/healthcheck/loader";

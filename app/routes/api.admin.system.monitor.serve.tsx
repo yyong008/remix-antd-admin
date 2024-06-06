@@ -1,1 +1,1 @@
-export { loader } from "~/features/api/system-monitor-serve/loader";
+export { loader } from "~/modules/api/system-monitor-serve/loader";
