@@ -1,4 +1,4 @@
-import { Component } from "~/features/layout/client/Component";
+import { Component } from "~/modules/layout/_c/Component";
 
 export default function ClientLayoutRoute() {
   return <Component />;
