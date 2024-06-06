@@ -1,8 +1,8 @@
-import * as blogServices from "~/server/services/blog";
-import * as ds from "~/server/decorators";
+import * as blogServices from "~/services/blog";
+import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
-import * as serverUtils from "~/server/utils";
-import * as sessionServices from "~/server/services/common/session";
+import * as serverUtils from "~/utils/server";
+import * as sessionServices from "~/lib/session";
 
 import { forkJoin, from, of, switchMap } from "rxjs";
 

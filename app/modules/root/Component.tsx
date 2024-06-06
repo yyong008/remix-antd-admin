@@ -9,7 +9,7 @@ import {
 } from "@remix-run/react";
 
 import { ClientOnly } from "~/components/common/ClientOnly";
-import type { loader } from "~/features/root/loader";
+import type { loader } from "~/modules/root/loader";
 import { useChangeLanguage } from "remix-i18next/react";
 
 export function RootComponent() {

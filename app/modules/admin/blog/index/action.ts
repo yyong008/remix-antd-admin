@@ -1,17 +1,17 @@
-import * as ds from "~/server/decorators";
+import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
 import * as schemas from "~/schema";
-import * as serverUtils from "~/server/utils";
+import * as serverUtils from "~/utils/server";
 
 import {
   createBlog$,
   deleteManyBlogByIds$,
   updateBlog$,
-} from "~/server/services/blog/blog";
+} from "~/services/blog/blog";
 import { forkJoin, from, switchMap } from "rxjs";
 
-import { blogPermissions } from "~/server/permission";
-import { getUserId$ } from "~/server/services/common/session";
+import { blogPermissions } from "~/constants/permission";
+import { getUserId$ } from "~/lib/session";
 
 interface BlogActionInterface {
   action(actionArgs: rrn.ActionFunctionArgs): any;

@@ -1,6 +1,6 @@
-import { it, expect } from "vitest";
+import { expect, it } from "vitest";
 
-import { formatDate } from "~/utils";
+import { formatDate } from "~/utils/client";
 
 it("formate time fomate string", () => {
   const timestamp = "2024-03-30 13:31:12";

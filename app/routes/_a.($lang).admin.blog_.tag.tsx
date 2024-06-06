@@ -1,7 +1,7 @@
-import { Component } from "~/features/blog/tag/Component";
-export { meta } from "~/features/blog/tag/meta";
-export { loader } from "~/features/blog/tag/loader";
-export { action } from "~/features/blog/tag/action";
+import { Component } from "~/modules/admin/blog/tag/Component";
+export { meta } from "~/modules/admin/blog/tag/meta";
+export { loader } from "~/modules/admin/blog/tag/loader";
+export { action } from "~/modules/admin/blog/tag/action";
 
 export default function Route() {
   return <Component />;

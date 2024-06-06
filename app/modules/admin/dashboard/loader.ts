@@ -1,9 +1,9 @@
-import * as ds from "~/server/decorators";
-import * as loginLogServices from "~/server/services/system/login-log";
+import * as ds from "~/decorators";
+import * as loginLogServices from "~/services/system/login-log";
 import type * as rrn from "@remix-run/node";
-import * as sessionServices from "~/server/services/common/session";
-import * as singInLog from "~/server/services/sign-in/signInLog";
-import * as utils from "~/server/utils";
+import * as sessionServices from "~/lib/session";
+import * as singInLog from "~/services/sign-in/signInLog";
+import * as utils from "~/utils/server";
 
 import { forkJoin, from, switchMap } from "rxjs";
 

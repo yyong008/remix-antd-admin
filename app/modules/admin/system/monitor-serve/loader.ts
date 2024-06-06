@@ -1,8 +1,8 @@
-import * as ds from "~/server/decorators";
+import * as ds from "~/decorators";
 // import type * as rrn from "@remix-run/node";
-import * as serviceUtils from "~/server/utils";
+import * as serviceUtils from "~/utils/server";
 
-import { getSystemInfo$ } from "~/server/services/common/systemInfo";
+import { getSystemInfo$ } from "~/lib/systemInfo";
 
 class Loader {
   @ds.checkLogin()

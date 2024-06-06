@@ -297,9 +297,6 @@ importers:
       rollup-plugin-visualizer:
         specifier: ^5.12.0
         version: 5.12.0(rollup@4.12.1)
-      tsx:
-        specifier: ^4.7.3
-        version: 4.7.3
       typescript:
         specifier: ^5.2.2
         version: 5.4.2
@@ -6915,11 +6912,6 @@ packages:
     engines: {node: '>= 6'}
     peerDependencies:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
-
-  tsx@4.7.3:
-    resolution: {integrity: sha512-+fQnMqIp/jxZEXLcj6WzYy9FhcS5/Dfk8y4AtzJ6ejKcKqmfTF8Gso/jtrzDggCF2zTU20gJa6n8XqPYwDAUYQ==}
-    engines: {node: '>=18.0.0'}
-    hasBin: true
 
   tty-table@4.2.3:
     resolution: {integrity: sha512-Fs15mu0vGzCrj8fmJNP7Ynxt5J7praPXqFN0leZeZBXJwkMxv9cb2D454k1ltrtUSJbZ4yH4e0CynsHLxmUfFA==}
@@ -15641,13 +15633,6 @@ snapshots:
     dependencies:
       tslib: 1.14.1
       typescript: 5.4.2
-
-  tsx@4.7.3:
-    dependencies:
-      esbuild: 0.19.12
-      get-tsconfig: 4.7.3
-    optionalDependencies:
-      fsevents: 2.3.3
 
   tty-table@4.2.3:
     dependencies:

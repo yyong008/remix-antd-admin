@@ -1,5 +1,6 @@
-import { it, expect, describe } from "vitest";
-import * as serverUtils from "~/server/utils";
+import * as serverUtils from "~/utils/server";
+
+import { describe, expect, it } from "vitest";
 
 describe("bcrypt util", () => {
   const pwd = "123456789abcdefghijgklmnopqrstuvwxyz";

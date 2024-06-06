@@ -1,7 +1,7 @@
-import * as ds from "~/server/decorators";
+import * as ds from "~/decorators";
 // import type * as rrn from "@remix-run/node";
-import * as serverUtils from "~/server/utils";
-import * as systemDictServices from "~/server/services/system/dict";
+import * as serverUtils from "~/utils/server";
+import * as systemDictServices from "~/services/system/dict";
 
 import { from } from "rxjs";
 

@@ -1,4 +1,5 @@
-import { Descriptions } from "antd";
+import { Descriptions, Tag } from "antd";
+
 import { ProCard } from "@ant-design/pro-components";
 
 export const ProjectAbout = () => {
@@ -10,21 +11,21 @@ export const ProjectAbout = () => {
   };
 
   type DepType = keyof typeof allDeps;
-
-  const description = `
-    ${pkg.name}是基于 @remix-run/react${getMajorVersion("@remix-run/react")}.x、
-    Vite${getMajorVersion("vite")}.x、
-    Ant-Design-Vue${getMajorVersion("antd")}.x 、
-    TailwindCSS${getMajorVersion("tailwindcss")}.x 、
-    prisma${getMajorVersion("prisma")}.x 、
-    @prisma/client${getMajorVersion("@prisma/client")}.x 、
-    TypeScript${getMajorVersion("typescript")}.x 开发，
-    内置了动态路由、权限验证、菜单、数据库全栈管理工具
-  `;
   return (
     <ProCard>
       <Descriptions title="关于">
-        <Descriptions.Item>{description}</Descriptions.Item>
+        <Descriptions.Item>
+          {pkg.name}是基于 @remix-run/react$
+          <Tag color="purple">{getMajorVersion("@remix-run/react")}.x</Tag>、
+          Vite<Tag color="purple">{getMajorVersion("vite")}.x</Tag>、 Antd
+          <Tag color="purple">{getMajorVersion("antd")}.x</Tag>、 TailwindCSS
+          <Tag color="purple">{getMajorVersion("tailwindcss")}.x</Tag>、 prisma
+          <Tag color="purple">{getMajorVersion("prisma")}.x</Tag>、
+          @prisma/client
+          <Tag color="purple">{getMajorVersion("@prisma/client")}.x</Tag>、
+          TypeScript<Tag color="purple">{getMajorVersion("typescript")}.x</Tag>{" "}
+          开发， 内置了动态路由、权限验证、菜单、数据库全栈管理工具
+        </Descriptions.Item>
       </Descriptions>
     </ProCard>
   );

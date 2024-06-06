@@ -1,7 +1,7 @@
-import { Component } from "~/features/system/user/Component";
-export { meta } from "~/features/system/user/meta";
-export { loader } from "~/features/system/user/loader";
-export { action } from "~/features/system/user/action";
+import { Component } from "~/modules/admin/system/user/Component";
+export { meta } from "~/modules/admin/system/user/meta";
+export { loader } from "~/modules/admin/system/user/loader";
+export { action } from "~/modules/admin/system/user/action";
 
 export default function Route() {
   return <Component />;

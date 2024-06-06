@@ -1,7 +1,7 @@
-import * as ds from "~/server/decorators";
+import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
-import * as serviceUtils from "~/server/utils";
-import * as systemUserServices from "~/server/services/system/user";
+import * as serviceUtils from "~/utils/server";
+import * as systemUserServices from "~/services/system/user";
 import * as userSchemas from "~/schema/user.schema";
 
 import { from, switchMap } from "rxjs";

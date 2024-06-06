@@ -1,6 +1,6 @@
-import * as ds from "~/server/decorators";
+import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
-import * as serverUtils from "~/server/utils";
+import * as serverUtils from "~/utils/server";
 
 class Loader {
   @ds.checkLogin()

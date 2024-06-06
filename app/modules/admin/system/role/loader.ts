@@ -1,9 +1,9 @@
-import * as SystemMenuRoleServices from "~/server/services/system/menu-role";
-import * as ds from "~/server/decorators";
+import * as SystemMenuRoleServices from "~/services/system/menu-role";
+import * as ds from "~/decorators";
 // import * as roleSchemas from "~/schema/role.schema";
 import type * as rrn from "@remix-run/node";
-import * as serverUtils from "~/server/utils";
-import * as systemRoleServices from "~/server/services/system/role";
+import * as serverUtils from "~/utils/server";
+import * as systemRoleServices from "~/services/system/role";
 
 import { forkJoin, from, lastValueFrom } from "rxjs";
 

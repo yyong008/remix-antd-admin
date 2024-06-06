@@ -1,5 +1,5 @@
-import { Component } from "~/features/admin/demo/list/card-list/Component";
-export { meta } from "~/features/admin/demo/list/card-list/meta";
+import { Component } from "~/modules/admin/demo/list/card-list/Component";
+export { meta } from "~/modules/admin/demo/list/card-list/meta";
 
 export default function Route() {
   return <Component />;

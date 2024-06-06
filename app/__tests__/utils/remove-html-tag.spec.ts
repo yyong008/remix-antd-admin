@@ -1,6 +1,6 @@
-import { it, expect, describe } from "vitest";
+import * as clientUtils from "~/utils/client";
 
-import * as clientUtils from "~/utils";
+import { describe, expect, it } from "vitest";
 
 describe("test remove html tag", () => {
   const rich =

@@ -1,8 +1,8 @@
-import * as ds from "~/server/decorators";
-import * as newsCategoryServices from "~/server/services/news/news-category";
-import * as newsServices from "~/server/services/news/news";
+import * as ds from "~/decorators";
+import * as newsCategoryServices from "~/services/news/news-category";
+import * as newsServices from "~/services/news/news";
 import type * as rrn from "@remix-run/node";
-import * as utils from "~/server/utils";
+import * as utils from "~/utils/server";
 
 class AdminNewsEditLoader {
   @ds.checkLogin()

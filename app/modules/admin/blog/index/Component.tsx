@@ -1,4 +1,4 @@
-import * as clientUtils from "~/utils";
+import * as clientUtils from "~/utils/client";
 
 import { ButtonLink, DeleteIt, FormatTime } from "~/components/common";
 import {

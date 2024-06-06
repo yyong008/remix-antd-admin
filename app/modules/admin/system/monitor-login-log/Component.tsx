@@ -1,4 +1,4 @@
-import * as clientUtils from "~/utils";
+import * as clientUtils from "~/utils/client";
 
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 

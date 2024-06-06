@@ -1,5 +1,5 @@
 // types
-import * as clientUtils from "~/utils";
+import * as clientUtils from "~/utils/client";
 
 import {
   AvatarDropDown,

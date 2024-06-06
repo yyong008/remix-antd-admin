@@ -1,1 +1,1 @@
-export { action } from "~/features/logout/action";
+export { action } from "~/modules/admin/logout/action";

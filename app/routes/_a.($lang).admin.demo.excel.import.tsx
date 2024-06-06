@@ -1,5 +1,5 @@
-import { Component } from "~/features/admin/demo/excel/import/Component";
-export { meta } from "~/features/admin/demo/excel/import/meta";
+import { Component } from "~/modules/admin/demo/excel/import/Component";
+export { meta } from "~/modules/admin/demo/excel/import/meta";
 
 export default function Route() {
   return <Component />;

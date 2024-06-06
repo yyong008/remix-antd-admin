@@ -1,5 +1,5 @@
-import { Component } from "~/features/admin/demo/lib/icons/Component";
-export { meta } from "~/features/admin/demo/lib/icons/meta";
+import { Component } from "~/modules/admin/demo/lib/icons/Component";
+export { meta } from "~/modules/admin/demo/lib/icons/meta";
 
 export default function Route() {
   return <Component />;

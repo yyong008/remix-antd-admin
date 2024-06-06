@@ -1,16 +1,16 @@
 // decorators
-import * as ds from "~/server/decorators";
+import * as ds from "~/decorators";
 // services
-import * as feedBackServices from "~/server/services/docs/feedback";
+import * as feedBackServices from "~/services/docs/feedback";
 // types
 import type * as rrn from "@remix-run/node";
 // utils
-import * as utils from "~/server/utils";
+import * as utils from "~/utils/server";
 
 // rxjs
 import { forkJoin, from, switchMap } from "rxjs";
 
-import { getUserId$ } from "~/server/services/common/session";
+import { getUserId$ } from "~/lib/session";
 
 interface AdminFeedbackActionInterface {
   action(actionArgs: rrn.ActionFunctionArgs): any;

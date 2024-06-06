@@ -1,5 +1,5 @@
 import * as _icons from "@ant-design/icons";
-import * as clientUtils from "~/utils";
+import * as clientUtils from "~/utils/client";
 
 import { Button, Space } from "antd";
 import { PageContainer, ProTable } from "@ant-design/pro-components";

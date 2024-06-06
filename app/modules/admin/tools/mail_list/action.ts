@@ -1,7 +1,7 @@
-import * as ds from "~/server/decorators";
+import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
-import * as toolsMailServices from "~/server/services/tools/mail";
-import * as utils from "~/server/utils";
+import * as toolsMailServices from "~/services/tools/mail";
+import * as utils from "~/utils/server";
 
 import { from, switchMap } from "rxjs";
 

@@ -1,16 +1,16 @@
-import * as ds from "~/server/decorators";
+import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
 // import * as schemas from "~/schema";
-import * as serverUtils from "~/server/utils";
+import * as serverUtils from "~/utils/server";
 
 import { forkJoin, of, switchMap } from "rxjs";
 
 // import { blogPermissions } from "~/server/permission";
-import { getBlogCategoryById$ } from "~/server/services/blog/blog-category";
-import { getBlogTagById$ } from "~/server/services/blog/blog-tags";
-import { getBlogsListByIds$ } from "~/server/services/blog/blog";
-import { getSearchParams } from "~/server/utils";
-import { getUserId$ } from "~/server/services/common/session";
+import { getBlogCategoryById$ } from "~/services/blog/blog-category";
+import { getBlogTagById$ } from "~/services/blog/blog-tags";
+import { getBlogsListByIds$ } from "~/services/blog/blog";
+import { getSearchParams } from "~/utils/server";
+import { getUserId$ } from "~/lib/session";
 
 interface BlogLoaderInterface {
   loader(laoderArgs: rrn.ActionFunctionArgs): any;

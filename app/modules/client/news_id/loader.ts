@@ -1,6 +1,6 @@
 import { type LoaderFunctionArgs, json } from "@remix-run/node";
 import { lastValueFrom } from "rxjs";
-import { getNewsById$ } from "~/server/services/news/news";
+import { getNewsById$ } from "~/services/news/news";
 
 class Loader {
   async loader({ params }: LoaderFunctionArgs) {

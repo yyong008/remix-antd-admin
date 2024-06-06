@@ -1,11 +1,11 @@
-import * as changeLogServices from "~/server/services/docs/change-log";
-import * as ds from "~/server/decorators";
+import * as changeLogServices from "~/services/docs/change-log";
+import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
-import * as utils from "~/server/utils";
+import * as utils from "~/utils/server";
 
 import { forkJoin, from, switchMap } from "rxjs";
 
-import { getUserId$ } from "~/server/services/common/session";
+import { getUserId$ } from "~/lib/session";
 
 interface AdminChangeLogActionInterface {
   action(actionArgs: rrn.ActionFunctionArgs): any;

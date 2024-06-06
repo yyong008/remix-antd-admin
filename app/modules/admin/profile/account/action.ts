@@ -1,8 +1,8 @@
-import * as ds from "~/server/decorators";
+import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
-import * as sessionServices from "~/server/services/common/session";
-import * as userServices from "~/server/services/system/user";
-import * as utils from "~/server/utils";
+import * as sessionServices from "~/lib/session";
+import * as userServices from "~/services/system/user";
+import * as utils from "~/utils/server";
 
 import { from, switchMap } from "rxjs";
 

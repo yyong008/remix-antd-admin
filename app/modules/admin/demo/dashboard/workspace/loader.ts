@@ -1,9 +1,5 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import {
-  destroySession,
-  getSession,
-  getUserId$,
-} from "~/server/services/common/session";
+import { destroySession, getSession, getUserId$ } from "~/lib/session";
 import { json, redirect } from "@remix-run/node";
 
 import { getWorkplaceData$ } from "~/__mock__/dashboard/workplace";

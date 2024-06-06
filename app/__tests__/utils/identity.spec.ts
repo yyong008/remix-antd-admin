@@ -1,6 +1,6 @@
-import { it, expect } from "vitest";
+import { expect, it } from "vitest";
 
-import { identity } from "~/utils";
+import { identity } from "~/utils/client";
 
 it("identity string", () => {
   expect(identity("")).toBe("");

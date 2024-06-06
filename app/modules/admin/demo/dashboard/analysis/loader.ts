@@ -1,8 +1,4 @@
-import {
-  destroySession,
-  getSession,
-  getUserId$,
-} from "~/server/services/common/session";
+import { destroySession, getSession, getUserId$ } from "~/lib/session";
 import { json, redirect } from "@remix-run/node";
 
 import type { LoaderFunction } from "@remix-run/node";

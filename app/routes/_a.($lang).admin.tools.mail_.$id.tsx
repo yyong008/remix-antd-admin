@@ -1,7 +1,7 @@
-import { Component } from "~/features/tools/mail/Component";
-export { meta } from "~/features/tools/mail/meta";
-export { loader } from "~/features/tools/mail/loader";
-export { action } from "~/features/tools/mail/action";
+import { Component } from "~/modules/admin/tools/mail/Component";
+export { meta } from "~/modules/admin/tools/mail/meta";
+export { loader } from "~/modules/admin/tools/mail/loader";
+export { action } from "~/modules/admin/tools/mail/action";
 
 export default function Route() {
   return <Component />;

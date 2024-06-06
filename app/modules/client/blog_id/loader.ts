@@ -3,7 +3,7 @@ import { type LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { lastValueFrom } from "rxjs";
 
-import { getBlogById$ } from "~/server/services/blog/blog";
+import { getBlogById$ } from "~/services/blog/blog";
 
 class Loader {
   async loader({ params }: LoaderFunctionArgs) {

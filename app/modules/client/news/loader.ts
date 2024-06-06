@@ -1,5 +1,5 @@
 import { json } from "@remix-run/node";
-import { getNews } from "~/server/services/news/news";
+import { getNews } from "~/services/news/news";
 
 class Loader {
   async loader() {

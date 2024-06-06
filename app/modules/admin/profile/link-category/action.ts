@@ -1,11 +1,11 @@
-import * as ds from "~/server/decorators";
-import * as linkCategoryServices from "~/server/services/profile/link-category";
+import * as ds from "~/decorators";
+import * as linkCategoryServices from "~/services/profile/link-category";
 import type * as rrn from "@remix-run/node";
-import * as utils from "~/server/utils";
+import * as utils from "~/utils/server";
 
 import { forkJoin, from, switchMap } from "rxjs";
 
-import { getUserId$ } from "~/server/services/common/session";
+import { getUserId$ } from "~/lib/session";
 
 // const profilePerms = {
 //   READ_LIST: "profile:link-category:list",

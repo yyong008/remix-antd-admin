@@ -151,4 +151,4 @@ Modern browsers last 2 version
 
 ## License
 
-Copyright (c) 2023-present Magnesium-
+Copyright (c) 2023-present Yong-

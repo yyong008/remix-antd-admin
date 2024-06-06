@@ -1,20 +1,20 @@
 // services
-import * as blogTagServices from "~/server/services/blog/blog-tags";
+import * as blogTagServices from "~/services/blog/blog-tags";
 // decorators
-import * as ds from "~/server/decorators";
+import * as ds from "~/decorators";
 // type
 import type * as rrn from "@remix-run/node";
 // schemas
 import * as schemas from "~/schema";
 // utils
-import * as serverUtils from "~/server/utils";
-import * as sessionServices from "~/server/services/common/session";
+import * as serverUtils from "~/utils/server";
+import * as sessionServices from "~/lib/session";
 
 // remix
 import { forkJoin, from, switchMap } from "rxjs";
 
 // permissions
-import { blogTagPermissions } from "~/server/permission";
+import { blogTagPermissions } from "~/constants/permission";
 
 interface BlogTagActionInterface {
   action(actionArgs: rrn.ActionFunctionArgs): any;

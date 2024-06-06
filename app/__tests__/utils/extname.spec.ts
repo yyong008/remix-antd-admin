@@ -1,5 +1,6 @@
-import { it, expect } from "vitest";
-import { extname } from "~/server/utils";
+import { expect, it } from "vitest";
+
+import { extname } from "~/utils/server";
 
 it("get extname", () => {
   expect(extname("name.png")).toBe(".png");

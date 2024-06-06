@@ -1,4 +1,4 @@
-import * as clientUtils from "~/utils";
+import * as clientUtils from "~/utils/client";
 
 import { Button, Popconfirm, Space, Tag } from "antd";
 import {

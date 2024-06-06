@@ -1,10 +1,10 @@
-import * as clientUtils from "~/utils";
-import * as ds from "~/server/decorators";
+import * as clientUtils from "~/utils/client";
+import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
-import * as serviceUtils from "~/server/utils";
-import * as systemDeptServices from "~/server/services/system/dept";
-import * as systemRoleServices from "~/server/services/system/role";
-import * as systemUserServices from "~/server/services/system/user";
+import * as serviceUtils from "~/utils/server";
+import * as systemDeptServices from "~/services/system/dept";
+import * as systemRoleServices from "~/services/system/role";
+import * as systemUserServices from "~/services/system/user";
 
 // rxjs
 import { forkJoin, from } from "rxjs";

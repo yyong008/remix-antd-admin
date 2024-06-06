@@ -1,11 +1,11 @@
-import * as LoginLogServices from "~/server/services/system/login-log";
-import * as ds from "~/server/decorators";
+import * as LoginLogServices from "~/services/system/login-log";
+import * as ds from "~/decorators";
 import * as errorTypeConstants from "~/constants/error.type";
-import * as loginServices from "~/server/services/login";
+import * as loginServices from "~/services/login";
 import type * as rrn from "@remix-run/node";
 // import * as schemas from "~/schema";
-import * as serverUtils from "~/server/utils";
-import * as sessionServices from "~/server/services/common/session";
+import * as serverUtils from "~/utils/server";
+import * as sessionServices from "~/lib/session";
 
 import {
   catchError,

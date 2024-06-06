@@ -9,6 +9,6 @@ export const prolayoutConfig = {
   avatar: {
     src: "/images/user.jpg",
     size: "small",
-    title: "magnesium-",
+    title: "Yong-",
   },
 };

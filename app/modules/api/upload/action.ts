@@ -1,8 +1,8 @@
-import * as clientUtils from "~/utils";
-import * as ds from "~/server/decorators";
+import * as clientUtils from "~/utils/client";
+import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
-import * as sessionServices from "~/server/services/common/session";
-import * as storageServices from "~/server/services/tools/storage";
+import * as sessionServices from "~/lib/session";
+import * as storageServices from "~/services/tools/storage";
 
 import {
   unstable_composeUploadHandlers as composeUploadHandlers,
@@ -12,7 +12,7 @@ import {
 } from "@remix-run/node";
 import { forkJoin, from, lastValueFrom, of, switchMap } from "rxjs";
 
-import { resp$ } from "~/server/utils";
+import { resp$ } from "~/utils/server";
 
 interface UploadInterface {
   action(actionArgs: rrn.ActionFunctionArgs): any;

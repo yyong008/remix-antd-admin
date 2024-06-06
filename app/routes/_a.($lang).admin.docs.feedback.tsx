@@ -1,7 +1,7 @@
-import { Component } from "~/features/docs/feedback/Component";
-export { meta } from "~/features/docs/feedback/meta";
-export { loader } from "~/features/docs/feedback/loader";
-export { action } from "~/features/docs/feedback/action";
+import { Component } from "~/modules/admin/docs/feedback/Component";
+export { meta } from "~/modules/admin/docs/feedback/meta";
+export { loader } from "~/modules/admin/docs/feedback/loader";
+export { action } from "~/modules/admin/docs/feedback/action";
 
 export default function Route() {
   return <Component />;

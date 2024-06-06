@@ -1,3 +1,8 @@
+import * as _icons from "@ant-design/icons";
+// utils
+import * as clientUtils from "~/utils/client";
+
+import { Button, Form } from "antd";
 import {
   ModalForm,
   ProForm,
@@ -8,11 +13,6 @@ import {
   ProFormTreeSelect,
   ProFormUploadButton,
 } from "@ant-design/pro-components";
-import * as _icons from "@ant-design/icons";
-import { Button, Form } from "antd";
-
-// utils
-import * as clientUtils from "~/utils";
 
 const { EditOutlined } = _icons;
 

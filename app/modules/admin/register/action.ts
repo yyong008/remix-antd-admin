@@ -1,11 +1,11 @@
 import type * as rrn from "@remix-run/node";
 import { type TRegister } from "~/schema/login.schema";
 import { json, redirect } from "@remix-run/node";
-import { findByUserName } from "~/server/services/login";
-import { createUserFromRegister } from "~/server/services/register";
+import { findByUserName } from "~/services/login";
+import { createUserFromRegister } from "~/services/register";
 
-import { hashPassword } from "~/server/utils";
-import { destroySession, getSession } from "~/server/services/common/session";
+import { hashPassword } from "~/utils/server";
+import { destroySession, getSession } from "~/lib/session";
 
 import { RegisterSchema } from "~/schema/login.schema";
 

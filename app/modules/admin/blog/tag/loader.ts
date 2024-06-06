@@ -1,9 +1,9 @@
-import * as blogTagServices from "~/server/services/blog/blog-tags";
-import * as ds from "~/server/decorators";
+import * as blogTagServices from "~/services/blog/blog-tags";
+import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
 // import * as schemas from "~/schema";
-import * as serverUtils from "~/server/utils";
-import * as sessionServices from "~/server/services/common/session";
+import * as serverUtils from "~/utils/server";
+import * as sessionServices from "~/lib/session";
 
 // import { blogTagPermissions } from "~/server/permission";
 import { switchMap } from "rxjs";

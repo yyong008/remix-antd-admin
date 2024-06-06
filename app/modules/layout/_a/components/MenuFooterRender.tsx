@@ -8,7 +8,7 @@ const MenuFooterRender = (props: any) => {
       }}
     >
       <div>© 2023 Made with love</div>
-      <div>by Magnesium</div>
+      <div>by Yong</div>
     </div>
   );
 };

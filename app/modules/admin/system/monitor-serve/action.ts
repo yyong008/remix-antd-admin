@@ -1,4 +1,4 @@
-import * as ds from "~/server/decorators";
+import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
 
 interface SystemConfigActionInterface {

@@ -1,4 +1,4 @@
-import * as clientUtils from "~/utils";
+import * as clientUtils from "~/utils/client";
 
 import { AccountLogin, MobileLogin } from "~/components/login";
 import { Button, ConfigProvider, Tabs } from "antd";

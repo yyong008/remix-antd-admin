@@ -1,7 +1,8 @@
-import { lastValueFrom } from "rxjs";
-import { it, expect } from "vitest";
+import * as clientUtils from "~/utils/client";
 
-import * as clientUtils from "~/utils";
+import { expect, it } from "vitest";
+
+import { lastValueFrom } from "rxjs";
 
 it("formate from observable", async () => {
   expect(

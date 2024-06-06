@@ -1,7 +1,7 @@
-import { Component } from "~/features/profile/account/Component";
-export { meta } from "~/features/profile/account/meta";
-export { loader } from "~/features/profile/account/loader";
-export { action } from "~/features/profile/account/action";
+import { Component } from "~/modules/admin/profile/account/Component";
+export { meta } from "~/modules/admin/profile/account/meta";
+export { loader } from "~/modules/admin/profile/account/loader";
+export { action } from "~/modules/admin/profile/account/action";
 
 export default function Route() {
   return <Component />;

@@ -1,4 +1,4 @@
-import * as serverUtils from "~/server/utils";
+import * as serverUtils from "~/utils/server";
 
 class Loader {
   async loader() {

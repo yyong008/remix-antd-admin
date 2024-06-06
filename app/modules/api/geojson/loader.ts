@@ -1,4 +1,4 @@
-import * as ds from "~/server/decorators";
+import * as ds from "~/decorators";
 
 import { json } from "@remix-run/node";
 

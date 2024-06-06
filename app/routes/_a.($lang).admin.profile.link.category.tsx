@@ -1,7 +1,7 @@
-import { Component } from "~/features/profile/link-category/Component";
-export { meta } from "~/features/profile/link-category/meta";
-export { loader } from "~/features/profile/link-category/loader";
-export { action } from "~/features/profile/link-category/action";
+import { Component } from "~/modules/admin/profile/link-category/Component";
+export { meta } from "~/modules/admin/profile/link-category/meta";
+export { loader } from "~/modules/admin/profile/link-category/loader";
+export { action } from "~/modules/admin/profile/link-category/action";
 
 export default function Route() {
   return <Component />;

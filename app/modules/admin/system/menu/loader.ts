@@ -1,8 +1,8 @@
-import * as ds from "~/server/decorators";
+import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
-import * as serviceUtils from "~/server/utils";
-import * as systemMenuRoleServices from "~/server/services/system/menu-role";
-import * as systemMenuServices from "~/server/services/system/menu";
+import * as serviceUtils from "~/utils/server";
+import * as systemMenuRoleServices from "~/services/system/menu-role";
+import * as systemMenuServices from "~/services/system/menu";
 
 import { forkJoin, from } from "rxjs";
 

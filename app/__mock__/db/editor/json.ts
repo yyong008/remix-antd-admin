@@ -18,7 +18,7 @@ export const packageJson = {
     "pro-components",
     "antd pro",
   ],
-  author: "Magnesium",
+  author: "Yong",
   scripts: {
     build: "remix build",
     dev: "remix dev",

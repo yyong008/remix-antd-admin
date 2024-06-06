@@ -25,7 +25,7 @@ const ProjectAbout = () => {
   const description = `
     ${pkg.name}是基于 @remix-run/react${getMajorVersion("@remix-run/react")}.x、
     Vite${getMajorVersion("vite")}.x、
-    Ant-Design-Vue${getMajorVersion("antd")}.x 、
+    Antd${getMajorVersion("antd")}.x 、
     TailwindCSS${getMajorVersion("tailwindcss")}.x 、
     prisma${getMajorVersion("prisma")}.x 、
     @prisma/client${getMajorVersion("@prisma/client")}.x 、

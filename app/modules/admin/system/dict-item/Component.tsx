@@ -1,4 +1,4 @@
-import * as clientUtils from "~/utils";
+import * as clientUtils from "~/utils/client";
 
 import { Button, Space } from "antd";
 import { DeleteIt, StatusType } from "~/components/common";

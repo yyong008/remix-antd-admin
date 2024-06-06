@@ -1,19 +1,16 @@
-import { useContext, useState } from "react";
+import * as clientUtils from "~/utils/client";
 
+import { AccountLogin, MobileLogin } from "~/components/login";
+import { ConfigProvider, Tabs } from "antd";
+import { LoginForm, ProFormCheckbox } from "@ant-design/pro-components";
+import { useContext, useState } from "react";
+import { useFetcherChange, useNProgress } from "~/hooks";
 import { useNavigate, useParams } from "@remix-run/react";
 
-import { useTranslation } from "react-i18next";
-import { useNProgress, useFetcherChange } from "~/hooks";
-
-import { LoginForm, ProFormCheckbox } from "@ant-design/pro-components";
-import { Tabs, ConfigProvider } from "antd";
 import { ActionIcons } from "~/components/userLogin";
 import { Footer } from "~/components/common";
-import { AccountLogin, MobileLogin } from "~/components/login";
-
 import { SettingContext } from "~/context";
-
-import * as clientUtils from "~/utils";
+import { useTranslation } from "react-i18next";
 
 export function Component() {
   useNProgress();

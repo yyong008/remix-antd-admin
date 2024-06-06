@@ -1,7 +1,7 @@
-import * as ds from "~/server/decorators";
-import * as feedBackServices from "~/server/services/docs/feedback";
+import * as ds from "~/decorators";
+import * as feedBackServices from "~/services/docs/feedback";
 import type * as rrn from "@remix-run/node";
-import * as utils from "~/server/utils";
+import * as utils from "~/utils/server";
 
 import { forkJoin } from "rxjs";
 

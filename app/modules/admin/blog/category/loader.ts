@@ -1,8 +1,8 @@
-import * as blogCategoryServices from "~/server/services/blog/blog-category";
-import * as ds from "~/server/decorators";
+import * as blogCategoryServices from "~/services/blog/blog-category";
+import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
-import * as serverUtils from "~/server/utils";
-import * as sessionServices from "~/server/services/common/session";
+import * as serverUtils from "~/utils/server";
+import * as sessionServices from "~/lib/session";
 
 // import { blogCategoryPermissions } from "~/server/permission";
 import { switchMap } from "rxjs";

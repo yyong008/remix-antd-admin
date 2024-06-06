@@ -1,7 +1,7 @@
-import * as ds from "~/server/decorators";
-import * as newsCategoryServices from "~/server/services/news/news-category";
+import * as ds from "~/decorators";
+import * as newsCategoryServices from "~/services/news/news-category";
 import type * as rrn from "@remix-run/node";
-import * as utils from "~/server/utils";
+import * as utils from "~/utils/server";
 
 import { from, switchMap } from "rxjs";
 
