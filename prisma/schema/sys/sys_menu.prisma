@@ -1,0 +1,40 @@
+model Menu {
+  id          Int       @id @default(autoincrement()) @map("id")
+  name        String    @map("name")
+  type        Int       @map("type")
+  description String?   @map("description")
+  remark      String?   @map("remark")
+  icon        String?   @map("icon")
+  path        String?   @map("path")
+  path_file   String?   @map("path_file")
+  status      Int?      @map("status")
+  isShow      Int?      @map("isShow")
+  isCache     Int?      @map("isCache")
+  permission  String?   @map("permission")
+  isLink      Int?      @map("isLink")
+  orderNo     Int?      @map("order_no")
+  createdAt   DateTime  @default(now()) @map("createdAt")
+  updatedAt   DateTime? @map("updatedAt")
+
+  MenuRole MenuRole[]
+
+  parent_menu_id Int?  @map("parent_menu_id")
+  parent_menu    Menu? @relation("ParentMenuToChildMenus", fields: [parent_menu_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+
+  children_menu Menu[] @relation("ParentMenuToChildMenus")
+
+  @@map("sys_menu")
+}
+
+model MenuRole {
+  id        Int       @id @default(autoincrement()) @map("id")
+  roleId    Int       @map("role_id")
+  menuId    Int       @map("menu_id")
+  createdAt DateTime  @default(now()) @map("createdAt")
+  updatedAt DateTime? @map("updatedAt")
+  roles     Role      @relation(fields: [roleId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  menus     Menu      @relation(fields: [menuId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("sys_menu_role")
+}
+

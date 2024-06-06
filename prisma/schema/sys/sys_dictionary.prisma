@@ -1,0 +1,31 @@
+// sys_dictionary
+model Dictionary {
+  id              Int               @id @default(autoincrement()) @map("id")
+  name            String            @map("name")
+  code            String            @map("code")
+  description     String?           @map("description")
+  remark          String?           @map("remark")
+  status          Int?              @map("status")
+  createdAt       DateTime          @default(now()) @map("createdAt")
+  updatedAt       DateTime?         @map("updatedAt")
+  DictionaryEntry DictionaryEntry[]
+
+  @@map("sys_dictionary")
+}
+
+model DictionaryEntry {
+  id      Int     @id @default(autoincrement()) @map("id")
+  key     String  @map("key")
+  value   String  @map("value")
+  orderNo Int?    @map("order_no")
+  status  Int     @map("status")
+  remark  String? @map("remark")
+
+  createdAt DateTime  @default(now()) @map("createdAt")
+  updatedAt DateTime? @map("updatedAt")
+
+  dictionary_id Int        @map("dictionary_id")
+  dictionary    Dictionary @relation(fields: [dictionary_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("sys_dictionary_entry")
+}

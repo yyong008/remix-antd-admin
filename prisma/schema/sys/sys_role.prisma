@@ -1,0 +1,15 @@
+// sys_role
+model Role {
+  id          Int        @id @default(autoincrement()) @map("id")
+  name        String     @map("name")
+  value       String     @map("value")
+  description String?    @map("description")
+  remark      String?    @map("remark")
+  status      Int?       @map("status")
+  createdAt   DateTime   @default(now()) @map("createdAt")
+  updatedAt   DateTime?  @map("updatedAt")
+  MenuRole    MenuRole[]
+  UserRole    UserRole[]
+
+  @@map("sys_role")
+}

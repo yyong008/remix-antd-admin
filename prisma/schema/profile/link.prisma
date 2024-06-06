@@ -1,0 +1,23 @@
+model Link {
+  id          Int     @id @default(autoincrement())
+  name        String
+  url         String
+  description String?
+
+  categoryId Int          @map("category_id")
+  category   LinkCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("profile_link")
+}
+
+model LinkCategory {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+
+  userId Int @map("user_id") // 上传用户
+
+  links Link[]
+
+  @@map("profile_link_category")
+}

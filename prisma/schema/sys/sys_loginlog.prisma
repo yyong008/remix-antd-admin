@@ -1,0 +1,12 @@
+model Loginlog {
+  id      Int      @id @default(autoincrement()) @map("id")
+  name    String   @map("name")
+  ip      String?  @map("ip")
+  address String?  @map("address")
+  loginAt DateTime @default(now()) @map("login_at")
+  system  String?  @map("system")
+  browser String?  @map("browser")
+  userId  Int
+
+  @@map("sys_loginlog")
+}

@@ -1,0 +1,10 @@
+model FeedBack {
+  id        Int       @id @default(autoincrement())
+  userId    Int // 签到用户 id
+  content   String
+  url       String? // 反馈图片地址
+  createdAt DateTime  @default(now()) // 数据创建时间
+  updatedAt DateTime? // 数据更新时间
+
+  @@map("feed_back")
+}

@@ -1,0 +1,38 @@
+model Blog {
+  id          Int          @id @default(autoincrement())
+  title       String
+  content     String
+  author      String?
+  source      String?
+  viewCount   Int          @default(0)
+  publishedAt DateTime
+  categoryId  Int          @map("category_id")
+  categories  BlogCategory @relation(fields: [categoryId], references: [id])
+  tagId       Int          @map("tag_id")
+  tags        BlogTag      @relation(fields: [tagId], references: [id])
+  userId      Int          @map("user_id") // 上传用户
+
+  @@map("blog")
+}
+
+model BlogCategory {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String?
+  userId      Int     @map("user_id") // 上传用户
+
+  blog Blog[]
+
+  @@map("blog_category")
+}
+
+model BlogTag {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String?
+  userId      Int     @map("user_id") // 上传用户
+
+  blog Blog[]
+
+  @@map("blog_tag")
+}

@@ -1,0 +1,14 @@
+model ChangeLog {
+  id              Int       @id @default(autoincrement())
+  userId          Int // 签到用户 id
+  publish_name    String // 发布人
+  publish_version String // 发布版本
+  publish_time    DateTime // 发布时间
+  type            Int // 1. 大版本更新，2. 功能更新 3. 修复 bug
+  content         String
+  url             String // 更新地址
+  createdAt       DateTime  @default(now()) // 数据创建时间
+  updatedAt       DateTime? // 数据更新时间
+
+  @@map("change_log")
+}

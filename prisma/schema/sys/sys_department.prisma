@@ -1,0 +1,16 @@
+model Department {
+  id          Int       @id @default(autoincrement()) @map("id")
+  name        String    @map("name")
+  description String?   @map("description")
+  orderNo     Int?      @map("order_no")
+  createdAt   DateTime  @default(now()) @map("createdAt")
+  updatedAt   DateTime? @map("updatedAt")
+
+  User User[]
+
+  parent_department_id Int?         @map("parent_department_id")
+  parent               Department?  @relation("x", fields: [parent_department_id], references: [id])
+  children             Department[] @relation("x")
+
+  @@map("sys_department")
+}

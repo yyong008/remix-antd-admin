@@ -1,0 +1,55 @@
+// User
+model User {
+  id        Int       @id @default(autoincrement()) @map("id")
+  avatar    String?   @map("avatar")
+  email     String?   @map("email")
+  name      String    @map("name")
+  nickname  String?   @map("nickname")
+  password  String    @map("password")
+  lang      String    @default("en-US") @map("lang")
+  theme     String    @default("light") @map("theme")
+  phone     String?   @map("phone")
+  remark    String?   @map("remark")
+  status    Int?      @map("status")
+  createdAt DateTime  @default(now()) @map("createdAt")
+  updatedAt DateTime? @map("updatedAt")
+
+  departmentId Int?        @map("department_id")
+  department   Department? @relation(fields: [departmentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  UserRole     UserRole[]
+
+  @@map("sys_user")
+}
+
+model UserRole {
+  id        Int       @id @default(autoincrement()) @map("id")
+  userId    Int       @map("user_id")
+  roleId    Int       @map("role_id")
+  createdAt DateTime  @default(now()) @map("createdAt")
+  updatedAt DateTime? @map("updatedAt")
+  users     User      @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  roles     Role      @relation(fields: [roleId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("sys_user_role")
+}
+
+model UserSignLog {
+  id        Int       @id @default(autoincrement())
+  userId    Int // 签到用户 id
+  signType  Int       @map("sign_type") // 签到类型：1: 签到 2: 补签
+  signTime  DateTime  @map("sign_time") // 签到时间
+  createdAt DateTime  @default(now()) // 数据创建时间
+  updatedAt DateTime? // 数据更新时间
+
+  @@map("user_sign_log")
+}
+
+model UserSign {
+  id                   Int @id @default(autoincrement())
+  userId               Int // 签到用户 id
+  resignNums           Int @map("resign_nums") // 剩余补签数量
+  signedNums           Int @map("signed_nums") // 已签到数量
+  continuitySignedNums Int @map("continuity_signed_nums") // 已连续签到数据量
+
+  @@map("user_sign")
+}

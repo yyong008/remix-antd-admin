@@ -1,0 +1,15 @@
+model Storage {
+  id        Int       @id @default(autoincrement()) @map("id")
+  createdAt DateTime  @default(now()) @map("createdAt")
+  updatedAt DateTime? @map("updatedAt")
+
+  userId   Int    @map("user_id") // 上传用户
+  name     String // 文件名
+  fileName String @map("file_name") // 真实文件名
+  extName  String @map("ext_name") // 文件扩展名
+  path     String // 文件地址
+  size     String // 文件大小
+  type     String // 文件类型
+
+  @@map("tools_storage")
+}

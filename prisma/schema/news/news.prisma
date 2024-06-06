@@ -1,0 +1,25 @@
+model News {
+  id          Int          @id @default(autoincrement())
+  title       String
+  content     String
+  author      String?
+  source      String?
+  viewCount   Int          @default(0)
+  publishedAt DateTime
+  newsId      Int          @map("news_id")
+  news        NewsCategory @relation(fields: [newsId], references: [id])
+  userId      Int          @map("user_id") // 上传用户
+
+  @@map("news")
+}
+
+model NewsCategory {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String?
+  userId      Int     @map("user_id") // 上传用户
+
+  news News[]
+
+  @@map("news_category")
+}

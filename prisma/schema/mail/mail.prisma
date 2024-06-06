@@ -1,0 +1,17 @@
+model Mail {
+  id      Int     @id @default(autoincrement())
+  name    String?
+  title   String?
+  host    String?
+  port    Int?
+  user    String?
+  pass    String?
+  from    String?
+  to      String?
+  subject String?
+  content String?
+  html    String?
+  text    String?
+
+  @@map("mail")
+}
