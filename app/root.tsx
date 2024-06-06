@@ -1,8 +1,8 @@
-import { RootComponent } from "~/features/root/Component";
-import { links as _links } from "~/features/root/links";
-export { handle } from "~/features/root/handle";
-export { loader } from "~/features/root/loader";
-export { ErrorBoundary } from "~/features/root/ErrorBoundary";
+import { RootComponent } from "~/modules/root/Component";
+import { links as _links } from "~/modules/root/links";
+export { handle } from "~/modules/root/handle";
+export { loader } from "~/modules/root/loader";
+export { ErrorBoundary } from "~/modules/root/ErrorBoundary";
 
 export default function RootRoute() {
   return <RootComponent />;
