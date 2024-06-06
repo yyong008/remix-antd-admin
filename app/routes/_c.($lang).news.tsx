@@ -1,6 +1,6 @@
-import { Component } from "~/features/client/news/Component";
-export { meta } from "~/features/client/news/meta";
-export { loader } from "~/features/client/news/loader";
+import { Component } from "~/modules/client/news/Component";
+export { meta } from "~/modules/client/news/meta";
+export { loader } from "~/modules/client/news/loader";
 
 export default function Route() {
   return <Component />;
