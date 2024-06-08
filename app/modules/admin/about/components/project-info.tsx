@@ -1,6 +1,6 @@
 import { Descriptions, Tag } from "antd";
 
-import { BlankLink } from "./BlankLink";
+import { BlankLink } from "./blank-link";
 import { ProCard } from "@ant-design/pro-components";
 
 export const ProjectInfo = () => {

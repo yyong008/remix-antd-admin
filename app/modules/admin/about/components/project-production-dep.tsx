@@ -1,4 +1,4 @@
-import { BlankLink } from "./BlankLink";
+import { BlankLink } from "./blank-link";
 import { Descriptions } from "antd";
 import { ProCard } from "@ant-design/pro-components";
 

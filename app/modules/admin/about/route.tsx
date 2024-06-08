@@ -1,11 +1,14 @@
+import {
+  ProjectAbout,
+  ProjectDevelopmentDep,
+  ProjectInfo,
+  ProjectProductionDep,
+} from "./components";
+
 import { PageContainer } from "@ant-design/pro-components";
-import { ProjectAbout } from "./components/ProjectAbout";
-import { ProjectDevelopmentDep } from "./components/ProjectDevelopmentDep";
-import { ProjectInfo } from "./components/ProjectInfo";
-import { ProjectProductionDep } from "./components/ProjectProductionDep";
 import { Space } from "antd";
 
-export function Component() {
+export function Route() {
   return (
     <PageContainer>
       <Space direction="vertical">
