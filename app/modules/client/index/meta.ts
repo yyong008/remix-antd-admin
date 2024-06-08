@@ -1,7 +1,5 @@
-export const meta = () => {
-  return [
-    {
-      title: "remix-antd-amdin",
-    },
-  ];
+import type { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "remix-antd-admin" }];
 };

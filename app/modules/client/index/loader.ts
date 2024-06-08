@@ -1,4 +1,3 @@
-import * as ds from "~/decorators";
 import type * as tn from "@remix-run/node";
 import * as us from "~/utils/server";
 
@@ -6,7 +5,6 @@ import { defaultLang } from "~/config";
 import { redirect } from "@remix-run/node";
 
 class L {
-  @ds.authorize()
   static async loader(args: tn.LoaderFunctionArgs) {
     try {
       return L.loaderImpl(args);

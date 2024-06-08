@@ -1,10 +1,8 @@
-import * as ds from "~/decorators";
 import * as ls from "./loaders";
 import type * as tn from "@remix-run/node";
 import * as us from "~/utils/server";
 
 class L {
-  @ds.authorize()
   static async loader(args: tn.LoaderFunctionArgs) {
     try {
       return L.loaderImpl(args);

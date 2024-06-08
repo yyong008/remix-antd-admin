@@ -1,7 +1,7 @@
-import { Component } from "~/modules/client/news_id/Component";
-export { meta } from "~/modules/client/news_id/meta";
-export { loader } from "~/modules/client/news_id/loader";
+import { Route } from "~/modules/client/news-detail/route";
+export { meta } from "~/modules/client/news-detail/meta";
+export { loader } from "~/modules/client/news-detail/loader";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

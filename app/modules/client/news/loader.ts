@@ -1,14 +1,21 @@
-import { json } from "@remix-run/node";
-import { getNews } from "~/services/news/news";
+import type * as tn from "@remix-run/node";
+import * as us from "~/utils/server";
 
-class Loader {
-  async loader() {
-    return json({
-      code: 0,
-      message: "success",
-      news: await getNews(),
-    });
+import { query } from "./loaders";
+
+class L {
+  static async loader(args: tn.LoaderFunctionArgs) {
+    try {
+      return L.loaderImpl(args);
+    } catch (error) {
+      return us.rfj();
+    }
+  }
+
+  static async loaderImpl(args: tn.LoaderFunctionArgs) {
+    const result = await query(args);
+    return us.rsj(result);
   }
 }
 
-export const loader = new Loader().loader;
+export const loader = L.loader;
