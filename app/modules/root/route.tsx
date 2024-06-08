@@ -12,9 +12,10 @@ import { ClientOnly } from "~/components/common/ClientOnly";
 import type { loader } from "~/modules/root/loader";
 import { useChangeLanguage } from "remix-i18next/react";
 
-export function RootComponent() {
+export function RootRoute() {
   const params = useParams();
-  let { lang } = useLoaderData<typeof loader>();
+  const _data = useLoaderData<typeof loader>();
+  const { lang } = _data.data;
 
   useChangeLanguage(lang!);
 
