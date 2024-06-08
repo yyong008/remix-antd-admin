@@ -1,10 +1,8 @@
-// session
 import { auth$, logout$ } from "../lib/session";
 
 import { getUserInfoById$ } from "../services/system/user";
 import { lastValueFrom } from "rxjs";
-// utils
-import { respFailJson } from "~/utils/server";
+import { rfj } from "~/utils/server";
 
 /**
  * 检查登录
@@ -45,7 +43,7 @@ export function checkLogin() {
       } catch (error: any) {
         // 如果校验失败，抛出错误
         console.error("Request data validation failed: " + typeof error);
-        return respFailJson({}, error.toString());
+        return rfj({}, error.toString());
       }
     };
 

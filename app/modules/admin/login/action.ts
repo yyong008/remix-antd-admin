@@ -48,7 +48,7 @@ class Action {
     const dataDto$ = from(request.json());
 
     const crreateErrorHandle = (message?: string) => () => {
-      return serverUtils.respFailJson(
+      return serverUtils.rfj(
         {},
         message ?? errorTypeConstants.ERROR_USER_OR_PASSWORD,
       );

@@ -1,30 +1,30 @@
 import { describe, expect, it } from "vitest";
 import {
   respByData$,
-  respFailJson,
   respPresentationModeJson,
-  respSuccessJson,
   respUnAuthJson,
   respUnSupportJson,
+  rfj,
+  rsj,
 } from "~/utils/server";
 
 import { lastValueFrom } from "rxjs";
 
 describe("test response json success", () => {
   it("snapshot test empty json  ok/status", async () => {
-    expect(respSuccessJson({}).ok).toMatchInlineSnapshot(`true`);
-    expect(respSuccessJson({}).status).toMatchInlineSnapshot(`200`);
-    expect(respSuccessJson({}).statusText).toMatchInlineSnapshot(`""`);
+    expect(rsj({}).ok).toMatchInlineSnapshot(`true`);
+    expect(rsj({}).status).toMatchInlineSnapshot(`200`);
+    expect(rsj({}).statusText).toMatchInlineSnapshot(`""`);
   });
 
   it("snapshot test header", async () => {
-    expect(
-      respSuccessJson({}).headers.get("content-type"),
-    ).toMatchInlineSnapshot(`"application/json; charset=utf-8"`);
+    expect(rsj({}).headers.get("content-type")).toMatchInlineSnapshot(
+      `"application/json; charset=utf-8"`,
+    );
   });
 
   it("snapshot test json", async () => {
-    expect(await respSuccessJson({ userInfo: { name: "tim" } }).json())
+    expect(await rsj({ userInfo: { name: "tim" } }).json())
       .toMatchInlineSnapshot(`
     {
       "code": 0,
@@ -39,25 +39,25 @@ describe("test response json success", () => {
   });
 
   it("snapshot test success json code should equal 0", async () => {
-    expect((await respSuccessJson({}).json()).code).toBe(0);
+    expect((await rsj({}).json()).code).toBe(0);
   });
 });
 
 describe("test response json fail", () => {
   it("snapshot test empty json  ok/status", async () => {
-    expect(respFailJson({}).ok).toMatchInlineSnapshot(`true`);
-    expect(respFailJson({}).status).toMatchInlineSnapshot(`200`);
-    expect(respFailJson({}).statusText).toMatchInlineSnapshot(`""`);
+    expect(rfj({}).ok).toMatchInlineSnapshot(`true`);
+    expect(rfj({}).status).toMatchInlineSnapshot(`200`);
+    expect(rfj({}).statusText).toMatchInlineSnapshot(`""`);
   });
 
   it("snapshot test header", async () => {
-    expect(respFailJson({}).headers.get("content-type")).toMatchInlineSnapshot(
+    expect(rfj({}).headers.get("content-type")).toMatchInlineSnapshot(
       `"application/json; charset=utf-8"`,
     );
   });
 
   it("snapshot test json", async () => {
-    expect(await respFailJson({ userInfo: { name: "tim" } }).json())
+    expect(await rfj({ userInfo: { name: "tim" } }).json())
       .toMatchInlineSnapshot(`
         {
           "code": 1,
@@ -72,7 +72,7 @@ describe("test response json fail", () => {
   });
 
   it("snapshot test fail json code should equal 0", async () => {
-    expect((await respFailJson({}).json()).code).toBe(1);
+    expect((await rfj({}).json()).code).toBe(1);
   });
 });
 

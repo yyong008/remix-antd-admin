@@ -42,7 +42,7 @@ export function permission(perms: any) {
       } catch (error: any) {
         // 如果校验失败，抛出错误
         console.error("Request data validation failed: " + typeof error);
-        return rp.respFailJson({}, error.toString());
+        return rp.rfj({}, error.toString());
       }
     };
 

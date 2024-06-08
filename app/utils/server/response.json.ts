@@ -1,9 +1,6 @@
-// rxjs
 import { from, iif, lastValueFrom, of, switchMap } from "rxjs";
 
-// types
 import type { Observable } from "rxjs";
-// remix
 import { json } from "@remix-run/node";
 
 enum ResCode {
@@ -28,39 +25,12 @@ enum InnerMessage {
  * @param message
  * @returns
  */
-export const respSuccessJson = (data: any, message?: string, options?: any) => {
+export const rsj = (data: any, message?: string, options?: any) => {
   return json(
     {
       code: ResCode.success,
       message: message ?? ResMessage.succes,
       data,
-    },
-    options,
-  );
-};
-
-/**
- *
- * @param list {any[]} 数据列表
- * @param total {Number} 数据总量
- * @param message {String} 字符串
- * @param options {Object} json 的字符串
- * @returns
- */
-export const respPageSuccessJson = (
-  list: any,
-  total: number,
-  message?: string,
-  options?: any,
-) => {
-  return json(
-    {
-      code: ResCode.success,
-      message: message ?? ResMessage.succes,
-      data: {
-        list,
-        total,
-      },
     },
     options,
   );
@@ -73,11 +43,11 @@ export const respPageSuccessJson = (
  * @param options
  * @returns
  */
-export const respFailJson = (data: any, message?: string, options?: any) => {
+export const rfj = (data?: any, message?: string, options?: any) => {
   return json({
     code: ResCode.fail,
     message: message ?? ResMessage.fail,
-    data,
+    data: data ?? null,
   });
 };
 
@@ -90,8 +60,8 @@ export const respByData$ = (data: any | null) => {
   return from(
     iif(
       () => data !== null,
-      of(() => respSuccessJson(data, "创建成功")),
-      of(() => respFailJson({}, "创建失败")),
+      of(() => rsj(data, "创建成功")),
+      of(() => rfj({}, "创建失败")),
     ),
   );
 };
@@ -108,8 +78,8 @@ export const resp$ = async (data$: Observable<any>) => {
         () => {
           return data !== null;
         },
-        of(() => respSuccessJson(data)),
-        of(() => respFailJson({})),
+        of(() => rsj(data)),
+        of(() => rfj({})),
       ),
     ),
   );
@@ -130,8 +100,8 @@ export const resp = async (data: any | null) => {
         () => {
           return data !== null;
         },
-        of(() => respSuccessJson(data)),
-        of(() => respFailJson({})),
+        of(() => rsj(data)),
+        of(() => rfj({})),
       ),
     ),
   );

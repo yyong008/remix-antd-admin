@@ -17,9 +17,7 @@ class Loader {
     });
 
     const data = await lastValueFrom(result$);
-    return data
-      ? serverUtils.respSuccessJson(data)
-      : serverUtils.respFailJson({});
+    return data ? serverUtils.rsj(data) : serverUtils.rfj({});
   }
 }
 

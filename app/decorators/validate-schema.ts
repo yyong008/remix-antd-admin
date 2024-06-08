@@ -10,7 +10,7 @@ import {
 } from "~/schema/menu.schema";
 
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { respFailJson } from "~/utils/server";
+import { rfj } from "~/utils/server";
 
 /**
  * 校验 DTO
@@ -35,7 +35,7 @@ export function validate(RequestSchema: any) {
       } catch (error: any) {
         // 如果校验失败，抛出错误
         console.error("Request data validation failed: " + typeof error);
-        return respFailJson({}, error.toString());
+        return rfj({}, error.toString());
       }
     };
 
@@ -65,7 +65,7 @@ export function validateSearchParams(RequestSchema: any) {
       } catch (error: any) {
         // 如果校验失败，抛出错误
         console.error("Request data validation failed: " + error);
-        return respFailJson({}, error.toString());
+        return rfj({}, error.toString());
       }
     };
 
@@ -111,7 +111,7 @@ export function validateMenuSchema(action: "create" | "update") {
       } catch (error: any) {
         // 如果校验失败，抛出错误
         console.error("Request data validation failed: " + typeof error);
-        return respFailJson({}, error.toString());
+        return rfj({}, error.toString());
       }
     };
 
