@@ -9,7 +9,7 @@ export class Action {
   @ds.Action
   async action({ request, params }: rrn.ActionFunctionArgs) {}
 
-  @ds.checkLogin()
+  @ds.authorize()
   async POST({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       map(

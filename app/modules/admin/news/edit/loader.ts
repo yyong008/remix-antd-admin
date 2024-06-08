@@ -5,7 +5,7 @@ import type * as rrn from "@remix-run/node";
 import * as utils from "~/utils/server";
 
 class AdminNewsEditLoader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ request, params }: rrn.LoaderFunctionArgs) {
     return utils.resp({
       TINYMCE_KEY: process.env.TINYMCE_KEY,

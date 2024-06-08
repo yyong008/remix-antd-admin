@@ -6,7 +6,7 @@ import * as systemDictServices from "~/services/system/dict";
 import { from } from "rxjs";
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader() {
     const result$ = from(systemDictServices.getDictList());
     return serverUtils.resp$(result$);

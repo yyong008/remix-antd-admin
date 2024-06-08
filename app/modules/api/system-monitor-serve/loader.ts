@@ -7,7 +7,7 @@ import { catchError, map, throwError } from "rxjs";
 import { getSystemInfo$ } from "~/lib/systemInfo";
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ request, params }: rrn.LoaderFunctionArgs) {
     const startTimeStamp = Date.now();
     const resultFn$ = getSystemInfo$().pipe(

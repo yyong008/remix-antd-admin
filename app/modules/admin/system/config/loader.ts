@@ -3,7 +3,7 @@ import type * as rrn from "@remix-run/node";
 import * as serverUtils from "~/utils/server";
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ request, params }: rrn.LoaderFunctionArgs) {
     return serverUtils.resp([]);
   }

@@ -6,7 +6,7 @@ import * as utils from "~/utils/server";
 import { forkJoin } from "rxjs";
 
 export class AdminFeedbackLoader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ request, params }: rrn.LoaderFunctionArgs) {
     const result$ = forkJoin({
       total: feedBackServices.getFeedBackCount$(),

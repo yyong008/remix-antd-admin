@@ -6,7 +6,7 @@ import * as utils from "~/utils/server";
 import { from } from "rxjs";
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ params }: rrn.LoaderFunctionArgs) {
     const { id } = params;
     const result$ = from(profileLinkServices.getLinkListById(Number(id)));

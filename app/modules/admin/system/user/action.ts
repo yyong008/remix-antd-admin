@@ -20,7 +20,7 @@ class Action {
     return this?.[actionArgs.request.method as TM]?.(actionArgs);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   @ds.validate(userSchemas.userSchema)
   async POST({ request, params }: rrn.LoaderFunctionArgs) {
     const result$ = from(request.json()).pipe(
@@ -30,7 +30,7 @@ class Action {
     return serviceUtils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   @ds.validate(userSchemas.userUpdateSchema)
   async PUT({ request, params }: rrn.LoaderFunctionArgs) {
     const result$ = from(request.json()).pipe(
@@ -42,7 +42,7 @@ class Action {
     return serviceUtils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   @ds.validate(userSchemas.deleteUserSchema)
   async DELETE({ request, params }: rrn.LoaderFunctionArgs) {
     const result$ = from(request.json()).pipe(

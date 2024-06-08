@@ -9,7 +9,7 @@ class Action {
   @ds.Action
   async action({ request, params }: rrn.ActionFunctionArgs) {}
 
-  @ds.checkLogin()
+  @ds.authorize()
   async DETETE({ params, request }: rrn.LoaderFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((ids: number[]) =>

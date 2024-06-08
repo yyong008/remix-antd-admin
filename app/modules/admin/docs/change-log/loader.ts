@@ -6,7 +6,7 @@ import * as utils from "~/utils/server";
 import { forkJoin } from "rxjs";
 
 class AdminChangeLogLoader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ request, params }: rrn.LoaderFunctionArgs) {
     const result$ = forkJoin({
       total: changeLogServices.getChangeLogCount$(),

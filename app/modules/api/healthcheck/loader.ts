@@ -4,7 +4,7 @@ import type * as rrn from "@remix-run/node";
 import { getUserCount } from "~/services/system.user.service";
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ request, params }: rrn.LoaderFunctionArgs) {
     const host =
       request.headers.get("X-Forwarded-Host") ?? request.headers.get("host");

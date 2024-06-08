@@ -15,13 +15,13 @@ class Action {
     return this?.[actionArgs.request.method as TM]?.(actionArgs);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async POST({ request, params }: rrn.ActionFunctionArgs) {}
 
-  @ds.checkLogin()
+  @ds.authorize()
   async PUT({ request, params }: rrn.ActionFunctionArgs) {}
 
-  @ds.checkLogin()
+  @ds.authorize()
   async DELETE({ request, params }: rrn.ActionFunctionArgs) {}
 }
 

@@ -6,7 +6,7 @@ import * as utils from "~/utils/server";
 import { of, switchMap } from "rxjs";
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ params }: rrn.LoaderFunctionArgs) {
     if (!params || !params.id) {
       return null;

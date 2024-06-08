@@ -1,11 +1,22 @@
 import * as ds from "~/decorators";
-import type * as rrn from "@remix-run/node";
+import * as ls from "./loaders";
+import type * as tn from "@remix-run/node";
+import * as us from "~/utils/server";
 
-class Loader {
-  @ds.checkLogin()
-  async loader({ request, params }: rrn.LoaderFunctionArgs) {
-    return null;
+class L {
+  @ds.authorize()
+  static async loader(args: tn.LoaderFunctionArgs) {
+    try {
+      return L.loaderImpl(args);
+    } catch (error) {
+      return us.rfj();
+    }
+  }
+
+  static async loaderImpl(args: tn.LoaderFunctionArgs) {
+    const result = await ls.query(args);
+    return us.rsj(result);
   }
 }
 
-export const loader = new Loader().loader;
+export const loader = L.loader;

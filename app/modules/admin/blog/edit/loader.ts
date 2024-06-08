@@ -9,7 +9,7 @@ import { forkJoin, from, of, switchMap } from "rxjs";
 // import { blogPermissions } from "~/server/permission";
 
 class AdminBlogEditLoader {
-  @ds.checkLogin()
+  @ds.authorize()
   // @ds.permission(blogPermissions.CREATE)
   async loader({ request, params }: rrn.LoaderFunctionArgs) {
     const result$ = from(sessionServices.getUserId$(request)).pipe(

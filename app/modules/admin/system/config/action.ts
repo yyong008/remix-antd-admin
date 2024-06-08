@@ -16,7 +16,7 @@ class Action {
     return this?.[actionArgs.request.method as TM]?.(actionArgs);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async POST(actionArgs: rrn.ActionFunctionArgs) {
     return null;
   }

@@ -23,7 +23,7 @@ export class BlogCategoryAction implements BlogCategoryActionInterface {
     return this?.[actionArgs.request.method as TM]?.(actionArgs);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   @ds.permission(blogCategoryPermissions.CREATE)
   @ds.validate(schemas.CreateBlogCategorySchema)
   async POST({ request }: rrn.ActionFunctionArgs) {
@@ -37,7 +37,7 @@ export class BlogCategoryAction implements BlogCategoryActionInterface {
     return serverUtils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   @ds.permission(blogCategoryPermissions.UPDATE)
   @ds.validate(schemas.UpdateBlogCategorySchema)
   async PUT({ request }: rrn.ActionFunctionArgs) {
@@ -55,7 +55,7 @@ export class BlogCategoryAction implements BlogCategoryActionInterface {
     return serverUtils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   @ds.permission(blogCategoryPermissions.DELETE)
   @ds.validate(schemas.DeleteBlogCategorySchema)
   async DELETE({ request }: rrn.ActionFunctionArgs) {

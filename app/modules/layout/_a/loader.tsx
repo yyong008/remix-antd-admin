@@ -20,7 +20,7 @@ import { langs } from "~/config/lang";
 import { redirect } from "@remix-run/node";
 
 export class LayoutALoader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ request, params }: rrn.LoaderFunctionArgs) {
     const higherOrderRedirect404 = () => {
       return () => redirect("/404");

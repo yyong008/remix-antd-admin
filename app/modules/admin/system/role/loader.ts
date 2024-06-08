@@ -8,7 +8,7 @@ import * as systemRoleServices from "~/services/system/role";
 import { forkJoin, from, lastValueFrom } from "rxjs";
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ request }: rrn.LoaderFunctionArgs) {
     const result$ = forkJoin({
       dataSource: from(systemRoleServices.getRoleList()),

@@ -25,7 +25,7 @@ class AdminFeedbackAction {
   async action(actionArgs: rrn.ActionFunctionArgs) {
     return this?.[actionArgs.request.method as TM]?.(actionArgs);
   }
-  @ds.checkLogin()
+  @ds.authorize()
   async POST({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: request.json(),
@@ -38,7 +38,7 @@ class AdminFeedbackAction {
     return utils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async PUT({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((data) => feedBackServices.updateFeedBackById$(data)),
@@ -46,7 +46,7 @@ class AdminFeedbackAction {
     return utils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async DELETE({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((ids) => feedBackServices.deleteFeedBackByIds$(ids)),

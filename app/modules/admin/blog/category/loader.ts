@@ -8,7 +8,7 @@ import * as sessionServices from "~/lib/session";
 import { switchMap } from "rxjs";
 
 class BlogCategoryLoader {
-  @ds.checkLogin()
+  @ds.authorize()
   // @ds.permission(blogCategoryPermissions.READ_LIST)
   // @ds.validate(schemas.GetBlogCategorySchema)
   async loader({ request, params }: rrn.LoaderFunctionArgs) {

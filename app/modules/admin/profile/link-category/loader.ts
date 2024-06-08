@@ -13,7 +13,7 @@ import { getUserId$ } from "~/lib/session";
 // };
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   // @ds.permission(profilePerms.READ_LIST)
   async loader({ request }: rrn.LoaderFunctionArgs) {
     const result$ = from(getUserId$(request)).pipe(

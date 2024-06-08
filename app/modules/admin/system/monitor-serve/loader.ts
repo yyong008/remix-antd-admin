@@ -5,7 +5,7 @@ import * as serviceUtils from "~/utils/server";
 import { getSystemInfo$ } from "~/lib/systemInfo";
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader() {
     return serviceUtils.resp$(getSystemInfo$());
   }

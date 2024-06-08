@@ -6,7 +6,7 @@ import * as utils from "~/utils/server";
 import { forkJoin, map, switchMap } from "rxjs";
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ request }: rrn.LoaderFunctionArgs) {
     const result$ = forkJoin({
       page: utils.getSearchParams$(request, "page"),

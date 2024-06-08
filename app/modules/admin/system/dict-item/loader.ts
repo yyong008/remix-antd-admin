@@ -7,7 +7,7 @@ import { from } from "rxjs";
 import { redirect } from "@remix-run/node";
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ params }: rrn.LoaderFunctionArgs) {
     const { id, lang } = params;
     if (!lang || !id) {

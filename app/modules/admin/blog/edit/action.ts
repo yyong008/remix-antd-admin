@@ -23,7 +23,7 @@ export class AdminBlogEditAction {
     return this?.[actionArgs.request.method as TM]?.(actionArgs);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   @ds.permission(blogPermissions.CREATE)
   @ds.validate(schemas.CreateBlogSchema)
   async POST({ request }: rrn.ActionFunctionArgs) {
@@ -35,7 +35,7 @@ export class AdminBlogEditAction {
     return serverUtils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   @ds.permission(blogPermissions.UPDATE)
   @ds.validate(schemas.UpdateBlogSchema)
   async PUT({ request }: rrn.ActionFunctionArgs) {

@@ -17,7 +17,7 @@ const perms = {
 };
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   @ds.permission(perms.READ_LIST)
   async loader({ params }: rrn.LoaderFunctionArgs) {
     const { lang } = params;

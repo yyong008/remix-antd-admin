@@ -19,7 +19,7 @@ class AdminNewsAction {
     return this?.[actionArgs.request.method as TM]?.(actionArgs);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async POST({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((data) => newsServices.createNews$(data)),
@@ -27,7 +27,7 @@ class AdminNewsAction {
     return utils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async PUT({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((data) => newsServices.updateNews$(data)),
@@ -35,7 +35,7 @@ class AdminNewsAction {
     return utils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async DELETE({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((data) => newsServices.deleteNewsByIds$(data)),

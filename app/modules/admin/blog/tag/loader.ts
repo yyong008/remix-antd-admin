@@ -9,7 +9,7 @@ import * as sessionServices from "~/lib/session";
 import { switchMap } from "rxjs";
 
 export class AdminBlogTagLoader {
-  @ds.checkLogin()
+  @ds.authorize()
   // @ds.permission(blogTagPermissions.READ_LIST)
   async loader({ request, params }: rrn.LoaderFunctionArgs) {
     const result$ = sessionServices

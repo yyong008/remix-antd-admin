@@ -7,7 +7,7 @@ import * as utils from "~/utils/server";
 import { forkJoin } from "rxjs";
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ params, request }: rrn.LoaderFunctionArgs) {
     const { page, pageSize, name } =
       clientUtils.getPaginationByRequest(request);

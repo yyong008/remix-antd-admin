@@ -30,7 +30,7 @@ class BlogTagAction implements BlogTagActionInterface {
     return this?.[actionArgs.request.method as TM]?.(actionArgs);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   @ds.permission(blogTagPermissions.CREATE)
   @ds.validate(schemas.CreateBlogTagSchema)
   async POST({ request }: rrn.ActionFunctionArgs) {
@@ -42,7 +42,7 @@ class BlogTagAction implements BlogTagActionInterface {
     return serverUtils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   @ds.permission(blogTagPermissions.UPDATE)
   @ds.validate(schemas.UpdateBlogTagSchema)
   async PUT({ request }: rrn.ActionFunctionArgs) {
@@ -61,7 +61,7 @@ class BlogTagAction implements BlogTagActionInterface {
     return serverUtils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   @ds.permission(blogTagPermissions.DELETE)
   @ds.validate(schemas.DeleteBlogTagSchema)
   async DELETE({ request, params }: rrn.ActionFunctionArgs) {

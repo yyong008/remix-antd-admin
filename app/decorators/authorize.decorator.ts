@@ -8,7 +8,7 @@ import { rfj } from "~/utils/server";
  * 检查登录
  * @returns
  */
-export function checkLogin() {
+export function authorize() {
   return function (
     target: any,
     propertyKey: string,

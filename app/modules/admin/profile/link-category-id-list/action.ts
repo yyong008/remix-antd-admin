@@ -19,7 +19,7 @@ class Action {
     return this?.[actionArgs.request.method as TM]?.(actionArgs);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async POST({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((data) => from(profileLinkServices.createLink(data))),
@@ -27,7 +27,7 @@ class Action {
     return utils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async PUT({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((data) => from(profileLinkServices.updateLink$(data))),
@@ -35,7 +35,7 @@ class Action {
     return utils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async DELETE({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((ids: number[]) =>

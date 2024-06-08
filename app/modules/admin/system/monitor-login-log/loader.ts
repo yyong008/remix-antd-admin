@@ -6,7 +6,7 @@ import * as systemLoginlogServices from "~/services/system/login-log";
 import { forkJoin, from } from "rxjs";
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ request }: rrn.LoaderFunctionArgs) {
     let { searchParams } = new URL(request.url);
     let page = Number(searchParams.get("page") ?? 1);

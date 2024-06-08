@@ -9,7 +9,7 @@ class Action {
   @ds.Action
   async action({ request, params }: rrn.ActionFunctionArgs) {}
 
-  @ds.checkLogin()
+  @ds.authorize()
   async post({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((data) => toolsMailServices.createEmailTemplate$(data)),
@@ -18,7 +18,7 @@ class Action {
     return utils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async put({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((data) => toolsMailServices.updateEmailTemplate$(data)),
@@ -27,7 +27,7 @@ class Action {
     return utils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async delete({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((ids: number[]) =>

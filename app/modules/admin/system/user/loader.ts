@@ -12,7 +12,7 @@ import { forkJoin, from } from "rxjs";
 // import * as userSchemas from "~/schema/user.schema";
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ request, params }: rrn.LoaderFunctionArgs) {
     const { page, pageSize, name, role } =
       await clientUtils.getPaginationByRequest(request);

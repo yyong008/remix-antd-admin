@@ -6,7 +6,7 @@ import * as systemDeptServices from "~/services/system/dept";
 import { from } from "rxjs";
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader() {
     const result$ = from(systemDeptServices.getDeptListTree());
     return serverUtils.resp$(result$);

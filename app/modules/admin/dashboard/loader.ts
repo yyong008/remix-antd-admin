@@ -8,7 +8,7 @@ import * as utils from "~/utils/server";
 import { forkJoin, from, switchMap } from "rxjs";
 
 class AdminDashboardLoader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ request, params }: rrn.LoaderFunctionArgs) {
     const result$ = from(sessionServices.getUserId$(request)).pipe(
       switchMap((userId) =>

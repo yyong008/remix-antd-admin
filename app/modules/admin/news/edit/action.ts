@@ -20,7 +20,7 @@ class AdminNewsEditAction {
     return this?.[actionArgs.request.method as TM]?.(actionArgs);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async POST({ request, params }: rrn.ActionFunctionArgs) {
     const result$ = forkJoin({
       data: from(request.json()),

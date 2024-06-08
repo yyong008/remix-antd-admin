@@ -17,7 +17,7 @@ interface BlogLoaderInterface {
 }
 
 class BlogLoader implements BlogLoaderInterface {
-  @ds.checkLogin()
+  @ds.authorize()
   // @ds.permission(blogPermissions.READ_LIST)
   // @ds.validate(schemas.GetBlogSchema)
   async loader({ request }: rrn.LoaderFunctionArgs) {

@@ -1,7 +1,7 @@
-import { Component } from "~/modules/client/about/Component";
+import { Route } from "~/modules/client/about/route";
 export { meta } from "~/modules/client/about/meta";
 export { loader } from "~/modules/client/about/loader";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

@@ -15,7 +15,7 @@ class Action implements SignInInterface {
   @ds.Action
   action(actionArgs: rrn.ActionFunctionArgs) {}
 
-  @ds.checkLogin()
+  @ds.authorize()
   async POST({ request, params }: rrn.LoaderFunctionArgs) {
     const result$ = getUserId$(request).pipe(
       switchMap((userId) => {

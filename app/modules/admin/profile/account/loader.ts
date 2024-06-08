@@ -7,7 +7,7 @@ import * as utils from "~/utils/server";
 import { from, switchMap } from "rxjs";
 
 class Loader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ request }: rrn.LoaderFunctionArgs) {
     const result$ = sessionServices
       .getUserId$(request)

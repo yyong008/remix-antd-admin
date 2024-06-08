@@ -19,7 +19,7 @@ class AdminNewsCategoryAction {
     return this?.[actionArgs.request.method as TM]?.(actionArgs);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async POST({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((data) => newsCategoryServices.createNewsCategory$(data)),
@@ -28,7 +28,7 @@ class AdminNewsCategoryAction {
     return utils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async PUT({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((data) => newsCategoryServices.updateNewsCategory$(data)),
@@ -37,7 +37,7 @@ class AdminNewsCategoryAction {
     return utils.resp$(result$);
   }
 
-  @ds.checkLogin()
+  @ds.authorize()
   async DELETE({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((ids: number[]) =>

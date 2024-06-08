@@ -23,7 +23,7 @@ export class Action implements UploadInterface {
   @ds.Action
   action(actionArgs: rrn.ActionFunctionArgs) {}
 
-  @ds.checkLogin()
+  @ds.authorize()
   async POST({ request, params }: rrn.LoaderFunctionArgs) {
     const userId = await lastValueFrom(sessionServices.getUserId$(request));
 

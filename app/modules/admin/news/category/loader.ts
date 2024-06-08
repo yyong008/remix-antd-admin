@@ -4,7 +4,7 @@ import type * as rrn from "@remix-run/node";
 import * as utils from "~/utils/server";
 
 export class AdminNewsCategoryLoader {
-  @ds.checkLogin()
+  @ds.authorize()
   async loader({ params }: rrn.LoaderFunctionArgs) {
     return utils.resp$(newsCategoryServices.getAllNewsCategory$());
   }
