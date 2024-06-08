@@ -1,7 +1,5 @@
-import { NavLink, useParams } from "@remix-run/react";
-
+import { NavLink } from "@remix-run/react";
 import type { ReactNode } from "react";
-import { defaultLang } from "~/config";
 
 export const HeaderLink = ({
   to,
@@ -12,10 +10,9 @@ export const HeaderLink = ({
   end: boolean;
   children: ReactNode;
 }) => {
-  const { lang = defaultLang } = useParams();
   return (
     <NavLink
-      to={`/${lang}`}
+      to={to}
       end={end ?? true}
       className={({ isActive, isPending }) => {
         return isActive
