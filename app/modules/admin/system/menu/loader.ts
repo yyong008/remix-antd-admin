@@ -6,7 +6,7 @@ import * as systemMenuServices from "~/services/system/menu";
 
 import { forkJoin, from } from "rxjs";
 
-import i18n from "~/i18n/i18next.server";
+import i18n from "~/lib/i18n/i18next.server";
 
 const perms = {
   READ_LIST: "system:user:list",

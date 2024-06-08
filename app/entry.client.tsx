@@ -1,12 +1,9 @@
 // i18n
-import { I18nextProvider, i18next } from "~/i18n/client";
+import { I18nextProvider, i18next } from "~/lib/i18n/client";
 import { startTransition, useState } from "react";
 
-// remix
 import { RemixBrowser } from "@remix-run/react";
-// context
 import { SettingContext } from "~/context";
-// react
 import { hydrateRoot } from "react-dom/client";
 
 const AppClient = () => {

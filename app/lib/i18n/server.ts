@@ -1,14 +1,13 @@
-// types
-import { resolve } from "node:path";
+import { I18nextProvider, initReactI18next } from "react-i18next";
 
 // i18n
 import Backend from "i18next-fs-backend";
 import { createInstance } from "i18next";
-import { I18nextProvider, initReactI18next } from "react-i18next";
-
 // config
-import i18nConfig from "~/i18n/i18n";
-import remixI18Next from "~/i18n/i18next.server";
+import i18nConfig from "~/lib/i18n/i18n";
+import remixI18Next from "~/lib/i18n/i18next.server";
+// types
+import { resolve } from "node:path";
 
 export const createRemixI18n = async (request: any, remixContext: any) => {
   const i18nInstance = createInstance();

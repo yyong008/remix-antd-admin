@@ -1,21 +1,11 @@
-// types
 import type { AppLoadContext, EntryContext } from "@remix-run/node";
 
-// node
 import { PassThrough } from "node:stream";
-
-// react
-import { renderToPipeableStream } from "react-dom/server";
-
-// remix
 import { RemixServer } from "@remix-run/react";
 import { createReadableStreamFromReadable } from "@remix-run/node";
-
-// i18n
-import { createRemixI18n } from "./i18n/server";
-
-// libs
+import { createRemixI18n } from "./lib/i18n/server";
 import isbot from "isbot";
+import { renderToPipeableStream } from "react-dom/server";
 
 const ABORT_DELAY = 5_000;
 
