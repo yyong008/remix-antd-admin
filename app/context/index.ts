@@ -1,3 +1,3 @@
-import SettingContext from "./settingContext";
+import SettingContext from "./setting-context";
 
 export { SettingContext };
