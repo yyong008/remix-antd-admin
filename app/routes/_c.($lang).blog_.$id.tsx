@@ -1,7 +1,7 @@
-import { Component } from "~/modules/client/blog_id/Component";
-export { meta } from "~/modules/client/blog_id/meta";
-export { loader } from "~/modules/client/blog_id/loader";
+import { Route } from "~/modules/client/blog-detail/route";
+export { meta } from "~/modules/client/blog-detail/meta";
+export { loader } from "~/modules/client/blog-detail/loader";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }
