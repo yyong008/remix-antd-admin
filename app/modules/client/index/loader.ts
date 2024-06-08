@@ -1,14 +1,27 @@
-import { type LoaderFunctionArgs, redirect } from "@remix-run/node";
-import { defaultLang } from "~/config";
+import * as ds from "~/decorators";
+import type * as tn from "@remix-run/node";
+import * as us from "~/utils/server";
 
-class Loader {
-  async loader({ params }: LoaderFunctionArgs) {
-    const { lang = defaultLang } = params;
-    if (!params.lang) {
+import { defaultLang } from "~/config";
+import { redirect } from "@remix-run/node";
+
+class L {
+  @ds.authorize()
+  static async loader(args: tn.LoaderFunctionArgs) {
+    try {
+      return L.loaderImpl(args);
+    } catch (error) {
+      return us.rfj();
+    }
+  }
+
+  static async loaderImpl(args: tn.LoaderFunctionArgs) {
+    const { lang = defaultLang } = args.params;
+    if (!args?.params?.lang) {
       return redirect(`/${lang}/`);
     }
     return null;
   }
 }
 
-export const loader = new Loader().loader;
+export const loader = L.loader;
