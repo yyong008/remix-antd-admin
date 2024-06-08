@@ -1,4 +1,3 @@
-// types
 import * as clientUtils from "~/utils/client";
 
 import {
@@ -91,4 +90,4 @@ function AdminLayout() {
   );
 }
 
-export const Component = memo(AdminLayout);
+export const Route = memo(AdminLayout);

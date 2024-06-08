@@ -1,4 +1,4 @@
-const MenuFooterRender = (props: any) => {
+export const MenuFooterRender = (props: any) => {
   if (props?.collapsed) return undefined;
   return (
     <div
@@ -12,5 +12,3 @@ const MenuFooterRender = (props: any) => {
     </div>
   );
 };
-
-export default MenuFooterRender;

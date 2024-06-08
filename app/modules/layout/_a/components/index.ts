@@ -1,8 +1,6 @@
-import MenuFooterRender from "./MenuFooterRender";
+export * from "./menu-footer-render";
 
-export * from "./AvatarDropDown";
-export * from "./SettingDrawerWrap";
-export * from "./createToken";
-export * from "./createActionsRender";
-
-export { MenuFooterRender };
+export * from "./avatar-dropdown";
+export * from "./setting-drawer-wrap";
+export * from "./create-token";
+export * from "./create-actions-render";

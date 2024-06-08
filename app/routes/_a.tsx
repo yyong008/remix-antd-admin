@@ -1,6 +1,6 @@
-import { Component } from "~/modules/layout/_a/Component";
+import { Route } from "~/modules/layout/_a/route";
 export { loader } from "~/modules/layout/_a/loader";
 
-export default function AdminLayoutRoute() {
-  return <Component />;
+export default function ARoute() {
+  return <Route />;
 }

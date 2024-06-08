@@ -1,5 +1,5 @@
-import { Component } from "~/modules/layout/_c/Component";
+import { Route } from "~/modules/layout/_c/route";
 
-export default function ClientLayoutRoute() {
-  return <Component />;
+export default function CRoute() {
+  return <Route />;
 }

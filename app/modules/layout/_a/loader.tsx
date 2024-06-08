@@ -1,59 +1,20 @@
-import * as ds from "~/decorators";
-import type * as rrn from "@remix-run/node";
-import * as serverUtils from "~/utils/server";
-import * as sessionServices from "~/lib/session";
-import * as userPermsServices from "~/services/system/user-perms.server";
-import * as userServices from "~/services/system/user";
+import * as ls from "./loaders";
+import type * as tn from "@remix-run/node";
+import * as us from "~/utils/server";
 
-import {
-  catchError,
-  forkJoin,
-  iif,
-  lastValueFrom,
-  map,
-  of,
-  switchMap,
-  throwError,
-} from "rxjs";
+class L {
+  static async loader(args: tn.LoaderFunctionArgs) {
+    try {
+      return L.loaderImpl(args);
+    } catch (error) {
+      return us.rfj();
+    }
+  }
 
-import { langs } from "~/config/lang";
-import { redirect } from "@remix-run/node";
-
-export class LayoutALoader {
-  @ds.authorize()
-  async loader({ request, params }: rrn.LoaderFunctionArgs) {
-    const higherOrderRedirect404 = () => {
-      return () => redirect("/404");
-    };
-    const higherOrderThrowError = (e: () => any) => () => e();
-    const LangInParams = () =>
-      langs.includes(typeof params.lang === "string" ? params.lang : "");
-
-    const result$ = of(params)
-      .pipe(
-        switchMap((params) =>
-          iif(LangInParams, of(true), throwError(higherOrderRedirect404)),
-        ),
-      )
-      .pipe(
-        switchMap(() => sessionServices.getUserId$(request)),
-        switchMap((data) =>
-          forkJoin({
-            menu: userPermsServices.getFlatMenuByUserId$(data!),
-            userInfo: userServices.getUserInfoById$(data!),
-          }),
-        ),
-        map((data) => () => {
-          return serverUtils.resp$(of(data));
-        }),
-        catchError((e) => {
-          return throwError(() => higherOrderThrowError(e));
-        }),
-      );
-
-    const resultFn = await lastValueFrom(result$);
-    return resultFn();
+  static async loaderImpl(args: tn.LoaderFunctionArgs) {
+    const result = await ls.query(args);
+    return result;
   }
 }
 
-export const loader = new LayoutALoader().loader;
+export const loader = L.loader;
