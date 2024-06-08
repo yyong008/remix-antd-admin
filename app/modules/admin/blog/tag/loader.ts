@@ -1,25 +1,20 @@
-import * as blogTagServices from "~/services/blog/blog-tags";
-import * as ds from "~/decorators";
-import type * as rrn from "@remix-run/node";
-// import * as schemas from "~/schema";
-import * as serverUtils from "~/utils/server";
-import * as sessionServices from "~/lib/session";
+import * as ls from "./loaders";
+import type * as tn from "@remix-run/node";
+import * as us from "~/utils/server";
 
-// import { blogTagPermissions } from "~/server/permission";
-import { switchMap } from "rxjs";
+class L {
+  static async loader(args: tn.LoaderFunctionArgs) {
+    try {
+      return L.loaderImpl(args);
+    } catch (error) {
+      return us.rfj();
+    }
+  }
 
-export class AdminBlogTagLoader {
-  @ds.authorize()
-  // @ds.permission(blogTagPermissions.READ_LIST)
-  async loader({ request, params }: rrn.LoaderFunctionArgs) {
-    const result$ = sessionServices
-      .getUserId$(request)
-      .pipe(
-        switchMap((userId) => blogTagServices.getBlogTagByUserId$(userId!)),
-      );
-
-    return serverUtils.resp$(result$);
+  static async loaderImpl(args: tn.LoaderFunctionArgs) {
+    const result = await ls.query(args);
+    return us.rsj(result);
   }
 }
 
-export const loader = new AdminBlogTagLoader().loader;
+export const loader = L.loader;

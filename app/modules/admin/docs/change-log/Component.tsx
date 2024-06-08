@@ -1,12 +1,11 @@
 import { DeleteIt, FormatTime } from "~/components/common";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { Space, Tag } from "antd";
+import { useFeedbackNav, useFetcherChange } from "~/hooks";
 import { useLoaderData, useParams } from "@remix-run/react";
 
 import ChangeLogModal from "~/components/docs/ChangeLogModal";
 import type { loader } from "./loader";
-import { useFeedbackNav } from "~/hooks/router/useFeedbackNav";
-import { useFetcherChange } from "~/hooks";
 
 const typeMap = {
   1: {

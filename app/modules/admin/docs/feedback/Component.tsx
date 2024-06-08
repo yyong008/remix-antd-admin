@@ -1,12 +1,11 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { useFeedbackNav, useFetcherChange } from "~/hooks";
 import { useLoaderData, useParams } from "@remix-run/react";
 
 import FeedbackModal from "~/components/docs/FeedbackModal";
 import { FormatTime } from "~/components/common";
 import { Image } from "antd";
 import type { loader } from "./loader";
-import { useFeedbackNav } from "~/hooks/router/useFeedbackNav";
-import { useFetcherChange } from "~/hooks";
 
 export function Component() {
   const { data } = useLoaderData<typeof loader>();
