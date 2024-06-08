@@ -1,12 +1,12 @@
-import useKeyPress from "./useKeyPress";
+import useKeyPress from "./use-keypress";
 
-export * from "./useAntdThemeToken";
-export * from "./useChangeLanuage";
-export * from "./useFetcherChange";
-export * from "./useActionChange";
+export * from "./use-antd-theme-token";
+export * from "./use-change-lanuage";
+export * from "./use-fetcher-change";
+export * from "./use-action-change";
 
-export * from "./useNProgress";
-export * from "./usePagination";
+export * from "./use-nprogress";
+export * from "./use-pagination";
 export * from "./router";
 
 export { useKeyPress };

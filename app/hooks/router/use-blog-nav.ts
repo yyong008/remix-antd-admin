@@ -21,12 +21,6 @@ export function useBlogNav() {
   return [navBlog];
 }
 
-/**
- *
- * @param lang 语言
- * @param options 路由导航
- * @returns
- */
 export function goBlogNav(lang: string, options?: IOptions) {
   const tag = options?.tag ? `&tag=${options.tag}` : "";
   const category = options?.category ? `&category=${options.category}` : "";
