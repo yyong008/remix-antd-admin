@@ -1,7 +1,7 @@
-import { Component } from "~/modules/admin/demo/health/sleep/Component";
+import { Route } from "~/modules/admin/demo/health/sleep/route";
 export { meta } from "~/modules/admin/demo/health/sleep/meta";
 export { loader } from "~/modules/admin/demo/health/sleep/loader";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

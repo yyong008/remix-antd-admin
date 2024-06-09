@@ -1,6 +1,6 @@
-import { Component } from "~/modules/admin/demo/stack/laxjs/Component";
+import { Route } from "~/modules/admin/demo/stack/laxjs/route";
 export { meta } from "~/modules/admin/demo/stack/laxjs/meta";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

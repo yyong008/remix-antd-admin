@@ -9,7 +9,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 
 // component
-import MenuItemOuterLink from "~/components/common/MenuItemOuterLink";
+import MenuItemOuterLink from "~/components/common/menu-item-outer-link";
 
 describe("test MenuItemOuterLink component", () => {
   let Comp: ComponentType<{}>;

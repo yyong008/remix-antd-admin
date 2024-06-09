@@ -1,7 +1,7 @@
-import { Component } from "~/modules/admin/demo/dashboard/monitor/Component";
+import { Route } from "~/modules/admin/demo/dashboard/monitor/route";
 export { meta } from "~/modules/admin/demo/dashboard/monitor/meta";
 export { loader } from "~/modules/admin/demo/dashboard/monitor/loader";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

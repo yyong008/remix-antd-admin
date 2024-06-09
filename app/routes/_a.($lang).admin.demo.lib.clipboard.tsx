@@ -1,6 +1,6 @@
-import { Component } from "~/modules/admin/demo/lib/clipboard/Component";
+import { Route } from "~/modules/admin/demo/lib/clipboard/route";
 export { meta } from "~/modules/admin/demo/lib/clipboard/meta";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

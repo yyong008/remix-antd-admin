@@ -1,6 +1,6 @@
-import { Component } from "~/modules/any/Component";
+import { Route } from "~/modules/any/route";
 export { meta } from "~/modules/any/meta";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

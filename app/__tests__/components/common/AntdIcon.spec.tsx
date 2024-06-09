@@ -1,9 +1,10 @@
-import { expect, it } from "vitest";
 import "@testing-library/jest-dom/vitest";
+
+import { expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 
 // component
-import AntdIcon from "../../../components/common/AntdIcon";
+import AntdIcon from "../../../components/common/antd-icon";
 
 describe("test Footer component", () => {
   let Icon: any;
@@ -39,8 +40,8 @@ describe("test Footer component", () => {
   });
 
   it("test @ant-design/icons default", async () => {
-    const _icons = icons.default;
-    expect(_icons).toMatchInlineSnapshot(`
+    const ic = icons.default;
+    expect(ic).toMatchInlineSnapshot(`
       {
         "$$typeof": Symbol(react.forward_ref),
         "render": [Function],

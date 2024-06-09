@@ -1,7 +1,6 @@
+import * as ic from "@ant-design/icons";
+
 import { Dropdown } from "antd";
-
-import * as _icons from "@ant-design/icons";
-
 import { useNavigate } from "@remix-run/react";
 
 // icons
@@ -10,7 +9,7 @@ const {
   InfoCircleFilled,
   QuestionCircleFilled,
   TranslationOutlined,
-} = _icons;
+} = ic;
 
 const ActionRenderImpl = ({ value }: any) => {
   const navigate = useNavigate();

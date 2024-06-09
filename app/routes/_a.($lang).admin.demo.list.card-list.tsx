@@ -1,6 +1,6 @@
-import { Component } from "~/modules/admin/demo/list/card-list/Component";
+import { Route } from "~/modules/admin/demo/list/card-list/route";
 export { meta } from "~/modules/admin/demo/list/card-list/meta";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

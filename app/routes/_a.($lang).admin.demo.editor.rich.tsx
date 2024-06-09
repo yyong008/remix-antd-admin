@@ -1,6 +1,6 @@
-import { Component } from "~/modules/admin/demo/editor/rich/Component";
+import { Route } from "~/modules/admin/demo/editor/rich/route";
 export { meta } from "~/modules/admin/demo/editor/rich/meta";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

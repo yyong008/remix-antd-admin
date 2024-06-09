@@ -1,9 +1,10 @@
-import { expect, it } from "vitest";
 import "@testing-library/jest-dom/vitest";
+
+import { expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 
 // component
-import MenuType from "~/components/common/MenuType";
+import MenuType from "~/components/common/menu-type";
 
 describe("test MenuType component", () => {
   beforeEach(() => {});

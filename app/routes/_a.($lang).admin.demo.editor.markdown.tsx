@@ -1,6 +1,6 @@
-import { Component } from "~/modules/admin/demo/editor/markdown/Component";
+import { Route } from "~/modules/admin/demo/editor/markdown/route";
 export { meta } from "~/modules/admin/demo/editor/markdown/meta";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

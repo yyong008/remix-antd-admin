@@ -1,9 +1,10 @@
-import { expect, it } from "vitest";
 import "@testing-library/jest-dom/vitest";
+
+import { expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 
 // component
-import CacheType from "~/components/common/CacheType";
+import CacheType from "~/components/common/cache-type";
 
 describe("test Footer component", () => {
   beforeEach(() => {});

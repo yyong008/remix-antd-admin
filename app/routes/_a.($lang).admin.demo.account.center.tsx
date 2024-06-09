@@ -1,7 +1,7 @@
-import { Component } from "~/modules/admin/demo/acount/center/Component";
+import { Route } from "~/modules/admin/demo/acount/center/route";
 export { loader } from "~/modules/admin/demo/acount/center/loader";
 export { meta } from "~/modules/admin/demo/acount/center/meta";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

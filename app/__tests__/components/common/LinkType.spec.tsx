@@ -1,9 +1,10 @@
-import { expect, it } from "vitest";
 import "@testing-library/jest-dom/vitest";
+
+import { expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 
 // component
-import LinkType from "~/components/common/LinkType";
+import LinkType from "~/components/common/link-type";
 
 describe("test Footer component", () => {
   beforeEach(() => {});

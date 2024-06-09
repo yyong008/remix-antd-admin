@@ -1,6 +1,6 @@
-import { Component } from "~/modules/admin/demo/game/mouse/Component";
+import { Route } from "~/modules/admin/demo/game/mouse/route";
 export { meta } from "~/modules/admin/demo/game/mouse/meta";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

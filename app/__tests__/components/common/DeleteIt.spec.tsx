@@ -1,16 +1,15 @@
-// types
-import type { ComponentType } from "react";
+import "@testing-library/jest-dom/vitest";
 
 // libs
 import { expect, it } from "vitest";
-import { useFetcher } from "@remix-run/react";
-import { createRemixStub } from "@remix-run/testing";
 import { render, screen, waitFor } from "@testing-library/react";
 
-import "@testing-library/jest-dom/vitest";
-
+// types
+import type { ComponentType } from "react";
 // component
-import DeleteIt from "~/components/common/DeleteIt";
+import DeleteIt from "~/components/common/delete-it";
+import { createRemixStub } from "@remix-run/testing";
+import { useFetcher } from "@remix-run/react";
 
 describe("test Footer component", () => {
   let Comp: ComponentType<{}>;

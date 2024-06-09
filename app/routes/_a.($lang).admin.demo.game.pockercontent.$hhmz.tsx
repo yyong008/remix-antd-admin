@@ -1,6 +1,6 @@
-import { Component } from "~/modules/admin/demo/game/pockercontent/Component";
+import { Route } from "~/modules/admin/demo/game/pockercontent/route";
 export { meta } from "~/modules/admin/demo/game/pockercontent/meta";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

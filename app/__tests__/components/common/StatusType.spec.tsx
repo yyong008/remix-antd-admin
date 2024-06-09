@@ -1,9 +1,10 @@
-import { expect, it } from "vitest";
 import "@testing-library/jest-dom/vitest";
+
+import { expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 
 // component
-import StatusType from "~/components/common/StatusType";
+import StatusType from "~/components/common/status-type";
 
 describe("test StatusType component", () => {
   beforeEach(() => {});

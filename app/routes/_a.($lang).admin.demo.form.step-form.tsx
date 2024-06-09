@@ -1,6 +1,6 @@
-import { Component } from "~/modules/admin/demo/form/step-form/Component";
+import { Route } from "~/modules/admin/demo/form/step-form/route";
 export { meta } from "~/modules/admin/demo/form/step-form/meta";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

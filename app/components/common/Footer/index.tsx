@@ -1,11 +1,10 @@
-// components:vendor
-import * as _icons from "@ant-design/icons";
+import * as ic from "@ant-design/icons";
 
 import { DefaultFooter } from "@ant-design/pro-components";
 
-const { GithubOutlined } = _icons;
+const { GithubOutlined } = ic;
 
-const Footer: React.FC = () => {
+export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -36,5 +35,3 @@ const Footer: React.FC = () => {
     />
   );
 };
-
-export default Footer;

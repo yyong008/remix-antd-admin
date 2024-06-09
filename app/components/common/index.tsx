@@ -1,33 +1,15 @@
-import AntdIcon from "./AntdIcon";
-import ButtonLink from "./ButtonLink";
-import CacheType from "./CacheType";
-import { ClientOnly } from "./ClientOnly";
-import DeleteIt from "./DeleteIt";
-import Footer from "./Footer";
-import FormatTime from "./format-time";
-import LinkType from "./LinkType";
-import ListHeaderSearch from "./ListHeaderSearch";
-import MenuItemLink from "./MenuItemLink";
-import MenuItemOutLink from "./MenuItemOuterLink";
-import MenuType from "./MenuType";
-import ShowType from "./ShowType";
-import StatusType from "./StatusType";
-import UserAvatar from "./UserAvatar";
-
-export {
-  AntdIcon,
-  ButtonLink,
-  CacheType,
-  ClientOnly,
-  DeleteIt,
-  Footer,
-  FormatTime,
-  LinkType,
-  ListHeaderSearch,
-  MenuItemLink,
-  MenuItemOutLink,
-  MenuType,
-  ShowType,
-  StatusType,
-  UserAvatar,
-};
+export { AntdIcon } from "./antd-icon";
+export { ButtonLink } from "./button-link";
+export { CacheType } from "./cache-type";
+export { ClientOnly } from "./client-only";
+export { DeleteIt } from "./delete-it";
+export { Footer } from "./footer";
+export { FormatTime } from "./format-time";
+export { LinkType } from "./link-type";
+export { ListHeaderSearch } from "./list-header-search";
+export { MenuItemLink } from "./menu-item-link";
+export { MenuItemOutLink } from "./menu-item-outer-link";
+export { MenuType } from "./menu-type";
+export { ShowType } from "./show-type";
+export { StatusType } from "./status-type";
+export { UserAvatar } from "./user-avatar";

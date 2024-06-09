@@ -1,28 +1,20 @@
-import * as clientUtils from "~/utils/client";
-import * as ds from "~/decorators";
-import type * as rrn from "@remix-run/node";
-import * as toolsStorageServices from "~/services/tools/storage";
-import * as utils from "~/utils/server";
+import * as ls from "./loaders";
+import type * as tn from "@remix-run/node";
+import * as us from "~/utils/server";
 
-import { forkJoin } from "rxjs";
+class L {
+  static async loader(args: tn.LoaderFunctionArgs) {
+    try {
+      return L.loaderImpl(args);
+    } catch (error) {
+      return us.rfj();
+    }
+  }
 
-class Loader {
-  @ds.authorize()
-  async loader({ params, request }: rrn.LoaderFunctionArgs) {
-    const { page, pageSize, name } =
-      clientUtils.getPaginationByRequest(request);
-
-    const result$ = forkJoin({
-      total: toolsStorageServices.storageCount$(),
-      dataSource: toolsStorageServices.getStorageList$({
-        page,
-        pageSize,
-        name,
-      }),
-    });
-
-    return utils.resp$(result$);
+  static async loaderImpl(args: tn.LoaderFunctionArgs) {
+    const result = await ls.query(args);
+    return us.rsj(result);
   }
 }
 
-export const loader = new Loader().loader;
+export const loader = L.loader;

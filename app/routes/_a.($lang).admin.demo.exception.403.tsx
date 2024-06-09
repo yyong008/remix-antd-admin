@@ -1,6 +1,6 @@
-import { Component } from "~/modules/admin/demo/exception/403/Component";
+import { Route } from "~/modules/admin/demo/exception/403/route";
 export { meta } from "~/modules/admin/demo/exception/403/meta";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

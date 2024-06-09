@@ -1,6 +1,6 @@
-import { Component } from "~/modules/admin/demo/stack/rxjs/count-down/Component";
+import { Route } from "~/modules/admin/demo/stack/rxjs/count-down/route";
 export { meta } from "~/modules/admin/demo/stack/rxjs/keybr/meta";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

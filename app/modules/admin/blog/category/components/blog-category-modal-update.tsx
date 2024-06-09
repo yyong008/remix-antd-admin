@@ -1,11 +1,11 @@
-import * as _icons from "@ant-design/icons";
+import * as ic from "@ant-design/icons";
 
 import { Button, Form } from "antd";
 
 import BlogCategoryModalForm from "./blog-category-modal-form";
 import { useParams } from "@remix-run/react";
 
-const { EditOutlined } = _icons;
+const { EditOutlined } = ic;
 
 export default function BlogCategoryModalUpdate({ record, fetcher }: any) {
   const [form] = Form.useForm();

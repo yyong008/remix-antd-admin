@@ -1,9 +1,8 @@
 import * as LoginLogServices from "~/services/system/login-log";
 import * as ds from "~/decorators";
-import * as errorTypeConstants from "~/constants/error.type";
+import * as errorTypeConstants from "~/constants/error";
 import * as loginServices from "~/services/login";
 import type * as rrn from "@remix-run/node";
-// import * as schemas from "~/schema";
 import * as serverUtils from "~/utils/server";
 import * as sessionServices from "~/lib/session";
 

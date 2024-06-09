@@ -1,8 +1,8 @@
-import { Component } from "~/modules/admin/tools/mail_list/Component";
+import { Route } from "~/modules/admin/tools/mail-list/route";
 // export { meta } from "~/modules/tools/mail_list/meta";
-export { loader } from "~/modules/admin/tools/mail_list/loader";
-export { action } from "~/modules/admin/tools/mail_list/action";
+export { loader } from "~/modules/admin/tools/mail-list/loader";
+export { action } from "~/modules/admin/tools/mail-list/action";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

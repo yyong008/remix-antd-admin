@@ -1,9 +1,10 @@
-import { expect, it } from "vitest";
 import "@testing-library/jest-dom/vitest";
+
+import { expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 
 // component
-import UserAvatar from "~/components/common/UserAvatar";
+import UserAvatar from "~/components/common/user-avatar";
 
 describe("test UserAvatar component avatar", () => {
   beforeEach(() => {});

@@ -1,7 +1,7 @@
-import { Component } from "~/modules/admin/demo/excel/export/Component";
+import { Route } from "~/modules/admin/demo/excel/export/route";
 export { meta } from "~/modules/admin/demo/excel/export/meta";
 export { loader } from "~/modules/admin/demo/excel/export/loader";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

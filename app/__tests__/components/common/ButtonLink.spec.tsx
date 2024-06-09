@@ -1,10 +1,11 @@
-import { expect, it } from "vitest";
 import "@testing-library/jest-dom/vitest";
+
+import { expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { createRemixStub } from "@remix-run/testing";
 
 // component
-import ButtonLink from "~/components/common/ButtonLink";
+import ButtonLink from "~/components/common/button-link";
+import { createRemixStub } from "@remix-run/testing";
 
 describe("test Footer component", () => {
   let buttonLink: any;

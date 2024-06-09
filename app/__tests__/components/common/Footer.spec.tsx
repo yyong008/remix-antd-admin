@@ -1,9 +1,10 @@
-import { expect, it } from "vitest";
 import "@testing-library/jest-dom/vitest";
+
+import { expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 
 // component
-import Footer from "../../../components/common/Footer";
+import Footer from "../../../components/common/footer";
 
 describe("test Footer component", () => {
   let remix: any;

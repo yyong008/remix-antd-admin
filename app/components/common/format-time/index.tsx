@@ -1,6 +1,5 @@
-import * as clientUtils from "~/utils/client";
+import * as uc from "~/utils/client";
 
-// types
 import type dayjs from "dayjs";
 
 type FormatTimeProps = {
@@ -8,6 +7,6 @@ type FormatTimeProps = {
   format?: string;
 };
 
-export default function FormatTime({ timeStr, format }: FormatTimeProps) {
-  return <>{timeStr ? clientUtils.formatDate(timeStr, format) : "-"}</>;
+export function FormatTime({ timeStr, format }: FormatTimeProps) {
+  return <>{timeStr ? uc.formatDate(timeStr, format) : "-"}</>;
 }

@@ -1,11 +1,12 @@
+import * as ic from "@ant-design/icons";
+
+import { Dropdown, Form } from "antd";
 import { useFetcher, useNavigate, useParams } from "@remix-run/react";
 
-import * as _icons from "@ant-design/icons";
-import { Dropdown, Form } from "antd";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-const { LogoutOutlined, UserOutlined } = _icons;
+const { LogoutOutlined, UserOutlined } = ic;
 
 type AvatarDropDownProps = {
   dom: any;

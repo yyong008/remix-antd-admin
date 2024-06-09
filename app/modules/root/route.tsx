@@ -8,7 +8,7 @@ import {
   useParams,
 } from "@remix-run/react";
 
-import { ClientOnly } from "~/components/common/ClientOnly";
+import { ClientOnly } from "~/components/common/client-only";
 import type { loader } from "~/modules/root/loader";
 import { useChangeLanguage } from "remix-i18next/react";
 

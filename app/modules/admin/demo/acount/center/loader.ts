@@ -1,18 +1,20 @@
-// types
+import * as ls from "./loaders";
+import type * as tn from "@remix-run/node";
+import * as us from "~/utils/server";
 
-import "react-advanced-cropper/dist/style.css";
+class L {
+  static async loader(args: tn.LoaderFunctionArgs) {
+    try {
+      return L.loaderImpl(args);
+    } catch (error) {
+      return us.rfj();
+    }
+  }
 
-import type { LoaderFunctionArgs } from "@remix-run/node";
-import { getAccountSettingsData$ } from "~/__mock__/account/settings";
-import { json } from "@remix-run/node";
-import { lastValueFrom } from "rxjs";
+  static async loaderImpl(args: tn.LoaderFunctionArgs) {
+    const result = await ls.query(args);
+    return us.rsj(result);
+  }
+}
 
-// remix:loader
-export const loader = async ({ request, params }: LoaderFunctionArgs) => {
-  const data = await lastValueFrom(getAccountSettingsData$());
-  return json({
-    data,
-    provinces: [] as any[],
-    cities: [],
-  });
-};
+export const loader = L.loader;

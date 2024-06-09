@@ -3,7 +3,8 @@ import type { loader } from "./loader";
 import { useLoaderData } from "@remix-run/react";
 
 export function Route() {
-  const { news = [] } = useLoaderData<typeof loader>();
+  const _data = useLoaderData<typeof loader>();
+  const { news = [] } = _data.data;
   return (
     <div className="flex flex-col pt-[140px] w-[40vw] h-[80vh]">
       <div>

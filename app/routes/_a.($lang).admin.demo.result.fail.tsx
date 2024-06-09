@@ -1,6 +1,6 @@
-import { Component } from "~/modules/admin/demo/result/fail/Component";
+import { Route } from "~/modules/admin/demo/result/fail/route";
 export { meta } from "~/modules/admin/demo/result/fail/meta";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

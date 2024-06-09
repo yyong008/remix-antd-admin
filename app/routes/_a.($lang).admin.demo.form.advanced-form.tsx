@@ -1,6 +1,6 @@
-import { Component } from "~/modules/admin/demo/form/advanced-form/Component";
+import { Route } from "~/modules/admin/demo/form/advanced-form/route";
 export { meta } from "~/modules/admin/demo/form/advanced-form/meta";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

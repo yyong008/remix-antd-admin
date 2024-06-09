@@ -5,7 +5,7 @@ import {
   ProFormText,
 } from "@ant-design/pro-components";
 
-import EditorRichFromItem from "~/components/editor/editor-rich-from-item";
+import EditorRichFromItem from "~/modules/admin/demo/editor/rich/editor-rich-from-item";
 import { Form } from "antd";
 import { useFetcherChange } from "~/hooks";
 
