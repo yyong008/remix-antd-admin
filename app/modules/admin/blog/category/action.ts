@@ -1,72 +1,50 @@
-import * as blogCategoryServices from "~/services/blog/blog-category";
+import * as ac from "./actions";
+import * as as from "~/constants/actions";
 import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
 import * as schemas from "~/schema";
-import * as serverUtils from "~/utils/server";
-import * as sessionServices from "~/lib/session";
+import * as us from "~/utils/server";
 
-import { forkJoin, from, switchMap } from "rxjs";
+import { blogCategoryPermissions as p } from "~/constants/permission";
 
-import { blogCategoryPermissions } from "~/constants/permission";
-
-interface BlogCategoryActionInterface {
-  action(actionArgs: rrn.ActionFunctionArgs): any;
-  POST(actionArgs: rrn.ActionFunctionArgs): any;
-  PUT(actionArgs: rrn.ActionFunctionArgs): any;
-  DELETE(actionArgs: rrn.ActionFunctionArgs): any;
-}
-
-type TM = keyof Omit<BlogCategoryActionInterface, "action">;
-
-export class BlogCategoryAction implements BlogCategoryActionInterface {
-  action(actionArgs: rrn.ActionFunctionArgs) {
-    return this?.[actionArgs.request.method as TM]?.(actionArgs);
+class A {
+  @ds.authorize()
+  static async action(actionArgs: rrn.ActionFunctionArgs) {
+    const _data = await actionArgs.request.json();
+    const type = _data.type;
+    try {
+      if (type === as.ACTION_CREATE_BLOG_CATEGORY)
+        return A.createBlogCategory(actionArgs);
+      if (type === as.ACTION_UPDATE_BLOG_CATEGORY)
+        return A.updateBlogCategory(actionArgs);
+      if (type === as.ACTION_DELETE_BLOG_CATEGORY)
+        return A.deleteBlogCategory(actionArgs);
+      return us.rsj({});
+    } catch (error) {
+      return us.rfj();
+    }
   }
 
-  @ds.authorize()
-  @ds.permission(blogCategoryPermissions.CREATE)
+  @ds.permission(p.CREATE)
   @ds.validate(schemas.CreateBlogCategorySchema)
-  async POST({ request }: rrn.ActionFunctionArgs) {
-    const result$ = forkJoin({
-      data: request.json(),
-      userId: sessionServices.getUserId$(request),
-    }).pipe(
-      switchMap((data: any) => blogCategoryServices.createBlogCategory$(data)),
-    );
-
-    return serverUtils.resp$(result$);
+  static async createBlogCategory(args: rrn.ActionFunctionArgs) {
+    const result = await ac.actionBlogCategoryCreate(args);
+    return us.rsj(result);
   }
 
-  @ds.authorize()
-  @ds.permission(blogCategoryPermissions.UPDATE)
+  @ds.permission(p.UPDATE)
   @ds.validate(schemas.UpdateBlogCategorySchema)
-  async PUT({ request }: rrn.ActionFunctionArgs) {
-    const result$ = forkJoin({
-      data: from(request.json()),
-      userId: sessionServices.getUserId$(request),
-    }).pipe(
-      switchMap((data: any) => {
-        return blogCategoryServices.updateBlogCategory$(data);
-      }),
-    );
-
-    // const blogCategory = await firstValueFrom(result$);
-
-    return serverUtils.resp$(result$);
+  static async updateBlogCategory(args: rrn.ActionFunctionArgs) {
+    const result = await ac.actionBlogCreateUpdate(args);
+    return us.rsj(result);
   }
 
-  @ds.authorize()
-  @ds.permission(blogCategoryPermissions.DELETE)
+  @ds.permission(p.DELETE)
   @ds.validate(schemas.DeleteBlogCategorySchema)
-  async DELETE({ request }: rrn.ActionFunctionArgs) {
-    const result$ = from(request.json()).pipe(
-      switchMap((ids: number[]) =>
-        blogCategoryServices.deleteBlogCategoryByIds$(ids),
-      ),
-    );
-
-    return serverUtils.resp$(result$);
+  static async deleteBlogCategory(args: rrn.ActionFunctionArgs) {
+    const result = await ac.actionBlogCategoryDelete(args);
+    return us.rsj(result);
   }
 }
 
-export const action = new BlogCategoryAction().action;
+export const action = A.action;

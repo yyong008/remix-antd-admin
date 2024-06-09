@@ -1,8 +1,8 @@
-import { Component } from "~/modules/admin/blog/edit/Component";
-export { meta } from "~/modules/admin/blog/edit/meta";
-export { loader } from "~/modules/admin/blog/edit/loader";
-export { action } from "~/modules/admin/blog/edit/action";
+import { Route } from "~/modules/admin/blog/create/route";
+export { meta } from "~/modules/admin/blog/create/meta";
+export { loader } from "~/modules/admin/blog/create/loader";
+export { action } from "~/modules/admin/blog/create/action";
 
-export default function Route() {
-  return <Component />;
+export default function Page() {
+  return <Route />;
 }

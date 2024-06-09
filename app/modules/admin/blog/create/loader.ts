@@ -1,4 +1,3 @@
-import * as ls from "./loaders";
 import type * as tn from "@remix-run/node";
 import * as us from "~/utils/server";
 
@@ -12,8 +11,7 @@ class L {
   }
 
   static async loaderImpl(args: tn.LoaderFunctionArgs) {
-    const result = await ls.query(args);
-    return us.rsj(result);
+    return us.rsj({});
   }
 }
 

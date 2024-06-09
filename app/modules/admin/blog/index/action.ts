@@ -1,65 +1,52 @@
+import * as as from "~/constants/actions";
 import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
 import * as schemas from "~/schema";
-import * as serverUtils from "~/utils/server";
+import * as us from "~/utils/server";
 
 import {
-  createBlog$,
-  deleteManyBlogByIds$,
-  updateBlog$,
-} from "~/services/blog/blog";
-import { forkJoin, from, switchMap } from "rxjs";
+  actionBlogCreate,
+  actionBlogDelete,
+  actionBlogUpdate,
+} from "./actions";
 
 import { blogPermissions } from "~/constants/permission";
-import { getUserId$ } from "~/lib/session";
 
-interface BlogActionInterface {
-  action(actionArgs: rrn.ActionFunctionArgs): any;
-  POST(actionArgs: rrn.ActionFunctionArgs): any;
-  PUT(actionArgs: rrn.ActionFunctionArgs): any;
-  DELETE(actionArgs: rrn.ActionFunctionArgs): any;
-}
-
-type TM = keyof Omit<BlogActionInterface, "action">;
-
-export class BlogAction implements BlogActionInterface {
-  async action(actionArgs: rrn.ActionFunctionArgs) {
-    return this?.[actionArgs.request.method as TM]?.(actionArgs);
-  }
+class A {
   @ds.authorize()
+  static async action(actionArgs: rrn.ActionFunctionArgs) {
+    const _data = await actionArgs.request.json();
+    const type = _data.type;
+    try {
+      if (type === as.ACTION_CREATE_BLOG) return A.createBlog(actionArgs);
+      if (type === as.ACTION_UPDATE_BLOG) return A.updateBlog(actionArgs);
+      if (type === as.ACTION_DELETE_BLOG) return A.deleteBlog(actionArgs);
+      return us.rsj({});
+    } catch (error) {
+      return us.rfj();
+    }
+  }
+
   @ds.permission(blogPermissions.CREATE)
   @ds.validate(schemas.CreateBlogSchema)
-  async POST({ request }: rrn.ActionFunctionArgs) {
-    const result$ = forkJoin({
-      data: request.json(),
-      userId: getUserId$(request),
-    }).pipe(switchMap((data) => createBlog$(data)));
-
-    return serverUtils.resp$(result$);
+  static async createBlog(args: rrn.ActionFunctionArgs) {
+    const result = await actionBlogCreate(args);
+    return us.rsj(result);
   }
 
-  @ds.authorize()
   @ds.permission(blogPermissions.UPDATE)
   @ds.validate(schemas.UpdateBlogSchema)
-  async PUT({ request }: rrn.ActionFunctionArgs) {
-    const result$ = forkJoin({
-      data: request.json(),
-      userId: getUserId$(request),
-    }).pipe(switchMap((data) => updateBlog$(data)));
-
-    return serverUtils.resp$(result$);
+  static async updateBlog(args: rrn.ActionFunctionArgs) {
+    const result = await actionBlogUpdate(args);
+    return us.rsj(result);
   }
 
-  @ds.authorize()
   @ds.permission(blogPermissions.DELETE)
   @ds.validate(schemas.DeleteBlogSchema)
-  async DELETE({ request }: rrn.ActionFunctionArgs) {
-    const result$ = from(request.json()).pipe(
-      switchMap(({ ids }) => deleteManyBlogByIds$(ids)),
-    );
-
-    return serverUtils.resp$(result$);
+  static async deleteBlog(args: rrn.ActionFunctionArgs) {
+    const result = await actionBlogDelete(args);
+    return us.rsj(result);
   }
 }
 
-export const action = new BlogAction().action;
+export const action = A.action;
