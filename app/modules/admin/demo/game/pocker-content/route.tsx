@@ -1,5 +1,5 @@
 import "animate.css";
-import "./pocker-card.css";
+import "./styles/pocker-card.css";
 
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { Toaster, toast } from "sonner";

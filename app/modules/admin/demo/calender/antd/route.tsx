@@ -4,9 +4,7 @@ import type { Dayjs } from "dayjs";
 import { PageContainer } from "@ant-design/pro-components";
 
 export function Route() {
-  const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
-    console.log();
-  };
+  const onPanelChange = (value: Dayjs, mode: CalendarMode) => {};
 
   return (
     <PageContainer>

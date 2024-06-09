@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { LocalModels } from "./components/local-models";
+import { LocalModels } from "./components";
 import { Ollama } from "ollama/browser";
 import { ProChat } from "@ant-design/pro-chat";
 import type { loader } from "./loader";
@@ -58,7 +58,6 @@ export function Route() {
 
   useEffect(() => {
     ollama?.list().then((list: any) => {
-      debugger;
       setLocalList(list ?? []);
     });
 

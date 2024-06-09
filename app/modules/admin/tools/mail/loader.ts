@@ -1,22 +1,20 @@
-import * as ds from "~/decorators";
-import type * as rrn from "@remix-run/node";
-import * as toolsMailServices from "~/services/tools/mail";
-import * as utils from "~/utils/server";
+import * as ls from "./loaders";
+import type * as tn from "@remix-run/node";
+import * as us from "~/utils/server";
 
-import { of, switchMap } from "rxjs";
-
-class Loader {
-  @ds.authorize()
-  async loader({ params }: rrn.LoaderFunctionArgs) {
-    if (!params || !params.id) {
-      return null;
+class L {
+  static async loader(args: tn.LoaderFunctionArgs) {
+    try {
+      return L.loaderImpl(args);
+    } catch (error) {
+      return us.rfj();
     }
-    const result$ = of(params.id).pipe(
-      switchMap((id) => toolsMailServices.getEmailTemplateById$(Number(id))),
-    );
+  }
 
-    return utils.resp$(result$);
+  static async loaderImpl(args: tn.LoaderFunctionArgs) {
+    const result = await ls.query(args);
+    return us.rsj(result);
   }
 }
 
-export const loader = new Loader().loader;
+export const loader = L.loader;

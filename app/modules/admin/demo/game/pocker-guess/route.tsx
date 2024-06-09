@@ -1,4 +1,4 @@
-import "./pocker-card.css";
+import "./styles/pocker-card.css";
 import "animate.css";
 
 import { PageContainer, ProCard } from "@ant-design/pro-components";

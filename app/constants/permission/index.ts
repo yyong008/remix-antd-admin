@@ -21,3 +21,11 @@ export const blogTagPermissions = {
   UPDATE: "blog:tag:update",
   DELETE: "blog:tag:delete",
 };
+
+export const storagePermissions = {
+  READ_LIST: "storage:list",
+  READ: "storage:read",
+  CREATE: "storage:create",
+  UPDATE: "storage:update",
+  DELETE: "storage:delete",
+};

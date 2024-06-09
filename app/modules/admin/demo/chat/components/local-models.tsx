@@ -1,13 +1,13 @@
 import { Select } from "antd";
 import { useState } from "react";
 
-type LocalModels = {
+type LocalModelsProps = {
   list: {
     models: any[];
   };
 };
 
-const LocalModels = ({ list }: LocalModels) => {
+export const LocalModels = ({ list }: LocalModelsProps) => {
   const [value, setValue] = useState<string>();
 
   const handleSearch = (newValue: string) => {};
@@ -37,5 +37,3 @@ const LocalModels = ({ list }: LocalModels) => {
     </div>
   );
 };
-
-export { LocalModels };

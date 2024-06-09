@@ -1,5 +1,3 @@
-import "~/styles/dashboard/workplace.css";
-
 import {
   ContainerContent,
   WorkplaceColOne,

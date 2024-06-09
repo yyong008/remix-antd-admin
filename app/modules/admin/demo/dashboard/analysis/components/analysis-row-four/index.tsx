@@ -1,10 +1,8 @@
-// components:vendor
 import { Card, Col } from "antd";
 
-// components
 import BigDataArea from "./big-data-area";
 
-export default function RowFour(props) {
+export default function RowFour(props: any) {
   return (
     <Card>
       <Col span={24}>
