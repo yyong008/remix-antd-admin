@@ -152,9 +152,6 @@ importers:
       react-i18next:
         specifier: ^13.2.2
         version: 13.5.0(i18next@23.10.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      react-icons:
-        specifier: ^5.1.0
-        version: 5.1.0(react@18.2.0)
       react-intersection-observer:
         specifier: ^9.10.2
         version: 9.10.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -6011,11 +6008,6 @@ packages:
         optional: true
       react-native:
         optional: true
-
-  react-icons@5.1.0:
-    resolution: {integrity: sha512-D3zug1270S4hbSlIRJ0CUS97QE1yNNKDjzQe3HqY0aefp2CBn9VgzgES27sRR2gOvFK+0CNx/BW0ggOESp6fqQ==}
-    peerDependencies:
-      react: '*'
 
   react-intersection-observer@9.10.2:
     resolution: {integrity: sha512-j2hGADK2hCbAlfaq6L3tVLb4iqngoN7B1fT16MwJ4J16YW/vWLcmAIinLsw0lgpZeMi4UDUWtHC9QDde0/P1yQ==}
@@ -14606,10 +14598,6 @@ snapshots:
       react: 18.2.0
     optionalDependencies:
       react-dom: 18.2.0(react@18.2.0)
-
-  react-icons@5.1.0(react@18.2.0):
-    dependencies:
-      react: 18.2.0
 
   react-intersection-observer@9.10.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:

@@ -1,15 +1,14 @@
-// types
-import type { ComponentType } from "react";
+import "@testing-library/jest-dom/vitest";
 
 // libs
 import { expect, it } from "vitest";
-import { createRemixStub } from "@remix-run/testing";
 import { render, screen } from "@testing-library/react";
 
-import "@testing-library/jest-dom/vitest";
-
+// types
+import type { ComponentType } from "react";
 // component
-import FormatTime from "~/components/common/FormatTime";
+import FormatTime from "~/components/common/format-time";
+import { createRemixStub } from "@remix-run/testing";
 
 describe("test FormatTime component", () => {
   let Comp: ComponentType<{}>;

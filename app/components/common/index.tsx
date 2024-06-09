@@ -4,7 +4,7 @@ import CacheType from "./CacheType";
 import { ClientOnly } from "./ClientOnly";
 import DeleteIt from "./DeleteIt";
 import Footer from "./Footer";
-import FormatTime from "./FormatTime";
+import FormatTime from "./format-time";
 import LinkType from "./LinkType";
 import ListHeaderSearch from "./ListHeaderSearch";
 import MenuItemLink from "./MenuItemLink";

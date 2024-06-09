@@ -89,7 +89,6 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^13.2.2",
-    "react-icons": "^5.1.0",
     "react-intersection-observer": "^9.10.2",
     "react-json-view-lite": "^1.0.0",
     "reactflow": "^11.9.2",
