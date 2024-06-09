@@ -1,10 +1,10 @@
 import { type Observable, of } from "rxjs";
 
 type IPagination = {
-  page: number;
-  pageSize: number;
-  name: string;
-  role: string;
+  page?: number;
+  pageSize?: number;
+  name?: string;
+  role?: string;
 };
 
 /**
