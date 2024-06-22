@@ -8,13 +8,13 @@ import {
   createTokens,
 } from "./components";
 import { Footer, MenuItemLink, MenuItemOutLink } from "~/components/common";
-import { Outlet, useLoaderData, useParams } from "@remix-run/react";
+import { Outlet, useParams } from "@remix-run/react";
 import { ProLayout, WaterMark } from "@ant-design/pro-components";
 import { memo, useContext, useMemo, useState } from "react";
 
 import { SettingContext } from "~/context";
-import type { loader } from "./loader";
 import { prolayoutConfig } from "~/config/prolayout";
+import { useGetUserInfoQuery } from "~/lib/features/apis/userinfo";
 import { useNProgress } from "~/hooks";
 import { useTranslation } from "react-i18next";
 
@@ -26,11 +26,10 @@ const resetStyles = {
 
 function AdminLayout() {
   useNProgress();
-
+  const { data, isLoading } = useGetUserInfoQuery("");
   const { lang } = useParams();
   const value = useContext(SettingContext);
-  const { data } = useLoaderData<typeof loader>();
-  const { menu, userInfo } = data as any;
+  const { menu = [], userInfo = {} } = data || ({} as any);
   const [pathname, setPathname] = useState(location.pathname);
   const token = useMemo(() => createTokens(value), [value]);
   const { t } = useTranslation();
@@ -47,7 +46,7 @@ function AdminLayout() {
         }}
         route={route}
         token={token}
-        loading={false}
+        loading={isLoading}
         {...value.theme}
         logo={prolayoutConfig.logo}
         menu={prolayoutConfig.menu}

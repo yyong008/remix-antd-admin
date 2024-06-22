@@ -1,4 +1,4 @@
-import * as ls from "./loaders";
+import * as ls from "./loaders/index";
 import type * as tn from "@remix-run/node";
 import * as us from "~/utils/server";
 

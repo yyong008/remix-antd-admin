@@ -1,16 +1,16 @@
 import { LoginIn, SignIn } from "./components";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
-import { useLoaderData, useMatches } from "@remix-run/react";
 
-import type { loader } from "./loader";
+import { useGetDashboardQuery } from "~/lib/features/apis/dashboard";
+import { useSelectUserInfo } from "~/lib/features/apis/userinfo";
 
 export function Route() {
-  const { data } = useLoaderData<typeof loader>();
-  const matches = useMatches();
+  const userInfo = useSelectUserInfo();
+  const _data = useGetDashboardQuery("");
+  const { data, isLoading } = _data || {};
 
-  const userInfo = (matches[1].data as any).data?.userInfo ?? {};
   return (
-    <PageContainer>
+    <PageContainer loading={isLoading}>
       <ProCard>
         <ProCard>
           <div className="flex justify-between">
