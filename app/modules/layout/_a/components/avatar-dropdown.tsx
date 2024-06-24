@@ -1,7 +1,11 @@
 import * as ic from "@ant-design/icons";
 
 import { Dropdown, Form } from "antd";
-import { useFetcher, useNavigate, useParams } from "@remix-run/react";
+import {
+  removeLocalStorageRefreshToken,
+  removeLocalStorageToken,
+} from "~/lib/localstorage";
+import { useNavigate, useParams } from "@remix-run/react";
 
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -15,7 +19,6 @@ type AvatarDropDownProps = {
 export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const fetcher = useFetcher();
   const { lang } = useParams();
 
   return (
@@ -41,14 +44,10 @@ export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
               </Form>
             ),
             label: t("logout"),
-            onClick(e) {
-              fetcher.submit(
-                {},
-                {
-                  method: "POST",
-                  action: `/${lang}/admin/logout`,
-                },
-              );
+            onClick() {
+              removeLocalStorageToken();
+              removeLocalStorageRefreshToken();
+              navigate(`/${lang}/admin/login`, { replace: true });
             },
           },
         ],

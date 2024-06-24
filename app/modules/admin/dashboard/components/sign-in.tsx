@@ -1,32 +1,45 @@
 import * as ic from "@ant-design/icons";
 
-import { Button } from "antd";
-import { useSubmit } from "@remix-run/react";
+import { Button, message } from "antd";
+
+import { useSignInMutation } from "~/lib/features/apis/signin";
+import { useState } from "react";
 
 const { CheckCircleFilled } = ic;
-export function SignIn({ data }: any) {
-  const submit = useSubmit();
+
+export function SignIn({ data: _data }: any) {
+  const [data, setData] = useState(_data);
+  const [signIn, signInOther] = useSignInMutation();
+  const signInHanlder = async () => {
+    const result: any = await signIn({}).unwrap();
+    if (result.code === 0) {
+      setData({
+        ...data,
+        isLogin: true,
+      });
+    } else {
+      message.error(result.message);
+    }
+  };
   return (
     <div>
-      {!data.isLogin ? (
+      {!data?.isLogin ? (
         <Button
-          onClick={() => {
-            submit(
-              {},
-              {
-                method: "post",
-                action: "/api/signin",
-                navigate: false,
-              },
-            );
-          }}
+          onClick={signInHanlder}
           htmlType="submit"
-          disabled={data.isLogin}
+          disabled={data?.isLogin}
+          loading={signInOther.isLoading}
         >
           签到
         </Button>
       ) : (
-        <Button type="primary" icon={<CheckCircleFilled />}>
+        <Button
+          type="primary"
+          icon={<CheckCircleFilled />}
+          onClick={() => {
+            message.success("🤖 已签到，明天再来吧");
+          }}
+        >
           已签到
         </Button>
       )}

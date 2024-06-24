@@ -116,6 +116,9 @@ importers:
       isbot:
         specifier: ^3.7.0
         version: 3.8.0
+      jose:
+        specifier: ^5.4.1
+        version: 5.4.1
       js-export-excel:
         specifier: ^1.1.4
         version: 1.1.4
@@ -4467,6 +4470,9 @@ packages:
   jiti@1.21.0:
     resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
     hasBin: true
+
+  jose@5.4.1:
+    resolution: {integrity: sha512-U6QajmpV/nhL9SyfAewo000fkiRQ+Yd2H0lBxJJ9apjpOgkOcBQJWOrMo917lxLptdS/n/o/xPzMkXhF46K8hQ==}
 
   js-beautify@1.15.1:
     resolution: {integrity: sha512-ESjNzSlt/sWE8sciZH8kBF8BPlwXPwhR6pWKAw8bw4Bwj+iZcnKW6ONWUutJ7eObuBZQpiIb8S7OYspWrKt7rA==}
@@ -12763,6 +12769,8 @@ snapshots:
   javascript-stringify@2.1.0: {}
 
   jiti@1.21.0: {}
+
+  jose@5.4.1: {}
 
   js-beautify@1.15.1:
     dependencies:

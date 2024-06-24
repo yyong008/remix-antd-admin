@@ -1,14 +1,15 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { fetchQuery } from "../basequery";
 import { useSelector } from "react-redux";
 
 export const userInfo = createApi({
   reducerPath: "userInfo",
-  baseQuery: fetchBaseQuery({ baseUrl: "/api/" }),
+  baseQuery: fetchQuery,
   endpoints: (builder) => ({
     getUserInfo: builder.query({
       transformResponse: (data: any) => data?.data,
       query: () => ({ url: "userinfo" }),
+      keepUnusedDataFor: 0,
     }),
   }),
 });

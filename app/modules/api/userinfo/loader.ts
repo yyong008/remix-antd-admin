@@ -1,20 +1,15 @@
-import * as ls from "./loaders";
-import type * as tn from "@remix-run/node";
-import * as us from "~/utils/server";
+import { type LoaderFunctionArgs } from "@remix-run/node";
+import { createApiHandler } from "~/utils/server/api-handler";
+import { query as userQuery } from "./loaders";
 
-class L {
-  static async loader(args: tn.LoaderFunctionArgs) {
-    try {
-      return L.loaderImpl(args);
-    } catch (error) {
-      return us.rfj();
-    }
-  }
+export const apiUserHandler = await createApiHandler(
+  {
+    isPublic: false,
+    perm: "",
+  },
+  userQuery,
+);
 
-  static async loaderImpl(args: tn.LoaderFunctionArgs) {
-    const result = await ls.query(args);
-    return result;
-  }
-}
-
-export const loader = L.loader;
+export const loader = (args: LoaderFunctionArgs) => {
+  return apiUserHandler(args);
+};

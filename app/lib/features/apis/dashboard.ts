@@ -1,12 +1,14 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { fetchQuery } from "../basequery";
 
 export const dashboard = createApi({
   reducerPath: "dashboard",
-  baseQuery: fetchBaseQuery({ baseUrl: "/api/" }),
+  baseQuery: fetchQuery,
   endpoints: (builder) => ({
     getDashboard: builder.query({
       transformResponse: (data: any) => data?.data,
-      query: () => ({ url: "dashboard" }),
+      query: () => ({ url: "dashboard", headers: {} }),
+      keepUnusedDataFor: 0,
     }),
   }),
 });

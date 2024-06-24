@@ -1,16 +1,16 @@
-import * as loginLogServices from "~/services/system/login-log";
-import type * as rrn from "@remix-run/node";
-import * as sessionServices from "~/lib/session";
-import * as singInLog from "~/services/sign-in/signInLog";
-
 import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
 
-export async function query(args: rrn.LoaderFunctionArgs) {
-  const result$ = from(sessionServices.getUserId$(args.request)).pipe(
+import { getTokenUserId } from "~/lib/jose";
+import { type LoaderFunctionArgs } from "@remix-run/node";
+import { getUserTodayIsSignInById$ } from "~/services/sign-in/signInLog";
+import { getLoginLogLatestByUserId } from "~/services/system/login-log";
+
+export async function query(args: LoaderFunctionArgs) {
+  const result$ = from(getTokenUserId(args)).pipe(
     switchMap((userId) =>
       forkJoin({
-        isLogin: singInLog.getUserTodayIsSignInById$(userId!),
-        latestLoginLog: loginLogServices.getLoginLogLatestByUserId(userId!),
+        isLogin: getUserTodayIsSignInById$(userId!),
+        latestLoginLog: getLoginLogLatestByUserId(userId!),
       }),
     ),
   );

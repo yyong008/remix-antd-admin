@@ -1,12 +1,11 @@
 // types
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import type { Observable } from "rxjs";
-
 // rxjs
-import { combineLatest, from, of, switchMap, map } from "rxjs";
-
+import { combineLatest, from, map, of, switchMap } from "rxjs";
 // remix
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
+
+import type { Observable } from "rxjs";
 
 type SessionData = {
   userId: string;

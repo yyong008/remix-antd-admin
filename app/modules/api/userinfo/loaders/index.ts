@@ -1,53 +1,20 @@
 import type * as rrn from "@remix-run/node";
-import * as serverUtils from "~/utils/server";
-import * as sessionServices from "~/lib/session";
 import * as userPermsServices from "~/services/system/user-perms.server";
 import * as userServices from "~/services/system/user";
 
-import {
-  catchError,
-  forkJoin,
-  lastValueFrom,
-  map,
-  of,
-  switchMap,
-  throwError,
-} from "rxjs";
+import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
 
-// import { langs } from "~/config/lang";
-// import { redirect } from "@remix-run/node";
+import { getTokenUserId } from "~/lib/jose";
 
-export async function query({ request, params }: rrn.LoaderFunctionArgs) {
-  // const higherOrderRedirect404 = () => {
-  //   return () => redirect("/404");
-  // };
-  const higherOrderThrowError = (e: () => any) => () => e();
-  // const LangInParams = () =>
-  //   langs.includes(typeof params.lang === "string" ? params.lang : "");
+export async function query(args: rrn.LoaderFunctionArgs) {
+  const getDashboardData = (userId: number) =>
+    forkJoin({
+      menu: userPermsServices.getFlatMenuByUserId$(userId!),
+      userInfo: userServices.getUserInfoById$(userId!),
+    });
+  const result$ = from(getTokenUserId(args)).pipe(
+    switchMap((userId) => getDashboardData(userId!)),
+  );
 
-  const result$ = of(params)
-    // .pipe(
-    //   switchMap((params) =>
-    //     iif(LangInParams, of(true), throwError(higherOrderRedirect404)),
-    //   ),
-    // )
-    .pipe(
-      switchMap(() => sessionServices.getUserId$(request)),
-      switchMap((data) =>
-        forkJoin({
-          menu: userPermsServices.getFlatMenuByUserId$(data!),
-          userInfo: userServices.getUserInfoById$(data!),
-        }),
-      ),
-      map((data) => () => {
-        return serverUtils.resp$(of(data));
-      }),
-      catchError((e) => {
-        console.log(e);
-        return throwError(() => higherOrderThrowError(e));
-      }),
-    );
-
-  const resultFn = await lastValueFrom(result$);
-  return resultFn();
+  return await lastValueFrom(result$);
 }

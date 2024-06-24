@@ -1,15 +1,24 @@
+import { auth } from "~/lib/features/apis/auth";
 import { configureStore } from "@reduxjs/toolkit";
 import { dashboard } from "./features/apis/dashboard";
+import { signIn } from "./features/apis/signin";
 import { userInfo } from "~/lib/features/apis/userinfo";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       [userInfo.reducerPath]: userInfo.reducer,
+      [auth.reducerPath]: auth.reducer,
       [dashboard.reducerPath]: dashboard.reducer,
+      [signIn.reducerPath]: signIn.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(userInfo.middleware, dashboard.middleware),
+      getDefaultMiddleware().concat(
+        userInfo.middleware,
+        dashboard.middleware,
+        auth.middleware,
+        signIn.middleware,
+      ),
   });
 };
 

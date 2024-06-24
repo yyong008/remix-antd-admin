@@ -31,6 +31,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"],
+      "@/*": ["./app/*"],
       "~/public/*": ["./public/*"],
       "~mock/*": ["./app/__mock__/*"]
     }

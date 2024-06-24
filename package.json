@@ -10,7 +10,8 @@
     "express",
     "admin",
     "prisma",
-    "postresql"
+    "postresql",
+    "remix-toolkit"
   ],
   "repository": {
     "type": "git",
@@ -77,6 +78,7 @@
     "i18next-http-backend": "^2.2.2",
     "is-ip": "^5.0.1",
     "isbot": "^3.7.0",
+    "jose": "^5.4.1",
     "js-export-excel": "^1.1.4",
     "jszip": "^3.10.1",
     "lax.js": "^2.0.3",

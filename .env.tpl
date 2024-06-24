@@ -3,6 +3,7 @@ NODE_ENV = development
 
 DATABASE_URL=""
 SESSION_SECRET="s3cret"
+JWT_SECRET=""
 TINYMCE_KEY="your tinynce key"
 PRESENTATION_MODE=1 # 演示模式
 PORT = 3333

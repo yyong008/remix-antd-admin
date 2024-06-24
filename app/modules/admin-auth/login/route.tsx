@@ -3,39 +3,51 @@ import * as clientUtils from "~/utils/client";
 import {
   AccountLogin,
   MobileLogin,
-} from "~/modules/admin/login/components/login";
-import { Button, ConfigProvider, Tabs } from "antd";
-import { Link, useParams, useSubmit } from "@remix-run/react";
+} from "~/modules/admin-auth/login/components/login";
+import { Button, ConfigProvider, Tabs, message } from "antd";
+import { Link, useNavigate, useParams } from "@remix-run/react";
 import {
   LoginFormPage,
   ProConfigProvider,
   ProFormCheckbox,
 } from "@ant-design/pro-components";
-import { useActionDataChange, useNProgress } from "~/hooks";
+import {
+  setLocalStorageRefreshToken,
+  setLocalStorageToken,
+} from "~/lib/localstorage";
 import { useContext, useState } from "react";
 
 import { ActionIcons } from "~/components/user-login";
 import { SettingContext } from "~/context";
 import { defaultLang } from "~/config/lang";
+import { useLoginMutation } from "~/lib/features/apis/auth";
+import { useNProgress } from "~/hooks";
 import { useTranslation } from "react-i18next";
 
 export function Route() {
   useNProgress();
-
+  const navigate = useNavigate();
+  const [login, loginOther] = useLoginMutation();
   const value = useContext(SettingContext);
-  const { loading, setLoading } = useActionDataChange();
-  const submit = useSubmit();
+
   const { t } = useTranslation();
   const [type, setType] = useState<string>("account");
   const { lang = defaultLang } = useParams();
 
   const handleSubmit = async (values: any) => {
-    const vals = {
+    const data = {
       ...values,
       password: clientUtils.genHashedPassword(values.password),
     };
-    submit(vals, { method: "POST", encType: "application/json" });
-    setLoading(true);
+    const result: any = await login(data);
+    if (result.data.code === 0 && result.data.data.token?.length > 0) {
+      setLocalStorageToken(result.data.data.token);
+      setLocalStorageRefreshToken(result.data.data.refresh_token);
+      message.success(result.data.message);
+      navigate(`/${lang}/admin/dashboard`, { replace: true });
+    } else {
+      message.error(result.data.message);
+    }
     return true;
   };
 
@@ -80,7 +92,7 @@ export function Route() {
                 </Link>
               ),
             }}
-            loading={loading}
+            loading={loginOther.isLoading}
             logo={
               <img
                 alt="logo"
