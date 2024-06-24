@@ -24,90 +24,90 @@
 |全栈版本|[remix-antd-admin](https://github.com/yyong008/remix-antd-admin) |
 |前端版本|[remix-antd-admin(**fe 分支**)](https://github.com/yyong008/remix-antd-admin/tree/fe)|
 |桌面端版|[remix-antd-admin-electron](https://github.com/yyong008/remix-antd-admin-electron)|
-
-## 示例在线访问
-
-|版本|地址|
-|---|---|
 |全栈版本访问地址|[remix-antd-admin](https://remix-antd-admin.bczhp.top/)|
 |前端版本访问地址|[remix-antd-admin(**Vercel**)](https://remix-antd-admin.vercel.app)|
 |文档访问地址|[remix-antd-admin-docs](https://remix-antd-admin-docs.vercel.app/)|
 
 
-### 业务
+## 设计特点
 
->我们将业务分块
+本项目在 Remix 中完成前端端分离, 但实际是一个项目，在更加需要 SSR 的前端使用 Remix (data flow), 在管理端使用（Restful API）
 
-|分块|内容|详解|
-|---|---|---|
-|管理块|admin 块|后台管理|
-|客户块|client|管理端对应的前端|
-|服务块|Express.js服务|服务端渲染和数据库|
+### 前端
 
-### 库
+多为展示数据显然，需要良好的 SEO 能力，使用服务端渲染压力小。
 
+- 基于 Remix SSR 数据流，loader -> Component -> action -> loader 的闭环。这种数据流不需要使用使用三库发起请求。
 
-| [<img src="https://avatars.githubusercontent.com/react" alt="Node.js" width="24px" height="24px" />](https://rxjs.dev/)</br> React  | [<img src="https://github.com/colinhacks/zod/raw/master/logo.svg" alt="pnpm" width="24px" height="24px" />](https://zod.dev/)</br>Zod | [<img src="https://avatars.githubusercontent.com/u/17219288?s=48&v=4" alt="Prisma" width="24px" height="24px" />](https://www.prisma.io/)</br>Prisma | [<img src="https://avatars.githubusercontent.com/u/64235328?s=48&v=4" alt="Remix" width="24px" height="24px" />](https://remix.run/)</br>Remix |  [<img src="https://avatars.githubusercontent.com/u/65625612?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://vitejs.dev/)</br> Vite |[<img src="https://avatars.githubusercontent.com/u/95747107?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://vitest.dev/)</br> Vitest|[<img src="https://avatars.githubusercontent.com/u/12101536?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://ant.design/index-cn/)</br> Antd|[<img src="https://avatars.githubusercontent.com/u/12101536?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://procomponents.ant.design/en-US)</br>ProComponent|
-| --------- | --------- | --------- | --------- |---------|---------|---------|---------|
-| 18.x+ | 8.x+| 5.x+ | 2.x+|5.x+|1.x+|5.9.x|2.6.x|
+### 管理端
 
-| [<img src="https://avatars.githubusercontent.com/u/67109815?s=48&v=4" alt="TailwindcCSS" width="24px" height="24px" />](https://tailwindcss.com/)</br> TailwindcCSS  | [<img src="https://avatars.githubusercontent.com/u/125564131?s=48&v=4" alt="pnpm" width="24px" height="24px" />](https://remix-development-tools.fly.dev/)</br>RemixDevTool | [<img src="https://echarts.apache.org/en/images/logo.png" alt="Prisma" width="80px" />](https://echarts.apache.org/zh/index.html)</br>Echart | [<img src="https://avatars.githubusercontent.com/u/8546082?s=48&v=4" alt="Remix" width="24px" height="24px" />](https://react.i18next.com/)</br>React i18n |  [<img src="https://avatars.githubusercontent.com/u/8908513?s=48&v=4" alt="Node.js" width="24px" height="24px" />](https://www.cypress.io/)</br> Cypress |[<img src="https://avatars.githubusercontent.com/u/177543?s=200&v=4" alt="Node.js" width="24px" height="24px" />](https://www.postgresql.org/)</br> PostgreSQL|
-| --------- | --------- | --------- | --------- |---------|---------|
-| 3.3.x+ | 4.0.x+| 5.0+ | 13.2.x+|13.7.x+|16.x+|
+有较多库支持，渲染任务繁重，采用与 API 进行 json 交互，将渲染任务交给客户端。
 
+- 基于 antd + tailwindcss
+- 自定义 API（Remix 的 action/loader 中处理 GET/POST/PUT/DELETE）。
+- redux-toolkit 完成数据缓存和获取。
 
-## 特性
+### 后端
 
-## 
-```sh
-- Admin:Login / Logout
-- RBAC Permission Authentication
+- 基于 Remix + Express 后端。
+- API 基于 action/loader 进行 Restful 分发。
+- 可以通过 express 添加全局任务（可能用不上）
+- 具备基础功利系统基础功能。
 
-- 全局特性
-  - 全栈一体化，管理端和前端后端一体化开发
-  - Remix I18n 国际化
-  - CSS 混合方案，支持 TailWindCSS 等多种方案
+### 基础业务
 
-- DOME:Editor
-  - Rich Text Editor
-  - Markdown Editor
-  - JSON Editor
-
-- DEMO:Excel
-  - Export Excel
-  - Upload Excel
-
-- Fallback Page
-  - $
-```
-
+- 系统管理
+- AI 聊天（ollama）
+- 博客
+- 新闻
+- 链接
+- ...
 
 ## 目录结构
 
 ```tree
-.
-├── ./app
-├── ./build.sh
-├── ./CHANGELOG.md
-├── ./cypress
-├── ./cypress.config.ts
-├── ./depoly
-├── ./Dockerfile
-├── ./env.d.ts
-├── ./LICENSE
-├── ./package.json
-├── ./pnpm-lock.yaml
-├── ./postcss.config.mjs
-├── ./prisma
-├── ./public
-├── ./README.md
-├── ./reset.sh
-├── ./start.sh
-├── ./tailwind.config.ts
-├── ./tsconfig.json
-├── ./vercel.json
-├── ./vite.config.ts
-└── ./vite-env.d.ts
+remix-antd-admin
+├── CHANGELOG.md
+├── Dockerfile
+├── LICENSE
+├── README.md
+├── README_CN.md
+├── app
+│   ├── __mock__
+│   ├── __tests__
+│   ├── components
+│   ├── config
+│   ├── constants
+│   ├── context
+│   ├── decorators
+│   ├── entry.client.tsx
+│   ├── entry.server.tsx
+│   ├── hooks
+│   ├── lib
+│   ├── modules
+│   ├── root.tsx
+│   ├── routes
+│   ├── schema
+│   ├── services
+│   ├── store-provider.tsx
+│   ├── styles
+│   ├── types
+│   └── utils
+├── cypress
+├── cypress.config.ts
+├── env.d.ts
+├── package.json
+├── pnpm-lock.yaml
+├── postcss.config.mjs
+├── prisma
+│   └── schema
+├── public
+├── tailwind.config.ts
+├── todo.md
+├── tsconfig.json
+├── vite-env.d.ts
+├── vite.config.ts
+└── vitest.config.ts
 ```
 
 ## 使用
