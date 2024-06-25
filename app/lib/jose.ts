@@ -20,7 +20,7 @@ export async function decrypt(token: string) {
     });
     return payload;
   } catch (error) {
-    console.error("Failed to verify session", error);
+    console.error("Failed to verify", error);
     return null;
   }
 }
@@ -35,7 +35,7 @@ export async function getTokenUserId(
     });
     return payload?.userId as number;
   } catch (error) {
-    console.error("Failed to verify session", error);
+    console.error("Failed to verify", error);
     return null;
   }
 }
@@ -47,7 +47,7 @@ export async function getPayloadByToken(token: string): Promise<any> {
     });
     return payload;
   } catch (error) {
-    console.error("Failed to verify session", error);
+    console.error("Failed to verify: ", error);
     return null;
   }
 }

@@ -18,7 +18,6 @@ export async function refreshTokenAction(args: ActionFunctionArgs) {
 
   const vDto = await args.request.json();
   const { refresh_token } = vDto;
-
   const payload = await getPayloadByToken(refresh_token);
 
   if (userId !== payload.id) {
@@ -36,7 +35,7 @@ export async function refreshTokenAction(args: ActionFunctionArgs) {
 
 export const apiRefreshHandler = await createApiHandler(
   {
-    isPublic: true,
+    isPublic: false,
     perm: "",
   },
   refreshTokenAction,

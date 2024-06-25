@@ -19,4 +19,5 @@ function apiLoginRoute(route: DefineRouteFunction) {
   route("api/login", "routes/api/admin-auth/login.ts");
   route("api/logout", "routes/api/admin-auth/logout.ts");
   route("api/register", "routes/api/admin-auth/register.ts");
+  route("api/refresh_token", "routes/api/admin-auth/refresh_token.ts");
 }
