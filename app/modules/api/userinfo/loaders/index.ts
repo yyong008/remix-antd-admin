@@ -4,7 +4,7 @@ import * as userServices from "~/services/system/user";
 
 import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
 
-import { getTokenUserId } from "~/lib/jose";
+import { getTokenUserIdByArgs } from "~/lib/jose";
 
 export async function query(args: rrn.LoaderFunctionArgs) {
   const getDashboardData = (userId: number) =>
@@ -12,8 +12,8 @@ export async function query(args: rrn.LoaderFunctionArgs) {
       menu: userPermsServices.getFlatMenuByUserId$(userId!),
       userInfo: userServices.getUserInfoById$(userId!),
     });
-  const result$ = from(getTokenUserId(args)).pipe(
-    switchMap((userId) => getDashboardData(userId!)),
+  const result$ = from(getTokenUserIdByArgs(args)).pipe(
+    switchMap((data) => getDashboardData(data.userId!)),
   );
 
   return await lastValueFrom(result$);

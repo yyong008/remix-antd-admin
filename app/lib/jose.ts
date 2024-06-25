@@ -1,4 +1,4 @@
-import { SignJWT, jwtVerify } from "jose";
+import { type JWTPayload, SignJWT, jwtVerify } from "jose";
 
 import { type LoaderFunctionArgs } from "@remix-run/node";
 
@@ -13,30 +13,31 @@ export async function encrypt(payload: any, expTime: string) {
     .sign(encodedKey);
 }
 
-export async function decrypt(token: string) {
+export async function decrypt(
+  token: string,
+): Promise<{ error?: any; payload?: JWTPayload | undefined }> {
   try {
     const { payload } = await jwtVerify(token, encodedKey, {
       algorithms: ["HS256"],
     });
-    return payload;
+    return { payload };
   } catch (error) {
-    console.error("Failed to verify", error);
-    return null;
+    console.error("❌ Failed to verify >>", error);
+    return { error };
   }
 }
 
-export async function getTokenUserId(
-  args: LoaderFunctionArgs,
-): Promise<number | null> {
+export async function getTokenUserIdByArgs(args: LoaderFunctionArgs) {
   const token = args.request.headers.get("Authorization")?.split(" ")[1];
+  type ResultType = JWTPayload & { userId: number; error: any };
   try {
     const { payload } = await jwtVerify(token!, encodedKey, {
       algorithms: ["HS256"],
     });
-    return payload?.userId as number;
+    return { ...payload } as ResultType;
   } catch (error) {
-    console.error("Failed to verify", error);
-    return null;
+    console.error("❌ Failed to verify >>", error);
+    return { error } as ResultType;
   }
 }
 
@@ -45,15 +46,15 @@ export async function getPayloadByToken(token: string): Promise<any> {
     const { payload } = await jwtVerify(token!, encodedKey, {
       algorithms: ["HS256"],
     });
-    return payload;
+    return { payload };
   } catch (error) {
-    console.error("Failed to verify: ", error);
-    return null;
+    console.error("❌ Failed to verify >>", error);
+    return { error };
   }
 }
 
 export function signToken(userId: number) {
-  return encrypt({ userId }, "15m");
+  return encrypt({ userId }, "15min");
 }
 
 export function signRefreshToken(userId: number) {

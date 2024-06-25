@@ -21,26 +21,27 @@ async function handlerAuth(args: TT) {
   const token = args.request.headers.get("Authorization")?.split(" ")[1];
 
   if (token) {
-    const payload = await decrypt(token);
-    if (!payload) {
-      throw Error("No Authorization");
+    const { error, payload } = await decrypt(token);
+    if (error) {
+      throw new Error(error?.message);
     }
-    const { userId, exp } = payload;
+    const { userId, exp } = payload!;
 
     if (!userId) {
-      throw Error("No Authorization");
+      throw new Error("No Authorization No User");
     }
 
     if (!exp) {
-      throw Error("No Authorization");
+      throw new Error("No Authorization Exp");
     }
 
     if (exp && Date.now() >= exp * 1000) {
-      throw Error("Token has expired");
+      throw new Error("Token has expired");
     }
     return payload;
+  } else {
+    throw new Error("No Authorization No Token");
   }
-  return null;
 }
 
 async function handlerPerm(args: TT, perm: string) {
@@ -52,7 +53,7 @@ async function handlerPerm(args: TT, perm: string) {
 
   const usersPerms = await lastValueFrom(result$);
   if (!usersPerms.includes(perm)) {
-    throw Error("No Permission");
+    throw new Error("No Permission");
   }
 }
 
@@ -60,7 +61,7 @@ async function handlerSchema(args: TT, schema: z.ZodSchema) {
   const dto = await args.request.clone().json();
   const result = schema.safeParse(dto);
   if (!result.success) {
-    throw Error(result.error.errors[0].message);
+    throw new Error(result.error.errors[0].message);
   }
 }
 
@@ -84,13 +85,14 @@ export async function createApiHandler(
       data = await fn(args);
       return rsj(data);
     } catch (error) {
-      console.error("error", error);
+      console.error("❌ >>", error);
       if (error instanceof Error) {
         return rfj(data, error?.message);
       }
       if (typeof error === "string") {
         return rfj(data, error);
       }
+      return rfj(data, error?.toString());
     }
   };
 }
