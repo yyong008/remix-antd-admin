@@ -2,7 +2,7 @@ import { type DefineRouteFunction } from "@remix-run/dev/dist/config/routes";
 
 import { apiRoutes } from "./api";
 import { homeRoutes } from "./router/home";
-import { clientRoutes } from "./router/client";
+import { clientRoutes } from "./client";
 import { adminNoLayoutRoutes } from "./router/admin-no-layout";
 import { adminRoutes } from "./router/admin";
 import { anyRoutes } from "./router/any";
