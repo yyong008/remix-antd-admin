@@ -7,7 +7,7 @@ import {
   getLocalStorageRefreshToken,
   setLocalStorageToken,
   setLocalStorageRefreshToken,
-} from "../localstorage";
+} from "../libs/localstorage";
 import { defaultLang } from "~/config/lang";
 
 const JOSE_ERROR_EXP = '"exp" claim timestamp check failed';

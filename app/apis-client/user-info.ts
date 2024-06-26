@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { fetchQuery } from "../basequery";
+import { fetchQuery } from "./_base-query";
 import { useSelector } from "react-redux";
 
 export const userInfo = createApi({

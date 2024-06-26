@@ -12,10 +12,10 @@ import { Outlet, useParams } from "@remix-run/react";
 import { ProLayout, WaterMark } from "@ant-design/pro-components";
 import { memo, useContext, useMemo, useState } from "react";
 
-import { SettingContext } from "~/context";
-import { prolayoutConfig } from "~/config/prolayout";
-import { useGetUserInfoQuery } from "~/libs/features/apis/userinfo";
-import { useNProgress } from "~/hooks";
+import { SettingContext } from "@/context";
+import { prolayoutConfig } from "@/config/prolayout";
+import { useGetUserInfoQuery } from "@/apis-client/user-info";
+import { useNProgress } from "@/hooks";
 import { useTranslation } from "react-i18next";
 
 const resetStyles = {
