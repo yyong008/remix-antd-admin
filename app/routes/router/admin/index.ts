@@ -1,7 +1,7 @@
 import { type DefineRouteFunction } from "@remix-run/dev/dist/config/routes";
 
 export function adminRoutes(route: DefineRouteFunction) {
-  route(":lang/admin", "routes/layout/_a.tsx", () => {
+  route(":lang/admin", "modules/layout/_a/index.tsx", () => {
     adminRouteBlog(route);
     adminRouteDashboard(route);
     adminRouteDemo(route);
