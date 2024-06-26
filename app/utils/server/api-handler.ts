@@ -9,6 +9,7 @@ import { getUserId$ } from "~/lib/session";
 import { switchMap, lastValueFrom } from "rxjs";
 import { getUserPerms$ } from "~/services/system/user-perms.server";
 import { decrypt } from "~/lib/jose";
+import { ERRIR_PRESENTATION_MODE } from "~/constants/error";
 
 type TT = ActionFunctionArgs | LoaderFunctionArgs;
 type TOption = {
@@ -65,6 +66,13 @@ async function handlerSchema(args: TT, schema: z.ZodSchema) {
   }
 }
 
+async function handlerPresentationMode(args: TT) {
+  const method: string = args.request.method;
+  if (method.toUpperCase() !== "GET" && process.env.PRESENTATION_MODE === "1") {
+    throw new Error(ERRIR_PRESENTATION_MODE);
+  }
+}
+
 export async function createApiHandler(
   options: TOption,
   fn: (ags: TT) => Promise<any>,
@@ -74,6 +82,7 @@ export async function createApiHandler(
     try {
       if (!options.isPublic) {
         await handlerAuth(args);
+        await handlerPresentationMode(args);
       }
       if (options.perm) {
         await handlerPerm(args, options.perm);
