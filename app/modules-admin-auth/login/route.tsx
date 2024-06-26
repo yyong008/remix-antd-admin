@@ -3,7 +3,7 @@ import * as clientUtils from "~/utils/client";
 import {
   AccountLogin,
   MobileLogin,
-} from "~/modules/admin-auth/login/components/login";
+} from "~/modules-admin-auth/login/components/login";
 import { Button, ConfigProvider, Tabs, message } from "antd";
 import { Link, useNavigate, useParams } from "@remix-run/react";
 import {
