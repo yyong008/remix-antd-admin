@@ -3,7 +3,7 @@ import type { AppLoadContext, EntryContext } from "@remix-run/node";
 import { PassThrough } from "node:stream";
 import { RemixServer } from "@remix-run/react";
 import { createReadableStreamFromReadable } from "@remix-run/node";
-import { createRemixI18n } from "./lib/i18n/server";
+import { createRemixI18n } from "./libs/i18n/server";
 import isbot from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 

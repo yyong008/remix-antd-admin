@@ -4,7 +4,7 @@ import { catchError, from, of } from "rxjs";
 // types
 import type { Observable } from "rxjs";
 // services
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 export interface ILogin {
   findByUserName(name: string): any;

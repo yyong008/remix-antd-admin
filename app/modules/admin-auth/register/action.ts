@@ -5,7 +5,7 @@ import { findByUserName } from "~/services/login";
 import { createUserFromRegister } from "~/services/register";
 
 import { hashPassword } from "~/utils/server";
-import { destroySession, getSession } from "~/lib/session";
+import { destroySession, getSession } from "~/libs/session";
 
 import { RegisterSchema } from "~/schema/login.schema";
 

@@ -10,7 +10,7 @@ import * as utils from "~/utils/server";
 // rxjs
 import { forkJoin, from, switchMap } from "rxjs";
 
-import { getUserId$ } from "~/lib/session";
+import { getUserId$ } from "~/libs/session";
 
 interface AdminFeedbackActionInterface {
   action(actionArgs: rrn.ActionFunctionArgs): any;

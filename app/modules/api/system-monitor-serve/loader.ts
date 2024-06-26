@@ -4,7 +4,7 @@ import type * as rrn from "@remix-run/node";
 import { HigherOrderCreateRespWithTime, respFn$ } from "~/utils/server";
 import { catchError, map, throwError } from "rxjs";
 
-import { getSystemInfo$ } from "~/lib/systemInfo";
+import { getSystemInfo$ } from "~/libs/systemInfo";
 
 class Loader {
   @ds.authorize()

@@ -1,6 +1,6 @@
 import * as blogServices from "~/services/blog";
 import type * as rrn from "@remix-run/node";
-import * as sessionServices from "~/lib/session";
+import * as sessionServices from "~/libs/session";
 
 import { forkJoin, from, lastValueFrom, of, switchMap } from "rxjs";
 

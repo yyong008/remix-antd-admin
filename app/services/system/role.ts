@@ -1,7 +1,7 @@
 // types
 import type { RoleData, UpdateRoleData } from "~/types/index";
 
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 export interface IRole {
   getRoleList(): any;

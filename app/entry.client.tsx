@@ -1,4 +1,4 @@
-import { I18nextProvider, i18next } from "~/lib/i18n/client";
+import { I18nextProvider, i18next } from "~/libs/i18n/client";
 import { startTransition, useState } from "react";
 
 import { RemixBrowser } from "@remix-run/react";

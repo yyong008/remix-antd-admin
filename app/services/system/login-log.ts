@@ -3,7 +3,7 @@ import type { Prisma } from "@prisma/client";
 import { SortOrder } from "~/types";
 import type { TPage } from "~/types";
 // service
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 export interface ILoginLog {
   createLoginLog(data: Prisma.LoginlogCreateInput): any;

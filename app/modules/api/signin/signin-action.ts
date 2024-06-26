@@ -1,7 +1,7 @@
 import { from, lastValueFrom, switchMap } from "rxjs";
 
 import { createUserSignInLog$ } from "~/services/sign-in";
-import { getTokenUserIdByArgs } from "~/lib/jose";
+import { getTokenUserIdByArgs } from "~/libs/jose";
 import { type ActionFunctionArgs } from "@remix-run/node";
 
 export async function signInAction(args: ActionFunctionArgs) {

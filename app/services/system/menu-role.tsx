@@ -1,6 +1,6 @@
 import type { TreeDataNode } from "antd";
 // service
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 export interface IMenuRole {
   getMenu(t: () => void, lang: string): any;

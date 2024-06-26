@@ -3,7 +3,7 @@ import type { Observable } from "rxjs";
 // rxjs
 import { from } from "rxjs";
 // server
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 export interface IProfileLinkCategory {
   createLinkCategory(data: any): any;

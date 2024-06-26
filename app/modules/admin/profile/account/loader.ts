@@ -1,6 +1,6 @@
 import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
-import * as sessionServices from "~/lib/session";
+import * as sessionServices from "~/libs/session";
 import * as userServices from "~/services/system/user";
 import * as utils from "~/utils/server";
 

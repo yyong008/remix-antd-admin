@@ -5,7 +5,7 @@ import {
   ERROR_PASSWWORD,
   ERROR_UNREGISTER,
 } from "~/constants/error";
-import { signRefreshToken, signToken } from "~/lib/jose";
+import { signRefreshToken, signToken } from "~/libs/jose";
 import { LoginSchema } from "~/schema/login.schema";
 import { findByUserName$ } from "~/services/login";
 import { createLoginLog } from "~/services/system/login-log";

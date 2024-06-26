@@ -1,7 +1,7 @@
 import type { Observable } from "rxjs";
 import { from } from "rxjs";
 // server
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 export interface IProfileLink {
   createLink(data: any): any;

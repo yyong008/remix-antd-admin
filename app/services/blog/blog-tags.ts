@@ -3,7 +3,7 @@ import type { Observable } from "rxjs";
 // rxjs
 import { from } from "rxjs";
 // prisma
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 export interface IBlogTag {
   createBlogTag$(data: any): Observable<any[]>;

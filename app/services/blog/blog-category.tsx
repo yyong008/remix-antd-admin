@@ -1,7 +1,7 @@
 import { catchError, from, map, of, switchMap } from "rxjs";
 
 import type { Observable } from "rxjs";
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 type BlogCategoryData = {
   name: string;

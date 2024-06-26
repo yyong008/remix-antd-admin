@@ -1,8 +1,8 @@
-import { auth } from "~/lib/features/apis/auth";
+import { auth } from "~/libs/features/apis/auth";
 import { configureStore } from "@reduxjs/toolkit";
 import { dashboard } from "./features/apis/dashboard";
 import { signIn } from "./features/apis/signin";
-import { userInfo } from "~/lib/features/apis/userinfo";
+import { userInfo } from "~/libs/features/apis/userinfo";
 
 export const makeStore = () => {
   return configureStore({

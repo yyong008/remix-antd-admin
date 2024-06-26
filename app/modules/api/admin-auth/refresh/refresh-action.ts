@@ -1,6 +1,6 @@
 import { type ActionFunctionArgs } from "@remix-run/node";
 
-import { getPayloadByToken, signRefreshToken, signToken } from "~/lib/jose";
+import { getPayloadByToken, signRefreshToken, signToken } from "~/libs/jose";
 
 import { createApiHandler } from "~/utils/server/api-handler";
 

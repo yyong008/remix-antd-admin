@@ -1,4 +1,4 @@
-import { auth$, logout$ } from "../lib/session";
+import { auth$, logout$ } from "../libs/session";
 
 import { getUserInfoById$ } from "../services/system/user";
 import { lastValueFrom } from "rxjs";

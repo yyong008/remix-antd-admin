@@ -1,6 +1,6 @@
 import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
 
-import { getTokenUserIdByArgs } from "~/lib/jose";
+import { getTokenUserIdByArgs } from "~/libs/jose";
 import { type LoaderFunctionArgs } from "@remix-run/node";
 import { getUserTodayIsSignInById$ } from "~/services/sign-in/signInLog";
 import { getLoginLogLatestByUserId } from "~/services/system/login-log";

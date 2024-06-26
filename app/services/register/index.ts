@@ -4,7 +4,7 @@ import type { TRegister } from "~/schema/login.schema";
 // rxjs
 import { from } from "rxjs";
 // prisma
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 export interface IRegister {
   createUserFromRegister(data: Exclude<TRegister, "passwordRe">): any;

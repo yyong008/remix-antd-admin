@@ -8,7 +8,7 @@ import { from } from "rxjs";
 // nodemail
 import nodemailer from "nodemailer";
 // prisma
-import prisma from "../../lib/prisma";
+import prisma from "../../libs/prisma";
 
 type EmailTemplateOptions = {
   page: number;

@@ -1,8 +1,8 @@
 import { LoginIn, SignIn } from "./components";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
-import { useGetDashboardQuery } from "~/lib/features/apis/dashboard";
-import { useSelectUserInfo } from "~/lib/features/apis/userinfo";
+import { useGetDashboardQuery } from "~/libs/features/apis/dashboard";
+import { useSelectUserInfo } from "~/libs/features/apis/userinfo";
 
 export function Route() {
   const userInfo = useSelectUserInfo();

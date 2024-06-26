@@ -1,6 +1,6 @@
 import * as blogCategoryServices from "~/services/blog/blog-category";
 import type * as rrn from "@remix-run/node";
-import * as sessionServices from "~/lib/session";
+import * as sessionServices from "~/libs/session";
 
 import { lastValueFrom, switchMap } from "rxjs";
 

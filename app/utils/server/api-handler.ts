@@ -5,10 +5,10 @@ import {
   type ActionFunctionArgs,
 } from "@remix-run/node";
 import { type z } from "zod";
-import { getUserId$ } from "~/lib/session";
+import { getUserId$ } from "~/libs/session";
 import { switchMap, lastValueFrom } from "rxjs";
 import { getUserPerms$ } from "~/services/system/user-perms.server";
-import { decrypt } from "~/lib/jose";
+import { decrypt } from "~/libs/jose";
 import { ERRIR_PRESENTATION_MODE } from "~/constants/error";
 
 type TT = ActionFunctionArgs | LoaderFunctionArgs;

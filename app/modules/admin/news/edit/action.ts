@@ -4,7 +4,7 @@ import * as utils from "~/utils/server";
 
 import { forkJoin, from, switchMap } from "rxjs";
 
-import { getUserId$ } from "~/lib/session";
+import { getUserId$ } from "~/libs/session";
 
 interface AdminNewsEditActionInterface {
   action(actionArgs: rrn.ActionFunctionArgs): any;

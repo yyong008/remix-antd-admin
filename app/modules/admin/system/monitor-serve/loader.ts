@@ -2,7 +2,7 @@ import * as ds from "~/decorators";
 // import type * as rrn from "@remix-run/node";
 import * as serviceUtils from "~/utils/server";
 
-import { getSystemInfo$ } from "~/lib/systemInfo";
+import { getSystemInfo$ } from "~/libs/systemInfo";
 
 class Loader {
   @ds.authorize()

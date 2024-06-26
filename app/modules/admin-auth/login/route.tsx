@@ -14,13 +14,13 @@ import {
 import {
   setLocalStorageRefreshToken,
   setLocalStorageToken,
-} from "~/lib/localstorage";
+} from "~/libs/localstorage";
 import { useContext, useState } from "react";
 
 import { ActionIcons } from "~/components/user-login";
 import { SettingContext } from "~/context";
 import { defaultLang } from "~/config/lang";
-import { useLoginMutation } from "~/lib/features/apis/auth";
+import { useLoginMutation } from "~/libs/features/apis/auth";
 import { useNProgress } from "~/hooks";
 import { useTranslation } from "react-i18next";
 

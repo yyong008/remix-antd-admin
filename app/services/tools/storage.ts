@@ -5,7 +5,7 @@ import { SortOrder } from "~/types";
 import type { TPage } from "~/types";
 import { from } from "rxjs";
 // service
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 export interface IStorage {
   createStorage(data: Prisma.StorageCreateInput): any;

@@ -3,7 +3,7 @@ import type { Observable } from "rxjs";
 // rxjs
 import { from } from "rxjs";
 // server
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 export interface INewsCategory {
   createNewsCategory(data: any): any;

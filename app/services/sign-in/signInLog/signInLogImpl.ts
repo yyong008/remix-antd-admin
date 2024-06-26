@@ -6,7 +6,7 @@ import type { IUserSignInLog } from "./signInLog.type";
 // rxjs
 import { from } from "rxjs";
 // prisma
-import prisma from "../../../lib/prisma";
+import prisma from "../../../libs/prisma";
 
 const createUserSignInLog$ = (data: any) => {
   return from(prisma.userSignLog.create({ data }));

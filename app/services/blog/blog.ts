@@ -3,7 +3,7 @@ import { from, of, switchMap } from "rxjs";
 // types
 import type { Observable } from "rxjs";
 import dayjs from "dayjs";
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 export interface IBlog {
   createBlog$(data: any): Observable<any>;

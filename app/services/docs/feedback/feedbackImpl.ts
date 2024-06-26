@@ -4,7 +4,7 @@ import { from, type Observable } from "rxjs";
 import { SortOrder, type TPage } from "~/types";
 
 // prisma
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 /**
  * 分页查询反馈

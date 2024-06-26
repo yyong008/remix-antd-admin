@@ -1,7 +1,7 @@
 // type
 import type { Prisma } from "@prisma/client";
 // service
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 import { treeData } from "~/__mock__/db/menu";
 
 export interface IMenu {

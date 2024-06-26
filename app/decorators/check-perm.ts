@@ -5,7 +5,7 @@ import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
 
 import type { ActionFunctionArgs } from "@remix-run/node";
 // services
-import { getUserId$ } from "~/lib/session";
+import { getUserId$ } from "~/libs/session";
 import { getUserPerms$ } from "../services/system/user-perms.server";
 
 /**

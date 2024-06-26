@@ -1,5 +1,5 @@
 import { type LoaderFunctionArgs, json, redirect } from "@remix-run/node";
-import { commitSession, destroySession, getSession } from "~/lib/session";
+import { commitSession, destroySession, getSession } from "~/libs/session";
 import { defaultLang } from "~/config/lang";
 
 class Loader {

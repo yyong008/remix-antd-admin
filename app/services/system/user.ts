@@ -6,7 +6,7 @@ import type { TPage } from "~/types";
 // rxjs
 import { from } from "rxjs";
 // services
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 export interface IUser {
   getUserInfoById(id: number): any;

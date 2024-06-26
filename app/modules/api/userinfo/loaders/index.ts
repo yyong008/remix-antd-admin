@@ -4,7 +4,7 @@ import * as userServices from "~/services/system/user";
 
 import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
 
-import { getTokenUserIdByArgs } from "~/lib/jose";
+import { getTokenUserIdByArgs } from "~/libs/jose";
 
 export async function query(args: rrn.LoaderFunctionArgs) {
   const getDashboardData = (userId: number) =>

@@ -2,7 +2,7 @@ import type { Observable } from "rxjs";
 import dayjs from "dayjs";
 import { from } from "rxjs";
 // server
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 export interface INews {
   createNews(data: any): any;

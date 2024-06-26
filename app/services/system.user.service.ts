@@ -4,7 +4,7 @@ import { SortOrder } from "~/types";
 import type { TPage } from "~/types";
 import { from } from "rxjs";
 // services
-import prisma from "~/lib/prisma";
+import prisma from "~/libs/prisma";
 
 /**
  * 根据 id 查询用户信息

@@ -5,7 +5,7 @@ import {
   ERROR_PASSWWORD,
   ERROR_UNREGISTER,
 } from "~/constants/error";
-import { encrypt } from "~/lib/jose";
+import { encrypt } from "~/libs/jose";
 import { LoginSchema } from "~/schema/login.schema";
 import { findByUserName$ } from "~/services/login";
 import { createLoginLog } from "~/services/system/login-log";

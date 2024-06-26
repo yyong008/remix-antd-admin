@@ -4,7 +4,7 @@ import { Dropdown, Form } from "antd";
 import {
   removeLocalStorageRefreshToken,
   removeLocalStorageToken,
-} from "~/lib/localstorage";
+} from "~/libs/localstorage";
 import { useNavigate, useParams } from "@remix-run/react";
 
 import React from "react";

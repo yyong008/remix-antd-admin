@@ -2,7 +2,7 @@ import * as ic from "@ant-design/icons";
 
 import { Button, message } from "antd";
 
-import { useSignInMutation } from "~/lib/features/apis/signin";
+import { useSignInMutation } from "~/libs/features/apis/signin";
 import { useState } from "react";
 
 const { CheckCircleFilled } = ic;

@@ -5,7 +5,7 @@ import * as utils from "~/utils/server";
 
 import { forkJoin, from, switchMap } from "rxjs";
 
-import { getUserId$ } from "~/lib/session";
+import { getUserId$ } from "~/libs/session";
 
 // const profilePerms = {
 //   READ_LIST: "profile:link-category:list",
