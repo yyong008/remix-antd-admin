@@ -2,7 +2,7 @@ import * as ic from "@ant-design/icons";
 
 import { Button, Form, Popconfirm, message } from "antd";
 
-import { useDeleteBlogByIdsMutation } from "~/apis-client/admin/blog/blog";
+import { useDeleteBlogTagByIdsMutation } from "~/apis-client/admin/blog/tag";
 
 const { DeleteOutlined } = ic;
 
@@ -13,7 +13,7 @@ type DeleteItProps = {
 };
 
 export function BlogTagDeleteIt({ refetch, record, title }: DeleteItProps) {
-  const [deleteBlogTagByIds] = useDeleteBlogByIdsMutation();
+  const [deleteBlogTagByIds] = useDeleteBlogTagByIdsMutation();
   return (
     <Form>
       <Popconfirm

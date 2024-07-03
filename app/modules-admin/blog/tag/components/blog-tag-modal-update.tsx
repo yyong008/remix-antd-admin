@@ -22,17 +22,13 @@ export function BlogTagModalUpdate({ record, refetch }: any) {
           ...record,
         });
       }}
-      trigger={
-        <Button type="link" icon={<EditOutlined />}>
-          修改
-        </Button>
-      }
+      trigger={<Button type="link" icon={<EditOutlined />}></Button>}
       onFinish={async (values: any, form: any) => {
         const data = values;
 
         data.categoryId = Number(id);
         data.id = record.id;
-        const result = await updateBlogTag(id);
+        const result = await updateBlogTag(data);
         if (result.data.code !== 0) {
           message.error(result.data.message);
           return false;

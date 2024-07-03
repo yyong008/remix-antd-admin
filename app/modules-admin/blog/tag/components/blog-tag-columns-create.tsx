@@ -32,7 +32,7 @@ export const blogTagColumnsCreate = (lang: string, refetch: any) => [
     render(_: any, record: any) {
       return (
         <Space>
-          <BlogTagModalUpdate />
+          <BlogTagModalUpdate record={record} refetch={refetch} />
           <BlogTagDeleteIt refetch={refetch} record={record} title={""} />
         </Space>
       );

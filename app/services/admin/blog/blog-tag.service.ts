@@ -45,11 +45,7 @@ export async function actionBlogTagCreate(args: ActionFunctionArgs) {
 
 export async function actionBlogTagDelete(args: ActionFunctionArgs) {
   const result$ = from(args.request.json())
-    .pipe(
-      map((data: { ids: number[] }) => {
-        return data.ids;
-      }),
-    )
+    .pipe(map((data) => data.ids))
     .pipe(switchMap((ids) => deleteBlogTagByIds$(ids)));
 
   return lastValueFrom(result$);

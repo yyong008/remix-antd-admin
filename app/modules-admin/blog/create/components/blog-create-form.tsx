@@ -48,7 +48,6 @@ export function BlogCreateForm() {
   const onFinish = async (v: any) => {
     const result: any = await createBlog(v);
     if (result.data?.code !== 0) {
-      debugger;
       message.error(result.data?.message);
       return false;
     }

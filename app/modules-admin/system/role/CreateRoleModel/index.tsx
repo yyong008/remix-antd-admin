@@ -97,7 +97,6 @@ export default function CreateRoleModal(props: CreateRoleModalProps) {
             }
           : vals;
 
-        debugger;
         fetcher.submit(values, {
           method: record.id ? "PUT" : "POST", // 修改或新建
           encType: "application/json",
