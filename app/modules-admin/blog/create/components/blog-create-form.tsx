@@ -5,6 +5,7 @@ import {
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components";
+import { useNavigate, useParams } from "@remix-run/react";
 
 import { message } from "antd";
 import { useCreateBlogMutation } from "~/apis-client/admin/blog/blog";
@@ -13,6 +14,8 @@ import { useReadBlogCategoryListQuery } from "@/apis-client/admin/blog/category"
 import { useReadBlogTagListQuery } from "@/apis-client/admin/blog/tag";
 
 export function BlogCreateForm() {
+  const nav = useNavigate();
+  const { lang } = useParams();
   const [createBlog, others] = useCreateBlogMutation();
   const { data: categories = {} } = useReadBlogCategoryListQuery({
     page: 1,
@@ -53,6 +56,9 @@ export function BlogCreateForm() {
     }
 
     message.success(result.data?.message);
+    nav(`/${lang}/admin/blog/result`, {
+      state: { title: v.title, id: result.data.data.id },
+    });
     return true;
   };
   return (

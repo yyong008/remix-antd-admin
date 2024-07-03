@@ -20,6 +20,7 @@ function adminRouteBlog(route: DefineRouteFunction) {
   route("blog/tag", "modules-admin/blog/tag/index.tsx");
   route("blog/edit", "modules-admin/blog/create/index.tsx");
   route("blog/edit/:id", "modules-admin/blog/edit/index.tsx");
+  route("blog/result", "modules-admin/blog/result/index.tsx");
 }
 
 function adminRouteDashboard(route: DefineRouteFunction) {
