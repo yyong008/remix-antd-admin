@@ -1,8 +1,8 @@
 import { type LoaderFunctionArgs } from "@remix-run/node";
-import { createApiHandler } from "~/utils/server/api-handler";
+import { createApi } from "~/utils/server/api/api-handler";
 import { query as userQuery } from "./loaders";
 
-export const apiUserHandler = await createApiHandler(
+export const apiUserHandler = await createApi(
   {
     isPublic: false,
     perm: "",

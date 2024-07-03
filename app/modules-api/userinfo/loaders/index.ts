@@ -1,6 +1,6 @@
 import type * as rrn from "@remix-run/node";
-import * as userPermsServices from "~/services/system/user-perms.server";
-import * as userServices from "~/services/system/user";
+import * as userPermsServices from "~/dals/system/user-perms.server";
+import * as userServices from "~/dals/system/user";
 
 import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
 

@@ -1,6 +1,6 @@
 import { auth$, logout$ } from "../libs/session";
 
-import { getUserInfoById$ } from "../services/system/user";
+import { getUserInfoById$ } from "../dals/system/user";
 import { lastValueFrom } from "rxjs";
 import { rfj } from "~/utils/server";
 

@@ -2,7 +2,7 @@ import * as clientUtils from "~/utils/client";
 import * as ds from "~/decorators";
 import type * as rrn from "@remix-run/node";
 import * as sessionServices from "~/libs/session";
-import * as storageServices from "~/services/tools/storage";
+import * as storageServices from "~/dals/tools/storage";
 
 import {
   unstable_composeUploadHandlers as composeUploadHandlers,

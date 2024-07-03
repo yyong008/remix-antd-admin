@@ -4,7 +4,7 @@ import { apiRoutes } from "./api";
 import { homeRoutes } from "./home";
 import { clientRoutes } from "./client";
 import { adminNoLayoutRoutes } from "./admin-auth";
-import { adminRoutes } from "./router/admin";
+import { adminRoutes } from "./admin";
 import { anyRoutes } from "./any";
 
 export function allRoutes(route: DefineRouteFunction) {

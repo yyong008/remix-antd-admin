@@ -7,10 +7,10 @@ import {
 } from "~/constants/error";
 import { encrypt } from "~/libs/jose";
 import { LoginSchema } from "~/schema/login.schema";
-import { findByUserName$ } from "~/services/login";
-import { createLoginLog } from "~/services/system/login-log";
+import { findByUserName$ } from "~/dals/login";
+import { createLoginLog } from "~/dals/system/login-log";
 import { comparePassword, getLoginInfo } from "~/utils/server";
-import { createApiHandler } from "~/utils/server/api-handler";
+import { createApi } from "~/utils/server/api/api-handler";
 
 async function matchPassword(dataDto: any, user: any) {
   const isMatch = comparePassword(dataDto.password, user!.password);
@@ -52,7 +52,7 @@ export async function loginActionCompute(args: ActionFunctionArgs) {
   };
 }
 
-export const apiLoginHandler = await createApiHandler(
+export const apiLoginHandler = await createApi(
   {
     isPublic: true,
     schema: LoginSchema,

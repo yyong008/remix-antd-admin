@@ -10,7 +10,7 @@ model Blog {
   categories  BlogCategory @relation(fields: [categoryId], references: [id])
   tagId       Int          @map("tag_id")
   tags        BlogTag      @relation(fields: [tagId], references: [id])
-  userId      Int          @map("user_id") // 上传用户
+  userId      Int          @map("user_id")
 
   @@map("blog")
 }
@@ -19,7 +19,7 @@ model BlogCategory {
   id          Int     @id @default(autoincrement())
   name        String  @unique
   description String?
-  userId      Int     @map("user_id") // 上传用户
+  userId      Int     @map("user_id")
 
   blog Blog[]
 
@@ -30,7 +30,7 @@ model BlogTag {
   id          Int     @id @default(autoincrement())
   name        String  @unique
   description String?
-  userId      Int     @map("user_id") // 上传用户
+  userId      Int     @map("user_id")
 
   blog Blog[]
 

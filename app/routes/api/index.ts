@@ -8,6 +8,8 @@ export function apiRoutes(route: DefineRouteFunction) {
   route("api/userinfo", "modules-api/userinfo/index.ts");
   apiAdminRoute(route);
   apiLoginRoute(route);
+  apiAdminDemoRoute(route);
+  apiAdminBlogRoute(route);
 }
 
 function apiLoginRoute(route: DefineRouteFunction) {
@@ -22,5 +24,26 @@ function apiAdminRoute(route: DefineRouteFunction) {
     "api/admin/system/monitor/serve",
     "modules-api/admin/system/monitor/serve/index.ts",
   );
-  route("api/dashboard", "modules-api/admin/dashboard/index.ts");
+  route("api/dashboard", "modules-api/admin/dashboard/api.dashboard.ts");
+}
+
+function apiAdminDemoRoute(route: DefineRouteFunction) {
+  route(
+    "api/admin/demo/account/center",
+    "modules-api/admin/demo/account/center/index.ts",
+  );
+  route(
+    "api/admin/demo/account/settings",
+    "modules-api/admin/demo/account/settings/index.ts",
+  );
+}
+
+function apiAdminBlogRoute(route: DefineRouteFunction) {
+  route(
+    "api/admin/blog/category",
+    "modules-api/admin/blog/blog-category.api.ts",
+  );
+  route("api/admin/blog/tag", "modules-api/admin/blog/blog-tag.api.ts");
+  route("api/admin/blog", "modules-api/admin/blog/blog.api.ts");
+  route("api/admin/blog/:id", "modules-api/admin/blog/blog.detail.api.ts");
 }

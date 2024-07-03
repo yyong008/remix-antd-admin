@@ -1,19 +1,18 @@
-import * as clientUtils from "~/utils/client";
-
 import {
   AccountLogin,
   MobileLogin,
-} from "~/modules-admin-auth/login/components/login";
+} from "@/modules-admin-auth/login/components/login";
 import { ConfigProvider, Tabs } from "antd";
 import { LoginForm, ProFormCheckbox } from "@ant-design/pro-components";
 import { useContext, useState } from "react";
-import { useFetcherChange, useNProgress } from "~/hooks";
+import { useFetcherChange, useNProgress } from "@/hooks";
 import { useNavigate, useParams } from "@remix-run/react";
 
-import { ActionIcons } from "~/components/user-login";
-import { Footer } from "~/components/common";
-import { SettingContext } from "~/context";
-import { useTranslation } from "react-i18next";
+import { ActionIcons } from "@/components/user-login";
+import { Footer } from "@/components/common";
+import { SettingContext } from "@/context";
+import { genHashedPassword } from "@/utils/client";
+import { useTranslation } from "@/hooks/use-translation";
 
 export function Route() {
   useNProgress();
@@ -32,7 +31,7 @@ export function Route() {
   const handleSubmit = async (values: any) => {
     const vals = {
       ...values,
-      password: clientUtils.genHashedPassword(values.password),
+      password: genHashedPassword(values.password),
     };
     fetcher.submit(vals, { method: "POST", encType: "application/json" });
   };

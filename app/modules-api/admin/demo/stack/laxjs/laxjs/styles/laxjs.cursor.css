@@ -1,0 +1,39 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.text {
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin-top: calc(20vh - 40px);
+  z-index: 1000;
+  font-size: 100px;
+  transform-origin: 50% 50%;
+}
+
+.text.a {
+  color: #a94fe4;
+}
+
+.text.b {
+  color: #68e4f1;
+}
+
+.text.c {
+  color: #ffe773;
+}
+
+.text.d {
+  color: #f544ad;
+}
+
+.container {
+  background-color: #f5922c;
+  width: 100% !important;
+  height: 70vh;
+}

@@ -12,7 +12,7 @@ class L {
   }
 
   static async loaderImpl(args: tn.LoaderFunctionArgs) {
-    const result = await ls.query(args);
+    const result = await ls.blogDetail(args);
     return us.rsj(result);
   }
 }

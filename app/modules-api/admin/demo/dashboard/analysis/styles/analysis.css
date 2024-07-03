@@ -1,0 +1,77 @@
+.cardContent {
+  display: flex;
+  align-items: center;
+  height: 46px;
+}
+
+.home-card {
+  height: 100%;
+}
+
+.coreName {
+  height: 38px;
+  margin-top: 4px;
+  margin-bottom: 0;
+  overflow: hidden;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 30px;
+  line-height: 38px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
+.content {
+  height: 46px;
+}
+/* RankListWrap */
+.RankListWrap {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 32px 32px 32px;
+}
+
+/* RankListItem */
+.RankListItem {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 22px;
+}
+
+/* RankListTitle */
+.RankListTitle {
+  margin-top: 16px;
+  margin-bottom: 0.5em;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+}
+
+/* Rank123 */
+.Rank123 {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-top: 1.5px;
+  margin-right: 16px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  background-color: #314659;
+  border-radius: 20px;
+  color: #fff;
+}
+
+/* Rank */
+.Rank {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-top: 1.5px;
+  margin-right: 16px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 20px;
+}

@@ -21,5 +21,8 @@
     "**/.next": true,
     "**/.vercel": true,
     "**/node_modules": true,
-  }
+  },
+  "cSpell.words": [
+    "dals"
+  ]
 }
