@@ -8,7 +8,7 @@ export const systemMenu = createApi({
     createMenu: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/menu",
+        url: "admin/system/menu",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const systemMenu = createApi({
     updateMenuById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/menu",
+        url: "admin/system/menu",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const systemMenu = createApi({
     deleteMenuByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/menu",
+        url: "admin/system/menu",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const systemMenu = createApi({
     readMenu: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "system/menu",
+        url: "admin/system/menu",
         method: "GET",
       }),
     }),
     readMenuList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `system/menu?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/menu?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

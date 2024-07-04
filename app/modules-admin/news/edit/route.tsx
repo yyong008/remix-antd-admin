@@ -5,31 +5,35 @@ import {
   ProFormDateTimePicker,
   ProFormSelect,
   ProFormText,
+  ProFormTextArea,
 } from "@ant-design/pro-components";
-import { useLoaderData, useParams } from "@remix-run/react";
+import { useNavigate, useParams } from "@remix-run/react";
 
-import { Editor } from "@tinymce/tinymce-react";
-import { Form } from "antd";
-import type { loader } from "./loader";
-import { useFetcherChange } from "~/hooks";
+import { message } from "antd";
+import { useCreateNewsMutation } from "@/apis-client/admin/news/news";
+import { useReadNewsCategoryListQuery } from "@/apis-client/admin/news/category";
 
 export function Route() {
-  const { id } = useParams();
-  const [form] = Form.useForm();
-  const fetcher = useFetcherChange();
-  const { data } = useLoaderData<typeof loader>();
-
+  const nav = useNavigate();
+  const { lang } = useParams();
+  const [createNews] = useCreateNewsMutation();
+  const { data: newsCategoryList, isLoading } = useReadNewsCategoryListQuery({
+    page: 1,
+    pageSize: 1000,
+  });
   return (
     <PageContainer>
-      <ProCard>
+      <ProCard loading={isLoading}>
         <ProForm
-          initialValues={{ ...data.news, date: data.news?.publishedAt }}
           onFinish={async (v) => {
-            const vals = v;
-            vals.id = id;
-            fetcher.submit(vals, {
-              method: id ? "PUT" : "POST", // 修改或新建
-              encType: "application/json",
+            const result = await createNews(v);
+            if (result.data?.code !== 0) {
+              message.error(result.data?.message);
+              return false;
+            }
+            message.success(result.data?.message);
+            nav(`/${lang}/admin/news/result`, {
+              state: { title: v.title, id: result.data.data.id },
             });
             return true;
           }}
@@ -79,7 +83,7 @@ export function Route() {
             label="分类"
             name="newsId"
             request={async () => {
-              const ncs = data.newsCategory;
+              const ncs = newsCategoryList?.data?.list || [];
               return ncs?.map((c: any) => {
                 return {
                   label: c.name,
@@ -104,29 +108,10 @@ export function Route() {
               },
             ]}
           >
-            <EditorRichFromItem form={form} data={data} />
+            <ProFormTextArea />
           </ProForm.Item>
         </ProForm>
       </ProCard>
     </PageContainer>
-  );
-}
-
-function EditorRichFromItem(props: any) {
-  return (
-    <Editor
-      apiKey={props.data.TINYMCE_KEY}
-      init={{
-        ai_request: false,
-        plugins:
-          "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes mergetags autocorrect typography inlinecss markdown",
-        toolbar:
-          "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table   | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
-      }}
-      value={props.value}
-      onChange={(e) => {
-        props.onChange(e.target.getContent());
-      }}
-    />
   );
 }

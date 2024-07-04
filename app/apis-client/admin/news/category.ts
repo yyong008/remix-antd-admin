@@ -8,7 +8,7 @@ export const newsCategory = createApi({
     createNewsCategory: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "news/category",
+        url: "admin/news/category",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const newsCategory = createApi({
     updateNewsCategoryById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "news/category",
+        url: "admin/news/category",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const newsCategory = createApi({
     deleteNewsCategoryByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "news/category",
+        url: "admin/news/category",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,16 +32,18 @@ export const newsCategory = createApi({
     readNewsCategory: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "news/category",
+        url: "admin/news/category",
         method: "GET",
       }),
+      keepUnusedDataFor: 0,
     }),
     readNewsCategoryList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `news/category?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/news/category?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
+      keepUnusedDataFor: 0,
     }),
   }),
 });

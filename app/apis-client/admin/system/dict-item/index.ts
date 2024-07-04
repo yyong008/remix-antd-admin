@@ -8,7 +8,7 @@ export const systemDictItem = createApi({
     createSystemDictItem: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/dict-item",
+        url: "admin/system/dict-item",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const systemDictItem = createApi({
     updateSystemDictItemById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/dict-item",
+        url: "admin/system/dict-item",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const systemDictItem = createApi({
     deleteSystemDictItemByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/dict-item",
+        url: "admin/system/dict-item",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const systemDictItem = createApi({
     readSystemDictItem: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "system/dict-item",
+        url: "admin/system/dict-item",
         method: "GET",
       }),
     }),
     readSystemDictItemList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `system/dict-item?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/dict-item?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

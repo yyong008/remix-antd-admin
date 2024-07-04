@@ -8,7 +8,7 @@ export const systemDept = createApi({
     createsystemDept: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/dept",
+        url: "admin/system/dept",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const systemDept = createApi({
     updatesystemDeptById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/dept",
+        url: "admin/system/dept",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const systemDept = createApi({
     deletesystemDeptByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/dept",
+        url: "admin/system/dept",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const systemDept = createApi({
     readsystemDept: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "system/dept",
+        url: "admin/system/dept",
         method: "GET",
       }),
     }),
     readsystemDeptList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `system/dept?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/dept?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

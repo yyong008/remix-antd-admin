@@ -22,3 +22,10 @@
 - blog 列表（tag/category） 显示不出来。
 
 - api/admin/blog?page=1&pageSize=10 返回的不是 json 数据
+
+## serveice 命名
+
+`[module_name]/[action_name]/service`
+
+- modules_name: news/news_category
+- action_name: create/read/readList/update/delete

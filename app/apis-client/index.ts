@@ -4,6 +4,8 @@ import { blog } from "./admin/blog/blog";
 import { blogCategory } from "./admin/blog/category";
 import { blogTag } from "./admin/blog/tag";
 import { dashboard } from "./admin/dashboard";
+import { news } from "./admin/news/news";
+import { newsCategory } from "./admin/news/category";
 import { signIn } from "./signin";
 import { userInfo } from "./user-info";
 
@@ -16,6 +18,8 @@ export const reducers = {
   [blog.reducerPath]: blog.reducer,
   [blogCategory.reducerPath]: blogCategory.reducer,
   [blogTag.reducerPath]: blogTag.reducer,
+  [news.reducerPath]: news.reducer,
+  [newsCategory.reducerPath]: newsCategory.reducer,
 };
 
 export const middlewares = [
@@ -27,4 +31,6 @@ export const middlewares = [
   blog.middleware,
   blogCategory.middleware,
   blogTag.middleware,
+  news.middleware,
+  newsCategory.middleware,
 ];

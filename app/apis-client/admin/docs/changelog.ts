@@ -8,7 +8,7 @@ export const changelog = createApi({
     createChangelog: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "changelog",
+        url: "admin/changelog",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const changelog = createApi({
     updateChangelogById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "changelog",
+        url: "admin/changelog",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const changelog = createApi({
     deleteChangelogByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "changelog",
+        url: "admin/changelog",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const changelog = createApi({
     readChangelog: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "changelog",
+        url: "admin/changelog",
         method: "GET",
       }),
     }),
     readChangelogList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `changelog?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/changelog?page=${data.page || 1}&pageSize=${data.pageSize || 10}`,
         method: "GET",
       }),
     }),

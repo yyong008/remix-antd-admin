@@ -8,7 +8,7 @@ export const systemConfig = createApi({
     createSystemConfig: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/config",
+        url: "admin/system/config",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const systemConfig = createApi({
     updateSystemConfigById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/config",
+        url: "admin/system/config",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const systemConfig = createApi({
     deleteSystemConfigByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/config",
+        url: "admin/system/config",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const systemConfig = createApi({
     readSystemConfig: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "system/config",
+        url: "admin/system/config",
         method: "GET",
       }),
     }),
     readSystemConfigList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `system/config?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/config?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

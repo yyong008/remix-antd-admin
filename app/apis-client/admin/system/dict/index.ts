@@ -8,7 +8,7 @@ export const systemDict = createApi({
     createSystemDict: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/dict",
+        url: "admin/system/dict",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const systemDict = createApi({
     updateSystemDictById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/dict",
+        url: "admin/system/dict",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const systemDict = createApi({
     deleteSystemDictByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/dict",
+        url: "admin/system/dict",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const systemDict = createApi({
     readSystemDict: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "system/dict",
+        url: "admin/system/dict",
         method: "GET",
       }),
     }),
     readSystemDictList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `system/dict?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/dict?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

@@ -8,7 +8,7 @@ export const systemMailTpl = createApi({
     createMailTpl: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/mail/tpl",
+        url: "admin/system/mail/tpl",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const systemMailTpl = createApi({
     updateMailTplById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/mail/tpl",
+        url: "admin/system/mail/tpl",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const systemMailTpl = createApi({
     deleteMailTplByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/mail/tpl",
+        url: "admin/system/mail/tpl",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const systemMailTpl = createApi({
     readMailTpl: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "system/mail/tpl",
+        url: "admin/system/mail/tpl",
         method: "GET",
       }),
     }),
     readMailTplList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `system/mail/tpl?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/mail/tpl?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

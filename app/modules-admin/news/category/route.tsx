@@ -1,16 +1,20 @@
-import { Link, Outlet, useLoaderData, useParams } from "@remix-run/react";
+import { Link, Outlet, useParams } from "@remix-run/react";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { Space, Tag } from "antd";
 
-import { DeleteIt } from "~/components/common";
-import NewsCategoryModal from "~/modules-admin/news/category/components/category-list/NewsCategoryModal";
-import type { loader } from "./loader";
-import { useFetcherChange } from "~/hooks";
+import { DeleteIt } from "./components/delete-it";
+import { NewsCategoryModalCreate } from "./components/news-category-modal-create";
+import { NewsCategoryModalUpdate } from "./components/news-category-modal-update";
+import { useReadNewsCategoryListQuery } from "@/apis-client/admin/news/category";
+import { useState } from "react";
 
 export function Route() {
-  const { data: dataSource } = useLoaderData<typeof loader>();
-  const fetcher = useFetcherChange();
   const { lang } = useParams();
+  const [page, setPage] = useState({
+    page: 1,
+    pageSize: 10,
+  });
+  const { data, isLoading, refetch } = useReadNewsCategoryListQuery(page);
 
   return (
     <PageContainer>
@@ -19,19 +23,32 @@ export function Route() {
         size="small"
         headerTitle="新闻分类"
         search={false}
+        loading={isLoading}
+        options={{
+          reload: refetch,
+        }}
+        pagination={{
+          total: data?.data?.total,
+          pageSize: 10,
+          onChange(page, pageSize) {
+            setPage({
+              page,
+              pageSize,
+            });
+          },
+        }}
         toolBarRender={() => [
-          <NewsCategoryModal
+          <NewsCategoryModalCreate
             key="news-category-modal-create"
-            record={{}}
-            fetcher={fetcher}
+            refetch={refetch}
           />,
         ]}
-        dataSource={dataSource as any[]}
+        dataSource={data?.data?.list}
         columns={[
           {
             dataIndex: "name",
             title: "新闻分类名",
-            render(_, record) {
+            render(_, record: any) {
               return (
                 <Link to={`/${lang}/admin/news/category/${record.id}`}>
                   <Tag color="blue">{record.name}</Tag>
@@ -49,12 +66,12 @@ export function Route() {
             render(_, record) {
               return (
                 <Space>
-                  <NewsCategoryModal
+                  <NewsCategoryModalUpdate
                     key="news-category-modal-modify"
                     record={record}
-                    fetcher={fetcher}
+                    refetch={refetch}
                   />
-                  <DeleteIt record={record} fetcher={fetcher} title="删除" />
+                  <DeleteIt record={record} refetch={refetch} title="删除" />
                 </Space>
               );
             },

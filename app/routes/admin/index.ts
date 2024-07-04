@@ -151,6 +151,7 @@ function adminRouteNews(route: DefineRouteFunction) {
   route("news/edit/:id", "modules-admin/news/edit-detail/index.tsx");
   route("news/category", "modules-admin/news/category/index.tsx");
   route("news/category/:id", "modules-admin/news/list/index.tsx");
+  route("news/result", "modules-admin/news/result/index.tsx");
 }
 
 function adminRouteProfile(route: DefineRouteFunction) {

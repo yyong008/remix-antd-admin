@@ -8,7 +8,7 @@ export const systemMenuRole = createApi({
     createMenuRole: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/menu/role",
+        url: "admin/system/menu/role",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const systemMenuRole = createApi({
     updateMenuRoleById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/menu/role",
+        url: "admin/system/menu/role",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const systemMenuRole = createApi({
     deleteMenuRoleByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/menu/role",
+        url: "admin/system/menu/role",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const systemMenuRole = createApi({
     readMenuRole: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "system/menu/role",
+        url: "admin/system/menu/role",
         method: "GET",
       }),
     }),
     readMenuRoleList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `system/menu/role?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/menu/role?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

@@ -8,7 +8,7 @@ export const systemMonitorLoginlog = createApi({
     createMonitorLoginlog: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/monitor/loginlog",
+        url: "admin/system/monitor/loginlog",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const systemMonitorLoginlog = createApi({
     updateMonitorLoginlogById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/monitor/loginlog",
+        url: "admin/system/monitor/loginlog",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const systemMonitorLoginlog = createApi({
     deleteMonitorLoginlogByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/monitor/loginlog",
+        url: "admin/system/monitor/loginlog",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const systemMonitorLoginlog = createApi({
     readMonitorLoginlog: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "system/monitor/loginlog",
+        url: "admin/system/monitor/loginlog",
         method: "GET",
       }),
     }),
     readMonitorLoginlogList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `system/monitorLoginlog?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/monitorLoginlog?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

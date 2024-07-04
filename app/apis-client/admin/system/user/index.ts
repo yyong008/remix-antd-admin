@@ -8,7 +8,7 @@ export const systemUser = createApi({
     createUser: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/user",
+        url: "admin/system/user",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const systemUser = createApi({
     updateUserById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/user",
+        url: "admin/system/user",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const systemUser = createApi({
     deleteUserByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/user",
+        url: "admin/system/user",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const systemUser = createApi({
     readUser: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "system/user",
+        url: "admin/system/user",
         method: "GET",
       }),
     }),
     readUserList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `system/user?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/user?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

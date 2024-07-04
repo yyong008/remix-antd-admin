@@ -8,7 +8,7 @@ export const systemRole = createApi({
     createRole: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/role",
+        url: "admin/system/role",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const systemRole = createApi({
     updateRoleById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/role",
+        url: "admin/system/role",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const systemRole = createApi({
     deleteRoleByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/role",
+        url: "admin/system/role",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const systemRole = createApi({
     readRole: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "system/role",
+        url: "admin/system/role",
         method: "GET",
       }),
     }),
     readRoleList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `system/role?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/role?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

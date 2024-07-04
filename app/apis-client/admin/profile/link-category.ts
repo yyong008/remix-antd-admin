@@ -8,7 +8,7 @@ export const profileLinkCategory = createApi({
     createProfileLinkCategory: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "profile/link/category",
+        url: "admin/profile/link/category",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const profileLinkCategory = createApi({
     updateProfileLinkCategoryById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "profile/link/category",
+        url: "admin/profile/link/category",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const profileLinkCategory = createApi({
     deleteProfileLinkCategoryByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "profile/link/category",
+        url: "admin/profile/link/category",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const profileLinkCategory = createApi({
     readProfileLinkCategory: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "profile/link/category",
+        url: "admin/profile/link/category",
         method: "GET",
       }),
     }),
     readProfileLinkCategoryList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `profile/link/category?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/profile/link/category?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

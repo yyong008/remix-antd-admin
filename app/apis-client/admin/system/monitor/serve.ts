@@ -8,7 +8,7 @@ export const systemMonitorServe = createApi({
     createMonitorServe: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/monitor/serve",
+        url: "admin/system/monitor/serve",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const systemMonitorServe = createApi({
     updateMonitorServeById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/monitor/serve",
+        url: "admin/system/monitor/serve",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const systemMonitorServe = createApi({
     deleteMonitorServeByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/monitor/serve",
+        url: "admin/system/monitor/serve",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const systemMonitorServe = createApi({
     readMonitorServe: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "system/monitor/serve",
+        url: "admin/system/monitor/serve",
         method: "GET",
       }),
     }),
     readMonitorServeList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `system/monitor/serve?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/monitor/serve?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

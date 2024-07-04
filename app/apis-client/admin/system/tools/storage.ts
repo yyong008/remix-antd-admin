@@ -8,7 +8,7 @@ export const systemToolsStorage = createApi({
     createStorage: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/storage",
+        url: "admin/system/storage",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const systemToolsStorage = createApi({
     updateStorageById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/storage",
+        url: "admin/system/storage",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const systemToolsStorage = createApi({
     deleteStorageByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "system/storage",
+        url: "admin/system/storage",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const systemToolsStorage = createApi({
     readStorage: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "system/storage",
+        url: "admin/system/storage",
         method: "GET",
       }),
     }),
     readStorageList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `system/storage?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/storage?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

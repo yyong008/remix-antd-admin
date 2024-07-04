@@ -8,7 +8,7 @@ export const news = createApi({
     createNews: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "news",
+        url: "admin/news",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const news = createApi({
     updateNewsById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "news",
+        url: "admin/news",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const news = createApi({
     deleteNewsByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "news",
+        url: "admin/news",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const news = createApi({
     readNews: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "news",
+        url: "admin/news",
         method: "GET",
       }),
     }),
     readNewsList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `news?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/news?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

@@ -8,7 +8,7 @@ export const news = createApi({
     createNews: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "news",
+        url: "admin/news",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const news = createApi({
     updateNewsById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "news",
+        url: "admin/news",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,24 +24,32 @@ export const news = createApi({
     deleteNewsByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "news",
+        url: "admin/news",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
     }),
     readNews: builder.query({
       transformResponse: (data: any) => data,
-      query: () => ({
-        url: "news",
+      query: (id) => ({
+        url: "admin/news/" + id,
         method: "GET",
       }),
+      keepUnusedDataFor: 0,
     }),
     readNewsList: builder.query({
       transformResponse: (data: any) => data,
-      query: (data) => ({
-        url: `news?page=${data.page}&pageSize=${data.pageSize}`,
-        method: "GET",
-      }),
+      query: (data) => {
+        let url = `admin/news?page=${data.page || 1}&pageSize=${data.pageSize || 10}`;
+        if (data.categoryId) {
+          url += "&category=" + data.categoryId;
+        }
+        return {
+          url,
+          method: "GET",
+        };
+      },
+      keepUnusedDataFor: 0,
     }),
   }),
 });
