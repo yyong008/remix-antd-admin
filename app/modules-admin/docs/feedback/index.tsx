@@ -1,7 +1,5 @@
-import { Route } from "~/modules-admin/docs/feedback/route";
-export { meta } from "~/modules-admin/docs/feedback/meta";
-export { loader } from "~/modules-admin/docs/feedback/loader";
-export { action } from "~/modules-admin/docs/feedback/action";
+import { Route } from "./route";
+export { meta } from "./meta";
 
 export default function Page() {
   return <Route />;

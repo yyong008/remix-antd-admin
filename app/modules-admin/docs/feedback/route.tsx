@@ -1,18 +1,17 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
-import { useFeedbackNav, useFetcherChange } from "~/hooks";
-import { useLoaderData, useParams } from "@remix-run/react";
 
-import FeedbackModal from "~/modules-admin/docs/feedback/components/FeedbackModal";
-import { FormatTime } from "~/components/common";
+import { FeedbackModalCreate } from "./components/FeedbackModalCreate";
+import { FormatTime } from "@/components/common";
 import { Image } from "antd";
-import type { loader } from "./loader";
+import { useReadFeedbackQuery } from "@/apis-client/admin/docs/feedback";
+import { useState } from "react";
 
 export function Route() {
-  const { data } = useLoaderData<typeof loader>();
-  const { total = 0, list = [] } = data;
-  const params = useParams();
-  const [navFeedback] = useFeedbackNav();
-  const fetcher = useFetcherChange();
+  const [page, setPage] = useState({
+    page: 1,
+    pageSize: 10,
+  });
+  const { data, isLoading, refetch } = useReadFeedbackQuery(page);
 
   const columns = [
     {
@@ -49,20 +48,23 @@ export function Route() {
         headerTitle="反馈内容"
         size="small"
         search={false}
-        dataSource={list ?? []}
+        loading={isLoading}
+        dataSource={data?.data?.list ?? []}
         columns={columns}
+        options={{
+          reload: refetch,
+        }}
         toolBarRender={() => [
-          <FeedbackModal
+          <FeedbackModalCreate
             key="changelog-modal-create"
-            record={{}}
-            fetcher={fetcher}
+            refetch={refetch}
           />,
         ]}
         pagination={{
-          total,
-          pageSize: Number(params.pageSize ?? 10),
+          total: data?.data?.total || 0,
+          pageSize: page.pageSize || 10,
           onChange(page, pageSize) {
-            navFeedback({ page, pageSize });
+            setPage({ page, pageSize });
           },
         }}
       />

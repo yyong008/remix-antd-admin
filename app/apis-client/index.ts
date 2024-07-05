@@ -3,7 +3,9 @@ import { auth } from "./auth";
 import { blog } from "./admin/blog/blog";
 import { blogCategory } from "./admin/blog/category";
 import { blogTag } from "./admin/blog/tag";
+import { changelog } from "./admin/docs/changelog";
 import { dashboard } from "./admin/dashboard";
+import { feedback } from "./admin/docs/feedback";
 import { news } from "./admin/news/news";
 import { newsCategory } from "./admin/news/category";
 import { signIn } from "./signin";
@@ -20,6 +22,8 @@ export const reducers = {
   [blogTag.reducerPath]: blogTag.reducer,
   [news.reducerPath]: news.reducer,
   [newsCategory.reducerPath]: newsCategory.reducer,
+  [changelog.reducerPath]: changelog.reducer,
+  [feedback.reducerPath]: feedback.reducer,
 };
 
 export const middlewares = [
@@ -33,4 +37,6 @@ export const middlewares = [
   blogTag.middleware,
   news.middleware,
   newsCategory.middleware,
+  changelog.middleware,
+  feedback.middleware,
 ];

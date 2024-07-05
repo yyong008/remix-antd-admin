@@ -1,36 +1,30 @@
 import * as ic from "@ant-design/icons";
 
-import { Button, Form } from "antd";
+import { Button, Form, message } from "antd";
 import {
   ModalForm,
   ProFormTextArea,
   ProFormUploadButton,
 } from "@ant-design/pro-components";
 
+import { useCreateFeedbackMutation } from "@/apis-client/admin/docs/feedback";
+
 const { EditOutlined } = ic;
 
-export default function FeedbackModal({ trigger, record, fetcher }: any) {
+export function FeedbackModalCreate({ refetch }: any) {
   const [form] = Form.useForm();
-
+  const [createFeedback, other] = useCreateFeedbackMutation();
   return (
     <ModalForm
       key={Date.now()}
       preserve={false}
-      title={record?.id ? "修改反馈" : "创建反馈"}
-      onOpenChange={(c) => {
-        if (!c || !record.id) {
-          return;
-        }
-        form.setFieldsValue({
-          ...record,
-        });
-      }}
+      title="创建反馈"
+      loading={other.isLoading}
+      onOpenChange={(c) => {}}
       trigger={
-        trigger ?? (
-          <Button type={record ? "primary" : "link"} icon={<EditOutlined />}>
-            {record ? "新建" : ""}
-          </Button>
-        )
+        <Button type="primary" icon={<EditOutlined />}>
+          新建
+        </Button>
       }
       form={form}
       autoFocusFirstInput
@@ -40,20 +34,20 @@ export default function FeedbackModal({ trigger, record, fetcher }: any) {
       }}
       submitTimeout={2000}
       onFinish={async (values: any) => {
-        const vals = { ...values };
+        const data = { ...values };
         if (values.file && values.file.length > 0) {
           const url: string = values.file[0].response.data.name;
           const prefix = "/uploads/";
-          vals.url = url.startsWith(prefix) ? url : `${prefix}${url}`;
+          data.url = url.startsWith(prefix) ? url : `${prefix}${url}`;
         }
-        if (record.id) {
-          vals.id = record.id;
+        delete data.file;
+        const result = await createFeedback(data);
+        if (result.data?.code !== 0) {
+          message.error(result.data?.message);
+          return false;
         }
-        delete vals.file;
-        fetcher.submit(vals, {
-          method: record.id ? "PUT" : "POST", // 修改或新建
-          encType: "application/json",
-        });
+        message.success(result.data?.message);
+        refetch();
         form.resetFields();
         return true;
       }}

@@ -1,6 +1,6 @@
 import * as ic from "@ant-design/icons";
 
-import { Button, Form } from "antd";
+import { Button, Form, message } from "antd";
 import {
   ModalForm,
   ProFormDateTimePicker,
@@ -9,18 +9,20 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components";
 
-import { useSubmit } from "@remix-run/react";
+import { useUpdateChangelogByIdMutation } from "@/apis-client/admin/docs/changelog";
 
 const { EditOutlined } = ic;
 
-export default function ChangeLogModal({ trigger, record }: any) {
+export default function ChangeLogUpdateModal({ record, refetch }: any) {
   const [form] = Form.useForm();
-  const submit = useSubmit();
+
+  const [updateChangelogById, other] = useUpdateChangelogByIdMutation();
   return (
     <ModalForm
       key={Date.now()}
       preserve={false}
-      title={record?.id ? "修改更新日志" : "更新日志"}
+      title="更新日志"
+      loading={other.isLoading}
       onOpenChange={(c) => {
         if (!c || !record.id) {
           return;
@@ -29,16 +31,7 @@ export default function ChangeLogModal({ trigger, record }: any) {
           ...record,
         });
       }}
-      trigger={
-        trigger ?? (
-          <Button
-            type={!record.id ? "primary" : "link"}
-            icon={<EditOutlined />}
-          >
-            {!record.id ? "新建" : ""}
-          </Button>
-        )
-      }
+      trigger={<Button type="link" icon={<EditOutlined />}></Button>}
       form={form}
       autoFocusFirstInput
       modalProps={{
@@ -47,14 +40,17 @@ export default function ChangeLogModal({ trigger, record }: any) {
       }}
       submitTimeout={2000}
       onFinish={async (values: any) => {
-        const vals = { ...values };
+        const data = { ...values };
         if (record.id) {
-          vals.id = record.id;
+          data.id = record.id;
         }
-        submit(vals, {
-          method: record.id ? "PUT" : "POST", // 修改或新建
-          encType: "application/json",
-        });
+        const result = await updateChangelogById(data);
+        if (result.data?.code !== 0) {
+          message.error(result.data?.message);
+          return false;
+        }
+        message.success(result.data?.message);
+        refetch();
         form.resetFields();
         return true;
       }}

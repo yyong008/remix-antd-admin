@@ -8,7 +8,7 @@ export const feedback = createApi({
     createFeedback: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "admin/feedback",
+        url: "admin/docs/feedback",
         method: "POST",
         body: JSON.stringify(data),
       }),
@@ -16,7 +16,7 @@ export const feedback = createApi({
     updateFeedbackById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "admin/feedback",
+        url: "admin/docs/feedback",
         method: "PUT",
         body: JSON.stringify(data),
       }),
@@ -24,7 +24,7 @@ export const feedback = createApi({
     deleteFeedbackByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "admin/feedback",
+        url: "admin/docs/feedback",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
@@ -32,14 +32,14 @@ export const feedback = createApi({
     readFeedback: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "admin/feedback",
+        url: "admin/docs/feedback",
         method: "GET",
       }),
     }),
     readFeedbackList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `admin/feedback?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/docs/feedback?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

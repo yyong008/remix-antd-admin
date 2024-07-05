@@ -1,11 +1,13 @@
-import { DeleteIt, FormatTime } from "~/components/common";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { Space, Tag } from "antd";
-import { useFeedbackNav, useFetcherChange } from "~/hooks";
-import { useLoaderData, useParams } from "@remix-run/react";
 
-import ChangeLogModal from "~/modules-admin/docs/change-log/components/ChangeLogModal";
-import type { loader } from "./loader";
+import { ChangeLogCreateModal } from "./components/ChangeLogModalCreate";
+import ChangeLogUpdateModal from "./components/ChangeLogModalUpdate";
+import { DeleteIt } from "./components/delete-it";
+import { FormatTime } from "@/components/common";
+import { useParams } from "@remix-run/react";
+import { useReadChangelogQuery } from "@/apis-client/admin/docs/changelog";
+import { useState } from "react";
 
 const typeMap = {
   1: {
@@ -23,11 +25,13 @@ const typeMap = {
 };
 
 export function Route() {
-  const { data } = useLoaderData<typeof loader>();
-  const { total = 0, list = [] } = data;
+  const [page, setPage] = useState({
+    page: 1,
+    pageSize: 10,
+  });
+  const { data, isLoading, refetch } = useReadChangelogQuery(page);
+  const { total = 0, list = [] } = data?.data || {};
   const params = useParams();
-  const [navFeedback] = useFeedbackNav();
-  const fetcher = useFetcherChange();
 
   const columns = [
     {
@@ -42,8 +46,8 @@ export function Route() {
       dataIndex: "type",
       title: "更新类型",
       render: (_: any, record: { type: 1 | 2 | 3 }) => (
-        <Tag color={typeMap?.[record.type].color}>
-          {typeMap?.[record.type].text}
+        <Tag color={typeMap?.[record.type]?.color}>
+          {typeMap?.[record.type]?.text}
         </Tag>
       ),
     },
@@ -87,8 +91,12 @@ export function Route() {
       render(_: any, record: any) {
         return (
           <Space>
-            <ChangeLogModal key="changelog-modal-modify" record={record} />
-            <DeleteIt fetcher={fetcher} record={record} title={""} />
+            <ChangeLogUpdateModal
+              key="changelog-modal-modify"
+              record={record}
+              refetch={refetch}
+            />
+            <DeleteIt record={record} title={""} refetch={refetch} />
           </Space>
         );
       },
@@ -102,15 +110,22 @@ export function Route() {
         size="small"
         search={false}
         dataSource={list ?? []}
+        loading={isLoading}
         columns={columns}
         toolBarRender={() => [
-          <ChangeLogModal key="changelog-modal-create" record={{}} />,
+          <ChangeLogCreateModal
+            key="changelog-modal-create"
+            refetch={refetch}
+          />,
         ]}
+        options={{
+          reload: refetch,
+        }}
         pagination={{
           total,
           pageSize: Number(params.pageSize ?? 10),
           onChange(page, pageSize) {
-            navFeedback({ page, pageSize });
+            setPage({ page, pageSize });
           },
         }}
       />

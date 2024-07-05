@@ -1,17 +1,21 @@
 import type { Prisma } from "@prisma/client";
 import { from, type Observable } from "rxjs";
 
-import { SortOrder, type TPage } from "~/types";
+import { SortOrder, type TPage } from "@/types";
 
-// prisma
-import prisma from "~/libs/prisma";
+import prisma from "@/libs/prisma";
 
-/**
- * 分页查询反馈
- * @param data {TPage}
- * @returns
- */
-const findFeedbackByPage$ = (data: TPage): Observable<any[]> => {
+export const readFeedbackById$ = (id: number): Observable<any[]> => {
+  return from(
+    prisma.feedBack.findMany({
+      where: {
+        id,
+      },
+    }),
+  );
+};
+
+export const readFeedbackByList$ = (data: TPage): Observable<any[]> => {
   const { page = 1, pageSize = 10 } = data;
   return from(
     prisma.feedBack.findMany({
@@ -24,12 +28,9 @@ const findFeedbackByPage$ = (data: TPage): Observable<any[]> => {
   );
 };
 
-/**
- * 创建 feedback
- * @param data {Prisma.FeedBackCreateInput}
- * @returns
- */
-const createFeedback$ = (data: Prisma.FeedBackCreateInput): Observable<any> => {
+export const createFeedback$ = (
+  data: Prisma.FeedBackCreateInput,
+): Observable<any> => {
   return from(
     prisma.feedBack.create({
       data: {
@@ -41,12 +42,7 @@ const createFeedback$ = (data: Prisma.FeedBackCreateInput): Observable<any> => {
   );
 };
 
-/**
- * 更新反馈
- * @param data {Prisma.FeedBackUpdateInput & { id: number}}
- * @returns
- */
-const updateFeedBackById$ = (
+export const updateFeedbackById$ = (
   data: Prisma.FeedBackUpdateInput & { id: number },
 ): Observable<any> => {
   return from(
@@ -59,12 +55,7 @@ const updateFeedBackById$ = (
   );
 };
 
-/**
- * 删除反馈
- * @param ids {Number[]}
- * @returns
- */
-const deleteFeedBackByIds$ = (ids: number[]): Observable<any> => {
+export const deleteFeedbackByIds$ = (ids: number[]): Observable<any> => {
   return from(
     prisma.feedBack.deleteMany({
       where: {
@@ -76,17 +67,6 @@ const deleteFeedBackByIds$ = (ids: number[]): Observable<any> => {
   );
 };
 
-/**
- * 获取反馈数量
- */
-const getFeedBackCount$ = (): Observable<any> => {
+export const getFeedBackCount$ = (): Observable<any> => {
   return from(prisma.feedBack.count());
-};
-
-export {
-  findFeedbackByPage$,
-  createFeedback$,
-  updateFeedBackById$,
-  deleteFeedBackByIds$,
-  getFeedBackCount$,
 };
