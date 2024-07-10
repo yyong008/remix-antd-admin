@@ -1,40 +1,21 @@
-// import type { Prisma } from "@prisma/client";
-import type { Observable } from "rxjs";
-// rxjs
-import { from } from "rxjs";
-// server
-import prisma from "~/libs/prisma";
+import { from, map, of, switchMap } from "rxjs";
 
-export interface IProfileLinkCategory {
-  createLinkCategory(data: any): any;
-  createLinkCategory$(data: any): Observable<any>;
-  updateLinkCategory$(data: any): Observable<any>;
-  deleteLinkCategoryByIds$(ids: number[]): Observable<any>;
-  getLinkCategoryListByUserId(userId: number): any;
-  getLinkCategoryListByUserId$(userId: number): Observable<any>;
-}
+import prisma from "@/libs/prisma";
 
-/**
- * 创建链接分类
- * @param data
- * @returns
- */
-export const createLinkCategory = async (data: any) => {
-  try {
-    return await prisma.linkCategory.create({
-      data,
-    });
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+export const getLinkCategoryCount$ = () => {
+  return from(prisma.linkCategory.count());
 };
 
-/**
- * 创建链接分类
- * @param data
- * @returns
- */
+export const getLinkCategoryCountByUserId$ = (userId: number) => {
+  return from(
+    prisma.linkCategory.count({
+      where: {
+        userId,
+      },
+    }),
+  );
+};
+
 export const createLinkCategory$ = (data: any) => {
   return from(
     prisma.linkCategory.create({
@@ -43,27 +24,17 @@ export const createLinkCategory$ = (data: any) => {
   );
 };
 
-/**
- * 创建链接分类
- * @param data
- * @returns
- */
-export const updateLinkCategory$ = (data: any) => {
+export const updateLinkCategoryById$ = ({ id, ...data }: any) => {
   return from(
     prisma.linkCategory.update({
       where: {
-        id: data.id,
+        id,
       },
       data,
     }),
   );
 };
 
-/**
- * 创建链接分类
- * @param data
- * @returns
- */
 export const deleteLinkCategoryByIds$ = (ids: number[]) => {
   return from(
     prisma.linkCategory.deleteMany({
@@ -76,35 +47,38 @@ export const deleteLinkCategoryByIds$ = (ids: number[]) => {
   );
 };
 
-/**
- * 获取连接分类列表通过 userId
- * @param userId
- * @returns
- */
-export const getLinkCategoryListByUserId = async (userId: number) => {
-  try {
-    return await prisma.linkCategory.findMany({
-      where: {
-        userId,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+export const getLinkCategoryById$ = (id: number) => {
+  return from(prisma.linkCategory.findUnique({ where: { id } }));
 };
 
-/**
- * 获取连接分类列表通过 userId
- * @param userId
- * @returns
- */
-export const getLinkCategoryListByUserId$ = (userId: number) => {
-  return from(
-    prisma.linkCategory.findMany({
-      where: {
-        userId,
-      },
-    }),
-  );
+export const getLinkCategoryListByUserId$ = (data: {
+  pageSize: number;
+  page: number;
+  userId: number;
+  id: number;
+}) => {
+  return of(data)
+    .pipe(
+      map((data) => ({
+        skip: data.pageSize * (data.page - 1),
+        take: data.pageSize,
+        userId: data.userId,
+      })),
+    )
+    .pipe(
+      switchMap(({ skip, take, userId }) =>
+        from(
+          prisma.linkCategory.findMany({
+            where: {
+              userId,
+            },
+            skip,
+            take,
+            orderBy: {
+              id: "desc",
+            },
+          }),
+        ),
+      ),
+    );
 };

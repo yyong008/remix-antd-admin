@@ -6,19 +6,16 @@ import {
   ProFormText,
 } from "@ant-design/pro-components";
 
-import type { loader } from "./loader";
-import { useLoaderData } from "@remix-run/react";
+import { useReadProfileAccountQuery } from "@/apis-client/admin/profile/account";
 
 export function Route() {
-  const { data: dataSource } = useLoaderData<typeof loader>();
-
+  const { data, isLoading } = useReadProfileAccountQuery("");
   return (
     <PageContainer>
-      <ProCard>
+      <ProCard loading={isLoading}>
         <ProForm
           initialValues={{
-            ...dataSource,
-            department: dataSource?.department?.name,
+            ...data?.data,
           }}
           readonly={true}
           layout="horizontal"

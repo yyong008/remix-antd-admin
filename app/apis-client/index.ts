@@ -8,6 +8,9 @@ import { dashboard } from "./admin/dashboard";
 import { feedback } from "./admin/docs/feedback";
 import { news } from "./admin/news/news";
 import { newsCategory } from "./admin/news/category";
+import { profileAccount } from "./admin/profile/account";
+import { profileLink } from "./admin/profile/link";
+import { profileLinkCategory } from "./admin/profile/link-category";
 import { signIn } from "./signin";
 import { userInfo } from "./user-info";
 
@@ -24,6 +27,9 @@ export const reducers = {
   [newsCategory.reducerPath]: newsCategory.reducer,
   [changelog.reducerPath]: changelog.reducer,
   [feedback.reducerPath]: feedback.reducer,
+  [profileAccount.reducerPath]: profileAccount.reducer,
+  [profileLink.reducerPath]: profileLink.reducer,
+  [profileLinkCategory.reducerPath]: profileLinkCategory.reducer,
 };
 
 export const middlewares = [
@@ -39,4 +45,7 @@ export const middlewares = [
   newsCategory.middleware,
   changelog.middleware,
   feedback.middleware,
+  profileAccount.middleware,
+  profileLink.middleware,
+  profileLinkCategory.middleware,
 ];

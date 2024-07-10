@@ -1,45 +1,45 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { fetchQuery } from "../../_base-query";
 
-export const news = createApi({
-  reducerPath: "news",
+export const profileLink = createApi({
+  reducerPath: "link",
   baseQuery: fetchQuery,
   endpoints: (builder) => ({
-    createNews: builder.mutation({
+    createProfileLink: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "admin/news",
+        url: "admin/profile/link",
         method: "POST",
         body: JSON.stringify(data),
       }),
     }),
-    updateNewsById: builder.mutation({
+    updateProfileLinkById: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "admin/news",
+        url: "admin/profile/link",
         method: "PUT",
         body: JSON.stringify(data),
       }),
     }),
-    deleteNewsByIds: builder.mutation({
+    deleteProfileLinkByIds: builder.mutation({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: "admin/news",
+        url: "admin/profile/link",
         method: "DELETE",
         body: JSON.stringify(data),
       }),
     }),
-    readNews: builder.query({
+    readProfileLink: builder.query({
       transformResponse: (data: any) => data,
       query: () => ({
-        url: "admin/news",
+        url: "admin/profile/link",
         method: "GET",
       }),
     }),
-    readNewsList: builder.query({
+    readProfileLinkList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `admin/news?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/profile/link?category=${data.id}&page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),
@@ -47,9 +47,9 @@ export const news = createApi({
 });
 
 export const {
-  useCreateNewsMutation,
-  useUpdateNewsByIdMutation,
-  useDeleteNewsByIdsMutation,
-  useReadNewsListQuery,
-  useReadNewsQuery,
-} = news;
+  useCreateProfileLinkMutation,
+  useUpdateProfileLinkByIdMutation,
+  useDeleteProfileLinkByIdsMutation,
+  useReadProfileLinkListQuery,
+  useReadProfileLinkQuery,
+} = profileLink;

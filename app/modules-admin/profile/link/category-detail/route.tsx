@@ -1,26 +1,46 @@
-import { Link, useLoaderData } from "@remix-run/react";
+import { Link, useParams } from "@remix-run/react";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { Space, Tag } from "antd";
 
-import LinkModal from "~/modules-admin/profile/link/category-detail/components/LinkModal";
-import LinkSvg from "~/modules-admin/profile/link/category-detail/LinkSvg";
-import type { loader } from "./loader";
-import { useFetcherChange } from "~/hooks";
+import { LinkModalCreate } from "./components/link-modal-create";
+import { LinkModalUpdate } from "./components/link-modal-update";
+import LinkSvg from "./components/link-svg";
+import { useReadProfileLinkListQuery } from "@/apis-client/admin/profile/link";
+import { useState } from "react";
 
 export function Route() {
-  const { data: dataSource } = useLoaderData<typeof loader>();
-  const fetcher = useFetcherChange();
-
+  const { id } = useParams();
+  const [page, setPage] = useState({
+    page: 1,
+    pageSize: 10,
+    id,
+  });
+  const { data, isLoading, refetch } = useReadProfileLinkListQuery(page);
   return (
     <PageContainer>
       <ProTable
         rowKey="id"
         size="small"
         search={false}
-        dataSource={dataSource as any[]}
+        loading={isLoading}
+        dataSource={data?.data?.list || []}
         toolBarRender={() => [
-          <LinkModal record={{}} fetcher={fetcher} key="create-link-modal" />,
+          <LinkModalCreate refetch={refetch} key="create-link-modal" />,
         ]}
+        options={{
+          reload: refetch,
+        }}
+        pagination={{
+          total: data?.data?.total,
+          pageSize: 10,
+          onChange(_page, pageSize) {
+            setPage({
+              ...page,
+              page: _page,
+              pageSize,
+            });
+          },
+        }}
         columns={[
           {
             dataIndex: "name",
@@ -29,7 +49,7 @@ export function Route() {
           {
             dataIndex: "url",
             title: "链接地址",
-            renderText(text, record, index, action) {
+            renderText(text, record: any) {
               return (
                 <Link to={record.url} target="_blank">
                   <Tag className="inline-flex" color="cyan">
@@ -50,9 +70,9 @@ export function Route() {
             render(_, record) {
               return (
                 <Space>
-                  <LinkModal
+                  <LinkModalUpdate
+                    refetch={refetch}
                     record={record}
-                    fetcher={fetcher}
                     key="modify-link-modal"
                   />
                 </Space>

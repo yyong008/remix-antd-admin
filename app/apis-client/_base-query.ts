@@ -7,8 +7,8 @@ import {
   getLocalStorageRefreshToken,
   setLocalStorageToken,
   setLocalStorageRefreshToken,
-} from "../libs/localstorage";
-import { defaultLang } from "~/config/lang";
+} from "@/libs/localstorage";
+import { defaultLang } from "@/config/lang";
 
 const JOSE_ERROR_EXP = '"exp" claim timestamp check failed';
 
@@ -44,7 +44,7 @@ export const fetchQuery = async (
   extraOptions: any,
 ) => {
   let result = await _fetchQuery(args, api, extraOptions);
-  const { code, message } = result.data as any;
+  const { code, message } = (result?.data || {}) as any;
   if (code !== 0 && message === JOSE_ERROR_EXP) {
     const refreshToken = getLocalStorageRefreshToken();
     if (!refreshToken) {

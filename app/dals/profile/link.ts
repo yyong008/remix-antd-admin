@@ -1,87 +1,43 @@
-import type { Observable } from "rxjs";
-import { from } from "rxjs";
-// server
-import prisma from "~/libs/prisma";
+import { from, map, of, switchMap } from "rxjs";
 
-export interface IProfileLink {
-  createLink(data: any): any;
-  getLinkAll(): any;
-  getLinkListById(categoryId: number): any;
-}
+import prisma from "@/libs/prisma";
 
-export interface IProfileLink {
-  createLink$(data: any): Observable<any>;
-  updataLink$(data: any): Observable<any>;
-  deleteLinkByIds$(ids: number[]): Observable<any>;
-  getLinkAll$(): Observable<any>;
-  getLinkListById$(categoryId: number): Observable<any>;
-}
-
-/**
- * 创建链接
- * @param data
- * @returns
- */
-export const createLink = async (data: any) => {
-  try {
-    return await prisma.link.create({
-      data: {
-        description: data.description,
-        name: data.name,
-        url: data.url,
-        categoryId: data.categoryId,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+export const readLinkCount$ = () => {
+  return from(prisma.link.count());
 };
 
-/**
- * 创建链接
- * @param data
- * @returns
- */
 export const createLink$ = (data: any) => {
-  return from(
-    prisma.link.create({
-      data: {
-        description: data.description,
+  return of(data)
+    .pipe(
+      map((data) => ({
+        userId: data.userId,
         name: data.name,
-        url: data.url,
+        description: data.description,
         categoryId: data.categoryId,
-      },
-    }),
-  );
+      })),
+    )
+    .pipe(
+      switchMap(() =>
+        from(
+          prisma.link.create({
+            data,
+          }),
+        ),
+      ),
+    );
 };
 
-/**
- * 更新链接
- * @param data
- * @returns
- */
-export const updateLink$ = (data: any) => {
+export const updateLink$ = ({ id, ...data }: any) => {
   return from(
     prisma.link.update({
       where: {
-        id: data.id,
+        id,
       },
-      data: {
-        description: data.description,
-        name: data.name,
-        url: data.url,
-        categoryId: data.categoryId,
-      },
+      data,
     }),
   );
 };
 
-/**
- * 更新链接
- * @param data
- * @returns
- */
 export const deleteLinkByIds$ = (ids: number[]) => {
   return from(
     prisma.link.deleteMany({
@@ -94,56 +50,34 @@ export const deleteLinkByIds$ = (ids: number[]) => {
   );
 };
 
-/**
- * 获取所有链接
- * @returns
- */
-export const getLinkAll = async () => {
-  try {
-    return await prisma.link.findMany();
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-};
-
-/**
- * 获取所有链接
- * @returns
- */
-export const getLinkAll$ = () => {
+export const readLinkAll$ = () => {
   return from(prisma.link.findMany());
 };
 
-/**
- * 更具分类 id 获取连接
- * @param categoryId
- * @returns
- */
-export const getLinkListById = async (categoryId: number) => {
-  try {
-    return await prisma.link.findMany({
-      where: {
-        categoryId,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+export const readLinkById$ = (id: number) => {
+  return from(prisma.link.findUnique({ where: { id } }));
 };
 
-/**
- * 更具分类 id 获取连接
- * @param categoryId
- * @returns
- */
-export const getLinkListById$ = (categoryId: number) => {
-  return from(
-    prisma.link.findMany({
-      where: {
+export const readLinkListByCategoryId$ = ({ categoryId, ...data }: any) => {
+  return of(data)
+    .pipe(
+      map((data) => ({
+        skip: data.pageSize * (data.page - 1),
+        take: data.pageSize,
         categoryId,
-      },
-    }),
-  );
+      })),
+    )
+    .pipe(
+      switchMap(({ skip, take, categoryId }) =>
+        from(
+          prisma.link.findMany({
+            where: {
+              categoryId,
+            },
+            skip,
+            take,
+          }),
+        ),
+      ),
+    );
 };

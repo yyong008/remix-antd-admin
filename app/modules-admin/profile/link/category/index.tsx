@@ -1,7 +1,5 @@
-import { Route } from "~/modules-admin/profile/link/category/route";
-export { meta } from "~/modules-admin/profile/link/category/meta";
-export { loader } from "~/modules-admin/profile/link/category/loader";
-export { action } from "~/modules-admin/profile/link/category/action";
+import { Route } from "./route";
+export { meta } from "./meta";
 
 export default function Page() {
   return <Route />;

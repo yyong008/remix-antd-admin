@@ -12,6 +12,7 @@ export function apiRoutes(route: DefineRouteFunction) {
   apiAdminBlogRoute(route);
   apiAdminNewsRoute(route);
   apiAdminDocsRoute(route);
+  apiAdminProfileRoute(route);
 }
 
 function apiLoginRoute(route: DefineRouteFunction) {
@@ -62,4 +63,16 @@ function apiAdminNewsRoute(route: DefineRouteFunction) {
 function apiAdminDocsRoute(route: DefineRouteFunction) {
   route("api/admin/docs/feedback", "modules-api/admin/docs/feedback.api.ts");
   route("api/admin/docs/changelog", "modules-api/admin/docs/changelog.api.ts");
+}
+
+function apiAdminProfileRoute(route: DefineRouteFunction) {
+  route(
+    "api/admin/profile/account",
+    "modules-api/admin/profile/account.api.ts",
+  );
+  route("api/admin/profile/link", "modules-api/admin/profile/link.api.ts");
+  route(
+    "api/admin/profile/link/category",
+    "modules-api/admin/profile/link-category.api.ts",
+  );
 }
