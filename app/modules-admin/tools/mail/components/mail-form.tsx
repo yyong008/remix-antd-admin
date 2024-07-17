@@ -6,29 +6,23 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components";
 
-import { useFetcherChange } from "~/hooks";
-import { useParams } from "@remix-run/react";
+// import { useParams } from "@remix-run/react";
 
 export function MailForm() {
   const [form] = Form.useForm();
-  const fetcher = useFetcherChange();
-  const { lang } = useParams();
+  // const { lang } = useParams();
 
   const onSaveTemplate = () => {
-    const vals = {
-      subject: form.getFieldValue("subject"),
-      to: form.getFieldValue("to"),
-      content: form.getFieldValue("content"),
-      host: form.getFieldValue("host"),
-      port: form.getFieldValue("port"),
-      user: form.getFieldValue("user"),
-      pass: form.getFieldValue("pass"),
-    };
-    fetcher.submit(vals, {
-      encType: "application/json",
-      method: "POST",
-      action: `/${lang!}/admin/tools/mail/list`,
-    });
+    // const vals = {
+    //   subject: form.getFieldValue("subject"),
+    //   to: form.getFieldValue("to"),
+    //   content: form.getFieldValue("content"),
+    //   host: form.getFieldValue("host"),
+    //   port: form.getFieldValue("port"),
+    //   user: form.getFieldValue("user"),
+    //   pass: form.getFieldValue("pass"),
+    // };
+    // // TODO:
   };
   return (
     <ProForm

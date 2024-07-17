@@ -185,7 +185,7 @@ function adminRouteTools(route: DefineRouteFunction) {
   route("tools/mail", "modules-admin/tools/mail/index.tsx");
   route("tools/mail/list", "modules-admin/tools/mail-list/index.tsx");
   route("tools/mail/:id", "modules-admin/tools/mail-detail/index.tsx");
-  route("tools/", "modules-admin/tools/storage/index.tsx");
+  route("tools/storage", "modules-admin/tools/storage/index.tsx");
 }
 
 function adminRouteAbout(route: DefineRouteFunction) {

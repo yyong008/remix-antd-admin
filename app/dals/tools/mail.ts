@@ -1,42 +1,14 @@
-// types
-import type { Observable } from "rxjs";
 import type SMTPConnection from "nodemailer/lib/smtp-connection";
-// enums
 import { SortOrder } from "~/types";
-// rxjs
 import { from } from "rxjs";
-// nodemail
 import nodemailer from "nodemailer";
-// prisma
-import prisma from "../../libs/prisma";
+import prisma from "@/libs/prisma";
 
 type EmailTemplateOptions = {
   page: number;
   pageSize: number;
   name?: string;
 };
-
-export interface ToolsMail {
-  sendMail(options: SendMailOptions): Promise<any>;
-  count(): Observable<any>;
-}
-
-export interface ToolsMail {
-  // sendMail
-  sendMail$(options: SendMailOptions): Observable<any>;
-  // get
-  getEmailTemplateById$(id: number): Observable<any>;
-  getEmailTemplatePage$(options: EmailTemplateOptions): Observable<any[]>;
-  // create
-  createEmailTemplate$(data: any): Observable<any[]>;
-  // update
-  updateEmailTemplate$(data: any): Observable<any[]>;
-  // delete
-  deleteEmailTemplateById$(id: number): Observable<any[]>;
-  deleteEmailTemplateByIds$(ids: number[]): Observable<any>;
-  // count
-  count$(): Observable<any>;
-}
 
 type SendMailOptions = {
   host: string;
@@ -52,40 +24,6 @@ type SendMailOptions = {
   // html?: string; //也可以用html发送
   content: string;
 };
-
-export function sendMail(options: SendMailOptions) {
-  let transporter = nodemailer.createTransport({
-    host: options.host, // 发送者的邮箱厂商，支持列表：https://nodemailer.com/smtp/well-known/
-    port: options.port, // SMTP 端口
-    secureConnection: false, // SSL安全链接
-    secure: true,
-    requireTLS: true,
-    auth: {
-      //发送者的账户密码
-      user: options.auth.user, //账户
-      pass: options.auth.pass, //smtp授权码，到邮箱设置下获取
-    },
-  } as SMTPConnection.Options);
-
-  let mailOptions = {
-    from: `<${options.auth.user}>`, // 发送者昵称和地址
-    to: options.to, // 接收者的邮箱地址
-    subject: options.subject, // 邮件主题
-    html: options.content, //也可以用html发送
-  };
-
-  //发送邮件
-  return new Promise((resolve, reject) => {
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        reject(error);
-        return console.log(error);
-      }
-
-      resolve(info);
-    });
-  });
-}
 
 export function sendMail$(options: SendMailOptions) {
   let transporter = nodemailer.createTransport({
@@ -123,28 +61,15 @@ export function sendMail$(options: SendMailOptions) {
   return from(sendMailPromise);
 }
 
-/**
- * 根据 mail 模板的总量
- */
-export function count$() {
+export function readMailTemplateCount$() {
   return from(prisma.mail.count());
 }
 
-/**
- * 根据 id 获取 mail 模板内容
- * @param id {Number}
- * @returns
- */
-export function getEmailTemplateById$(id: number) {
+export function readMailTemplateById$(id: number) {
   return from(prisma.mail.findUnique({ where: { id } }));
 }
 
-/**
- * 分页获取邮件模板
- * @param id {Number}
- * @returns
- */
-export function getEmailTemplatePage$(options: EmailTemplateOptions) {
+export function readMailTemplateList$(options: EmailTemplateOptions) {
   return from(
     prisma.mail.findMany({
       skip: (options.page - 1) * options.pageSize,
@@ -156,12 +81,7 @@ export function getEmailTemplatePage$(options: EmailTemplateOptions) {
   );
 }
 
-/**
- * 创建模板
- * @param data
- * @returns
- */
-export function createEmailTemplate$(data: any) {
+export function createMailTemplate$(data: any) {
   return from(
     prisma.mail.create({
       data,
@@ -169,12 +89,7 @@ export function createEmailTemplate$(data: any) {
   );
 }
 
-/**
- * 更新模板数据
- * @param data
- * @returns
- */
-export function updateEmailTemplate$(data: any) {
+export function updateMailTemplate$(data: any) {
   return from(
     prisma.mail.update({
       where: {
@@ -185,27 +100,7 @@ export function updateEmailTemplate$(data: any) {
   );
 }
 
-/**
- * 根据 id 删除邮件模板
- * @param id
- * @returns
- */
-export function deleteEmailTemplateById$(id: number) {
-  return from(
-    prisma.mail.delete({
-      where: {
-        id,
-      },
-    }),
-  );
-}
-
-/**
- * 根据 id 删除邮件模板
- * @param id
- * @returns
- */
-export function deleteEmailTemplateByIds$(ids: number[]) {
+export function deleteMailTemplateByIds$(ids: number[]) {
   return from(
     prisma.mail.deleteMany({
       where: {

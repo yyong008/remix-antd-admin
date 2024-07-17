@@ -19,6 +19,7 @@ enum FileStatus {
 
 type StorageModalProps = {
   trigger?: React.ReactNode;
+  refetch: any;
 };
 
 export function StorageModal(props: StorageModalProps) {
@@ -51,6 +52,9 @@ export function StorageModal(props: StorageModalProps) {
             url: `/api/upload`,
             body: formData,
             includeUploadProgress: true,
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
           });
         });
 
@@ -74,6 +78,10 @@ export function StorageModal(props: StorageModalProps) {
           },
           error(e) {
             console.log(e);
+          },
+          complete() {
+            message.info("upload success");
+            props?.refetch();
           },
         });
       }}

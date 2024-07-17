@@ -12,6 +12,7 @@ import { profileAccount } from "./admin/profile/account";
 import { profileLink } from "./admin/profile/link";
 import { profileLinkCategory } from "./admin/profile/link-category";
 import { signIn } from "./signin";
+import { toolsStorage } from "./admin/tools/storage";
 import { userInfo } from "./user-info";
 
 export const reducers = {
@@ -30,6 +31,7 @@ export const reducers = {
   [profileAccount.reducerPath]: profileAccount.reducer,
   [profileLink.reducerPath]: profileLink.reducer,
   [profileLinkCategory.reducerPath]: profileLinkCategory.reducer,
+  [toolsStorage.reducerPath]: toolsStorage.reducer,
 };
 
 export const middlewares = [
@@ -48,4 +50,5 @@ export const middlewares = [
   profileAccount.middleware,
   profileLink.middleware,
   profileLinkCategory.middleware,
+  toolsStorage.middleware,
 ];

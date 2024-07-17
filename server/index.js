@@ -17,6 +17,7 @@ const app = express();
 
 // handle asset requests
 if (viteDevServer) {
+  app.use(express.static('public'));
   app.use(viteDevServer.middlewares);
 } else {
   app.use(

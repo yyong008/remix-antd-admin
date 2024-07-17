@@ -5,26 +5,27 @@ import {
   type ActionFunctionArgs,
   type LoaderFunctionArgs,
 } from "@remix-run/node";
-import {
-  createLink$,
-  deleteLinkByIds$,
-  readLinkById$,
-  readLinkCount$,
-  readLinkListByCategoryId$,
-  updateLink$,
-} from "@/dals/profile/link";
-import { getSearchParams } from "@/utils/server";
 
-export async function readLinkByIdService(args: LoaderFunctionArgs) {
+import { getSearchParams } from "@/utils/server";
+import {
+  createMailTemplate$,
+  readMailTemplateById$,
+  readMailTemplateList$,
+  readMailTemplateCount$,
+  deleteMailTemplateByIds$,
+  updateMailTemplate$,
+} from "@/dals/tools/mail";
+
+export async function readMailTemplateByIdService(args: LoaderFunctionArgs) {
   const result$ = of(Number(args.params.id)).pipe(
-    switchMap((id) => readLinkById$(id)),
+    switchMap((id) => readMailTemplateById$(id)),
   );
 
   const result = await lastValueFrom(result$);
   return result;
 }
 
-export async function readLinkListService(args: LoaderFunctionArgs) {
+export async function readMailTemplateListService(args: LoaderFunctionArgs) {
   const result$ = forkJoin({
     payload: getTokenUserIdByArgs(args),
     page: of(Number(getSearchParams(args.request, "page") ?? 1)),
@@ -41,8 +42,8 @@ export async function readLinkListService(args: LoaderFunctionArgs) {
     .pipe(
       switchMap((data) => {
         return forkJoin({
-          list: readLinkListByCategoryId$(data),
-          count: readLinkCount$(),
+          list: readMailTemplateList$(data),
+          count: readMailTemplateCount$(),
         });
       }),
     );
@@ -50,7 +51,7 @@ export async function readLinkListService(args: LoaderFunctionArgs) {
   return lastValueFrom(result$);
 }
 
-export async function createLinkService(args: ActionFunctionArgs) {
+export async function createMailTemplateService(args: ActionFunctionArgs) {
   const result$ = forkJoin({
     dto: args.request.json(),
     payload: getTokenUserIdByArgs(args),
@@ -61,20 +62,22 @@ export async function createLinkService(args: ActionFunctionArgs) {
         userId: data.payload.userId,
       })),
     )
-    .pipe(switchMap((data) => createLink$(data)));
+    .pipe(switchMap((data) => createMailTemplate$(data)));
 
   return lastValueFrom(result$);
 }
 
-export async function deleteLinkService({ request }: ActionFunctionArgs) {
+export async function deleteMailTemplateService({
+  request,
+}: ActionFunctionArgs) {
   const result$ = from(request.json()).pipe(
-    switchMap(({ ids }) => deleteLinkByIds$(ids)),
+    switchMap(({ ids }) => deleteMailTemplateByIds$(ids)),
   );
 
   return lastValueFrom(result$);
 }
 
-export async function updateLinkService(args: ActionFunctionArgs) {
+export async function updateMailTemplateService(args: ActionFunctionArgs) {
   const result$ = forkJoin({
     dto: args.request.json(),
     payload: getTokenUserIdByArgs(args),
@@ -85,7 +88,7 @@ export async function updateLinkService(args: ActionFunctionArgs) {
         userId: data.payload.userId,
       })),
     )
-    .pipe(switchMap((data) => updateLink$(data)));
+    .pipe(switchMap((data) => updateMailTemplate$(data)));
 
   return lastValueFrom(result$);
 }

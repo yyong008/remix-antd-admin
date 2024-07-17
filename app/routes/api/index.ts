@@ -1,11 +1,7 @@
 import { type DefineRouteFunction } from "@remix-run/dev/dist/config/routes";
 
 export function apiRoutes(route: DefineRouteFunction) {
-  route("api/geojson", "modules-api/geojson/index.ts");
-  route("api/healthcheck", "modules-api/healthcheck/index.ts");
-  route("api/signin", "modules-api/signin/index.ts");
-  route("api/upload", "modules-api/upload/index.ts");
-  route("api/userinfo", "modules-api/userinfo/index.ts");
+  apiCommon(route);
   apiAdminRoute(route);
   apiLoginRoute(route);
   apiAdminDemoRoute(route);
@@ -13,6 +9,15 @@ export function apiRoutes(route: DefineRouteFunction) {
   apiAdminNewsRoute(route);
   apiAdminDocsRoute(route);
   apiAdminProfileRoute(route);
+  apiAdminToolsRoute(route);
+}
+
+function apiCommon(route: DefineRouteFunction) {
+  route("api/geojson", "modules-api/geojson/index.ts");
+  route("api/healthcheck", "modules-api/healthcheck/index.ts");
+  route("api/signin", "modules-api/signin/index.ts");
+  route("api/upload", "modules-api/upload/api.ts");
+  route("api/userinfo", "modules-api/userinfo/index.ts");
 }
 
 function apiLoginRoute(route: DefineRouteFunction) {
@@ -75,4 +80,9 @@ function apiAdminProfileRoute(route: DefineRouteFunction) {
     "api/admin/profile/link/category",
     "modules-api/admin/profile/link-category.api.ts",
   );
+}
+
+function apiAdminToolsRoute(route: DefineRouteFunction) {
+  route("api/admin/tools/mail", "modules-api/admin/tools/mail.api.ts");
+  route("api/admin/tools/storage", "modules-api/admin/tools/storage.api.ts");
 }

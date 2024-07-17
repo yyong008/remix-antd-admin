@@ -12,7 +12,7 @@ class Action {
   @ds.authorize()
   async post({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
-      switchMap((data) => toolsMailServices.createEmailTemplate$(data)),
+      switchMap((data) => toolsMailServices.createMailTemplate$(data)),
     );
 
     return utils.resp$(result$);
@@ -21,7 +21,7 @@ class Action {
   @ds.authorize()
   async put({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
-      switchMap((data) => toolsMailServices.updateEmailTemplate$(data)),
+      switchMap((data) => toolsMailServices.updateMailTemplate$(data)),
     );
 
     return utils.resp$(result$);
@@ -31,7 +31,7 @@ class Action {
   async delete({ request }: rrn.ActionFunctionArgs) {
     const result$ = from(request.json()).pipe(
       switchMap((ids: number[]) =>
-        toolsMailServices.deleteEmailTemplateByIds$(ids),
+        toolsMailServices.deleteMailTemplateByIds$(ids),
       ),
     );
 

@@ -1,31 +1,43 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
-import {
-  StorageModal,
-  paginationCreate,
-  storageColumnsCreate,
-} from "./components";
-import { usePagination, useStorageNav } from "~/hooks";
+import { StorageModal, storageColumnsCreate } from "./components";
 
-import type { loader } from "./loader";
-import { useLoaderData } from "@remix-run/react";
+import { useReadToolsStorageListQuery } from "~/apis-client/admin/tools/storage";
+import { useState } from "react";
 
 export function Route() {
-  const { data } = useLoaderData<typeof loader>();
-  const { pageSize, current } = usePagination();
-  const [navStorage] = useStorageNav();
-
+  const [page, setPage] = useState({
+    page: 1,
+    pageSize: 10,
+  });
+  const { data, isLoading, refetch } = useReadToolsStorageListQuery({
+    ...page,
+  });
   return (
     <PageContainer>
       <ProTable
+        loading={isLoading}
         size="small"
         search={false}
         headerTitle="文件上传"
         rowKey="id"
         showSorterTooltip
-        dataSource={data.dataSource as any[]}
-        toolBarRender={() => [<StorageModal key="storage" />]}
+        dataSource={data?.data?.list || []}
+        toolBarRender={() => [<StorageModal key="storage" refetch={refetch} />]}
         columns={storageColumnsCreate() as any}
-        pagination={paginationCreate(data.total, pageSize, current, navStorage)}
+        options={{
+          reload: refetch,
+        }}
+        pagination={{
+          total: data?.data?.total,
+          pageSize: 10,
+          onChange(_page, pageSize) {
+            setPage({
+              ...page,
+              page: _page,
+              pageSize,
+            });
+          },
+        }}
       />
     </PageContainer>
   );

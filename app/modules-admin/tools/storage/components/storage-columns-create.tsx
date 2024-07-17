@@ -9,7 +9,7 @@ export const storageColumnsCreate = () => {
       ellipsis: true,
       width: 80,
       render(_: string, record: any) {
-        if (record.type.startsWith("image")) {
+        if (record?.type?.startsWith("image")) {
           return <Image style={{ width: "50px" }} src={record.path} />;
         }
         return record.path;
