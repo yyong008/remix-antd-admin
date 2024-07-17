@@ -1,6 +1,6 @@
 import { Button, Form } from "antd";
 import {
-  ProForm,
+  DrawerForm,
   ProFormDigit,
   ProFormText,
   ProFormTextArea,
@@ -25,7 +25,7 @@ export function MailForm() {
     // // TODO:
   };
   return (
-    <ProForm
+    <DrawerForm
       form={form}
       submitter={{
         render: (props, doms) => {
@@ -50,11 +50,9 @@ export function MailForm() {
         },
       }}
       onFinish={async (v) => {
-        fetcher.submit(v, {
-          method: "POST", // 修改或新建
-          encType: "application/json",
-        });
+        //
       }}
+      trigger={<Button type="primary">发布邮件</Button>}
     >
       <ProFormText
         label="邮件标题"
@@ -134,6 +132,6 @@ export function MailForm() {
           },
         ]}
       />
-    </ProForm>
+    </DrawerForm>
   );
 }

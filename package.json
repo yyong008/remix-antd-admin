@@ -87,6 +87,7 @@
     "nprogress": "^0.2.0",
     "ollama": "^0.5.1",
     "qrcode": "^1.5.3",
+    "quill": "^2.0.2",
     "react": "^18.2.0",
     "react-advanced-cropper": "^0.19.3",
     "react-copy-to-clipboard": "^5.1.0",
