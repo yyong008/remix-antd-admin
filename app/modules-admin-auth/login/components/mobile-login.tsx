@@ -7,7 +7,7 @@ import { t } from "i18next";
 
 const { MobileOutlined, LockOutlined } = ic;
 
-export default function MobileLogin() {
+export function MobileLogin() {
   return (
     <>
       <ProFormText

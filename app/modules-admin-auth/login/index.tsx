@@ -1,5 +1,5 @@
-import { Route } from "~/modules-admin-auth/login/route";
-export { meta } from "~/modules-admin-auth/login/meta";
+import { Route } from "./route";
+export { meta } from "./meta";
 
 export default function Page() {
   return <Route />;

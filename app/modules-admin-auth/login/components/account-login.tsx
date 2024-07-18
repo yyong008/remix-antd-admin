@@ -11,7 +11,7 @@ type AccountLoginProps = {
   isRegister?: boolean;
 };
 
-export default function AccountLogin(props: AccountLoginProps) {
+export function AccountLogin(props: AccountLoginProps) {
   const { t } = useTranslation();
   return (
     <>
