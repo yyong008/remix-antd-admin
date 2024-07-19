@@ -2,6 +2,7 @@ import * as ic from "@ant-design/icons";
 
 import { Button, message } from "antd";
 
+import confetti from "canvas-confetti";
 import { useSignInMutation } from "~/apis-client/signin";
 import { useState } from "react";
 
@@ -16,6 +17,11 @@ export function SignIn({ data: _data }: any) {
       setData({
         ...data,
         isLogin: true,
+      });
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
       });
     } else {
       message.error(result.message);
