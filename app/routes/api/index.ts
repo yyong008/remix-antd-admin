@@ -84,5 +84,9 @@ function apiAdminProfileRoute(route: DefineRouteFunction) {
 
 function apiAdminToolsRoute(route: DefineRouteFunction) {
   route("api/admin/tools/mail", "modules-api/admin/tools/mail.api.ts");
+  route(
+    "api/admin/tools/mail/:id",
+    "modules-api/admin/tools/mail-detail.api.ts",
+  );
   route("api/admin/tools/storage", "modules-api/admin/tools/storage.api.ts");
 }

@@ -82,6 +82,7 @@ export function readMailTemplateList$(options: EmailTemplateOptions) {
 }
 
 export function createMailTemplate$(data: any) {
+  console.log("data", data);
   return from(
     prisma.mail.create({
       data,

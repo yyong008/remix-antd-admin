@@ -54,12 +54,10 @@ export async function readMailTemplateListService(args: LoaderFunctionArgs) {
 export async function createMailTemplateService(args: ActionFunctionArgs) {
   const result$ = forkJoin({
     dto: args.request.json(),
-    payload: getTokenUserIdByArgs(args),
   })
     .pipe(
       map((data) => ({
         ...data.dto,
-        userId: data.payload.userId,
       })),
     )
     .pipe(switchMap((data) => createMailTemplate$(data)));

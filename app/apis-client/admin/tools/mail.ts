@@ -31,8 +31,8 @@ export const toolsMail = createApi({
     }),
     readMailTemplate: builder.query({
       transformResponse: (data: any) => data,
-      query: () => ({
-        url: "admin/tools/mail",
+      query: (id: number) => ({
+        url: "admin/tools/mail/" + id,
         method: "GET",
       }),
     }),

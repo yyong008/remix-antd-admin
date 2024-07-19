@@ -1,31 +1,47 @@
-import { Button, Form } from "antd";
+import { Button, Form, message } from "antd";
 import {
   DrawerForm,
   ProFormDigit,
   ProFormText,
-  ProFormTextArea,
 } from "@ant-design/pro-components";
+
+import { useCreateMailTemplateMutation } from "@/apis-client/admin/tools/mail";
 
 // import { useParams } from "@remix-run/react";
 
-export function MailForm() {
+export function MailForm({ content, refetch }: any) {
+  const [createMailTemplate, other] = useCreateMailTemplateMutation();
   const [form] = Form.useForm();
   // const { lang } = useParams();
 
-  const onSaveTemplate = () => {
-    // const vals = {
-    //   subject: form.getFieldValue("subject"),
-    //   to: form.getFieldValue("to"),
-    //   content: form.getFieldValue("content"),
-    //   host: form.getFieldValue("host"),
-    //   port: form.getFieldValue("port"),
-    //   user: form.getFieldValue("user"),
-    //   pass: form.getFieldValue("pass"),
-    // };
-    // // TODO:
+  const onSaveTemplate = async () => {
+    if (!content) {
+      return message.error("input email content ~");
+    }
+
+    const vals = {
+      subject: form.getFieldValue("subject"),
+      to: form.getFieldValue("to"),
+      content,
+      host: form.getFieldValue("host"),
+      port: form.getFieldValue("port"),
+      user: form.getFieldValue("user"),
+      pass: form.getFieldValue("pass"),
+    };
+
+    const result = await createMailTemplate(vals);
+    if (result.data?.code !== 0) {
+      message.error(result.data?.message);
+      return false;
+    }
+    message.success(result.data?.message);
+    refetch?.();
+    form.resetFields();
+    return true;
   };
   return (
     <DrawerForm
+      loading={other.isLoading}
       form={form}
       submitter={{
         render: (props, doms) => {
@@ -76,7 +92,7 @@ export function MailForm() {
           },
         ]}
       />
-      <ProFormTextArea
+      {/* <ProFormTextArea
         label="邮件内容"
         name="content"
         placeholder="请输入邮件内容"
@@ -86,7 +102,7 @@ export function MailForm() {
             message: "请输入",
           },
         ]}
-      />
+      /> */}
       <ProFormText
         label="Host"
         name="host"

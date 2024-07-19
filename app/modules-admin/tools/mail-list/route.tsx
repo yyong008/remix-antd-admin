@@ -1,14 +1,18 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { useMemo, useState } from "react";
 
 import { ButtonLink } from "@/components/common";
 import { createMaiListColumns } from "./components/mail-list-columns-create";
-import { useMailNav } from "@/hooks";
-import { useMemo } from "react";
 import { useParams } from "@remix-run/react";
+import { useReadMailTemplateListQuery } from "~/apis-client/admin/tools/mail";
 
 export function Route() {
-  const [navMail] = useMailNav();
   const { lang } = useParams();
+  const [page, setPage] = useState({
+    page: 1,
+    pageSize: 110,
+  });
+  const { data, isLoading, refetch } = useReadMailTemplateListQuery(page);
 
   const columns = useMemo(() => {
     return createMaiListColumns(lang!);
@@ -17,12 +21,13 @@ export function Route() {
   return (
     <PageContainer>
       <ProTable
+        loading={isLoading}
         size="small"
         search={false}
         headerTitle="登录记录"
         rowKey="id"
         showSorterTooltip
-        dataSource={[]}
+        dataSource={data?.data?.list || []}
         toolBarRender={() => [
           <ButtonLink
             key="create-mail"
@@ -32,11 +37,14 @@ export function Route() {
           />,
         ]}
         columns={columns as any}
+        options={{
+          reload: refetch,
+        }}
         pagination={{
-          total: 0,
+          total: data?.data?.total,
           pageSize: 10,
           onChange(page, pageSize) {
-            navMail({
+            setPage({
               page,
               pageSize,
             });

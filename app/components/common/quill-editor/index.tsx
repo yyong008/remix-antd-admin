@@ -9,7 +9,13 @@ const Q = async () => {
   return Q;
 };
 
-export const Editor = ({ value, onChange }: any) => {
+export const Editor = ({
+  value,
+  onChange,
+  content,
+  setContent,
+  initContent,
+}: any) => {
   const editorRef = useRef<any>(null);
   const quillRef = useRef<any>();
 
@@ -20,11 +26,20 @@ export const Editor = ({ value, onChange }: any) => {
     });
 
     quillRef.current?.on("text-change", () => {
-      onChange(quillRef.current?.root.innerHTML);
+      const content = quillRef.current?.root.innerHTML;
+      onChange?.(content);
+      setContent(content);
     });
 
     return quillRef;
   };
+
+  useEffect(() => {
+    if (initContent && quillRef.current) {
+      quillRef.current?.clipboard.dangerouslyPasteHTML(initContent);
+      // quillRef.current.root.innerHTML = content
+    }
+  }, [initContent]);
 
   useEffect(() => {
     if (!quillRef.current) {
@@ -40,12 +55,18 @@ export const Editor = ({ value, onChange }: any) => {
   return <div ref={editorRef} />;
 };
 
-export const QuillEditor = () => {
+export const QuillEditor = ({ content, setContent, initContent }: any) => {
   return (
     <>
       <ClientOnly fallback={<>Loading...</>}>
         {() => {
-          return <Editor />;
+          return (
+            <Editor
+              initContent={initContent}
+              content={content}
+              setContent={setContent}
+            />
+          );
         }}
       </ClientOnly>
     </>

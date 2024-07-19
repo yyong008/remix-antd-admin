@@ -1,9 +1,9 @@
 import {
-  createLinkCategoryService,
-  deleteLinkCategoryService,
-  readLinkCategoryListService,
-  updateLinkCategoryService,
-} from "~/services/admin/profile/link-category.api";
+  createMailTemplateService,
+  deleteMailTemplateService,
+  readMailTemplateListService,
+  updateMailTemplateService,
+} from "@/services/admin/tools/mail.api";
 
 import { api } from "@/utils/server/api";
 import { createApi } from "@/utils/server/api/api-handler";
@@ -31,10 +31,10 @@ const options = {
 };
 
 const restfulApis = {
-  GET: await createApi(options.GET, readLinkCategoryListService),
-  POST: await createApi(options.CREATE, createLinkCategoryService),
-  PUT: await createApi(options.UPDATE, updateLinkCategoryService),
-  DELETE: await createApi(options.DELETE, deleteLinkCategoryService),
+  GET: await createApi(options.GET, readMailTemplateListService),
+  POST: await createApi(options.CREATE, createMailTemplateService),
+  PUT: await createApi(options.UPDATE, updateMailTemplateService),
+  DELETE: await createApi(options.DELETE, deleteMailTemplateService),
 };
 
 export const { loader, action } = api(restfulApis);

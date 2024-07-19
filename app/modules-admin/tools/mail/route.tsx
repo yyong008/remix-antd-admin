@@ -6,10 +6,11 @@ import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 import { MailForm } from "./components";
 import { QuillEditor } from "@/components/common/quill-editor";
+import { useState } from "react";
 
 export function Route() {
   const { lang } = useParams();
-
+  const [content, setContent] = useState("");
   return (
     <PageContainer>
       <ProCard
@@ -21,12 +22,12 @@ export function Route() {
             <Link to={`/${lang}/admin/tools/mail/list`}>
               <Button type="primary">查看所有模板</Button>
             </Link>
-            <MailForm />
+            <MailForm content={content} />
           </Space>
         }
       >
         <div style={{ height: "400px" }}>
-          <QuillEditor />
+          <QuillEditor content={content} setContent={setContent} />
         </div>
       </ProCard>
     </PageContainer>
