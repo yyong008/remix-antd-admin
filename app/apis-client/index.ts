@@ -1,3 +1,5 @@
+import { systemMiddlewares, systemReducers } from "./admin/system";
+
 import { adminDemo } from "./admin/demo";
 import { auth } from "./auth";
 import { blog } from "./admin/blog/blog";
@@ -11,10 +13,10 @@ import { newsCategory } from "./admin/news/category";
 import { profileAccount } from "./admin/profile/account";
 import { profileLink } from "./admin/profile/link";
 import { profileLinkCategory } from "./admin/profile/link-category";
-import { signIn } from "./signin";
+import { signIn } from "./common/signin";
 import { toolsMail } from "./admin/tools/mail";
 import { toolsStorage } from "./admin/tools/storage";
-import { userInfo } from "./user-info";
+import { userInfo } from "./common/user-info";
 
 export const reducers = {
   [userInfo.reducerPath]: userInfo.reducer,
@@ -34,6 +36,7 @@ export const reducers = {
   [profileLinkCategory.reducerPath]: profileLinkCategory.reducer,
   [toolsStorage.reducerPath]: toolsStorage.reducer,
   [toolsMail.reducerPath]: toolsMail.reducer,
+  ...systemReducers,
 };
 
 export const middlewares = [
@@ -54,4 +57,5 @@ export const middlewares = [
   profileLinkCategory.middleware,
   toolsStorage.middleware,
   toolsMail.middleware,
+  ...systemMiddlewares,
 ];
