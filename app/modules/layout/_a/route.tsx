@@ -14,7 +14,7 @@ import { memo, useContext, useMemo, useState } from "react";
 
 import { SettingContext } from "@/context";
 import { prolayoutConfig } from "@/config/prolayout";
-import { useGetUserInfoQuery } from "@/apis-client/user-info";
+import { useGetUserInfoQuery } from "@/apis-client/common/user-info";
 import { useNProgress } from "@/hooks";
 import { useTranslation } from "react-i18next";
 

@@ -2,7 +2,7 @@ import { LoginIn, SignIn } from "./components";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 import { useGetDashboardQuery } from "@/apis-client/admin/dashboard/index";
-import { useSelectUserInfo } from "@/apis-client/user-info";
+import { useSelectUserInfo } from "@/apis-client/common/user-info";
 
 export function Route() {
   const userInfo = useSelectUserInfo();

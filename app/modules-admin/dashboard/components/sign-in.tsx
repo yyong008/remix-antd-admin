@@ -3,7 +3,7 @@ import * as ic from "@ant-design/icons";
 import { Button, message } from "antd";
 
 import confetti from "canvas-confetti";
-import { useSignInMutation } from "~/apis-client/signin";
+import { useSignInMutation } from "@/apis-client/common/signin";
 import { useState } from "react";
 
 const { CheckCircleFilled } = ic;

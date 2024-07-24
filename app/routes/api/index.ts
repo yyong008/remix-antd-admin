@@ -13,80 +13,80 @@ export function apiRoutes(route: DefineRouteFunction) {
 }
 
 function apiCommon(route: DefineRouteFunction) {
-  route("api/geojson", "modules-api/geojson/index.ts");
-  route("api/healthcheck", "modules-api/healthcheck/index.ts");
-  route("api/signin", "modules-api/signin/index.ts");
-  route("api/upload", "modules-api/upload/api.ts");
-  route("api/userinfo", "modules-api/userinfo/index.ts");
+  route("api/geojson", "apis-server/geojson/index.ts");
+  route("api/healthcheck", "apis-server/healthcheck/index.ts");
+  route("api/signin", "apis-server/signin/index.ts");
+  route("api/upload", "apis-server/upload/api.ts");
+  route("api/userinfo", "apis-server/userinfo/index.ts");
 }
 
 function apiLoginRoute(route: DefineRouteFunction) {
-  route("api/login", "modules-api/admin-auth/login/index.ts");
-  route("api/logout", "modules-api/admin-auth/logout/index.ts");
-  route("api/register", "modules-api/admin-auth/register/index.ts");
-  route("api/refresh_token", "modules-api/admin-auth/refresh/index.ts");
+  route("api/login", "apis-server/admin-auth/login/index.ts");
+  route("api/logout", "apis-server/admin-auth/logout/index.ts");
+  route("api/register", "apis-server/admin-auth/register/index.ts");
+  route("api/refresh_token", "apis-server/admin-auth/refresh/index.ts");
 }
 
 function apiAdminRoute(route: DefineRouteFunction) {
   route(
     "api/admin/system/monitor/serve",
-    "modules-api/admin/system/monitor/serve/index.ts",
+    "apis-server/admin/system/monitor/serve/index.ts",
   );
-  route("api/dashboard", "modules-api/admin/dashboard/api.dashboard.ts");
+  route("api/dashboard", "apis-server/admin/dashboard/api.dashboard.ts");
 }
 
 function apiAdminDemoRoute(route: DefineRouteFunction) {
   route(
     "api/admin/demo/account/center",
-    "modules-api/admin/demo/account/center/index.ts",
+    "apis-server/admin/demo/account/center/index.ts",
   );
   route(
     "api/admin/demo/account/settings",
-    "modules-api/admin/demo/account/settings/index.ts",
+    "apis-server/admin/demo/account/settings/index.ts",
   );
 }
 
 function apiAdminBlogRoute(route: DefineRouteFunction) {
   route(
     "api/admin/blog/category",
-    "modules-api/admin/blog/blog-category.api.ts",
+    "apis-server/admin/blog/blog-category.api.ts",
   );
-  route("api/admin/blog/tag", "modules-api/admin/blog/blog-tag.api.ts");
-  route("api/admin/blog", "modules-api/admin/blog/blog.api.ts");
-  route("api/admin/blog/:id", "modules-api/admin/blog/blog.detail.api.ts");
+  route("api/admin/blog/tag", "apis-server/admin/blog/blog-tag.api.ts");
+  route("api/admin/blog", "apis-server/admin/blog/blog.api.ts");
+  route("api/admin/blog/:id", "apis-server/admin/blog/blog.detail.api.ts");
 }
 
 function apiAdminNewsRoute(route: DefineRouteFunction) {
   route(
     "api/admin/news/category",
-    "modules-api/admin/news/news-category.api.ts",
+    "apis-server/admin/news/news-category.api.ts",
   );
-  route("api/admin/news", "modules-api/admin/news/news.api.ts");
-  route("api/admin/news/:id", "modules-api/admin/news/news.detail.api.ts");
+  route("api/admin/news", "apis-server/admin/news/news.api.ts");
+  route("api/admin/news/:id", "apis-server/admin/news/news.detail.api.ts");
 }
 
 function apiAdminDocsRoute(route: DefineRouteFunction) {
-  route("api/admin/docs/feedback", "modules-api/admin/docs/feedback.api.ts");
-  route("api/admin/docs/changelog", "modules-api/admin/docs/changelog.api.ts");
+  route("api/admin/docs/feedback", "apis-server/admin/docs/feedback.api.ts");
+  route("api/admin/docs/changelog", "apis-server/admin/docs/changelog.api.ts");
 }
 
 function apiAdminProfileRoute(route: DefineRouteFunction) {
   route(
     "api/admin/profile/account",
-    "modules-api/admin/profile/account.api.ts",
+    "apis-server/admin/profile/account.api.ts",
   );
-  route("api/admin/profile/link", "modules-api/admin/profile/link.api.ts");
+  route("api/admin/profile/link", "apis-server/admin/profile/link.api.ts");
   route(
     "api/admin/profile/link/category",
-    "modules-api/admin/profile/link-category.api.ts",
+    "apis-server/admin/profile/link-category.api.ts",
   );
 }
 
 function apiAdminToolsRoute(route: DefineRouteFunction) {
-  route("api/admin/tools/mail", "modules-api/admin/tools/mail.api.ts");
+  route("api/admin/tools/mail", "apis-server/admin/tools/mail.api.ts");
   route(
     "api/admin/tools/mail/:id",
-    "modules-api/admin/tools/mail-detail.api.ts",
+    "apis-server/admin/tools/mail-detail.api.ts",
   );
-  route("api/admin/tools/storage", "modules-api/admin/tools/storage.api.ts");
+  route("api/admin/tools/storage", "apis-server/admin/tools/storage.api.ts");
 }

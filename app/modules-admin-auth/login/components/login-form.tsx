@@ -12,7 +12,7 @@ import { ActionIcons } from "@/components/user-login";
 import { SettingContext } from "@/context";
 import { defaultLang } from "@/config/lang";
 import { useContext } from "react";
-import { useLoginMutation } from "~/apis-client/auth/auth";
+import { useLoginMutation } from "@/apis-client/auth";
 import { useNProgress } from "@/hooks";
 import { useTranslation } from "react-i18next";
 
