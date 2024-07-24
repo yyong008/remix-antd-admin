@@ -1,7 +1,7 @@
-import { Route } from "~/modules-admin/system/user/route";
-export { meta } from "~/modules-admin/system/user/meta";
-export { loader } from "~/modules-admin/system/user/loader";
-export { action } from "~/modules-admin/system/user/action";
+import { Route } from "./route";
+export { meta } from "./meta";
+// export { loader } from "./loader";
+// export { action } from "./action";
 
 export default function Page() {
   return <Route />;

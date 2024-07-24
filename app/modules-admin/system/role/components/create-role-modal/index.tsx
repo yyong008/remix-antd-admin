@@ -23,7 +23,7 @@ type CreateRoleModalProps = {
   menuRoles: any[];
 };
 
-export default function CreateRoleModal(props: CreateRoleModalProps) {
+export function CreateRoleModal(props: CreateRoleModalProps) {
   const { trigger, record, menu, fetcher, menuRoles } = props;
   const [form] = Form.useForm();
   const [checkedKeys, setCheckedKeys] = useState<any[]>([]);
