@@ -1,16 +1,13 @@
 import * as ic from "@ant-design/icons";
 
 import { Button, Form } from "antd";
-import {
-  ModalForm,
-  ProFormRadio,
-  ProFormText,
-  ProFormTextArea,
-} from "@ant-design/pro-components";
+
+import { ModalForm } from "@ant-design/pro-components";
+import { ModalFormItems } from "./modal-form-items";
 
 const { EditOutlined } = ic;
 
-export default function DictModal({ trigger, record, fetcher }: any) {
+export function DictModal({ trigger, record, fetcher }: any) {
   const [form] = Form.useForm();
   return (
     <ModalForm
@@ -55,54 +52,7 @@ export default function DictModal({ trigger, record, fetcher }: any) {
         return true;
       }}
     >
-      <ProFormText
-        name="name"
-        label="字典名称"
-        placeholder="请输入"
-        rules={[
-          {
-            required: true,
-            message: "请输入",
-          },
-        ]}
-      />
-      <ProFormText
-        name="code"
-        label="字典编码"
-        placeholder="请输入"
-        rules={[
-          {
-            required: true,
-            message: "请输入",
-          },
-        ]}
-      />
-
-      <ProFormTextArea
-        name="remark"
-        label="备注"
-        placeholder="请输入"
-        rules={[
-          {
-            required: false,
-            message: "请输入",
-          },
-        ]}
-      />
-      <ProFormRadio.Group
-        name="status"
-        label="状态"
-        options={[
-          {
-            label: "启用",
-            value: 1,
-          },
-          {
-            label: "禁用",
-            value: 0,
-          },
-        ]}
-      />
+      <ModalFormItems />
     </ModalForm>
   );
 }

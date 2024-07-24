@@ -1,48 +1,13 @@
-import * as ic from "@ant-design/icons";
-
-import { Button, Form, message } from "antd";
 import {
-  ModalForm,
   ProFormRadio,
   ProFormSelect,
   ProFormText,
   ProFormUploadButton,
 } from "@ant-design/pro-components";
 
-import { useEffect } from "react";
-
-const { PlusOutlined } = ic;
-
-export default function ModifyDictModal({ trigger, record }: any) {
-  const [form] = Form.useForm<{ name: string; company: string }>();
-
-  useEffect(() => {
-    form.setFieldsValue(record);
-  }, [form, record]);
-
+export function ModalFormItems() {
   return (
-    <ModalForm
-      title="修改用户"
-      trigger={
-        trigger ?? (
-          <Button type="primary">
-            <PlusOutlined />
-            修改用户
-          </Button>
-        )
-      }
-      form={form}
-      autoFocusFirstInput
-      modalProps={{
-        destroyOnClose: true,
-        onCancel: () => console.log(""),
-      }}
-      submitTimeout={2000}
-      onFinish={async (values) => {
-        message.success("提交成功");
-        return true;
-      }}
-    >
+    <>
       <ProFormUploadButton
         name="file"
         label="上传文件"
@@ -83,6 +48,6 @@ export default function ModifyDictModal({ trigger, record }: any) {
           },
         ]}
       />
-    </ModalForm>
+    </>
   );
 }
