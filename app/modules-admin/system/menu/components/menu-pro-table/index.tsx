@@ -16,7 +16,7 @@ import {
 } from "~/components/common";
 import { Space, Tag, Tooltip } from "antd";
 
-import MenuModal from "./CreateMenuModel";
+import MenuModal from "../create-menu-modal";
 // component
 import { ProTable } from "@ant-design/pro-components";
 
@@ -49,7 +49,7 @@ type SystemMenuProps = {
   fetcher: () => void;
 };
 
-export default function SystemMenu(props: SystemMenuProps) {
+export function MenuProTable(props: SystemMenuProps) {
   const { menuRaw = [], menuNotPerm = [], fetcher } = props;
   return (
     <ProTable<TableListItem>
