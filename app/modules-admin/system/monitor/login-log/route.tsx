@@ -1,16 +1,11 @@
-import * as clientUtils from "~/utils/client";
-
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
-import type { loader } from "./loader";
-import { useLoaderData } from "@remix-run/react";
-import { useLoginLogNav } from "~/hooks";
+import { createColumns } from "./components/login-log-pro-table/create-columns";
+import { useLoginLogNav } from "@/hooks";
 
 export function Route() {
-  const {
-    data: { list: dataSource, count },
-  } = useLoaderData<typeof loader>();
   const [navLoginLog] = useLoginLogNav();
+  const { dataSource = [], total = 0 } = {};
 
   return (
     <PageContainer>
@@ -21,49 +16,9 @@ export function Route() {
         rowKey="id"
         showSorterTooltip
         dataSource={dataSource as any[]}
-        columns={[
-          {
-            dataIndex: "name",
-            title: "用户名",
-            ellipsis: true,
-          },
-          {
-            dataIndex: "ip",
-            title: "ip",
-            ellipsis: true,
-          },
-          {
-            dataIndex: "address",
-            title: "地址",
-            ellipsis: true,
-          },
-          {
-            dataIndex: "system",
-            title: "系统",
-            ellipsis: true,
-          },
-          {
-            dataIndex: "browser",
-            title: "浏览器",
-            ellipsis: true,
-          },
-          {
-            dataIndex: "loginAt",
-            title: "登录时间",
-            ellipsis: true,
-            render(_, record) {
-              return (
-                <div>
-                  {record.loginAt
-                    ? clientUtils.formatDate(record.loginAt)
-                    : "-"}
-                </div>
-              );
-            },
-          },
-        ]}
+        columns={createColumns()}
         pagination={{
-          total: count,
+          total,
           pageSize: 10,
           onChange(page, pageSize) {
             navLoginLog({
