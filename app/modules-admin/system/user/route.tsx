@@ -1,16 +1,22 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
-import { useFetcherChange, useUserNav } from "~/hooks";
 
 import { CreateUserModal } from "./components/create-user-model";
 import { DeleteItWithSelect } from "./components/deleteIt-with-select";
 import { createUserTableColumns } from "./components/user-pro-table/columns";
+import { useReadUserListQuery } from "@/apis-client/admin/system/user";
 import { useState } from "react";
 
 export function Route() {
-  const [navUser] = useUserNav();
-  const fetcher = useFetcherChange();
+  const [page, setPage] = useState({
+    page: 1,
+    pageSize: 10,
+  });
+  const { data, isLoading, refetch } = useReadUserListQuery({
+    ...page,
+  });
+  const fetcher = () => {};
   const [selectedRow, setSelectedRow] = useState([]);
-  const { dataSource = [], depts = [], roles = [], total = 0 } = {};
+  const { depts = [], roles = [] } = {};
 
   return (
     <PageContainer>
@@ -20,6 +26,7 @@ export function Route() {
         headerTitle="用户表"
         scroll={{ x: 1300 }}
         rowKey="id"
+        loading={isLoading}
         showSorterTooltip
         rowSelection={{
           onChange: (selectedRowKeys) => {
@@ -41,13 +48,16 @@ export function Route() {
             setSelectedRow={setSelectedRow}
           />,
         ]}
-        dataSource={dataSource as any[]}
+        dataSource={data?.data?.list || []}
         columns={createUserTableColumns({ depts, roles }) as any}
+        options={{
+          reload: refetch,
+        }}
         pagination={{
-          total: total,
-          pageSize: 10,
+          total: data?.data?.total,
+          pageSize: page.pageSize || 10,
           onChange(page, pageSize) {
-            navUser({ page, pageSize });
+            setPage({ page, pageSize });
           },
         }}
       />

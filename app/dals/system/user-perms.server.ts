@@ -1,9 +1,6 @@
-// utils
 import { from, map, of, switchMap } from "rxjs";
 
-// types
 import type { Observable } from "rxjs";
-// server
 import prisma from "~/libs/prisma";
 
 export interface IUserPerms {
@@ -13,11 +10,6 @@ export interface IUserPerms {
   getAllFlatMenuByUserId$(userId: number): Observable<any>;
 }
 
-/**
- * 更具 userId 级联表查询到用户菜单
- * @param id
- * @returns
- */
 const getMenuTreeByUserId$ = (id: number) => {
   return from(
     prisma.user.findUnique({
@@ -41,11 +33,6 @@ const getMenuTreeByUserId$ = (id: number) => {
   );
 };
 
-/**
- * 根据用户 id 获取菜单，并去重
- * @param userId 用户 Id
- * @returns 去重后的菜单
- */
 export function getFlatMenuByUserId$(userId: number): Observable<any[]> {
   return of(userId).pipe(
     switchMap((id) => getMenuTreeByUserId$(id)),
@@ -62,11 +49,6 @@ export function getFlatMenuByUserId$(userId: number): Observable<any[]> {
   );
 }
 
-/**
- * 根据用户 id 获取菜单，并去重
- * @param userId 用户 Id
- * @returns 去重后的菜单
- */
 export function getAllFlatMenuByUserId$(userId: number): Observable<any[]> {
   return of(userId).pipe(
     switchMap((id) => getMenuTreeByUserId$(id)),
@@ -82,11 +64,6 @@ export function getAllFlatMenuByUserId$(userId: number): Observable<any[]> {
   );
 }
 
-/**
- * 根据用户 id 获取用户所有的菜单中的权限
- * @param userId 用户 Id
- * @returns
- */
 export const getUserPerms$ = (userId: number): Observable<any[]> => {
   return getAllFlatMenuByUserId$(userId).pipe(
     map((menus) => menus.filter((e) => e.permission).map((m) => m.permission)),

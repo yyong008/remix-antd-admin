@@ -1,11 +1,15 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 import { createColumns } from "./components/login-log-pro-table/create-columns";
-import { useLoginLogNav } from "@/hooks";
+import { useReadMonitorLoginlogListQuery } from "@/apis-client/admin/system/monitor/login-log";
+import { useState } from "react";
 
 export function Route() {
-  const [navLoginLog] = useLoginLogNav();
-  const { dataSource = [], total = 0 } = {};
+  const [page, setPage] = useState({
+    page: 1,
+    pageSize: 10,
+  });
+  const { data, isLoading, refetch } = useReadMonitorLoginlogListQuery(page);
 
   return (
     <PageContainer>
@@ -15,13 +19,17 @@ export function Route() {
         headerTitle="登录记录"
         rowKey="id"
         showSorterTooltip
-        dataSource={dataSource as any[]}
+        dataSource={data?.data?.list || []}
         columns={createColumns()}
+        loading={isLoading}
+        options={{
+          reload: refetch,
+        }}
         pagination={{
-          total,
+          total: data?.data?.total || 0,
           pageSize: 10,
           onChange(page, pageSize) {
-            navLoginLog({
+            setPage({
               page,
               pageSize,
             });

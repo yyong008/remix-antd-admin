@@ -44,6 +44,7 @@ export const rsj = (data: any, message?: string, options?: any) => {
  * @returns
  */
 export const rfj = (data?: any, message?: string, options?: any) => {
+  console.log("data", data);
   return json({
     code: ResCode.fail,
     message: message ?? ResMessage.fail,
@@ -167,5 +168,5 @@ export const HigherOrderCreateRespWithTime =
     if (startTimeStamp) {
       data.time = Date.now() - startTimeStamp;
     }
-    return json(idata);
+    return idata;
   };

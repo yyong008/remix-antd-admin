@@ -1,4 +1,4 @@
-import { defaultLang } from "@/config";
+import { defaultLang } from "@/config/lang";
 import { useParams } from "@remix-run/react";
 
 export function useParamsLang() {

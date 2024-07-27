@@ -1,12 +1,6 @@
 import type { TreeDataNode } from "antd";
-// service
+import { from } from "rxjs";
 import prisma from "~/libs/prisma";
-
-export interface IMenuRole {
-  getMenu(t: () => void, lang: string): any;
-  getMenuRaw(t: () => void, lang: string): any;
-  getTypeNotPermMenu(t: () => void, lang: string): any;
-}
 
 function buildMenuTree(
   menuData: any[],
@@ -40,10 +34,6 @@ export async function getMenuRaw(t: () => void, lang: string) {
   return treeData;
 }
 
-/**
- * 获取所有菜单（扁平，没有处理的， 包含目录，菜单，权限）
- * @returns
- */
 export async function getFlatMenu() {
   let menu = await prisma.menu.findMany();
   return menu;
@@ -66,3 +56,20 @@ export async function getTypeNotPermMenu(t: () => void) {
     return null;
   }
 }
+
+// menuRole
+export const readAllMenuRoleList$ = () => from(prisma.menuRole.findMany());
+
+// --------------------------- menu
+const permMenuType = 3;
+
+export const readAllMenuListFilterPermMenuType$ = () =>
+  from(
+    prisma.menu.findMany({
+      where: {
+        type: {
+          not: permMenuType,
+        },
+      },
+    }),
+  );

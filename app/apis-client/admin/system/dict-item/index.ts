@@ -39,7 +39,7 @@ export const systemDictItem = createApi({
     readSystemDictItemList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `admin/system/dict-item?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/dict-item/${data.id}?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

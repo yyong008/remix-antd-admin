@@ -1,9 +1,12 @@
+import * as _icons from "@ant-design/icons";
+
 import { Button, Space, Tag, Tooltip } from "antd";
 import { DeleteIt, FormatTime, StatusType } from "~/components/common";
 
 import { DictModal } from "../dict/create-dict-modal";
-import { EyeOutlined } from "@ant-design/icons";
 import { Link } from "@remix-run/react";
+
+const { EyeOutlined } = _icons;
 
 export const createColumns = ({ lang }: any) => [
   {

@@ -73,6 +73,14 @@ export function getSearchParams(request: Request, name: string) {
   return r;
 }
 
+export function getSearchParamsPage(request: Request) {
+  return Number(getSearchParams(request, "page") ?? 1);
+}
+
+export function getSearchParamsPageSize(request: Request) {
+  return Number(getSearchParams(request, "pageSize") ?? 10);
+}
+
 /**
  * 获取 Node.js URL search params
  * @param request

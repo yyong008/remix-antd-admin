@@ -10,6 +10,7 @@ export function apiRoutes(route: DefineRouteFunction) {
   apiAdminDocsRoute(route);
   apiAdminProfileRoute(route);
   apiAdminToolsRoute(route);
+  apiAdminSystemRoute(route);
 }
 
 function apiCommon(route: DefineRouteFunction) {
@@ -28,10 +29,10 @@ function apiLoginRoute(route: DefineRouteFunction) {
 }
 
 function apiAdminRoute(route: DefineRouteFunction) {
-  route(
-    "api/admin/system/monitor/serve",
-    "apis-server/admin/system/monitor/serve/index.ts",
-  );
+  // route(
+  //   "api/admin/system/monitor/serve",
+  //   "apis-server/admin/system/monitor/serve.api.ts",
+  // );
   route("api/dashboard", "apis-server/admin/dashboard/api.dashboard.ts");
 }
 
@@ -89,4 +90,51 @@ function apiAdminToolsRoute(route: DefineRouteFunction) {
     "apis-server/admin/tools/mail-detail.api.ts",
   );
   route("api/admin/tools/storage", "apis-server/admin/tools/storage.api.ts");
+}
+
+function apiAdminSystemRoute(route: DefineRouteFunction) {
+  const pathPrefix = "api/admin/system";
+  const filePrefix = "apis-server/admin/system";
+  const sysetmRoutes = [
+    {
+      path: `${pathPrefix}/config`,
+      file: `${filePrefix}/config.api.ts`,
+    },
+    {
+      path: `${pathPrefix}/dept`,
+      file: `${filePrefix}/dept.api.ts`,
+    },
+    {
+      path: `${pathPrefix}/dict`,
+      file: `${filePrefix}/dict.api.ts`,
+    },
+    {
+      path: `${pathPrefix}/dict-item/:id`,
+      file: `${filePrefix}/dict-item.api.ts`,
+    },
+    {
+      path: `${pathPrefix}/menu`,
+      file: `${filePrefix}/menu.api.ts`,
+    },
+    {
+      path: `${pathPrefix}/role`,
+      file: `${filePrefix}/role.api.ts`,
+    },
+    {
+      path: `${pathPrefix}/user`,
+      file: `${filePrefix}/user.api.ts`,
+    },
+    {
+      path: `${pathPrefix}/monitor/loginlog`,
+      file: `${filePrefix}/monitor/loginlog.api.ts`,
+    },
+    {
+      path: `${pathPrefix}/monitor/serve`,
+      file: `${filePrefix}/monitor/serve.api.ts`,
+    },
+  ];
+
+  sysetmRoutes.forEach((rt) => {
+    route(rt.path, rt.file);
+  });
 }

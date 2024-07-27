@@ -1,21 +1,9 @@
-// type
+import { from, map, of, switchMap } from "rxjs";
+
 import type { Prisma } from "@prisma/client";
-// service
 import prisma from "~/libs/prisma";
 import { treeData } from "~/__mock__/db/menu";
 
-export interface IMenu {
-  getMenu(t: () => void, lang: string): any;
-  getMenuRaw(t: () => void, lang: string): any;
-  getTypeNotPermMenu(t: () => void, lang: string): any;
-  getFlatMenuByUserId(userId: number, t: (v: string) => string): any;
-  getMenuByUserIdNoPerm(t: () => void, lang: string, userId: number): any;
-  createMenu(data: Prisma.MenuUncheckedCreateInput): any;
-  updateMenu(data: Prisma.MenuUncheckedUpdateInput): any;
-  deleteMenu(ids: number[]): any;
-}
-
-// 构建菜单树的函数
 function buildMenuTree(
   menuData: any[],
   parentId = null,
@@ -111,13 +99,6 @@ export async function getTypeNotPermMenu(t: () => void, lang: string) {
   }
 }
 
-/**
- *
- * @param t 翻译函数
- * @param lang 语言
- * @param userId 菜单关联的角色
- * @returns 菜单
- */
 export async function getFlatMenuByUserId(
   userId: number,
   t: (v: string) => string,
@@ -144,7 +125,6 @@ export async function getFlatMenuByUserId(
       },
     });
 
-    // 指定角色的菜单
     const flatRoleMenuData =
       user?.UserRole?.map(({ roles }) => roles)
         ?.map((role) => role.MenuRole)
@@ -186,7 +166,6 @@ export async function getMenuByUserIdNoPerm(
   }
 }
 
-// 创建菜单
 export const createMenu = async (data: Prisma.MenuUncheckedCreateInput) => {
   let menuData: Prisma.MenuUncheckedCreateInput;
   if (data.type === 1) {
@@ -286,3 +265,110 @@ export const deleteMenu = async (ids: number[]) => {
     return null;
   }
 };
+
+// ----
+const permMenuType = 3;
+
+export const readMenuCount$ = () => from(prisma.menu.count());
+export const readAllMenuList$ = () => from(prisma.menu.findMany());
+export const readAllMenuListFilterPermMenuType$ = () =>
+  from(
+    prisma.menu.findMany({
+      where: {
+        type: {
+          not: permMenuType,
+        },
+      },
+    }),
+  );
+
+export const createMenu$ = (data: Prisma.MenuUncheckedCreateInput) =>
+  of(data)
+    .pipe(
+      map((data) => {
+        let menuData: Prisma.MenuUncheckedCreateInput;
+        if (data.type === 1) {
+          menuData = {
+            type: data.type,
+            name: data.name,
+            parent_menu_id: data.parent_menu_id,
+            permission: data.permission,
+            isLink: data.isLink,
+            isShow: data.isShow,
+            path: data.path,
+            path_file: data.path_file,
+            status: data.status,
+            orderNo: data.orderNo,
+            description: data.description,
+            remark: data.remark,
+            icon: data.icon,
+          };
+        } else if (data.type === 2) {
+          menuData = {
+            type: data.type,
+            name: data.name,
+            parent_menu_id: data.parent_menu_id,
+            permission: data.permission,
+            isLink: data.isLink,
+            isShow: data.isShow,
+            path: data.path,
+            path_file: data.path_file,
+            status: data.status,
+            orderNo: data.orderNo,
+            description: data.description,
+            remark: data.remark,
+            icon: data.icon,
+          };
+        } else {
+          menuData = {
+            type: data.type,
+            name: data.name,
+            parent_menu_id: data.parent_menu_id,
+            permission: data.permission,
+            status: data.status,
+            orderNo: data.orderNo,
+          };
+        }
+
+        return menuData;
+      }),
+    )
+    .pipe(
+      switchMap((data) =>
+        prisma.menu.create({
+          data,
+        }),
+      ),
+    );
+
+export const updateMenuById$ = async (data: Prisma.MenuUncheckedUpdateInput) =>
+  from(
+    prisma.menu.update({
+      where: {
+        id: data.id as number,
+      },
+      data: {
+        type: data.type,
+        name: data.name,
+        parent_menu_id: data.parent_menu_id,
+        permission: data.permission,
+        isLink: data.isLink,
+        isShow: data.isShow,
+        path: data.path,
+        path_file: data.path_file,
+        status: data.status,
+        orderNo: data.orderNo,
+      },
+    }),
+  );
+
+export const deleteMenuByIds$ = async (ids: number[]) =>
+  from(
+    prisma.menu.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    }),
+  );

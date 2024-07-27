@@ -39,7 +39,7 @@ export const systemMonitorLoginlog = createApi({
     readMonitorLoginlogList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `admin/system/monitorLoginlog?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/monitor/loginlog?page=${data.page}&pageSize=${data.pageSize}`,
         method: "GET",
       }),
     }),

@@ -1,4 +1,5 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { useRef, useState } from "react";
 
 import { AntdIcon } from "~/components/common";
 import { CreateRoleModal } from "./components/create-role-modal";
@@ -6,11 +7,18 @@ import { Space } from "antd";
 import { createColumns } from "./components/role-pro-table/create-columns";
 import { useFetcherChange } from "@/hooks";
 import { useParams } from "@remix-run/react";
-import { useRef } from "react";
+import { useReadRoleListQuery } from "~/apis-client/admin/system/role/role";
 import { useTranslation } from "react-i18next";
 
 export function Route() {
-  const { dataSource = [], menuRoles = [], flatMenu = [] } = {};
+  const [page] = useState({
+    page: 1,
+    pageSize: 10,
+  });
+  const { data, isLoading, refetch } = useReadRoleListQuery({
+    ...page,
+  });
+  const { menuRoles = [], flatMenu = [] } = {};
   const { lang } = useParams();
 
   const actionRef = useRef();
@@ -24,9 +32,12 @@ export function Route() {
         actionRef={actionRef}
         rowKey="id"
         search={false}
-        loading={!dataSource}
-        dataSource={dataSource}
+        loading={isLoading}
+        dataSource={data?.data?.list || []}
         columns={createColumns({ lang, menus, menuRoles }) as any}
+        options={{
+          reload: refetch,
+        }}
         toolBarRender={() => [
           <CreateRoleModal
             key="create-role-modal"

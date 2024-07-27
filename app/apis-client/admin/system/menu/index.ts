@@ -39,7 +39,7 @@ export const systemMenu = createApi({
     readMenuList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `admin/system/menu?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/menu?page=${data.page}&pageSize=${data.pageSize}&lang=${data.lang}`,
         method: "GET",
       }),
     }),

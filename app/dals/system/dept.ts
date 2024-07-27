@@ -1,32 +1,64 @@
-import prisma from "~/libs/prisma";
+import { from, map, of, switchMap } from "rxjs";
 
-export interface IDepartement {
-  getDeptListTree(): any;
-}
+import prisma from "@/libs/prisma";
 
-/**
- * 获取所有部门列表
- * @returns 树形结构列表
- */
-export const getDeptListTree = async () => {
-  try {
-    const dept = await prisma.department.findMany();
-
-    return buildDeptTreeFunctional(dept, null);
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+export const readDeptCount$ = () => {
+  return from(prisma.department.count());
 };
 
-function buildDeptTreeFunctional(
-  items: any[],
-  parentId?: number | null,
-): any[] {
-  return items
-    .filter((item) => item.parent_department_id === parentId)
-    .map((item) => ({
-      ...item,
-      children: buildDeptTreeFunctional(items, item.id), // 递归构建子树
-    }));
-}
+export const readDeptById$ = (id: number) => {
+  return from(prisma.department.findUnique({ where: { id } }));
+};
+
+export const readAllDeptList$ = () => {
+  return from(prisma.department.findMany());
+};
+
+export const readDeptList$ = (data: any) => {
+  return of(data)
+    .pipe(
+      map((data) => ({
+        skip: data.pageSize * (data.page - 1),
+        take: data.pageSize,
+      })),
+    )
+    .pipe(
+      switchMap(({ skip, take }) =>
+        from(
+          prisma.department.findMany({
+            skip,
+            take,
+          }),
+        ),
+      ),
+    );
+};
+
+export const createDept$ = (data: any) => {
+  return from(
+    prisma.department.create({
+      data,
+    }),
+  );
+};
+
+export const updateDeptById$ = ({ id, ...data }: any) => {
+  return from(
+    prisma.department.update({
+      where: { id },
+      data,
+    }),
+  );
+};
+
+export const deleteDeptByIds$ = ({ ids }: any) => {
+  return from(
+    prisma.department.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    }),
+  );
+};

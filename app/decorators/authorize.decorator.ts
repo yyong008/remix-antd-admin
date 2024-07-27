@@ -1,7 +1,7 @@
 import { auth$, logout$ } from "../libs/session";
 
-import { getUserInfoById$ } from "../dals/system/user";
 import { lastValueFrom } from "rxjs";
+import { readUserInfoById$ } from "../dals/system/user";
 import { rfj } from "~/utils/server";
 
 /**
@@ -29,7 +29,7 @@ export function authorize() {
           return redirectToLogin();
         }
         // 用户被禁用
-        const userInfo = await lastValueFrom(getUserInfoById$(userId));
+        const userInfo = await lastValueFrom(readUserInfoById$(userId));
 
         if (userInfo && userInfo.status === 0) {
           // 重定向到登录

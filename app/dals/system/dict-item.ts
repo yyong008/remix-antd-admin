@@ -1,14 +1,7 @@
-import prisma from "~/libs/prisma";
+import { from, map, of, switchMap } from "rxjs";
 
-export interface IDictItem {
-  getDictItemList(): any[];
-  getDictListByDictionaryId(dictionary_id: number): any;
-}
+import prisma from "@/libs/prisma";
 
-/**
- * 获取所有字典条目列表
- * @returns 字典条目列表
- */
 export const getDictItemList = async () => {
   try {
     return await prisma.dictionaryEntry.findMany();
@@ -18,11 +11,6 @@ export const getDictItemList = async () => {
   }
 };
 
-/**
- * 返回字典类型对应的字典条目列表
- * @param dictionary_id 字典类型 id
- * @returns 字典类型 id 对应的列表
- */
 export const getDictListByDictionaryId = async (dictionary_id: number) => {
   try {
     return await prisma.dictionaryEntry.findMany({
@@ -34,4 +22,45 @@ export const getDictListByDictionaryId = async (dictionary_id: number) => {
     console.log(error);
     return null;
   }
+};
+
+export const readAllDictItems$ = () => {
+  return from(prisma.dictionaryEntry.findMany());
+};
+
+export const getDictItemsListById$ = async (id: number) => {
+  return from(
+    prisma.dictionaryEntry.findMany({
+      where: {
+        dictionary_id: id,
+      },
+    }),
+  );
+};
+
+export const readDictItemCount$ = (data: any) => {
+  return from(prisma.dictionaryEntry.count());
+};
+
+export const readDictItemList$ = (data: any) => {
+  return of(data)
+    .pipe(
+      map((data) => ({
+        skip: data.pageSize * (data.page - 1),
+        take: data.pageSize,
+      })),
+    )
+    .pipe(
+      switchMap(({ skip, take }) =>
+        from(
+          prisma.dictionaryEntry.findMany({
+            where: {
+              dictionary_id: data.id,
+            },
+            skip,
+            take,
+          }),
+        ),
+      ),
+    );
 };

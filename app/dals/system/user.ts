@@ -1,30 +1,8 @@
-import type { Observable } from "rxjs";
-// enum
 import { SortOrder } from "~/types";
-// import type { Prisma, User } from "@prisma/client";
 import type { TPage } from "~/types";
-// rxjs
 import { from } from "rxjs";
-// services
-import prisma from "~/libs/prisma";
+import prisma from "@/libs/prisma";
 
-export interface IUser {
-  getUserInfoById(id: number): any;
-  getUserInfoById$(id: number): Observable<any>;
-  getUserCount(): any;
-  getUserList(page: number, pageSize: number, name: string): any;
-  getUserList$(page: number, pageSize: number, name: string): Observable<any>;
-  createUser(data: any): any;
-  createUser$(data: any): Observable<any>;
-  deleteUserByIds(ids: number[]): any;
-  updateUserById(id: number, data: any): any;
-}
-
-/**
- * 根据 id 查询用户信息
- * @param id {Number} 查询用户的 id
- * @returns 返回用户 info
- */
 export const getUserInfoById = async (id: number) => {
   try {
     return await prisma.user.findUnique({
@@ -56,13 +34,10 @@ export const getUserInfoById = async (id: number) => {
   }
 };
 
-/**
- * 根据 id 查询用户信息
- * @param id {Number} 查询用户的 id
- * @returns 返回用户 info
- */
-export const getUserInfoById$ = (id: number) => {
-  return from(
+export const readUserAllCount$ = () => from(prisma.user.count());
+
+export const readUserInfoById$ = (id: number) =>
+  from(
     prisma.user.findUnique({
       where: {
         id,
@@ -87,12 +62,7 @@ export const getUserInfoById$ = (id: number) => {
       },
     }),
   );
-};
 
-/**
- * 获取 user 数据
- * @returns user count
- */
 export const getUserCount = async ({
   page = 1,
   pageSize = 10,
@@ -179,7 +149,11 @@ export const getUserList = async ({
   }
 };
 
-export const getUserList$ = ({ page = 1, pageSize = 10, name = "" }: TPage) => {
+export const readUserList$ = ({
+  page = 1,
+  pageSize = 10,
+  name = "",
+}: TPage) => {
   return from(
     prisma.user.findMany({
       where: {
@@ -226,16 +200,10 @@ export const getUserList$ = ({ page = 1, pageSize = 10, name = "" }: TPage) => {
   );
 };
 
-/**
- * 注册创建用户
- * @param data
- * @returns
- */
 export const createUser = async (data: any) => {
   let user: any;
   try {
     await prisma.$transaction(async (tx) => {
-      // 创建用户
       user = await tx.user.create({
         data: {
           avatar: data.avatar,
@@ -264,8 +232,8 @@ export const createUser = async (data: any) => {
         data.roles?.map(async (roleId: number) => {
           await tx.userRole.create({
             data: {
-              role: { connect: { id: roleId } }, // 关联角色
-              user: { connect: { id: user.id } }, // 关联用户
+              roles: { connect: { id: roleId } }, // 关联角色
+              users: { connect: { id: user.id } }, // 关联用户
             },
           });
         }),
@@ -279,16 +247,10 @@ export const createUser = async (data: any) => {
   return user;
 };
 
-/**
- * 注册创建用户
- * @param data
- * @returns
- */
 export const createUser$ = async (data: any) => {
   let user: any;
   try {
     await prisma.$transaction(async (tx) => {
-      // 创建用户
       user = await tx.user.create({
         data: {
           avatar: data.avatar,
@@ -317,8 +279,8 @@ export const createUser$ = async (data: any) => {
         data.roles?.map(async (roleId: number) => {
           await tx.userRole.create({
             data: {
-              role: { connect: { id: roleId } }, // 关联角色
-              user: { connect: { id: user.id } }, // 关联用户
+              roles: { connect: { id: roleId } }, // 关联角色
+              users: { connect: { id: user.id } }, // 关联用户
             },
           });
         }),
@@ -408,11 +370,11 @@ export const updateUserById = async (id: number, data: any) => {
       }
 
       await Promise.all(
-        data.roles.map(async (roleId) => {
+        data.roles.map(async (roleId: number) => {
           await tx.userRole.create({
             data: {
-              role: { connect: { id: roleId } }, // 关联角色
-              user: { connect: { id: user.id } }, // 关联用户
+              roles: { connect: { id: roleId } }, // 关联角色
+              users: { connect: { id: user.id } }, // 关联用户
             },
           });
         }),
@@ -424,3 +386,87 @@ export const updateUserById = async (id: number, data: any) => {
   }
   return user;
 };
+
+export const deleteUserByIds$ = (ids: number[]) =>
+  from(
+    prisma.$transaction(async (tx) => {
+      const users = await prisma.userRole.deleteMany({
+        where: {
+          userId: {
+            in: ids,
+          },
+        },
+      });
+
+      if (!users) {
+        throw new Error(`删除关联 userRole 表数据失败`);
+      }
+      const user = await prisma.user.deleteMany({
+        where: {
+          id: {
+            in: ids,
+          },
+        },
+      });
+      return user;
+    }),
+  );
+
+export const updateUserById$ = ({ id, ...data }: any) =>
+  from(
+    prisma.$transaction(async (tx) => {
+      const u = await tx.user.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      if (!u) {
+        throw new Error(`create user fail`);
+      }
+      let user = await tx.user.update({
+        where: { id },
+        data: {
+          avatar: data.avatar,
+          name: data.name,
+          password: data.password,
+          nickname: data.nickname,
+          email: data.email,
+          lang: data.lang,
+          theme: data.theme,
+          remark: data.remark,
+          department: {
+            connect: {
+              id: data.dept,
+            },
+          },
+          phone: data.phone,
+          status: data.status,
+        },
+      });
+
+      if (!user.id) {
+        throw new Error(`create user fail`);
+      }
+
+      const d = await tx.userRole.deleteMany({
+        where: { userId: id },
+      });
+
+      if (!d) {
+        throw new Error(`del userRole fail`);
+      }
+
+      await Promise.all(
+        data.roles.map(async (roleId: number) => {
+          await tx.userRole.create({
+            data: {
+              roles: { connect: { id: roleId } }, // 关联角色
+              users: { connect: { id: user.id } }, // 关联用户
+            },
+          });
+        }),
+      );
+      return user;
+    }),
+  );

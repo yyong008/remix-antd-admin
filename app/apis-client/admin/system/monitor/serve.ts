@@ -39,7 +39,7 @@ export const systemMonitorServe = createApi({
     readMonitorServeList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `admin/system/monitor/serve?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/monitor/serve`,
         method: "GET",
       }),
     }),

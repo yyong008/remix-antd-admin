@@ -1,4 +1,4 @@
-import { Col, Row, message } from "antd";
+import { Col, Row } from "antd";
 import { useEffect, useState } from "react";
 
 import { Cpu } from "./components/cpu";
@@ -6,21 +6,9 @@ import { Disk } from "./components/disk";
 import { Mem } from "./components/mem";
 import { OsRuntime } from "./components/os-runtime";
 import { PageContainer } from "@ant-design/pro-components";
-import { ajax } from "rxjs/ajax";
-import { interval } from "rxjs";
-import { switchMap } from "rxjs/operators";
+import { useReadMonitorServeListQuery } from "@/apis-client/admin/system/monitor/serve";
 
 export function Route() {
-  const {
-    dataSource = {
-      nodeRuntime: {},
-      osRuntime: {},
-      diskInfo: {},
-      memInfo: {},
-      cupInfo: {},
-      currentLoadInfo: {},
-    },
-  } = {};
   const [data, setData] = useState({
     nodeRuntime: {},
     osRuntime: {},
@@ -29,6 +17,15 @@ export function Route() {
     cupInfo: {},
     currentLoadInfo: {},
   });
+
+  const { data: _data, isLoading } = useReadMonitorServeListQuery({
+    interval: 10,
+  });
+  useEffect(() => {
+    if (_data && _data.data) {
+      setData(_data?.data);
+    }
+  }, [_data, isLoading]);
 
   const {
     nodeRuntime,
@@ -39,31 +36,8 @@ export function Route() {
     currentLoadInfo,
   } = data;
 
-  useEffect(() => {
-    setData(dataSource);
-  }, [dataSource]);
-
-  useEffect(() => {
-    const pollingInterval = 5000; // 10 秒
-    const inter$ = interval(pollingInterval)
-      .pipe(switchMap(() => ajax.getJSON("/api/admin/system/monitor/serve")))
-      .subscribe({
-        next(v: any) {
-          setData(v.data);
-        },
-        error(e) {
-          console.log(e);
-          message.error(e?.message);
-        },
-      });
-
-    return () => {
-      inter$?.unsubscribe();
-    };
-  }, []);
-
   return (
-    <PageContainer loading={data.cupInfo}>
+    <PageContainer loading={isLoading}>
       <Row gutter={[16, 16]}>
         <Col span={12}>
           <OsRuntime data={{ nodeRuntime, osRuntime }} />

@@ -1,21 +1,10 @@
+import { from, map, of, switchMap } from "rxjs";
+
 import type { Prisma } from "@prisma/client";
-// enum
 import { SortOrder } from "~/types";
 import type { TPage } from "~/types";
-// service
 import prisma from "~/libs/prisma";
 
-export interface ILoginLog {
-  createLoginLog(data: Prisma.LoginlogCreateInput): any;
-  loginLogCount(): any;
-  getLoginLogList(data: TPage): any;
-}
-
-/**
- * create login log info
- * @param data  Prisma.LoginLogCreateInput
- * @returns
- */
 export const createLoginLog = async (data: Prisma.LoginlogCreateInput) => {
   try {
     const res = await prisma.loginlog.create({
@@ -28,10 +17,6 @@ export const createLoginLog = async (data: Prisma.LoginlogCreateInput) => {
   }
 };
 
-/**
- * 获取 Login Log 的数量
- * @returns Number
- */
 export const loginLogCount = async () => {
   try {
     return await prisma.loginlog.count();
@@ -41,11 +26,6 @@ export const loginLogCount = async () => {
   }
 };
 
-/**
- * 获取分页获取登录信息的列表
- * @param param0 TPage
- * @returns
- */
 export const getLoginLogList = async (data: TPage) => {
   const { page = 1, pageSize = 10, name = "" } = data;
   try {
@@ -67,11 +47,6 @@ export const getLoginLogList = async (data: TPage) => {
   }
 };
 
-/**
- * 获取分页获取登录信息的列表
- * @param param0 TPage
- * @returns
- */
 export const getLoginLogLatestByUserId = async (userId: number) => {
   try {
     return await prisma.loginlog.findFirst({
@@ -84,3 +59,40 @@ export const getLoginLogLatestByUserId = async (userId: number) => {
     return null;
   }
 };
+
+export const readLoginLogCount$ = () => from(prisma.loginlog.count());
+
+export const readLoginLogList$ = (data: TPage) =>
+  of(data)
+    .pipe(
+      map((data: TPage) => ({
+        page: data.page || 1,
+        pageSize: data.pageSize || 10,
+        name: data.name || "",
+      })),
+    )
+    .pipe(
+      switchMap(({ name, page, pageSize }) =>
+        prisma.loginlog.findMany({
+          where: {
+            name: {
+              contains: name,
+            },
+          },
+          skip: (page - 1) * pageSize,
+          take: pageSize,
+          orderBy: {
+            id: SortOrder.DESCENDING,
+          },
+        }),
+      ),
+    );
+
+export const readLoginLogLatestByUserId$ = (userId: number) =>
+  from(
+    prisma.loginlog.findFirst({
+      where: {
+        userId,
+      },
+    }),
+  );

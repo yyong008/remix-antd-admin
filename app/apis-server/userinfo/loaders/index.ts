@@ -10,7 +10,7 @@ export async function query(args: rrn.LoaderFunctionArgs) {
   const getDashboardData = (userId: number) =>
     forkJoin({
       menu: userPermsServices.getFlatMenuByUserId$(userId!),
-      userInfo: userServices.getUserInfoById$(userId!),
+      userInfo: userServices.readUserInfoById$(userId!),
     });
   const result$ = from(getTokenUserIdByArgs(args)).pipe(
     switchMap((data) => getDashboardData(data.userId!)),
