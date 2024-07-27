@@ -1,7 +1,8 @@
 import * as ic from "@ant-design/icons";
 
+import { Link, useNavigate } from "@remix-run/react";
+
 import { Dropdown } from "antd";
-import { useNavigate } from "@remix-run/react";
 
 // icons
 const {
@@ -9,6 +10,7 @@ const {
   InfoCircleFilled,
   QuestionCircleFilled,
   TranslationOutlined,
+  HomeFilled,
 } = ic;
 
 const ActionRenderImpl = ({ value }: any) => {
@@ -64,6 +66,11 @@ export const createActionRenderWrap =
     };
     if (props.isMobile) return [];
     return [
+      <div key="home">
+        <Link to="/">
+          <HomeFilled />
+        </Link>
+      </div>,
       <InfoCircleFilled key="InfoCircleFilled" />,
       <QuestionCircleFilled key="QuestionCircleFilled" />,
       <GithubFilled key="GithubFilled" onClick={goGithub} />,
