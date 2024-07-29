@@ -39,7 +39,7 @@ function AdminLayout() {
   );
 
   return (
-    <WaterMark content="remix antd admin">
+    <WaterMark content="Remix Antd Admin">
       <ProLayout
         location={{
           pathname,

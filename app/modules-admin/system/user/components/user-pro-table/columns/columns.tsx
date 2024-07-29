@@ -1,20 +1,21 @@
 import * as clientUtils from "@/utils/client";
 
-import {
-  DeleteIt,
-  FormatTime,
-  StatusType,
-  UserAvatar,
-} from "@/components/common";
-import { Space, Tag } from "antd";
+import { FormatTime, StatusType, UserAvatar } from "@/components/common";
 
-import { CreateUserModal } from "../create-user-model";
+import { ColumnsOp } from "./columns-op";
+import { Tag } from "antd";
 
-export const createUserTableColumns = ({ depts, roles }: any) => [
+export const createUserTableColumns = ({
+  depts,
+  roles,
+  colorPrimary,
+  reload,
+}: any) => [
   {
     dataIndex: "avatar",
     title: "头像",
-    width: 100,
+    width: 50,
+    align: "center",
     render(_: any, record: any) {
       return <UserAvatar avatar={record.avatar} />;
     },
@@ -22,17 +23,22 @@ export const createUserTableColumns = ({ depts, roles }: any) => [
   {
     dataIndex: "name",
     title: "用户名",
+    align: "center",
     ellipsis: true,
+    render(_: any, record: any) {
+      return <h1 style={{ color: colorPrimary }}>{record.name}</h1>;
+    },
   },
-  {
-    dataIndex: "nickname",
-    title: "昵称",
-    ellipsis: true,
-  },
+  // {
+  //   dataIndex: "nickname",
+  //   title: "昵称",
+  //   ellipsis: true,
+  // },
   {
     dataIndex: "roles",
     title: "角色",
     ellipsis: true,
+    align: "center",
     render(_: any, record: any) {
       return <UserRoleList list={record.UserRole} />;
     },
@@ -40,22 +46,26 @@ export const createUserTableColumns = ({ depts, roles }: any) => [
   {
     dataIndex: "email",
     title: "邮箱",
+    align: "center",
     ellipsis: true,
   },
   {
     dataIndex: "lang",
     title: "语言",
+    align: "center",
     ellipsis: true,
   },
   {
     dataIndex: "theme",
     title: "主题",
+    align: "center",
     ellipsis: true,
   },
   {
     dataIndex: "department",
     title: "部门",
     ellipsis: true,
+    align: "center",
     render(_: any, record: any) {
       return <Tag>{record.department?.name}</Tag>;
     },
@@ -63,11 +73,13 @@ export const createUserTableColumns = ({ depts, roles }: any) => [
   {
     dataIndex: "phone",
     title: "手机号码",
+    align: "center",
     ellipsis: true,
   },
   {
     dataIndex: "status",
     title: "状态",
+    align: "center",
     ellipsis: true,
     render(_: any, record: any) {
       return <StatusType status={record.status} />;
@@ -77,6 +89,7 @@ export const createUserTableColumns = ({ depts, roles }: any) => [
     dataIndex: "remark",
     title: "备注",
     ellipsis: true,
+    align: "center",
     render(_: any, record: any) {
       return <div>{record.remark}</div>;
     },
@@ -85,6 +98,7 @@ export const createUserTableColumns = ({ depts, roles }: any) => [
     dataIndex: "createdAt",
     title: "创建时间",
     ellipsis: true,
+    align: "center",
     render(_: any, record: any) {
       return (
         <>{record.createdAt ? clientUtils.formatDate(record.createdAt) : "-"}</>
@@ -107,22 +121,21 @@ export const createUserTableColumns = ({ depts, roles }: any) => [
     ellipsis: true,
     render(_: any, record: any) {
       return (
-        <Space>
-          <CreateUserModal
-            fetcher={() => []}
-            depts={depts}
-            roles={roles}
-            record={record}
-            key="mod-user-modal"
-          />
-          <DeleteIt fetcher={() => {}} record={record} title={"用户"} />
-        </Space>
+        <ColumnsOp
+          depts={depts}
+          roles={roles}
+          record={record}
+          reload={reload}
+        />
       );
     },
   },
 ];
 
 function UserRoleList({ list }: any) {
+  if (list.length === 0) {
+    return "-";
+  }
   return (
     <div>
       {list.map((_role: any, index: number) => {

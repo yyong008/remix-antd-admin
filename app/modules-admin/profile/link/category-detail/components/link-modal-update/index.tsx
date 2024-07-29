@@ -39,7 +39,6 @@ export function LinkModalUpdate({ record, refetch }: any) {
       }}
       submitTimeout={2000}
       onFinish={async (values: any) => {
-        debugger;
         const vals = {
           ...values,
         };

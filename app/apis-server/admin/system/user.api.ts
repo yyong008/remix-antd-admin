@@ -1,6 +1,12 @@
+import {
+  createSystemUserService,
+  deleteSystemUserService,
+  readSystemUserListService,
+  updateSystemUserService,
+} from "@/services/admin/system/user";
+
 import { api } from "@/utils/server/api";
 import { createApi } from "@/utils/server/api/api-handler";
-import { readSystemUserListService } from "@/services/admin/system/user";
 
 // import { blogCategoryPermissions as perm } from "@/constants/permission";
 
@@ -26,9 +32,9 @@ const options = {
 
 const restfulApis = {
   GET: await createApi(options.GET, readSystemUserListService),
-  // POST: await createApi(options.CREATE, createLinkCategoryService),
-  // PUT: await createApi(options.UPDATE, updateLinkCategoryService),
-  // DELETE: await createApi(options.DELETE, deleteLinkCategoryService),
+  POST: await createApi(options.CREATE, createSystemUserService),
+  PUT: await createApi(options.UPDATE, updateSystemUserService),
+  DELETE: await createApi(options.DELETE, deleteSystemUserService),
 };
 
 export const { loader, action } = api(restfulApis);

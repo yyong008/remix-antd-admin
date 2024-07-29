@@ -34,7 +34,6 @@ export function LinkCategoryModalUpdate({ record, refetch }: any) {
       loading={other.isLoading}
       submitTimeout={2000}
       onFinish={async (values: any) => {
-        debugger;
         const result = await updateLinkCategoryById({
           id: record.id,
           ...values,

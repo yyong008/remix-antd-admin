@@ -1,8 +1,16 @@
 import { useLocation } from "@remix-run/react";
 import { useState } from "react";
 
-export function usePage() {
-  const [page, setPage] = useState({
+interface PageState {
+  page: number;
+  pageSize: number;
+}
+
+export function usePage(): [
+  PageState,
+  React.Dispatch<React.SetStateAction<PageState>>,
+] {
+  const [page, setPage] = useState<PageState>({
     page: 1,
     pageSize: 10,
   });
