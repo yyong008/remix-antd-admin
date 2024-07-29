@@ -42,10 +42,10 @@
     "docker:build": "docker build -t remix-antd-admin ."
   },
   "dependencies": {
-    "@ant-design/cssinjs": "^1.20.0",
-    "@ant-design/icons": "^5.3.6",
-    "@ant-design/pro-chat": "^1.13.7",
-    "@ant-design/pro-components": "^2.7.1",
+    "@ant-design/cssinjs": "^1.21.0",
+    "@ant-design/icons": "^5.4.0",
+    "@ant-design/pro-chat": "^1.15.1",
+    "@ant-design/pro-components": "^2.7.14",
     "@ant-design/pro-editor": "^1.2.1",
     "@bytemd/plugin-gfm": "^1.21.0",
     "@bytemd/react": "^1.21.0",
@@ -59,7 +59,7 @@
     "@tinymce/tinymce-react": "^4.3.0",
     "allotment": "^1.19.3",
     "animate.css": "^4.1.1",
-    "antd": "^5.16.4",
+    "antd": "^5.19.3",
     "antd-style": "^3.6.2",
     "antd-table-saveas-excel": "^2.2.1",
     "bytemd": "^1.21.0",
