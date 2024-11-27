@@ -43,6 +43,13 @@ export const systemMenu = createApi({
         method: "GET",
       }),
     }),
+    readMenuListRaw: builder.query({
+      transformResponse: (data: any) => data,
+      query: (data) => ({
+        url: `admin/system/menu-list?page=${data.page}&pageSize=${data.pageSize}&lang=${data.lang}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -52,4 +59,5 @@ export const {
   useDeleteMenuByIdsMutation,
   useReadMenuListQuery,
   useReadMenuQuery,
+  useReadMenuListRawQuery,
 } = systemMenu;

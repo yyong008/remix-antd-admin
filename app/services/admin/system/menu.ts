@@ -24,6 +24,12 @@ const listToTree$ = (data: any, t: any, lang: any) => ({
 
 // const requestDto$ = (args: any) => from(args.request.json());
 
+export const readSystemMenuListService = async (args: any) => {
+  const result$ = createOriginParams$(args).pipe(switchMap(page$));
+
+  return lastValueFrom(result$);
+};
+
 // services
 export const readSystemMenuListTreeService = async (args: any) => {
   const { lang } = args.params;

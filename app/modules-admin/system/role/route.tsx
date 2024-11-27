@@ -1,30 +1,33 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
-import { useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 
-import { AntdIcon } from "~/components/common";
 import { CreateRoleModal } from "./components/create-role-modal";
-import { Space } from "antd";
+
 import { createColumns } from "./components/role-pro-table/create-columns";
-import { useFetcherChange } from "@/hooks";
+import { useFetcherChange, usePage } from "@/hooks";
 import { useParams } from "@remix-run/react";
-import { useReadRoleListQuery } from "~/apis-client/admin/system/role/role";
+import { useReadRoleListQuery } from "@/apis-client/admin/system/role/role";
 import { useTranslation } from "react-i18next";
+import { useReadMenuListRawQuery } from "@/apis-client/admin/system/menu";
+import { genMenuTreeForRole } from "./utils.tsx";
 
 export function Route() {
-  const [page] = useState({
-    page: 1,
-    pageSize: 10,
-  });
-  const { data, isLoading, refetch } = useReadRoleListQuery({
-    ...page,
-  });
-  const { menuRoles = [], flatMenu = [] } = {};
+  const [page] = usePage();
+  const { data, isLoading, refetch } = useReadRoleListQuery(page);
+  const { data: flatMenu } = useReadMenuListRawQuery({});
+  const { menuRoles = [] } = {};
   const { lang } = useParams();
 
   const actionRef = useRef();
   const { t } = useTranslation();
   const fetcher = useFetcherChange();
-  const menus = genMenuTreeForRole(flatMenu, t, null);
+  const menus = useMemo(() => {
+    if (flatMenu) {
+      const menu = flatMenu.data.list || [];
+      return genMenuTreeForRole(menu || [], t, null);
+    }
+  }, [flatMenu, t]);
+
   return (
     <PageContainer>
       <ProTable
@@ -42,7 +45,7 @@ export function Route() {
           <CreateRoleModal
             key="create-role-modal"
             record={{}}
-            menu={menus}
+            menu={menus as any}
             menuRoles={menuRoles}
             fetcher={fetcher}
           />,
@@ -50,29 +53,4 @@ export function Route() {
       />
     </PageContainer>
   );
-}
-
-function genMenuTreeForRole(
-  items: any[],
-  t: (v: string) => string,
-  parentId?: number | null,
-): any[] {
-  return items
-    .filter((item) => item.parent_menu_id === parentId)
-    .map((item) => ({
-      id: item.id,
-      orderNo: item.orderNo,
-      key: item.id,
-      value: item.id,
-      title: item.icon ? (
-        <Space>
-          <AntdIcon name={item.icon} />
-          {t(item.name)}
-        </Space>
-      ) : (
-        t(item.name)
-      ),
-      children: genMenuTreeForRole(items, t, item.id), // 递归构建子树
-    }))
-    .sort((a, b) => a.orderNo - b.orderNo);
 }

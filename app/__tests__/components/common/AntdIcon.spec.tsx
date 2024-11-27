@@ -4,7 +4,7 @@ import { expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 
 // component
-import AntdIcon from "../../../components/common/antd-icon";
+import { AntdIcon } from "@/components/common";
 
 describe("test Footer component", () => {
   let Icon: any;

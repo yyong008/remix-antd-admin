@@ -113,6 +113,10 @@ function apiAdminSystemRoute(route: DefineRouteFunction) {
       file: `${filePrefix}/dict-item.api.ts`,
     },
     {
+      path: `${pathPrefix}/menu-list`,
+      file: `${filePrefix}/menu-list.api.ts`,
+    },
+    {
       path: `${pathPrefix}/menu`,
       file: `${filePrefix}/menu.api.ts`,
     },
