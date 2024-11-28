@@ -4,7 +4,7 @@ import {
   type ActionFunction,
   type LoaderFunction,
 } from "@remix-run/node";
-import { isPOST, isPUT, isDELETE, isPATCH } from "./http";
+import { hm } from "./http";
 
 type TRestfulApi = {
   GET?: LoaderFunction;
@@ -17,10 +17,10 @@ type TRestfulApi = {
 export function api(restfulApi: TRestfulApi) {
   return {
     async action(args: ActionFunctionArgs) {
-      if (isPOST(args)) return restfulApi.POST?.(args);
-      if (isPUT(args)) return restfulApi.PUT?.(args);
-      if (isDELETE(args)) return restfulApi.DELETE?.(args);
-      if (isPATCH(args)) return restfulApi.DELETE?.(args);
+      if (hm.isPOST(args)) return restfulApi.POST?.(args);
+      if (hm.isPUT(args)) return restfulApi.PUT?.(args);
+      if (hm.isDELETE(args)) return restfulApi.DELETE?.(args);
+      if (hm.isPATCH(args)) return restfulApi.DELETE?.(args);
     },
     async loader(args: LoaderFunctionArgs) {
       return restfulApi.GET?.(args);

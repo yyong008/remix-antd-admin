@@ -1,27 +1,25 @@
 import { rfj, rsj } from "~/utils/server";
-
-import {
-  type LoaderFunctionArgs,
-  type ActionFunctionArgs,
-} from "@remix-run/node";
 import { type z } from "zod";
 import { handlerPerm } from "./middleware/permission";
 import { handlerPresentationMode } from "./middleware/presentation-mode";
 import { handlerSchema } from "./middleware/validate-schema";
 import { handlerAuth } from "./middleware/auth";
+import type { ALFunctionArgs } from "@/types/remix";
 
-type TT = ActionFunctionArgs | LoaderFunctionArgs;
 type TOption = {
   isPublic?: boolean;
   perm?: string;
-  schema?: z.ZodSchema;
+  schemas?: {
+    url?: z.Schema;
+    body?: z.Schema;
+  };
 };
 
 export async function createApi(
   options: TOption,
-  fn: (ags: TT) => Promise<any>,
+  fn: (ags: ALFunctionArgs) => Promise<any>,
 ) {
-  return async function apiHandler(args: TT) {
+  return async function apiHandler(args: ALFunctionArgs) {
     let data = {};
     try {
       if (!options.isPublic) {
@@ -32,8 +30,8 @@ export async function createApi(
         await handlerPerm(args, options.perm);
       }
 
-      if (options.schema) {
-        await handlerSchema(args, options.schema);
+      if (options.schemas) {
+        await handlerSchema(args, options.schemas);
       }
       data = await fn(args);
       return rsj(data);

@@ -1,21 +1,21 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 
-export function isGET(args: ActionFunctionArgs | LoaderFunctionArgs) {
-  return args.request.method === "GET";
+export class HttpMethod {
+  isGET(args: ActionFunctionArgs | LoaderFunctionArgs) {
+    return args.request.method === "GET";
+  }
+  isPOST(args: ActionFunctionArgs | LoaderFunctionArgs) {
+    return args.request.method === "POST";
+  }
+  isPUT(args: ActionFunctionArgs | LoaderFunctionArgs) {
+    return args.request.method === "PUT";
+  }
+  isDELETE(args: ActionFunctionArgs | LoaderFunctionArgs) {
+    return args.request.method === "DELETE";
+  }
+  isPATCH(args: ActionFunctionArgs | LoaderFunctionArgs) {
+    return args.request.method === "PATCH";
+  }
 }
 
-export function isPOST(args: ActionFunctionArgs | LoaderFunctionArgs) {
-  return args.request.method === "POST";
-}
-
-export function isPUT(args: ActionFunctionArgs | LoaderFunctionArgs) {
-  return args.request.method === "PUT";
-}
-
-export function isDELETE(args: ActionFunctionArgs | LoaderFunctionArgs) {
-  return args.request.method === "DELETE";
-}
-
-export function isPATCH(args: ActionFunctionArgs | LoaderFunctionArgs) {
-  return args.request.method === "PATCH";
-}
+export const hm = new HttpMethod();
