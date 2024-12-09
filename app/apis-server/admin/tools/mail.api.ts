@@ -1,40 +1,31 @@
-import {
-  createMailTemplateService,
-  deleteMailTemplateService,
-  readMailTemplateListService,
-  updateMailTemplateService,
-} from "@/services/admin/tools/mail.api";
-
-import { api } from "@/utils/server/api";
-import { createApi } from "@/utils/server/api/api-handler";
+import type { Op } from "@/types/restful";
+import { mailTemplateService } from "~/services/admin/tools/MailService";
+import { remixApi } from "~/utils/server/remixApi";
 
 // import { blogCategoryPermissions as perm } from "@/constants/permission";
 
-const options = {
+const options: Op = {
   GET: {
     isPublic: false,
     perm: "",
     // perm: perm.READ_LIST,
+    handler: mailTemplateService.getList,
   },
-  CREATE: {
+  POST: {
     isPublic: false,
     // perm: perm.CREATE,
+    handler: mailTemplateService.create,
   },
-  UPDATE: {
+  PUT: {
     isPublic: false,
     // perm: perm.UPDATE,
+    handler: mailTemplateService.update,
   },
   DELETE: {
     isPublic: false,
     // perm: perm.DELETE,
+    handler: mailTemplateService.deleteByIds,
   },
 };
 
-const restfulApis = {
-  GET: await createApi(options.GET, readMailTemplateListService),
-  POST: await createApi(options.CREATE, createMailTemplateService),
-  PUT: await createApi(options.UPDATE, updateMailTemplateService),
-  DELETE: await createApi(options.DELETE, deleteMailTemplateService),
-};
-
-export const { loader, action } = api(restfulApis);
+export const { loader, action } = remixApi.createApi(options);

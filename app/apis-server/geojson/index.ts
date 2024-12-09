@@ -1,13 +1,4 @@
-import { api } from "@/utils/server/api";
-import { createApi } from "@/utils/server/api/api-handler";
-
-const options = {
-  GET: {
-    isPublic: false,
-    perm: "",
-    // perm: perm.READ_LIST,
-  },
-};
+import { remixApi } from "~/utils/server/remixApi";
 
 export async function readGeoJsonService() {
   const geoJson = (
@@ -15,9 +6,13 @@ export async function readGeoJsonService() {
   ).default;
   return geoJson;
 }
-
-const restfulApis = {
-  GET: await createApi(options.GET, readGeoJsonService),
+const options = {
+  GET: {
+    isPublic: false,
+    perm: "",
+    // perm: perm.READ_LIST,
+    handler: readGeoJsonService,
+  },
 };
 
-export const { loader } = api(restfulApis);
+export const { loader } = remixApi.createApi(options);

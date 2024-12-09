@@ -1,22 +1,16 @@
-import { api, createApi } from "@/utils/server/api/index";
-
 import { createToolsStorage$ } from "./action";
-
-// import { blogPermissions as perm } from "@/constants/permission";
-
-const options = {
-  CREATE: {
-    isPublic: true,
-    // perm: perm.CREATE,
-  },
-};
+import { remixApi } from "~/utils/server/remixApi";
 
 const createToolsStorageService = (args: any) => {
   return createToolsStorage$(args);
 };
 
-const restfulApis = {
-  POST: await createApi(options.CREATE, createToolsStorageService),
+const options = {
+  POST: {
+    isPublic: true,
+    // perm: perm.CREATE,
+    handler: createToolsStorageService,
+  },
 };
 
-export const { action } = api(restfulApis);
+export const { loader } = remixApi.createApi(options);

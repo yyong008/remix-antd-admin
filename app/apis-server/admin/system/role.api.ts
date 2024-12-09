@@ -1,34 +1,30 @@
-import { api } from "@/utils/server/api";
-import { createApi } from "@/utils/server/api/api-handler";
-import { readSystemRoleListService } from "~/services/admin/system/role";
-
+import type { Op } from "@/types/restful";
+import { remixApi } from "@/utils/server/remixApi";
+import { roleService } from "~/services/admin/system/RoleService";
 // import { blogCategoryPermissions as perm } from "@/constants/permission";
 
-const options = {
+const options: Op = {
   GET: {
     isPublic: false,
     perm: "",
     // perm: perm.READ_LIST,
+    handler: roleService.getList,
   },
-  CREATE: {
+  POST: {
     isPublic: false,
     // perm: perm.CREATE,
+    handler: roleService.create,
   },
-  UPDATE: {
+  PUT: {
     isPublic: false,
     // perm: perm.UPDATE,
+    handler: roleService.update,
   },
   DELETE: {
     isPublic: false,
     // perm: perm.DELETE,
+    handler: roleService.deleteByIds,
   },
 };
 
-const restfulApis = {
-  GET: await createApi(options.GET, readSystemRoleListService),
-  // POST: await createApi(options.CREATE, createLinkCategoryService),
-  // PUT: await createApi(options.UPDATE, updateLinkCategoryService),
-  // DELETE: await createApi(options.DELETE, deleteLinkCategoryService),
-};
-
-export const { loader, action } = api(restfulApis);
+export const { loader, action } = remixApi.createApi(options);

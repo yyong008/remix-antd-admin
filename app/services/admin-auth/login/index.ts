@@ -1,61 +1,78 @@
 import { type ActionFunctionArgs } from "@remix-run/node";
-import { lastValueFrom } from "rxjs";
 import {
   ERRIR_USER_DISABLED,
   ERROR_PASSWWORD,
   ERROR_UNREGISTER,
 } from "@/constants/error";
-import { signRefreshToken, signToken } from "@/libs/jose";
+import { joseJwt } from "@/libs/jose";
 
-import { findByUserName$ } from "@/dals/login";
-import { createLoginLog } from "@/dals/system/login-log";
-import { comparePassword, getLoginInfo } from "@/utils/server";
-import { createApi } from "~/utils/server/api/api-handler";
-import { loginSchema } from "@/schema/auth/login";
+import { loginDAL } from "@/dals/login/LoginDAL";
+import { loginLogDAL } from "@/dals/system/LoginLogDAL";
+import { bcryptUtil } from "@/utils/server/bcrypt.util";
+import { ipUtils } from "@/utils/server/ip.util";
 
-async function matchPassword(dataDto: any, user: any) {
-  const isMatch = comparePassword(dataDto.password, user!.password);
-  if (!isMatch) throw Error(ERROR_PASSWWORD);
-  return isMatch;
-}
+class LoginService {
+  /**
+   * 匹配密码
+   * @param dataDto
+   * @param user
+   * @returns
+   */
+  matchPassword(dataDto: any, user: any) {
+    const isMatch = bcryptUtil.comparePassword(
+      dataDto.password,
+      user!.password,
+    );
+    if (!isMatch) throw Error(ERROR_PASSWWORD);
+    return isMatch;
+  }
 
-async function findUserByName(dataDto: any) {
-  const user = await lastValueFrom(findByUserName$(dataDto.username));
-  if (!user) throw Error(ERROR_UNREGISTER);
-  if (user.status === 0) throw new Error(ERRIR_USER_DISABLED);
-  return user;
-}
+  /**
+   * 根据 Name 发现用户
+   * @param dataDto
+   * @returns
+   */
+  async findUserByName(dataDto: any) {
+    const user: any = await loginDAL.findByUserName(dataDto.username);
+    if (!user) throw Error(ERROR_UNREGISTER);
+    if (user.status === 0) throw new Error(ERRIR_USER_DISABLED);
+    return user;
+  }
 
-async function recordLoginLog(args: ActionFunctionArgs, user: any) {
-  try {
-    const loginLog = await getLoginInfo(args.request);
-    createLoginLog({
-      ...loginLog,
-      name: user!.name,
-      userId: user!.id,
-    });
-  } catch (error) {
-    console.error("❌ >> login record login log: ", error);
+  /**
+   * 记录登陆日志
+   * @param args
+   * @param user
+   */
+  async recordLoginLog(args: ActionFunctionArgs, user: any) {
+    try {
+      const loginLog = await ipUtils.getLoginInfo(args.request);
+      loginLogDAL.create({
+        ...loginLog,
+        name: user!.name,
+        userId: user!.id,
+      });
+    } catch (error) {
+      console.error("❌ >> login record login log: ", error);
+    }
+  }
+
+  /**
+   * 登陆
+   * @param args
+   * @returns
+   */
+  async loginAction(args: ActionFunctionArgs) {
+    const vDto = await args.request.json();
+    const user = await this.findUserByName(vDto);
+    this.matchPassword(vDto, user);
+    await this.recordLoginLog(args, user);
+    const ts = {
+      refresh_token: await joseJwt.signRefreshToken(user.id),
+      token: await joseJwt.signToken(user.id),
+    };
+    return ts;
   }
 }
 
-async function loginAction(args: ActionFunctionArgs) {
-  const vDto = await args.request.json();
-  const user = await findUserByName(vDto);
-  matchPassword(vDto, user);
-  await recordLoginLog(args, user);
-  const ts = {
-    refresh_token: await signRefreshToken(user.id),
-    token: await signToken(user.id),
-  };
-  return ts;
-}
-
-export const apiLoginHandler = await createApi(
-  {
-    isPublic: true,
-    schema: loginSchema.CREATE,
-    perm: "",
-  },
-  loginAction,
-);
+export const loginService = new LoginService();

@@ -1,5 +1,5 @@
 import { type LoaderFunctionArgs } from "@remix-run/node";
-import { getUserCount } from "@/dals/system.user.service";
+import { userDAL } from "~/dals/system/UserDAL";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const host =
@@ -8,7 +8,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   try {
     const url = new URL("/", `http://${host}`);
     await Promise.all([
-      getUserCount(),
+      userDAL.getCount(),
       fetch(url.toString(), { method: "HEAD" }).then((r) => {
         if (!r.ok) return Promise.reject(r);
       }),

@@ -1,15 +1,12 @@
-import { type LoaderFunctionArgs } from "@remix-run/node";
-import { createApi } from "~/utils/server/api/api-handler";
 import { query as settingsQuery } from "./query";
+import { remixApi } from "@/utils/server/remixApi";
 
-export const apiDashboardHandler = await createApi(
-  {
+const options = {
+  GET: {
     isPublic: false,
     perm: "",
+    handler: settingsQuery,
   },
-  settingsQuery,
-);
-
-export const loader = (args: LoaderFunctionArgs) => {
-  return apiDashboardHandler(args);
 };
+
+export const { loader } = remixApi.createApi(options);

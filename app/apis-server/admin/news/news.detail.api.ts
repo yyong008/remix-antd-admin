@@ -1,19 +1,16 @@
-import { api, createApi } from "@/utils/server/api/index";
-
-import { readNewsService } from "@/services/admin/news/news.service";
+import type { Op } from "@/types/restful";
+import { newsService } from "~/services/admin/news/NewsService";
+import { remixApi } from "~/utils/server/remixApi";
 
 // import { blogPermissions as perm } from "@/constants/permission";
 
-const options = {
+const options: Op = {
   GET: {
     isPublic: false,
     perm: "",
     // perm: perm.READ_LIST,
+    handler: newsService.getById,
   },
 };
 
-const restfulApis = {
-  GET: await createApi(options.GET, readNewsService),
-};
-
-export const { loader } = api(restfulApis);
+export const { loader } = remixApi.createApi(options);

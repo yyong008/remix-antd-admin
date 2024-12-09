@@ -1,39 +1,31 @@
-import {
-  createToolsStorageService,
-  deleteToolsStorageByIdsService,
-  readToolsStorageListService,
-} from "@/services/admin/tools/storage.api";
-
-import { api } from "@/utils/server/api";
-import { createApi } from "@/utils/server/api/api-handler";
+import type { Op } from "@/types/restful";
+import { remixApi } from "~/utils/server/remixApi";
+import { storageService } from "~/services/admin/tools/StorageService";
 
 // import { blogCategoryPermissions as perm } from "@/constants/permission";
 
-const options = {
+const options: Op = {
   GET: {
     isPublic: false,
     perm: "",
     // perm: perm.READ_LIST,
+    handler: storageService.getList,
   },
-  CREATE: {
+  POST: {
     isPublic: false,
     // perm: perm.CREATE,
+    handler: storageService.create,
   },
-  UPDATE: {
-    isPublic: false,
-    // perm: perm.UPDATE,
-  },
+  // PUT: {
+  //   isPublic: false,
+  //   // perm: perm.UPDATE,
+  //   handler: storageService.updateToolsStorageService
+  // },
   DELETE: {
     isPublic: false,
     // perm: perm.DELETE,
+    handler: storageService.deleteById,
   },
 };
 
-const restfulApis = {
-  GET: await createApi(options.GET, readToolsStorageListService),
-  POST: await createApi(options.CREATE, createToolsStorageService),
-  // PUT: await createApi(options.UPDATE, updateLinkCategoryService),
-  DELETE: await createApi(options.DELETE, deleteToolsStorageByIdsService),
-};
-
-export const { loader, action } = api(restfulApis);
+export const { loader, action } = remixApi.createApi(options);

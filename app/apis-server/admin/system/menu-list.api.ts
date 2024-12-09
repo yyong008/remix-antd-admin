@@ -1,31 +1,15 @@
-import { api } from "@/utils/server/api";
-import { createApi } from "@/utils/server/api/api-handler";
-import { readSystemMenuListService } from "@/services/admin/system/menu";
-
+import type { Op } from "@/types/restful";
+import { menuService } from "~/services/admin/system/MenuService";
+import { remixApi } from "~/utils/server/remixApi";
 // import { blogCategoryPermissions as perm } from "@/constants/permission";
 
-const options = {
+const options: Op = {
   GET: {
     isPublic: false,
     perm: "",
     // perm: perm.READ_LIST,
-  },
-  CREATE: {
-    isPublic: false,
-    // perm: perm.CREATE,
-  },
-  UPDATE: {
-    isPublic: false,
-    // perm: perm.UPDATE,
-  },
-  DELETE: {
-    isPublic: false,
-    // perm: perm.DELETE,
+    handler: menuService.getMenuTree,
   },
 };
 
-const restfulApis = {
-  GET: await createApi(options.GET, readSystemMenuListService),
-};
-
-export const { loader } = api(restfulApis);
+export const { loader } = remixApi.createApi(options);

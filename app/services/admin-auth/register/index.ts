@@ -1,65 +1,79 @@
-import type * as rrn from "@remix-run/node";
-import { type TRegister } from "~/schema/login.schema";
-import { json, redirect } from "@remix-run/node";
-import { findByUserName } from "~/dals/login";
-import { createUserFromRegister } from "~/dals/register";
+import { type ActionFunctionArgs } from "@remix-run/node";
+import {
+  ERRIR_USER_DISABLED,
+  ERROR_PASSWWORD,
+  ERROR_UNREGISTER,
+} from "@/constants/error";
+import { joseJwt } from "@/libs/jose";
 
-import { hashPassword } from "~/utils/server";
-import { destroySession, getSession } from "~/libs/session";
+import { loginDAL } from "@/dals/login/LoginDAL";
+import { loginLogDAL } from "@/dals/system/LoginLogDAL";
+import { bcryptUtil } from "@/utils/server/bcrypt.util";
+import { ipUtils } from "@/utils/server/ip.util";
 
-import { RegisterSchema } from "~/schema/login.schema";
-
-interface AdminNewsCategoryActionInterface {
-  action(actionArgs: rrn.ActionFunctionArgs): any;
-  POST(actionArgs: rrn.ActionFunctionArgs): any;
-  // PUT(actionArgs: rrn.ActionFunctionArgs): any;
-  // DELETE(actionArgs: rrn.ActionFunctionArgs): any;
-}
-
-type TM = keyof Omit<AdminNewsCategoryActionInterface, "action">;
-
-class Action {
-  async action(actionArgs: rrn.ActionFunctionArgs) {
-    return this?.[actionArgs.request.method as TM]?.(actionArgs);
+class RegisterService {
+  /**
+   * 匹配密码
+   * @param dataDto
+   * @param user
+   * @returns
+   */
+  matchPassword(dataDto: any, user: any) {
+    const isMatch = bcryptUtil.comparePassword(
+      dataDto.password,
+      user!.password,
+    );
+    if (!isMatch) throw Error(ERROR_PASSWWORD);
+    return isMatch;
   }
 
-  async POST({ request, params }: rrn.ActionFunctionArgs) {
-    const session = await getSession(request.headers.get("Cookie"));
-    const { lang } = params || "zh-CN";
+  /**
+   * 根据 Name 发现用户
+   * @param dataDto
+   * @returns
+   */
+  async findUserByName(dataDto: any) {
+    const user: any = await loginDAL.findByUserName(dataDto.username);
+    if (!user) throw Error(ERROR_UNREGISTER);
+    if (user.status === 0) throw new Error(ERRIR_USER_DISABLED);
+    return user;
+  }
 
-    const dataDto = await request.json();
-    let validateDataDto: TRegister;
+  /**
+   * 记录登陆日志
+   * @param args
+   * @param user
+   */
+  async recordLoginLog(args: ActionFunctionArgs, user: any) {
     try {
-      validateDataDto = RegisterSchema.parse(dataDto);
-    } catch (error: any) {
-      console.error(error);
-      return json({
-        code: -1,
-        data: {},
-        message: error.toString(),
+      const loginLog = await ipUtils.getLoginInfo(args.request);
+      loginLogDAL.create({
+        ...loginLog,
+        name: user!.name,
+        userId: user!.id,
       });
+    } catch (error) {
+      console.error("❌ >> login record login log: ", error);
     }
-    const user = await findByUserName(validateDataDto.username);
-    if (user) {
-      return json({
-        code: -1,
-        data: {},
-        message: "用户已存在",
-      });
-    }
+  }
 
-    const newUser = await createUserFromRegister({
-      username: validateDataDto.username,
-      password: hashPassword(validateDataDto.password),
-    });
-    session.set("userId", newUser.id);
-
-    return redirect("/" + lang + "/admin/login", {
-      headers: {
-        "Set-Cookie": await destroySession(session),
-      },
-    });
+  /**
+   * 登陆
+   * @param args
+   * @returns
+   */
+  async register(args: ActionFunctionArgs) {
+    const vDto = await args.request.json();
+    // TODO 对比
+    const user = await this.findUserByName(vDto);
+    this.matchPassword(vDto, user);
+    await this.recordLoginLog(args, user);
+    const ts = {
+      refresh_token: await joseJwt.signRefreshToken(user.id),
+      token: await joseJwt.signToken(user.id),
+    };
+    return ts;
   }
 }
 
-export const action = new Action().action;
+export const registerService = new RegisterService();

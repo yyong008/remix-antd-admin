@@ -1,40 +1,31 @@
-import {
-  newsCategoryCreateService,
-  newsCategoryDeleteService,
-  newsCategoryUpdateService,
-  readNewsCategoryListService,
-} from "@/services/admin/news/news-category.service";
-
-import { api } from "@/utils/server/api";
-import { createApi } from "@/utils/server/api/api-handler";
+import type { Op } from "@/types/restful";
+import { newsCategoryService } from "~/services/admin/news/NewsCategoryService";
+import { remixApi } from "~/utils/server/remixApi";
 
 // import { blogCategoryPermissions as perm } from "@/constants/permission";
 
-const options = {
+const options: Op = {
   GET: {
     isPublic: false,
     perm: "",
     // perm: perm.READ_LIST,
+    handler: newsCategoryService.getList,
   },
-  CREATE: {
+  POST: {
     isPublic: false,
     // perm: perm.CREATE,
+    handler: newsCategoryService.create,
   },
-  UPDATE: {
+  PUT: {
     isPublic: false,
     // perm: perm.UPDATE,
+    handler: newsCategoryService.update,
   },
   DELETE: {
     isPublic: false,
     // perm: perm.DELETE,
+    handler: newsCategoryService.deleteByIds,
   },
 };
 
-const restfulApis = {
-  GET: await createApi(options.GET, readNewsCategoryListService),
-  POST: await createApi(options.CREATE, newsCategoryCreateService),
-  PUT: await createApi(options.UPDATE, newsCategoryUpdateService),
-  DELETE: await createApi(options.DELETE, newsCategoryDeleteService),
-};
-
-export const { loader, action } = api(restfulApis);
+export const { loader, action } = remixApi.createApi(options);

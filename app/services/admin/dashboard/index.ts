@@ -1,19 +1,21 @@
-import { forkJoin, from, lastValueFrom, switchMap } from "rxjs";
-
-import { getTokenUserIdByArgs } from "~/libs/jose";
+import { joseJwt } from "@/libs/jose";
 import { type LoaderFunctionArgs } from "@remix-run/node";
-import { getUserTodayIsSignInById$ } from "~/dals/sign-in/signInLog";
-import { getLoginLogLatestByUserId } from "~/dals/system/login-log";
+import { signInLog } from "@/dals/sign-in/signInLog";
+import { loginLogDAL } from "~/dals/system/LoginLogDAL";
 
-export async function dashboardServices(args: LoaderFunctionArgs) {
-  const result$ = from(getTokenUserIdByArgs(args)).pipe(
-    switchMap((data: any) =>
-      forkJoin({
-        isLogin: getUserTodayIsSignInById$(data?.userId),
-        latestLoginLog: getLoginLogLatestByUserId(data?.userId),
-      }),
-    ),
-  );
+class DashboardService {
+  async getDashboardData(args: LoaderFunctionArgs) {
+    const data = await joseJwt.getTokenUserIdByArgs(args);
+    let isLogin = await signInLog.getUserTodayUserSignLogById(data.userId!);
+    const latestLoginLog = await loginLogDAL.getLoginLogLatestByUserId(
+      data?.userId,
+    );
 
-  return await lastValueFrom(result$);
+    return {
+      isLogin,
+      latestLoginLog,
+    };
+  }
 }
+
+export const dashboardServices = new DashboardService();

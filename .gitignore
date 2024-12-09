@@ -29,3 +29,6 @@ vite.config.ts.*
 
 # stats
 stats.html
+
+# deploy
+deploy

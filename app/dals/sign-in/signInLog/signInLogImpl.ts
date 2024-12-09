@@ -31,3 +31,24 @@ const getUserTodayIsSignInById$: IUserSignInLog["getUserTodayIsSignInById$"] = (
 };
 
 export { createUserSignInLog$, getUserTodayIsSignInById$ };
+
+export class SignInLog {
+  async createUserSignInLog(data: any) {
+    return await prisma.userSignLog.create({ data });
+  }
+  async getUserTodayUserSignLogById(id: number) {
+    const { startTime, endTime } = serverUtils.getTodayTime();
+
+    return await prisma.userSignLog.findFirst({
+      where: {
+        userId: id,
+        signTime: {
+          gte: startTime,
+          lte: endTime,
+        },
+      },
+    });
+  }
+}
+
+export const signInLog = new SignInLog();

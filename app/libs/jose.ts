@@ -2,61 +2,102 @@ import { type JWTPayload, SignJWT, jwtVerify } from "jose";
 
 import { type LoaderFunctionArgs } from "@remix-run/node";
 
-const secretKey = process.env.JWT_SECRET;
-const encodedKey = new TextEncoder().encode(secretKey);
+class JoseJwt {
+  _secretKey: string;
+  _encodedKey: Uint8Array;
+  _alg = "HS256";
+  _tokenExpTime = "15min";
+  _refreshTokenExpTime = "7d";
 
-export async function encrypt(payload: any, expTime: string) {
-  return new SignJWT(payload)
-    .setProtectedHeader({ alg: "HS256" })
-    .setIssuedAt()
-    .setExpirationTime(expTime)
-    .sign(encodedKey);
-}
+  constructor() {
+    this._secretKey = process.env.JWT_SECRET!;
+    this._encodedKey = new TextEncoder().encode(this._secretKey);
+  }
 
-export async function decrypt(
-  token: string,
-): Promise<{ error?: any; payload?: JWTPayload | undefined }> {
-  try {
-    const { payload } = await jwtVerify(token, encodedKey, {
-      algorithms: ["HS256"],
-    });
-    return { payload };
-  } catch (error) {
-    console.error("❌ Failed to verify >>", error);
-    return { error };
+  /**
+   * jose jwt 编码
+   * @param payload
+   * @param expTime
+   * @returns
+   */
+  async encrypt(payload: any, expTime: string) {
+    return new SignJWT(payload)
+      .setProtectedHeader({ alg: this._alg })
+      .setIssuedAt()
+      .setExpirationTime(expTime)
+      .sign(this._encodedKey);
+  }
+
+  /**
+   * jost jwt 解码
+   * @param token
+   * @returns
+   */
+  async decrypt(token: string) {
+    try {
+      const { payload } = await jwtVerify(token, this._encodedKey, {
+        algorithms: [this._alg],
+      });
+      return { payload };
+    } catch (error) {
+      console.error("❌ Failed to verify >>", error);
+      return { error };
+    }
+  }
+
+  /**
+   * 从 token 中获取 userId
+   * @param args
+   * @returns
+   */
+  async getTokenUserIdByArgs(args: LoaderFunctionArgs) {
+    const token = args.request.headers.get("Authorization")?.split(" ")[1];
+    type ResultType = JWTPayload & { userId: number; error: any };
+    try {
+      const { payload } = await jwtVerify(token!, this._encodedKey, {
+        algorithms: [this._alg],
+      });
+      return { ...payload } as ResultType;
+    } catch (error) {
+      console.error("❌ Failed to verify >>", error);
+      return { error } as ResultType;
+    }
+  }
+
+  /**
+   * 从 token 中获取 payload
+   * @param token
+   * @returns
+   */
+  async getPayloadByToken(token: string) {
+    try {
+      const { payload } = await jwtVerify(token!, this._encodedKey, {
+        algorithms: [this._alg],
+      });
+      return { payload };
+    } catch (error) {
+      console.error("❌ Failed to verify >>", error);
+      return { error };
+    }
+  }
+
+  /**
+   * 使用 userId 签发 token
+   * @param userId
+   * @returns
+   */
+  signToken(userId: number) {
+    return this.encrypt({ userId }, this._tokenExpTime);
+  }
+
+  /**
+   * 使用 userId 签发 refresh token
+   * @param userId
+   * @returns
+   */
+  signRefreshToken(userId: number) {
+    return this.encrypt({ userId }, this._refreshTokenExpTime);
   }
 }
 
-export async function getTokenUserIdByArgs(args: LoaderFunctionArgs) {
-  const token = args.request.headers.get("Authorization")?.split(" ")[1];
-  type ResultType = JWTPayload & { userId: number; error: any };
-  try {
-    const { payload } = await jwtVerify(token!, encodedKey, {
-      algorithms: ["HS256"],
-    });
-    return { ...payload } as ResultType;
-  } catch (error) {
-    console.error("❌ Failed to verify >>", error);
-    return { error } as ResultType;
-  }
-}
-
-export async function getPayloadByToken(token: string): Promise<any> {
-  try {
-    const { payload } = await jwtVerify(token!, encodedKey, {
-      algorithms: ["HS256"],
-    });
-    return { payload };
-  } catch (error) {
-    console.error("❌ Failed to verify >>", error);
-    return { error };
-  }
-}
-
-export function signToken(userId: number) {
-  return encrypt({ userId }, "15min");
-}
-
-export function signRefreshToken(userId: number) {
-  return encrypt({ userId }, "7d");
-}
+export const joseJwt = new JoseJwt();

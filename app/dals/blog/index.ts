@@ -1,3 +1,3 @@
-export * from "./blog";
-export * from "./blog-tags";
-export * from "./blog-category";
+export * from "./BlogDAL";
+export * from "./BlogTagDAL";
+export * from "./BlogCategoryDAL";

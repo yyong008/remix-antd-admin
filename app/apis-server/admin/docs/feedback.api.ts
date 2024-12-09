@@ -1,40 +1,31 @@
-import {
-  createFeedbackService,
-  deleteFeedbackService,
-  readFeedbackListService,
-  updateFeedbackService,
-} from "@/services/admin/docs/feedback.service";
-
-import { api } from "@/utils/server/api";
-import { createApi } from "@/utils/server/api/api-handler";
+import type { Op } from "@/types/restful";
+import { feedBackService } from "~/services/admin/docs/FeedbackService";
+import { remixApi } from "~/utils/server/remixApi";
 
 // import { blogCategoryPermissions as perm } from "@/constants/permission";
 
-const options = {
+const options: Op = {
   GET: {
     isPublic: false,
     perm: "",
     // perm: perm.READ_LIST,
+    handler: feedBackService.getList,
   },
-  CREATE: {
+  POST: {
     isPublic: false,
     // perm: perm.CREATE,
+    handler: feedBackService.create,
   },
-  UPDATE: {
+  PUT: {
     isPublic: false,
     // perm: perm.UPDATE,
+    handler: feedBackService.update,
   },
   DELETE: {
     isPublic: false,
     // perm: perm.DELETE,
+    handler: feedBackService.deleteByIds,
   },
 };
 
-const restfulApis = {
-  GET: await createApi(options.GET, readFeedbackListService),
-  POST: await createApi(options.CREATE, createFeedbackService),
-  PUT: await createApi(options.UPDATE, updateFeedbackService),
-  DELETE: await createApi(options.DELETE, deleteFeedbackService),
-};
-
-export const { loader, action } = api(restfulApis);
+export const { loader, action } = remixApi.createApi(options);

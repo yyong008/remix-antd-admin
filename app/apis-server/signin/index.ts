@@ -1,16 +1,13 @@
-import { api, createApi } from "@/utils/server/api";
+import type { Op } from "@/types/restful";
+import { remixApi } from "~/utils/server/remixApi";
+import { signInService } from "@/services/admin/signin";
 
-import { signInAction } from "./signin-action";
-
-const options = {
+const options: Op = {
   POST: {
     isPublic: true,
     perm: "",
+    handler: signInService.create.bind(signInService),
   },
 };
 
-const restfulApis = {
-  POST: await createApi(options.POST, signInAction),
-};
-
-export const { action } = api(restfulApis);
+export const { action } = remixApi.createApi(options);

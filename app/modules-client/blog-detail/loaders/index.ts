@@ -1,6 +1,6 @@
 import type * as tn from "@remix-run/node";
 
-import { getBlogById$ } from "~/dals/blog/blog";
+import { getBlogById$ } from "~/dals/blog/BlogDAL";
 import { lastValueFrom } from "rxjs";
 
 export async function blogDetail(args: tn.LoaderFunctionArgs) {

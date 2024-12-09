@@ -1,6 +1,5 @@
 import * as clientUtils from "~/utils/client";
 import type * as rrn from "@remix-run/node";
-import * as storageServices from "@/dals/tools/storage";
 
 import {
   unstable_composeUploadHandlers as composeUploadHandlers,
@@ -10,12 +9,13 @@ import {
 } from "@remix-run/node";
 import { forkJoin, from, of, switchMap } from "rxjs";
 
-import { getTokenUserIdByArgs } from "@/libs/jose";
+import { joseJwt } from "@/libs/jose";
 import { resp$ } from "@/utils/server";
+import { storageService } from "~/services/admin/tools/StorageService";
 
 export const createToolsStorage$ = async (args: rrn.LoaderFunctionArgs) => {
   const { request } = args;
-  const payload = await getTokenUserIdByArgs(args);
+  const payload = await joseJwt.getTokenUserIdByArgs(args);
   const userId = payload.userId;
   if (!userId) {
     return resp$(of(null));
@@ -42,7 +42,7 @@ export const createToolsStorage$ = async (args: rrn.LoaderFunctionArgs) => {
     )
     .pipe(
       switchMap((file: any) =>
-        storageServices.createToolsStorage$({
+        storageService.create({
           userId,
           name: file.name,
           fileName: file.name,

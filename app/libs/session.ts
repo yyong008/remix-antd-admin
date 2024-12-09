@@ -101,3 +101,30 @@ export function auth$({
     ),
   );
 }
+
+export class UserSession {
+  async getUserId(request: Request) {
+    const c = request.headers.get("Cookie");
+    const session = await getSession(c);
+    const userId = session?.get("userId");
+
+    if (!userId || typeof userId !== "string") {
+      return null;
+    }
+    return +userId;
+  }
+}
+
+export class Auth {
+  async logout({ request, params }: any) {
+    const { lang } = params;
+    const cookie = request.headers.get("Cookie");
+    const session = await getSession(cookie);
+    const SetCookie = await destroySession(session);
+    return redirect(`/${lang}/admin/login`, {
+      headers: {
+        "Set-Cookie": SetCookie,
+      },
+    });
+  }
+}

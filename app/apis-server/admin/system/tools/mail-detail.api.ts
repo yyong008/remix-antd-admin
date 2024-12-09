@@ -1,12 +1,5 @@
-import {
-  createLinkCategoryService,
-  deleteLinkCategoryService,
-  readLinkCategoryListService,
-  updateLinkCategoryService,
-} from "~/services/admin/profile/link-category.api";
-
-import { api } from "@/utils/server/api";
-import { createApi } from "@/utils/server/api/api-handler";
+import { linkCategoryService } from "~/services/admin/profile/LinkCategoryService";
+import { remixApi } from "@/utils/server/remixApi";
 
 // import { blogCategoryPermissions as perm } from "@/constants/permission";
 
@@ -15,26 +8,23 @@ const options = {
     isPublic: false,
     perm: "",
     // perm: perm.READ_LIST,
+    hanlder: linkCategoryService.getList.bind(linkCategoryService),
   },
-  CREATE: {
+  POST: {
     isPublic: false,
     // perm: perm.CREATE,
+    hanlder: linkCategoryService.create.bind(linkCategoryService),
   },
-  UPDATE: {
+  PUT: {
     isPublic: false,
     // perm: perm.UPDATE,
+    handler: linkCategoryService.update.bind(linkCategoryService),
   },
   DELETE: {
     isPublic: false,
     // perm: perm.DELETE,
+    hanlder: linkCategoryService.deleteByIds.bind(linkCategoryService),
   },
 };
 
-const restfulApis = {
-  GET: await createApi(options.GET, readLinkCategoryListService),
-  POST: await createApi(options.CREATE, createLinkCategoryService),
-  PUT: await createApi(options.UPDATE, updateLinkCategoryService),
-  DELETE: await createApi(options.DELETE, deleteLinkCategoryService),
-};
-
-export const { loader, action } = api(restfulApis);
+export const { loader, action } = remixApi.createApi(options);

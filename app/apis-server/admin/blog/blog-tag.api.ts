@@ -1,40 +1,31 @@
 // import { blogTagPermissions as perm } from "~/constants/permission";
 
-import {
-  actionBlogTagCreate,
-  actionBlogTagDelete,
-  actionBlogTagUpdate,
-  query,
-} from "@/services/admin/blog/blog-tag.service";
+import type { Op } from "@/types/restful";
+import { blogTagService } from "~/services/admin/blog/BlogTagService";
+import { remixApi } from "~/utils/server/remixApi";
 
-import { api } from "~/utils/server/api";
-import { createApi } from "~/utils/server/api/api-handler";
-
-const options = {
+const options: Op = {
   GET: {
     isPublic: false,
     perm: "",
     // perm: perm.READ_LIST,
+    handler: blogTagService.getList,
   },
-  CREATE: {
+  POST: {
     isPublic: false,
     // perm: perm.CREATE,
+    handler: blogTagService.create,
   },
-  UPDATE: {
+  PUT: {
     isPublic: false,
     // perm: perm.UPDATE,
+    handler: blogTagService.update,
   },
   DELETE: {
     isPublic: false,
     // perm: perm.DELETE,
+    handler: blogTagService.deleteByIds,
   },
 };
 
-const restfulApis = {
-  GET: await createApi(options.GET, query),
-  POST: await createApi(options.CREATE, actionBlogTagCreate),
-  PUT: await createApi(options.UPDATE, actionBlogTagUpdate),
-  DELETE: await createApi(options.DELETE, actionBlogTagDelete),
-};
-
-export const { loader, action } = api(restfulApis);
+export const { loader, action } = remixApi.createApi(options);

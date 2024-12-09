@@ -1,38 +1,31 @@
-import { api, createApi } from "@/utils/server/api/index";
-import {
-  createNewsService,
-  deleteNewsService,
-  readNewsListService,
-  updateNewsService,
-} from "@/services/admin/news/news.service";
+import type { Op } from "@/types/restful";
+import { newsService } from "~/services/admin/news/NewsService";
+import { remixApi } from "~/utils/server/remixApi";
 
 // import { blogPermissions as perm } from "@/constants/permission";
 
-const options = {
+const options: Op = {
   GET: {
     isPublic: false,
     perm: "",
     // perm: perm.READ_LIST,
+    handler: newsService.getList,
   },
-  CREATE: {
+  POST: {
     isPublic: false,
     // perm: perm.CREATE,
+    handler: newsService.create,
   },
-  UPDATE: {
+  PUT: {
     isPublic: false,
     // perm: perm.UPDATE,
+    handler: newsService.update,
   },
   DELETE: {
     isPublic: false,
     // perm: perm.DELETE,
+    handler: newsService.deleteByIds,
   },
 };
 
-const restfulApis = {
-  GET: await createApi(options.GET, readNewsListService),
-  POST: await createApi(options.CREATE, createNewsService),
-  PUT: await createApi(options.UPDATE, updateNewsService),
-  DELETE: await createApi(options.DELETE, deleteNewsService),
-};
-
-export const { loader, action } = api(restfulApis);
+export const { loader, action } = remixApi.createApi(options);
