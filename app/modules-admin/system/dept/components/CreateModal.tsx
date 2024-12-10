@@ -5,7 +5,14 @@ import { ModalForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItem";
 import { systemDeptApi } from "@/apis-client/admin/system/dept/index";
 
-export function CreateDeptModal({ trigger, treeOptions }: any) {
+type CreateDeptModalProps = {
+  trigger?: JSX.Element;
+  treeOptions: any;
+  refetch?: () => void;
+};
+
+export function CreateDeptModal(props: CreateDeptModalProps) {
+  const { trigger, treeOptions, refetch } = props;
   const [form] = Form.useForm();
   const [createSystemDept] = systemDeptApi.useCreatesystemDeptMutation();
   return (
@@ -34,13 +41,13 @@ export function CreateDeptModal({ trigger, treeOptions }: any) {
       submitTimeout={2000}
       onFinish={async (values: any) => {
         const result: any = await createSystemDept(values).unwrap();
-        debugger;
         if (result.code !== 0) {
           message.error(result.message ?? "删除失败");
           return false;
         }
 
         message.success("创建成功");
+        refetch?.();
         return true;
       }}
     >

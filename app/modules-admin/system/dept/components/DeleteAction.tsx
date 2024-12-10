@@ -6,10 +6,11 @@ import { systemDeptApi } from "@/apis-client/admin/system/dept/index";
 type DeleteActionProps = {
   record: any;
   title: string;
+  refetch: any;
 };
 
 export function DeleteAction(props: DeleteActionProps) {
-  const { record, title } = props;
+  const { record, title, refetch } = props;
   const [deleteDepartments, { isLoading }] =
     systemDeptApi.useDeletesystemDeptByIdsMutation();
   return (
@@ -26,6 +27,7 @@ export function DeleteAction(props: DeleteActionProps) {
             return;
           }
 
+          refetch?.();
           message.success("删除成功");
         }}
       >

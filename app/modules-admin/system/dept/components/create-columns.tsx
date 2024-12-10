@@ -5,14 +5,16 @@ import { EditOutlined } from "@ant-design/icons";
 import { UpdateDeptModal } from "./UpdateModal";
 import { formatDate } from "@/utils/client";
 
-export const createColumns = ({ treeOptions }: any) => [
+export const createColumns = ({ treeOptions, refetch }: any) => [
   {
     dataIndex: "name",
-    title: "用户名",
+    title: "部门名称",
+    ellipsis: true,
   },
   {
     dataIndex: "description",
     title: "描述",
+    ellipsis: true,
   },
   {
     dataIndex: "parent_department_id",
@@ -48,7 +50,11 @@ export const createColumns = ({ treeOptions }: any) => [
             key="dept-modal"
             trigger={<Button type="link" icon={<EditOutlined />} />}
           />
-          <DeleteAction title="确定要删除此部门吗?" record={record} />
+          <DeleteAction
+            title="确定要删除此部门吗?"
+            record={record}
+            refetch={refetch}
+          />
         </Space>
       );
     },

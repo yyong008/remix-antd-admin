@@ -8,7 +8,7 @@ import { useState } from "react";
 export function Route() {
   const [page] = useState({
     page: 1,
-    pageSize: 10,
+    pageSize: 10000,
   });
   const { data, isLoading, refetch } = useReadsystemDeptListQuery({
     ...page,
@@ -43,13 +43,13 @@ export function Route() {
         }}
         toolBarRender={() => [
           <CreateDeptModal
-            record={{}}
             key="dept-modal"
             treeOptions={treeOptions}
+            refetch={refetch}
           />,
         ]}
         dataSource={data?.data?.list || []}
-        columns={createColumns({ treeOptions })}
+        columns={createColumns({ treeOptions, refetch })}
       />
     </PageContainer>
   );

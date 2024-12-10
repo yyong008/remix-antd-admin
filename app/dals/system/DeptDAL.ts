@@ -70,7 +70,7 @@ export class DeptDAL {
    * @param param0
    * @returns
    */
-  async deleteByIds({ ids }: any) {
+  async deleteByIds(ids: any) {
     return await prisma.department.deleteMany({
       where: {
         id: {
