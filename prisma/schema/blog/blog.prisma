@@ -7,10 +7,10 @@ model Blog {
   viewCount   Int          @default(0)
   publishedAt DateTime
   categoryId  Int          @map("category_id")
-  categories  BlogCategory @relation(fields: [categoryId], references: [id])
   tagId       Int          @map("tag_id")
-  tags        BlogTag      @relation(fields: [tagId], references: [id])
   userId      Int          @map("user_id")
+  categories  BlogCategory @relation(fields: [categoryId], references: [id])
+  tags        BlogTag      @relation(fields: [tagId], references: [id])
 
   @@map("blog")
 }
@@ -20,8 +20,7 @@ model BlogCategory {
   name        String  @unique
   description String?
   userId      Int     @map("user_id")
-
-  blog Blog[]
+  blog        Blog[]
 
   @@map("blog_category")
 }
@@ -31,8 +30,7 @@ model BlogTag {
   name        String  @unique
   description String?
   userId      Int     @map("user_id")
-
-  blog Blog[]
+  blog        Blog[]
 
   @@map("blog_tag")
 }

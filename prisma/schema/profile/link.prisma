@@ -3,9 +3,9 @@ model Link {
   name        String
   url         String
   description String?
-  userId      Int          @map("user_id")
   categoryId  Int          @map("category_id")
-  category    LinkCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  userId      Int          @map("user_id")
+  category    LinkCategory @relation(fields: [categoryId], references: [id])
 
   @@map("profile_link")
 }
@@ -14,7 +14,7 @@ model LinkCategory {
   id          Int     @id @default(autoincrement())
   name        String
   description String?
-  userId      Int     @map("user_id") // 上传用户
+  userId      Int     @map("user_id")
   links       Link[]
 
   @@map("profile_link_category")
