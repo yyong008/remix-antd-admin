@@ -1,5 +1,5 @@
 import { systemConfig } from "./config";
-import { systemDept } from "./dept";
+import { systemDeptApi } from "./dept";
 import { systemDict } from "./dict";
 import { systemDictItem } from "./dict-item";
 import { systemMailTpl } from "./tools/mail-tpl";
@@ -13,7 +13,7 @@ import { systemUser } from "./user";
 
 export const systemReducers = {
   [systemConfig.reducerPath]: systemConfig.reducer,
-  [systemDept.reducerPath]: systemDept.reducer,
+  [systemDeptApi.reducerPath]: systemDeptApi.reducer,
   [systemDict.reducerPath]: systemDict.reducer,
   [systemDictItem.reducerPath]: systemDictItem.reducer,
   [systemMailTpl.reducerPath]: systemMailTpl.reducer,
@@ -28,7 +28,7 @@ export const systemReducers = {
 
 export const systemMiddlewares = [
   systemConfig.middleware,
-  systemDept.middleware,
+  systemDeptApi.middleware,
   systemDict.middleware,
   systemDictItem.middleware,
   systemMailTpl.middleware,

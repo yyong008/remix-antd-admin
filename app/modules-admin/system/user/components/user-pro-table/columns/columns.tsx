@@ -17,7 +17,7 @@ export const createUserTableColumns = ({
     width: 50,
     align: "center",
     render(_: any, record: any) {
-      return <UserAvatar avatar={record.avatar} />;
+      return <UserAvatar avatar={record.avatar} name={record?.name} />;
     },
   },
   {
@@ -60,6 +60,12 @@ export const createUserTableColumns = ({
     title: "主题",
     align: "center",
     ellipsis: true,
+    render(_: any, record: any) {
+      if (record.theme === "dark") {
+        return <Tag>亮色</Tag>;
+      }
+      return <Tag color="cyan">{record.theme}</Tag>;
+    },
   },
   {
     dataIndex: "department",

@@ -1,5 +1,5 @@
 import { deptDAL } from "@/dals/system/DeptDAL";
-import { urlSearchParams } from "@/utils/server/search";
+// import { urlSearchParams } from "@/utils/server/search";
 
 const buildDeptListToTree = (items: any[], parentId?: number | null): any =>
   items
@@ -17,11 +17,8 @@ class DeptService {
    * @returns
    */
   async getList(args: any) {
-    const page = urlSearchParams.getPage(args.request) || 1;
-    const pageSize = urlSearchParams.getPageSize(args.request) || 10;
-
     const total = await deptDAL.getCount();
-    const _list = await deptDAL.getList({ page, pageSize });
+    const _list = await deptDAL.getAll();
 
     const list = buildDeptListToTree(_list, null);
     return {
@@ -37,7 +34,19 @@ class DeptService {
    */
   async create(args: any) {
     const dto = await args.request.json();
-    const result = await deptDAL.create(dto);
+    console.log("dto", dto);
+    if (dto.parent_department_id) {
+      const parent = await deptDAL.getById(dto.parent_department_id);
+      if (!parent) {
+        throw new Error("上级科室不存在");
+      }
+    }
+    const result = await deptDAL.create({
+      name: dto.name,
+      description: dto.description,
+      orderNo: dto.orderNo,
+      ...dto,
+    });
     return result;
   }
 

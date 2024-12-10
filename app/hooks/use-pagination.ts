@@ -6,13 +6,13 @@ interface PageState {
   pageSize: number;
 }
 
-export function usePage(): [
-  PageState,
-  React.Dispatch<React.SetStateAction<PageState>>,
-] {
+export function usePage(params: {
+  page?: number;
+  pageSize?: number;
+}): [PageState, React.Dispatch<React.SetStateAction<PageState>>] {
   const [page, setPage] = useState<PageState>({
-    page: 1,
-    pageSize: 10,
+    page: params.page || 1,
+    pageSize: params.pageSize || 10,
   });
 
   return [page, setPage];

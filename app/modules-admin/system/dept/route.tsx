@@ -1,7 +1,7 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
-import { CreateDeptModal } from "./components/create-dept-modal";
-import { createColumns } from "./components/dept-pro-table/create-columns";
+import { CreateDeptModal } from "./components/CreateModal";
+import { createColumns } from "./components/create-columns";
 import { useReadsystemDeptListQuery } from "@/apis-client/admin/system/dept";
 import { useState } from "react";
 
@@ -13,6 +13,22 @@ export function Route() {
   const { data, isLoading, refetch } = useReadsystemDeptListQuery({
     ...page,
   });
+
+  function listToTree(list: any) {
+    // eslint-disable-next-line array-callback-return
+    return list?.map((item: any) => {
+      if (item.children) {
+        return {
+          id: item.id,
+          label: item?.name,
+          value: item?.id,
+          children: listToTree(item.children),
+        };
+      }
+    });
+  }
+  const treeOptions = listToTree(data?.data?.list ?? []);
+
   return (
     <PageContainer>
       <ProTable
@@ -25,9 +41,15 @@ export function Route() {
         options={{
           reload: refetch,
         }}
-        toolBarRender={() => [<CreateDeptModal record={{}} key="dept-modal" />]}
+        toolBarRender={() => [
+          <CreateDeptModal
+            record={{}}
+            key="dept-modal"
+            treeOptions={treeOptions}
+          />,
+        ]}
         dataSource={data?.data?.list || []}
-        columns={createColumns()}
+        columns={createColumns({ treeOptions })}
       />
     </PageContainer>
   );

@@ -1,11 +1,16 @@
 import {
   ProFormDigit,
-  ProFormSelect,
   ProFormText,
   ProFormTextArea,
+  ProFormTreeSelect,
 } from "@ant-design/pro-components";
 
-export function ModalFormItems() {
+type ModalFormItemsProps = {
+  treeOptions: any;
+};
+
+export function ModalFormItems(props: ModalFormItemsProps) {
+  const { treeOptions } = props;
   return (
     <>
       <ProFormText
@@ -20,7 +25,7 @@ export function ModalFormItems() {
         ]}
       />
       <ProFormDigit
-        name="sortOrder"
+        name="orderNo"
         label="排序"
         placeholder="排序"
         rules={[
@@ -30,8 +35,8 @@ export function ModalFormItems() {
           },
         ]}
       />
-      <ProFormSelect
-        name="description"
+      <ProFormTreeSelect
+        name="parent_department_id"
         label="父部门"
         placeholder="不修改无需填写"
         rules={[
@@ -40,7 +45,9 @@ export function ModalFormItems() {
             message: "请输入密码",
           },
         ]}
-        options={[]}
+        request={async () => {
+          return treeOptions;
+        }}
       />
       <ProFormTextArea
         name="description"

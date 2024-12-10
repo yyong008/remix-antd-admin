@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { fetchQuery } from "@/apis-client/_base-query";
 
-export const systemDept = createApi({
+export const systemDeptApi = createApi({
   reducerPath: "systemDept",
   baseQuery: fetchQuery,
   endpoints: (builder) => ({
@@ -52,4 +52,4 @@ export const {
   useDeletesystemDeptByIdsMutation,
   useReadsystemDeptListQuery,
   useReadsystemDeptQuery,
-} = systemDept;
+} = systemDeptApi;

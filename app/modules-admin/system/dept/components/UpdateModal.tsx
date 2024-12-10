@@ -1,19 +1,18 @@
-import * as ic from "@ant-design/icons";
+import { Button, Form, message } from "antd";
 
-import { Button, Form } from "antd";
-
+import { EditOutlined } from "@ant-design/icons";
 import { ModalForm } from "@ant-design/pro-components";
-import { ModalFormItems } from "./modal-form-items";
+import { ModalFormItems } from "./ModalFormItem";
+import { systemDeptApi } from "@/apis-client/admin/system/dept/index";
 
-const { EditOutlined } = ic;
-
-export function CreateDeptModal({ trigger, record, fetcher }: any) {
+export function UpdateDeptModal({ trigger, record, treeOptions }: any) {
   const [form] = Form.useForm();
+  const [updateDept] = systemDeptApi.useUpdatesystemDeptByIdMutation();
   return (
     <ModalForm
       key={Date.now()}
       preserve={false}
-      title={record?.id ? "修改用户" : "创建用户"}
+      title="修改部门"
       onOpenChange={(c) => {
         if (!c || !record.id) {
           return;
@@ -24,8 +23,8 @@ export function CreateDeptModal({ trigger, record, fetcher }: any) {
       }}
       trigger={
         trigger ?? (
-          <Button type={record ? "primary" : "link"} icon={<EditOutlined />}>
-            {record ? "新建" : ""}
+          <Button type={"primary"} icon={<EditOutlined />}>
+            更新
           </Button>
         )
       }
@@ -41,15 +40,18 @@ export function CreateDeptModal({ trigger, record, fetcher }: any) {
         if (record.id) {
           vals.id = record.id;
         }
-        fetcher.submit(vals, {
-          method: record.id ? "PUT" : "POST", // 修改或新建
-          encType: "application/json",
-        });
+        const result: any = await updateDept(vals);
+        if (result.code !== 0) {
+          message.error(result.message ?? "删除失败");
+          return false;
+        }
+
+        message.success("删除成功");
         form.resetFields();
         return true;
       }}
     >
-      <ModalFormItems />
+      <ModalFormItems treeOptions={treeOptions} />
     </ModalForm>
   );
 }

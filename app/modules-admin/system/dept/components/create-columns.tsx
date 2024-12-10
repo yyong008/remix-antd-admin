@@ -1,11 +1,11 @@
 import { Button, Space } from "antd";
 
-import { CreateDeptModal } from "../create-dept-modal";
-import { DeleteIt } from "@/components/common";
+import { DeleteAction } from "./DeleteAction";
 import { EditOutlined } from "@ant-design/icons";
+import { UpdateDeptModal } from "./UpdateModal";
 import { formatDate } from "@/utils/client";
 
-export const createColumns = () => [
+export const createColumns = ({ treeOptions }: any) => [
   {
     dataIndex: "name",
     title: "用户名",
@@ -19,7 +19,7 @@ export const createColumns = () => [
     title: "父 ID",
   },
   {
-    dataIndex: "sorter",
+    dataIndex: "orderNo",
     title: "序号",
   },
   {
@@ -42,16 +42,13 @@ export const createColumns = () => [
     render(_: any, record: any) {
       return (
         <Space>
-          <CreateDeptModal
+          <UpdateDeptModal
+            treeOptions={treeOptions}
             record={record}
             key="dept-modal"
             trigger={<Button type="link" icon={<EditOutlined />} />}
           />
-          <DeleteIt
-            title="确定要删除此部门吗?"
-            fetcher={() => {}}
-            record={record}
-          />
+          <DeleteAction title="确定要删除此部门吗?" record={record} />
         </Space>
       );
     },

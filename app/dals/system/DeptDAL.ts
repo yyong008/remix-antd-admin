@@ -49,7 +49,16 @@ export class DeptDAL {
    */
   async create(data: any) {
     return await prisma.department.create({
-      data,
+      data: {
+        // parent_department_id: data.parent_department_id as number,
+        name: data.name,
+        description: data.description,
+        orderNo: data.orderNo,
+        // parent_department_id: data.parent_department_id,
+        // parent: {
+        //   connect: { id: data.parent_department_id },
+        // }
+      },
     });
   }
 
