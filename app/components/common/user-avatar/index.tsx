@@ -1,11 +1,14 @@
-import { Image } from "antd";
+import { Avatar } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
-export function UserAvatar(props: { avatar: string }) {
-  const { avatar } = props;
+export function UserAvatar(props: { avatar: string; name: string }) {
+  const { avatar, name } = props;
 
   return (
     <div className="rounded-[20px] overflow-hidden">
-      {avatar ? <Image src={avatar ? avatar : "/images/user.jpg"} /> : "-"}
+      <Avatar src={avatar} size={20} icon={<UserOutlined />}>
+        {name ? name : "-"}
+      </Avatar>
     </div>
   );
 }
