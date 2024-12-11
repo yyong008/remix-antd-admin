@@ -26,7 +26,6 @@ export function UserModalFormItems(props: UserModalFormItemsProps) {
         max={1}
       />
       <ProFormText
-        width="md"
         name="name"
         label="用户名"
         placeholder="请输入"
@@ -38,7 +37,6 @@ export function UserModalFormItems(props: UserModalFormItemsProps) {
         ]}
       />
       <ProFormSelect
-        width="md"
         name="roles"
         label="角色"
         placeholder="选择角色"
@@ -54,7 +52,6 @@ export function UserModalFormItems(props: UserModalFormItemsProps) {
         })}
       />
       <ProFormTreeSelect
-        width="md"
         name="dept"
         label="部门"
         request={async () => {
@@ -75,14 +72,12 @@ export function UserModalFormItems(props: UserModalFormItemsProps) {
       <ProFormText name="email" label="邮箱" placeholder="请输入" />
       <ProFormText name="phone" label="手机号" placeholder="请输入" />
       <ProFormSelect
-        width="md"
         name="lang"
         label="语言"
         placeholder="请输入名称"
         options={optionsLang}
       />
       <ProFormSelect
-        width="md"
         name="theme"
         label="主题"
         placeholder="请输入名称"

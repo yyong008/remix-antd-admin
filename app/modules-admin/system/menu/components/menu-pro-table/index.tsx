@@ -37,6 +37,7 @@ export function MenuProTable(props: SystemMenuProps) {
   return (
     <ProTable<TableListItem>
       size="small"
+      bordered
       columns={createColumns() as any}
       scroll={{ x: 1300 }}
       dataSource={menuRaw}

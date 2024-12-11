@@ -14,6 +14,7 @@ export function Route() {
   return (
     <PageContainer>
       <ProTable
+        bordered
         size="small"
         search={false}
         headerTitle="登录记录"

@@ -1,15 +1,14 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { useFetcherChange, usePage } from "@/hooks";
 import { useMemo, useRef } from "react";
 
 import { CreateRoleModal } from "./components/create-role-modal";
-
 import { createColumns } from "./components/role-pro-table/create-columns";
-import { useFetcherChange, usePage } from "@/hooks";
+import { genMenuTreeForRole } from "./utils.tsx";
 import { useParams } from "@remix-run/react";
+import { useReadMenuListRawQuery } from "@/apis-client/admin/system/menu";
 import { useReadRoleListQuery } from "@/apis-client/admin/system/role/role";
 import { useTranslation } from "react-i18next";
-import { useReadMenuListRawQuery } from "@/apis-client/admin/system/menu";
-import { genMenuTreeForRole } from "./utils.tsx";
 
 export function Route() {
   const [page] = usePage();
@@ -32,6 +31,7 @@ export function Route() {
     <PageContainer>
       <ProTable
         size="small"
+        bordered
         actionRef={actionRef}
         rowKey="id"
         search={false}

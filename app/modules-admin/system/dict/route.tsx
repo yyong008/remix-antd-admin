@@ -15,6 +15,7 @@ export function Route() {
   return (
     <PageContainer>
       <ProTable
+        bordered
         rowKey="id"
         size="small"
         search={false}

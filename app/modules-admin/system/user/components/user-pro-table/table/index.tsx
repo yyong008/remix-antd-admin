@@ -12,6 +12,7 @@ export function UserProTable(props: any) {
   return (
     <>
       <ProTable
+        bordered
         size="small"
         search={false}
         headerTitle="用户表"
