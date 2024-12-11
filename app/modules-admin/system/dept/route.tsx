@@ -1,40 +1,59 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 import { CreateDeptModal } from "./components/CreateModal";
+import { ExpandIcon } from "@/components/common/ExpandIcon";
+import { ProTableFooter } from "./components/ProTableFooter";
+import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
 import { createColumns } from "./components/create-columns";
-import { useReadsystemDeptListQuery } from "@/apis-client/admin/system/dept";
-import { useState } from "react";
+import { systemDeptApi } from "@/apis-client/admin/system/dept";
+import { useMemo } from "react";
+
+// Define TypeScript interfaces for better type safety
+interface DeptItem {
+  id: number;
+  name: string;
+  children?: DeptItem[];
+}
+
+interface TreeOption {
+  id: number;
+  label: string;
+  value: number;
+  children?: TreeOption[];
+}
+
+// Helper function to convert list to tree structure
+const listToTree = (list: DeptItem[]): TreeOption[] => {
+  return list.map((item) => ({
+    id: item.id,
+    label: item.name,
+    value: item.id,
+    children: item.children ? listToTree(item.children) : undefined,
+  }));
+};
 
 export function Route() {
-  const [page] = useState({
-    page: 1,
-    pageSize: 10000,
-  });
-  const { data, isLoading, refetch } = useReadsystemDeptListQuery({
-    ...page,
-  });
+  const { data, isLoading, refetch } = systemDeptApi.useReadsystemDeptListQuery(
+    {
+      page: 1,
+      pageSize: 10000,
+    },
+  );
 
-  function listToTree(list: any) {
-    // eslint-disable-next-line array-callback-return
-    return list?.map((item: any) => {
-      if (item.children) {
-        return {
-          id: item.id,
-          label: item?.name,
-          value: item?.id,
-          children: listToTree(item.children),
-        };
-      }
-    });
-  }
-  const treeOptions = listToTree(data?.data?.list ?? []);
+  const treeOptions = useMemo(() => {
+    if (data?.data?.list) {
+      return listToTree(data.data.list);
+    }
+    return [];
+  }, [data]);
 
   return (
     <PageContainer>
       <ProTable
         rowKey="id"
         size="small"
-        headerTitle="部门管理"
+        bordered
+        headerTitle={<ProTableHeaderTitle title="所有部门" />}
         search={false}
         pagination={false}
         loading={isLoading}
@@ -50,6 +69,10 @@ export function Route() {
         ]}
         dataSource={data?.data?.list || []}
         columns={createColumns({ treeOptions, refetch })}
+        expandable={{
+          expandIcon: ExpandIcon,
+        }}
+        footer={() => <ProTableFooter total={data?.data?.total} />}
       />
     </PageContainer>
   );

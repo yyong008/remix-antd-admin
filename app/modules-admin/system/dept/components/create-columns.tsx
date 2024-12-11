@@ -1,7 +1,5 @@
-import { Button, Space } from "antd";
-
 import { DeleteAction } from "./DeleteAction";
-import { EditOutlined } from "@ant-design/icons";
+import { Space } from "antd";
 import { UpdateDeptModal } from "./UpdateModal";
 import { formatDate } from "@/utils/client";
 
@@ -9,7 +7,8 @@ export const createColumns = ({ treeOptions, refetch }: any) => [
   {
     dataIndex: "name",
     title: "部门名称",
-    ellipsis: true,
+    width: 300,
+    // ellipsis: true,
   },
   {
     dataIndex: "description",
@@ -48,7 +47,6 @@ export const createColumns = ({ treeOptions, refetch }: any) => [
             treeOptions={treeOptions}
             record={record}
             key="dept-modal"
-            trigger={<Button type="link" icon={<EditOutlined />} />}
             refetch={refetch}
           />
           <DeleteAction

@@ -5,7 +5,13 @@ import { ModalForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItem";
 import { systemDeptApi } from "@/apis-client/admin/system/dept/index";
 
-export function ModalFormCommon({ trigger, treeOptions }: any) {
+type ModalFormCommonProps = {
+  trigger?: any;
+  treeOptions?: any;
+};
+
+export function ModalFormCommon(props: ModalFormCommonProps) {
+  const { trigger, treeOptions } = props;
   const [form] = Form.useForm();
   const [createSystemDept] = systemDeptApi.useCreatesystemDeptMutation();
   return (

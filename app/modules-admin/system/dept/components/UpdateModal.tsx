@@ -4,15 +4,21 @@ import { EditOutlined } from "@ant-design/icons";
 import { ModalForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItem";
 import { systemDeptApi } from "@/apis-client/admin/system/dept/index";
+import { useAntdThemeToken } from "@/hooks/use-antd-theme-token";
 
-export function UpdateDeptModal({
-  trigger,
-  record,
-  treeOptions,
-  refetch,
-}: any) {
+type UpdateDeptModalProps = {
+  trigger?: any;
+  record?: any;
+  treeOptions?: any;
+  refetch?: () => void;
+};
+
+export function UpdateDeptModal(props: UpdateDeptModalProps) {
+  const { trigger, record, treeOptions, refetch } = props;
   const [form] = Form.useForm();
   const [updateDept] = systemDeptApi.useUpdatesystemDeptByIdMutation();
+  const token = useAntdThemeToken();
+
   return (
     <ModalForm
       key={Date.now()}
@@ -28,9 +34,15 @@ export function UpdateDeptModal({
       }}
       trigger={
         trigger ?? (
-          <Button type={"primary"} icon={<EditOutlined />}>
-            更新
-          </Button>
+          <Button
+            type="link"
+            icon={
+              <EditOutlined
+                style={{ color: token.colorPrimary }}
+                twoToneColor={token.colorPrimary}
+              />
+            }
+          ></Button>
         )
       }
       form={form}
