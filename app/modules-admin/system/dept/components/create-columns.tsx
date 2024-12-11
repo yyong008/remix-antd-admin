@@ -49,6 +49,7 @@ export const createColumns = ({ treeOptions, refetch }: any) => [
             record={record}
             key="dept-modal"
             trigger={<Button type="link" icon={<EditOutlined />} />}
+            refetch={refetch}
           />
           <DeleteAction
             title="确定要删除此部门吗?"

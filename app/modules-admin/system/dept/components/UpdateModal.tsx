@@ -5,7 +5,12 @@ import { ModalForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItem";
 import { systemDeptApi } from "@/apis-client/admin/system/dept/index";
 
-export function UpdateDeptModal({ trigger, record, treeOptions }: any) {
+export function UpdateDeptModal({
+  trigger,
+  record,
+  treeOptions,
+  refetch,
+}: any) {
   const [form] = Form.useForm();
   const [updateDept] = systemDeptApi.useUpdatesystemDeptByIdMutation();
   return (
@@ -40,13 +45,14 @@ export function UpdateDeptModal({ trigger, record, treeOptions }: any) {
         if (record.id) {
           vals.id = record.id;
         }
-        const result: any = await updateDept(vals);
+        const result: any = await updateDept(vals).unwrap();
         if (result.code !== 0) {
           message.error(result.message ?? "删除失败");
           return false;
         }
 
-        message.success("删除成功");
+        message.success("更新成功");
+        refetch?.();
         form.resetFields();
         return true;
       }}
