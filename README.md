@@ -10,24 +10,15 @@
   <img src="https://img.shields.io/github/issues/yyong008/remix-antd-admin.svg?style=flat-square" />
 </p>
 
-## 兄弟项目 (brother project)
 
-- [fastapi-antd-admin](https://github.com/yyong008/fastapi-antd-admin) FastAPI Version(WPI)
 
-## 感兴趣吗？
-
-- 如果你对项目感兴趣，可以考虑参与到项目中来。
-- 目标：基于主流的技术，构建现代化、简单、快速、可扩展的全栈网站。核心工作优化代码（组件抽象，更好的代码组织）主备发布 v1 版本
-- Remix Antd Admin 是一个全栈项目，目前还在开发之中，经过从单纯 UI  到全栈，探索和经历里各种尝试与困难。目标是趋于稳定。
-- 目前架构已经定了，前后端一体化，经过各种实践与考虑，决定管理端使用传统的前后端分离架构（但是代码在一个项目里面）
-- 前端使用 remix 的数据流（考虑需要 ssr）
-- 后端 api 使用封装的 redux-toolkit/query + prisma + rxjs + zod 与封装的 remix action/loader 提供服务端 api 服务.
-- 同时 api 基于 jose jwt 进行授权管理，可以对外提供 api 服务，不仅仅适用于 web 端。
-- 目前设计的主要库有：Remix, express, Prisma, pgsql
-
-## 语言
+## language
 
 - [中文文档](./README_CN)
+
+## Related projects
+
+- [fastapi-antd-admin](https://github.com/yyong008/fastapi-antd-admin) FastAPI Version(WIP)
 
 ## solution
 
