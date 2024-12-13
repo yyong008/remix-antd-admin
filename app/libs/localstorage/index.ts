@@ -29,6 +29,10 @@ class SimpleStorage {
   removeRefreshToken() {
     localStorage.removeItem("refresh_token");
   }
+  clearAllToken() {
+    this.removeToken();
+    this.removeRefreshToken();
+  }
 }
 
 export const simpleStorage = new SimpleStorage();
