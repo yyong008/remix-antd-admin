@@ -4,9 +4,10 @@ import {
   ProFormText,
   ProFormTextArea,
   ProFormTreeSelect,
-  ProFormUploadButton,
 } from "@ant-design/pro-components";
 import { optionsLang, optionsStatus, optionsTheme } from "@/constants/options";
+
+import UploadWithCrop from "@/components/common/UploadWithCrop";
 
 type UserModalFormItemProps = {
   depts: any[];
@@ -17,14 +18,7 @@ export function UserModalFormItems(props: UserModalFormItemProps) {
   const { depts, roles } = props;
   return (
     <>
-      <ProFormUploadButton
-        name="file"
-        label="上传头像"
-        placeholder="请输入名称"
-        listType="picture-card"
-        action="/upload"
-        max={1}
-      />
+      <UploadWithCrop />
       <ProFormText
         name="name"
         label="用户名"
@@ -51,7 +45,6 @@ export function UserModalFormItems(props: UserModalFormItemProps) {
         name="roles"
         label="角色"
         placeholder="选择角色"
-        mode="multiple"
         rules={[
           {
             required: true,

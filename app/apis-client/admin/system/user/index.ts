@@ -39,7 +39,7 @@ export const systemUser = createApi({
     readUserList: builder.query({
       transformResponse: (data: any) => data,
       query: (data) => ({
-        url: `admin/system/user?page=${data.page}&pageSize=${data.pageSize}`,
+        url: `admin/system/user?page=${data.page}&pageSize=${data.pageSize}&name=${data.name ?? ""}`,
         method: "GET",
       }),
     }),

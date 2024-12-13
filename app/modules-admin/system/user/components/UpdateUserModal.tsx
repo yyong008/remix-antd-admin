@@ -1,5 +1,5 @@
-import { UpdateUserModalUI } from "./modal-ui";
-import { UserModalFormItems } from "./modal-form-items";
+import { UpdateUserModalUI } from "./UpdateUserModalUI";
+import { UserModalFormItems } from "./ModalFormItems";
 import { useUpdateUserByIdMutation } from "@/apis-client/admin/system/user";
 
 type UpdateUserModalProps = {

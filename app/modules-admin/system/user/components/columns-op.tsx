@@ -1,6 +1,6 @@
-import { ColumnsPopConfirmDelete } from "./columns-popconfirm-delete";
+import { DeleteAction } from "./DeleteAction";
 import { Space } from "antd";
-import { UpdateUserModal } from "../../update-user-modal";
+import { UpdateUserModal } from "./UpdateUserModal";
 
 export const ColumnsOp = (props: any) => {
   const { depts, roles, record, reload, isLoading } = props;
@@ -14,7 +14,7 @@ export const ColumnsOp = (props: any) => {
         loading={isLoading}
         reload={reload}
       />
-      <ColumnsPopConfirmDelete record={record} reload={reload} />
+      <DeleteAction record={record} reload={reload} />
     </Space>
   );
 };

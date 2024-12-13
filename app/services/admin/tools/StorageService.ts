@@ -1,6 +1,5 @@
-import { storageDAL } from "@/dals/tools/StorageDAL";
-
 import { joseJwt } from "@/libs/jose";
+import { storageDAL } from "@/dals/tools/StorageDAL";
 import { urlSearchParams } from "@/utils/server/search";
 
 class StorageService {
@@ -36,6 +35,16 @@ class StorageService {
       total,
       list,
     };
+  }
+
+  /**
+   * 创建根据 data
+   * @param data
+   * @returns
+   */
+  async createByData(data: any) {
+    const result = await storageDAL.create(data);
+    return result;
   }
   /**
    * 创建 storage

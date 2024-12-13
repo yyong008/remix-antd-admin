@@ -1,6 +1,6 @@
 import { ProTable } from "@ant-design/pro-components";
-import { createToolBarRender } from "../toolbar/create-toolbar-render";
-import { createUserTableColumns } from "../columns/columns";
+import { createToolBarRender } from "./create-toolbar-render";
+import { createUserTableColumns } from "./createColumns";
 import { useColorPrimary } from "@/hooks/use-color-primary";
 import { useState } from "react";
 
@@ -14,7 +14,6 @@ export function UserProTable(props: any) {
       <ProTable
         bordered
         size="small"
-        search={false}
         headerTitle="用户表"
         scroll={{ x: 1300 }}
         rowKey="id"
@@ -25,6 +24,12 @@ export function UserProTable(props: any) {
           onChange: (selectedRowKeys) => {
             setSelectedRow(selectedRowKeys as any);
           },
+        }}
+        onSubmit={(values) => {
+          setPage({
+            ...page,
+            name: values.name ?? "",
+          });
         }}
         toolBarRender={() =>
           createToolBarRender({

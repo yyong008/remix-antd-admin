@@ -1,6 +1,7 @@
-import { userDAL } from "@/dals/system/UserDAL";
-
 import { getSearchParamsPage, getSearchParamsPageSize } from "@/utils/server";
+
+import { getSearchParams } from "@/utils/server/search";
+import { userDAL } from "@/dals/system/UserDAL";
 
 class UserService {
   /**
@@ -11,11 +12,12 @@ class UserService {
   async getList(args: any) {
     const page = getSearchParamsPage(args.request);
     const pageSize = getSearchParamsPageSize(args.request);
-
+    const name = getSearchParams(args.request, "name");
     const total = await userDAL.getCount();
     const list = await userDAL.getList({
       page,
       pageSize,
+      name: name ? name : undefined,
     });
 
     return {

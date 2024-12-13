@@ -1,1 +1,0 @@
-export { UpdateUserModal } from "./modal";

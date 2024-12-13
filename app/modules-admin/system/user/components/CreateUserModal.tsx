@@ -1,5 +1,5 @@
-import { CreateUserModalUI } from "./modal-ui";
-import { UserModalFormItems } from "./modal-form-items";
+import { CreateUserModalUI } from "./CreateUserModalUI";
+import { UserModalFormItems } from "./ModalFormItems";
 import { useCreateUserMutation } from "@/apis-client/admin/system/user";
 
 type CreateUserModalProps = {

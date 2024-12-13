@@ -1,1 +1,0 @@
-export { UserProTable } from "./table";

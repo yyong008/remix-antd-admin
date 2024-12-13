@@ -1,4 +1,4 @@
-import { ToolbarDeleteButtonUI } from "./toolbar-delete-button-ui";
+import { ToolbarDeleteButtonUI } from "./ToolbarDeleteButtonUI";
 import { message } from "antd";
 import { useDeleteUserByIdsMutation } from "@/apis-client/admin/system/user";
 

@@ -19,6 +19,7 @@ export const createUserTableColumns = ({
     render(_: any, record: any) {
       return <UserAvatar avatar={record.avatar} name={record?.name} />;
     },
+    hideInSearch: true,
   },
   {
     dataIndex: "name",
@@ -42,24 +43,28 @@ export const createUserTableColumns = ({
     render(_: any, record: any) {
       return <UserRoleList list={record.UserRole} />;
     },
+    hideInSearch: true,
   },
   {
     dataIndex: "email",
     title: "邮箱",
     align: "center",
     ellipsis: true,
+    hideInSearch: true,
   },
   {
     dataIndex: "lang",
     title: "语言",
     align: "center",
     ellipsis: true,
+    hideInSearch: true,
   },
   {
     dataIndex: "theme",
     title: "主题",
     align: "center",
     ellipsis: true,
+    hideInSearch: true,
     render(_: any, record: any) {
       if (record.theme === "dark") {
         return <Tag>亮色</Tag>;
@@ -71,6 +76,7 @@ export const createUserTableColumns = ({
     dataIndex: "department",
     title: "部门",
     ellipsis: true,
+    hideInSearch: true,
     align: "center",
     render(_: any, record: any) {
       return <Tag>{record.department?.name}</Tag>;
@@ -80,12 +86,14 @@ export const createUserTableColumns = ({
     dataIndex: "phone",
     title: "手机号码",
     align: "center",
+    hideInSearch: true,
     ellipsis: true,
   },
   {
     dataIndex: "status",
     title: "状态",
     align: "center",
+    hideInSearch: true,
     ellipsis: true,
     render(_: any, record: any) {
       return <StatusType status={record.status} />;
@@ -94,6 +102,7 @@ export const createUserTableColumns = ({
   {
     dataIndex: "remark",
     title: "备注",
+    hideInSearch: true,
     ellipsis: true,
     align: "center",
     render(_: any, record: any) {
@@ -103,6 +112,7 @@ export const createUserTableColumns = ({
   {
     dataIndex: "createdAt",
     title: "创建时间",
+    hideInSearch: true,
     ellipsis: true,
     align: "center",
     render(_: any, record: any) {
@@ -114,6 +124,7 @@ export const createUserTableColumns = ({
   {
     dataIndex: "updatedAt",
     title: "更新时间",
+    hideInSearch: true,
     ellipsis: true,
     align: "center",
     render(_: any, record: any) {
@@ -125,6 +136,7 @@ export const createUserTableColumns = ({
     title: "操作",
     fixed: "right",
     ellipsis: true,
+    hideInSearch: true,
     render(_: any, record: any) {
       return (
         <ColumnsOp

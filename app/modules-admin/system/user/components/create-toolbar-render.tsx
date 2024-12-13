@@ -1,5 +1,5 @@
-import { CreateUserModal } from "../../create-user-modal";
-import { ToolbarDeleteButton } from "./toolbar-delete-button/toolbar-delete-button";
+import { CreateUserModal } from "./CreateUserModal";
+import { ToolbarDeleteButton } from "./ToolbarDeleteButton";
 
 type createToolBarRenderOptions = {
   reload: (...args: any) => any;

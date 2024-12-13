@@ -19,6 +19,7 @@ export const Cropper = ({
   const [crop, setCrop] = useState({ unit: "%", width: 80, aspect });
   const [completedCrop, setCompletedCrop] = useState<any>(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [outFile, setOutFile] = useState<any>(null);
 
   const onImageLoad = useCallback(() => {
     const { width: displayedWidth, height: displayedHeight } = imgRef.current!; // 显示区域的宽高
@@ -102,13 +103,16 @@ export const Cropper = ({
       outputCtx.drawImage(canvas, offsetX, offsetY);
 
       setPreviewUrl(outputCanvas.toDataURL("image/png") as any);
+      setOutFile(outputCanvas);
     } else {
       setPreviewUrl(canvas.toDataURL("image/png") as any);
     }
   }, [completedCrop, circular]);
 
   const handleOk = () => {
-    if (onOk) onOk(previewUrl);
+    debugger;
+    // if (onOk) onOk(previewUrl);
+    if (onOk) onOk(outFile);
   };
 
   return (
@@ -116,6 +120,7 @@ export const Cropper = ({
       open={open}
       title="图像裁剪"
       onCancel={onCancel}
+      width={800}
       footer={[
         <Button key="cancel" onClick={onCancel}>
           取消
@@ -129,7 +134,12 @@ export const Cropper = ({
         <Col span={12} style={{ textAlign: "center" }}>
           <div className="flex items-center justify-center w-[100%] h-[100%]">
             {previewUrl ? (
-              <img src={previewUrl} crossOrigin="anonymous" alt="裁剪预览" />
+              <img
+                style={{ width: 100 }}
+                src={previewUrl}
+                crossOrigin="anonymous"
+                alt="裁剪预览"
+              />
             ) : (
               <div
                 style={{

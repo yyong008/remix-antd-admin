@@ -6,7 +6,7 @@ import { useDeleteUserByIdsMutation } from "@/apis-client/admin/system/user";
 
 const { DeleteOutlined } = icons;
 
-export function ColumnsPopConfirmDelete({ record, reload }: any) {
+export function DeleteAction({ record, reload }: any) {
   const [deleteUser] = useDeleteUserByIdsMutation();
   return (
     <Popconfirm
