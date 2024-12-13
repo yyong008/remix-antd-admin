@@ -69,6 +69,7 @@ function AdminLayout() {
           },
         }}
         menuItemRender={(item, dom) => {
+          console.log("item", item);
           if (item.isLink) {
             return <MenuItemOutLink path={item.path!} dom={dom} />;
           }
