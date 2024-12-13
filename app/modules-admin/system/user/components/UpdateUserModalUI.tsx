@@ -26,8 +26,10 @@ export function UpdateUserModalUI(props: UpdateUserModalProps) {
       }}
       {...restProps}
     >
-      <Alert message="不能在这里修改密码" type="info" />
-      {children}
+      <div className="flex flex-col gap-3">
+        <Alert message="不能在这里修改密码" type="warning" banner />
+        {children}
+      </div>
     </PUpdateModal>
   );
 }

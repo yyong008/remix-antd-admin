@@ -1,5 +1,6 @@
 import { UpdateUserModalUI } from "./UpdateUserModalUI";
 import { UserModalFormItems } from "./ModalFormItems";
+import { genFileListByName } from "@/utils/server/utils";
 import { useUpdateUserByIdMutation } from "@/apis-client/admin/system/user";
 
 type UpdateUserModalProps = {
@@ -37,7 +38,9 @@ export function UpdateUserModal(props: UpdateUserModalProps) {
         const vals = { ...values, avatar, id: record.id };
         if (vals.email === "") delete vals.email; // no empty string
 
-        return await updateUser(vals);
+        const result = await updateUser(vals);
+        reload?.();
+        return result;
       }}
       onOpenChange={(c: any, form: any) => {
         if (!c || !record.id) {
@@ -45,6 +48,8 @@ export function UpdateUserModal(props: UpdateUserModalProps) {
         }
         form.setFieldsValue({
           ...record,
+          file: genFileListByName(record.avatar),
+          departmentId: record?.department?.id,
           roles: record?.UserRole?.map((userRole: any) => userRole.roleId),
           dept: record?.department?.id,
         });

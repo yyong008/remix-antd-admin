@@ -110,8 +110,6 @@ export const Cropper = ({
   }, [completedCrop, circular]);
 
   const handleOk = () => {
-    debugger;
-    // if (onOk) onOk(previewUrl);
     if (onOk) onOk(outFile);
   };
 

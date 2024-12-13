@@ -100,6 +100,7 @@ export class UserDAL {
    * @returns
    */
   async create(data: any) {
+    console.log("data", data);
     return await prisma.$transaction(async (tx) => {
       const user = await tx.user.create({
         data: {
@@ -168,7 +169,7 @@ export class UserDAL {
           remark: data.remark,
           department: {
             connect: {
-              id: data.dept,
+              id: data.departmentId,
             },
           },
           phone: data.phone,
