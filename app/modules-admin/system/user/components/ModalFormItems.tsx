@@ -12,10 +12,11 @@ import UploadWithCrop from "@/components/common/UploadWithCrop";
 type UserModalFormItemProps = {
   depts: any[];
   roles: any[];
+  showPassword?: boolean;
 };
 
 export function UserModalFormItems(props: UserModalFormItemProps) {
-  const { depts, roles } = props;
+  const { depts, roles, showPassword } = props;
   return (
     <>
       <UploadWithCrop />
@@ -30,20 +31,26 @@ export function UserModalFormItems(props: UserModalFormItemProps) {
           },
         ]}
       />
-      <ProFormText.Password
-        name="password"
-        label="密码"
-        placeholder="不修改无需填写"
-        rules={[
-          {
-            required: false,
-            message: "请输入密码",
-          },
-        ]}
-      />
+      {showPassword ? (
+        <ProFormText.Password
+          name="password"
+          label="密码"
+          placeholder="不修改无需填写"
+          rules={[
+            {
+              required: false,
+              message: "请输入密码",
+            },
+          ]}
+        />
+      ) : null}
       <ProFormSelect
         name="roles"
         label="角色"
+        mode="multiple"
+        fieldProps={{
+          maxCount: 1,
+        }}
         placeholder="选择角色"
         rules={[
           {
@@ -56,7 +63,7 @@ export function UserModalFormItems(props: UserModalFormItemProps) {
         })}
       />
       <ProFormTreeSelect
-        name="dept"
+        name="departmentId"
         label="部门"
         request={async () => {
           return depts;
@@ -80,12 +87,18 @@ export function UserModalFormItems(props: UserModalFormItemProps) {
         label="语言"
         placeholder="请输入名称"
         options={optionsLang}
+        fieldProps={{
+          defaultValue: "en-US",
+        }}
       />
       <ProFormSelect
         name="theme"
         label="主题"
         placeholder="请输入名称"
         options={optionsTheme}
+        fieldProps={{
+          defaultValue: "light",
+        }}
       />
       <ProFormTextArea name="remark" label="备注" />
       <ProFormRadio.Group name="status" label="状态" options={optionsStatus} />

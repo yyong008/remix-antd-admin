@@ -1,4 +1,8 @@
-import { getSearchParamsPage, getSearchParamsPageSize } from "@/utils/server";
+import {
+  bcryptUtil,
+  getSearchParamsPage,
+  getSearchParamsPageSize,
+} from "@/utils/server";
 
 import { getSearchParams } from "@/utils/server/search";
 import { userDAL } from "@/dals/system/UserDAL";
@@ -32,6 +36,9 @@ class UserService {
    */
   async create(args: any) {
     const dto = await args.request.json();
+    if (dto.password) {
+      dto.password = bcryptUtil.hashPassword(dto.password);
+    }
     const result = await userDAL.create(dto);
     return result;
   }

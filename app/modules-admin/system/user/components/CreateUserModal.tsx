@@ -1,3 +1,5 @@
+import * as clientUtils from "@/utils/client";
+
 import { CreateUserModalUI } from "./CreateUserModalUI";
 import { UserModalFormItems } from "./ModalFormItems";
 import { useCreateUserMutation } from "@/apis-client/admin/system/user";
@@ -30,16 +32,20 @@ export function CreateUserModal(props: CreateUserModalProps) {
         }
         if (!values.password) {
           delete values.password;
+        } else {
+          values.password = clientUtils.genHashedPassword(values.password);
         }
         delete values.file;
         const vals = { ...values, avatar };
         if (vals.email === "") {
           delete vals.email; // no empty string
         }
-        return await createUser(vals);
+        await createUser(vals);
+        reload?.();
+        return true;
       }}
     >
-      <UserModalFormItems depts={depts} roles={roles} />
+      <UserModalFormItems depts={depts} roles={roles} showPassword={true} />
     </CreateUserModalUI>
   );
 }

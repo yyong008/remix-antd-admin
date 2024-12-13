@@ -50,7 +50,7 @@ export function UpdateUserModal(props: UpdateUserModalProps) {
         });
       }}
     >
-      <UserModalFormItems depts={depts} roles={roles} />
+      <UserModalFormItems depts={depts} roles={roles} showPassword={false} />
     </UpdateUserModalUI>
   );
 }

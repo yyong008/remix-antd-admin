@@ -1,4 +1,4 @@
-import { Button, Form } from "antd";
+import { Alert, Button, Form } from "antd";
 
 import { EditThemeIcon } from "@/components/common/write-theme-icons";
 import { PUpdateModal } from "@/components/pro-modal/modal";
@@ -26,6 +26,7 @@ export function UpdateUserModalUI(props: UpdateUserModalProps) {
       }}
       {...restProps}
     >
+      <Alert message="不能在这里修改密码" type="info" />
       {children}
     </PUpdateModal>
   );
