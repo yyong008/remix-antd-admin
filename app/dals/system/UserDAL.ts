@@ -100,7 +100,6 @@ export class UserDAL {
    * @returns
    */
   async create(data: any) {
-    console.log("data", data);
     return await prisma.$transaction(async (tx) => {
       const user = await tx.user.create({
         data: {
@@ -188,7 +187,6 @@ export class UserDAL {
       if (!d) {
         throw new Error(`del userRole fail`);
       }
-      console.log(data.roles);
       await Promise.all(
         data.roles.map(async (roleId: number) => {
           await tx.userRole.create({

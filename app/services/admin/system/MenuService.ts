@@ -66,7 +66,6 @@ class MenuService {
       total,
       list,
     };
-    console.log("xxdata", list.length);
     const result = this.listToTree(data, t, lang);
     return result;
   }

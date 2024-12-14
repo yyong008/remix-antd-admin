@@ -16,7 +16,6 @@ export function Route() {
   const { data, isLoading } = useReadMailTemplateQuery(Number(id));
 
   useEffect(() => {
-    console.log("data", data?.data.content);
     setContent(data?.data?.content);
   }, [data]);
   return (

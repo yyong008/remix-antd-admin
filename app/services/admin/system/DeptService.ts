@@ -34,7 +34,6 @@ class DeptService {
    */
   async create(args: any) {
     const dto = await args.request.json();
-    console.log("dto", dto);
     if (dto.parent_department_id) {
       const parent = await deptDAL.getById(dto.parent_department_id);
       if (!parent) {

@@ -98,7 +98,6 @@ export function requestToSearchParamsObj(request: Request) {
   const searchParams = url.searchParams;
 
   searchParams.forEach((value, key) => {
-    console.log(key, value);
     obj[`${key}`] = value;
   });
 
