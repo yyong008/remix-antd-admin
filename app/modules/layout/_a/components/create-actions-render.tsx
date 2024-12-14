@@ -1,31 +1,30 @@
-import * as ic from "@ant-design/icons";
-
-import { Link, useNavigate } from "@remix-run/react";
-
-import { Dropdown } from "antd";
-
-// icons
-const {
+import {
   GithubFilled,
+  HomeFilled,
   InfoCircleFilled,
   QuestionCircleFilled,
   TranslationOutlined,
-  HomeFilled,
-} = ic;
+} from "@ant-design/icons";
+
+import { Dropdown } from "antd";
+import { defaultLang } from "@/config/lang";
+import { useNavigate } from "@remix-run/react";
 
 const ActionRenderImpl = ({ value }: any) => {
   const navigate = useNavigate();
 
   const choiceLang = (lang: string) => {
+    const lg = lang || defaultLang;
     let p = location.pathname.split("/");
-    p[1] = lang || "en-US";
+    p[1] = lg;
 
-    navigate(p.join("/").trim(), {
+    const to = p.join("/").trim();
+    navigate(to, {
       replace: true,
     });
 
-    value.setLang(lang || "en-US");
-    window.location.href = p.join("/").trim();
+    value.setLang(lg);
+    window.location.href = to;
   };
   return (
     <Dropdown
@@ -66,14 +65,21 @@ export const createActionRenderWrap =
     };
     if (props.isMobile) return [];
     return [
-      <div key="home">
-        <Link to="/">
-          <HomeFilled />
-        </Link>
-      </div>,
+      <HomeIcon key="HomeIcon" />,
       <InfoCircleFilled key="InfoCircleFilled" />,
       <QuestionCircleFilled key="QuestionCircleFilled" />,
       <GithubFilled key="GithubFilled" onClick={goGithub} />,
       <ActionRenderImpl key="actionRender" value={value} />,
     ];
   };
+
+function HomeIcon() {
+  const navigate = useNavigate();
+  return (
+    <HomeFilled
+      onClick={() => {
+        navigate("/");
+      }}
+    />
+  );
+}
