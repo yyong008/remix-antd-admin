@@ -1,7 +1,6 @@
 import {
   AntdIcon,
   CacheType,
-  DeleteIt,
   FormatTime,
   LinkType,
   MenuType,
@@ -10,9 +9,10 @@ import {
 } from "@/components/common";
 import { Space, Tag, Tooltip } from "antd";
 
-import MenuModal from "../create-menu-modal";
+import { DeleteAction } from "./DeleteAction";
+import UpdateMenuModal from "./UpdateMenuModal";
 
-export const createColumns = () => [
+export const createColumns = ({ refetch }: any) => [
   {
     key: "name",
     title: "名称",
@@ -146,16 +146,16 @@ export const createColumns = () => [
     width: 150,
     render: (_: any, record: any) => (
       <Space>
-        <MenuModal
-          key="memu-modal"
-          fetcher={() => {}}
+        <UpdateMenuModal
+          key="update-memu-modal"
           record={record}
+          refetch={refetch}
           menuNotPerm={[]}
         />
-        <DeleteIt
+        <DeleteAction
           title="确定要删除此用户吗?"
-          fetcher={() => {}}
           record={record}
+          refetch={refetch}
         />
       </Space>
     ),

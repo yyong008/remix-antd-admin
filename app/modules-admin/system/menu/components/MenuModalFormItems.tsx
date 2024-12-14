@@ -1,8 +1,8 @@
 import { ProFormDependency, ProFormRadio } from "@ant-design/pro-components";
 
-import { TypeDir } from "./type-dir";
-import { TypeMenu } from "./type-menu";
-import { TypePermission } from "./type-permission";
+import { TypeDir } from "./TypeDir";
+import { TypeMenu } from "./TypeMenu";
+import { TypePermission } from "./TypePermission";
 
 export function MenuModalFormItems({ innerMenuNotPerm, record }: any) {
   return (
@@ -15,8 +15,8 @@ export function MenuModalFormItems({ innerMenuNotPerm, record }: any) {
           buttonStyle: "solid",
         }}
         width={300}
-        disabled={record.id}
-        initialValue={!record.id ? 1 : record.type}
+        disabled={record?.id}
+        initialValue={!record?.id ? 1 : record.type}
         options={[
           {
             label: "目录",

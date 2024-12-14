@@ -1,29 +1,29 @@
-import * as ic from "@ant-design/icons";
-
 import { Button, Form } from "antd";
 import { useEffect, useState } from "react";
 
-import { MenuModalFormItems } from "./menu-modal-form-items";
+import { EditOutlined } from "@ant-design/icons";
+import { MenuModalFormItems } from "./MenuModalFormItems";
 import { ModalForm } from "@ant-design/pro-components";
-
-const { EditOutlined } = ic;
+import { systemMenu } from "@/apis-client/admin/system/menu";
+import { useColorPrimary } from "@/hooks/use-color-primary";
 
 type MenuModalProps = {
   trigger?: () => void;
   record?: any;
-  fetcher?: any;
+  refetch?: any;
   menuNotPerm?: any[];
 };
 
-export default function MenuModal({
+export default function UpdateMenuModal({
   trigger,
   record,
-  fetcher,
+  refetch,
   menuNotPerm,
 }: MenuModalProps) {
   const [form] = Form.useForm();
-
+  const { colorPrimary } = useColorPrimary();
   const [innerMenuNotPerm, setInnerMenuNotPerm] = useState<any>();
+  const [updateMenu] = systemMenu.useUpdateMenuByIdMutation({});
 
   useEffect(() => {
     const n = [
@@ -64,11 +64,14 @@ export default function MenuModal({
         trigger ??
         ((
           <Button
-            type={!record.id ? "primary" : "link"}
-            icon={<EditOutlined />}
-          >
-            {!record.id ? "新建" : ""}
-          </Button>
+            type="link"
+            icon={
+              <EditOutlined
+                style={{ color: colorPrimary }}
+                twoToneColor={colorPrimary}
+              />
+            }
+          ></Button>
         ) as any)
       }
       form={form}
@@ -83,15 +86,12 @@ export default function MenuModal({
         if (record.id) {
           vals.id = record.id;
         }
-        fetcher.submit(vals, {
-          method: record.id ? "PUT" : "POST", // 修改或新建
-          encType: "application/json",
-        });
+        await updateMenu(vals);
         form.resetFields();
         return true;
       }}
     >
-      <MenuModalFormItems innerMenuNotPerm={innerMenuNotPerm} />
+      <MenuModalFormItems innerMenuNotPerm={innerMenuNotPerm} record={record} />
     </ModalForm>
   );
 }

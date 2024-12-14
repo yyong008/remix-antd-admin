@@ -1,5 +1,8 @@
-import MenuModal from "../create-menu-modal";
+import { CreateMenuModal } from "./CreateMenuModal";
+import { ExpandIcon } from "@/components/common/ExpandIcon";
 import { ProTable } from "@ant-design/pro-components";
+import { ProTableFooter } from "./ProTableFooter";
+import { ProTableHeaderTitle } from "./ProTableHeaderTitle";
 import { createColumns } from "./create-columns";
 
 export type Status = {
@@ -30,15 +33,16 @@ type SystemMenuProps = {
   menuNotPerm: any[];
   loading: boolean;
   reload: any;
+  total: number;
 };
 
 export function MenuProTable(props: SystemMenuProps) {
-  const { menuRaw = [], menuNotPerm = [] } = props;
+  const { menuRaw = [], menuNotPerm = [], reload, total } = props;
   return (
     <ProTable<TableListItem>
       size="small"
       bordered
-      columns={createColumns() as any}
+      columns={createColumns({ refetch: reload }) as any}
       scroll={{ x: 1300 }}
       dataSource={menuRaw}
       rowKey="id"
@@ -46,7 +50,7 @@ export function MenuProTable(props: SystemMenuProps) {
       search={false}
       dateFormatter="string"
       loading={props.loading}
-      headerTitle="菜单管理"
+      headerTitle={<ProTableHeaderTitle title="菜单管理" />}
       options={{
         reload: props.reload,
       }}
@@ -54,13 +58,12 @@ export function MenuProTable(props: SystemMenuProps) {
         return record.parentId ? "bg-yellow-50" : "";
       }}
       toolBarRender={() => [
-        <MenuModal
-          key="menu-modal"
-          fetcher={() => {}}
-          menuNotPerm={menuNotPerm}
-          record={{}}
-        />,
+        <CreateMenuModal key="create-menu-modal" menuNotPerm={menuNotPerm} />,
       ]}
+      expandable={{
+        expandIcon: ExpandIcon,
+      }}
+      footer={() => <ProTableFooter total={total} />}
     />
   );
 }

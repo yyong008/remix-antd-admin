@@ -1,0 +1,69 @@
+import { Button, Form } from "antd";
+import { useEffect, useState } from "react";
+
+import { EditOutlined } from "@ant-design/icons";
+import { MenuModalFormItems } from "./MenuModalFormItems";
+import { ModalForm } from "@ant-design/pro-components";
+import { systemMenu } from "@/apis-client/admin/system/menu";
+
+type MenuModalProps = {
+  trigger?: () => void;
+  menuNotPerm?: any[];
+};
+
+export function CreateMenuModal(props: MenuModalProps) {
+  const { trigger, menuNotPerm } = props;
+  const [form] = Form.useForm();
+  const [createMenu] = systemMenu.useCreateMenuMutation();
+
+  const [innerMenuNotPerm, setInnerMenuNotPerm] = useState<any>();
+
+  useEffect(() => {
+    const n = [
+      {
+        name: "根目录",
+        key: "root",
+        id: -1,
+        children: menuNotPerm,
+      },
+    ];
+
+    setInnerMenuNotPerm([...n]);
+  }, [menuNotPerm]);
+  return (
+    <ModalForm
+      layout="horizontal"
+      labelCol={{ span: 3 }}
+      key={Date.now()}
+      preserve={false}
+      title={"创建菜单"}
+      onOpenChange={(c) => {
+        if (!c) {
+          return;
+        }
+      }}
+      trigger={
+        trigger ??
+        ((
+          <Button type={"primary"} icon={<EditOutlined />}>
+            {"新建"}
+          </Button>
+        ) as any)
+      }
+      form={form}
+      autoFocusFirstInput
+      modalProps={{
+        destroyOnClose: true,
+        onCancel: () => form.resetFields(),
+      }}
+      submitTimeout={2000}
+      onFinish={async (values: any) => {
+        await createMenu(values);
+        form.resetFields();
+        return true;
+      }}
+    >
+      <MenuModalFormItems innerMenuNotPerm={innerMenuNotPerm} />
+    </ModalForm>
+  );
+}
