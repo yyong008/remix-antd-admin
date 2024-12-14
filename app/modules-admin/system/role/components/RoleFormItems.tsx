@@ -1,6 +1,6 @@
 import { ProForm, ProFormRadio, ProFormText } from "@ant-design/pro-components";
 
-import { CustomTree } from "./CustomTree.tsx";
+import { CustomTree } from "./CustomTree";
 
 export function FormItems(props: any) {
   const { menu, checkedKeys, onCheck } = props;

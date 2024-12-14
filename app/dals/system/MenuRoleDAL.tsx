@@ -2,6 +2,13 @@ import prisma from "@/libs/prisma";
 
 export class MenuRoleDAL {
   permMenuType = 3;
+
+  /**
+   * 获取
+   */
+  async getCount() {
+    return await prisma.menuRole.count();
+  }
   /**
    * 获取所有菜单角色
    * @returns

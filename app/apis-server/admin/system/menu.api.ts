@@ -1,5 +1,5 @@
 import type { Op } from "@/types/restful";
-import { menuService } from "~/services/admin/system/MenuService";
+import { menuService } from "@/services/admin/system/MenuService";
 import { remixApi } from "@/utils/server/remixApi";
 
 // import { blogCategoryPermissions as perm } from "@/constants/permission";

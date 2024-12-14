@@ -4,10 +4,10 @@ import { systemDict } from "./dict";
 import { systemDictItem } from "./dict-item";
 import { systemMailTpl } from "./tools/mail-tpl";
 import { systemMenu } from "./menu";
-import { systemMenuRole } from "./role/menu-role";
+import { systemMenuRoleApi } from "./role/menu-role";
 import { systemMonitorLoginlog } from "./monitor/login-log";
 import { systemMonitorServe } from "./monitor/serve";
-import { systemRole } from "./role/role";
+import { systemRoleApi } from "./role/role";
 import { systemToolsStorage } from "./tools/storage";
 import { systemUser } from "./user";
 
@@ -18,10 +18,10 @@ export const systemReducers = {
   [systemDictItem.reducerPath]: systemDictItem.reducer,
   [systemMailTpl.reducerPath]: systemMailTpl.reducer,
   [systemMenu.reducerPath]: systemMenu.reducer,
-  [systemMenuRole.reducerPath]: systemMenuRole.reducer,
+  [systemMenuRoleApi.reducerPath]: systemMenuRoleApi.reducer,
   [systemMonitorLoginlog.reducerPath]: systemMonitorLoginlog.reducer,
   [systemMonitorServe.reducerPath]: systemMonitorServe.reducer,
-  [systemRole.reducerPath]: systemRole.reducer,
+  [systemRoleApi.reducerPath]: systemRoleApi.reducer,
   [systemToolsStorage.reducerPath]: systemToolsStorage.reducer,
   [systemUser.reducerPath]: systemUser.reducer,
 };
@@ -33,10 +33,10 @@ export const systemMiddlewares = [
   systemDictItem.middleware,
   systemMailTpl.middleware,
   systemMenu.middleware,
-  systemMenuRole.middleware,
+  systemMenuRoleApi.middleware,
   systemMonitorLoginlog.middleware,
   systemMonitorServe.middleware,
-  systemRole.middleware,
+  systemRoleApi.middleware,
   systemToolsStorage.middleware,
   systemUser.middleware,
 ];

@@ -1,5 +1,5 @@
 import type { Op } from "@/types/restful";
-import { menuService } from "@/services/admin/system/MenuService";
+import { menuRoleService } from "@/services/admin/system/MenuRoleService";
 import { remixApi } from "@/utils/server/remixApi";
 // import { blogCategoryPermissions as perm } from "@/constants/permission";
 
@@ -8,7 +8,7 @@ const options: Op = {
     isPublic: false,
     perm: "",
     // perm: perm.READ_LIST,
-    handler: menuService.getMenuList,
+    handler: menuRoleService.getAll,
   },
 };
 

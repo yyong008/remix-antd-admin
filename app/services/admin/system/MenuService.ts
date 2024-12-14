@@ -36,23 +36,34 @@ function buildMenuTreeRaw(
     .sort((a, b) => a.orderNo - b.orderNo);
 }
 
+/**
+ * 菜单列表转换成树结构
+ * @param data
+ * @param t
+ * @param lang
+ * @returns
+ */
+function listToTree(data: any, t: any, lang: any) {
+  return {
+    ...data,
+    list: buildMenuTreeRaw(data.list, null, t, lang),
+  };
+}
+
 class MenuService {
   /**
-   * 菜单列表转换成树结构
-   * @param data
-   * @param t
-   * @param lang
-   * @returns
+   * 获取菜单列表
    */
-  listToTree(data: any, t: any, lang: any) {
+  async getMenuList() {
+    const total = await menuDAL.getCount();
+    const list = (await menuDAL.getAll()) ?? [];
     return {
-      ...data,
-      list: buildMenuTreeRaw(data.list, null, t, lang),
+      total,
+      list,
     };
   }
-
   /**
-   * 获取菜单列表
+   * 获取菜单tree list
    * @param args
    * @returns
    */
@@ -66,7 +77,7 @@ class MenuService {
       total,
       list,
     };
-    const result = this.listToTree(data, t, lang);
+    const result = listToTree(data, t, lang);
     return result;
   }
 }

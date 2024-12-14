@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { fetchQuery } from "@/apis-client/_base-query";
 
-export const systemRole = createApi({
+export const systemRoleApi = createApi({
   reducerPath: "role",
   baseQuery: fetchQuery,
   endpoints: (builder) => ({
@@ -52,4 +52,4 @@ export const {
   useDeleteRoleByIdsMutation,
   useReadRoleListQuery,
   useReadRoleQuery,
-} = systemRole;
+} = systemRoleApi;

@@ -32,6 +32,10 @@ class AdminSystemAPI {
         file: `${filePrefix}/menu.api.ts`,
       },
       {
+        path: `${pathPrefix}/menu-role`,
+        file: `${filePrefix}/menu-role.api.ts`,
+      },
+      {
         path: `${pathPrefix}/role`,
         file: `${filePrefix}/role.api.ts`,
       },

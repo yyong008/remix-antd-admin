@@ -1,24 +1,26 @@
-import * as ic from "@ant-design/icons";
-
 import { Button, Form } from "antd";
-import { ModalForm } from "@ant-design/pro-components";
 import { useEffect, useMemo, useState } from "react";
-import { FormItems } from "./form-items.tsx";
 
-const { EditOutlined } = ic;
+import { EditOutlined } from "@ant-design/icons";
+import { FormItems } from "./RoleFormItems";
+import { ModalForm } from "@ant-design/pro-components";
+import { systemRoleApi } from "@/apis-client/admin/system/role/role";
+import { useColorPrimary } from "@/hooks/use-color-primary";
 
 type CreateRoleModalProps = {
   trigger?: React.ReactNode;
   record: any;
   menu: any[];
-  fetcher: any;
   menuRoles: any[];
+  refetch: any;
 };
 
-export function CreateRoleModal(props: CreateRoleModalProps) {
-  const { trigger, record, menu, fetcher, menuRoles } = props;
+export function UpdateRoleModal(props: CreateRoleModalProps) {
+  const { trigger, record, menu, menuRoles, refetch } = props;
   const [form] = Form.useForm();
+  const { colorPrimary } = useColorPrimary();
   const [checkedKeys, setCheckedKeys] = useState<any[]>([]);
+  const [updateRole] = systemRoleApi.useUpdateRoleByIdMutation();
 
   const onCheck = (checkedKeys: any, info: any) => {
     setCheckedKeys(checkedKeys);
@@ -42,16 +44,19 @@ export function CreateRoleModal(props: CreateRoleModalProps) {
 
   return (
     <ModalForm
-      title="创建角色"
+      title="更新角色"
       trigger={
         trigger ??
         ((
           <Button
-            type={!record.id ? "primary" : "link"}
-            icon={<EditOutlined />}
-          >
-            {!record.id ? "新建" : ""}
-          </Button>
+            type="link"
+            icon={
+              <EditOutlined
+                style={{ color: colorPrimary }}
+                twoToneColor={colorPrimary}
+              />
+            }
+          ></Button>
         ) as any)
       }
       form={form}
@@ -63,9 +68,9 @@ export function CreateRoleModal(props: CreateRoleModalProps) {
             menus: menuRoles
               ?.filter((mr) => mr.roleId === record.id)
               ?.map((r) => ({
-                id: r.menus.id,
-                key: r.menus.id,
-                value: r.menus.id,
+                id: r.id,
+                key: r.id,
+                value: r.id,
               })),
           });
           if (record.id) {
@@ -78,21 +83,17 @@ export function CreateRoleModal(props: CreateRoleModalProps) {
       }}
       modalProps={{
         destroyOnClose: true,
-        onCancel: () => console.log(""),
+        onCancel: () => {},
       }}
       submitTimeout={2000}
       onFinish={async (vals) => {
-        const values = record.id
-          ? {
-              ...vals,
-              id: record.id,
-            }
-          : vals;
+        const values = {
+          ...vals,
+          id: record.id,
+        };
 
-        fetcher.submit(values, {
-          method: record.id ? "PUT" : "POST", // 修改或新建
-          encType: "application/json",
-        });
+        await updateRole(values);
+        refetch?.();
         return true;
       }}
     >
