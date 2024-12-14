@@ -1,5 +1,6 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
+import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
 import { createToolBarRender } from "./components/create-toolbar-render";
 import { createUserTableColumns } from "./components/createColumns";
 import { useColorPrimary } from "@/hooks/use-color-primary";
@@ -28,7 +29,7 @@ export function Route() {
       <ProTable
         bordered
         size="small"
-        headerTitle="用户表"
+        headerTitle={<ProTableHeaderTitle title="用户管理" />}
         scroll={{ x: 1300 }}
         rowKey="id"
         loading={isLoading}
