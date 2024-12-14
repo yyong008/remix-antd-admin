@@ -20,9 +20,6 @@ export function UpdateUserModal(props: UpdateUserModalProps) {
       initValue={record}
       loading={loading}
       reload={reload}
-      modalProps={{
-        bodyStyle: { maxHeight: "600px", overflowY: "auto" },
-      }}
       handleUpdate={async (values: any, form: any) => {
         let avatar = "";
 

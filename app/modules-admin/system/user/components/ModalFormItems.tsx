@@ -16,7 +16,7 @@ type UserModalFormItemProps = {
 };
 
 export function UserModalFormItems(props: UserModalFormItemProps) {
-  const { depts, roles, showPassword } = props;
+  const { depts = [], roles = [], showPassword } = props;
   return (
     <>
       <UploadWithCrop />
@@ -58,7 +58,7 @@ export function UserModalFormItems(props: UserModalFormItemProps) {
             message: "请选择所属角色",
           },
         ]}
-        options={roles.map((role: any) => {
+        options={roles?.map((role: any) => {
           return { label: role.name, value: role.id };
         })}
       />

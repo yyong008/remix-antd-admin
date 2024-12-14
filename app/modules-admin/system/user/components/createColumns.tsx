@@ -30,11 +30,6 @@ export const createUserTableColumns = ({
       return <h1 style={{ color: colorPrimary }}>{record.name}</h1>;
     },
   },
-  // {
-  //   dataIndex: "nickname",
-  //   title: "昵称",
-  //   ellipsis: true,
-  // },
   {
     dataIndex: "roles",
     title: "角色",

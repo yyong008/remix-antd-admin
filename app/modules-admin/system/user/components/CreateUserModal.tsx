@@ -18,9 +18,6 @@ export function CreateUserModal(props: CreateUserModalProps) {
   return (
     <CreateUserModalUI
       {...rest}
-      modalProps={{
-        bodyStyle: { maxHeight: "600px", overflowY: "auto" },
-      }}
       loading={loading || false}
       handleCreate={async (values: any, form: any) => {
         let avatar = "";
