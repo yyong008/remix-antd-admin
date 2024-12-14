@@ -6,7 +6,15 @@ import {
   ProFormTreeSelect,
 } from "@ant-design/pro-components";
 
-export function TypeDir({ menuNotPerm }: any) {
+import { AntdIcon } from "~/components/common/antd-icon";
+import { AntdIconSelect } from "@/components/common/AntdIconSelect";
+import { useState } from "react";
+
+export function TypeDir({ menuNotPerm, form }: any) {
+  console.log("form", form);
+  const [selectIconStr, setSelectIconStr] = useState(
+    form?.getFieldValue("icon") ?? "",
+  );
   return (
     <>
       <ProFormText
@@ -58,6 +66,19 @@ export function TypeDir({ menuNotPerm }: any) {
             message: "请输入",
           },
         ]}
+        fieldProps={{
+          readOnly: true,
+          addonBefore: (
+            <AntdIconSelect
+              selectIconStr={selectIconStr}
+              trigger={<AntdIcon name={form?.getFieldValue("icon")} />}
+              onChange={(icon) => {
+                form.setFieldValue("icon", icon);
+                setSelectIconStr(icon);
+              }}
+            />
+          ),
+        }}
       />
       <ProFormDigit
         name="orderNo"

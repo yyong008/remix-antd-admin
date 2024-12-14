@@ -4,7 +4,7 @@ import { TypeDir } from "./TypeDir";
 import { TypeMenu } from "./TypeMenu";
 import { TypePermission } from "./TypePermission";
 
-export function MenuModalFormItems({ innerMenuNotPerm, record }: any) {
+export function MenuModalFormItems({ innerMenuNotPerm, record, form }: any) {
   return (
     <>
       <ProFormRadio.Group
@@ -42,7 +42,13 @@ export function MenuModalFormItems({ innerMenuNotPerm, record }: any) {
       <ProFormDependency key="typeMode" name={["type"]} ignoreFormListField>
         {({ type }) => {
           if (type === 1) {
-            return <TypeDir menuNotPerm={innerMenuNotPerm}></TypeDir>;
+            return (
+              <TypeDir
+                menuNotPerm={innerMenuNotPerm}
+                form={form}
+                icon={record?.icon}
+              ></TypeDir>
+            );
           }
           if (type === 2) {
             return <TypeMenu menuNotPerm={innerMenuNotPerm}></TypeMenu>;

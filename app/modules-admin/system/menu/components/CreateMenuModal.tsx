@@ -63,7 +63,7 @@ export function CreateMenuModal(props: MenuModalProps) {
         return true;
       }}
     >
-      <MenuModalFormItems innerMenuNotPerm={innerMenuNotPerm} />
+      <MenuModalFormItems innerMenuNotPerm={innerMenuNotPerm} form={form} />
     </ModalForm>
   );
 }

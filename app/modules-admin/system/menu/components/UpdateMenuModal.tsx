@@ -87,11 +87,16 @@ export default function UpdateMenuModal({
           vals.id = record.id;
         }
         await updateMenu(vals);
+        refetch?.();
         form.resetFields();
         return true;
       }}
     >
-      <MenuModalFormItems innerMenuNotPerm={innerMenuNotPerm} record={record} />
+      <MenuModalFormItems
+        innerMenuNotPerm={innerMenuNotPerm}
+        record={record}
+        form={form}
+      />
     </ModalForm>
   );
 }

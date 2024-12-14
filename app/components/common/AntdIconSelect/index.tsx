@@ -12,6 +12,8 @@ const iconsKeys = Object.keys(ic)
 type AntdIconSelectProps = {
   onChange?: (icon: string) => void;
   trigger?: any;
+  classname?: string;
+  selectIconStr: string;
 };
 
 export const AntdIconSelect = (props: AntdIconSelectProps) => {
@@ -30,6 +32,8 @@ export const AntdIconSelect = (props: AntdIconSelectProps) => {
   }, [keyType, filterKey]);
   return (
     <Dropdown
+      className={props.classname}
+      trigger={["click", "hover"]}
       dropdownRender={() => {
         return (
           <div className="flex flex-col w-[400px] h-[500px] bg-white overflow-hidden  p-[10px] gap-[10px] rounded-t-md shadow-md">
@@ -86,7 +90,13 @@ export const AntdIconSelect = (props: AntdIconSelectProps) => {
         );
       }}
     >
-      {props.trigger ?? <ic.QuestionCircleOutlined />}
+      <div>
+        {props.selectIconStr ? (
+          <AntdIcon name={props.selectIconStr} />
+        ) : (
+          <ic.QuestionCircleOutlined />
+        )}
+      </div>
     </Dropdown>
   );
 };

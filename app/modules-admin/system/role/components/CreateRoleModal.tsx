@@ -46,7 +46,6 @@ export function CreateRoleModal(props: CreateRoleModalProps) {
       }}
       submitTimeout={2000}
       onFinish={async (vals) => {
-        debugger;
         await createRole({ ...vals });
         refetch?.();
         return true;
