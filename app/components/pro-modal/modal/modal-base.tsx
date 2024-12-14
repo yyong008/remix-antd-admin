@@ -20,6 +20,7 @@ type PModleProps = {
 };
 
 export function PModal({ reload, ...props }: PModleProps) {
+  console.log("props", props);
   const [form] = Form.useForm();
   return (
     <ModalForm
