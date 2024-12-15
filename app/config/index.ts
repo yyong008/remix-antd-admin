@@ -4,8 +4,8 @@ export * from "./lang";
 export * from "./project";
 
 export const prolayoutConfig = {
-  title: "Remix Antd Admin",
-  logo: "/remix.svg",
+  title: "ram",
+  logo: "/logo.png",
   layout: "mix",
   menu: {
     defaultOpenAll: false,
