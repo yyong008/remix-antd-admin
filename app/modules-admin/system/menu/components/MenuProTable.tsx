@@ -32,17 +32,17 @@ type SystemMenuProps = {
   menuRaw: any[];
   menuNotPerm: any[];
   loading: boolean;
-  reload: any;
+  refetch: any;
   total: number;
 };
 
 export function MenuProTable(props: SystemMenuProps) {
-  const { menuRaw = [], menuNotPerm = [], reload, total } = props;
+  const { menuRaw = [], menuNotPerm = [], refetch, total } = props;
   return (
     <ProTable<TableListItem>
       size="small"
       bordered
-      columns={createColumns({ refetch: reload, menuNotPerm }) as any}
+      columns={createColumns({ refetch, menuNotPerm }) as any}
       scroll={{ x: 1300 }}
       dataSource={menuRaw}
       rowKey="id"
@@ -52,13 +52,17 @@ export function MenuProTable(props: SystemMenuProps) {
       loading={props.loading}
       headerTitle={<ProTableHeaderTitle title="菜单管理" />}
       options={{
-        reload: props.reload,
+        reload: refetch,
       }}
       rowClassName={(record) => {
         return record.parentId ? "bg-yellow-50" : "";
       }}
       toolBarRender={() => [
-        <CreateMenuModal key="create-menu-modal" menuNotPerm={menuNotPerm} />,
+        <CreateMenuModal
+          key="create-menu-modal"
+          menuNotPerm={menuNotPerm}
+          refetch={refetch}
+        />,
       ]}
       expandable={{
         expandIcon: ExpandIcon,

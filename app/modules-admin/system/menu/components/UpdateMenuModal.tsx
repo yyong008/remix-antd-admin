@@ -48,15 +48,15 @@ export default function UpdateMenuModal({
         if (!c || !record.id) {
           return;
         }
-        let parentId = null;
+        let parent_menu_id = null;
         if (record.id && record.parent_menu_id) {
-          parentId = record.parent_menu_id;
+          parent_menu_id = record.parent_menu_id;
         } else if (record.parent_menu_id === null) {
-          parentId = -1;
+          parent_menu_id = -1;
         }
         form.setFieldsValue({
           ...record,
-          parentId,
+          parent_menu_id,
           type: Number(record.type),
         });
       }}

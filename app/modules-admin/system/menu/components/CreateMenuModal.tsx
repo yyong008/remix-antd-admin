@@ -9,10 +9,11 @@ import { systemMenu } from "@/apis-client/admin/system/menu";
 type MenuModalProps = {
   trigger?: () => void;
   menuNotPerm?: any[];
+  refetch: any;
 };
 
 export function CreateMenuModal(props: MenuModalProps) {
-  const { trigger, menuNotPerm } = props;
+  const { trigger, menuNotPerm, refetch } = props;
   const [form] = Form.useForm();
   const [createMenu] = systemMenu.useCreateMenuMutation();
 
@@ -60,6 +61,7 @@ export function CreateMenuModal(props: MenuModalProps) {
       onFinish={async (values: any) => {
         await createMenu(values);
         form.resetFields();
+        refetch?.();
         return true;
       }}
     >

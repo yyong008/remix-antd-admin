@@ -34,7 +34,7 @@ export function Route() {
         menuRaw={menuTreeData}
         loading={isLoading}
         menuNotPerm={menuTreeDataNotPerm!}
-        reload={refetch}
+        refetch={refetch}
         total={data?.data?.total}
       />
     </PageContainer>

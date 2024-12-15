@@ -80,6 +80,45 @@ class MenuService {
     const result = listToTree(data, t, lang);
     return result;
   }
+
+  /**
+   * 创建菜单
+   * @param args
+   * @returns
+   */
+  async create(args: any) {
+    const dto = await args.request.json();
+    if (dto.parent_menu_id < 0) {
+      dto.parent_menu_id = null;
+    }
+    const result = await menuDAL.create(dto);
+    return result;
+  }
+
+  /**
+   * 更新菜单
+   * @param args
+   * @returns
+   */
+  async update(args: any) {
+    const dto = await args.request.json();
+    if (dto.parent_menu_id < 0) {
+      dto.parent_menu_id = null;
+    }
+    const result = await menuDAL.update(dto);
+    return result;
+  }
+
+  /**
+   * 根据ids删除菜单
+   * @param args
+   * @returns
+   */
+  async delete(args: any) {
+    const ids = await args.request.json();
+    const result = await menuDAL.deleteByIds(ids);
+    return result;
+  }
 }
 
 export const menuService = new MenuService();
