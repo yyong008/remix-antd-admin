@@ -11,12 +11,11 @@ type CreateRoleModalProps = {
   trigger?: React.ReactNode;
   record: any;
   menu: any[];
-  menuRoles: any[];
   refetch: any;
 };
 
 export function UpdateRoleModal(props: CreateRoleModalProps) {
-  const { trigger, record, menu, menuRoles, refetch } = props;
+  const { trigger, record, menu, refetch } = props;
   const [form] = Form.useForm();
   const { colorPrimary } = useColorPrimary();
   const [checkedKeys, setCheckedKeys] = useState<any[]>([]);
@@ -26,16 +25,21 @@ export function UpdateRoleModal(props: CreateRoleModalProps) {
     setCheckedKeys(checkedKeys);
   };
 
-  const initCheckKeys = useMemo(() => {
-    if (record.id) {
-      return menuRoles
-        ?.filter((mr) => mr.roleId === record.id)
-        ?.map((r) => r.menuId);
-    } else {
-      return [];
-    }
-  }, [menuRoles, record]);
+  const initCheckKeys: any[] = useMemo(() => {
+    return record.MenuRole?.filter((mr: any) => mr.roleId === record.id)?.map(
+      (r: any) => r.menuId,
+    );
+  }, [record.MenuRole, record.id]);
 
+  const menus = useMemo(() => {
+    return record.MenuRole?.filter((mr: any) => mr.roleId === record.id)?.map(
+      (r: any) => ({
+        id: r.id,
+        key: r.id,
+        value: r.id,
+      }),
+    );
+  }, [record.MenuRole, record.id]);
   useEffect(() => {
     if (record.id) {
       setCheckedKeys(initCheckKeys);
@@ -65,19 +69,10 @@ export function UpdateRoleModal(props: CreateRoleModalProps) {
         if (e) {
           form.setFieldsValue({
             ...record,
-            menus: menuRoles
-              ?.filter((mr) => mr.roleId === record.id)
-              ?.map((r) => ({
-                id: r.id,
-                key: r.id,
-                value: r.id,
-              })),
+            menus,
           });
           if (record.id) {
-            const keys: any[] = menuRoles
-              ?.filter((mr) => mr.roleId === record.id)
-              ?.map((r) => r.menuId);
-            setCheckedKeys(keys);
+            setCheckedKeys(initCheckKeys);
           }
         }
       }}
