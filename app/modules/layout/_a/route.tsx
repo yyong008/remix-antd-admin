@@ -14,6 +14,7 @@ import { memo, useContext, useMemo, useState } from "react";
 
 import { App as AntdApp } from "antd";
 import { SettingContext } from "@/context";
+import { info } from "@/config/project";
 import { prolayoutConfig } from "@/config/prolayout";
 import { useGetUserInfoQuery } from "@/apis-client/common/user-info";
 import { useNProgress } from "@/hooks";
@@ -41,7 +42,7 @@ function AdminLayout() {
 
   return (
     <AntdApp>
-      <WaterMark content="Remix Antd Admin">
+      <WaterMark content={info.WaterMark}>
         <ProLayout
           location={{
             pathname,
