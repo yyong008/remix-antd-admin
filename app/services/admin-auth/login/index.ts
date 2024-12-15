@@ -66,7 +66,7 @@ class LoginService {
     const vDto = await args.request.json();
     const user = await this.findUserByName(vDto);
     this.matchPassword(vDto, user);
-    await this.recordLoginLog(args, user);
+    this.recordLoginLog(args, user);
     const ts = {
       refresh_token: await joseJwt.signRefreshToken(user.id),
       token: await joseJwt.signToken(user.id),

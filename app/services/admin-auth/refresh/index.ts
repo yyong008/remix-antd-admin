@@ -8,7 +8,7 @@ class RefreshTokenTool {
    * @param args
    * @returns
    */
-  async createToken(args: ActionFunctionArgs) {
+  async createTokens(args: ActionFunctionArgs) {
     const vDto = await args.request.json();
     const { refresh_token } = vDto;
     const result: any = await joseJwt.getPayloadByToken(refresh_token);

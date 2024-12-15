@@ -6,8 +6,8 @@ const options: Op = {
   POST: {
     isPublic: true,
     perm: "",
-    handler: refreshTokenTool.createToken.bind(refreshTokenTool),
+    handler: refreshTokenTool.createTokens.bind(refreshTokenTool),
   },
 };
 
-export const { loader } = remixApi.createApi(options);
+export const { action } = remixApi.createApi(options);
