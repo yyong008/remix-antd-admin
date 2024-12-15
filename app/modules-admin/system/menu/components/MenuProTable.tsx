@@ -42,7 +42,7 @@ export function MenuProTable(props: SystemMenuProps) {
     <ProTable<TableListItem>
       size="small"
       bordered
-      columns={createColumns({ refetch: reload }) as any}
+      columns={createColumns({ refetch: reload, menuNotPerm }) as any}
       scroll={{ x: 1300 }}
       dataSource={menuRaw}
       rowKey="id"

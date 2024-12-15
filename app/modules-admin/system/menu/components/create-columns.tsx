@@ -12,7 +12,7 @@ import { Space, Tag, Tooltip } from "antd";
 import { DeleteAction } from "./DeleteAction";
 import UpdateMenuModal from "./UpdateMenuModal";
 
-export const createColumns = ({ refetch }: any) => [
+export const createColumns = ({ refetch, menuNotPerm }: any) => [
   {
     key: "name",
     title: "名称",
@@ -150,7 +150,7 @@ export const createColumns = ({ refetch }: any) => [
           key="update-memu-modal"
           record={record}
           refetch={refetch}
-          menuNotPerm={[]}
+          menuNotPerm={menuNotPerm}
         />
         <DeleteAction
           title="确定要删除此用户吗?"

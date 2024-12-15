@@ -33,7 +33,6 @@ export function Route() {
       return genMenuTreeForRole(menuAll, t, null);
     }
   }, [flatMenu, menuAll, t]);
-  console.log(menuRoles);
 
   return (
     <PageContainer>

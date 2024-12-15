@@ -11,7 +11,6 @@ import { AntdIconSelect } from "@/components/common/AntdIconSelect";
 import { useState } from "react";
 
 export function TypeDir({ menuNotPerm, form }: any) {
-  console.log("form", form);
   const [selectIconStr, setSelectIconStr] = useState(
     form?.getFieldValue("icon") ?? "",
   );
