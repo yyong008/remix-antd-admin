@@ -78,7 +78,6 @@ export const fetchQuery = async (
   let result = await _fetchQuery(args, api, extraOptions);
   const { code, message } = (result?.data || {}) as any;
   if (code !== 0 && message === rq.JOSE_ERROR_EXP) {
-    debugger;
     const refreshToken = simpleStorage.getRefreshToken();
     if (!refreshToken) {
       redirectToLiginWithLang();
