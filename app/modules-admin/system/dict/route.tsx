@@ -1,7 +1,8 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
-import { DictModal } from "./components/dict/create-dict-modal";
-import { createColumns } from "./components/dict-pro-table/create-columns";
+import { CreateDictModal } from "./components/CreateDictModal";
+import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
+import { createColumns } from "./components/create-columns";
 import { useParamsLang } from "@/hooks/user-params-lang";
 import { useReadSystemDictListQuery } from "@/apis-client/admin/system/dict";
 import { useState } from "react";
@@ -19,13 +20,13 @@ export function Route() {
         rowKey="id"
         size="small"
         search={false}
-        headerTitle="字典项目"
+        headerTitle={<ProTableHeaderTitle title="字典项目" />}
         loading={isLoading}
         toolBarRender={() => [
-          <DictModal record={{}} key="create-dict-modal" />,
+          <CreateDictModal refetch={refetch} key="create-dict-modal" />,
         ]}
         dataSource={data?.data?.list || []}
-        columns={createColumns({ lang })}
+        columns={createColumns({ lang, refetch })}
         options={{
           reload: refetch,
         }}

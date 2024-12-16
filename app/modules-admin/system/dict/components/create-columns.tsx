@@ -1,17 +1,23 @@
-import * as _icons from "@ant-design/icons";
+import { FormatTime, StatusType } from "@/components/common";
+import { Space, Tag } from "antd";
 
-import { Button, Space, Tag, Tooltip } from "antd";
-import { DeleteIt, FormatTime, StatusType } from "~/components/common";
-
-import { DictModal } from "../dict/create-dict-modal";
+import { DeleteAction } from "./DeleteAction";
 import { Link } from "@remix-run/react";
+import { ProfileOutlined } from "@ant-design/icons";
+import { UpdateDictModal } from "./UpdateDictModal";
 
-const { EyeOutlined } = _icons;
-
-export const createColumns = ({ lang }: any) => [
+export const createColumns = ({ lang, refetch }: any) => [
   {
     dataIndex: "name",
     title: "字典名",
+    render(_: any, record: any) {
+      return (
+        <div className="flex font-bold gap-4">
+          <ProfileOutlined />
+          <span>{record.name}</span>
+        </div>
+      );
+    },
   },
   {
     dataIndex: "code",
@@ -55,15 +61,14 @@ export const createColumns = ({ lang }: any) => [
     render(_: any, record: any) {
       return (
         <Space size="small">
-          <Tooltip title="预览字典">
-            <Link to={`/${lang}/admin/system/dict-item/${record.id}`}>
-              <Button type="link" icon={<EyeOutlined />}></Button>
-            </Link>
-          </Tooltip>
-          <DictModal record={record} key="create-dict-modal" />
-          <DeleteIt
-            title="确定要删除此部门吗?"
-            fetcher={() => {}}
+          <UpdateDictModal
+            record={record}
+            refetch={refetch}
+            key="update-dict-modal"
+          />
+          <DeleteAction
+            title="确定要删除字典？"
+            refetch={refetch}
             record={record}
           />
         </Space>
@@ -75,7 +80,7 @@ export const createColumns = ({ lang }: any) => [
 function TagLink({ lang, record }: any) {
   return (
     <Link to={`/${lang}/admin/system/dict-item/${record.id}`}>
-      <Tag color="yellow">{record.code}</Tag>
+      <Tag color="blue">{record.code}</Tag>
     </Link>
   );
 }

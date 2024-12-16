@@ -8,7 +8,7 @@ export function ModalFormItems() {
   return (
     <>
       <ProFormText
-        name="key"
+        name="name"
         label="字典名称"
         placeholder="请输入"
         rules={[
@@ -19,7 +19,7 @@ export function ModalFormItems() {
         ]}
       />
       <ProFormText
-        name="value"
+        name="code"
         label="字典编码"
         placeholder="请输入"
         rules={[

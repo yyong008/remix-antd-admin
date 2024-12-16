@@ -1,19 +1,21 @@
-import * as ic from "@ant-design/icons";
-
 import { Button, Form } from "antd";
 
+import { EditOutlined } from "@ant-design/icons";
 import { ModalForm } from "@ant-design/pro-components";
-import { ModalFormItems } from "./modal-form-items";
+import { ModalFormItems } from "./ModalFormItems";
+import { systemDictItem } from "@/apis-client/admin/system/dict-item";
+import { useColorPrimary } from "@/hooks/use-color-primary";
 
-const { EditOutlined } = ic;
-
-export function DictModal({ trigger, record, fetcher }: any) {
+export function UpdateDictItemModal({ trigger, record, refetch }: any) {
   const [form] = Form.useForm();
+  const { colorPrimary } = useColorPrimary();
+  const [updateSystemDictItemById] =
+    systemDictItem.useUpdateSystemDictItemByIdMutation();
   return (
     <ModalForm
       key={Date.now()}
       preserve={false}
-      title={record?.id ? "修改字典" : "创建字典"}
+      title={"修改字典项"}
       onOpenChange={(c) => {
         if (!c || !record.id) {
           return;
@@ -25,11 +27,9 @@ export function DictModal({ trigger, record, fetcher }: any) {
       trigger={
         trigger ?? (
           <Button
-            type={!record.id ? "primary" : "link"}
-            icon={<EditOutlined />}
-          >
-            {!record.id ? "新建" : ""}
-          </Button>
+            type={"link"}
+            icon={<EditOutlined style={{ color: colorPrimary }} />}
+          ></Button>
         )
       }
       form={form}
@@ -44,10 +44,11 @@ export function DictModal({ trigger, record, fetcher }: any) {
         if (record.id) {
           vals.id = record.id;
         }
-        fetcher.submit(vals, {
-          method: record.id ? "PUT" : "POST", // 修改或新建
-          encType: "application/json",
+        await updateSystemDictItemById({
+          dictionary_id: record.dictionary_id,
+          data: vals,
         });
+        refetch?.();
         form.resetFields();
         return true;
       }}

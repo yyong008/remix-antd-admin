@@ -32,16 +32,11 @@ export class DictItemDAL {
    * @returns
    */
   async getById(id: number) {
-    try {
-      return await prisma.dictionaryEntry.findUnique({
-        where: {
-          id,
-        },
-      });
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
+    return await prisma.dictionaryEntry.findUnique({
+      where: {
+        id,
+      },
+    });
   }
 
   /**
@@ -57,16 +52,53 @@ export class DictItemDAL {
     page: number;
     pageSize: number;
   }) {
-    try {
-      return await prisma.dictionaryEntry.findMany({
-        where: {
-          dictionary_id,
+    return await prisma.dictionaryEntry.findMany({
+      where: {
+        dictionary_id,
+      },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    });
+  }
+
+  /**
+   * 创建字典项
+   * @param data
+   * @returns
+   */
+  async create(data: any) {
+    return await prisma.dictionaryEntry.create({
+      data,
+    });
+  }
+
+  /**
+   * 更新字典项
+   * @param param0
+   * @returns
+   */
+  async update({ id, ...data }: any) {
+    return await prisma.dictionaryEntry.update({
+      where: {
+        id,
+      },
+      data,
+    });
+  }
+
+  /**
+   * 根据 ids 删除
+   * @param ids
+   * @returns
+   */
+  async deleteByIds(ids: number[]) {
+    return await prisma.dictionaryEntry.deleteMany({
+      where: {
+        id: {
+          in: ids,
         },
-      });
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
+      },
+    });
   }
 }
 

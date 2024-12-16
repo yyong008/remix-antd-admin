@@ -1,21 +1,26 @@
-import { DeleteIt, StatusType } from "~/components/common";
-
-import { DictItemModal } from "~/modules-admin/system/dict/components/dict/create-dict-item-modal";
+import { DeleteAction } from "./DeleteAction";
+import { OneToOneOutlined } from "@ant-design/icons";
 import { Space } from "antd";
+import { StatusType } from "@/components/common";
+import { UpdateDictItemModal } from "./UpdateDictItemModal";
 import { formatDate } from "@/utils/client";
 
-export const createColumns = () => [
+export const createColumns = ({ refetch }: any) => [
   {
     dataIndex: "key",
     title: "字典键",
+    render(_: any, record: any) {
+      return (
+        <div className="flex font-bold gap-4">
+          <OneToOneOutlined />
+          <span>{record.key}</span>
+        </div>
+      );
+    },
   },
   {
     dataIndex: "value",
     title: "字典值",
-  },
-  {
-    dataIndex: "description",
-    title: "描述",
   },
   {
     dataIndex: "remark",
@@ -48,10 +53,14 @@ export const createColumns = () => [
     render(_: any, record: any) {
       return (
         <Space>
-          <DictItemModal key="create-dict-modal" record={record} />
-          <DeleteIt
-            title="确定要删除此部门吗?"
-            fetcher={() => {}}
+          <UpdateDictItemModal
+            key="update-dict-item-modal"
+            record={record}
+            refetch={refetch}
+          />
+          <DeleteAction
+            title="确定要删除字典？"
+            refetch={refetch}
             record={record}
           />
         </Space>

@@ -24,6 +24,33 @@ export class DictDAL {
       take,
     });
   }
+
+  /**
+   * 创建字典
+   * @param data
+   * @returns
+   */
+  async create(data: any) {
+    return await prisma.dictionary.create({ data });
+  }
+
+  /**
+   * 更新字典
+   * @param data
+   * @returns
+   */
+  async update(data: any) {
+    return await prisma.dictionary.update({ where: { id: data.id }, data });
+  }
+
+  /**
+   * 删除
+   * @param ids
+   * @returns
+   */
+  async deleteByIds(ids: number[]) {
+    return await prisma.dictionary.deleteMany({ where: { id: { in: ids } } });
+  }
 }
 
 export const dictDAL = new DictDAL();
