@@ -2,6 +2,25 @@ import prisma from "@/libs/prisma";
 
 export class BlogDAL {
   /**
+   * 获取数量
+   * @returns
+   */
+  public async getCount() {
+    return await prisma.blog.count();
+  }
+
+  /**
+   * 获取分页
+   * @param param0
+   * @returns
+   */
+  public async getPage({ page, pageSize }: any) {
+    return await prisma.blog.findMany({
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    });
+  }
+  /**
    * 创建
    * @param data
    * @returns

@@ -1,20 +1,15 @@
-import * as ls from "./loaders";
-import type * as tn from "@remix-run/node";
-import * as us from "~/utils/server";
+import type { Op } from "@/types/restful";
+import { blogService } from "@/services/client/BlogService";
+import { remixApi } from "@/utils/server/remixApi";
 
-class L {
-  static async loader(args: tn.LoaderFunctionArgs) {
-    try {
-      return L.loaderImpl(args);
-    } catch (error) {
-      return us.rfj();
-    }
-  }
+// import { blogCategoryPermissions as perm } from "@/constants/permission";
 
-  static async loaderImpl(args: tn.LoaderFunctionArgs) {
-    const result = await ls.query(args);
-    return us.rsj(result);
-  }
-}
+const options: Op = {
+  GET: {
+    isPublic: true,
+    perm: "",
+    handler: blogService.getList,
+  },
+};
 
-export const loader = L.loader;
+export const { loader } = remixApi.createApi(options);

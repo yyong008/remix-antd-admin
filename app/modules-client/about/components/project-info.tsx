@@ -6,12 +6,7 @@ import { ProCard } from "@ant-design/pro-components";
 export const ProjectInfo = () => {
   const { pkg, lastBuildTime } = __APP_INFO__;
   return (
-    <ProCard
-      style={{
-        backgroundColor: "rgba(0, 0, 0,0.05)",
-        backdropFilter: "blur(4px)",
-      }}
-    >
+    <ProCard>
       <Descriptions title="项目信息" column={2} bordered>
         <Descriptions.Item label="版本">
           <Tag color="processing">{pkg.version}</Tag>

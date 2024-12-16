@@ -5,12 +5,7 @@ import { ProCard } from "@ant-design/pro-components";
 export const ProjectDevelopmentDep = () => {
   const { pkg } = __APP_INFO__;
   return (
-    <ProCard
-      style={{
-        backgroundColor: "rgba(0, 0, 0,0.05)",
-        backdropFilter: "blur(4px)",
-      }}
-    >
+    <ProCard>
       <Descriptions title="开发依赖" column={2} bordered>
         {Object.keys(pkg.devDependencies)?.map(
           (value: string, number: number) => {

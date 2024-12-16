@@ -15,6 +15,18 @@ export class NewsDAL {
    * @param data
    * @returns
    */
+  async getPage(data: any) {
+    return await prisma.news.findMany({
+      skip: data.pageSize * (data.page - 1),
+      take: data.pageSize,
+    });
+  }
+
+  /**
+   * 获取列表
+   * @param data
+   * @returns
+   */
   async getList(data: any) {
     return await prisma.news.findMany({
       where: {

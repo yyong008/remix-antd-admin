@@ -22,12 +22,7 @@ export const ProjectAbout = () => {
     内置了动态路由、权限验证、菜单、数据库全栈管理工具
   `;
   return (
-    <ProCard
-      style={{
-        backgroundColor: "rgba(0, 0, 0,0.05)",
-        backdropFilter: "blur(4px)",
-      }}
-    >
+    <ProCard>
       <Descriptions title="关于">
         <Descriptions.Item>{description}</Descriptions.Item>
       </Descriptions>
