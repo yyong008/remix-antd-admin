@@ -1,12 +1,12 @@
 import * as clientUtils from "@/utils/client";
 
 import { ConfigProvider, message } from "antd";
+import { Link, useNavigate, useParams } from "@remix-run/react";
 import { LoginForm, ProConfigProvider } from "@ant-design/pro-components";
 import {
   setLocalStorageRefreshToken,
   setLocalStorageToken,
 } from "@/libs/localstorage";
-import { useNavigate, useParams } from "@remix-run/react";
 
 import { ActionIcons } from "@/components/user-login";
 import { SettingContext } from "@/context";
@@ -69,11 +69,17 @@ export function LoginFormWrap({ children }: any) {
             }}
             actions={[
               <div
-                className="flex items-centermt-[20px] text-black"
+                className="flex justify-between items-centermt-[20px] text-black"
                 key="login-other"
               >
-                <div>{t("login-register.other-login")}</div>
-                <ActionIcons key="icons" />
+                <data className="flex items-center">
+                  <div>{t("login-register.other-login")}</div>
+                  <ActionIcons key="icons" />
+                </data>
+
+                <div className="flex justify-between items-center">
+                  <Link to={`/${lang}/admin/register`}>register</Link>
+                </div>
               </div>,
             ]}
             onFinish={async (values: string) => {
