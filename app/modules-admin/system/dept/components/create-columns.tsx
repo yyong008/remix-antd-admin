@@ -9,6 +9,9 @@ export const createColumns = ({ treeOptions, refetch }: any) => [
     title: "部门名称",
     width: 300,
     // ellipsis: true,
+    render(_: any, record: any) {
+      return <span className="font-bold">{record?.name}</span>;
+    },
   },
   {
     dataIndex: "description",

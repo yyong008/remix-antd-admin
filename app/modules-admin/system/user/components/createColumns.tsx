@@ -27,7 +27,11 @@ export const createUserTableColumns = ({
     align: "center",
     ellipsis: true,
     render(_: any, record: any) {
-      return <h1 style={{ color: colorPrimary }}>{record.name}</h1>;
+      return (
+        <h1 style={{ color: colorPrimary }} className="font-bold">
+          {record.name}
+        </h1>
+      );
     },
   },
   {

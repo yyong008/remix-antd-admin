@@ -20,7 +20,11 @@ export const createColumns = ({ refetch, menuNotPerm }: any) => [
     ellipsis: true,
     width: 200,
     render(_: any, record: any) {
-      return <Tooltip title={record?.description}>{record?.name}</Tooltip>;
+      return (
+        <Tooltip title={record?.description}>
+          <span className="font-bold">{record?.name}</span>
+        </Tooltip>
+      );
     },
   },
   {
