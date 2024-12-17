@@ -4,13 +4,13 @@ import {
   ERROR_PASSWWORD,
   ERROR_UNREGISTER,
 } from "@/constants/error";
-import { joseJwt } from "@/libs/jose";
 
 import { loginDAL } from "@/dals/login/LoginDAL";
 import { loginLogDAL } from "@/dals/system/LoginLogDAL";
 import { bcryptUtil } from "@/utils/server/bcrypt.util";
 import { ipUtils } from "@/utils/server/ip.util";
-
+import { userDAL } from "@/dals/system/UserDAL";
+import { Roles } from "@/types";
 class RegisterService {
   /**
    * 匹配密码
@@ -25,6 +25,16 @@ class RegisterService {
     );
     if (!isMatch) throw Error(ERROR_PASSWWORD);
     return isMatch;
+  }
+
+  /**
+   * 根据 Name 发现用户
+   * @param dataDto
+   * @returns
+   */
+  async simplefindUserByName(dataDto: any) {
+    const user: any = await loginDAL.findByUserName(dataDto.username);
+    return user;
   }
 
   /**
@@ -64,15 +74,23 @@ class RegisterService {
    */
   async register(args: ActionFunctionArgs) {
     const vDto = await args.request.json();
-    // TODO 对比
-    const user = await this.findUserByName(vDto);
-    this.matchPassword(vDto, user);
-    await this.recordLoginLog(args, user);
-    const ts = {
-      refresh_token: await joseJwt.signRefreshToken(user.id),
-      token: await joseJwt.signToken(user.id),
-    };
-    return ts;
+    if (vDto.password !== vDto.passwordRe) throw Error(ERROR_PASSWWORD);
+    const user = await this.simplefindUserByName(vDto);
+    if (user) throw Error("用户已存在");
+    let new_user: any = await userDAL.create({
+      ...vDto,
+      name: vDto.username,
+      password: bcryptUtil.hashPassword(vDto.password),
+      departmentId: 1,
+      roles: [Roles.User],
+    });
+    if (!new_user) throw Error("注册失败");
+    let find_new_user: any = await loginDAL.findByUserName(vDto.username);
+    if (!find_new_user) throw Error("注册失败");
+    if (find_new_user.password) {
+      delete find_new_user.password;
+    }
+    return find_new_user;
   }
 }
 

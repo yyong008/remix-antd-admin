@@ -121,7 +121,7 @@ export class UserDAL {
         },
       });
       // 错误-回滚
-      if (!user.id) {
+      if (!user || !user.id) {
         throw new Error(`create user fail`);
       }
       // 用户-角色关联

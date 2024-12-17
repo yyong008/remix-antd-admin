@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { fetchQuery } from "../_base-query";
 
-export const auth = createApi({
+export const authApi = createApi({
   reducerPath: "auth",
   baseQuery: fetchQuery,
   endpoints: (builder) => ({
@@ -14,7 +14,16 @@ export const auth = createApi({
         keepUnusedDataFor: 0,
       }),
     }),
+    register: builder.mutation({
+      transformResponse: (data: any) => data,
+      query: (data) => ({
+        url: "register",
+        method: "POST",
+        body: JSON.stringify(data),
+        keepUnusedDataFor: 0,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = auth;
+export const { useLoginMutation } = authApi;

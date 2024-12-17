@@ -1,8 +1,8 @@
-import { remixApi } from "@/utils/server/remixApi";
 import { registerService } from "@/services/admin-auth/register";
+import { remixApi } from "@/utils/server/remixApi";
 
 const options = {
-  GET: {
+  POST: {
     isPublic: true,
     // schema: LoginSchema,
     perm: "",

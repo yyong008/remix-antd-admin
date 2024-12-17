@@ -1,5 +1,11 @@
 import "./index";
 
+export enum Roles {
+  SuperAdmin = 1,
+  Admin = 2,
+  User = 3,
+}
+
 export type TPage = {
   page?: number;
   pageSize?: number;
