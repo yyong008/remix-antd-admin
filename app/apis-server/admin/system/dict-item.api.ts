@@ -1,32 +1,40 @@
 import type { Op } from "@/types/restful";
 import { dictItemService } from "@/services/admin/system/DictItemService";
+import { permissions } from "@/constants/permission";
 import { remixApi } from "@/utils/server/remixApi";
-
-// import { blogCategoryPermissions as perm } from "@/constants/permission";
+import { schemas } from "@/schemas";
 
 const options: Op = {
   GET: {
     isPublic: false,
-    perm: "",
-    // perm: perm.READ_LIST,
+    schemas: {
+      url: schemas.admin.system.dictItem.READ_LIST,
+    },
+    perm: permissions.admin.system.dictItem.READ_LIST,
     handler: dictItemService.getList.bind(dictItemService),
   },
   POST: {
     isPublic: false,
-    perm: "",
-    // perm: perm.CREATE,
+    schemas: {
+      body: schemas.admin.system.dictItem.CREATE,
+    },
+    perm: permissions.admin.system.dictItem.CREATE,
     handler: dictItemService.create.bind(dictItemService),
   },
   PUT: {
     isPublic: false,
-    perm: "",
-    // perm: perm.UPDATE,
+    schemas: {
+      body: schemas.admin.system.dictItem.UPDATE,
+    },
+    perm: permissions.admin.system.dictItem.UPDATE,
     handler: dictItemService.update.bind(dictItemService),
   },
   DELETE: {
     isPublic: false,
-    perm: "",
-    // perm: perm.DELETE,
+    schemas: {
+      body: schemas.admin.system.dictItem.DELETE,
+    },
+    perm: permissions.admin.system.dictItem.DELETE,
     handler: dictItemService.deleteByIds.bind(dictItemService),
   },
 };

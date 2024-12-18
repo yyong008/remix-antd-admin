@@ -1,11 +1,13 @@
 import type { Op } from "@/types/restful";
 import { dashboardServices } from "@/services/admin/dashboard";
-import { remixApi } from "~/utils/server/remixApi";
+import { permissions } from "@/constants/permission";
+import { remixApi } from "@/utils/server/remixApi";
 
 const options: Op = {
   GET: {
     isPublic: false,
-    perm: "",
+    perm: permissions.admin.dashboard.READ,
+    schemas: {},
     handler: dashboardServices.getDashboardData.bind(dashboardServices),
   },
 };

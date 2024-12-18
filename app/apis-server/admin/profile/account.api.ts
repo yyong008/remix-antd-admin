@@ -1,13 +1,12 @@
 import type { Op } from "@/types/restful";
+import { permissions } from "@/constants/permission";
 import { profileAccountService } from "~/services/admin/profile/AccountService";
 import { remixApi } from "~/utils/server/remixApi";
-// import { blogCategoryPermissions as perm } from "@/constants/permission";
 
 const options: Op = {
   GET: {
     isPublic: false,
-    perm: "",
-    // perm: perm.READ_LIST,
+    perm: permissions.admin.profile.account.READ,
     handler: profileAccountService.getByUserId,
   },
 };

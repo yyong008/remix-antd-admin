@@ -1,10 +1,13 @@
 import { remixApi } from "@/utils/server/remixApi";
 import { uploadService } from "@/services/admin/upload/index";
+import { schemas } from "@/schemas";
 
 const options = {
   POST: {
     isPublic: true,
-    // perm: perm.CREATE,
+    schemas: {
+      body: schemas.admin.upload.CREATE,
+    },
     handler: uploadService.uploadAvatar.bind(uploadService),
   },
 };

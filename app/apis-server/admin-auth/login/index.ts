@@ -1,13 +1,13 @@
 import type { Op } from "@/types/restful";
-import { loginSchema } from "@/schema/auth/login";
 import { loginService } from "@/services/admin-auth/login";
 import { remixApi } from "@/utils/server/remixApi";
+import { schemas } from "@/schemas";
 
 const options: Op = {
   POST: {
     isPublic: true,
     schemas: {
-      body: loginSchema.CREATE,
+      body: schemas.adminAuth.login.CREATE,
     },
     perm: "",
     isPresentationMode: false,

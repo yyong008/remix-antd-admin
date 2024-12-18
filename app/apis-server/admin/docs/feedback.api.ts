@@ -1,29 +1,40 @@
 import type { Op } from "@/types/restful";
-import { feedBackService } from "~/services/admin/docs/FeedbackService";
-import { remixApi } from "~/utils/server/remixApi";
-
-// import { blogCategoryPermissions as perm } from "@/constants/permission";
+import { feedBackService } from "@/services/admin/docs/FeedbackService";
+import { permissions } from "@/constants/permission";
+import { remixApi } from "@/utils/server/remixApi";
+import { schemas } from "@/schemas";
 
 const options: Op = {
   GET: {
     isPublic: false,
-    perm: "",
-    // perm: perm.READ_LIST,
+    perm: permissions.admin.docs.feedback.READ_LIST,
+    schemas: {
+      url: schemas.admin.docs.feedback.READ_LIST,
+    },
     handler: feedBackService.getList,
   },
   POST: {
     isPublic: false,
-    // perm: perm.CREATE,
+    perm: permissions.admin.docs.feedback.CREATE,
+    schemas: {
+      body: schemas.admin.docs.feedback.CREATE,
+    },
     handler: feedBackService.create,
   },
   PUT: {
     isPublic: false,
-    // perm: perm.UPDATE,
+    perm: permissions.admin.docs.feedback.UPDATE,
+    schemas: {
+      body: schemas.admin.docs.feedback.UPDATE,
+    },
     handler: feedBackService.update,
   },
   DELETE: {
     isPublic: false,
-    // perm: perm.DELETE,
+    perm: permissions.admin.docs.feedback.DELETE,
+    schemas: {
+      body: schemas.admin.docs.feedback.DELETE,
+    },
     handler: feedBackService.deleteByIds,
   },
 };

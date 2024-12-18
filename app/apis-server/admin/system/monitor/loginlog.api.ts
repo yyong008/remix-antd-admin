@@ -1,13 +1,16 @@
 import type { Op } from "@/types/restful";
-import { monitorLoginLogService } from "~/services/admin/system/MonitorLoginlogService";
-import { remixApi } from "~/utils/server/remixApi";
-// import { blogCategoryPermissions as perm } from "@/constants/permission";
+import { monitorLoginLogService } from "@/services/admin/system/MonitorLoginlogService";
+import { permissions } from "@/constants/permission";
+import { remixApi } from "@/utils/server/remixApi";
+import { schemas } from "@/schemas";
 
 const options: Op = {
   GET: {
     isPublic: false,
-    perm: "",
-    // perm: perm.READ_LIST,
+    schemas: {
+      url: schemas.admin.system.monitor.loginlog.READ_LIST,
+    },
+    perm: permissions.admin.system.monitor.loginlog.READ_LIST,
     handler: monitorLoginLogService.getList.bind(monitorLoginLogService),
   },
 };

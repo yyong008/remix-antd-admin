@@ -1,28 +1,26 @@
-import { linkCategoryService } from "~/services/admin/profile/LinkCategoryService";
+import { linkCategoryService } from "@/services/admin/profile/LinkCategoryService";
+import { permissions } from "@/constants/permission";
 import { remixApi } from "@/utils/server/remixApi";
-
-// import { blogCategoryPermissions as perm } from "@/constants/permission";
 
 const options = {
   GET: {
     isPublic: false,
-    perm: "",
-    // perm: perm.READ_LIST,
+    perm: permissions.admin.tools.storage.READ_LIST,
     handler: linkCategoryService.getList.bind(linkCategoryService),
   },
   POST: {
     isPublic: false,
-    // perm: perm.CREATE,
+    perm: permissions.admin.tools.storage.CREATE,
     handler: linkCategoryService.create.bind(linkCategoryService),
   },
   PUT: {
     isPublic: false,
-    // perm: perm.UPDATE,
+    perm: permissions.admin.tools.storage.UPDATE,
     handler: linkCategoryService.update.bind(linkCategoryService),
   },
   DELETE: {
     isPublic: false,
-    // perm: perm.DELETE,
+    perm: permissions.admin.tools.storage.DELETE,
     handler: linkCategoryService.deleteByIds.bind(linkCategoryService),
   },
 };

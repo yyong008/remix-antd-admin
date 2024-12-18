@@ -1,29 +1,41 @@
-import type { Op } from "@/types/restful";
-import { remixApi } from "@/utils/server/remixApi";
-import { userService } from "~/services/admin/system/UserService";
+import { schemas } from "@/schemas";
 
-// import { blogCategoryPermissions as perm } from "@/constants/permission";
+import type { Op } from "@/types/restful";
+import { permissions } from "@/constants/permission";
+import { remixApi } from "@/utils/server/remixApi";
+import { userService } from "@/services/admin/system/UserService";
 
 const options: Op = {
   GET: {
     isPublic: false,
-    perm: "",
-    // perm: perm.READ_LIST,
+    perm: permissions.admin.system.user.READ_LIST,
+    schemas: {
+      url: schemas.admin.system.user.READ_LIST,
+    },
     handler: userService.getList.bind(userService),
   },
   POST: {
     isPublic: false,
-    // perm: perm.CREATE,
+    perm: permissions.admin.system.user.CREATE,
+    schemas: {
+      body: schemas.admin.system.user.CREATE,
+    },
     handler: userService.create.bind(userService),
   },
   PUT: {
     isPublic: false,
-    // perm: perm.UPDATE,
+    schemas: {
+      body: schemas.admin.system.user.UPDATE,
+    },
+    perm: permissions.admin.system.user.UPDATE,
     handler: userService.update.bind(userService),
   },
   DELETE: {
     isPublic: false,
-    // perm: perm.DELETE,
+    schemas: {
+      body: schemas.admin.system.user.DELETE,
+    },
+    perm: permissions.admin.system.user.DELETE,
     handler: userService.deleteByIds.bind(userService),
   },
 };
