@@ -20,7 +20,7 @@ export function TypePermission({ menuNotPerm }: any) {
         ]}
       />
       <ProFormTreeSelect
-        name="parentId"
+        name="parent_menu_id"
         label="上级节点"
         placeholder="请选择上级节点"
         request={() => {
