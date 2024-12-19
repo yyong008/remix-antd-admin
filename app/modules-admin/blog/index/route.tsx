@@ -7,7 +7,6 @@ import { useEffect, useMemo } from "react";
 import { useParams, useSearchParams } from "@remix-run/react";
 
 import { message } from "antd";
-import { useFetcherChange } from "@/hooks";
 import { useReadBlogListQuery } from "@/apis-client/admin/blog/blog";
 
 export function Route() {
@@ -21,7 +20,6 @@ export function Route() {
   });
   const { dataSource, tag: tagInfo, category: categoryInfo } = data?.data || {};
   const { lang } = useParams();
-  const fetcher = useFetcherChange();
 
   const info = useMemo(() => {
     let name = "";
@@ -49,7 +47,7 @@ export function Route() {
         dataSource={dataSource as any[]}
         headerTitle={info.name}
         toolBarRender={() => createBlogCategoryToolBarRender(lang!)}
-        columns={blogColumnsCreate(lang!, fetcher, info) as any}
+        columns={blogColumnsCreate(lang!, () => {}, info) as any}
       />
     </PageContainer>
   );
