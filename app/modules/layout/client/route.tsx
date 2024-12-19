@@ -1,6 +1,6 @@
-import { Nav } from "./components";
+import { Nav } from "./components/Nav";
 import { Outlet } from "@remix-run/react";
-import { useNProgress } from "~/hooks";
+import { useNProgress } from "@/hooks/useNprogress";
 
 export function Route() {
   useNProgress();

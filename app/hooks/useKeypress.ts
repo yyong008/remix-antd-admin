@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from "react";
+
 import { fromEvent } from "rxjs";
 
-function useKeyPress(resetTime = 100) {
+export function useKeyPress(resetTime = 100) {
   const [key, setKey] = useState("");
   const tRef = useRef<any>();
 
   useEffect(() => {
     const keyDownObservable = fromEvent(document, "keydown");
 
-    const subscription = keyDownObservable.subscribe((event) => {
+    const subscription = keyDownObservable.subscribe((event: any) => {
       if (event.key) {
         setKey(event.key);
       }

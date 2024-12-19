@@ -1,5 +1,5 @@
 import { ExportOutlined } from "@ant-design/icons";
-import { useColorPrimary } from "~/hooks/use-color-primary";
+import { useColorPrimary } from "~/hooks/useColorPrimary";
 
 type MProps = {
   path: string;

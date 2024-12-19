@@ -1,11 +1,11 @@
 import { DownOutlined, RightOutlined } from "@ant-design/icons";
 
 import { Space } from "antd";
-import { useAntdThemeToken } from "@/hooks";
+import { useAntdThemeToken } from "~/hooks/useAntdThemeToken";
 
 export const ExpandIcon = ({ expanded, onExpand, record }: any) => {
-  const token = useAntdThemeToken();
-  const style = { fontSize: 12, color: token.colorPrimary };
+  const { colorPrimary } = useAntdThemeToken();
+  const style = { fontSize: 12, color: colorPrimary };
   return expanded ? (
     <Space>
       <DownOutlined style={style} onClick={(e) => onExpand(record, e)} />

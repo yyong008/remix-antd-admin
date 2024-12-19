@@ -6,7 +6,7 @@ import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
 import { createColumns } from "./components/create-columns";
 import { genMenuTreeForRole } from "./utils";
 import { systemMenuRoleApi } from "@/apis-client/admin/system/role/menu-role";
-import { usePage } from "@/hooks/use-pagination";
+import { usePage } from "~/hooks/usePagination";
 import { useParams } from "@remix-run/react";
 import { useReadMenuListRawQuery } from "@/apis-client/admin/system/menu";
 import { useReadRoleListQuery } from "@/apis-client/admin/system/role/role";

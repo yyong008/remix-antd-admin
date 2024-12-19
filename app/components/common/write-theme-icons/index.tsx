@@ -1,6 +1,6 @@
 import * as icons from "@ant-design/icons";
 
-import { useColorPrimary } from "@/hooks/use-color-primary";
+import { useColorPrimary } from "~/hooks/useColorPrimary";
 
 const { EditOutlined } = icons;
 

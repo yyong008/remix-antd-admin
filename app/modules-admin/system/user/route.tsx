@@ -3,7 +3,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
 import { createToolBarRender } from "./components/create-toolbar-render";
 import { createUserTableColumns } from "./components/createColumns";
-import { useColorPrimary } from "@/hooks/use-color-primary";
+import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { useReadRoleListQuery } from "@/apis-client/admin/system/role/role";
 import { useReadUserListQuery } from "@/apis-client/admin/system/user";
 import { useReadsystemDeptListQuery } from "@/apis-client/admin/system/dept";

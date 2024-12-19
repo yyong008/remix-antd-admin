@@ -1,4 +1,4 @@
-import { Route } from "~/modules/layout/_c/route";
+import { Route } from "./route";
 
 export default function CRoute() {
   return <Route />;

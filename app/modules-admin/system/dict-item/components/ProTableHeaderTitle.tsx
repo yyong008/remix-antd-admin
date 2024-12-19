@@ -1,4 +1,4 @@
-import { useAntdThemeToken } from "@/hooks/use-antd-theme-token";
+import { useAntdThemeToken } from "~/hooks/useAntdThemeToken";
 
 export const ProTableHeaderTitle = ({ title }: { title: string }) => {
   const token = useAntdThemeToken();

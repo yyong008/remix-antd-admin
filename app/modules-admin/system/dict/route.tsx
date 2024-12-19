@@ -3,7 +3,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { CreateDictModal } from "./components/CreateDictModal";
 import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
 import { createColumns } from "./components/create-columns";
-import { useParamsLang } from "@/hooks/user-params-lang";
+import { useParamsLang } from "~/hooks/userParamsLang";
 import { useReadSystemDictListQuery } from "@/apis-client/admin/system/dict";
 import { useState } from "react";
 

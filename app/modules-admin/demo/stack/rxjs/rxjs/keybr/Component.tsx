@@ -1,6 +1,6 @@
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
-import { useKeyPress } from "~/hooks";
+import { useKeyPress } from "~/hooks/useKeypress";
 
 export function Component() {
   const [key] = useKeyPress();

@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import { defaultLang } from "~/config/lang";
 
-const SettingContext = createContext({
+export const SettingContext = createContext({
   theme: {
     colorPrimary: "",
     // layout: "mix"

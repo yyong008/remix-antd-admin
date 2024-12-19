@@ -4,7 +4,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { ModalForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItem";
 import { systemDeptApi } from "@/apis-client/admin/system/dept/index";
-import { useAntdThemeToken } from "@/hooks/use-antd-theme-token";
+import { useAntdThemeToken } from "~/hooks/useAntdThemeToken";
 
 type UpdateDeptModalProps = {
   trigger?: any;

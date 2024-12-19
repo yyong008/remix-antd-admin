@@ -5,7 +5,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { MenuModalFormItems } from "./MenuModalFormItems";
 import { ModalForm } from "@ant-design/pro-components";
 import { systemMenu } from "@/apis-client/admin/system/menu";
-import { useColorPrimary } from "@/hooks/use-color-primary";
+import { useColorPrimary } from "~/hooks/useColorPrimary";
 
 type MenuModalProps = {
   trigger?: () => void;

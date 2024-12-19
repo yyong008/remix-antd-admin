@@ -5,7 +5,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { FormItems } from "./RoleFormItems";
 import { ModalForm } from "@ant-design/pro-components";
 import { systemRoleApi } from "@/apis-client/admin/system/role/role";
-import { useColorPrimary } from "@/hooks/use-color-primary";
+import { useColorPrimary } from "~/hooks/useColorPrimary";
 
 type CreateRoleModalProps = {
   trigger?: React.ReactNode;

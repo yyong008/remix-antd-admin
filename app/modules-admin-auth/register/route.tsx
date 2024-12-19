@@ -5,8 +5,8 @@ import { memo, useContext, useMemo, useState } from "react";
 import { AccountLogin } from "./components/account-login";
 import { LoginFormWrap } from "./components/login-form";
 import { MobileLogin } from "./components/mobile-login";
-import { SettingContext } from "@/context";
-import { useNProgress } from "@/hooks";
+import { SettingContext } from "@/context/setting-context";
+import { useNProgress } from "@/hooks/useNprogress";
 import { useTranslation } from "react-i18next";
 
 export function Route() {

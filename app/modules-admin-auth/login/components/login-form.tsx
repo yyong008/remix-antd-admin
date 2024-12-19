@@ -5,12 +5,12 @@ import { Link, useNavigate, useParams } from "@remix-run/react";
 import { LoginForm, ProConfigProvider } from "@ant-design/pro-components";
 
 import { ActionIcons } from "@/components/user-login";
-import { SettingContext } from "@/context";
+import { SettingContext } from "@/context/setting-context";
 import { defaultLang } from "@/config/lang";
 import { simpleStorage } from "@/libs/simpleStorage";
 import { useContext } from "react";
 import { useLoginMutation } from "@/apis-client/auth";
-import { useNProgress } from "@/hooks";
+import { useNProgress } from "@/hooks/useNprogress";
 import { useTranslation } from "react-i18next";
 
 function LogoImg() {

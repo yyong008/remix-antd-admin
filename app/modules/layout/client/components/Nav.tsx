@@ -1,6 +1,6 @@
-import { HeaderLink, HeaderLinkLogin } from "./header-link";
+import { HeaderLink, HeaderLinkLogin } from "./HeaderLink";
 
-import { defaultLang } from "~/config/lang"; // must import lang no use config (in server)
+import { defaultLang } from "@/config/lang"; // must import lang no use config (in server)
 import { useParams } from "@remix-run/react";
 
 export function Nav() {

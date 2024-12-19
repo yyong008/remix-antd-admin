@@ -1,4 +1,4 @@
-import { Route } from "~/modules/layout/_a/route";
+import { Route } from "~/modules/layout/admin/route";
 
 export default function ARoute() {
   return <Route />;

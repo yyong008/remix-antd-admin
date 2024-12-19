@@ -1,24 +1,22 @@
 import * as clientUtils from "~/utils/client";
 
-import {
-  AvatarDropDown,
-  MenuFooterRender,
-  SettingDrawerWrap,
-  createActionRenderWrap,
-  createTokens,
-} from "./components";
-import { Footer, MenuItemLink, MenuItemOutLink } from "~/components/common";
+import { Footer, MenuItemLink, MenuItemOutLink } from "@/components/common";
 import { Outlet, useParams } from "@remix-run/react";
 import { ProLayout, WaterMark } from "@ant-design/pro-components";
 import { memo, useContext, useMemo, useState } from "react";
 
 import { App as AntdApp } from "antd";
-import { SettingContext } from "@/context";
+import { AvatarDropDown } from "./components/AvatarDropdown";
+import { MenuFooterRender } from "./components/MenuFooterRender";
+import { SettingContext } from "@/context/setting-context";
+import { SettingDrawerWrap } from "./components/SettingDrawerWrap";
+import { createActionRenderWrap } from "./components/createActionsRender";
+import { createTokens } from "./components/createToken";
 import { info } from "@/config/project";
 import { prolayoutConfig } from "@/config/prolayout";
 import { useGetUserInfoQuery } from "@/apis-client/common/user-info";
-import { useNProgress } from "@/hooks";
-import { useTranslation } from "react-i18next";
+import { useNProgress } from "@/hooks/useNprogress";
+import { useT } from "@/hooks/useT";
 
 const resetStyles = {
   padding: "0px",
@@ -34,7 +32,7 @@ function AdminLayout() {
   const { menu = [], userInfo = {} } = data || ({} as any);
   const [pathname, setPathname] = useState(location.pathname);
   const token = useMemo(() => createTokens(value), [value]);
-  const { t } = useTranslation();
+  const { t } = useT();
   const route = useMemo(
     () => clientUtils.createProLayoutRoute(lang!, menu, t),
     [lang, menu, t],

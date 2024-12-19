@@ -300,7 +300,7 @@ const adminAuthRoutes = [
 
 const clientRoutes = [
   route("/", "modules/home/route.ts"),
-  route(":lang/", "modules/layout/_c/index.tsx", [
+  route(":lang/", "modules/layout/client/index.tsx", [
     route("", "modules-client/index/index.tsx", { index: true }),
     route("about", "modules-client/about/index.tsx"),
     route("blog", "modules-client/blog/index.tsx", { index: true }),
@@ -314,7 +314,7 @@ const clientRoutes = [
 
 const adminRoutes = [
   // admin
-  route(":lang/admin", "modules/layout/_a/index.tsx", [
+  route(":lang/admin", "modules/layout/admin/index.tsx", [
     // dashboard
     route("dashboard", "modules-admin/dashboard/index.tsx"),
 

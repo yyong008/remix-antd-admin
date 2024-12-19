@@ -4,7 +4,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { ModalForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItems";
 import { systemDict } from "@/apis-client/admin/system/dict";
-import { useColorPrimary } from "@/hooks/use-color-primary";
+import { useColorPrimary } from "~/hooks/useColorPrimary";
 
 export function UpdateDictModal({ trigger, record, refetch }: any) {
   const [form] = Form.useForm();
