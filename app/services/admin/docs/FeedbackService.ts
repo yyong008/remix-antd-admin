@@ -62,7 +62,7 @@ class FeedbackService {
    * @returns
    */
   async deleteByIds(args: ActionFunctionArgs) {
-    const ids = await args.request.json();
+    const { ids } = await args.request.json();
 
     const result = await feedBackDAL.deleteByIds(ids);
     return result;

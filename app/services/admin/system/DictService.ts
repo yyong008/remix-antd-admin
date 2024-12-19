@@ -52,7 +52,7 @@ class DictService {
    * @returns
    */
   async deleteByIds(args: any) {
-    const ids = await args.request.json();
+    const { ids } = await args.request.json();
     const result = await dictDAL.deleteByIds(ids);
     return result;
   }

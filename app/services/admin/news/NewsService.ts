@@ -1,5 +1,4 @@
 import { joseJwt } from "@/libs/jose";
-
 import { newsDAL } from "@/dals/news/NewsDAL";
 import { urlSearchParams } from "@/utils/server/search";
 
@@ -45,7 +44,7 @@ class NewsService {
    * @returns
    */
   async deleteByIds(args: any) {
-    const ids = await args.request.json();
+    const { ids } = await args.request.json();
     const result = await newsDAL.deleteByIds(ids);
     return result;
   }

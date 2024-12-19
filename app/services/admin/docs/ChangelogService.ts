@@ -1,5 +1,4 @@
 import { changelogDAL } from "@/dals/docs/ChangelogDAL";
-
 import { joseJwt } from "@/libs/jose";
 import { urlSearchParams } from "@/utils/server/search";
 
@@ -55,7 +54,7 @@ class ChangelogService {
    * @returns
    */
   async deleteByIds(args: any) {
-    const ids = await args.request.json();
+    const { ids } = await args.request.json();
     const result = await changelogDAL.deleteByIds(ids);
     return result;
   }

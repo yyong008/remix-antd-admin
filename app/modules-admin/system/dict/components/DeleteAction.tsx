@@ -20,7 +20,7 @@ export function DeleteAction(props: DeleteActionProps) {
         onConfirm={async () => {
           const ids = [record.id];
 
-          const result = await deleteByIds(ids).unwrap();
+          const result = await deleteByIds({ ids }).unwrap();
 
           if (result.code !== 0) {
             message.error(result.message ?? "删除失败");

@@ -14,7 +14,7 @@ export function DeleteAction({ record, reload }: any) {
       title="Are your sure?"
       onConfirm={async () => {
         const ids = [record.id];
-        const result = await deleteUser(ids);
+        const result = await deleteUser({ ids });
         if (result.data?.code !== 0) {
           message.error(result.data?.message);
           return false;

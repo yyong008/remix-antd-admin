@@ -138,7 +138,6 @@ export class RemixApi {
       const url = new URL(args.request.url);
       const searchParams = new URLSearchParams(url.search);
       const urlSearchObject = Object.fromEntries(searchParams.entries());
-      console.log("urlSearchObject", urlSearchObject);
       const url_result = schemas.url?.safeParse(urlSearchObject);
       if (!url_result.success) {
         throw new Error(url_result.error.errors[0].message);

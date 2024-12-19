@@ -59,7 +59,7 @@ class UserService {
    */
   async deleteByIds(args: any) {
     const dto = await args.request.json();
-    const result = await userDAL.deleteByIds(dto);
+    const result = await userDAL.deleteByIds(dto.ids);
     return result;
   }
 }

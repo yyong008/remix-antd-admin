@@ -1,6 +1,5 @@
-import { profileLinkCategoryDAL } from "@/dals/profile/ProfileLinkCategoryDAL";
-
 import { joseJwt } from "@/libs/jose";
+import { profileLinkCategoryDAL } from "@/dals/profile/ProfileLinkCategoryDAL";
 import { urlSearchParams } from "@/utils/server/search";
 
 class LinkCategoryService {
@@ -63,7 +62,7 @@ class LinkCategoryService {
    * @returns
    */
   async deleteByIds(args: any) {
-    const ids = args.request.json();
+    const { ids } = args.request.json();
     const result = await profileLinkCategoryDAL.deleteByIds(ids);
     return result;
   }

@@ -115,7 +115,7 @@ class MenuService {
    * @returns
    */
   async delete(args: any) {
-    const ids = await args.request.json();
+    const { ids } = await args.request.json();
     const result = await menuDAL.deleteByIds(ids);
     return result;
   }

@@ -47,7 +47,7 @@ class RoleService {
    * @returns
    */
   async deleteByIds(args: any) {
-    const ids = await args.request.json();
+    const { ids } = await args.request.json();
     const result = await roleDAL.deleteByIds(ids);
     return result;
   }
