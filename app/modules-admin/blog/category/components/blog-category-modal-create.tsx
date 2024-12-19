@@ -1,11 +1,8 @@
-import * as ic from "@ant-design/icons";
-
 import { Button, message } from "antd";
 
 import BlogCategoryModalForm from "./blog-category-modal-form";
+import { EditOutlined } from "@ant-design/icons";
 import { useCreateBlogCategoryMutation } from "~/apis-client/admin/blog/category";
-
-const { EditOutlined } = ic;
 
 export function BlogCategoryModalCreate({ refetch }: any) {
   const [createBlogCategory, other] = useCreateBlogCategoryMutation();

@@ -1,12 +1,7 @@
-// core
-import * as ic from "@ant-design/icons";
-
+import { DownOutlined } from "@ant-design/icons";
 import { Dropdown } from "antd";
 /* eslint-disable jsx-a11y/anchor-is-valid */
-// type
 import type { MenuProps } from "antd";
-
-const { DownOutlined } = ic;
 
 const More: React.FC = () => {
   const items: MenuProps["items"] = [

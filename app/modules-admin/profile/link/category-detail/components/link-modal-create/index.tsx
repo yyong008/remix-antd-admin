@@ -1,5 +1,3 @@
-import * as ic from "@ant-design/icons";
-
 import { Button, Form, message } from "antd";
 import {
   ModalForm,
@@ -7,10 +5,9 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components";
 
+import { EditOutlined } from "@ant-design/icons";
 import { useCreateProfileLinkMutation } from "@/apis-client/admin/profile/link";
 import { useParams } from "@remix-run/react";
-
-const { EditOutlined } = ic;
 
 export function LinkModalCreate({ refetch }: any) {
   const [form] = Form.useForm();

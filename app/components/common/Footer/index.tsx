@@ -1,8 +1,5 @@
-import * as ic from "@ant-design/icons";
-
 import { DefaultFooter } from "@ant-design/pro-components";
-
-const { GithubOutlined } = ic;
+import { GithubOutlined } from "@ant-design/icons";
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();

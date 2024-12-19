@@ -1,13 +1,7 @@
-// core
-
-import * as ic from "@ant-design/icons";
-
-// components:vendor
 import { Space, Tooltip } from "antd";
 
+import { InfoCircleOutlined } from "@ant-design/icons";
 import { ProCard } from "@ant-design/pro-components";
-
-const { InfoCircleOutlined } = ic;
 
 type HomeCardProps = {
   title: string;

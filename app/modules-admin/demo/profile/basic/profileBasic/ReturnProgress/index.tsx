@@ -1,10 +1,8 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import * as ic from "@ant-design/icons";
-
 import { Space, Table, theme } from "antd";
 
-const { EllipsisOutlined } = ic;
+/* eslint-disable react/jsx-key */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { EllipsisOutlined } from "@ant-design/icons";
 
 const ALink = ({ children }: any) => {
   const { token } = theme.useToken();

@@ -1,11 +1,7 @@
-import * as ic from "@ant-design/icons";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
 
 import { ProFormText } from "@ant-design/pro-components";
 import { useTranslation } from "react-i18next";
-
-// import { t } from "i18next";
-
-const { UserOutlined, LockOutlined } = ic;
 
 type AccountLoginProps = {
   isRegister?: boolean;

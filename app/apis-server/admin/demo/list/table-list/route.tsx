@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import * as ic from "@ant-design/icons";
-
 import { Button, Form, Space, theme } from "antd";
 import {
   ModalForm,
@@ -10,11 +7,11 @@ import {
   ProTable,
 } from "@ant-design/pro-components";
 
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { PlusOutlined } from "@ant-design/icons";
 import type { ProColumns } from "@ant-design/pro-components";
 import type { loader } from "./loader";
 import { useLoaderData } from "@remix-run/react";
-
-const { PlusOutlined } = ic;
 
 export type TableListItem = {
   key: number;

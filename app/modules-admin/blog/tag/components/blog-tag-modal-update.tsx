@@ -1,12 +1,10 @@
-import * as ic from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 
 import { Button, message } from "antd";
 
 import { BlogTagModalForm } from "./blog-tag-modal-form";
 import { useParams } from "@remix-run/react";
 import { useUpdateBlogTagByIdMutation } from "~/apis-client/admin/blog/tag";
-
-const { EditOutlined } = ic;
 
 export function BlogTagModalUpdate({ record, refetch }: any) {
   const { id } = useParams();

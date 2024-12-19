@@ -1,6 +1,3 @@
-// icons
-import * as ic from "@ant-design/icons";
-
 import {
   ModalForm,
   ProFormDatePicker,
@@ -10,8 +7,7 @@ import {
 } from "@ant-design/pro-components";
 
 import { Button } from "antd";
-
-const { PlusOutlined } = ic;
+import { PlusOutlined } from "@ant-design/icons";
 
 const AddModalForm = function () {
   return (

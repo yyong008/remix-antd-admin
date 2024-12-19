@@ -1,6 +1,5 @@
-import * as ic from "@ant-design/icons";
-
 import { Dropdown, Form } from "antd";
+import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import {
   removeLocalStorageRefreshToken,
   removeLocalStorageToken,
@@ -9,8 +8,6 @@ import { useNavigate, useParams } from "@remix-run/react";
 
 import React from "react";
 import { useTranslation } from "react-i18next";
-
-const { LogoutOutlined, UserOutlined } = ic;
 
 type AvatarDropDownProps = {
   dom: any;

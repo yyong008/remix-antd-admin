@@ -1,11 +1,8 @@
-import * as ic from "@ant-design/icons";
-
+import { LockOutlined, MobileOutlined } from "@ant-design/icons";
 import { ProFormCaptcha, ProFormText } from "@ant-design/pro-components";
 
 import { message } from "antd";
 import { t } from "i18next";
-
-const { MobileOutlined, LockOutlined } = ic;
 
 export function MobileLogin() {
   return (

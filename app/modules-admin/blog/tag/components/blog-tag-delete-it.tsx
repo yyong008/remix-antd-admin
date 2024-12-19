@@ -1,10 +1,8 @@
-import * as ic from "@ant-design/icons";
+import { DeleteOutlined } from "@ant-design/icons";
 
 import { Button, Form, Popconfirm, message } from "antd";
 
 import { useDeleteBlogTagByIdsMutation } from "~/apis-client/admin/blog/tag";
-
-const { DeleteOutlined } = ic;
 
 type DeleteItProps = {
   refetch: any;

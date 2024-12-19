@@ -1,15 +1,4 @@
-// types
-
-// components:vendor
-import * as ic from "@ant-design/icons";
-
-import { Avatar, Card, Col, Row, Tag, Tooltip } from "antd";
-import { ProCard, ProList } from "@ant-design/pro-components";
-// core
-import React, { useState } from "react";
-import { colPropsApp, colPropsProject } from "../col";
-
-const {
+import {
   EditOutlined,
   EllipsisOutlined,
   LikeOutlined,
@@ -17,7 +6,12 @@ const {
   SettingOutlined,
   StarOutlined,
   UserOutlined,
-} = ic;
+} from "@ant-design/icons";
+
+import { Avatar, Card, Col, Row, Tag, Tooltip } from "antd";
+import { ProCard, ProList } from "@ant-design/pro-components";
+import React, { useState } from "react";
+import { colPropsApp, colPropsProject } from "../col";
 
 const IconText = ({ icon, text }: { icon: any; text: string }) => (
   <span style={{ color: "blue" }}>

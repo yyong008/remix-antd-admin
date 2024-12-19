@@ -1,17 +1,14 @@
-import * as ic from "@ant-design/icons";
-
 import {
   AddModalForm,
   Tasks,
 } from "~/modules-admin/demo/list/basic-list/listBasicList";
+import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { PageContainer, ProCard, ProList } from "@ant-design/pro-components";
 import { Space, Tag } from "antd";
 
 import React from "react";
 import type { loader } from "./loader";
 import { useLoaderData } from "@remix-run/react";
-
-const { LikeOutlined, MessageOutlined, StarOutlined } = ic;
 
 const IconText = ({ icon, text }: { icon: any; text: string }) => (
   <span>

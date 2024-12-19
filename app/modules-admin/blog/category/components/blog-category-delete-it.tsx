@@ -1,10 +1,7 @@
-import * as ic from "@ant-design/icons";
-
 import { Button, Form, Popconfirm, message } from "antd";
 
+import { DeleteOutlined } from "@ant-design/icons";
 import { useDeleteBlogCategoryByIdsMutation } from "~/apis-client/admin/blog/category";
-
-const { DeleteOutlined } = ic;
 
 type DeleteItProps = {
   record: any;

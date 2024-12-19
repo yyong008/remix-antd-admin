@@ -1,9 +1,7 @@
-import * as ic from "@ant-design/icons";
+import { SmileOutlined } from "@ant-design/icons";
 
 import { Descriptions } from "antd";
 import { FormatTime } from "~/components/common";
-
-const { SmileOutlined } = ic;
 
 export function LoginIn({ data, userInfo }: any) {
   const latestLoginLog = data?.latestLoginLog ?? {};

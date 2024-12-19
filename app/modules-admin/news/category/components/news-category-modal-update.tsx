@@ -1,5 +1,3 @@
-import * as ic from "@ant-design/icons";
-
 import { Button, Form, message } from "antd";
 import {
   ModalForm,
@@ -7,10 +5,9 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components";
 
+import { EditOutlined } from "@ant-design/icons";
 import { useAntdThemeToken } from "~/hooks";
 import { useUpdateNewsCategoryByIdMutation } from "~/apis-client/admin/news/category";
-
-const { EditOutlined } = ic;
 
 export function NewsCategoryModalUpdate({ record, refetch }: any) {
   const [form] = Form.useForm();

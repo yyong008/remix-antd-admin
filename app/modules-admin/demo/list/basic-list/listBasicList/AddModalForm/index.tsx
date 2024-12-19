@@ -1,5 +1,4 @@
-// icons
-import * as ic from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 
 import {
   ModalForm,
@@ -10,8 +9,6 @@ import {
 } from "@ant-design/pro-components";
 
 import { Button } from "antd";
-
-const { PlusOutlined } = ic;
 
 const AddModalForm = function () {
   return (

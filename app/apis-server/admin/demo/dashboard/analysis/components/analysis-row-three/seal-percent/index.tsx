@@ -1,14 +1,8 @@
-import * as ic from "@ant-design/icons";
-
-// components:vendor
 import { Card, Dropdown, Radio, Space } from "antd";
 
-// components
 import MainPie from "../../common/pie";
-// core
+import { MoreOutlined } from "@ant-design/icons";
 import { useState } from "react";
-
-const { MoreOutlined } = ic;
 
 export default function SealPercent(props: any) {
   const [size, setSize] = useState("all");

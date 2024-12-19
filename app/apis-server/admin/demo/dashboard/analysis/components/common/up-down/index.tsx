@@ -1,7 +1,4 @@
-// components: vendor
-import * as ic from "@ant-design/icons";
-
-const { CaretUpOutlined, CaretDownOutlined } = ic;
+import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
 
 export const UpDown = ({ item }: any) => {
   return (

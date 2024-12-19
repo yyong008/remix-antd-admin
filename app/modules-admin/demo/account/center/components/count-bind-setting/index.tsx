@@ -1,19 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import * as ic from "@ant-design/icons";
-
-// components
-import { List, theme } from "antd";
-
-import { ProCard } from "@ant-design/pro-components";
-
-const {
+import {
   AlipayOutlined,
   DingdingOutlined,
   QqOutlined,
   TaobaoOutlined,
   WechatOutlined,
-} = ic;
+} from "@ant-design/icons";
+
+import { List, theme } from "antd";
+
+import { ProCard } from "@ant-design/pro-components";
 
 export const CountBindSetting = ({ dataSource }: any) => {
   const { token } = theme.useToken();

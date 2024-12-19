@@ -1,11 +1,12 @@
-import * as ic from "@ant-design/icons";
-
 import { Avatar, Card, Col } from "antd";
+import {
+  EditOutlined,
+  EllipsisOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
 
 import { colProps } from "../col";
 import { useState } from "react";
-
-const { SettingOutlined, EditOutlined, EllipsisOutlined } = ic;
 
 export default function ColCardList() {
   const [data] = useState([1, 2, 3, 4, 5, 6, 7, 8]);

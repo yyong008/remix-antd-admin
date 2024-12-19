@@ -1,11 +1,9 @@
-import * as ic from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 
 import { Input, Space, Tag, Tooltip, theme } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 
 import type { InputRef } from "antd";
-
-const { PlusOutlined } = ic;
 
 type TagsProps = {
   ts: any;

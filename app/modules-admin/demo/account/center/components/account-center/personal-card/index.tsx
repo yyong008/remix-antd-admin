@@ -1,10 +1,12 @@
-import * as ic from "@ant-design/icons";
+import {
+  ClusterOutlined,
+  ContactsOutlined,
+  HomeOutlined,
+} from "@ant-design/icons";
 
 import { Card, Col, Divider, Row } from "antd";
 
 import { Tags } from "./tags";
-
-const { ClusterOutlined, ContactsOutlined, HomeOutlined } = ic;
 
 export default function PersonalCard({ team, tags, userInfo }: any) {
   return (

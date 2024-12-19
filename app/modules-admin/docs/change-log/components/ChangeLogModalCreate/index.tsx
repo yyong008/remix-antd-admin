@@ -1,5 +1,3 @@
-import * as ic from "@ant-design/icons";
-
 import { Button, Form, message } from "antd";
 import {
   ModalForm,
@@ -9,9 +7,8 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components";
 
+import { EditOutlined } from "@ant-design/icons";
 import { useCreateChangelogMutation } from "@/apis-client/admin/docs/changelog";
-
-const { EditOutlined } = ic;
 
 export function ChangeLogCreateModal({ refetch }: any) {
   const [form] = Form.useForm();

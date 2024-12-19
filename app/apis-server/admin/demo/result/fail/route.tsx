@@ -1,11 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import * as ic from "@ant-design/icons";
-
 import { Button, Result, Typography } from "antd";
 
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { CloseCircleOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 
-const { CloseCircleOutlined } = ic;
 const { Paragraph, Text } = Typography;
 
 export function Route() {

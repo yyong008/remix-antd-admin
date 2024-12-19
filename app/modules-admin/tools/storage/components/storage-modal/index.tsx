@@ -1,13 +1,10 @@
-import * as ic from "@ant-design/icons";
-
 import { Alert, Button, Progress, message } from "antd";
 import { ModalForm, ProTable } from "@ant-design/pro-components";
 import { useEffect, useRef, useState } from "react";
 
+import { EditOutlined } from "@ant-design/icons";
 import { ajax } from "rxjs/ajax";
 import { combineLatest } from "rxjs";
-
-const { EditOutlined } = ic;
 
 const FileSizeLimit = 2; // MB
 

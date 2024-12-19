@@ -1,8 +1,6 @@
-import * as ic from "@ant-design/icons";
-
 import { Avatar, Card, Col, Tooltip } from "antd";
 
-const { UserOutlined } = ic;
+import { UserOutlined } from "@ant-design/icons";
 
 export default function ProjectsList({ cardList }: any) {
   return (

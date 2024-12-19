@@ -1,12 +1,10 @@
-import * as ic from "@ant-design/icons";
+import { CheckCircleFilled } from "@ant-design/icons";
 
 import { Button, message } from "antd";
 
 import confetti from "canvas-confetti";
 import { useSignInMutation } from "@/apis-client/common/signin";
 import { useState } from "react";
-
-const { CheckCircleFilled } = ic;
 
 export function SignIn({ data: _data }: any) {
   const [data, setData] = useState(_data);

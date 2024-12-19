@@ -1,12 +1,8 @@
-import * as ic from "@ant-design/icons";
+import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 
 import { ProList } from "@ant-design/pro-components";
-// core
 import React from "react";
-// components:vendor
 import { Tag } from "antd";
-
-const { LikeOutlined, MessageOutlined, StarOutlined } = ic;
 
 const IconText = ({ icon, text }: { icon: any; text: string }) => (
   <span>

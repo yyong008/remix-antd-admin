@@ -1,12 +1,9 @@
-import * as ic from "@ant-design/icons";
-
 import { Button, message } from "antd";
 
 import BlogCategoryModalForm from "./blog-category-modal-form";
+import { EditOutlined } from "@ant-design/icons";
 import { useParams } from "@remix-run/react";
 import { useUpdateBlogCategoryByIdMutation } from "~/apis-client/admin/blog/category";
-
-const { EditOutlined } = ic;
 
 export default function BlogCategoryModalUpdate({ record, refetch }: any) {
   const { id } = useParams();

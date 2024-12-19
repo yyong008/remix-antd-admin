@@ -1,11 +1,8 @@
-import * as ic from "@ant-design/icons";
-
 import { BlogCategoryDeleteIt } from "./blog-category-delete-it";
 import BlogCategoryModalUpdate from "./blog-category-modal-update";
 import { Link } from "@remix-run/react";
 import { Space } from "antd";
-
-const { SwitcherOutlined } = ic;
+import { SwitcherOutlined } from "@ant-design/icons";
 
 export const blogCategoryColumnsCreate = (lang: string, refetch: any) => [
   {

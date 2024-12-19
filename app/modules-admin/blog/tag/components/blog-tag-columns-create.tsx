@@ -1,11 +1,9 @@
-import * as ic from "@ant-design/icons";
+import { SwitcherOutlined } from "@ant-design/icons";
 
 import { BlogTagDeleteIt } from "./blog-tag-delete-it";
 import { BlogTagModalUpdate } from "./blog-tag-modal-update";
 import { Link } from "@remix-run/react";
 import { Space } from "antd";
-
-const { SwitcherOutlined } = ic;
 
 export const blogTagColumnsCreate = (lang: string, refetch: any) => [
   {

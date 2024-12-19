@@ -1,5 +1,3 @@
-import * as ic from "@ant-design/icons";
-
 import { Button, Form, message } from "antd";
 import {
   ModalForm,
@@ -7,9 +5,8 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components";
 
+import { EditOutlined } from "@ant-design/icons";
 import { useCreateProfileLinkCategoryMutation } from "@/apis-client/admin/profile/link-category";
-
-const { EditOutlined } = ic;
 
 export function LinkCategoryModalCreate({ refetch }: any) {
   const [form] = Form.useForm();

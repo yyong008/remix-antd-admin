@@ -1,5 +1,3 @@
-import * as ic from "@ant-design/icons";
-
 import { Button, Form } from "antd";
 import {
   ModalForm,
@@ -7,9 +5,8 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components";
 
+import { EditOutlined } from "@ant-design/icons";
 import { useParams } from "@remix-run/react";
-
-const { EditOutlined } = ic;
 
 export default function LinkModal({ trigger, record, fetcher }: any) {
   const [form] = Form.useForm();

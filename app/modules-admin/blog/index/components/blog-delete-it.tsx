@@ -1,9 +1,8 @@
 import * as as from "~/constants/actions";
-import * as ic from "@ant-design/icons";
 
 import { Button, Form, Popconfirm } from "antd";
 
-const { DeleteOutlined } = ic;
+import { DeleteOutlined } from "@ant-design/icons";
 
 type DeleteItProps = {
   fetcher: any;

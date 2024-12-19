@@ -1,5 +1,3 @@
-import * as ic from "@ant-design/icons";
-
 import { Button, Form, message } from "antd";
 import {
   ModalForm,
@@ -7,9 +5,8 @@ import {
   ProFormUploadButton,
 } from "@ant-design/pro-components";
 
+import { EditOutlined } from "@ant-design/icons";
 import { useCreateFeedbackMutation } from "@/apis-client/admin/docs/feedback";
-
-const { EditOutlined } = ic;
 
 export function FeedbackModalCreate({ refetch }: any) {
   const [form] = Form.useForm();

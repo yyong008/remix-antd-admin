@@ -1,9 +1,10 @@
-import * as ic from "@ant-design/icons";
-
 import { Avatar, Card, Col } from "antd";
-
-const { SettingOutlined, EditOutlined, ShareAltOutlined, EllipsisOutlined } =
-  ic;
+import {
+  EditOutlined,
+  EllipsisOutlined,
+  SettingOutlined,
+  ShareAltOutlined,
+} from "@ant-design/icons";
 
 export default function AppCardList({ cardList }: any) {
   return (

@@ -1,11 +1,8 @@
-import * as ic from "@ant-design/icons";
+import { MoreOutlined } from "@ant-design/icons";
 
-// components:vendor
 import { Card, Table, theme } from "antd";
 
 import { SearchHotLine } from "./search-hot-line";
-
-const { MoreOutlined } = ic;
 
 export default function OnlineSearch(props: any) {
   const { token } = theme.useToken();

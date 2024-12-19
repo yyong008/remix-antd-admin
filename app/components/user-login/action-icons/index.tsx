@@ -1,9 +1,10 @@
-// components:vendor
-import * as ic from "@ant-design/icons";
+import {
+  AlipayCircleOutlined,
+  TaobaoCircleOutlined,
+  WeiboCircleOutlined,
+} from "@ant-design/icons";
 
 import { Space } from "antd";
-
-const { AlipayCircleOutlined, TaobaoCircleOutlined, WeiboCircleOutlined } = ic;
 
 const ActionIcons = () => {
   return (
