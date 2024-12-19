@@ -1,9 +1,6 @@
 import { Dropdown, Form } from "antd";
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
-import {
-  removeLocalStorageRefreshToken,
-  removeLocalStorageToken,
-} from "~/libs/localstorage";
+import { simpleStorage } from "@/libs/simpleStorage";
 import { useNavigate, useParams } from "@remix-run/react";
 
 import React from "react";
@@ -42,8 +39,7 @@ export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
             ),
             label: t("logout"),
             onClick() {
-              removeLocalStorageToken();
-              removeLocalStorageRefreshToken();
+              simpleStorage.clearAllToken();
               navigate(`/${lang}/admin/login`, { replace: true });
             },
           },

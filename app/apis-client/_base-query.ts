@@ -5,7 +5,7 @@ import type { BaseQueryApi, FetchArgs } from "@reduxjs/toolkit/query";
 import { defaultLang } from "@/config/lang";
 import { eventCenter } from "@/utils/event";
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
-import { simpleStorage } from "@/libs/localstorage";
+import { simpleStorage } from "@/libs/simpleStorage";
 
 class RequestQueue {
   isRefreshing = false;

@@ -7,7 +7,7 @@ import { LoginForm, ProConfigProvider } from "@ant-design/pro-components";
 import { ActionIcons } from "@/components/user-login";
 import { SettingContext } from "@/context";
 import { defaultLang } from "@/config/lang";
-import { simpleStorage } from "@/libs/localstorage";
+import { simpleStorage } from "@/libs/simpleStorage";
 import { useContext } from "react";
 import { useLoginMutation } from "@/apis-client/auth";
 import { useNProgress } from "@/hooks";
