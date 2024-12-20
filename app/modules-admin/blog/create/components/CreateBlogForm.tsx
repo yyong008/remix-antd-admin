@@ -1,19 +1,14 @@
-import {
-  ProForm,
-  ProFormDateTimePicker,
-  ProFormSelect,
-  ProFormText,
-  ProFormTextArea,
-} from "@ant-design/pro-components";
 import { useNavigate, useParams } from "@remix-run/react";
 
+import { ModalFormItems } from "./ModalFormItems";
+import { ProForm } from "@ant-design/pro-components";
 import { message } from "antd";
 import { useCreateBlogMutation } from "~/apis-client/admin/blog/blog";
 import { useMemo } from "react";
 import { useReadBlogCategoryListQuery } from "@/apis-client/admin/blog/category";
 import { useReadBlogTagListQuery } from "@/apis-client/admin/blog/tag";
 
-export function BlogCreateForm() {
+export function CreateBlogForm() {
   const nav = useNavigate();
   const { lang } = useParams();
   const [createBlog, others] = useCreateBlogMutation();
@@ -73,79 +68,10 @@ export function BlogCreateForm() {
       onFinish={onFinish}
       loading={others.isLoading}
     >
-      <ProFormText
-        label="博客标题"
-        name="title"
-        rules={[
-          {
-            required: true,
-            message: "请输入",
-          },
-        ]}
+      <ModalFormItems
+        categoriesOptions={categoriesOptions}
+        tagsOptions={tagsOptions}
       />
-      <ProFormText
-        label="博客作者"
-        name="author"
-        rules={[
-          {
-            required: true,
-            message: "请输入",
-          },
-        ]}
-      />
-      <ProFormText
-        label="博客来源"
-        name="source"
-        rules={[
-          {
-            required: true,
-            message: "请输入",
-          },
-        ]}
-      />
-      <ProFormDateTimePicker
-        label="博客发布时间"
-        name="publishedAt"
-        width={"100%" as any}
-        rules={[
-          {
-            required: true,
-            message: "请输入",
-          },
-        ]}
-      />
-      <ProFormSelect
-        label="分类"
-        name="categoryId"
-        rules={[
-          {
-            required: true,
-            message: "请输入",
-          },
-        ]}
-        options={categoriesOptions}
-      />
-      <ProFormSelect
-        label="标签"
-        name="tagId"
-        options={tagsOptions}
-        rules={[
-          {
-            required: true,
-            message: "请输入",
-          },
-        ]}
-      />
-      <ProFormTextArea
-        label="编写博客"
-        name="content"
-        rules={[
-          {
-            required: true,
-            message: "请输入",
-          },
-        ]}
-      ></ProFormTextArea>
     </ProForm>
   );
 }

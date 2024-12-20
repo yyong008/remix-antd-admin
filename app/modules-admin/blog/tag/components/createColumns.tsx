@@ -1,11 +1,10 @@
-import { SwitcherOutlined } from "@ant-design/icons";
-
-import { BlogTagDeleteIt } from "./blog-tag-delete-it";
-import { BlogTagModalUpdate } from "./blog-tag-modal-update";
+import { DeleteAction } from "./DeleteAction";
 import { Link } from "@remix-run/react";
 import { Space } from "antd";
+import { SwitcherOutlined } from "@ant-design/icons";
+import { UpdateBlogModal } from "./UpdateBlogModal";
 
-export const blogTagColumnsCreate = (lang: string, refetch: any) => [
+export const createColumns = ({ lang, refetch }: any) => [
   {
     dataIndex: "name",
     title: "标签名字",
@@ -30,8 +29,8 @@ export const blogTagColumnsCreate = (lang: string, refetch: any) => [
     render(_: any, record: any) {
       return (
         <Space>
-          <BlogTagModalUpdate record={record} refetch={refetch} />
-          <BlogTagDeleteIt refetch={refetch} record={record} title={""} />
+          <UpdateBlogModal record={record} refetch={refetch} />
+          <DeleteAction refetch={refetch} record={record} title={""} />
         </Space>
       );
     },

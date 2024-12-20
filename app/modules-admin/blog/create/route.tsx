@@ -1,12 +1,12 @@
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
-import { BlogCreateForm } from "./components";
+import { CreateBlogForm } from "./components/CreateBlogForm";
 
 export function Route() {
   return (
     <PageContainer>
       <ProCard>
-        <BlogCreateForm />
+        <CreateBlogForm />
       </ProCard>
     </PageContainer>
   );

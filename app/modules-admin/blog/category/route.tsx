@@ -1,11 +1,9 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
-import {
-  blogCategoryColumnsCreate,
-  createBlogCategoryToolBarRender,
-} from "./components";
 
+import { CreateBlogCategoryModal } from "./components/CreateBlogCategoryModal";
+import { blogCategory } from "@/apis-client/admin/blog/category";
+import { createColumns } from "./components/createColumns";
 import { useParams } from "@remix-run/react";
-import { useReadBlogCategoryListQuery } from "@/apis-client/admin/blog/category";
 import { useState } from "react";
 
 export function Route() {
@@ -14,9 +12,8 @@ export function Route() {
     page: 1,
     pageSize: 10,
   });
-  const { data, isLoading, refetch } = useReadBlogCategoryListQuery(
-    page,
-  ) as any;
+  const { data, isLoading, refetch } =
+    blogCategory.useReadBlogCategoryListQuery(page) as any;
   return (
     <PageContainer>
       <ProTable
@@ -25,8 +22,10 @@ export function Route() {
         search={false}
         loading={isLoading}
         dataSource={data?.data?.list || ([] as any[])}
-        toolBarRender={() => createBlogCategoryToolBarRender(refetch)}
-        columns={blogCategoryColumnsCreate(lang!, refetch)}
+        toolBarRender={() => [
+          <CreateBlogCategoryModal key="create" refetch={refetch} />,
+        ]}
+        columns={createColumns({ lang, refetch })}
         options={{
           reload: refetch,
         }}

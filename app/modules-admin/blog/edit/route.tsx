@@ -4,7 +4,7 @@ import {
   useUpdateBlogByIdMutation,
 } from "@/apis-client/admin/blog/blog";
 
-import { BlogEditForm } from "./components";
+import { EditBlogForm } from "./components/EditBlogForm";
 import { message } from "antd";
 import { useParams } from "@remix-run/react";
 
@@ -17,7 +17,7 @@ export function Route() {
   return (
     <PageContainer>
       <ProCard loading={isLoading}>
-        <BlogEditForm
+        <EditBlogForm
           loading={other.isLoading}
           data={data?.data || {}}
           onFinish={async (v: any) => {

@@ -1,6 +1,7 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
-import { blogTagColumnsCreate, blogTagToolBarRender } from "./components";
 
+import { CreateBlogModal } from "./components/CreateBlogModal";
+import { createColumns } from "./components/createColumns";
 import { useParams } from "@remix-run/react";
 import { useReadBlogTagListQuery } from "@/apis-client/admin/blog/tag";
 import { useState } from "react";
@@ -21,8 +22,10 @@ export function Route() {
         search={false}
         loading={isLoading}
         dataSource={data?.data?.list}
-        toolBarRender={() => blogTagToolBarRender(refetch)}
-        columns={blogTagColumnsCreate(lang!, refetch)}
+        toolBarRender={() => [
+          <CreateBlogModal key="create" refetch={refetch} />,
+        ]}
+        columns={createColumns({ lang, refetch })}
         options={{
           reload: refetch,
         }}

@@ -1,11 +1,12 @@
-import * as clientUtils from "~/utils/client";
+import * as clientUtils from "@/utils/client";
 
-import { ButtonLink, DeleteIt, FormatTime } from "~/components/common";
+import { ButtonLink, FormatTime } from "~/components/common";
 import { Space, Tag } from "antd";
 
+import { DeleteAction } from "./DeleteAction";
 import { Link } from "@remix-run/react";
 
-export const blogColumnsCreate = (lang: string, fetcher: any, info: any) => [
+export const createColumns = ({ lang, info, refetch }: any) => [
   {
     dataIndex: "title",
     title: "文章名字",
@@ -63,7 +64,7 @@ export const blogColumnsCreate = (lang: string, fetcher: any, info: any) => [
             to={`/${lang}/admin/blog/edit/${record.id}`}
             type={"edit"}
           />
-          <DeleteIt fetcher={fetcher} record={record} title={""} />
+          <DeleteAction record={record} title={""} refetch={refetch} />
         </Space>
       );
     },

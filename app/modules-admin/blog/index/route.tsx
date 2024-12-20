@@ -1,18 +1,15 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
-import {
-  blogColumnsCreate,
-  createBlogCategoryToolBarRender,
-} from "./components";
 import { useEffect, useMemo } from "react";
 import { useParams, useSearchParams } from "@remix-run/react";
 
+import { ButtonLink } from "@/components/common/button-link";
+import { createColumns } from "./components/createColumns";
 import { message } from "antd";
 import { useReadBlogListQuery } from "@/apis-client/admin/blog/blog";
 
 export function Route() {
-  // const data: any = useLoaderData<typeof loader>();
   const [searchParams] = useSearchParams();
-  const { data, isLoading } = useReadBlogListQuery({
+  const { data, isLoading, refetch } = useReadBlogListQuery({
     page: 1,
     pageSize: 10,
     tag: searchParams.get("tag"),
@@ -46,8 +43,15 @@ export function Route() {
         search={false}
         dataSource={dataSource as any[]}
         headerTitle={info.name}
-        toolBarRender={() => createBlogCategoryToolBarRender(lang!)}
-        columns={blogColumnsCreate(lang!, () => {}, info) as any}
+        toolBarRender={() => [
+          <ButtonLink
+            key="tag-modal"
+            to={`/${lang}/admin/blog/edit`}
+            type={"new"}
+            content="新建"
+          />,
+        ]}
+        columns={createColumns({ lang, refetch, info }) as any}
       />
     </PageContainer>
   );
