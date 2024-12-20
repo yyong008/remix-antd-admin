@@ -1,10 +1,8 @@
-import * as _icon from "@ant-design/icons";
+import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 
 import { Button } from "antd";
 import type { ButtonType } from "antd/es/button";
 import { Link } from "@remix-run/react";
-
-const { EditOutlined, PlusOutlined } = _icon;
 
 type ButtonLinkProps = {
   to: string;

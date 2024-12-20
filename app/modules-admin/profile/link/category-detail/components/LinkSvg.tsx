@@ -1,4 +1,4 @@
-export default function LinkSvg({ className }: any) {
+export function LinkSvg({ className }: any) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

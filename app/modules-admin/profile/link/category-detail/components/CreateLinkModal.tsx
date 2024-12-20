@@ -1,11 +1,8 @@
 import { Button, Form, message } from "antd";
-import {
-  ModalForm,
-  ProFormText,
-  ProFormTextArea,
-} from "@ant-design/pro-components";
 
 import { EditOutlined } from "@ant-design/icons";
+import { FormItems } from "./FormItems";
+import { ModalForm } from "@ant-design/pro-components";
 import { useCreateProfileLinkMutation } from "@/apis-client/admin/profile/link";
 import { useParams } from "@remix-run/react";
 
@@ -52,39 +49,7 @@ export function LinkModalCreate({ refetch }: any) {
         return true;
       }}
     >
-      <ProFormText
-        name="name"
-        label="链接名"
-        placeholder="请输入"
-        rules={[
-          {
-            required: true,
-            message: "请输入",
-          },
-        ]}
-      />
-      <ProFormText
-        name="url"
-        label="链接地址"
-        placeholder="请输入"
-        rules={[
-          {
-            required: true,
-            message: "请输入",
-          },
-        ]}
-      />
-      <ProFormTextArea
-        name="description"
-        label="描述"
-        placeholder="请输入"
-        rules={[
-          {
-            required: false,
-            message: "请输入",
-          },
-        ]}
-      />
+      <FormItems />
     </ModalForm>
   );
 }

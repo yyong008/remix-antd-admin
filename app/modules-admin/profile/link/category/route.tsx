@@ -1,10 +1,8 @@
-import { Link, useParams } from "@remix-run/react";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
-import { Space, Tag } from "antd";
 
-import { DeleteIt } from "./components/delete-it";
-import { LinkCategoryModalCreate } from "./components/link-category-modal-create";
-import { LinkCategoryModalUpdate } from "./components/link-category-modal-update";
+import { CreateLinkCategoryModal } from "./components/CreateLinkCategoryModal";
+import { createColumns } from "./components/createColumns";
+import { useParams } from "@remix-run/react";
 import { useReadProfileLinkCategoryListQuery } from "@/apis-client/admin/profile/link-category";
 import { useState } from "react";
 
@@ -29,38 +27,13 @@ export function Route() {
           reload: refetch,
         }}
         toolBarRender={() => [
-          <LinkCategoryModalCreate key="link-category-modal-create" />,
+          <CreateLinkCategoryModal
+            refetch={refetch}
+            key="link-category-modal-create"
+          />,
         ]}
         dataSource={data?.data?.list || []}
-        columns={[
-          {
-            dataIndex: "name",
-            title: "链接分类名",
-            render(_, record) {
-              return <LinkTag record={record} />;
-            },
-          },
-          {
-            dataIndex: "description",
-            title: "描述",
-          },
-          {
-            dataIndex: "op",
-            title: "操作",
-            render(_, record) {
-              return (
-                <Space>
-                  <LinkCategoryModalUpdate
-                    key="link-category-modal-modify"
-                    record={record}
-                    refetch={refetch}
-                  />
-                  <DeleteIt record={record} refetch={refetch} title="删除" />
-                </Space>
-              );
-            },
-          },
-        ]}
+        columns={createColumns({ refetch })}
         pagination={{
           total: data?.data?.total,
           pageSize: 10,
@@ -74,14 +47,5 @@ export function Route() {
         }}
       />
     </PageContainer>
-  );
-}
-
-function LinkTag({ record }: any) {
-  const { lang } = useParams();
-  return (
-    <Link to={`/${lang}/admin/profile/link/category/${record?.id}`}>
-      <Tag color="blue">{record?.name}</Tag>
-    </Link>
   );
 }

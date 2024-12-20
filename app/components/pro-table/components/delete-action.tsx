@@ -1,8 +1,6 @@
-import * as _icon from "@ant-design/icons";
-
 import { Button, Form, Popconfirm, message } from "antd";
 
-const { DeleteOutlined } = _icon;
+import { DeleteOutlined } from "@ant-design/icons";
 
 type DeleteItProps = {
   refetch: any;
