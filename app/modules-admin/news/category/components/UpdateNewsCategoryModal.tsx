@@ -1,15 +1,12 @@
 import { Button, Form, message } from "antd";
-import {
-  ModalForm,
-  ProFormText,
-  ProFormTextArea,
-} from "@ant-design/pro-components";
 
 import { EditOutlined } from "@ant-design/icons";
-import { useAntdThemeToken } from "~/hooks";
+import { ModalForm } from "@ant-design/pro-components";
+import { ModalFormItems } from "./ModalFormItem";
+import { useAntdThemeToken } from "~/hooks/useAntdThemeToken";
 import { useUpdateNewsCategoryByIdMutation } from "~/apis-client/admin/news/category";
 
-export function NewsCategoryModalUpdate({ record, refetch }: any) {
+export function UpdateNewsCategoryModal({ record, refetch }: any) {
   const [form] = Form.useForm();
   const token = useAntdThemeToken();
   const iconStyles = { style: { color: token.colorPrimary } };
@@ -60,28 +57,7 @@ export function NewsCategoryModalUpdate({ record, refetch }: any) {
         return true;
       }}
     >
-      <ProFormText
-        name="name"
-        label="标签名"
-        placeholder="请输入"
-        rules={[
-          {
-            required: true,
-            message: "请输入",
-          },
-        ]}
-      />
-      <ProFormTextArea
-        name="description"
-        label="描述"
-        placeholder="请输入"
-        rules={[
-          {
-            required: false,
-            message: "请输入",
-          },
-        ]}
-      />
+      <ModalFormItems />
     </ModalForm>
   );
 }

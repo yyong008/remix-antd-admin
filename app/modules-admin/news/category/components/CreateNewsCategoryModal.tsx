@@ -1,14 +1,11 @@
 import { Button, Form, message } from "antd";
-import {
-  ModalForm,
-  ProFormText,
-  ProFormTextArea,
-} from "@ant-design/pro-components";
 
 import { EditOutlined } from "@ant-design/icons";
+import { ModalForm } from "@ant-design/pro-components";
+import { ModalFormItems } from "./ModalFormItem";
 import { useCreateNewsCategoryMutation } from "@/apis-client/admin/news/category";
 
-export function NewsCategoryModalCreate({ refetch }: any) {
+export function CreateNewsCategoryModal({ refetch }: any) {
   const [form] = Form.useForm();
   const [createNewsCategory, other] = useCreateNewsCategoryMutation();
 
@@ -43,28 +40,7 @@ export function NewsCategoryModalCreate({ refetch }: any) {
         return true;
       }}
     >
-      <ProFormText
-        name="name"
-        label="标签名"
-        placeholder="请输入"
-        rules={[
-          {
-            required: true,
-            message: "请输入",
-          },
-        ]}
-      />
-      <ProFormTextArea
-        name="description"
-        label="描述"
-        placeholder="请输入"
-        rules={[
-          {
-            required: false,
-            message: "请输入",
-          },
-        ]}
-      />
+      <ModalFormItems />
     </ModalForm>
   );
 }

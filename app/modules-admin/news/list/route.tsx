@@ -1,12 +1,11 @@
-import { ButtonLink } from "@/components/common";
-import { Link, useParams } from "@remix-run/react";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
-import { Space } from "antd";
+import { ButtonLink } from "@/components/common";
+import { createColumns } from "./components/createColumns";
 import { defaultLang } from "~/config/lang";
+import { useParams } from "@remix-run/react";
 import { useReadNewsListQuery } from "@/apis-client/admin/news/news";
 import { useState } from "react";
-import { DeleteIt } from "./components/delete-it";
 
 export function Route() {
   const { lang = defaultLang, id } = useParams();
@@ -38,55 +37,7 @@ export function Route() {
             to={`/${lang}/admin/news/edit`}
           />,
         ]}
-        columns={[
-          {
-            dataIndex: "title",
-            title: "新闻标题",
-            renderText(text, record, index, action) {
-              return (
-                <Link to={`/${lang}/news/${record.id}`}>{record.title}</Link>
-              );
-            },
-          },
-          {
-            dataIndex: "content",
-            title: "新闻内容",
-            render(_, record) {
-              return <div>{record.content?.slice(0, 20)}</div>;
-            },
-          },
-          {
-            dataIndex: "author",
-            title: "作者",
-          },
-          {
-            dataIndex: "source",
-            title: "新闻来源",
-          },
-          {
-            dataIndex: "newsId",
-            title: "新闻分类",
-          },
-          {
-            dataIndex: "viewCount",
-            title: "查看次数",
-          },
-          {
-            dataIndex: "op",
-            title: "操作",
-            render(_, record) {
-              return (
-                <Space>
-                  <ButtonLink
-                    type="edit"
-                    to={`/${lang}/admin/news/edit/${record.id}`}
-                  />
-                  <DeleteIt refetch={refetch} record={record} title={""} />
-                </Space>
-              );
-            },
-          },
-        ]}
+        columns={createColumns({ lang, refetch }) as any}
       />
     </PageContainer>
   );
