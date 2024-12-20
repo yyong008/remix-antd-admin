@@ -4,7 +4,7 @@ import { Button, Space } from "antd";
 import { Link, useParams } from "@remix-run/react";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
-import { MailForm } from "./components";
+import { MailForm } from "./components/MailForm";
 import { QuillEditor } from "@/components/common/quill-editor";
 import { useState } from "react";
 

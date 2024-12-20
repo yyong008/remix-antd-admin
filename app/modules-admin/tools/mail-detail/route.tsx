@@ -5,7 +5,7 @@ import { Link, useParams } from "@remix-run/react";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { useEffect, useState } from "react";
 
-import { MailForm } from "./components";
+import { MailForm } from "./components/MailForm";
 import { QuillEditor } from "@/components/common/quill-editor";
 import { useReadMailTemplateQuery } from "~/apis-client/admin/tools/mail";
 

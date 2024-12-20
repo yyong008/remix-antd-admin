@@ -1,6 +1,7 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
-import { StorageModal, storageColumnsCreate } from "./components";
 
+import { StorageModal } from "./components/StorageModal/StorageModal";
+import { createColumns } from "./components/createColumns";
 import { useReadToolsStorageListQuery } from "~/apis-client/admin/tools/storage";
 import { useState } from "react";
 
@@ -23,7 +24,7 @@ export function Route() {
         showSorterTooltip
         dataSource={data?.data?.list || []}
         toolBarRender={() => [<StorageModal key="storage" refetch={refetch} />]}
-        columns={storageColumnsCreate() as any}
+        columns={createColumns({ refetch }) as any}
         options={{
           reload: refetch,
         }}

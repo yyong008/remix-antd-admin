@@ -2,7 +2,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { useMemo, useState } from "react";
 
 import { ButtonLink } from "@/components/common";
-import { createMaiListColumns } from "./components/mail-list-columns-create";
+import { createColumns } from "./components/createColumns";
 import { useParams } from "@remix-run/react";
 import { useReadMailTemplateListQuery } from "~/apis-client/admin/tools/mail";
 
@@ -15,8 +15,8 @@ export function Route() {
   const { data, isLoading, refetch } = useReadMailTemplateListQuery(page);
 
   const columns = useMemo(() => {
-    return createMaiListColumns(lang!);
-  }, [lang]);
+    return createColumns({ lang, refetch });
+  }, [lang, refetch]);
 
   return (
     <PageContainer>
