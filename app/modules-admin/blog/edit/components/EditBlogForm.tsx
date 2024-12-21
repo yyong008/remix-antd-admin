@@ -1,5 +1,6 @@
+import { Button } from "antd";
+import { DrawerForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItems";
-import { ProForm } from "@ant-design/pro-components";
 import { useMemo } from "react";
 import { useReadBlogCategoryListQuery } from "@/apis-client/admin/blog/category";
 import { useReadBlogTagListQuery } from "@/apis-client/admin/blog/tag";
@@ -44,7 +45,7 @@ export function EditBlogForm(props: EditBlogFormProps) {
   }, [tags]);
 
   return (
-    <ProForm
+    <DrawerForm
       initialValues={{
         ...data,
         categoryId: data.categoryId,
@@ -58,11 +59,12 @@ export function EditBlogForm(props: EditBlogFormProps) {
       }}
       onFinish={onFinish}
       loading={loading}
+      trigger={<Button type="primary">修改博客</Button>}
     >
       <ModalFormItems
         categoriesOptions={categoriesOptions}
         tagsOptions={tagsOptions}
       />
-    </ProForm>
+    </DrawerForm>
   );
 }

@@ -1,8 +1,8 @@
+import { Button, message } from "antd";
 import { useNavigate, useParams } from "@remix-run/react";
 
+import { DrawerForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItems";
-import { ProForm } from "@ant-design/pro-components";
-import { message } from "antd";
 import { useCreateBlogMutation } from "~/apis-client/admin/blog/blog";
 import { useMemo } from "react";
 import { useReadBlogCategoryListQuery } from "@/apis-client/admin/blog/category";
@@ -57,7 +57,8 @@ export function CreateBlogForm() {
     return true;
   };
   return (
-    <ProForm
+    <DrawerForm
+      title="创建博客"
       submitter={{
         resetButtonProps: {
           style: {
@@ -67,11 +68,12 @@ export function CreateBlogForm() {
       }}
       onFinish={onFinish}
       loading={others.isLoading}
+      trigger={<Button type="primary">创建博客</Button>}
     >
       <ModalFormItems
         categoriesOptions={categoriesOptions}
         tagsOptions={tagsOptions}
       />
-    </ProForm>
+    </DrawerForm>
   );
 }
