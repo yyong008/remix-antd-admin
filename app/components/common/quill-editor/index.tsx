@@ -19,12 +19,25 @@ export const Editor = ({
   const editorRef = useRef<any>(null);
   const quillRef = useRef<any>();
 
-  const init = async () => {
+  const initEditor = async () => {
     const Quill = await Q();
     quillRef.current = new Quill(editorRef.current, {
       theme: "snow",
+      modules: {
+        toolbar: [
+          [{ header: "1" }, { header: "2" }, { font: [] }],
+          [{ list: "ordered" }, { list: "bullet" }],
+          ["bold", "italic", "underline", "strike"],
+          [{ align: [] }],
+          ["link"],
+          [{ color: [] }, { background: [] }],
+          ["blockquote", "code-block"],
+          ["clean"], // 清除格式按钮
+        ],
+      },
     });
 
+    quillRef.current.root.innerHTML = initContent;
     quillRef.current?.on("text-change", () => {
       const content = quillRef.current?.root.innerHTML;
       onChange?.(content);
@@ -35,15 +48,8 @@ export const Editor = ({
   };
 
   useEffect(() => {
-    if (initContent && quillRef.current) {
-      quillRef.current?.clipboard.dangerouslyPasteHTML(initContent);
-      // quillRef.current.root.innerHTML = content
-    }
-  }, [initContent]);
-
-  useEffect(() => {
     if (!quillRef.current) {
-      init();
+      initEditor();
     }
 
     return () => {

@@ -15,7 +15,7 @@ export function Route() {
     tag: searchParams.get("tag"),
     category: searchParams.get("category"),
   });
-  const { dataSource, tag: tagInfo, category: categoryInfo } = data?.data || {};
+  const { tag: tagInfo, category: categoryInfo, list } = data?.data || {};
   const { lang } = useParams();
 
   const info = useMemo(() => {
@@ -41,7 +41,7 @@ export function Route() {
         rowKey="id"
         size="small"
         search={false}
-        dataSource={dataSource as any[]}
+        dataSource={list as any[]}
         headerTitle={info.name}
         toolBarRender={() => [
           <ButtonLink

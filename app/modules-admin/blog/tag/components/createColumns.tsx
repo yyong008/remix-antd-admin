@@ -1,8 +1,9 @@
 import { DeleteAction } from "./DeleteAction";
 import { Link } from "@remix-run/react";
 import { Space } from "antd";
-import { SwitcherOutlined } from "@ant-design/icons";
+import { TagOutlined } from "@ant-design/icons";
 import { UpdateBlogModal } from "./UpdateBlogModal";
+import { useColorPrimary } from "~/hooks/useColorPrimary";
 
 export const createColumns = ({ lang, refetch }: any) => [
   {
@@ -12,7 +13,7 @@ export const createColumns = ({ lang, refetch }: any) => [
       return (
         <Link to={`/${lang}/admin/blog?tag=${record.id}`}>
           <Space>
-            <SwitcherOutlined />
+            <TagIcons />
             <span>{record.name}</span>
           </Space>
         </Link>
@@ -36,3 +37,8 @@ export const createColumns = ({ lang, refetch }: any) => [
     },
   },
 ];
+
+function TagIcons() {
+  const { colorPrimary } = useColorPrimary();
+  return <TagOutlined style={{ color: colorPrimary }} />;
+}

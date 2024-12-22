@@ -1,4 +1,5 @@
 import { PageContainer, ProCard } from "@ant-design/pro-components";
+import { useEffect, useState } from "react";
 import {
   useReadBlogQuery,
   useUpdateBlogByIdMutation,
@@ -8,7 +9,6 @@ import { EditBlogForm } from "./components/EditBlogForm";
 import { QuillEditor } from "@/components/common/quill-editor";
 import { message } from "antd";
 import { useParams } from "@remix-run/react";
-import { useState } from "react";
 
 export function Route() {
   const [content, setContent] = useState("");
@@ -16,14 +16,23 @@ export function Route() {
   const { id } = useParams();
   const { data, isLoading } = useReadBlogQuery({ id });
   const [updateBlog, other] = useUpdateBlogByIdMutation();
+
+  useEffect(() => {
+    if (data?.data?.content) {
+      setContent(data.data.content);
+    }
+  }, [data]);
+
   return (
     <PageContainer>
       <ProCard
         loading={isLoading}
+        style={{ height: 600 }}
         extra={
           <EditBlogForm
             loading={other.isLoading}
             data={data?.data || {}}
+            content={content}
             onFinish={async (v: any) => {
               const values = v;
               if (id) values.id = Number(id);
@@ -46,13 +55,15 @@ export function Route() {
           />
         }
       >
-        <div style={{ height: "400px" }}>
-          <QuillEditor
-            initContent={""}
-            content={content}
-            setContent={setContent}
-          />
-        </div>
+        {
+          <div style={{ height: "400px" }}>
+            <QuillEditor
+              initContent={data?.data.content || ""}
+              content={content}
+              setContent={setContent}
+            />
+          </div>
+        }
       </ProCard>
     </PageContainer>
   );

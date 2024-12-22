@@ -1,5 +1,6 @@
+import { DrawerForm, ProForm } from "@ant-design/pro-components";
+
 import { Button } from "antd";
-import { DrawerForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItems";
 import { useMemo } from "react";
 import { useReadBlogCategoryListQuery } from "@/apis-client/admin/blog/category";
@@ -9,10 +10,12 @@ type EditBlogFormProps = {
   data: any;
   onFinish: any;
   loading: boolean;
+  content: string;
 };
 
 export function EditBlogForm(props: EditBlogFormProps) {
-  const { data, onFinish, loading } = props;
+  const [form] = ProForm.useForm();
+  const { data, content, onFinish, loading } = props;
   const { data: categories = {} } = useReadBlogCategoryListQuery({
     page: 1,
     pageSize: 1000,
@@ -46,16 +49,20 @@ export function EditBlogForm(props: EditBlogFormProps) {
 
   return (
     <DrawerForm
-      initialValues={{
-        ...data,
-        categoryId: data.categoryId,
-      }}
+      form={form}
       submitter={{
         resetButtonProps: {
           style: {
             display: "none",
           },
         },
+      }}
+      onOpenChange={() => {
+        form.setFieldsValue({
+          ...data,
+          content: content,
+          categoryId: data.categoryId,
+        });
       }}
       onFinish={onFinish}
       loading={loading}

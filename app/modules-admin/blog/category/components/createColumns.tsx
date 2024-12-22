@@ -3,6 +3,7 @@ import { Link } from "@remix-run/react";
 import { Space } from "antd";
 import { SwitcherOutlined } from "@ant-design/icons";
 import { UpdateBlogCategoryModal } from "./UpdateBlogCategoryModal";
+import { useColorPrimary } from "~/hooks/useColorPrimary";
 
 export function createColumns({ lang, refetch }: any) {
   return [
@@ -13,7 +14,7 @@ export function createColumns({ lang, refetch }: any) {
         return (
           <Link to={`/${lang}/admin/blog?category=${record.id}`}>
             <Space>
-              <SwitcherOutlined />
+              <CategoryIcons />
               <span>{record.name}</span>
             </Space>
           </Link>
@@ -37,4 +38,9 @@ export function createColumns({ lang, refetch }: any) {
       },
     },
   ];
+}
+
+function CategoryIcons() {
+  const { colorPrimary } = useColorPrimary();
+  return <SwitcherOutlined style={{ color: colorPrimary }} />;
 }

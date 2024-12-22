@@ -1,4 +1,6 @@
-import { Form } from "antd";
+import { Button, Form } from "antd";
+
+import { EditOutlined } from "@ant-design/icons";
 import { ModalForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItems";
 import { blogCategory } from "@/apis-client/admin/blog/category";
@@ -18,8 +20,16 @@ export function CreateBlogCategoryModal({
       key={Date.now()}
       preserve={false}
       title={title}
-      onOpenChange={(c) => onOpenChange(c, form)}
-      trigger={trigger}
+      onOpenChange={(c) => {
+        onOpenChange?.();
+      }}
+      trigger={
+        trigger ?? (
+          <Button type={"primary"} icon={<EditOutlined />}>
+            新建
+          </Button>
+        )
+      }
       form={form}
       autoFocusFirstInput
       modalProps={{

@@ -3,19 +3,22 @@ import { ModalForm, ProForm } from "@ant-design/pro-components";
 
 import { EditOutlined } from "@ant-design/icons";
 import { ModalFormItems } from "./ModalFormItems";
+import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { useCreateBlogTagMutation } from "~/apis-client/admin/blog/tag";
 
 export function UpdateBlogModal({ refetch }: any) {
   const [createBlogTag] = useCreateBlogTagMutation();
   const [form] = ProForm.useForm();
+  const { colorPrimary } = useColorPrimary();
   return (
     <ModalForm
       title="创建标签"
       form={form}
       trigger={
-        <Button type={"primary"} icon={<EditOutlined />}>
-          新建
-        </Button>
+        <Button
+          type={"link"}
+          icon={<EditOutlined style={{ color: colorPrimary }} />}
+        ></Button>
       }
       onOpenChange={() => {}}
       onFinish={async (values: any) => {

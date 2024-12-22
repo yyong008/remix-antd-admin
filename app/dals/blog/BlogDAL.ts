@@ -84,11 +84,8 @@ export class BlogDAL {
    * @param tagId
    * @returns
    */
-  public async getListByIds(
-    userId: number,
-    categoryId: number,
-    tagId: number,
-  ): Promise<any> {
+  public async getListByIds(data: any): Promise<any> {
+    const { userId, categoryId, tagId, page, pageSize } = data;
     const where: any = {
       userId,
     };
@@ -98,6 +95,8 @@ export class BlogDAL {
 
     return await prisma.blog.findMany({
       where,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
     });
   }
   /**

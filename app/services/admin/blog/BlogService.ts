@@ -1,6 +1,4 @@
-import { blogCategoryDAL } from "@/dals/blog/BlogCategoryDAL";
 import { blogDAL } from "@/dals/blog/BlogDAL";
-import { blogTagDAL } from "@/dals/blog/BlogTagDAL";
 import { joseJwt } from "@/libs/jose";
 import { urlSearchParams } from "@/utils/server/search";
 
@@ -12,7 +10,7 @@ class BlogService {
    */
   async getById(args: any) {
     const id = Number(args.params.id);
-    const result = await blogCategoryDAL.getById(id);
+    const result = await blogDAL.getById(id);
     return result;
   }
 
@@ -26,18 +24,18 @@ class BlogService {
     const categoryId = urlSearchParams.getCategoryId(args.request);
     const tagId = urlSearchParams.getTagId(args.request);
 
-    const dataSource = await blogDAL.getById(1);
-    const category = await blogCategoryDAL.getListById(
-      payload.userId,
+    const total = await blogDAL.getCount();
+    const list = await blogDAL.getListByIds({
+      page: urlSearchParams.getPage(args.request) || 1,
+      pageSize: urlSearchParams.getPageSize(args.request) || 10,
+      userId: payload.userId,
       categoryId,
       tagId,
-    );
-    const tag = await blogTagDAL.getAll();
+    });
 
     return {
-      dataSource,
-      category,
-      tag,
+      total,
+      list,
     };
   }
   /**
