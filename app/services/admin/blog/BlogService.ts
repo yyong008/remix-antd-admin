@@ -50,6 +50,7 @@ class BlogService {
     const payload = await joseJwt.getTokenUserIdByArgs(args);
     const data = {
       ...dto,
+      publishedAt: new Date(dto.publishedAt),
       userId: payload.userId,
     };
     const result = await blogDAL.create(data);
@@ -61,7 +62,7 @@ class BlogService {
    * @returns
    */
   async deleteByIds(args: any) {
-    const ids = await args.request.json();
+    const { ids } = await args.request.json();
     const result = await blogDAL.deleteByIds(ids);
     return result;
   }
@@ -72,7 +73,13 @@ class BlogService {
    * @returns
    */
   async update(args: any) {
-    const data = await args.request.json();
+    const dto = await args.request.json();
+    const payload = await joseJwt.getTokenUserIdByArgs(args);
+    const data = {
+      ...dto,
+      publishedAt: new Date(dto.publishedAt),
+      userId: payload.userId,
+    };
     const result = await blogDAL.update(data);
     return result;
   }

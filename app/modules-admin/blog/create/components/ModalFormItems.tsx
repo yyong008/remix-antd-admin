@@ -72,6 +72,7 @@ export const ModalFormItems = ({ categoriesOptions, tagsOptions }: any) => {
         ]}
       />
       <ProFormTextArea
+        style={{ display: "none" }}
         label="编写博客"
         name="content"
         rules={[

@@ -32,6 +32,7 @@ class BlogCategoryService {
     const payload = await joseJwt.getTokenUserIdByArgs(args);
     const data = {
       ...dto,
+      publishedAtd: new Date(dto.publishedAtd),
       userId: payload.userId,
     };
     const result = await blogCategoryDAL.create(data);
@@ -43,7 +44,7 @@ class BlogCategoryService {
    * @returns
    */
   public async deleteByIds(args: ActionFunctionArgs) {
-    const ids = await args.request.json();
+    const { ids } = await args.request.json();
     const result = await blogCategoryDAL.deleteByIds(ids);
     return result;
   }
@@ -58,6 +59,7 @@ class BlogCategoryService {
     const payload = await joseJwt.getTokenUserIdByArgs(args);
     const data = {
       ...dto,
+      publishedAtd: new Date(dto.publishedAtd),
       userId: payload.userId,
     };
     const result = await blogCategoryDAL.update(data);

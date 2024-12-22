@@ -25,6 +25,7 @@ class BlogTagService {
 
     const data = {
       ...dto,
+      publishedAt: new Date(dto.publishedAt),
       userId: payload.userId,
     };
     const result = await blogTagDAL.create(data);
@@ -36,7 +37,7 @@ class BlogTagService {
    * @returns
    */
   async deleteByIds(args: any) {
-    const ids = await args.request.json();
+    const { ids } = await args.request.json();
     const result = await blogTagDAL.deleteBlogTagByIds(ids);
     return result;
   }
@@ -50,6 +51,7 @@ class BlogTagService {
     const payload = await joseJwt.getTokenUserIdByArgs(args);
     const data = {
       ...dto,
+      publishedAt: new Date(dto.publishedAt),
       userId: payload.userId,
     };
     const result = await blogTagDAL.update(data);

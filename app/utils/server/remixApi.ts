@@ -147,7 +147,10 @@ export class RemixApi {
       const dto = await args.request.clone().json();
       const result = schemas.body?.safeParse(dto);
       if (!result.success) {
-        throw new Error(result.error.errors[0].message);
+        const e1 = result.error.errors[0];
+        const path1 = e1.path[0];
+        const message = `${path1} ${e1.message}`;
+        throw new Error(message);
       }
     }
   }

@@ -1,14 +1,15 @@
 import { Button, message } from "antd";
+import { DrawerForm, ProForm } from "@ant-design/pro-components";
 import { useNavigate, useParams } from "@remix-run/react";
 
-import { DrawerForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItems";
 import { useCreateBlogMutation } from "~/apis-client/admin/blog/blog";
 import { useMemo } from "react";
 import { useReadBlogCategoryListQuery } from "@/apis-client/admin/blog/category";
 import { useReadBlogTagListQuery } from "@/apis-client/admin/blog/tag";
 
-export function CreateBlogForm() {
+export function CreateBlogForm(props: { content: string }) {
+  const [form] = ProForm.useForm();
   const nav = useNavigate();
   const { lang } = useParams();
   const [createBlog, others] = useCreateBlogMutation();
@@ -58,6 +59,7 @@ export function CreateBlogForm() {
   };
   return (
     <DrawerForm
+      form={form}
       title="创建博客"
       submitter={{
         resetButtonProps: {
@@ -65,6 +67,11 @@ export function CreateBlogForm() {
             display: "none",
           },
         },
+      }}
+      onOpenChange={(open) => {
+        form.setFieldsValue({
+          content: props.content,
+        });
       }}
       onFinish={onFinish}
       loading={others.isLoading}

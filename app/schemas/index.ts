@@ -4,8 +4,13 @@ const adminSchemas = {
   blog: {
     blog: {
       CREATE: z.object({
-        name: z.string(),
-        description: z.string().optional(),
+        title: z.string(),
+        author: z.string(),
+        source: z.string(),
+        content: z.string(),
+        publishedAt: z.string(),
+        categoryId: z.number(),
+        tagId: z.number(),
       }),
       UPDATE: z.object({
         name: z.string(),

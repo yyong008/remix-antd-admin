@@ -11,7 +11,7 @@ export function Route() {
       <ProCard
         title="创建博客"
         style={{ height: 600 }}
-        extra={<CreateBlogForm />}
+        extra={<CreateBlogForm content={content} />}
       >
         <div style={{ height: "400px" }}>
           <QuillEditor
