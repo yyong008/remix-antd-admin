@@ -7,11 +7,11 @@ import { schemas } from "@/schemas";
 const options: Op = {
   GET: {
     isPublic: false,
-    perm: permissions.admin.blog.category.READ,
+    perm: permissions.admin.blog.category.READ_LIST,
     schemas: {
-      url: schemas.admin.blog.category.READ,
+      url: schemas.admin.blog.category.READ_LIST,
     },
-    handler: blogCategoryService.getById,
+    handler: blogCategoryService.getListById,
   },
   POST: {
     isPublic: false,

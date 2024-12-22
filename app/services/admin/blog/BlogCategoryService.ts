@@ -12,7 +12,7 @@ class BlogCategoryService {
    * @param args
    * @returns
    */
-  public async getById(args: LoaderFunctionArgs) {
+  public async getListById(args: LoaderFunctionArgs) {
     const payload = await joseJwt.getTokenUserIdByArgs(args);
     const total = await blogCategoryDAL.getCount();
     const list = await blogCategoryDAL.getListByUserId(payload.userId);
