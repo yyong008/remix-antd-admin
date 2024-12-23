@@ -6,7 +6,7 @@ import { ModalFormItems } from "./ModalFormItems";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { useCreateBlogTagMutation } from "~/apis-client/admin/blog/tag";
 
-export function UpdateBlogModal({ refetch }: any) {
+export function UpdateBlogModal({ refetch, record }: any) {
   const [createBlogTag] = useCreateBlogTagMutation();
   const [form] = ProForm.useForm();
   const { colorPrimary } = useColorPrimary();
@@ -20,7 +20,11 @@ export function UpdateBlogModal({ refetch }: any) {
           icon={<EditOutlined style={{ color: colorPrimary }} />}
         ></Button>
       }
-      onOpenChange={() => {}}
+      onOpenChange={() => {
+        form.setFieldsValue({
+          ...record,
+        });
+      }}
       onFinish={async (values: any) => {
         const result = await createBlogTag(values);
         if (result.data.code !== 0) {
