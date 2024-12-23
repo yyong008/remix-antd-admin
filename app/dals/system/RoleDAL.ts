@@ -108,22 +108,42 @@ export class RoleDAL {
       if (!role.id) {
         throw new Error(`create user fail`);
       }
-      // 删除指定 id 的 menuRole
-      const d = await tx.menuRole.deleteMany({
+      // 获取当前的菜单关联
+      const existingMenuRoles = await tx.menuRole.findMany({
         where: { roleId: data.id },
       });
 
-      if (!d) {
-        throw new Error(`del userRole fail`);
+      // 获取现有菜单ID
+      const existingMenuIds = existingMenuRoles.map((mr) => mr.menuId);
+
+      // 计算需要删除和需要新增的菜单ID
+      const menuIdsToDelete = existingMenuIds.filter(
+        (id) => !data.menus.some((menu: any) => menu.id === id),
+      );
+
+      const menuIdsToAdd = data.menus.filter(
+        (menu: any) => !existingMenuIds.includes(menu.id),
+      );
+
+      // 删除不再关联的菜单
+      if (menuIdsToDelete.length > 0) {
+        await tx.menuRole.deleteMany({
+          where: {
+            roleId: data.id,
+            menuId: { in: menuIdsToDelete },
+          },
+        });
       }
 
-      // 更具 data 中的 menus 重新关联中的数组
-      await tx.menuRole.createMany({
-        data: data.menus.map((m: any) => ({
-          roleId: role.id,
-          menuId: m.id,
-        })),
-      });
+      // 新增未关联的菜单
+      if (menuIdsToAdd.length > 0) {
+        await tx.menuRole.createMany({
+          data: menuIdsToAdd.map((m: any) => ({
+            roleId: data.id,
+            menuId: m.id,
+          })),
+        });
+      }
       return role;
     });
   }
