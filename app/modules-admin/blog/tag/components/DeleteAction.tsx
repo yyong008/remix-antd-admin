@@ -1,7 +1,7 @@
 import { Button, Form, Popconfirm, message } from "antd";
 
 import { DeleteOutlined } from "@ant-design/icons";
-import { systemDeptApi } from "@/apis-client/admin/system/dept/index";
+import { useDeleteBlogTagByIdsMutation } from "~/apis-client/admin/blog/tag";
 
 type DeleteActionProps = {
   record: any;
@@ -11,8 +11,7 @@ type DeleteActionProps = {
 
 export function DeleteAction(props: DeleteActionProps) {
   const { record, title, refetch } = props;
-  const [deleteDepartments, { isLoading }] =
-    systemDeptApi.useDeletesystemDeptByIdsMutation();
+  const [deleteByIds, { isLoading }] = useDeleteBlogTagByIdsMutation();
   return (
     <Form>
       <Popconfirm
@@ -20,7 +19,7 @@ export function DeleteAction(props: DeleteActionProps) {
         onConfirm={async () => {
           const ids = [record.id];
 
-          const result = await deleteDepartments({ ids }).unwrap();
+          const result = await deleteByIds({ ids }).unwrap();
 
           if (result.code !== 0) {
             message.error(result.message ?? "删除失败");
