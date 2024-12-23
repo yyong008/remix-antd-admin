@@ -1,5 +1,5 @@
 export const prolayoutConfig = {
-  title: "ram",
+  title: "Remix Antd Admin",
   logo: "/logo.png",
   layout: "mix",
   menu: {
