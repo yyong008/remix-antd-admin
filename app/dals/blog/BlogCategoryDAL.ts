@@ -25,7 +25,7 @@ export class BlogCategoryDAL {
   async update({ id, ...data }: any) {
     return await prisma.blogCategory.update({
       where: {
-        id: data.id,
+        id,
       },
       data,
     });

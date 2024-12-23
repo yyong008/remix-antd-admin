@@ -32,7 +32,6 @@ class BlogCategoryService {
     const payload = await joseJwt.getTokenUserIdByArgs(args);
     const data = {
       ...dto,
-      publishedAtd: new Date(dto.publishedAtd),
       userId: payload.userId,
     };
     const result = await blogCategoryDAL.create(data);
@@ -59,7 +58,6 @@ class BlogCategoryService {
     const payload = await joseJwt.getTokenUserIdByArgs(args);
     const data = {
       ...dto,
-      publishedAtd: new Date(dto.publishedAtd),
       userId: payload.userId,
     };
     const result = await blogCategoryDAL.update(data);
