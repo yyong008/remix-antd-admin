@@ -133,7 +133,7 @@ const adminSchemas = {
         password: z.string().optional(),
         email: z.string().email().optional(),
         roles: z.array(z.number()),
-        dept: z.number(),
+        departmentId: z.number(),
         nickname: z.string().optional(),
         phone: z.string().optional(),
         lang: z.string().optional(),
