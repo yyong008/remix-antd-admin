@@ -1,5 +1,6 @@
 import { createRequestHandler } from "@remix-run/express";
 import express from "express";
+import figlet from "figlet";
 import { installGlobals } from "@remix-run/node";
 
 installGlobals();
@@ -17,7 +18,7 @@ const app = express();
 
 // handle asset requests
 if (viteDevServer) {
-  app.use(express.static('public'));
+  app.use(express.static("public"));
   app.use(viteDevServer.middlewares);
 } else {
   app.use(
@@ -43,13 +44,22 @@ app.all(
 );
 
 // dev default 3333
-let port = 3333
+let port = 3333;
 
-if(process.env.NODE_ENV === 'production') {
-  port = 3000
+if (process.env.NODE_ENV === "production") {
+  port = 3000;
 }
 
-// Dockerfile EXPOSE 3000
-app.listen(port, () =>
-  console.log("Server on: http://localhost:" + port + "\n"),
-);
+app.listen(port, () => {
+  console.log(
+    figlet.textSync("Remix Admin Admin", {
+      font: "Ghost",
+      horizontalLayout: "default",
+      verticalLayout: "default",
+      width: 240,
+      whitespaceBreak: true,
+    }),
+  );
+  console.log("")
+  console.log(`Server on: http://localhost:${port}\n`);
+});
