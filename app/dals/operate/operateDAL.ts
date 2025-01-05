@@ -20,11 +20,17 @@ export class OperateDAL {
    * @param data
    * @returns
    */
-  async getOperates(data: { where: any; skip: number; take: number }) {
+  async getOperates(data: {
+    where: any;
+    skip: number;
+    take: number;
+    orderBy: any;
+  }) {
     const ops = await prisma.operate.findMany({
       where: data.where,
       skip: data.skip,
       take: data.take,
+      orderBy: data.orderBy,
     });
     return ops;
   }

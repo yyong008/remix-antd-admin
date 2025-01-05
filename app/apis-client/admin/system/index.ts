@@ -6,11 +6,11 @@ import { systemMailTpl } from "./tools/mail-tpl";
 import { systemMenu } from "./menu";
 import { systemMenuRoleApi } from "./role/menu-role";
 import { systemMonitorLoginlog } from "./monitor/login-log";
+import { systemMonitorOperate } from "./monitor/operate";
 import { systemMonitorServe } from "./monitor/serve";
 import { systemRoleApi } from "./role/role";
 import { systemToolsStorage } from "./tools/storage";
 import { systemUser } from "./user";
-
 export const systemReducers = {
   [systemConfig.reducerPath]: systemConfig.reducer,
   [systemDeptApi.reducerPath]: systemDeptApi.reducer,
@@ -24,6 +24,7 @@ export const systemReducers = {
   [systemRoleApi.reducerPath]: systemRoleApi.reducer,
   [systemToolsStorage.reducerPath]: systemToolsStorage.reducer,
   [systemUser.reducerPath]: systemUser.reducer,
+  [systemMonitorOperate.reducerPath]: systemMonitorOperate.reducer,
 };
 
 export const systemMiddlewares = [
@@ -39,4 +40,5 @@ export const systemMiddlewares = [
   systemRoleApi.middleware,
   systemToolsStorage.middleware,
   systemUser.middleware,
+  systemMonitorOperate.middleware,
 ];

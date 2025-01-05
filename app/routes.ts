@@ -51,6 +51,10 @@ class AdminSystemAPI {
         path: `${pathPrefix}/monitor/serve`,
         file: `${filePrefix}/monitor/serve.api.ts`,
       },
+      {
+        path: `${pathPrefix}/monitor/operate`,
+        file: `${filePrefix}/monitor/operate.api.ts`,
+      },
     ];
     return sysetmRoutes;
   }
@@ -357,6 +361,10 @@ const adminRoutes = [
     route(
       "system/monitor/serve",
       "modules-admin/system/monitor/serve/index.tsx",
+    ),
+    route(
+      "system/monitor/operate",
+      "modules-admin/system/monitor/operate/index.tsx",
     ),
     route("system/role", "modules-admin/system/role/index.tsx"),
     route("system/user", "modules-admin/system/user/index.tsx"),

@@ -372,6 +372,20 @@ const adminSchemas = {
           ids: z.array(z.number()),
         }),
       },
+      operate: {
+        CREATE: z.object({}),
+        UPDATE: z.object({}),
+        READ: z.object({
+          id: z.number(),
+        }),
+        READ_LIST: z.object({
+          page: z.string().optional(),
+          pageSize: z.string().optional(),
+        }),
+        DELETE: z.object({
+          ids: z.array(z.number()),
+        }),
+      },
     },
     config: {
       CREATE: z.object({}),

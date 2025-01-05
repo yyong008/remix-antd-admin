@@ -162,6 +162,13 @@ export const permissions = {
           UPDATE: "system:monitor:serve:update",
           DELETE: "system:monitor:serve:delete",
         },
+        operate: {
+          READ_LIST: "system:monitor:operate:list",
+          READ: "system:monitor:operate:read",
+          CREATE: "system:monitor:operate:create",
+          UPDATE: "system:monitor:operate:update",
+          DELETE: "system:monitor:operate:delete",
+        },
       },
       role: {
         READ_LIST: "system:role:list",
