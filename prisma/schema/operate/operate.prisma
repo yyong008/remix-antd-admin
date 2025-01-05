@@ -1,0 +1,12 @@
+model Operate {
+  id         Int      @id @default(autoincrement()) @map("id") // 主键，自增长
+  userId     Int      @map("user_id") // 用户 ID
+  username   String?  @map("username") // 用户名
+  path       String   @map("path") // 操作的路径
+  url        String   @map("url") // 完整的 URL
+  method     String   @map("method") // HTTP 方法，例如 "GET", "POST", "PUT", "DELETE"
+  ipAddress  String?  @map("ip_address") // IP 地址
+  statusCode Int      @map("status_code") // 响应状态码
+  createdAt  DateTime @default(now()) @map("created_at") // 操作时间，默认当前时间
+  updatedAt  DateTime @updatedAt @map("updated_at") // 更新时间，自动更新时间戳
+}

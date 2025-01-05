@@ -4,9 +4,12 @@ import type { Op, TOption, UrlAndBodySchemas } from "@/types/restful";
 
 import type { ALFunctionArgs } from "@/types/remix";
 import { ERRIR_PRESENTATION_MODE } from "@/constants/error";
+import { getClientIPAddress } from "remix-utils/get-client-ip-address";
 import { hm } from "./api/http";
 import { joseJwt } from "@/libs/jose";
+import { operateDAL } from "@/dals/operate/operateDAL";
 import { rps } from "./response-json";
+import { userDAL } from "~/dals/system/UserDAL";
 import { userPermsDAL } from "@/dals/system/UserPermsDAL";
 
 export class RemixApi {
@@ -66,6 +69,7 @@ export class RemixApi {
         await that._handlerSchema(args, options.schemas);
       }
       data = await handler(args);
+      that._handlerCreateOperate(args, {});
       return rps.rsj(data);
     } catch (error) {
       console.error("❌ >>", error);
@@ -75,6 +79,9 @@ export class RemixApi {
       if (typeof error === "string") {
         return rps.rfj(data, error);
       }
+      that._handlerCreateOperate(args, {
+        stuatsCode: 500,
+      });
       return rps.rfj(data, error?.toString());
     }
   }
@@ -164,6 +171,39 @@ export class RemixApi {
     if (method !== "GET" && process.env.PRESENTATION_MODE === "1") {
       throw new Error(ERRIR_PRESENTATION_MODE);
     }
+  }
+
+  /**
+   * 处理创建操作
+   *  @param args
+   * @returns
+   * */
+  async _handlerCreateOperate(
+    args: ActionFunctionArgs,
+    data: { stuatsCode?: number },
+  ) {
+    const payload = await joseJwt.getTokenUserIdByArgs(args);
+    const userId = payload?.userId || 0;
+
+    const method: string = args.request.method.toUpperCase();
+    const path = new URL(args.request.url).pathname;
+    const url = args.request.url;
+    const ipAddress = getClientIPAddress(args.request.headers) ?? "本机地址";
+    const statusCode = data?.stuatsCode || 200;
+    let user: any = {};
+    if (userId) {
+      user = await userDAL.getById(userId);
+    }
+
+    await operateDAL.createOperate({
+      userId: userId,
+      method,
+      username: user?.username || "",
+      url,
+      path,
+      ipAddress,
+      statusCode,
+    });
   }
 }
 
