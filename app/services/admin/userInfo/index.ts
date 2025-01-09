@@ -1,8 +1,8 @@
 import type * as rrn from "@remix-run/node";
-import { userPermsDAL } from "@/dals/system/UserPermsDAL";
-import { userDAL } from "@/dals/system/UserDAL";
 
 import { joseJwt } from "@/libs/jose";
+import { userDAL } from "@/dals/system/UserDAL";
+import { userPermsDAL } from "@/dals/system/UserPermsDAL";
 
 class UserInfoService {
   /**
@@ -12,7 +12,9 @@ class UserInfoService {
    */
   async getUserInfo(args: rrn.LoaderFunctionArgs) {
     const { userId } = await joseJwt.getTokenUserIdByArgs(args);
-
+    if (!userId) {
+      return null;
+    }
     const menu = await userPermsDAL.getFlatMenuByUserId(userId!);
     const userInfo = await userDAL.getById(userId!);
 

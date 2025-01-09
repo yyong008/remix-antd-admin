@@ -82,6 +82,7 @@ export default function UpdateMenuModal({
       }}
       submitTimeout={2000}
       onFinish={async (values: any) => {
+        debugger;
         const vals = { ...values };
         if (record.id) {
           vals.id = record.id;

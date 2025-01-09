@@ -321,7 +321,8 @@ const adminRoutes = [
   route(":lang/admin", "modules/layout/admin/index.tsx", [
     // dashboard
     route("dashboard", "modules-admin/dashboard/index.tsx"),
-
+    // ai
+    route("ai/simplechat", "modules-admin/ai/simplechat/index.tsx"),
     // news
     route("news/edit", "modules-admin/news/edit/index.tsx"),
     route("news/edit/:id", "modules-admin/news/edit-detail/index.tsx"),

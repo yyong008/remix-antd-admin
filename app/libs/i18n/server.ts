@@ -1,7 +1,7 @@
 import { I18nextProvider, initReactI18next } from "react-i18next";
 
 // i18n
-import Backend from "i18next-fs-backend";
+import Backend from "i18next-fs-backend/cjs";
 import { createInstance } from "i18next";
 // config
 import i18nConfig from "~/libs/i18n/i18n";

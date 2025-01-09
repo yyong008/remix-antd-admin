@@ -39,7 +39,7 @@ class JoseJwt {
         algorithms: [this._alg],
       });
       return { payload };
-    } catch (error) {
+    } catch (error: any) {
       console.error("❌ Failed to verify >>", error);
       return { error };
     }
@@ -58,7 +58,10 @@ class JoseJwt {
         algorithms: [this._alg],
       });
       return { ...payload } as ResultType;
-    } catch (error) {
+    } catch (error: any) {
+      if (error?.code === "ERR_JWT_EXPIRED") {
+        throw Error('"exp" claim timestamp check failed');
+      }
       console.error("❌ Failed to verify >>", error);
       return { error } as ResultType;
     }

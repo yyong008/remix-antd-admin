@@ -5,9 +5,8 @@ import { defineConfig } from "vite";
 import { installGlobals } from "@remix-run/node";
 import pkg from "./package.json";
 import { vitePlugin as remix } from "@remix-run/dev";
-import { remixDevTools } from "remix-development-tools";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { visualizer } from "rollup-plugin-visualizer";
+// import { visualizer } from "rollup-plugin-visualizer";
 
 installGlobals();
 
@@ -38,7 +37,6 @@ export default defineConfig({
     }),
   },
   plugins: [
-    remixDevTools(),
     remix({
       ssr: true,
       ignoredRouteFiles: ["**/*.css"],
@@ -50,13 +48,8 @@ export default defineConfig({
         v3_relativeSplatPath: true,
         v3_throwAbortReason: true,
       },
-      // routes(defineRoutes) {
-      //   return defineRoutes((route) => {
-      //     allRoutes(route);
-      //   });
-      // },
     }),
     tsconfigPaths(),
-    visualizer(),
+    // visualizer(),
   ],
 });

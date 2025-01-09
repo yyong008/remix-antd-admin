@@ -101,6 +101,7 @@ export class MenuDAL {
         path_file: data.path_file,
         status: data.status,
         orderNo: data.orderNo,
+        icon: data.icon,
       },
     });
   }

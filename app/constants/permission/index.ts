@@ -8,6 +8,7 @@ export const permissions = {
         READ: "about:read",
       },
     },
+
     blog: {
       blog: {
         READ_LIST: "blog:list",
@@ -183,6 +184,11 @@ export const permissions = {
         CREATE: "system:user:create",
         UPDATE: "system:user:update",
         DELETE: "system:user:delete",
+      },
+    },
+    ai: {
+      simplechat: {
+        READ: "system:ai:simplechat:read",
       },
     },
   },

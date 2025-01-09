@@ -1,9 +1,7 @@
-import { resolve } from "node:path";
-
-import Backend from "i18next-fs-backend";
+import Backend from "i18next-fs-backend/cjs";
 import { RemixI18Next } from "remix-i18next/server";
-
 import i18nConfig from "./i18n";
+import { resolve } from "node:path";
 
 const remixI18Next = new RemixI18Next({
   detection: {
