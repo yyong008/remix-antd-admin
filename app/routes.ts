@@ -311,6 +311,7 @@ const clientRoutes = [
     route("blog/:id", "modules-client/blog-detail/index.tsx"),
     route("news", "modules-client/news/index.tsx"),
     route("news/:id", "modules-client/news-detail/index.tsx"),
+    route("privacy", "modules-client/privacy/index.tsx"),
   ]),
   // any
   route("*", "modules/any/route.tsx"),

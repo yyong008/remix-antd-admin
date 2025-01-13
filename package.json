@@ -102,6 +102,7 @@
     "react-json-view-lite": "^1.2.1",
     "react-quill": "^2.0.0",
     "react-redux": "^9.1.2",
+    "react-type-animation": "^3.2.0",
     "reactflow": "^11.10.4",
     "remix-i18next": "^6.0.1",
     "remix-utils": "^7.5.0",

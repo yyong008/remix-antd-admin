@@ -7,7 +7,7 @@ export function Nav() {
   const { lang = defaultLang } = useParams();
   // return 123
   return (
-    <div className="absolute flex justify-between items-center mt-[20px] mx-0 my-auto w-[60vw] px-[40px] h-[60px]  rounded-[10px] border bg-slate-100 shadow-lg">
+    <div className="absolute flex justify-between items-center mt-[20px] mx-0 my-auto w-[60vw] px-[40px] h-[60px]  rounded-[20px] border bg-white shadow-lg">
       <div className="flex items-center">
         <div className="flex items-center  mr-[20px] gap-3">
           <img className="w-[30px]" src="/logo.png" alt="" />
