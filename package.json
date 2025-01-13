@@ -11,7 +11,9 @@
     "admin",
     "prisma",
     "postresql",
-    "remix-toolkit"
+    "remix-toolkit",
+    "langchain",
+    "ai"
   ],
   "repository": {
     "type": "git",
