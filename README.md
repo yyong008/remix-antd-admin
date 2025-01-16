@@ -20,7 +20,7 @@ A modern full-stack web solution based on React Router, React, Antd, TailwindCSS
 git clone https://github.com/yyong008/remix-antd-admin.git
 
 # or gitee
-git clone https://github.com/yyong008/remix-antd-admin.git
+git clone https://gitee.com/yyong008/remix-antd-admin.git
 
 cd remix-antd-admin
 
