@@ -1,54 +1,61 @@
-<center>
-  <h1>Remix Antd Admin</h1>
-</center>
+# Welcome to Remix Antd Admin
 
-[Remix Antd Admin](https://github.com/yyong008/remix-antd-admin) is a full-stack management system for both front-end and back-end. Built on React Router and Antd/TailwindCSS, as well as Prisma, it includes an RBAC (Role-Based Access Control) permission management system and integrates the remix-i18n solution.
+A modern full-stack web solution based on React Router, React, Antd, TailwindCSS, Prisma, and RBAC.
 
-<p align="center">
-  <img src="https://img.shields.io/github/stars/yyong008/remix-antd-admin.svg?style=flat-square" />
-  <img src="https://img.shields.io/github/forks/yyong008/remix-antd-admin.svg?style=flat-square" />
-  <img src="https://img.shields.io/github/issues/yyong008/remix-antd-admin.svg?style=flat-square" />
-</p>
+## Feature
 
+- 🚀 React Router for routing
+- 🎉 TailwindCSS for styling
+- 🔒 TypeScript by default
+- 📖 Prisma for ORM
+- 🔄 multi data fetch: redux/loader
+- 🔐 RBAC permission management
+- 🌐 remix-i18n for internationalization
+- 📖 [remix-antd-admin-docs](https://remix-antd-admin-docs.vercel.app/)
 
-
-## language
-
-- [中文文档](./README_CN)
-
-## Related projects
-
-- [fastapi-antd-admin](https://github.com/yyong008/fastapi-antd-admin) FastAPI Version(WIP)
-
-## visit
-
-|version|visit|
-|---|---|
-|fullstack|[remix-antd-admin](https://remix-antd-admin.bczhp.top/)|
-|front end|[remix-antd-admin(**Vercel**)](https://remix-antd-admin.vercel.app)|
-|docs|[remix-antd-admin-docs](https://remix-antd-admin-docs.vercel.app/)|
-
-
-## usage
-
-### Github
+## Geting Started
 
 ```sh
+# git
 git clone https://github.com/yyong008/remix-antd-admin.git
-```
 
-### Gitee
+# or gitee
+git clone https://github.com/yyong008/remix-antd-admin.git
 
-```sh
-git clone https://gitee.com/yyong008/remix-antd-admin.git
-```
-
-## start server
-
-```sh
 cd remix-antd-admin
+
+# development
 pnpm run dev # open port in your browser
+
+# production
+pnpm run build
 ```
+
+## Deploy
+
+### pnpm
+
+```ts
+├── package.json
+├── Dockerfile
+├── pnpm-lock.yaml
+├── build/
+│   ├── client/    # Static assets
+│   └── server/    # Server-side code
+└── public/        # Static assets
+└── server/
+    └── index.js   # server start entry file
+```
+
+### Docker
+
+```sh
+pnpm run docker:build
+```
+
+## Styling
+
+You can control style user TailwindCSS, Antd, and other css or CSS-in-JS solutions.
 
 ## A cup of coffee.
 
@@ -57,3 +64,5 @@ If my project helps you, buy me a cup of coffee [💌buy-me-a-coffee💌](https:
 ## License
 
 Copyright (c) 2023-present Yong-
+
+Build with ❤️ using React Router and other open source technologies.
