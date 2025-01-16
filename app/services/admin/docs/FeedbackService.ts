@@ -1,5 +1,5 @@
 import { joseJwt } from "@/libs/jose";
-import { type ActionFunctionArgs } from "@remix-run/node";
+import { type ActionFunctionArgs } from "react-router";
 
 import { feedBackDAL } from "@/dals/docs/FeedbackDAL";
 import { urlSearchParams } from "@/utils/server/search";

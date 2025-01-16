@@ -8,7 +8,7 @@ import { render, screen } from "@testing-library/react";
 import type { ComponentType } from "react";
 // component
 import FormatTime from "~/components/common/format-time";
-import { createRemixStub } from "@remix-run/testing";
+import { createRoutesStub } from "react-router";
 
 describe("test FormatTime component", () => {
   let Comp: ComponentType<{}>;
@@ -24,7 +24,7 @@ describe("test FormatTime component", () => {
         </div>
       );
     };
-    const RemixStub = createRemixStub([
+    const RemixStub = createRoutesStub([
       {
         path: "/",
         Component: Comp,
@@ -51,7 +51,7 @@ describe("test FormatTime component", () => {
         </div>
       );
     };
-    const RemixStub = createRemixStub([
+    const RemixStub = createRoutesStub([
       {
         path: "/",
         Component: Comp,

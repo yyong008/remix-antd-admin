@@ -1,5 +1,5 @@
 import { defaultLang } from "@/config";
-import { redirect } from "@remix-run/node";
+import { redirect } from "react-router";
 
 export function loader() {
   return redirect("/" + defaultLang);

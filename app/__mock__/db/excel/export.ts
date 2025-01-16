@@ -1,4 +1,4 @@
-import { of, delay } from "rxjs";
+import { delay, of } from "rxjs";
 
 const dataSource = [
   {

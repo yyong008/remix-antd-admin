@@ -1,4 +1,4 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 
 export class HttpMethod {
   isGET(args: ActionFunctionArgs | LoaderFunctionArgs) {

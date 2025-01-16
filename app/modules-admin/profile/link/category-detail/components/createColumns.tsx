@@ -1,6 +1,6 @@
 import { Space, Tag } from "antd";
 
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { LinkSvg } from "./LinkSvg";
 import { UpdateLinkModal } from "./UpdateLinkModal";
 

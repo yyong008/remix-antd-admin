@@ -1,4 +1,4 @@
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction } from "react-router";
 
 import npStyle from "nprogress/nprogress.css?url";
 import global from "@/styles/global.css?url";

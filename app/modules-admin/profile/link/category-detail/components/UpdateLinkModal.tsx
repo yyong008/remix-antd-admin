@@ -3,7 +3,7 @@ import { Button, Form, message } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { FormItems } from "./FormItems";
 import { ModalForm } from "@ant-design/pro-components";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 import { useUpdateProfileLinkByIdMutation } from "~/apis-client/admin/profile/link";
 
 export function UpdateLinkModal({ record, refetch }: any) {

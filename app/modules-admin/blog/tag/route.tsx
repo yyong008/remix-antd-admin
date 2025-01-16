@@ -2,7 +2,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 import { CreateBlogModal } from "./components/CreateBlogModal";
 import { createColumns } from "./components/createColumns";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 import { useReadBlogTagListQuery } from "@/apis-client/admin/blog/tag";
 import { useState } from "react";
 

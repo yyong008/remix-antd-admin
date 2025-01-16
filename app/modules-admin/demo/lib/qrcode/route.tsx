@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import QRCode from "qrcode";
 import QrCodeList from "~/modules-admin/demo/lib/qrcode/components/qr-code-list";
 import type { loader } from "./loader";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 
 const ReactQrCode = ({ url }: any) => {
   const cRef = useRef<any>();

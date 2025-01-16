@@ -2,7 +2,7 @@ import "./styles/pocker-card.css";
 import "animate.css";
 
 import { PageContainer, ProCard } from "@ant-design/pro-components";
-import { useNavigate, useParams } from "@remix-run/react";
+import { useNavigate, useParams } from "react-router";
 
 const PockerCard = (props: { content: string; addr: string }) => {
   const navigate = useNavigate();

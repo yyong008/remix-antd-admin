@@ -1,5 +1,5 @@
 import { Button, Result } from "antd";
-import { useLocation, useNavigate, useParams } from "@remix-run/react";
+import { useLocation, useNavigate, useParams } from "react-router";
 
 export function Route() {
   const { lang } = useParams();

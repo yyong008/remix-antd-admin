@@ -1,3 +1,3 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 
 export type ALFunctionArgs = ActionFunctionArgs | LoaderFunctionArgs;

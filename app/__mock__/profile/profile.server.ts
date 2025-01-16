@@ -1,7 +1,7 @@
 import { catchError, delay, of } from "rxjs";
 import {
-  tableListDataSource,
   loggers,
+  tableListDataSource,
 } from "~/__mock__/db/profile/profile.advanced";
 
 export const getTableListDataSource$ = () => {

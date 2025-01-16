@@ -1,4 +1,4 @@
-import { Link, useParams } from "@remix-run/react";
+import { Link, useParams } from "react-router";
 
 import { AntdLinkIconSVG } from "../BuildWith/icons/AntdLinkIconSVG";
 import { defaultLang } from "~/config/lang";

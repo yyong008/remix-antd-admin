@@ -4,7 +4,7 @@ import "./styles/pocker-card.css";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { Toaster, toast } from "sonner";
 import { useEffect, useState } from "react";
-import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
+import { useLoaderData, useNavigate, useParams } from "react-router";
 
 import PockerItem from "./components/pockers/PockerItem";
 import PockerList from "./components/pockers/PockerList";

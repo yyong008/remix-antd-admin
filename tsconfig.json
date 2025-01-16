@@ -7,11 +7,21 @@
     "**/.server/**/*.tsx",
     "**/.client/**/*.ts",
     "**/.client/**/*.tsx",
-    "./app/types/**/*.ts"
-, "server/index.js"  ],
+    "./app/types/**/*.ts",
+    "server/index.js",
+    ".react-router/types/**/*.ts"
+  ],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["@remix-run/node", "vite/client"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2022"
+    ],
+    "types": [
+      "@react-router/node",
+      "vite/client"
+    ],
+    "rootDirs": [".", "./.react-router/types"],
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "Bundler",
@@ -30,10 +40,18 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"],
-      "@/*": ["./app/*"],
-      "~/public/*": ["./public/*"],
-      "~mock/*": ["./app/__mock__/*"]
+      "~/*": [
+        "./app/*"
+      ],
+      "@/*": [
+        "./app/*"
+      ],
+      "~/public/*": [
+        "./public/*"
+      ],
+      "~mock/*": [
+        "./app/__mock__/*"
+      ]
     }
   }
 }

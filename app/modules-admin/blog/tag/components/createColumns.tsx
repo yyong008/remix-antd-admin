@@ -1,5 +1,5 @@
 import { DeleteAction } from "./DeleteAction";
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { Space } from "antd";
 import { TagOutlined } from "@ant-design/icons";
 import { UpdateBlogModal } from "./UpdateBlogModal";

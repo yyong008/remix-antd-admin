@@ -1,5 +1,3 @@
-import type * as rrn from "@remix-run/node";
-
 import { getSystemInfo$ } from "@/libs/systemInfo";
 import { lastValueFrom } from "rxjs";
 
@@ -9,7 +7,7 @@ class MonitorServeService {
    * @param args
    * @returns
    */
-  async getList(args: rrn.LoaderFunctionArgs) {
+  async getList(args: any) {
     const result$ = getSystemInfo$();
 
     const data = await lastValueFrom(result$);

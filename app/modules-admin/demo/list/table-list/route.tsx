@@ -12,7 +12,7 @@ import {
 
 import type { ProColumns } from "@ant-design/pro-components";
 import type { loader } from "./loader";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 
 export type TableListItem = {
   key: number;

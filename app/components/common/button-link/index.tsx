@@ -2,7 +2,7 @@ import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 
 import { Button } from "antd";
 import type { ButtonType } from "antd/es/button";
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 
 type ButtonLinkProps = {
   to: string;

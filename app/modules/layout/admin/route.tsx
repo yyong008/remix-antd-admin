@@ -1,7 +1,7 @@
 import * as clientUtils from "~/utils/client";
 
 import { Footer, MenuItemLink, MenuItemOutLink } from "@/components/common";
-import { Outlet, useParams } from "@remix-run/react";
+import { Outlet, useParams } from "react-router";
 import { ProLayout, WaterMark } from "@ant-design/pro-components";
 import { memo, useContext, useMemo, useState } from "react";
 

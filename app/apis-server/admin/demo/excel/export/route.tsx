@@ -3,7 +3,7 @@ import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 import { Excel } from "antd-table-saveas-excel";
 import type { loader } from "./loader";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 
 export function Route() {
   const { dataSource } = useLoaderData<typeof loader>();

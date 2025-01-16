@@ -1,7 +1,6 @@
-import type { LoaderFunction, LoaderFunctionArgs } from "@remix-run/node";
+import type { LoaderFunction, LoaderFunctionArgs } from "react-router";
 
 import { getSearchProjectCardList$ } from "~/__mock__/list/search.projects";
-import { json } from "@remix-run/node";
 import { lastValueFrom } from "rxjs";
 
 export const loader: LoaderFunction = async ({
@@ -9,5 +8,5 @@ export const loader: LoaderFunction = async ({
   params,
 }: LoaderFunctionArgs) => {
   const _data = await lastValueFrom(getSearchProjectCardList$());
-  return json({ data: _data });
+  return { data: _data };
 };

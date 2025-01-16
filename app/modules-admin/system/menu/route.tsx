@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 
 import { MenuProTable } from "./components/MenuProTable";
 import { PageContainer } from "@ant-design/pro-components";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 import { useReadMenuListQuery } from "~/apis-client/admin/system/menu";
 
 function removeType3(data: any[]) {

@@ -4,7 +4,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { FormItems } from "./FormItems";
 import { ModalForm } from "@ant-design/pro-components";
 import { useCreateProfileLinkMutation } from "@/apis-client/admin/profile/link";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 
 export function LinkModalCreate({ refetch }: any) {
   const [form] = Form.useForm();

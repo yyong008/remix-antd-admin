@@ -2,7 +2,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 import { CreateLinkCategoryModal } from "../category/components/CreateLinkCategoryModal";
 import { createColumns } from "./components/createColumns";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 import { useReadProfileLinkListQuery } from "@/apis-client/admin/profile/link";
 import { useState } from "react";
 

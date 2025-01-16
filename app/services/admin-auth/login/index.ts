@@ -1,4 +1,4 @@
-import { type ActionFunctionArgs } from "@remix-run/node";
+import { type ActionFunctionArgs } from "react-router";
 import {
   ERRIR_USER_DISABLED,
   ERROR_PASSWWORD,

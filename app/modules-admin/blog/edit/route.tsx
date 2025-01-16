@@ -8,7 +8,7 @@ import {
 import { EditBlogForm } from "./components/EditBlogForm";
 import { QuillEditor } from "@/components/common/quill-editor";
 import { message } from "antd";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 
 export function Route() {
   const [content, setContent] = useState("");

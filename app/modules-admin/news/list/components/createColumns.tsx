@@ -1,6 +1,6 @@
 import { ButtonLink } from "~/components/common";
 import { DeleteAction } from "../DeleteAction";
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { Space } from "antd";
 
 export function createColumns({ refetch, lang }: any) {

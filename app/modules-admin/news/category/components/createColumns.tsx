@@ -1,7 +1,7 @@
 import { Space, Tag } from "antd";
 
 import { DeleteAction } from "./DeleteAction";
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { UpdateNewsCategoryModal } from "./UpdateNewsCategoryModal";
 
 export function createColumns({ refetch, lang }: any) {

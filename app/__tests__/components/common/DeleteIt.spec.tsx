@@ -8,8 +8,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import type { ComponentType } from "react";
 // component
 import DeleteIt from "~/components/common/delete-it";
-import { createRemixStub } from "@remix-run/testing";
-import { useFetcher } from "@remix-run/react";
+import { createRoutesStub , useFetcher } from "react-router";
 
 describe("test Footer component", () => {
   let Comp: ComponentType<{}>;
@@ -27,7 +26,7 @@ describe("test Footer component", () => {
   });
 
   it("test DeleteIt", async () => {
-    const RemixStub = createRemixStub([
+    const RemixStub = createRoutesStub([
       {
         path: "/",
         Component: Comp,
@@ -40,7 +39,7 @@ describe("test Footer component", () => {
   });
 
   it("test DeleteIt children first element tag name must be form", async () => {
-    const RemixStub = createRemixStub([
+    const RemixStub = createRoutesStub([
       {
         path: "/",
         Component: Comp,

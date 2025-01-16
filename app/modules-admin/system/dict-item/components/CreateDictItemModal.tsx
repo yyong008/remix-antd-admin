@@ -4,7 +4,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { ModalForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItems";
 import { systemDictItem } from "@/apis-client/admin/system/dict-item";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 
 type CreateDictModalProps = {
   trigger?: any;

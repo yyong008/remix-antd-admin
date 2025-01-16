@@ -8,7 +8,7 @@ import {
 
 import { Dropdown } from "antd";
 import { defaultLang } from "@/config/lang";
-import { useNavigate } from "@remix-run/react";
+import { useNavigate } from "react-router";
 
 const ActionRenderImpl = ({ value }: any) => {
   const navigate = useNavigate();

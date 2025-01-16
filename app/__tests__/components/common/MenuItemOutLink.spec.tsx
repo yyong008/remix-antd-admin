@@ -3,7 +3,7 @@ import { type ComponentType } from "react";
 
 // libs
 import { expect, it } from "vitest";
-import { createRemixStub } from "@remix-run/testing";
+import { createRoutesStub } from "react-router";
 import { render, screen } from "@testing-library/react";
 
 import "@testing-library/jest-dom/vitest";
@@ -29,7 +29,7 @@ describe("test MenuItemOuterLink component", () => {
   it("test MenuItemOuterLink dom", async () => {
     // eslint-disable-next-line react/display-name
 
-    const RemixStub = createRemixStub([
+    const RemixStub = createRoutesStub([
       {
         path: "/",
         Component: Comp,
@@ -43,7 +43,7 @@ describe("test MenuItemOuterLink component", () => {
   });
 
   it("test MenuItemOutLink dom snapshot", async () => {
-    const RemixStub = createRemixStub([
+    const RemixStub = createRoutesStub([
       {
         path: "/",
         Component: Comp,

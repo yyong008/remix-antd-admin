@@ -1,4 +1,4 @@
-import type * as tn from "@remix-run/node";
+import type * as tn from "react-router";
 
 import { getBlogById$ } from "~/dals/blog/BlogDAL";
 import { lastValueFrom } from "rxjs";

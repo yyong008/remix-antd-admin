@@ -1,18 +1,75 @@
 /// <reference types="vitest" />
 
+import {
+  defaultClientConditions,
+  defaultServerConditions,
+  defineConfig,
+} from "vite";
+
+import type { Plugin } from "vite";
 import dayjs from "dayjs";
-import { defineConfig } from "vite";
-import { installGlobals } from "@remix-run/node";
 import pkg from "./package.json";
-import { vitePlugin as remix } from "@remix-run/dev";
+import { reactRouter } from "@react-router/dev/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-// import { visualizer } from "rollup-plugin-visualizer";
 
-installGlobals();
+const prismaFixPlugin: Plugin = {
+  name: "prisma-fix",
+  enforce: "post",
+  config() {
+    return {
+      resolve: {
+        conditions: [...defaultClientConditions],
+      },
+      ssr: {
+        resolve: {
+          conditions: [...defaultServerConditions],
+          externalConditions: [...defaultServerConditions],
+        },
+      },
+    };
+  },
+};
 
-export default defineConfig({
-  server: {
-    port: 3333,
+const __APP_INFO__ = JSON.stringify({
+  pkg,
+  lastBuildTime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+});
+
+// export default defineConfig({
+//   server: {
+//     port: 3333,
+//   },
+//   ssr: {
+//     noExternal: [
+//       // "@ant-design/icons",
+//       // "@ant-design/pro-chat",
+//       // "@ant-design/pro-editor",
+//       // "react-intersection-observer",
+//     ],
+//     optimizeDeps: {
+//       include: [
+//         // "@ant-design/icons",
+//         // "@ant-design/pro-chat",
+//         // "@ant-design/pro-editor",
+//         // "react-intersection-observer",
+//       ],
+//     },
+//   },
+//   define: {
+//     __APP_INFO__,
+//   },
+
+//   plugins: [reactRouter(), tsconfigPaths()],
+// });
+
+export default defineConfig(({ isSsrBuild, command }) => ({
+  build: {
+    rollupOptions: isSsrBuild
+      ? {
+          input: "./server/index.js",
+          external: ["@prisma/client"],
+        }
+      : undefined,
   },
   ssr: {
     noExternal: [
@@ -30,26 +87,8 @@ export default defineConfig({
       ],
     },
   },
+  plugins: [prismaFixPlugin, reactRouter(), tsconfigPaths()],
   define: {
-    __APP_INFO__: JSON.stringify({
-      pkg,
-      lastBuildTime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-    }),
+    __APP_INFO__,
   },
-  plugins: [
-    remix({
-      ssr: true,
-      ignoredRouteFiles: ["**/*.css"],
-      future: {
-        v3_lazyRouteDiscovery: true,
-        v3_singleFetch: true,
-        v3_routeConfig: true,
-        v3_fetcherPersist: true,
-        v3_relativeSplatPath: true,
-        v3_throwAbortReason: true,
-      },
-    }),
-    tsconfigPaths(),
-    // visualizer(),
-  ],
-});
+}));

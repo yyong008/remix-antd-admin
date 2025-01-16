@@ -8,7 +8,7 @@ import { Space, Tag } from "antd";
 
 import React from "react";
 import type { loader } from "./loader";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 
 const IconText = ({ icon, text }: { icon: any; text: string }) => (
   <span>

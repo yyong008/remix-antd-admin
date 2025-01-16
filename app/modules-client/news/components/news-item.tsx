@@ -1,4 +1,4 @@
-import { NavLink, useParams } from "@remix-run/react";
+import { NavLink, useParams } from "react-router";
 
 export function NewsItem(props: any) {
   const { data } = props;

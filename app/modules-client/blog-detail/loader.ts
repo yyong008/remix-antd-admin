@@ -1,5 +1,5 @@
 import * as ls from "./loaders";
-import type * as tn from "@remix-run/node";
+import type * as tn from "react-router";
 import * as us from "~/utils/server";
 
 class L {

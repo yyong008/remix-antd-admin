@@ -1,6 +1,6 @@
 import { Button, message } from "antd";
 import { DrawerForm, PageContainer, ProCard } from "@ant-design/pro-components";
-import { useNavigate, useParams } from "@remix-run/react";
+import { useNavigate, useParams } from "react-router";
 
 import { FormItems } from "./components/FormItems";
 import { QuillEditor } from "~/components/common/quill-editor";

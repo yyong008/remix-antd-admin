@@ -1,4 +1,5 @@
-import { of, delay } from "rxjs";
+import { delay, of } from "rxjs";
+
 import { cardList } from "~/__mock__/db/list/search.applications";
 
 export const getSearchApplicationCardList$ = () => {

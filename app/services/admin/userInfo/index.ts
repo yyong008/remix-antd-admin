@@ -1,4 +1,4 @@
-import type * as rrn from "@remix-run/node";
+import type * as rrn from "react-router";
 
 import { joseJwt } from "@/libs/jose";
 import { userDAL } from "@/dals/system/UserDAL";

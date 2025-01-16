@@ -4,7 +4,7 @@ import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 import ReactFlow from "reactflow";
 import type { loader } from "./loader";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 
 export function Route() {
   const { nodes, edges } = useLoaderData<typeof loader>();

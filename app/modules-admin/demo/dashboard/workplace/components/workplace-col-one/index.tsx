@@ -1,7 +1,7 @@
 import { Card, Col, Row, Space } from "antd";
 
 import DynamicList from "./dynamic-list";
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import WProject from "./w-project";
 import { colProps } from "../col";
 

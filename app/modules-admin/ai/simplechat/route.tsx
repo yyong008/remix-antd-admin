@@ -4,7 +4,7 @@ import { Alert } from "antd";
 import { Ollama } from "@langchain/ollama";
 import { PageContainer } from "@ant-design/pro-components";
 import { ProChat } from "@ant-design/pro-chat";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 import { useState } from "react";
 
 export function Route() {

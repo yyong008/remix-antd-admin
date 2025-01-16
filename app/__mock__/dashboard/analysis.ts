@@ -1,4 +1,3 @@
-import { of, delay } from "rxjs";
 import {
   activeData,
   dataSource,
@@ -13,6 +12,7 @@ import {
   searchCountData,
   visitCountData,
 } from "~/__mock__/db/dashboard/analysis";
+import { delay, of } from "rxjs";
 
 export const getAnalysisData$ = () => {
   return of({

@@ -1,4 +1,4 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "react-router";
 import { getMonitorData$ } from "~/__mock__/dashboard/monitor";
 import { lastValueFrom } from "rxjs";
 

@@ -1,9 +1,8 @@
 // types
 import type { Observable } from "rxjs";
-import type { TPage } from "~/types";
-
 // prisma
 import type { Prisma } from "@prisma/client";
+import type { TPage } from "~/types";
 
 export interface IUserSignInLog {
   count$(): any;

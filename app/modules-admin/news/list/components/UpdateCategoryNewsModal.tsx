@@ -2,7 +2,7 @@ import { Button, Form } from "antd";
 
 import { EditOutlined } from "@ant-design/icons";
 import { ModalForm } from "@ant-design/pro-components";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 
 export default function UpdateCategoryNewsModal({ trigger, record }: any) {
   const [form] = Form.useForm();

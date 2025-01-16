@@ -32,3 +32,6 @@ stats.html
 
 # deploy
 deploy
+
+# React Router
+/.react-router/

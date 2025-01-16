@@ -1,4 +1,5 @@
-import { of, delay } from "rxjs";
+import { delay, of } from "rxjs";
+
 import { tableListDataSource } from "~/__mock__/db/list/table.list";
 
 export const getCardList$ = () => {

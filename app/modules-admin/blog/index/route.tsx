@@ -1,6 +1,6 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { useEffect, useMemo } from "react";
-import { useParams, useSearchParams } from "@remix-run/react";
+import { useParams, useSearchParams } from "react-router";
 
 import { ButtonLink } from "@/components/common/button-link";
 import { createColumns } from "./components/createColumns";

@@ -5,14 +5,14 @@ import { render, screen } from "@testing-library/react";
 
 // component
 import ButtonLink from "~/components/common/button-link";
-import { createRemixStub } from "@remix-run/testing";
+import { createRoutesStub } from "react-router";
 
 describe("test Footer component", () => {
   let buttonLink: any;
   beforeEach(() => {});
 
   it("test buttonLink in the document", () => {
-    const RemixStub = createRemixStub([
+    const RemixStub = createRoutesStub([
       {
         path: "/",
         Component: () => (
@@ -29,7 +29,7 @@ describe("test Footer component", () => {
   });
 
   it("test buttonLink new", () => {
-    const RemixStub = createRemixStub([
+    const RemixStub = createRoutesStub([
       {
         path: "/",
         Component: () => (

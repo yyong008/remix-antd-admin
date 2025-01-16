@@ -1,6 +1,6 @@
 import { Button, Result } from "antd";
 
-import { useNavigate } from "@remix-run/react";
+import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 
 export function Route() {

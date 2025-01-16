@@ -1,4 +1,4 @@
-import { Outlet, useParams } from "@remix-run/react";
+import { Outlet, useParams } from "react-router";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 import { CreateNewsCategoryModal } from "./components/CreateNewsCategoryModal";

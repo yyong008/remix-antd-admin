@@ -6,7 +6,7 @@ import {
   ScrollRestoration,
   useLoaderData,
   useParams,
-} from "@remix-run/react";
+} from "react-router";
 
 import { ClientOnly } from "~/components/common/client-only";
 import type { loader } from "~/modules/root/loader";

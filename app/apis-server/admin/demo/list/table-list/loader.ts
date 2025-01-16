@@ -1,11 +1,10 @@
-import type { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "react-router";
 import { getTableListDataSource$ } from "~/__mock__/profile/profile.server";
-import { json } from "@remix-run/node";
 import { lastValueFrom } from "rxjs";
 
 export const loader: LoaderFunction = async () => {
   const { tableListDataSource } = await lastValueFrom(
     getTableListDataSource$(),
   );
-  return json(tableListDataSource);
+  return tableListDataSource;
 };

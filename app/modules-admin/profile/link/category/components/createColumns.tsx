@@ -1,4 +1,4 @@
-import { Link, useParams } from "@remix-run/react";
+import { Link, useParams } from "react-router";
 import { Space, Tag } from "antd";
 
 import { DeleteAction } from "./DeleteAction";

@@ -1,7 +1,6 @@
-import type { LoaderFunction, LoaderFunctionArgs } from "@remix-run/node";
+import type { LoaderFunction, LoaderFunctionArgs } from "react-router";
 
 import { getBasicList$ } from "~/__mock__/list/basic.list";
-import { json } from "@remix-run/node";
 import { lastValueFrom } from "rxjs";
 
 export const loader: LoaderFunction = async ({
@@ -10,5 +9,5 @@ export const loader: LoaderFunction = async ({
 }: LoaderFunctionArgs) => {
   const data = await lastValueFrom(getBasicList$());
 
-  return json(data.dataSource);
+  return data.dataSource;
 };

@@ -1,7 +1,7 @@
 import { Dropdown, Form } from "antd";
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { simpleStorage } from "@/libs/simpleStorage";
-import { useNavigate, useParams } from "@remix-run/react";
+import { useNavigate, useParams } from "react-router";
 
 import React from "react";
 import { useTranslation } from "react-i18next";

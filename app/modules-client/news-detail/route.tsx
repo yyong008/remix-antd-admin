@@ -1,7 +1,7 @@
 import { NewsContent, NewsHeader } from "./components";
 
 import type { loader } from "./loader";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 
 export function Route() {
   const _data = useLoaderData<typeof loader>();

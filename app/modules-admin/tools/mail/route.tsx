@@ -1,7 +1,7 @@
 import "./styles.css";
 
 import { Button, Space } from "antd";
-import { Link, useParams } from "@remix-run/react";
+import { Link, useParams } from "react-router";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 import { MailForm } from "./components/MailForm";

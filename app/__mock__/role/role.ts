@@ -1,4 +1,5 @@
 import { catchError, delay, of } from "rxjs";
+
 import { roles } from "~/__mock__/db/role";
 
 export const getRoles$ = () => {

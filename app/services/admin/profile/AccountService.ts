@@ -1,4 +1,4 @@
-import { type LoaderFunctionArgs } from "@remix-run/node";
+import { type LoaderFunctionArgs } from "react-router";
 import { profileAccountDAL } from "@/dals/profile/ProfileAccountDAL";
 import { joseJwt } from "@/libs/jose";
 

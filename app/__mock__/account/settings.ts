@@ -1,4 +1,5 @@
-import { of, delay } from "rxjs";
+import { delay, of } from "rxjs";
+
 import { accountSettingData } from "~/__mock__/db/account/settings";
 
 export const getAccountSettingsData$ = () => {

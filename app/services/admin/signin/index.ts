@@ -1,6 +1,6 @@
 import { signInLog } from "~/dals/sign-in/SignInLogDAL";
 import { joseJwt } from "@/libs/jose";
-import { type ActionFunctionArgs } from "@remix-run/node";
+import { type ActionFunctionArgs } from "react-router";
 
 class SignInService {
   /**

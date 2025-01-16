@@ -1,7 +1,4 @@
-import {
-  type ActionFunctionArgs,
-  type LoaderFunctionArgs,
-} from "@remix-run/node";
+import { type ActionFunctionArgs, type LoaderFunctionArgs } from "react-router";
 import { blogCategoryDAL } from "@/dals/blog/BlogCategoryDAL";
 
 import { joseJwt } from "@/libs/jose";

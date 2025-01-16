@@ -1,5 +1,5 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
-import { useNavigate, useParams } from "@remix-run/react";
+import { useNavigate, useParams } from "react-router";
 
 import { Button } from "antd";
 import { CreateDictItemModal } from "./components/CreateDictItemModal";

@@ -2,7 +2,7 @@ import { FormatTime, StatusType } from "@/components/common";
 import { Space, Tag } from "antd";
 
 import { DeleteAction } from "./DeleteAction";
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { ProfileOutlined } from "@ant-design/icons";
 import { UpdateDictModal } from "./UpdateDictModal";
 

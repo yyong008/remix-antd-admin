@@ -1,4 +1,4 @@
-import type * as tn from "@remix-run/node";
+import type * as tn from "react-router";
 
 export function query(args: tn.LoaderFunctionArgs) {
   return null;

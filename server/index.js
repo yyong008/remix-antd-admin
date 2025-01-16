@@ -1,10 +1,6 @@
-import { createRequestHandler } from "@remix-run/express";
+import { createRequestHandler } from "@react-router/express";
 import express from "express";
 import figlet from "figlet";
-import { installGlobals } from "@remix-run/node";
-
-installGlobals();
-
 const viteDevServer =
   process.env.NODE_ENV === "production"
     ? undefined
@@ -37,7 +33,7 @@ app.all(
   createRequestHandler({
     // @ts-ignore
     build: viteDevServer
-      ? () => viteDevServer.ssrLoadModule("virtual:remix/server-build")
+      ? () => viteDevServer.ssrLoadModule("virtual:react-router/server-build")
       : // @ts-ignore
         await import("../build/server/index"),
   }),
@@ -53,7 +49,7 @@ if (process.env.NODE_ENV === "production") {
 app.listen(port, () => {
   console.log(
     figlet.textSync("Remix Admin Admin", {
-      font: "Ghost",
+      // font: "Ghost",
       horizontalLayout: "default",
       verticalLayout: "default",
       width: 240,

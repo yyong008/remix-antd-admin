@@ -1,7 +1,7 @@
 import * as clientUtils from "@/utils/client";
 
 import { ConfigProvider, message } from "antd";
-import { Link, useNavigate, useParams } from "@remix-run/react";
+import { Link, useNavigate, useParams } from "react-router";
 import { LoginForm, ProConfigProvider } from "@ant-design/pro-components";
 
 import { ActionIcons } from "@/components/user-login";

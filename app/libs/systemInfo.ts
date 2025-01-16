@@ -1,6 +1,6 @@
-import { combineLatest, map } from "rxjs";
-
 import * as sInfo from "systeminformation";
+
+import { combineLatest, map } from "rxjs";
 
 /**
  * 获取系统信息

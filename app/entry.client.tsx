@@ -1,7 +1,7 @@
 import { I18nextProvider, i18next } from "~/libs/i18n/client";
 import { startTransition, useState } from "react";
 
-import { RemixBrowser } from "@remix-run/react";
+import { HydratedRouter } from "react-router/dom";
 import { SettingContext } from "~/context";
 import StoreProvider from "./store-provider";
 import { hydrateRoot } from "react-dom/client";
@@ -16,7 +16,7 @@ const AppClient = () => {
     <StoreProvider>
       <SettingContext.Provider value={{ theme, setTheme, lang, setLang }}>
         <I18nextProvider i18n={i18next}>
-          <RemixBrowser />
+          <HydratedRouter />
         </I18nextProvider>
       </SettingContext.Provider>
     </StoreProvider>

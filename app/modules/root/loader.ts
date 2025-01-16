@@ -1,4 +1,4 @@
-import type * as tn from "@remix-run/node";
+import type * as tn from "react-router";
 
 import { rps } from "~/utils/server";
 

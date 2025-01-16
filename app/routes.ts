@@ -1,4 +1,4 @@
-import { type RouteConfig, route } from "@remix-run/route-config";
+import { type RouteConfig, route } from "@react-router/dev/routes";
 
 class AdminSystemAPI {
   pathPrefix = "api/admin/system";

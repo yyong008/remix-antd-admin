@@ -1,5 +1,5 @@
 import { DeleteAction } from "./DeleteAction";
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { Space } from "antd";
 import { SwitcherOutlined } from "@ant-design/icons";
 import { UpdateBlogCategoryModal } from "./UpdateBlogCategoryModal";

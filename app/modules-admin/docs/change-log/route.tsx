@@ -5,7 +5,7 @@ import { ChangeLogCreateModal } from "./components/ChangeLogModalCreate";
 import ChangeLogUpdateModal from "./components/ChangeLogModalUpdate";
 import { DeleteIt } from "./components/delete-it";
 import { FormatTime } from "@/components/common";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 import { useReadChangelogQuery } from "@/apis-client/admin/docs/changelog";
 import { useState } from "react";
 

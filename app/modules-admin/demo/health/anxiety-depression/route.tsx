@@ -3,7 +3,7 @@ import { PageContainer, ProCard } from "@ant-design/pro-components";
 
 import { antdGrid } from "~/config/antd-grid";
 import type { loader } from "./loader";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 
 export function Route() {
   const { data, op_data } = useLoaderData<typeof loader>();

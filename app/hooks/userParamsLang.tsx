@@ -1,5 +1,5 @@
 import { defaultLang } from "@/config/lang";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 
 export function useParamsLang() {
   const { lang } = useParams();

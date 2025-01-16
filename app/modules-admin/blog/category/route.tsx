@@ -3,7 +3,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { CreateBlogCategoryModal } from "./components/CreateBlogCategoryModal";
 import { blogCategory } from "@/apis-client/admin/blog/category";
 import { createColumns } from "./components/createColumns";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 import { useState } from "react";
 
 export function Route() {

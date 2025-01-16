@@ -1,8 +1,8 @@
 import * as rj from "@/utils/server/response-json";
 
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "react-router";
 import { defaultLang } from "@/config/lang";
-import { redirect } from "@remix-run/node";
+import { redirect } from "react-router";
 
 export const loader = async (args: LoaderFunctionArgs) => {
   try {

@@ -1,4 +1,5 @@
-import { of, delay } from "rxjs";
+import { delay, of } from "rxjs";
+
 import { dataSource } from "~/__mock__/db/list/basic.list";
 
 export const getBasicList$ = () => {

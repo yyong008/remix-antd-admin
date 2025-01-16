@@ -1,5 +1,5 @@
 // core
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 
 // components:vendor
 import { Card } from "antd";

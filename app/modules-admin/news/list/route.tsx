@@ -3,7 +3,7 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { ButtonLink } from "@/components/common";
 import { createColumns } from "./components/createColumns";
 import { defaultLang } from "~/config/lang";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 import { useReadNewsListQuery } from "@/apis-client/admin/news/news";
 import { useState } from "react";
 

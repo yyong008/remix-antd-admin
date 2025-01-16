@@ -7,7 +7,7 @@ import { createColumns } from "./components/create-columns";
 import { genMenuTreeForRole } from "./utils";
 import { systemMenuRoleApi } from "@/apis-client/admin/system/role/menu-role";
 import { usePage } from "~/hooks/usePagination";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 import { useReadMenuListRawQuery } from "@/apis-client/admin/system/menu";
 import { useReadRoleListQuery } from "@/apis-client/admin/system/role/role";
 import { useTranslation } from "react-i18next";

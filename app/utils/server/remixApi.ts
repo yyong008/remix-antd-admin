@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import type { Op, TOption, UrlAndBodySchemas } from "@/types/restful";
 
 import type { ALFunctionArgs } from "@/types/remix";

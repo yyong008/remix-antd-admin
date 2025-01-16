@@ -4,7 +4,7 @@ import { ButtonLink, FormatTime } from "~/components/common";
 import { Space, Tag } from "antd";
 
 import { DeleteAction } from "./DeleteAction";
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 
 export const createColumns = ({ lang, info, refetch }: any) => [
   {

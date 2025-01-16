@@ -1,4 +1,4 @@
-import type * as rrn from "@remix-run/node";
+import type * as rrn from "react-router";
 
 import { getAccountSettingsData$ } from "~/__mock__/account/settings";
 import { lastValueFrom } from "rxjs";

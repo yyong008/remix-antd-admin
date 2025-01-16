@@ -1,7 +1,7 @@
 import { HeaderLink, HeaderLinkLogin } from "./HeaderLink";
 
 import { defaultLang } from "@/config/lang"; // must import lang no use config (in server)
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 
 export function Nav() {
   const { lang = defaultLang } = useParams();

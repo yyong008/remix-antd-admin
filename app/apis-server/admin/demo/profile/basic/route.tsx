@@ -9,7 +9,7 @@ import {
 
 import { Divider } from "antd";
 import type { loader } from "./loader";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 
 export function Route() {
   const data = useLoaderData<typeof loader>();

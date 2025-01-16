@@ -7,7 +7,7 @@ import {
 
 import { FormItems } from "./components/FormItems";
 import { QuillEditor } from "@/components/common/quill-editor";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 import { useReadNewsCategoryListQuery } from "@/apis-client/admin/news/category";
 import { useState } from "react";
 

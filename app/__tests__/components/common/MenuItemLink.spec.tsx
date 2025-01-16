@@ -3,7 +3,7 @@ import { useState, type ComponentType } from "react";
 
 // libs
 import { expect, it } from "vitest";
-import { createRemixStub } from "@remix-run/testing";
+import { createRoutesStub } from "react-router";
 import { render, screen } from "@testing-library/react";
 
 import "@testing-library/jest-dom/vitest";
@@ -33,7 +33,7 @@ describe("test MenuItemLink component", () => {
         </div>
       );
     };
-    const RemixStub = createRemixStub([
+    const RemixStub = createRoutesStub([
       {
         path: "/",
         Component: Comp,

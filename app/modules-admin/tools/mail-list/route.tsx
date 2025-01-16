@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 
 import { ButtonLink } from "@/components/common";
 import { createColumns } from "./components/createColumns";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 import { useReadMailTemplateListQuery } from "~/apis-client/admin/tools/mail";
 
 export function Route() {

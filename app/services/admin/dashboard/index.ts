@@ -1,5 +1,5 @@
 import { joseJwt } from "@/libs/jose";
-import { type LoaderFunctionArgs } from "@remix-run/node";
+import { type LoaderFunctionArgs } from "react-router";
 import { signInLog } from "@/dals/sign-in/signInLog";
 import { loginLogDAL } from "~/dals/system/LoginLogDAL";
 
