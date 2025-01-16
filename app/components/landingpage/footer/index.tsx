@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router";
 
 import { AntdLinkIconSVG } from "../BuildWith/icons/AntdLinkIconSVG";
 import { defaultLang } from "~/config/lang";
+import { getLinks } from "~/config/links";
 
 export function Footer() {
   return (
@@ -13,6 +14,7 @@ export function Footer() {
 
 function FooterContent() {
   const { lang } = useParams();
+  const data = getLinks(lang || defaultLang);
   return (
     <div className="py-[20px] w-[60vw] flex justify-between">
       <div className="flex flex-col  w-[400px] gap-6">
@@ -21,41 +23,9 @@ function FooterContent() {
         <CopyAndPrivacy />
       </div>
       <div className="flex gap-[100px]">
-        <LinkList
-          title="更多"
-          links={[
-            {
-              text: "Github",
-              to: "https://github.com/yyong008/remix-antd-admin",
-              isOut: true,
-            },
-            {
-              text: "组件",
-              to: "https://remix-antd-admin-docs.vercel.app/antd/",
-              isOut: true,
-            },
-            {
-              text: "业务",
-              to: "https://remix-antd-admin-docs.vercel.app/feature/home.html",
-              isOut: true,
-            },
-          ]}
-        />
-        <LinkList
-          title="资源"
-          links={[
-            {
-              text: "文档",
-              to: "https://remix-antd-admin-docs.vercel.app/",
-              isOut: true,
-            },
-            {
-              text: "privacy",
-              to: `/${lang || defaultLang}/privacy`,
-              isOut: false,
-            },
-          ]}
-        />
+        {data.map((lk) => (
+          <LinkList key={lk.title} title={lk.title} links={lk.links} />
+        ))}
       </div>
     </div>
   );

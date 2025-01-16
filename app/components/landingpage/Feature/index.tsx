@@ -1,7 +1,7 @@
 import { AntdIconSVG } from "../BuildWith/icons/AntdIconSVG";
 import { LangChainIconSVG } from "../BuildWith/icons/LangChainIconSVG";
 import { PrismaIconSVG } from "../BuildWith/icons/prismaIconSVG";
-import { RemixIconSVG } from "../BuildWith/icons/RemixIconSVG";
+import { ReactrouterSVGIcon } from "../BuildWith/icons/ReactrouterSVG";
 import { TailwindSVG } from "../BuildWith/icons/TailwindSVG";
 
 export function Feature() {
@@ -29,8 +29,8 @@ function FeatureItem() {
           </div>
           <div className="flex flex-col">
             <Item
-              icon={<RemixIconSVG />}
-              title={"Remix 内置支持"}
+              icon={<ReactrouterSVGIcon />}
+              title={"React Router Express 内置支持"}
               content="基于 Remix + Express路由快开发项目"
             />
             <Item
