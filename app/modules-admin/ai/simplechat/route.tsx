@@ -1,20 +1,24 @@
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
+import { type ChatMessage, ProChat } from "@ant-design/pro-chat";
 
 import { Alert } from "antd";
 import { Ollama } from "@langchain/ollama";
 import { PageContainer } from "@ant-design/pro-components";
-import { ProChat } from "@ant-design/pro-chat";
+import { ai } from "@/config/ai";
 import { useLoaderData } from "react-router";
 import { useState } from "react";
 
 export function Route() {
   const loaderData: any = useLoaderData();
-  const [modelName] = useState("qwen2.5:0.5b");
+  const [modelName] = useState(ai.ollama.initModelName);
+  const prochatStyle = {
+    height: "calc(100vh - 400px)",
+  };
 
   const streamChatResponse = async (msgs: any[]) => {
     const model = new Ollama({
       model: modelName,
-      baseUrl: loaderData.ollama_url || "http://localhost:11434",
+      baseUrl: loaderData.ollama_url || ai.ollama.baseUrl,
     });
 
     const response = await model.stream(msgs);
@@ -62,22 +66,23 @@ export function Route() {
         type="warning"
         className="mb-4"
       />
-
       <ProChat
-        style={{
-          height: "calc(100vh - 400px)",
-        }}
+        style={prochatStyle}
         request={(chats) => {
-          const msgs = chats.map((chat: any) => {
-            if (chat.role === "user") {
-              return new HumanMessage(chat.content);
-            } else {
-              return new AIMessage(chat.content);
-            }
-          });
+          const msgs = chatMessages(chats);
           return streamChatResponse(msgs);
         }}
       ></ProChat>
     </PageContainer>
   );
+}
+
+function chatMessages(chats: ChatMessage<Record<string, any>>[]) {
+  return chats.map((chat: any) => {
+    if (chat.role === "user") {
+      return new HumanMessage(chat.content);
+    } else {
+      return new AIMessage(chat.content);
+    }
+  });
 }
