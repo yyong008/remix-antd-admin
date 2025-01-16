@@ -1,25 +1,17 @@
-import type * as tn from "@remix-run/node";
-import * as us from "~/utils/server";
+import * as rj from "@/utils/server/response-json";
 
-import { defaultLang } from "~/config";
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { defaultLang } from "@/config/lang";
 import { redirect } from "@remix-run/node";
 
-class L {
-  static async loader(args: tn.LoaderFunctionArgs) {
-    try {
-      return L.loaderImpl(args);
-    } catch (error) {
-      return us.rfj();
-    }
-  }
-
-  static async loaderImpl(args: tn.LoaderFunctionArgs) {
+export const loader = async (args: LoaderFunctionArgs) => {
+  try {
     const { lang = defaultLang } = args.params;
     if (!args?.params?.lang) {
       return redirect(`/${lang}/`);
     }
     return null;
+  } catch (error) {
+    return rj.rfj();
   }
-}
-
-export const loader = L.loader;
+};
