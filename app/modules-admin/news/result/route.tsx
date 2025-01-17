@@ -6,7 +6,8 @@ export function Route() {
   const state = useLocation().state;
   const nav = useNavigate();
   if (!state || !state?.title) {
-    return nav(-1);
+    nav(-1);
+    return null;
   }
   return (
     <Result

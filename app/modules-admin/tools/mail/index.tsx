@@ -1,6 +1,10 @@
+import type { MetaFunction } from "react-router";
 import { Route } from "./route";
-import { meta } from "./meta";
-export { meta };
+
+export const meta: MetaFunction = () => {
+  return [{ title: "Mail" }];
+};
+
 export default function Page() {
   return <Route />;
 }

@@ -1,7 +1,9 @@
+import type { MetaFunction } from "react-router";
 import { Route } from "./route";
-export { meta } from "./meta";
-// export { loader } from "./menu/loader";
-// export { action } from "./menu/action";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "System-Menu" }];
+};
 
 export default function Page() {
   return <Route />;

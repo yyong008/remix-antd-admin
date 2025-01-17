@@ -1,5 +1,13 @@
-import { Route } from "~/modules-admin-auth/register/route";
-export { meta } from "~/modules-admin-auth/register/meta";
+import type { MetaFunction } from "react-router";
+import { Route } from "./route";
+
+export const meta: MetaFunction = () => {
+  return [
+    {
+      title: "用户登录",
+    },
+  ];
+};
 
 export default function Page() {
   return <Route />;

@@ -1,5 +1,13 @@
+import type { MetaFunction } from "react-router";
 import { Route } from "~/modules-admin/dashboard/route";
-export { meta } from "~/modules-admin/dashboard/meta";
+
+export const meta: MetaFunction = () => {
+  return [
+    {
+      title: "dashboard",
+    },
+  ];
+};
 
 export default function Page() {
   return <Route />;

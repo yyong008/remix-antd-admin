@@ -1,5 +1,9 @@
+import type { MetaFunction } from "react-router";
 import { Route } from "./route";
-export { meta } from "./meta";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "news-list" }];
+};
 
 export default function Page() {
   return <Route />;
