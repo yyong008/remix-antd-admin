@@ -1,97 +1,6 @@
 import { type RouteConfig, route } from "@react-router/dev/routes";
 
-class AdminSystemAPI {
-  pathPrefix = "api/admin/system";
-  filePrefix = "apis-server/admin/system";
-
-  confit() {
-    const { pathPrefix, filePrefix } = this;
-    const sysetmRoutes = [
-      {
-        path: `${pathPrefix}/config`,
-        file: `${filePrefix}/config.api.ts`,
-      },
-      {
-        path: `${pathPrefix}/dept`,
-        file: `${filePrefix}/dept.api.ts`,
-      },
-      {
-        path: `${pathPrefix}/dict`,
-        file: `${filePrefix}/dict.api.ts`,
-      },
-      {
-        path: `${pathPrefix}/dict-item/:id`,
-        file: `${filePrefix}/dict-item.api.ts`,
-      },
-      {
-        path: `${pathPrefix}/menu-list`,
-        file: `${filePrefix}/menu-list.api.ts`,
-      },
-      {
-        path: `${pathPrefix}/menu`,
-        file: `${filePrefix}/menu.api.ts`,
-      },
-      {
-        path: `${pathPrefix}/menu-role`,
-        file: `${filePrefix}/menu-role.api.ts`,
-      },
-      {
-        path: `${pathPrefix}/role`,
-        file: `${filePrefix}/role.api.ts`,
-      },
-      {
-        path: `${pathPrefix}/user`,
-        file: `${filePrefix}/user.api.ts`,
-      },
-      {
-        path: `${pathPrefix}/monitor/loginlog`,
-        file: `${filePrefix}/monitor/loginlog.api.ts`,
-      },
-      {
-        path: `${pathPrefix}/monitor/serve`,
-        file: `${filePrefix}/monitor/serve.api.ts`,
-      },
-      {
-        path: `${pathPrefix}/monitor/operate`,
-        file: `${filePrefix}/monitor/operate.api.ts`,
-      },
-    ];
-    return sysetmRoutes;
-  }
-
-  getApis() {
-    const sysetmRoutes = this.confit();
-    const sys_apis = sysetmRoutes.map((rt) => {
-      return route(rt.path, rt.file);
-    });
-    return sys_apis;
-  }
-}
-
-class AdminDashboardAPI {
-  pathPrefix = "api/dashboard";
-  filePrefix = "apis-server/admin/dashboard";
-
-  config() {
-    const { pathPrefix, filePrefix } = this;
-    const sysetmRoutes = [
-      {
-        path: `${pathPrefix}`,
-        file: `${filePrefix}/index.ts`,
-      },
-    ];
-    return sysetmRoutes;
-  }
-
-  getApis() {
-    const sysetmRoutes = this.config();
-    const sys_apis = sysetmRoutes.map((rt) => {
-      return route(rt.path, rt.file);
-    });
-    return sys_apis;
-  }
-}
-
+// ======================================= api =======================================
 const admin_tool_apis = [
   route("api/admin/tools/mail", "apis-server/admin/tools/mail.api.ts"),
   route(
@@ -101,8 +10,42 @@ const admin_tool_apis = [
   route("api/admin/tools/storage", "apis-server/admin/tools/storage.api.ts"),
 ];
 
-const admin_sys_apis = new AdminSystemAPI().getApis();
-const admin_dashboard_apis = new AdminDashboardAPI().getApis();
+const admin_sys_apis = [
+  route("api/admin/system/config", "apis-server/admin/system/config.api.ts"),
+  route("api/admin/system/dept", "apis-server/admin/system/dept.api.ts"),
+  route("api/admin/system/dict", "apis-server/admin/system/dict.api.ts"),
+  route(
+    "api/admin/system/dict-item/:id",
+    "apis-server/admin/system/dict-item.api.ts",
+  ),
+  route(
+    "api/admin/system/menu-list",
+    "apis-server/admin/system/menu-list.api.ts",
+  ),
+  route("api/admin/system/menu", "apis-server/admin/system/menu.api.ts"),
+  route(
+    "api/admin/system/menu-role",
+    "apis-server/admin/system/menu-role.api.ts",
+  ),
+  route("api/admin/system/role", "apis-server/admin/system/role.api.ts"),
+  route("api/admin/system/user", "apis-server/admin/system/user.api.ts"),
+  route(
+    "api/admin/system/monitor/loginlog",
+    "apis-server/admin/system/monitor/loginlog.api.ts",
+  ),
+  route(
+    "api/admin/system/monitor/serve",
+    "apis-server/admin/system/monitor/serve.api.ts",
+  ),
+  route(
+    "api/admin/system/monitor/operate",
+    "apis-server/admin/system/monitor/operate.api.ts",
+  ),
+];
+
+const admin_dashboard_apis = [
+  route("api/admin/dashboard", "apis-server/admin/dashboard/index.ts"),
+];
 const admin_auth_apis = [
   route("api/login", "apis-server/admin-auth/login/index.ts"),
   route("api/logout", "apis-server/admin-auth/logout/index.ts"),
@@ -162,6 +105,8 @@ const apis = [
   ...admin_profile_apis,
   ...admin_sys_apis,
 ];
+
+// ======================================= route =======================================
 
 const adminAuthRoutes = [
   // admin auth
@@ -251,5 +196,7 @@ const adminRoutes = [
 ];
 
 const routes = [...clientRoutes, ...adminAuthRoutes, ...adminRoutes];
+
+// ======================================= export =======================================
 
 export default [...routes, ...apis] satisfies RouteConfig;
