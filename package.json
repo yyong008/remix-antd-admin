@@ -4,14 +4,13 @@
   "description": "A Remix Antd Admin",
   "type": "module",
   "keywords": [
-    "remix",
+    "React Router",
     "antd",
     "tailwindcss",
     "express",
     "admin",
     "prisma",
     "postresql",
-    "remix-toolkit",
     "langchain",
     "ai"
   ],
