@@ -54,7 +54,6 @@
     "@js-temporal/polyfill": "^0.4.4",
     "@langchain/core": "^0.3.27",
     "@langchain/ollama": "^0.1.4",
-    "@mjackson/form-data-parser": "^0.6.0",
     "@prisma/client": "^6.0.1",
     "@react-router/express": "^7.0.0",
     "@react-router/node": "^7.0.0",
