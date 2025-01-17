@@ -1,5 +1,11 @@
 # remix-antd-admin
 
+## 0.2.0
+
+### Minor Changes
+
+- react router replace remix
+
 ## 0.1.36
 
 ### Patch Changes
