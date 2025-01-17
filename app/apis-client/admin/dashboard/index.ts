@@ -7,7 +7,7 @@ export const dashboard = createApi({
   endpoints: (builder) => ({
     getDashboard: builder.query({
       transformResponse: (data: any) => data?.data,
-      query: () => ({ url: "dashboard", headers: {} }),
+      query: () => ({ url: "admin/dashboard", headers: {} }),
       keepUnusedDataFor: 0,
     }),
   }),

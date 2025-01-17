@@ -1,6 +1,5 @@
 import { systemMiddlewares, systemReducers } from "./admin/system";
 
-import { adminDemo } from "./admin/demo";
 import { authApi } from "./auth";
 import { blog } from "./admin/blog/blog";
 import { blogCategory } from "./admin/blog/category";
@@ -23,7 +22,6 @@ export const reducers = {
   [authApi.reducerPath]: authApi.reducer,
   [dashboard.reducerPath]: dashboard.reducer,
   [signIn.reducerPath]: signIn.reducer,
-  [adminDemo.reducerPath]: adminDemo.reducer,
   [blog.reducerPath]: blog.reducer,
   [blogCategory.reducerPath]: blogCategory.reducer,
   [blogTag.reducerPath]: blogTag.reducer,
@@ -44,7 +42,6 @@ export const middlewares = [
   dashboard.middleware,
   authApi.middleware,
   signIn.middleware,
-  adminDemo.middleware,
   blog.middleware,
   blogCategory.middleware,
   blogTag.middleware,
