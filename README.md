@@ -1,37 +1,37 @@
-# Welcome to Remix Antd Admin
+# 欢迎使用 Remix Antd Admin
 
-A modern full-stack web solution based on React Router, React, Antd, TailwindCSS, Prisma, and RBAC.
+一个基于 React Router、React、Antd、TailwindCSS、Prisma 和 RBAC 的现代全栈 Web 解决方案。
 
-## Feature
+## 功能
 
-- 🚀 React Router for routing
-- 🎉 TailwindCSS for styling
-- 🔒 TypeScript by default
-- 📖 Prisma for ORM
-- 🔄 multi data fetch: redux/loader
-- 🔐 RBAC permission management
-- 🌐 remix-i18n for internationalization
-- 📖 [remix-antd-admin-docs](https://remix-antd-admin-docs.vercel.app/)
+- 🚀 使用 React Router 进行路由管理
+- 🎉 使用 TailwindCSS 进行样式设计
+- 🔒 默认使用 TypeScript
+- 📖 使用 Prisma 作为 ORM
+- 🔄 多种数据获取方式：redux/loader
+- 🔐 RBAC 权限管理
+- 🌐 使用 remix-i18n 进行国际化
+- 📖 [remix-antd-admin 文档](https://remix-antd-admin-docs.vercel.app/)
 
-## Geting Started
+## 快速开始
 
 ```sh
 # git
 git clone https://github.com/yyong008/remix-antd-admin.git
 
-# or gitee
+# 或者 gitee
 git clone https://gitee.com/yyong008/remix-antd-admin.git
 
 cd remix-antd-admin
 
-# development
-pnpm run dev # open port in your browser
+# 开发环境
+pnpm run dev # 在浏览器中打开端口
 
-# production
+# 生产环境
 pnpm run build
 ```
 
-## Deploy
+## 部署
 
 ### pnpm
 
@@ -40,11 +40,11 @@ pnpm run build
 ├── Dockerfile
 ├── pnpm-lock.yaml
 ├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-└── public/        # Static assets
+│   ├── client/    # 静态资源
+│   └── server/    # 服务器端代码
+└── public/        # 静态资源
 └── server/
-    └── index.js   # server start entry file
+    └── index.js   # 服务器启动入口文件
 ```
 
 ### Docker
@@ -53,16 +53,16 @@ pnpm run build
 pnpm run docker:build
 ```
 
-## Styling
+## 样式
 
-You can control style user TailwindCSS, Antd, and other css or CSS-in-JS solutions.
+您可以使用 TailwindCSS、Antd 以及其他 CSS 或 CSS-in-JS 解决方案来控制样式。
 
-## A cup of coffee.
+## 一杯咖啡
 
-If my project helps you, buy me a cup of coffee [💌buy-me-a-coffee💌](https://github.com/yyong008/buy-me-a-coffee)
+如果我的项目对您有帮助，请给我买一杯咖啡 [💌buy-me-a-coffee💌](https://github.com/yyong008/buy-me-a-coffee)
 
-## License
+## 许可证
 
 Copyright (c) 2023-present Yong-
 
-Build with ❤️ using React Router and other open source technologies.
+使用 React Router 和其他开源技术，带着 ❤️ 构建。
