@@ -38,6 +38,9 @@ importers:
       '@langchain/ollama':
         specifier: ^0.1.4
         version: 0.1.4(@langchain/core@0.3.30)
+      '@mjackson/form-data-parser':
+        specifier: ^0.6.0
+        version: 0.6.0
       '@prisma/client':
         specifier: ^6.0.1
         version: 6.2.1(prisma@6.2.1)
@@ -1256,6 +1259,15 @@ packages:
 
   '@manypkg/get-packages@1.1.3':
     resolution: {integrity: sha512-fo+QhuU3qE/2TQMQmbVMqaQ6EWbMhi4ABWP+O4AM1NqPBuy0OrApV5LO6BrrgnhtAHS2NH6RrVk9OL181tTi8A==}
+
+  '@mjackson/form-data-parser@0.6.0':
+    resolution: {integrity: sha512-Al+vTYqCLP/IOqaXhYj1nedm14NJNn6UVv6pbn47XVYOiFQ1MGbzaaytl32Qyf2jSt1TTUIBQZpwtrOP1i597A==}
+
+  '@mjackson/headers@0.8.0':
+    resolution: {integrity: sha512-A6nE9ZKTGX1hTHQOeoYn/f7+xRTgzixHWu9jtZ8zYgZYq30MPtZIRXqEyY8bWaIILr+zWdmUPQg/R/8e+e/8Nw==}
+
+  '@mjackson/multipart-parser@0.7.2':
+    resolution: {integrity: sha512-Ic7XeOLOoc/ivrQDzDWkkNCTd7bV6gRbXpWQq95xg8OFXZXKglzeqJhGais00HoB/b2cdJ76cJ06jPOyEBs52w==}
 
   '@mjackson/node-fetch-server@0.2.0':
     resolution: {integrity: sha512-EMlH1e30yzmTpGLQjlFmaDAjyOeZhng1/XCd7DExR8PNAnG/G1tyruZxEoUe11ClnwGhGrtsdnyyUx1frSzjng==}
@@ -8140,6 +8152,16 @@ snapshots:
       fs-extra: 8.1.0
       globby: 11.1.0
       read-yaml-file: 1.1.0
+
+  '@mjackson/form-data-parser@0.6.0':
+    dependencies:
+      '@mjackson/multipart-parser': 0.7.2
+
+  '@mjackson/headers@0.8.0': {}
+
+  '@mjackson/multipart-parser@0.7.2':
+    dependencies:
+      '@mjackson/headers': 0.8.0
 
   '@mjackson/node-fetch-server@0.2.0': {}
 
