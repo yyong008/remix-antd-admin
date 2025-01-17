@@ -101,17 +101,6 @@ const admin_tool_apis = [
   route("api/admin/tools/storage", "apis-server/admin/tools/storage.api.ts"),
 ];
 
-const admin_demo_apis = [
-  route(
-    "api/admin/demo/account/center",
-    "apis-server/admin/demo/account/center/index.ts",
-  ),
-  route(
-    "api/admin/demo/account/settings",
-    "apis-server/admin/demo/account/settings/index.ts",
-  ),
-];
-
 const admin_sys_apis = new AdminSystemAPI().getApis();
 const admin_dashboard_apis = new AdminDashboardAPI().getApis();
 const admin_auth_apis = [
@@ -167,132 +156,11 @@ const apis = [
   ...admin_auth_apis,
   ...admin_dashboard_apis,
   ...admin_tool_apis,
-  ...admin_demo_apis,
   ...amdin_blog_apis,
   ...admin_news_apis,
   ...admin_feedback_changelog_apis,
   ...admin_profile_apis,
   ...admin_sys_apis,
-];
-
-const demoRoutes = [
-  // demo
-  route("demo/account/center", "modules-admin/demo/account/center/index.tsx"),
-  route(
-    "demo/account/settings",
-    "modules-admin/demo/account/settings/index.tsx",
-  ),
-
-  route("demo/calender/antd", "modules-admin/demo/calender/antd/index.tsx"),
-  route(
-    "demo/calender/temporal",
-    "modules-admin/demo/calender/temporal/index.tsx",
-  ),
-
-  route("demo/chat", "modules-admin/demo/chat/index.tsx"),
-
-  route(
-    "demo/dashboard/analysis",
-    "modules-admin/demo/dashboard/analysis/index.tsx",
-  ),
-  route(
-    "demo/dashboard/monitor",
-    "modules-admin/demo/dashboard/monitor/index.tsx",
-  ),
-  route(
-    "demo/dashboard/workplace",
-    "modules-admin/demo/dashboard/workplace/index.tsx",
-  ),
-
-  route("demo/editor/flow", "modules-admin/demo/editor/flow/index.tsx"),
-  route(
-    "demo/editor/json-viewer",
-    "modules-admin/demo/editor/json-viewer/index.tsx",
-  ),
-  route("demo/editor/markdown", "modules-admin/demo/editor/markdown/index.tsx"),
-  route("demo/editor/mind", "modules-admin/demo/editor/mind/index.tsx"),
-  route("demo/editor/rich", "modules-admin/demo/editor/rich/index.tsx"),
-
-  route("demo/excel/import", "modules-admin/demo/excel/import/index.tsx"),
-  route("demo/excel/export", "modules-admin/demo/excel/export/index.tsx"),
-
-  route("demo/exception/403", "modules-admin/demo/exception/403/index.tsx"),
-  route("demo/exception/404", "modules-admin/demo/exception/404/index.tsx"),
-  route("demo/exception/500", "modules-admin/demo/exception/500/index.tsx"),
-
-  route(
-    "demo/form/advanced-form",
-    "modules-admin/demo/form/advanced-form/index.tsx",
-  ),
-  route("demo/form/basic-form", "modules-admin/demo/form/basic-form/index.tsx"),
-  route("demo/form/step-form", "modules-admin/demo/form/step-form/index.tsx"),
-
-  route("demo/game/mouse", "modules-admin/demo/game/mouse/index.tsx"),
-  route(
-    "demo/game/pocker-guess",
-    "modules-admin/demo/game/pocker-guess/index.tsx",
-  ),
-  route(
-    "demo/game/pockercontent:hhmz",
-    "modules-admin/demo/game/pocker-content/index.tsx",
-  ),
-  route("demo/game/rl", "modules-admin/demo/game/rl/index.tsx"),
-  route("demo/game/trbl", "modules-admin/demo/game/trbl/index.tsx"),
-
-  route(
-    "demo/health/anxiety-depression",
-    "modules-admin/demo/health/anxiety-depression/index.tsx",
-  ),
-  route(
-    "demo/health/cervical-vertebra.",
-    "modules-admin/demo/health/cervical-vertebra/index.tsx",
-  ),
-  route("demo/health/hand", "modules-admin/demo/health/hand/index.tsx"),
-  route("demo/health/obesity", "modules-admin/demo/health/obesity/index.tsx"),
-  route("demo/health/sleep", "modules-admin/demo/health/sleep/index.tsx"),
-  route("demo/health/sport", "modules-admin/demo/health/sport/index.tsx"),
-  route("demo/health/vision", "modules-admin/demo/health/vision/index.tsx"),
-
-  route("demo/lib/clipboard", "modules-admin/demo/lib/clipboard/index.tsx"),
-  route("demo/lib/icons", "modules-admin/demo/lib/icons/index.tsx"),
-  route("demo/lib/qrcode", "modules-admin/demo/lib/qrcode/index.tsx"),
-  route("demo/lib/split-pane", "modules-admin/demo/lib/split-pane/index.tsx"),
-
-  route("demo/list/basic-list", "modules-admin/demo/list/basic-list/index.tsx"),
-  route("demo/list/card-list", "modules-admin/demo/list/card-list/index.tsx"),
-  route("demo/list/table-list", "modules-admin/demo/list/table-list/index.tsx"),
-  route(
-    "demo/list/search/applications",
-    "modules-admin/demo/list/search/applications/index.tsx",
-  ),
-  route(
-    "demo/list/search/articles",
-    "modules-admin/demo/list/search/articles/index.tsx",
-  ),
-  route(
-    "demo/list/search/projects",
-    "modules-admin/demo/list/search/projects/index.tsx",
-  ),
-
-  route(
-    "demo/profile/advanced",
-    "modules-admin/demo/profile/advanced/index.tsx",
-  ),
-  route("demo/profile/basic", "modules-admin/demo/profile/basic/index.tsx"),
-
-  route("demo/result/fail", "modules-admin/demo/result/fail/index.tsx"),
-  route("demo/result/success", "modules-admin/demo/result/success/index.tsx"),
-
-  route("demo/stack/laxjs/cursor", "modules-admin/demo/stack/laxjs/cursor.tsx"),
-  route(
-    "demo/stack/rxjs/count-down",
-    "modules-admin/demo/stack/rxjs/count-down.tsx",
-  ),
-  route("demo/stack/rxjs/keybr", "modules-admin/demo/stack/rxjs/keybr.tsx"),
-
-  // docs
-  route("docs/change-log", "modules-admin/docs/change-log/index.tsx"),
-  route("docs/feedback", "modules-admin/docs/feedback/index.tsx"),
 ];
 
 const adminAuthRoutes = [
@@ -379,8 +247,6 @@ const adminRoutes = [
 
     // about
     route("about", "modules-admin/about/index.tsx"),
-
-    ...demoRoutes,
   ]),
 ];
 
