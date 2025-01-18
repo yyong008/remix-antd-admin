@@ -59,6 +59,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "antd": "^5.19.3",
     "antd-style": "^3.6.2",
+    "axios": "^1.7.9",
     "canvas-confetti": "^1.9.2",
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.10",
