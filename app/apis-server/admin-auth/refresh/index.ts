@@ -1,7 +1,7 @@
 import type { Op } from "@/types/restful";
-import { schemas } from "@/schemas";
 import { refreshTokenTool } from "@/services/admin-auth/refresh";
 import { remixApi } from "@/utils/server/remixApi";
+import { schemas } from "~/schemas";
 
 const options: Op = {
   POST: {

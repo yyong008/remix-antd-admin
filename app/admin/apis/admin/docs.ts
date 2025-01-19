@@ -1,4 +1,4 @@
-import api from "@/admin/apis";
+import api from "~/libs/axios";
 
 /**
  * 获取文档列表

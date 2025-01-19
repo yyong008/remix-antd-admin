@@ -1,8 +1,7 @@
-import { schemas } from "@/schemas";
-
 import type { Op } from "@/types/restful";
 import { permissions } from "@/constants/permission";
 import { remixApi } from "@/utils/server/remixApi";
+import { schemas } from "~/schemas";
 import { userService } from "@/services/admin/system/UserService";
 
 const options: Op = {

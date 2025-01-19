@@ -1,4 +1,4 @@
-import api from "@/admin/apis";
+import api from "~/libs/axios";
 
 /**
  * 创建用户
@@ -46,9 +46,9 @@ export async function deleteUserByIds(data: any) {
  * 获取用户详情
  * @returns
  */
-export async function readUser() {
+export async function getUserInfo() {
   try {
-    return await api.get("/admin/system/user");
+    return await api.get("/admin/system/user/info");
   } catch (error) {
     console.error(error);
     return error;

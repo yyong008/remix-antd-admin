@@ -59,9 +59,9 @@ class JoseJwt {
       });
       return { ...payload } as ResultType;
     } catch (error: any) {
-      // if (error?.code === "ERR_JWT_EXPIRED") {
-      //   throw Error('"exp" claim timestamp check failed');
-      // }
+      if (error?.code === "ERR_JWT_EXPIRED") {
+        throw Error('"exp" claim timestamp check failed');
+      }
       console.error("❌ Failed to verify >>", error);
       return { error } as ResultType;
     }

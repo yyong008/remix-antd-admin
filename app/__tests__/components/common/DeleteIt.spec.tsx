@@ -8,16 +8,16 @@ import { render, screen, waitFor } from "@testing-library/react";
 import type { ComponentType } from "react";
 // component
 import DeleteIt from "~/components/common/delete-it";
-import { createRoutesStub , useFetcher } from "react-router";
+import { createRoutesStub, useFetcher } from "react-router";
 
 describe("test Footer component", () => {
   let Comp: ComponentType<{}>;
   beforeEach(() => {
-    // eslint-disable-next-line react/display-name
+     
     Comp = () => {
       const fetcher = useFetcher();
       return (
-        // eslint-disable-next-line jsx-a11y/aria-role
+         
         <div data-testid="deleteit" role="delete-it">
           <DeleteIt title="news" fetcher={fetcher} record={{}} />
         </div>

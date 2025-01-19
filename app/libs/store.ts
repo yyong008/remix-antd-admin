@@ -1,12 +1,9 @@
-import { middlewares, reducers } from "../apis-client";
-
 import { configureStore } from "@reduxjs/toolkit";
 
 export const makeStore = () => {
   return configureStore({
-    reducer: { ...reducers },
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(...middlewares),
+    reducer: () => {},
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...[]),
   });
 };
 

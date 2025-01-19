@@ -1,5 +1,5 @@
 import { remixApi } from "@/utils/server/remixApi";
-import { schemas } from "@/schemas";
+import { schemas } from "~/schemas";
 import { uploadService } from "@/services/admin/upload/index";
 
 const options = {

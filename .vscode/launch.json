@@ -7,8 +7,22 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Remix dev",
+      "name": "(Bun)React Router dev",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": ["run", "dev"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "(pnpm)React Router dev",
       "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["run", "dev"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "(npm)React Router dev",
+      "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"]
     }
   ]

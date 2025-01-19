@@ -1,4 +1,4 @@
-import api from "@/admin/apis";
+import api from "~/libs/axios";
 
 /**
  * 创建系统配置

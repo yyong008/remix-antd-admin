@@ -35,33 +35,6 @@ const __APP_INFO__ = JSON.stringify({
   lastBuildTime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
 });
 
-// export default defineConfig({
-//   server: {
-//     port: 3333,
-//   },
-//   ssr: {
-//     noExternal: [
-//       // "@ant-design/icons",
-//       // "@ant-design/pro-chat",
-//       // "@ant-design/pro-editor",
-//       // "react-intersection-observer",
-//     ],
-//     optimizeDeps: {
-//       include: [
-//         // "@ant-design/icons",
-//         // "@ant-design/pro-chat",
-//         // "@ant-design/pro-editor",
-//         // "react-intersection-observer",
-//       ],
-//     },
-//   },
-//   define: {
-//     __APP_INFO__,
-//   },
-
-//   plugins: [reactRouter(), tsconfigPaths()],
-// });
-
 export default defineConfig(({ isSsrBuild, command }) => ({
   build: {
     rollupOptions: isSsrBuild

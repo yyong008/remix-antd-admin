@@ -1,5 +1,3 @@
-"use client";
-
 import { type AppStore, makeStore } from "~/libs/store";
 
 import { Provider } from "react-redux";

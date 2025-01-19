@@ -2,7 +2,7 @@ import type { Op } from "@/types/restful";
 import { monitorLoginLogService } from "@/services/admin/system/MonitorServeService";
 import { permissions } from "@/constants/permission";
 import { remixApi } from "@/utils/server/remixApi";
-import { schemas } from "@/schemas";
+import { schemas } from "~/schemas";
 
 const options: Op = {
   GET: {

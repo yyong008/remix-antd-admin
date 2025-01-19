@@ -1,7 +1,7 @@
 export function AntdLinkIconSVG({ size }: { size: number }) {
   return (
     <svg
-      fill-rule="evenodd"
+      fillRule="evenodd"
       viewBox="64 64 896 896"
       focusable="false"
       data-icon="export"
