@@ -5,7 +5,7 @@ export function Left() {
       style={{
         backgroundSize: "cover",
         backgroundImage:
-          "url(https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg)",
+          "url(https://cdn.pixabay.com/photo/2024/01/08/17/59/dandelion-8496044_1280.jpg)",
       }}
     >
       <div className="flex flex-col justify-between h-[100%] ">

@@ -5,9 +5,8 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 
 import { Link } from "react-router";
 import React from "react";
-import { login } from "~/admin/apis/auth";
 import { message } from "antd";
-import { simpleStorage } from "@/libs/simpleStorage";
+import { register } from "~/admin/apis/auth";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { useNavigate } from "react-router";
 import { useParamsLang } from "~/hooks/userParamsLang";
@@ -19,31 +18,31 @@ const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const { lang } = useParamsLang();
   const [isLoading, setIsLoading] = useState(false);
+
+  /**
+   * 注册
+   * @param values
+   * @returns
+   */
   const onFinish = async (values: any) => {
+    if (values.password !== values.passwordRe) {
+      message.error(t("login-register.password-re-not-equal"));
+      return false;
+    }
     const data = {
       ...values,
       password: clientUtils.genHashedPassword(values.password),
+      passwordRe: clientUtils.genHashedPassword(values.passwordRe),
     };
     setIsLoading(true);
-    const result: any = await login(data);
+    const result: any = await register(data);
     setIsLoading(false);
-    if (result.code === 0 && result.data.token?.length > 0) {
-      const { token, refresh_token } = result.data;
-      simpleStorage.setToken(token);
-      simpleStorage.setRefreshToken(refresh_token);
+    if (result.data.code === 0) {
       message.success(result.data.message);
-      navigate(`/${lang}/admin/dashboard`, { replace: true });
+      navigate(`/${lang}/admin/login`, { replace: true });
     } else {
-      if (
-        result.code === 1 &&
-        result.message === '"exp" claim timestamp check failed'
-      ) {
-        message.error("登录已过期，请重新登录");
-        return;
-      }
-      message.error(result.message ?? "登录失败");
+      message.error(result.data.message);
     }
-    return true;
   };
 
   return (
@@ -83,6 +82,21 @@ const LoginForm: React.FC = () => {
           placeholder={t("login-register.placeholder.password") as string}
         />
       </Form.Item>
+      <Form.Item
+        name="passwordRe"
+        rules={[
+          {
+            required: true,
+            message: t("login-register.message.password-message-re") as string,
+          },
+        ]}
+      >
+        <Input
+          prefix={<LockOutlined />}
+          type="password"
+          placeholder={t("login-register.placeholder.password-re") as string}
+        />
+      </Form.Item>
 
       <Form.Item>
         <Button block type="primary" htmlType="submit" loading={isLoading}>
@@ -100,24 +114,22 @@ export function Right() {
       <LogoImg />
       <div className="flex flex-col items-center text-4xl gap-3">
         <div className="mb-[20px]">{t("login-register.title")}</div>
-        <div>👏 {t("login-register.account-login")} ~</div>
+        <div>👏 {t("login-register.account-register")} ~</div>
       </div>
       <div className="text-gray-500">{t("login-register.desc")}</div>
       <LoginForm />
-      <GoRegister />
+      <GoLogin />
       <Tip />
     </div>
   );
 }
 
-function GoRegister() {
+function GoLogin() {
   const { lang } = useParamsLang();
   const { t } = useTranslation();
   return (
-    <div className="absolute top-[40px] right-[40px] text-gray-700">
-      <Link to={"/" + lang + "/admin/register"}>
-        {t("login-register.register")}
-      </Link>
+    <div className="absolute top-[40px] left-[40px] text-gray-700">
+      <Link to={"/" + lang + "/admin/login"}>{t("login-register.login")}</Link>
     </div>
   );
 }

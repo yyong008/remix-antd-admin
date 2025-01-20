@@ -1,5 +1,6 @@
 {
   "login-register": {
+    "account-register": "Account Register",
     "account-login": "Account Login",
     "phone-login": "Phone Login",
     "remeber": "Remember Password",
@@ -7,6 +8,8 @@
     "desc": "Admin management system based on Remix Antd Admin",
     "other-login": "Other Login",
     "submit": "Submit",
+    "login": "Login",
+    "register": "Register",
     "logout": "Logout",
     "code": {
       "get-captcha-success": "Captcha obtained successfully",
