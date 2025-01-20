@@ -17,17 +17,17 @@ authRouter.post("/login", async (c) => {
     const data = await loginService.loginAction(args);
     return c.js(data);
   } catch (error) {
-    return c.error(error as Error);
+    return c.jf(error as Error);
   }
 });
 
 authRouter.post("/register", async (c) => {
   try {
-    const body = await c.req.json();
-    const data = registerService.register(body);
+    const args = await c.reactRouterArgs;
+    const data = registerService.register(args);
     return c.json(data);
   } catch (error) {
-    return c.error(error as Error);
+    return c.jf(error as Error);
   }
 });
 
@@ -37,6 +37,6 @@ authRouter.post("/refresh_token", async (c) => {
     const data = await refreshTokenTool.createTokens(args);
     return c.json(data);
   } catch (error) {
-    return c.error(error as Error);
+    return c.jf(error as Error);
   }
 });
