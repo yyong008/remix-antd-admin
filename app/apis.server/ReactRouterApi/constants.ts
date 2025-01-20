@@ -1,4 +1,4 @@
-export const LOWER_METHODS = [
+export const UPPER_METHODS = [
   "GET",
   "POST",
   "PUT",

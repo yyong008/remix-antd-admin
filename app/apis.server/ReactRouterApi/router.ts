@@ -23,15 +23,18 @@ type RRoute = {
 };
 
 export class Router {
+  name = "router";
   private regexCache = new Map<
     string,
     { regex: RegExp; paramNames: string[] }
   >();
 
-  findRoute(url: string, method: string, routes: RRoute[]) {
+  match(url: string, method: string, routes: RRoute[]) {
     const matched = [];
+
     for (const route of routes) {
       if (route.method !== method) {
+        // find all middleware route
         if (route.method === "ALL") {
           if (url.startsWith(route.path)) {
             matched.push({ handler: route.handler, params: {} });
@@ -39,6 +42,8 @@ export class Router {
         }
         continue;
       }
+
+      // match all normal route
 
       let compiled = this.regexCache.get(route.path);
       if (!compiled) {

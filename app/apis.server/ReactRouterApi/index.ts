@@ -1,14 +1,14 @@
-import { ALL_METHODS, LOWER_METHODS } from "./constants";
+import { ALL_METHODS, UPPER_METHODS } from "./constants";
 import { errorHandler, notFoundHandler } from "./error";
 
 import { Context } from "./context";
 import { Router } from "./router";
 import { compose } from "./compose";
 
-type LowerCaseMethods = Lowercase<(typeof LOWER_METHODS)[number]>;
-type MethodsUnion = (typeof LOWER_METHODS)[number];
-type handlerFunction = (c: Context, next?: Function) => any;
-type MethodFunction = (path: string, ...handler: handlerFunction[]) => any;
+type LowerCaseMethods = Lowercase<(typeof UPPER_METHODS)[number]>;
+type MethodsUnion = (typeof UPPER_METHODS)[number];
+type HandlerFunction = (c: Context, next?: Function) => any;
+type MethodFunction = (path: string, ...handler: HandlerFunction[]) => any;
 
 type IRoute = {
   method: string;
@@ -35,50 +35,64 @@ export class ReactRouterApi {
   patch!: MethodFunction;
   options!: MethodFunction;
   use!: any;
-  #routePath!: string;
+  #path: string = "/"; // http 路径 path
+  #routePath!: string; // route 子路由路径
+  private errorHandler = errorHandler;
+  #notFondHandler = notFoundHandler;
+
   constructor() {
     this.router = new Router();
-    LOWER_METHODS.forEach((m: MethodsUnion) => {
+    UPPER_METHODS.forEach((m: MethodsUnion) => {
       const method = m.toLowerCase() as LowerCaseMethods;
-      this[method] = (path: string, ...handlers: handlerFunction[]) => {
+      this[method] = (
+        arg1: string | HandlerFunction,
+        ...handlers: HandlerFunction[]
+      ) => {
+        if (typeof arg1 === "string") {
+          this.#path = arg1;
+        } else {
+          this.#addRoute(method, this.#path, arg1);
+        }
         handlers.forEach((handler) => {
-          this.routes.push({ method, path: path, handler });
+          this.#addRoute(method, this.#path, handler);
         });
       };
     });
 
     // use
-    this.use = (...handlers: handlerFunction[]) => {
+    this.use = (...handlers: HandlerFunction[]) => {
       handlers.forEach((handler) => {
-        this.routes.push({
-          method: ALL_METHODS,
-          path: this.#routePath ?? "/",
-          handler,
-        });
+        this.#addRoute(ALL_METHODS, this.#routePath ?? "/", handler);
       });
     };
   }
-  private errorHandler = errorHandler;
-  #notFondHandler = notFoundHandler;
 
-  async fetch(args: any) {
+  /**
+   * 添加路由表
+   * @param method
+   * @param path
+   * @param handler
+   */
+  #addRoute(method: string, path: string, handler: HandlerFunction) {
+    const upperMethod = method.toUpperCase();
+    this.routes.push({ method: upperMethod, path, handler });
+  }
+
+  async #fetch(args: any) {
     try {
       const { request } = args;
       const { method } = request;
-      const litteralMethod = method.toLowerCase();
+      const mt = method.toUpperCase();
       const { pathname } = new URL(request.url);
-      const route = this.router.findRoute(
-        pathname,
-        litteralMethod,
-        this.routes,
-      );
-      if (route) {
+      const matchedRoutes = this.router.match(pathname, mt, this.routes);
+      if (matchedRoutes) {
         const c = new Context({
           reactRouterArgs: args,
           notFoundHandler: this.#notFondHandler,
+          matchedRoutes,
         });
         const composed = compose(
-          [...route.map((h) => h.handler)],
+          [...matchedRoutes.map((h) => h.handler)],
           this.errorHandler,
           this.#notFondHandler,
         );
@@ -100,7 +114,7 @@ export class ReactRouterApi {
    * @returns
    */
   async loader(args: any) {
-    return this.fetch(args);
+    return this.#fetch(args);
   }
   /**
    * react router action function
@@ -108,13 +122,13 @@ export class ReactRouterApi {
    * @returns
    */
   async action(args: any) {
-    return this.fetch(args);
+    return this.#fetch(args);
   }
   /**
    * react router action loader
    * @returns
    */
-  handler() {
+  fetch() {
     return {
       loader: this.loader.bind(this),
       action: this.action.bind(this),

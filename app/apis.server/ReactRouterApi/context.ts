@@ -5,6 +5,7 @@ import { ContextRequest } from "./context-request";
 export type ContextOptions = {
   reactRouterArgs: LoaderFunctionArgs | ActionFunctionArgs;
   notFoundHandler?: any;
+  matchedRoutes?: any[];
 };
 
 export class Context {
@@ -14,9 +15,11 @@ export class Context {
   #res?: Response;
   error: Error | undefined;
   finalized: boolean = false;
+  #matchedRoutes?: any[];
   constructor(options: ContextOptions) {
     this.reactRouterArgs = options.reactRouterArgs;
     this.#notFoundHandler = options.notFoundHandler;
+    this.#matchedRoutes = options.matchedRoutes;
   }
   /**
    * 获取 react router 请求对象
@@ -138,5 +141,9 @@ export class Context {
       });
     }
     return this.#notFoundHandler(this.req);
+  }
+
+  getMatchedRoutes() {
+    return this.#matchedRoutes;
   }
 }

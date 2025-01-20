@@ -1,5 +1,4 @@
 import { Context } from "./context";
-import { notFoundHandler } from "./error";
 
 export const compose = (
   middleware: any[],
@@ -33,12 +32,12 @@ export const compose = (
       if (middleware[i]) {
         handler = middleware[i];
       } else {
-        handler = i === middleware.length - 1 ? next : undefined;
+        handler = i === middleware.length ? next : undefined;
       }
 
       if (!handler) {
-        if (isContext && notFoundHandler) {
-          res = await notFoundHandler(context);
+        if (isContext && context.finalized === false && onNotFound) {
+          res = await onNotFound(context);
         }
         console.log("No fn or next"); // 如果没有下一个中间件，直接返回
         res = new Response("Server Error", { status: 500 });
@@ -58,7 +57,7 @@ export const compose = (
         }
       }
 
-      if (i <= middleware.length - 1 && res) {
+      if (res && (context.finalized === false || isError)) {
         context.res = res; // 只有在最后一个中间件返回响应时设置
         return context;
       }

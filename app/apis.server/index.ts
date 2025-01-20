@@ -16,6 +16,6 @@ app.route("/api/admin", adminRouter);
 
 console.table(app.routes);
 
-const handler = app.handler.bind(app);
+const fetch = app.fetch.bind(app);
 
-export const { loader, action } = handler();
+export const { loader, action } = fetch();
