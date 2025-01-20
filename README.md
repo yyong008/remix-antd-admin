@@ -1,6 +1,6 @@
 # 欢迎使用 Remix Antd Admin
 
-一个基于 React Router、React、Antd、TailwindCSS、Prisma 和 RBAC 的现代全栈 Web 解决方案。
+一个基于 React Router、React、Antd、TailwindCSS、Prisma 和 RBAC 的现代全栈 Web 解决方案（WIP）。
 
 ## 功能
 
@@ -25,15 +25,15 @@ git clone https://gitee.com/yyong008/remix-antd-admin.git
 cd remix-antd-admin
 
 # 开发环境
-pnpm run dev # 在浏览器中打开端口
+bun run dev # 在浏览器中打开端口
 
 # 生产环境
-pnpm run build
+bun run build
 ```
 
 ## 部署
 
-### pnpm
+### bun
 
 ```ts
 ├── package.json
@@ -50,7 +50,7 @@ pnpm run build
 ### Docker
 
 ```sh
-pnpm run docker:build
+bun run docker:build
 ```
 
 ## 样式
