@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export function Left() {
   return (
     <div
@@ -9,12 +11,14 @@ export function Left() {
       }}
     >
       <div className="flex flex-col justify-between h-[100%] ">
-        <div className="flex gap-4">
-          <LogoImg />
-          <div className="text-center">
-            <h1 className="text-xl">Remix Antd Admin</h1>
+        <Link to="/">
+          <div className="flex gap-4">
+            <LogoImg />
+            <div className="text-center">
+              <h1 className="text-xl">Remix Antd Admin</h1>
+            </div>
           </div>
-        </div>
+        </Link>
 
         <div className="flex flex-col items-center mb-[20px]">
           Remix Antd Admin is a fullstack website building solution based on
