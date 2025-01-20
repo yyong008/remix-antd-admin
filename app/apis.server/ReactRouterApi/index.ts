@@ -1,16 +1,10 @@
+import { ALL_METHODS, LOWER_METHODS } from "./constants";
+import { errorHandler, notFoundHandler } from "./error";
+
 import { Context } from "./context";
 import { Router } from "./router";
 import { compose } from "./compose";
 
-const LOWER_METHODS = [
-  "GET",
-  "POST",
-  "PUT",
-  "DELETE",
-  "PATCH",
-  "OPTIONS",
-] as const;
-const ALL_METHODS = "ALL";
 type LowerCaseMethods = Lowercase<(typeof LOWER_METHODS)[number]>;
 type MethodsUnion = (typeof LOWER_METHODS)[number];
 type handlerFunction = (c: Context, next?: Function) => any;
@@ -30,18 +24,6 @@ function normalizePath(...paths: string[]): string {
       .replace(/\/$/, "") || "/" // 移除尾部斜杠（除非路径为空）
   );
 }
-
-const notFoundHandler = (c: Context) => {
-  return c.text("404 Not Found");
-};
-
-const errorHandler = (err: any, c: Context) => {
-  if ("getResponse" in err) {
-    return err.getResponse();
-  }
-  console.error(err);
-  return c.text("Internal Server Error");
-};
 
 export class ReactRouterApi {
   routes: IRoute[] = [];
@@ -76,6 +58,8 @@ export class ReactRouterApi {
       });
     };
   }
+  private errorHandler = errorHandler;
+  #notFondHandler = notFoundHandler;
 
   async fetch(args: any) {
     try {
@@ -89,8 +73,15 @@ export class ReactRouterApi {
         this.routes,
       );
       if (route) {
-        const c = new Context({ reactRouterArgs: args });
-        const composed = compose([...route.map((h) => h.handler)]);
+        const c = new Context({
+          reactRouterArgs: args,
+          notFoundHandler: this.#notFondHandler,
+        });
+        const composed = compose(
+          [...route.map((h) => h.handler)],
+          this.errorHandler,
+          this.#notFondHandler,
+        );
         const context = await composed(c);
         if (!context || !context.res) {
           return new Error("Context is not Finalized");
@@ -103,9 +94,19 @@ export class ReactRouterApi {
       return new Response("Server Error", { status: 500 });
     }
   }
+  /**
+   * react router loader function
+   * @param args
+   * @returns
+   */
   async loader(args: any) {
     return this.fetch(args);
   }
+  /**
+   * react router action function
+   * @param args
+   * @returns
+   */
   async action(args: any) {
     return this.fetch(args);
   }
@@ -136,5 +137,23 @@ export class ReactRouterApi {
         handler: subRoute.handler,
       });
     });
+  }
+
+  /**
+   * 监听错误: 500
+   * @param handler
+   * @returns
+   */
+  onError(handler: any) {
+    this.errorHandler = handler;
+    return this;
+  }
+
+  /**
+   * 监听没有发现路由: 404
+   */
+  onFound(handler: any) {
+    this.#notFondHandler = handler;
+    return this;
   }
 }
