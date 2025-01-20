@@ -1,4 +1,4 @@
-export function Left() {
+export function Right() {
   return (
     <div
       className="flex  items-center w-1/2 p-[40px] text-white "

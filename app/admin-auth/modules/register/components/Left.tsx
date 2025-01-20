@@ -107,7 +107,7 @@ const LoginForm: React.FC = () => {
   );
 };
 
-export function Right() {
+export function Left() {
   const { t } = useTranslation();
   return (
     <div className="relative flex flex-col justify-center items-center w-1/2 gap-10 h-[100%]">

@@ -1,7 +1,7 @@
 import { ConfigProvider } from "antd";
-import { Left } from "./components/news/Left";
+import { Left } from "./components/Left";
 import { ProConfigProvider } from "@ant-design/pro-components";
-import { Right } from "./components/news/Right";
+import { Right } from "./components/Right";
 import { SettingContext } from "@/context/setting-context";
 import { useContext } from "react";
 import { useNProgress } from "@/hooks/useNprogress";
