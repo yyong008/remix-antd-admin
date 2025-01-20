@@ -83,26 +83,29 @@ export function LoginFormWrap({ children }: any) {
           token: value.theme,
         }}
       >
-        <div className="flex flex-col h-[100vh]">
-          <LoginForm
-            className="flex-1 text-slate-950"
-            loading={isLoading}
-            logo={<LogoImg />}
-            title={t("login-register.title")}
-            subTitle={t("login-register.desc")}
-            initialValues={initialValues}
-            actions={[<ActionOther t={t} lang={lang} key="login-other" />]}
-            onFinish={async (values: string) => {
-              await handleSubmit(values);
-            }}
-            submitter={{
-              searchConfig: {
-                submitText: t("login-register.submit"),
-              },
-            }}
-          >
-            {children}
-          </LoginForm>
+        <div className="flex  w-[100vw] flex-col h-[100vh]">
+          <div className="w-[50vw]">sdf</div>
+          <div className="flex w-[50vw] flex-col h-[100vh]">
+            <LoginForm
+              className="flex-1 text-slate-950"
+              loading={isLoading}
+              logo={<LogoImg />}
+              title={t("login-register.title")}
+              subTitle={t("login-register.desc")}
+              initialValues={initialValues}
+              actions={[<ActionOther t={t} lang={lang} key="login-other" />]}
+              onFinish={async (values: string) => {
+                await handleSubmit(values);
+              }}
+              submitter={{
+                searchConfig: {
+                  submitText: t("login-register.submit"),
+                },
+              }}
+            >
+              {children}
+            </LoginForm>
+          </div>
         </div>
       </ConfigProvider>
     </ProConfigProvider>
