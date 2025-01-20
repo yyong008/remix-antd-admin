@@ -2,6 +2,8 @@
 
 一个基于 React Router、React、Antd、TailwindCSS、Prisma 和 RBAC 的现代全栈 Web 解决方案（WIP）。
 
+Remix Antd Admin 正在开发中，如果您有任何建议或问题，请随时提交 Issue 或 Pull Request。
+
 ## 功能
 
 - 🚀 使用 React Router 进行路由管理
