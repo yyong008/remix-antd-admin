@@ -2,8 +2,8 @@ import axios from "axios";
 import { simpleStorage } from "./simpleStorage";
 
 const api = axios.create({
-  baseURL: "/api",
-  timeout: 5000,
+  baseURL: "/api/v1",
+  timeout: 10000,
   headers: {
     "Content-Type": "application/json",
   },

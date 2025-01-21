@@ -39,8 +39,6 @@ export const compose = (
         if (isContext && context.finalized === false && onNotFound) {
           res = await onNotFound(context);
         }
-        console.log("No fn or next"); // 如果没有下一个中间件，直接返回
-        res = new Response("Server Error", { status: 500 });
       } else {
         try {
           // 执行中间件，并传递 next
@@ -48,12 +46,11 @@ export const compose = (
         } catch (err) {
           if (err instanceof Error && isContext && onError) {
             context.error = err;
-            res = await onError(context, err);
+            res = await onError(err, context);
             isError = true;
+          } else {
+            throw err;
           }
-          console.error("Error in middleware:", err);
-          res = new Response("Server Error", { status: 500 });
-          throw err; // 抛出错误，交给外层处理
         }
       }
 

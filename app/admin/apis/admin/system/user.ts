@@ -60,13 +60,22 @@ export async function getUserInfo() {
  * @param params
  * @returns
  */
-export async function readUserList(params: {
+export async function getUserList(params: {
   page: number;
   pageSize: number;
   name?: string;
 }) {
   try {
     return await api.get("/admin/system/user", { params });
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
+export async function userSignIn() {
+  try {
+    return await api.post("/admin/system/user/signin");
   } catch (error) {
     console.error(error);
     return error;

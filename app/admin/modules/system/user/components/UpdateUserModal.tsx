@@ -1,6 +1,7 @@
 import { UpdateUserModalUI } from "./UpdateUserModalUI";
 import { UserModalFormItems } from "./ModalFormItems";
 import { genFileListByName } from "@/utils/server/utils";
+import { updateUserById } from "@/admin/apis/admin/system/user";
 
 type UpdateUserModalProps = {
   loading: boolean;
@@ -13,7 +14,6 @@ type UpdateUserModalProps = {
 
 export function UpdateUserModal(props: UpdateUserModalProps) {
   const { loading, reload, depts, roles, record } = props;
-  const [updateUser] = [(...args: any): any => {}];
   return (
     <UpdateUserModalUI
       initValue={record}
@@ -34,7 +34,7 @@ export function UpdateUserModal(props: UpdateUserModalProps) {
         const vals = { ...values, avatar, id: record.id };
         if (vals.email === "") delete vals.email; // no empty string
 
-        const result = await updateUser(vals);
+        const result = await updateUserById(vals);
         reload?.();
         return result;
       }}

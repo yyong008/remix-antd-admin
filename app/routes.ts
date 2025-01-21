@@ -11,5 +11,5 @@ const routes = [...clientRoutes, ...adminAuthRoutes, ...adminRoutes];
 
 export default [
   ...routes,
-  route("/api/*", "apis.server/index.ts"),
+  route("/api/v1/*", "apis.server/index.ts"),
 ] satisfies RouteConfig;

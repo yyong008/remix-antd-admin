@@ -2,6 +2,7 @@ import * as clientUtils from "@/utils/client";
 
 import { CreateUserModalUI } from "./CreateUserModalUI";
 import { UserModalFormItems } from "./ModalFormItems";
+import { createUser } from "~/admin/apis/admin/system/user";
 
 type CreateUserModalProps = {
   loading?: boolean;
@@ -13,7 +14,6 @@ type CreateUserModalProps = {
 
 export function CreateUserModal(props: CreateUserModalProps) {
   const { loading, reload, depts, roles, ...rest } = props;
-  const [createUser] = [(...args: any): any => {}];
   return (
     <CreateUserModalUI
       {...rest}

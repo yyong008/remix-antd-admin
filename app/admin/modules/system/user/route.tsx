@@ -1,13 +1,16 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { useEffect, useState } from "react";
 
 import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
 import { createToolBarRender } from "./components/create-toolbar-render";
 import { createUserTableColumns } from "./components/createColumns";
+import { getUserList } from "~/admin/apis/admin/system/user";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
-import { useState } from "react";
 
 export function Route() {
   const longPage = { page: 1, pageSize: 10000 };
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState({ list: [], total: 0 });
   const [page, setPage] = useState({
     page: 1,
     pageSize: 10,
@@ -15,16 +18,20 @@ export function Route() {
   });
   const [selectedRow, setSelectedRow] = useState([]);
   const { colorPrimary } = useColorPrimary();
-  const { data, isLoading, refetch } = {
-    data: { data: { list: [], total: 0 } },
-    isLoading: false,
-    refetch: () => {},
-  };
   const { data: deptsData } = { data: { data: { list: [] } } };
   const { data: rolesData } = { data: { data: { list: [] } } };
   const depts = deptsData?.data?.list || [];
   const roles = rolesData?.data?.list || [];
+  const getData = async () => {
+    setIsLoading(true);
+    const res: any = await getUserList(page);
+    setIsLoading(false);
+    setData(res.data);
+  };
 
+  useEffect(() => {
+    getData();
+  }, [page]);
   return (
     <PageContainer>
       <ProTable
@@ -53,25 +60,26 @@ export function Route() {
             setSelectedRow,
             depts,
             roles,
-            reload: refetch,
+            reload: getData,
           })
         }
-        dataSource={data?.data?.list || []}
+        dataSource={data?.list || []}
         columns={
           createUserTableColumns({
             depts,
             roles,
             colorPrimary,
-            reload: refetch,
+            reload: getData,
           }) as any
         }
         options={{
-          reload: refetch,
+          reload: getData,
         }}
         pagination={{
-          total: data?.data?.total,
+          total: data?.total,
           pageSize: page.pageSize || 10,
           onChange(page, pageSize) {
+            debugger;
             setPage((p) => ({ ...p, page, pageSize }));
           },
         }}

@@ -32,7 +32,15 @@ export class Router {
   match(url: string, method: string, routes: RRoute[]) {
     const matched = [];
 
-    for (const route of routes) {
+    // 首先根据静态路由和动态路由进行排序
+    const sortedRoutes = routes.sort((a, b) => {
+      // 静态路由（没有参数的）排在前面
+      const isStaticA = !a.path.includes(":");
+      const isStaticB = !b.path.includes(":");
+      return isStaticA === isStaticB ? 0 : isStaticA ? -1 : 1;
+    });
+
+    for (const route of sortedRoutes) {
       if (route.method !== method) {
         // find all middleware route
         if (route.method === "ALL") {

@@ -206,7 +206,7 @@ export class UserDAL {
    * @param ids
    */
   async deleteByIds(ids: number[]) {
-    prisma.$transaction(async (tx) => {
+    return prisma.$transaction(async (tx) => {
       const users = await prisma.userRole.deleteMany({
         where: {
           userId: {

@@ -9,7 +9,7 @@ newsRouter.get("/news", async (c) => {
   }
 });
 
-newsRouter.get("/news", async (c) => {
+newsRouter.get("/news/:id", async (c) => {
   try {
   } catch (error) {
     return c.jf(error as Error);

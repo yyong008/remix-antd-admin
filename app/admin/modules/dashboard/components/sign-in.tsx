@@ -3,6 +3,7 @@ import { Button, message } from "antd";
 import { CheckCircleFilled } from "@ant-design/icons";
 import confetti from "canvas-confetti";
 import { useState } from "react";
+import { userSignIn } from "~/admin/apis/admin/system/user";
 
 export function SignIn({ data: _data }: any) {
   const [data, setData] = useState(_data);
@@ -11,7 +12,7 @@ export function SignIn({ data: _data }: any) {
     { isLoading: false },
   ]; // eslint-disable-line;
   const signInHanlder = async () => {
-    const result: any = await signIn({}).unwrap();
+    const result: any = await userSignIn();
     if (result.code === 0) {
       setData({
         ...data,
