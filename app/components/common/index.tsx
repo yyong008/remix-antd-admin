@@ -3,7 +3,7 @@ export { ButtonLink } from "./button-link";
 export { CacheType } from "./cache-type";
 export { ClientOnly } from "./client-only";
 export { DeleteIt } from "./delete-it";
-export { Footer } from "./footer";
+export { Footer } from "./Footer";
 export { FormatTime } from "./format-time";
 export { LinkType } from "./link-type";
 export { ListHeaderSearch } from "./list-header-search";
