@@ -4,6 +4,10 @@
 
 Remix Antd Admin 正在开发中，如果您有任何建议或问题，请随时提交 Issue 或 Pull Request。
 
+## ⚠️警告
+
+本项目使用最新的 react-router v7.3.0 中间件，新特性（不稳定）不适合在生产环境中使用，适合学习
+
 ## 功能
 
 - 🚀 使用 React Router 进行路由管理
