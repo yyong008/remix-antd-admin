@@ -1,4 +1,3 @@
-import { type ActionFunctionArgs } from "react-router";
 import {
   ERRIR_USER_DISABLED,
   ERROR_PASSWWORD,
@@ -44,9 +43,9 @@ class LoginService {
    * @param args
    * @param user
    */
-  async recordLoginLog(args: ActionFunctionArgs, user: any) {
+  async recordLoginLog(req:  Request, user: any) {
     try {
-      const loginLog = await ipUtils.getLoginInfo(args.request);
+      const loginLog = await ipUtils.getLoginInfo(req);
       loginLogDAL.create({
         ...loginLog,
         name: user!.name,
@@ -62,11 +61,11 @@ class LoginService {
    * @param args
    * @returns
    */
-  async loginAction(args: ActionFunctionArgs) {
-    const vDto = await args.request.json();
+  async loginAction(req: Request) {
+    const vDto = await req.json();
     const user = await this.findUserByName(vDto);
     this.matchPassword(vDto, user);
-    this.recordLoginLog(args, user);
+    this.recordLoginLog(req, user);
     const ts = {
       refresh_token: await joseJwt.signRefreshToken(user.id),
       token: await joseJwt.signToken(user.id),

@@ -1,45 +1,45 @@
-import { ReactRouterApi } from "../../ReactRouterApi";
+import { Hono } from "hono";
 
-export const monitorServeRouter = new ReactRouterApi();
+export const monitorServeRouter = new Hono();
 
-monitorServeRouter.get("/monitor/serve", (c) => {
+monitorServeRouter.get("/monitor/serve", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });
 
-monitorServeRouter.get("/monitor/serve/:id", (c) => {
+monitorServeRouter.get("/monitor/serve/:id", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });
 
-monitorServeRouter.post("/monitor/serve", (c) => {
+monitorServeRouter.post("/monitor/serve", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });
 
-monitorServeRouter.put("/monitor/serve/:id", (c) => {
+monitorServeRouter.put("/monitor/serve/:id", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });
 
-monitorServeRouter.delete("/monitor/serve", (c) => {
+monitorServeRouter.delete("/monitor/serve", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });
 
-monitorServeRouter.delete("/monitor/serve/:id", (c) => {
+monitorServeRouter.delete("/monitor/serve/:id", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });

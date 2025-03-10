@@ -10,7 +10,11 @@ type DeleteItProps = {
 
 export function DeleteIt({ record, title, refetch }: DeleteItProps) {
   const [form] = Form.useForm();
-  const [deleteByIds] = [(...args: any): any => {}];
+  const [deleteByIds] = [
+    (data: any) => {
+      console.log(data);
+    },
+  ];
   return (
     <Form>
       <Popconfirm
@@ -23,7 +27,7 @@ export function DeleteIt({ record, title, refetch }: DeleteItProps) {
             data.ids = [record.id];
           }
 
-          const result = await deleteByIds(data);
+          const result: any = await deleteByIds(data);
           if (result.data?.code !== 0) {
             message.error(result.data?.message);
             return false;

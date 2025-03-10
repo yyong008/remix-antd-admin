@@ -11,7 +11,7 @@ type DeleteActionProps = {
 export function DeleteAction(props: DeleteActionProps) {
   const { record, title, refetch } = props;
   const [deleteIt, { isLoading }] = [
-    (...args: any): any => {},
+    (...args: any[]): any => {},
     { isLoading: false },
   ];
   return (

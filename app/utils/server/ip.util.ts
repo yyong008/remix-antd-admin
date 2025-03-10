@@ -41,6 +41,7 @@ export async function getIpAddress(ip: string) {
       return d;
     });
   } catch (error) {
+    console.error(error);
     return "第三方接口请求失败";
   }
 }
@@ -108,6 +109,7 @@ class IpUtils {
         return d;
       });
     } catch (error) {
+      console.error(error);
       return "第三方接口请求失败";
     }
   }
@@ -117,9 +119,9 @@ class IpUtils {
    * @param request
    * @returns
    */
-  async getLoginInfo(request: any) {
+  async getLoginInfo(request: Request) {
     const ip = getClientIPAddress(request.headers) ?? "本机地址";
-    let parser = new UAParser(request.headers.get("user-agent"));
+    let parser = new UAParser(request.headers.get("user-agent") ?? "");
     const ua = parser.getResult();
     return {
       ip,

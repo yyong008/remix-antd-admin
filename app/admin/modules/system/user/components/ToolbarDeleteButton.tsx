@@ -9,13 +9,13 @@ type ToolbarDeleteButtonProps = {
 
 export function ToolbarDeleteButton(props: ToolbarDeleteButtonProps) {
   const { selectedRow, reload, setSelectedRow } = props;
-  const [deleteUser] = [(...args: any): any => {}];
+  const [deleteUser] = [({ ids }: { ids: any[] }): any => {}];
   return (
     <ToolbarDeleteButtonUI
       selectedRow={selectedRow}
       onConfirm={async () => {
         const ids = selectedRow.map((id: any) => id);
-        const result = await deleteUser(ids);
+        const result = await deleteUser({ ids } as any);
         if (result.data?.code !== 0) {
           message.error(result.data?.message);
           return false;

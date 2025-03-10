@@ -11,7 +11,7 @@ type DeleteActionProps = {
 export function DeleteAction(props: DeleteActionProps) {
   const { record, title, refetch } = props;
   const [deleteRoles, { isLoading }] = [
-    (...args: any): any => {},
+    (data: any): any => {},
     { isLoading: false },
   ]; //systemRoleApi.deleteRoles.useMutation()[0]
   return (

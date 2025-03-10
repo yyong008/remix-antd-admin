@@ -1,12 +1,7 @@
 import { Tag } from "antd";
 
-enum EStatusType {
-  disable = 0,
-  undisable = 1,
-}
-
 type StatusTypeProps = {
-  status: EStatusType | null;
+  status: 0 | 1 | null;
 };
 
 export function StatusType({ status }: StatusTypeProps) {

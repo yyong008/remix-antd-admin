@@ -1,5 +1,3 @@
-import type * as rrn from "react-router";
-
 import { joseJwt } from "@/libs/jose";
 import { userDAL } from "@/dals/system/UserDAL";
 import { userPermsDAL } from "@/dals/system/UserPermsDAL";
@@ -10,8 +8,8 @@ class UserInfoService {
    * @param args
    * @returns
    */
-  async getUserInfo(args: rrn.LoaderFunctionArgs) {
-    const { userId } = await joseJwt.getTokenUserIdByArgs(args);
+  async getUserInfo(req: Request) {
+    const { userId } = await joseJwt.getTokenUserIdByArgs({ request: req });
     if (!userId) {
       return null;
     }

@@ -1,7 +1,7 @@
 import { type ProColumns, ProTable } from "@ant-design/pro-components";
 import { type SizeType } from "antd/es/config-provider/SizeContext";
 
-type PTable = {
+type PTableProps = {
   rowKey?: string;
   size?: SizeType;
   headerTitle: string;
@@ -13,11 +13,11 @@ type PTable = {
   toolBarRender?: () => any[];
   total?: number;
   pageSize?: number;
-  onPaginationChange?: (page: number, pageSize: number) => any;
+  onPaginationChange?: (...args: any) => any;
   columns: ProColumns<any, "text">[] | undefined;
 };
 
-export function PTable(props: PTable) {
+export function PTable(props: PTableProps) {
   return (
     <ProTable
       rowKey={props.rowKey || "id"}

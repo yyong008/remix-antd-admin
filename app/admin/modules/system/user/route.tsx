@@ -8,7 +8,6 @@ import { getUserList } from "~/admin/apis/admin/system/user";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 
 export function Route() {
-  const longPage = { page: 1, pageSize: 10000 };
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({ list: [], total: 0 });
   const [page, setPage] = useState({

@@ -10,7 +10,7 @@ export function UpdateNewsCategoryModal({ record, refetch }: any) {
   const token = useAntdThemeToken();
   const iconStyles = { style: { color: token.colorPrimary } };
   const [updateNewsCategoryById, other] = [
-    (...args: any[]) => {},
+    (...args: any): any => {},
     { isLoading: false },
   ];
   return (

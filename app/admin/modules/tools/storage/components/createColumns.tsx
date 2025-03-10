@@ -1,7 +1,7 @@
 import { FormatTime } from "~/components/common";
 import { Image } from "antd";
 
-export const createColumns = ({ refetch }: any) => {
+export const createColumns = ({  }: any) => {
   return [
     {
       dataIndex: "path",

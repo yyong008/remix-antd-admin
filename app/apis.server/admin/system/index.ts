@@ -1,4 +1,4 @@
-import { ReactRouterApi } from "../../ReactRouterApi";
+import { Hono } from "hono";
 import { configRouter } from "./config";
 import { deptRouter } from "./dept";
 import { dictItemRouter } from "./dict-item";
@@ -13,7 +13,7 @@ import { toolMailRouter } from "./tool.mail";
 import { toolStorageRouter } from "./tool.storage";
 import { userRouter } from "./user";
 
-export const systemRouter = new ReactRouterApi();
+export const systemRouter = new Hono();
 
 systemRouter.route("/", configRouter);
 systemRouter.route("/", deptRouter);

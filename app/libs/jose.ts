@@ -1,7 +1,5 @@
 import { type JWTPayload, SignJWT, jwtVerify } from "jose";
 
-import { type LoaderFunctionArgs } from "react-router";
-
 class JoseJwt {
   _secretKey: string;
   _encodedKey: Uint8Array;
@@ -50,8 +48,8 @@ class JoseJwt {
    * @param args
    * @returns
    */
-  async getTokenUserIdByArgs(args: LoaderFunctionArgs) {
-    const token = args.request.headers.get("Authorization")?.split(" ")[1];
+  async getTokenUserIdByArgs({ request }: { request: Request }) {
+    const token = request.headers.get("Authorization")?.split(" ")[1];
     type ResultType = JWTPayload & { userId: number; error: any };
     try {
       const { payload } = await jwtVerify(token!, this._encodedKey, {

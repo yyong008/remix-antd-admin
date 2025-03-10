@@ -57,14 +57,14 @@ export class NewsCategoryDAL {
       },
     });
   }
-  async getNewsCategoryListByNewsId(newsId: number) {
+  async getNewsCategoryListByNewsId() {
     return await prisma.newsCategory.findMany({
       where: {
         // news: newsId,
       },
     });
   }
-  async getNewsCategoryListByNewsIds(newsIds: number[]) {
+  async getNewsCategoryListByNewsIds() {
     return await prisma.newsCategory.findMany({
       where: {
         // news: newsIds,

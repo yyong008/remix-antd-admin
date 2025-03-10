@@ -14,7 +14,10 @@ export function Route() {
     data: { data: { content: "hello world" } },
     isLoading: false,
   };
-  const [updateBlog, other] = [(...args: any): any => {}, { isLoading: false }]; // TODO
+  const [updateBlog, other] = [
+    (...args: any): any => {},
+    { isLoading: false },
+  ]; // TODO
 
   useEffect(() => {
     if (data?.data?.content) {

@@ -1,5 +1,3 @@
-import { type ActionFunctionArgs } from "react-router";
-
 import { joseJwt } from "@/libs/jose";
 
 class RefreshTokenTool {
@@ -8,8 +6,8 @@ class RefreshTokenTool {
    * @param args
    * @returns
    */
-  async createTokens(args: ActionFunctionArgs) {
-    const vDto = await args.request.json();
+  async createTokens(req: Request) {
+    const vDto = await req.json();
     const { refresh_token } = vDto;
     const result: any = await joseJwt.getPayloadByToken(refresh_token);
 

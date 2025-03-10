@@ -30,7 +30,7 @@ export default function CreateCategoryNewsModal({ trigger }: any) {
         onCancel: () => form.resetFields(),
       }}
       submitTimeout={2000}
-      onFinish={async (values: any) => {
+      onFinish={async () => {
         form.resetFields();
         return true;
       }}

@@ -20,7 +20,7 @@ export function ChoiceFileButton({ fileList, setFileList }: any) {
         type="file"
         multiple={true}
         style={{ display: "none" }}
-        onChange={(e) => {
+        onChange={() => {
           const files = inputRef.current?.files ?? [];
 
           Array.from(files)?.forEach((file: any) => {

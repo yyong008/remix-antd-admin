@@ -7,7 +7,7 @@ class MonitorServeService {
    * @param args
    * @returns
    */
-  async getList(args: any) {
+  async getList() {
     const result$ = getSystemInfo$();
 
     const data = await lastValueFrom(result$);

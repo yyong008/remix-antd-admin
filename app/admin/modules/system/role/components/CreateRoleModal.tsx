@@ -16,7 +16,7 @@ export function CreateRoleModal(props: CreateRoleModalProps) {
   const { trigger, menu, refetch } = props;
   const [form] = Form.useForm();
   const [checkedKeys, setCheckedKeys] = useState<any[]>([]);
-  const [createRole] = [(...args: any[]): any => {}]; // todo
+  const [createRole] = [(): any => {}]; // todo
   const onCheck = (checkedKeys: any, info: any) => {
     setCheckedKeys(checkedKeys);
   };
@@ -45,7 +45,7 @@ export function CreateRoleModal(props: CreateRoleModalProps) {
       }}
       submitTimeout={2000}
       onFinish={async (vals) => {
-        await createRole({ ...vals });
+        await createRole();
         refetch?.();
         return true;
       }}

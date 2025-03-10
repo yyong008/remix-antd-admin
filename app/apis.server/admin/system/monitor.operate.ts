@@ -1,45 +1,45 @@
-import { ReactRouterApi } from "../../ReactRouterApi";
+import { Hono } from "hono";
 
-export const monitorOperateRouter = new ReactRouterApi();
+export const monitorOperateRouter = new Hono();
 
-monitorOperateRouter.get("/monitor/operate", (c) => {
+monitorOperateRouter.get("/monitor/operate", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });
 
-monitorOperateRouter.get("/monitor/operate/:id", (c) => {
+monitorOperateRouter.get("/monitor/operate/:id", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });
 
-monitorOperateRouter.post("/monitor/operate", (c) => {
+monitorOperateRouter.post("/monitor/operate", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });
 
-monitorOperateRouter.put("/monitor/operate/:id", (c) => {
+monitorOperateRouter.put("/monitor/operate/:id", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });
 
-monitorOperateRouter.delete("/monitor/operate", (c) => {
+monitorOperateRouter.delete("/monitor/operate", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });
 
-monitorOperateRouter.delete("/monitor/operate/:id", (c) => {
+monitorOperateRouter.delete("/monitor/operate/:id", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });

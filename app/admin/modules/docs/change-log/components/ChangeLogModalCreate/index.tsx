@@ -22,7 +22,7 @@ export function ChangeLogCreateModal({ refetch }: any) {
       preserve={false}
       loading={other.isLoading}
       title="创建日志"
-      onOpenChange={(c) => {}}
+      onOpenChange={() => {}}
       trigger={
         <Button type="primary" icon={<EditOutlined />}>
           新建

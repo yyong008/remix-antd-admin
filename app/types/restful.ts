@@ -10,7 +10,7 @@ export type TOption = {
   isPresentationMode?: boolean;
   perm?: string;
   schemas?: UrlAndBodySchemas;
-  handler?: (...args: any[]) => any;
+  handler?: () => any;
 };
 
 export type Op = {

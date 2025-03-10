@@ -21,7 +21,7 @@ export function UpdateBlogCategoryModal({
       key={Date.now()}
       preserve={false}
       title={title}
-      onOpenChange={(c) => {
+      onOpenChange={() => {
         form.setFieldsValue({
           ...record,
         });

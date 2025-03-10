@@ -16,7 +16,7 @@ export function CreateLinkCategoryModal({ refetch }: any) {
       key={Date.now()}
       preserve={false}
       title="修改Link分类"
-      onOpenChange={(c) => {}}
+      onOpenChange={() => {}}
       trigger={
         <Button type="primary" icon={<EditOutlined />}>
           新建

@@ -7,7 +7,7 @@ import { useParams } from "react-router";
 
 export function Route() {
   const { lang } = useParams();
-  const [page, setPage] = useState({
+  const [] = useState({
     page: 1,
     pageSize: 110,
   });
@@ -47,10 +47,7 @@ export function Route() {
           total: data?.data?.total,
           pageSize: 10,
           onChange(page, pageSize) {
-            setPage({
-              page,
-              pageSize,
-            });
+
           },
         }}
       />

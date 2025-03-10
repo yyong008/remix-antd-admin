@@ -19,7 +19,7 @@ export function UpdateUserModal(props: UpdateUserModalProps) {
       initValue={record}
       loading={loading}
       reload={reload}
-      handleUpdate={async (values: any, form: any) => {
+      handleUpdate={async (values: any) => {
         let avatar = "";
 
         if (values.file && values.file.length > 0) {

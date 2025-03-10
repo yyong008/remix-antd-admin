@@ -10,7 +10,7 @@ const iconsKeys = Object.keys(ic)
   .filter((icon) => icon !== "IconProvider");
 
 type AntdIconSelectProps = {
-  onChange?: (icon: string) => void;
+  onChange?: (...args: any) => void;
   trigger?: any;
   classname?: string;
   selectIconStr: string;

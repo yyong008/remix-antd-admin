@@ -23,7 +23,7 @@ export function ListHeaderSearch({ title }: ListHeaderSearchProps) {
           placeholder="请输入"
           enterButton="搜索"
           value={""}
-          onChange={(_e) => {}}
+          onChange={() => {}}
           onSearch={() => {}}
         />
       </div>

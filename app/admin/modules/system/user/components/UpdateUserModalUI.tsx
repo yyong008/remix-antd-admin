@@ -11,7 +11,7 @@ type PModleProps = {
   reload?: () => any;
   preserve: boolean;
   title: string;
-  onOpenChange: (...args: any) => any;
+  onOpenChange: (c: boolean) => any;
   trigger: any;
   loading: boolean;
   onFinish: (values: any) => any;
@@ -34,7 +34,7 @@ export function PModal({ reload, ...props }: PModleProps) {
       key={Date.now()}
       preserve={false}
       title={props.title}
-      onOpenChange={(c) => props?.onOpenChange?.(c, form)}
+      onOpenChange={(c) => props?.onOpenChange?.(c)}
       trigger={props.trigger}
       form={form}
       autoFocusFirstInput

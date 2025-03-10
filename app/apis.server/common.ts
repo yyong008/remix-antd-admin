@@ -1,9 +1,11 @@
-import { ReactRouterApi } from "./ReactRouterApi";
+import { Hono } from "hono";
 
-export const commonRouter = new ReactRouterApi();
+export const commonRouter = new Hono();
 
-commonRouter.get("/healthcheck", async (c) => {
+commonRouter.get("/healthcheck", async () => {
   //
 });
 
-commonRouter.get("/upload", async (c) => {});
+commonRouter.post("/upload", async () => {
+  //
+});

@@ -2,7 +2,7 @@ import { CreateUserModal } from "./CreateUserModal";
 import { ToolbarDeleteButton } from "./ToolbarDeleteButton";
 
 type createToolBarRenderOptions = {
-  reload: (...args: any) => any;
+  reload: () => any;
   depts: any[];
   roles: any[];
   selectedRow: any[];

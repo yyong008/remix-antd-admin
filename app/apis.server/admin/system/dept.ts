@@ -1,45 +1,45 @@
-import { ReactRouterApi } from "../../ReactRouterApi";
+import { Hono } from "hono";
 
-export const deptRouter = new ReactRouterApi();
+export const deptRouter = new Hono();
 
-deptRouter.get("/dept", (c) => {
+deptRouter.get("/dept", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });
 
-deptRouter.get("/dept/:id", (c) => {
+deptRouter.get("/dept/:id", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });
 
-deptRouter.post("/dept", (c) => {
+deptRouter.post("/dept", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });
 
-deptRouter.put("/dept/:id", (c) => {
+deptRouter.put("/dept/:id", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });
 
-deptRouter.delete("/dept", (c) => {
+deptRouter.delete("/dept", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });
 
-deptRouter.delete("/dept/:id", (c) => {
+deptRouter.delete("/dept/:id", async (c) => {
   try {
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json(error as Error);
   }
 });

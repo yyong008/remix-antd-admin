@@ -17,7 +17,7 @@ function removeType3(data: any[]) {
 
 export function Route() {
   const { lang } = useParams();
-  const [page] = useState({
+  const [] = useState({
     page: 1,
     pageSize: 10,
     lang,

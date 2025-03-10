@@ -18,9 +18,13 @@ export function UpdateRoleModal(props: CreateRoleModalProps) {
   const [form] = Form.useForm();
   const { colorPrimary } = useColorPrimary();
   const [checkedKeys, setCheckedKeys] = useState<any[]>([]);
-  const [updateRole] = [(...args: any): any => {}];
+  const [updateRole] = [
+    (a: any): any => {
+      console.log(a);
+    },
+  ];
 
-  const onCheck = (checkedKeys: any, info: any) => {
+  const onCheck = (checkedKeys: any, ) => {
     setCheckedKeys(checkedKeys);
   };
 

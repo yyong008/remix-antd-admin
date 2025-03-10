@@ -4,8 +4,6 @@ import { DrawerForm } from "@ant-design/pro-components";
 
 export function PDrawerForm({
   data,
-  content,
-  refetch,
   children,
   loading,
   submitter,

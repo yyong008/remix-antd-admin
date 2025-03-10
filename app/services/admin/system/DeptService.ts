@@ -16,7 +16,7 @@ class DeptService {
    * @param args
    * @returns
    */
-  async getList(args: any) {
+  async getList() {
     const total = await deptDAL.getCount();
     const _list = await deptDAL.getAll();
 

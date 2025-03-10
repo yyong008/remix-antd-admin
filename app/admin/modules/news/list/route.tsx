@@ -7,8 +7,8 @@ import { useParams } from "react-router";
 import { useState } from "react";
 
 export function Route() {
-  const { lang = defaultLang, id } = useParams();
-  const [page] = useState({
+  const { lang = defaultLang } = useParams();
+  const [] = useState({
     page: 1,
     pageSize: 10,
   });

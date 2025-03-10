@@ -31,7 +31,7 @@ export function createModalColumns({ setFileList, fileList, index }: any) {
     },
     {
       title: "操作",
-      render(_: any, record: any) {
+      render(_: any) {
         return (
           <div
             onClick={() => {

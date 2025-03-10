@@ -5,7 +5,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 type DeleteItProps = {
   refetch: any;
   title?: string;
-  deleteHandler: (...args: any) => any;
+  deleteHandler: () => any;
 };
 
 export function PTableDeleteAction({

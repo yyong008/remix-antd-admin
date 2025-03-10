@@ -30,7 +30,7 @@ export const createConfigTableColumns = () => [
   {
     dataIndex: "op",
     title: "操作",
-    render(_: any, record: any) {
+    render(_: any) {
       return <div>record</div>;
     },
   },

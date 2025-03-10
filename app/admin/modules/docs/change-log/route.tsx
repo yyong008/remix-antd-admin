@@ -24,7 +24,7 @@ const typeMap = {
 };
 
 export function Route() {
-  const [page, setPage] = useState({
+  const [, setPage] = useState({
     page: 1,
     pageSize: 10,
   });

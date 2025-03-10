@@ -9,14 +9,17 @@ import { EditOutlined } from "@ant-design/icons";
 
 export function FeedbackModalCreate({ refetch }: any) {
   const [form] = Form.useForm();
-  const [createFeedback, other] = [(...args: any) => {}, { isLoading: false }];
+  const [createFeedback, other] = [
+    (...args: any): any => {},
+    { isLoading: false },
+  ];
   return (
     <ModalForm
       key={Date.now()}
       preserve={false}
       title="创建反馈"
       loading={other.isLoading}
-      onOpenChange={(c) => {}}
+      onOpenChange={() => {}}
       trigger={
         <Button type="primary" icon={<EditOutlined />}>
           新建

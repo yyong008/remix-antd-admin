@@ -43,7 +43,7 @@ export class Rps {
    * @param options
    * @returns
    */
-  rfj(data?: any, message?: string, options?: any) {
+  rfj(data?: any, message?: string) {
     return new Response(
       JSON.stringify({
         code: ResCode.fail,
@@ -80,7 +80,7 @@ export const rsj = (data: any, message?: string, options?: any) => {
  * @param options
  * @returns
  */
-export const rfj = (data?: any, message?: string, options?: any) => {
+export const rfj = (data?: any, message?: string) => {
   return new Response(
     JSON.stringify({
       code: ResCode.fail,

@@ -11,7 +11,6 @@ import { QuillEditor } from "@/components/common/quill-editor";
 export function Route() {
   const { lang } = useParams();
   const [content, setContent] = useState("");
-  const { id } = useParams();
   const { data, isLoading } = {
     data: { data: { content: "hello" } },
     isLoading: false,

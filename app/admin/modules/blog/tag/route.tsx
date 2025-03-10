@@ -7,7 +7,7 @@ import { useState } from "react";
 
 export function Route() {
   const { lang } = useParams();
-  const [page, setPage] = useState({
+  const [, setPage] = useState({
     page: 1,
     pageSize: 10,
   });

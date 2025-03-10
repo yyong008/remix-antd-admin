@@ -6,7 +6,7 @@ import { Space, Tag } from "antd";
 import { DeleteAction } from "./DeleteAction";
 import { Link } from "react-router";
 
-export const createColumns = ({ lang, info, refetch }: any) => [
+export const createColumns = ({ lang, refetch }: any) => [
   {
     dataIndex: "title",
     title: "文章名字",
@@ -44,14 +44,14 @@ export const createColumns = ({ lang, info, refetch }: any) => [
     dataIndex: "categories",
     title: "分类",
     renderText(_: string, record: any) {
-      return <Tag>{info.categoryName}</Tag>;
+      return <Tag>{record?.categories?.categoryName}</Tag>;
     },
   },
   {
     dataIndex: "tags",
     title: "标签",
     renderText(_: string, record: any) {
-      return <Tag>{record?.tags?.name}</Tag>;
+        return <Tag>{record?.tags?.name}</Tag>;
     },
   },
   {

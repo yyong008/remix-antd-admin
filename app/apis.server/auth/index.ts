@@ -1,10 +1,9 @@
-import { Context } from "../ReactRouterApi/context";
-import { ReactRouterApi } from "../ReactRouterApi";
+import { Hono, Context } from "hono";
 import { loginService } from "~/services/admin-auth/login";
 import { refreshTokenTool } from "~/services/admin-auth/refresh";
 import { registerService } from "~/services/admin-auth/register";
 
-export const authRouter = new ReactRouterApi();
+export const authRouter = new Hono();
 
 authRouter.use(async (c: Context, next: Function) => {
   console.log("authRouter", c.req.url);
@@ -13,30 +12,54 @@ authRouter.use(async (c: Context, next: Function) => {
 
 authRouter.post("/login", async (c) => {
   try {
-    const args = c.reactRouterArgs;
-    const data = await loginService.loginAction(args);
-    return c.js(data);
+    const req = c.req.raw;
+    const data = await loginService.loginAction(req);
+    return c.json({
+      data,
+      message: "success",
+      code: 0,
+    });
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json({
+      data: null,
+      code: 1,
+      message: (error as Error).message ?? "登录失败",
+    });
   }
 });
 
 authRouter.post("/register", async (c) => {
   try {
-    const args = await c.reactRouterArgs;
-    const data = registerService.register(args);
-    return c.json(data);
+    const req = c.req.raw;
+    const data = await registerService.register(req);
+    return c.json({
+      data,
+      message: "success",
+      code: 0,
+    });
   } catch (error) {
-    return c.jf(error as Error);
+    return c.json({
+      data: null,
+      message: (error as Error).message ?? "注册失败",
+      code: 1,
+    });
   }
 });
 
 authRouter.post("/refresh_token", async (c) => {
   try {
-    const args = c.reactRouterArgs;
-    const data = await refreshTokenTool.createTokens(args);
-    return c.json(data);
+    const req = c.req.raw;
+    const data = await refreshTokenTool.createTokens(req);
+    return c.json({
+      data,
+      message: "success",
+      code: 0,
+    });
   } catch (error) {
-    return c.jf(error as Error);
+      return c.json({
+      data: null,
+      message: (error as Error).message ?? "刷新失败",
+      code: 1,
+    });
   }
 });

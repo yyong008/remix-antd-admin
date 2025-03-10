@@ -13,7 +13,7 @@ import { menuDAL } from "@/dals/system/MenuDAL";
 function buildMenuTreeRaw(
   menuData: any[],
   parentId = null,
-  t: (v: string) => void,
+  t: (v: string) => string,
   lang: string,
 ) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias

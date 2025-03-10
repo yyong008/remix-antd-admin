@@ -1,13 +1,7 @@
 import { Tag } from "antd";
 
-enum EMenuType {
-  dir = 1,
-  menu = 2,
-  perm = 3,
-}
-
 type MenuTypeProps = {
-  type: EMenuType;
+  type: 1 | 2 | 3;
 };
 
 export function MenuType({ type }: MenuTypeProps) {

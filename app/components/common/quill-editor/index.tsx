@@ -10,9 +10,7 @@ const Q = async () => {
 };
 
 export const Editor = ({
-  value,
   onChange,
-  content,
   setContent,
   initContent,
 }: any) => {

@@ -8,7 +8,7 @@ import { useState } from "react";
 
 export function Route() {
   const { lang } = useParamsLang();
-  const [page] = useState({ page: 1, pageSize: 10 });
+  const [] = useState({ page: 1, pageSize: 10 });
   const { data, isLoading, refetch } = {
     data: { data: { list: [] } },
     isLoading: false,

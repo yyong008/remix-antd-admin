@@ -5,7 +5,7 @@ class MenuRoleService {
    * 获取菜单角色列表
    * @param menuId
    */
-  async getAll(menuId: number) {
+  async getAll() {
     const list = await menuRoleDAL.getAll();
     return list;
   }

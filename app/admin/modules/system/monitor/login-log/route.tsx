@@ -4,7 +4,7 @@ import { createColumns } from "./components/login-log-pro-table/create-columns";
 import { useState } from "react";
 
 export function Route() {
-  const [page, setPage] = useState({
+  const [, setPage] = useState({
     page: 1,
     pageSize: 10,
   });

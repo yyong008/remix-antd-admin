@@ -1,6 +1,5 @@
-import { Context } from "../ReactRouterApi/context";
-import { ReactRouterApi } from "../ReactRouterApi";
-import { authMiddleware } from "../ReactRouterApi/middleware/auth.middleware";
+import { Context, Hono } from "hono";
+// import { authMiddleware } from "../ReactRouterApi/middleware/auth.middleware";
 import { blogRouter } from "./blog";
 import { dashboardRouter } from "./dashboard";
 import { docsRouter } from "./docs";
@@ -8,9 +7,9 @@ import { newsRouter } from "./news";
 import { profileRouter } from "./profile";
 import { systemRouter } from "./system";
 
-export const adminRouter = new ReactRouterApi();
+export const adminRouter = new Hono();
 
-adminRouter.use(authMiddleware);
+// adminRouter.use(authMiddleware);
 adminRouter.use(async (c: Context, next: Function) => {
   console.log("c", c.req.url);
   await next();

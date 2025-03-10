@@ -2,15 +2,9 @@ import { Button, Form, message } from "antd";
 
 import { DrawerForm } from "@ant-design/pro-components";
 import { FormItems } from "./FormItems";
-import { useState } from "react";
 
 export function MailForm({ content, refetch }: any) {
-  const [createMailTemplate, other] = [
-    (...args: any): any => {},
-    { isLoading: false },
-  ];
-  const [visible, setVisible] = useState(false);
-  const [type, setType] = useState();
+  const [createMailTemplate, other] = [(): any => {}, { isLoading: false }];
   const [form] = Form.useForm();
   // const { lang } = useParams();
 
@@ -29,7 +23,7 @@ export function MailForm({ content, refetch }: any) {
       pass: form.getFieldValue("pass"),
     };
 
-    const result = await createMailTemplate(vals);
+    const result = await createMailTemplate();
     if (result.data?.code !== 0) {
       message.error(result.data?.message);
       return false;
@@ -44,7 +38,7 @@ export function MailForm({ content, refetch }: any) {
       loading={other.isLoading}
       form={form}
       submitter={{
-        render: (props, doms) => {
+        render: (props) => {
           return [
             <Button
               type="primary"
@@ -65,7 +59,7 @@ export function MailForm({ content, refetch }: any) {
           ];
         },
       }}
-      onFinish={async (v) => {
+      onFinish={async () => {
         //
       }}
       trigger={<Button type="primary">发布邮件</Button>}

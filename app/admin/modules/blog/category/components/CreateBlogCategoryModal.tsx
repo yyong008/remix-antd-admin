@@ -19,7 +19,7 @@ export function CreateBlogCategoryModal({
       key={Date.now()}
       preserve={false}
       title={title}
-      onOpenChange={(c) => {
+      onOpenChange={() => {
         onOpenChange?.();
       }}
       trigger={

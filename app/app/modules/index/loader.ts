@@ -12,6 +12,7 @@ export const loader = async (args: LoaderFunctionArgs) => {
     }
     return null;
   } catch (error) {
+    console.error(error);
     return rj.rfj();
   }
 };

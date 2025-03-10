@@ -2,7 +2,7 @@ import { Button, Popconfirm } from "antd";
 
 type ToolbarDeleteButtonUI = {
   selectedRow: any[];
-  onConfirm: (...args: any) => any;
+  onConfirm: () => any;
 };
 
 export function ToolbarDeleteButtonUI({ selectedRow, onConfirm }: any) {

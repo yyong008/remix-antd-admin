@@ -1,11 +1,10 @@
 import { joseJwt } from "@/libs/jose";
-import { type LoaderFunctionArgs } from "react-router";
 import { signInLog } from "@/dals/sign-in/signInLog";
 import { loginLogDAL } from "~/dals/system/LoginLogDAL";
 
 class DashboardService {
-  async getDashboardData(args: LoaderFunctionArgs) {
-    const data = await joseJwt.getTokenUserIdByArgs(args);
+  async getDashboardData(req: Request) {
+    const data = await joseJwt.getTokenUserIdByArgs({ request: req });
     let isLogin = await signInLog.getUserTodayUserSignLogById(data.userId!);
     const latestLoginLog = await loginLogDAL.getLoginLogLatestByUserId(
       data?.userId,

@@ -61,7 +61,7 @@ export function CreateBlogForm(props: { content: string }) {
           },
         },
       }}
-      onOpenChange={(open) => {
+      onOpenChange={() => {
         form.setFieldsValue({
           content: props.content,
         });

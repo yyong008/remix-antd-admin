@@ -5,12 +5,10 @@ import { CreateRoleModal } from "./components/CreateRoleModal";
 import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
 import { createColumns } from "./components/create-columns";
 import { genMenuTreeForRole } from "./utils";
-import { usePage } from "~/hooks/usePagination";
 import { useParams } from "react-router";
 import { useTranslation } from "react-i18next";
 
 export function Route() {
-  const [page] = usePage();
   const { lang } = useParams();
   const actionRef = useRef();
   const { t } = useTranslation();

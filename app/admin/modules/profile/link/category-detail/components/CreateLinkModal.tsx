@@ -18,7 +18,7 @@ export function LinkModalCreate({ refetch }: any) {
       key={Date.now()}
       preserve={false}
       title={"创建链接"}
-      onOpenChange={(c) => {}}
+      onOpenChange={() => {}}
       loading={other.isLoading}
       trigger={
         <Button type={"primary"} icon={<EditOutlined />}>

@@ -18,7 +18,7 @@ export function CreateUserModal(props: CreateUserModalProps) {
     <CreateUserModalUI
       {...rest}
       loading={loading || false}
-      handleCreate={async (values: any, form: any) => {
+      handleCreate={async (values: any) => {
         let avatar = "";
 
         if (values.file && values.file.length > 0) {

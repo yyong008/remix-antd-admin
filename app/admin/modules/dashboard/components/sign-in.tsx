@@ -7,8 +7,8 @@ import { userSignIn } from "~/admin/apis/admin/system/user";
 
 export function SignIn({ data: _data }: any) {
   const [data, setData] = useState(_data);
-  const [signIn, signInOther] = [
-    (...args: any): any => {},
+  const [, signInOther] = [
+    (): any => {},
     { isLoading: false },
   ]; // eslint-disable-line;
   const signInHanlder = async () => {

@@ -38,7 +38,7 @@ export function MailForm({ data, content, refetch }: any) {
       form={form}
       initialValues={{ ...data }}
       submitter={{
-        render: (props, doms) => {
+        render: (props) => {
           return [
             <Button
               type="primary"
@@ -59,7 +59,7 @@ export function MailForm({ data, content, refetch }: any) {
           ];
         },
       }}
-      onFinish={async (v) => {
+      onFinish={async () => {
         //
       }}
       trigger={<Button type="primary">发布邮件</Button>}

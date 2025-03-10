@@ -17,7 +17,7 @@ export function CreateNewsCategoryModal({ refetch }: any) {
       key={Date.now()}
       preserve={false}
       title="创建新建分类"
-      onOpenChange={(c) => {}}
+      onOpenChange={() => {}}
       trigger={
         <Button type={"primary"} icon={<EditOutlined />}>
           新建新闻分类

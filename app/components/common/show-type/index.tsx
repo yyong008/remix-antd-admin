@@ -1,12 +1,7 @@
 import { Tag } from "antd";
 
-enum EShowType {
-  unshow = 0,
-  show = 1,
-}
-
 type ShowTypeProps = {
-  isShow: EShowType | null;
+  isShow: 0 | 1 | null;
 };
 
 export function ShowType({ isShow }: ShowTypeProps) {

@@ -1,4 +1,4 @@
-type Fn = (...args: any[]) => void;
+type Fn = (...args:  any[]) => void;
 
 export class EventCenter {
   private events: { [key: string]: Fn[] } = {};

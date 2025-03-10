@@ -26,7 +26,7 @@ const resetStyles = {
 
 function AdminLayout() {
   useNProgress();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const [data, setData] = useState<any>([]);
 
   const { lang } = useParams();
