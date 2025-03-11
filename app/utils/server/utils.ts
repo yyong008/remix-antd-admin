@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { of } from "rxjs";
+import { pageConfig } from "~/config/page-config";
 
 /**
  * noop 空函数
@@ -74,11 +75,11 @@ export function getSearchParams(request: Request, name: string) {
 }
 
 export function getSearchParamsPage(request: Request) {
-  return Number(getSearchParams(request, "page") ?? 1);
+  return Number(getSearchParams(request, "page") ?? pageConfig.page);
 }
 
 export function getSearchParamsPageSize(request: Request) {
-  return Number(getSearchParams(request, "pageSize") ?? 10);
+  return Number(getSearchParams(request, "pageSize") ?? pageConfig.pageSize);
 }
 
 /**
