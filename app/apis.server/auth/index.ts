@@ -5,11 +5,6 @@ import { registerService } from "~/services/admin-auth/register";
 
 export const authRouter = new Hono();
 
-authRouter.use(async (c: Context, next: Function) => {
-  console.log("authRouter", c.req.url);
-  await next();
-});
-
 authRouter.post("/login", async (c) => {
   try {
     const req = c.req.raw;
