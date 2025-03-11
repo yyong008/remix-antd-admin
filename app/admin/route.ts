@@ -47,6 +47,10 @@ export const adminRoutes = [
         route("role", rf_path("system", "role")),
         route("user", rf_path("system", "user")),
       ]),
+      ...prefix("docs", [
+        route("changelog", rf_path("docs", "changelog")),
+        route("feedback", rf_path("docs", "feedback")),
+      ]),
       ...prefix("tools", [
         ...prefix("mail", [
           index(rf_path("tools", "mail")),
