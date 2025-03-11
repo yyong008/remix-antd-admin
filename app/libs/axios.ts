@@ -51,6 +51,10 @@ api.interceptors.response.use(
     return response.data; // 只返回数据，去掉不必要的包装
   },
   async (error) => {
+    if (error.response.status === 401) {
+      // 跳转到登录页
+      window.location.href = "/login";
+    }
     // 统一的错误处理
     if (error.response) {
       console.error("Response Error:", error.response.data);
