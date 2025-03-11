@@ -8,8 +8,8 @@ export function devLogger() {
         c.req.method === "POST" ||
         c.req.method === "PUT" ||
         c.req.method === "DELETE"
-      ) {
-        const body = await c.req.json();
+      ) {   
+        const body = await c.req.raw.clone().json(); // const body = await c.req.json(); // error: Body is unusable: Body has already been read
         console.log("[request api json body]: ", JSON.stringify(body, null, 2));
       }
     }
