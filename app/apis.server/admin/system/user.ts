@@ -164,7 +164,11 @@ userRouter.post("/user/signin", async (c) => {
       signType: 1,
       signTime: new Date(),
     });
-    return c.json(result);
+    return c.json({
+      data: result,
+      message: "success",
+      code: 0,
+    });
   } catch (error) {
     return c.json({
       data: null,
