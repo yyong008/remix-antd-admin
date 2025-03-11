@@ -33,12 +33,13 @@ api.interceptors.response.use(
       const refreshResponse: any = await api.post("/auth/refresh_token", {
         refresh_token: simpleStorage.getRefreshToken(),
       });
+      console.log("refreshResponse", refreshResponse);
       if (refreshResponse && refreshResponse.code === 0) {
         // 刷新成功，重新请求
-        simpleStorage.setToken(refreshResponse.data.data.token);
-        simpleStorage.setRefreshToken(refreshResponse.data.data.refresh_token);
+        simpleStorage.setToken(refreshResponse.data.token);
+        simpleStorage.setRefreshToken(refreshResponse.data.refresh_token);
         response.config.headers["Authorization"] =
-          `Bearer ${refreshResponse.data.data.token}`;
+          `Bearer ${refreshResponse.data.token}`;
         return await api.request(response.config);
       } else {
         // 刷新失败，跳转到登录页
