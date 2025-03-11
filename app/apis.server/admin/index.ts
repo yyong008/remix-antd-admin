@@ -11,7 +11,6 @@ export const adminRouter = new Hono();
 
 // adminRouter.use(authMiddleware);
 adminRouter.use(async (c: Context, next: Function) => {
-  console.log("c", c.req.url);
   await next();
 });
 
