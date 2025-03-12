@@ -49,7 +49,8 @@ class JoseJwt {
    * @returns
    */
   async getTokenUserIdByArgs({ request }: { request: Request }) {
-    const token = request.headers.get("Authorization")?.split(" ")[1];
+    const _request = request.clone();
+    const token = _request.headers.get("Authorization")?.split(" ")[1];
     type ResultType = JWTPayload & { userId: number; error: any };
     try {
       const { payload } = await jwtVerify(token!, this._encodedKey, {

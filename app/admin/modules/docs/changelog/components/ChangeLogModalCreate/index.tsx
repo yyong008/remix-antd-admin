@@ -8,19 +8,16 @@ import {
 } from "@ant-design/pro-components";
 
 import { EditOutlined } from "@ant-design/icons";
+import { createDoc } from "@/admin/apis/admin/docs";
+import { useTransition } from "react";
 
 export function ChangeLogCreateModal({ refetch }: any) {
   const [form] = Form.useForm();
-  const [createChangelog, other] = [
-    (...args: any): any => {},
-    { isLoading: false },
-  ];
 
   return (
     <ModalForm
       key={Date.now()}
       preserve={false}
-      loading={other.isLoading}
       title="创建日志"
       onOpenChange={() => {}}
       trigger={
@@ -36,15 +33,15 @@ export function ChangeLogCreateModal({ refetch }: any) {
       }}
       submitTimeout={2000}
       onFinish={async (values: any) => {
-        const result = await createChangelog(values);
-        if (result.data?.code !== 0) {
-          message.error(result.data?.message);
-          return false;
+        const result: any = await createDoc(values);
+        if (result && result?.code !== 0) {
+          message.error(result?.message);
+          return true;
         }
-        message.success(result.data?.message);
+        message.success(result?.message);
         refetch();
         form.resetFields();
-        return true;
+        return false;
       }}
     >
       <ProFormText

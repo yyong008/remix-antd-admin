@@ -2,8 +2,10 @@ import { Context, Hono } from "hono";
 import { changelogDAL } from "~/dals/docs/ChangelogDAL";
 import { feedBackDAL } from "~/dals/docs/FeedbackDAL";
 import { joseJwt } from "~/libs/jose";
+import { changelogSchema } from "~/schemas/docs";
 import { urlSearchParams } from "~/utils/server/search";
-
+import { zValidator } from "~/apis.server/hono/middleware/z-validator";
+import { zValidator as zValidator2 } from "@hono/zod-validator";
 export const docsRouter = new Hono();
 
 ///////////////////////////////////////// docs changelog /////////////////////////////////////////////////////////////////
@@ -26,7 +28,7 @@ docsRouter.get("/changelog/:id", async (c) => {
   }
 });
 
-docsRouter.get("/changelog", async (c: Context) => {
+docsRouter.get("/changelog", zValidator2("query", changelogSchema.list), async (c: Context) => {
   try {
     const req = c.req.raw;
     const page = urlSearchParams.getPage(req);
@@ -37,9 +39,13 @@ docsRouter.get("/changelog", async (c: Context) => {
       pageSize,
       userId: payload.userId,
     };
-    const result = await changelogDAL.getList(data);
+    const list = await changelogDAL.getList(data);
+    const total = await changelogDAL.getCount();
     return c.json({
-      data: result,
+      data: {
+        list,
+        total,
+      },
       message: "success",
       code: 0,
     });
@@ -54,16 +60,21 @@ docsRouter.get("/changelog", async (c: Context) => {
 
 docsRouter.post("/changelog", async (c) => {
   try {
-    const req = c.req.raw;
-    const dto = await req.json();
+    const req = c.req.raw.clone();
+    const dto = await c.req.json();
     const payload = await joseJwt.getTokenUserIdByArgs({ request: req });
     const data = {
       ...dto,
       userId: payload.userId,
     };
     const result = await changelogDAL.create(data);
-    return c.json(result);
+    return c.json({
+      data: result,
+      message: "success",
+      code: 0,
+    });
   } catch (error) {
+    c.req.raw.bodyUsed
     return c.json({
       data: null,
       message: (error as Error).message ?? "获取失败",
@@ -83,7 +94,11 @@ docsRouter.put("/changelog/:id", async (c) => {
     };
 
     const result = await changelogDAL.update(data);
-    return c.json(result);
+    return c.json({
+      data: result,
+      message: "success",
+      code: 0,
+    });
   } catch (error) {
     return c.json({
       data: null,
@@ -158,8 +173,12 @@ docsRouter.get("/feedback", async (c) => {
     const total = await feedBackDAL.getCount();
     const list = await feedBackDAL.getList(data);
     return c.json({
-      list,
-      total,
+      data: {
+        list,
+        total,
+      },
+      message: "success",
+      code: 0,
     });
   } catch (error) {
     return c.json({
@@ -181,7 +200,11 @@ docsRouter.post("/feedback", async (c) => {
       userId: pyload.userId,
     };
     const result = await feedBackDAL.create(data);
-    return c.json(result);
+    return c.json({
+      data: result,
+      message: "success",
+      code: 0,
+    });
   } catch (error) {
     return c.json({
       data: null,

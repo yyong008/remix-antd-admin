@@ -13,7 +13,7 @@ adminRouter.use(auth());
 
 adminRouter.route("/", blogRouter);
 adminRouter.route("/dashboard", dashboardRouter);
-adminRouter.route("/", docsRouter);
+adminRouter.route("/docs", docsRouter);
 adminRouter.route("/", newsRouter);
 adminRouter.route("/", profileRouter);
 adminRouter.route("/system", systemRouter);

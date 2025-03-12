@@ -49,6 +49,7 @@
     "@ant-design/pro-editor": "^1.2.1",
     "@bytemd/plugin-gfm": "^1.21.0",
     "@bytemd/react": "^1.21.0",
+    "@hono/zod-validator": "^0.4.3",
     "@js-temporal/polyfill": "^0.4.4",
     "@langchain/core": "^0.3.27",
     "@langchain/ollama": "^0.1.4",

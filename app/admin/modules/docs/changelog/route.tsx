@@ -6,8 +6,8 @@ import ChangeLogUpdateModal from "./components/ChangeLogModalUpdate";
 import { DeleteIt } from "./components/delete-it";
 import { FormatTime } from "@/components/common";
 import { useParams } from "react-router";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { getDocs } from "~/admin/apis/admin/docs";
 const typeMap = {
   1: {
     color: "blue",
@@ -24,17 +24,27 @@ const typeMap = {
 };
 
 export function Route() {
-  const [, setPage] = useState({
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState({
+    total: 0,
+    list: [],
+  });
+  const [page, setPage] = useState({
     page: 1,
     pageSize: 10,
   });
-  const { data, isLoading, refetch } = {
-    data: { list: [], total: 0 },
-    isLoading: false,
-    refetch: () => {},
+  const getChangelogList = async () => {
+    setIsLoading(true);
+    const res: any = await getDocs(page);
+    console.log(res);
+
+    setData({
+      total: res.data?.total,
+      list: res.data?.list,
+    });
+    setIsLoading(false);
   };
 
-  const { total = 0, list = [] } = data || {};
   const params = useParams();
 
   const columns = [
@@ -98,14 +108,18 @@ export function Route() {
             <ChangeLogUpdateModal
               key="changelog-modal-modify"
               record={record}
-              refetch={refetch}
+              refetch={getChangelogList}
             />
-            <DeleteIt record={record} title={""} refetch={refetch} />
+            <DeleteIt record={record} title={""} refetch={getChangelogList} />
           </Space>
         );
       },
     },
   ];
+
+  useEffect(() => {
+    getChangelogList();
+  }, []);
   return (
     <PageContainer>
       <ProTable
@@ -113,20 +127,20 @@ export function Route() {
         headerTitle="更新日志"
         size="small"
         search={false}
-        dataSource={list ?? []}
+        dataSource={data?.list ?? []}
         loading={isLoading}
         columns={columns}
         toolBarRender={() => [
           <ChangeLogCreateModal
             key="changelog-modal-create"
-            refetch={refetch}
+            refetch={getChangelogList}
           />,
         ]}
         options={{
-          reload: refetch,
+          reload: getChangelogList,
         }}
         pagination={{
-          total,
+          total: data?.total,
           pageSize: Number(params.pageSize ?? 10),
           onChange(page, pageSize) {
             setPage({ page, pageSize });
