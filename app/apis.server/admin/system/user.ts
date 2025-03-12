@@ -158,6 +158,14 @@ userRouter.get("/user/info", async (c) => {
 userRouter.post("/user/signin", async (c: Context) => {
   try {
     const userId = c.get("userId");
+    const exitLog = await signInLog.getLatestById(userId);
+    if (exitLog) {
+      return c.json({
+        data: {},
+        message: "已签到",
+        code: 1,
+      });
+    }
     const result = await signInLog.create({
       userId: userId,
       signType: 1,
