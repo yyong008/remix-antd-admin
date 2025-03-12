@@ -5,10 +5,12 @@ import { Right } from "./components/Right";
 import { SettingContext } from "@/context/setting-context";
 import { useContext } from "react";
 import { useNProgress } from "@/hooks/useNprogress";
+import { useAntdLocal } from "~/hooks/useAntdLocal";
 
 export function Route() {
   useNProgress();
   const value = useContext(SettingContext);
+  const locale = useAntdLocal();
 
   return (
     <ProConfigProvider>
@@ -16,6 +18,7 @@ export function Route() {
         theme={{
           token: value.theme,
         }}
+        locale={locale}
       >
         <div className="flex flex-1 flex-grow w-[100vw] h-[100vh]">
           <Left />

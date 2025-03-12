@@ -16,9 +16,11 @@ export function auth() {
     }
 
     try {
+      const request = c.req.raw.clone();
       const payload = await joseJwt.getTokenUserIdByArgs({
-        request: c.req.raw,
+        request,
       });
+      c.set("userId", payload.userId);
       if (!payload) {
         return c.json(
           {

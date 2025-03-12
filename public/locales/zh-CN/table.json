@@ -1,0 +1,3 @@
+{
+    "show_total": "第 {{start}}-{{end}} 条/总共 {{total}} 条"
+}

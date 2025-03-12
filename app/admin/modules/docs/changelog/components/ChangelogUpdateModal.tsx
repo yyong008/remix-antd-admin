@@ -8,20 +8,20 @@ import {
 } from "@ant-design/pro-components";
 
 import { EditOutlined } from "@ant-design/icons";
+import { updateDoc } from "~/admin/apis/admin/docs";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
-export default function ChangeLogUpdateModal({ record, refetch }: any) {
+export function ChangelogUpdateModal({ record, refetch }: any) {
   const [form] = Form.useForm();
-
-  const [updateChangelogById, other] = [
-    (...args: any): any => {},
-    { isLoading: false },
-  ];
+  const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation("docs");
   return (
     <ModalForm
       key={Date.now()}
       preserve={false}
-      title="更新日志"
-      loading={other.isLoading}
+      title={t("modal.update.title")}
+      loading={isLoading}
       onOpenChange={(c) => {
         if (!c || !record.id) {
           return;
@@ -43,12 +43,14 @@ export default function ChangeLogUpdateModal({ record, refetch }: any) {
         if (record.id) {
           data.id = record.id;
         }
-        const result = await updateChangelogById(data);
-        if (result.data?.code !== 0) {
-          message.error(result.data?.message);
+        setIsLoading(true);
+        const result: any = await updateDoc(record.id, data);
+        setIsLoading(false);
+        if (result?.code !== 0) {
+          message.error(result?.message);
           return false;
         }
-        message.success(result.data?.message);
+        message.success(result?.message);
         refetch();
         form.resetFields();
         return true;
@@ -56,23 +58,23 @@ export default function ChangeLogUpdateModal({ record, refetch }: any) {
     >
       <ProFormText
         name="publish_version"
-        label="版本"
-        placeholder="请输入版本号"
+        label={t("form.publish_version.label")}
+        placeholder={t("form.publish_version.placeholder")}
         rules={[
           {
             required: true,
-            message: "请输入",
+            message: t("form.publish_version.message"),
           },
         ]}
       />
       <ProFormSelect
         name="type"
-        label="更新类型"
-        placeholder="更新类型"
+        label={t("form.type.label")}
+        placeholder={t("form.type.placeholder")}
         rules={[
           {
             required: true,
-            message: "请选择",
+            message: t("form.type.message"),
           },
         ]}
         options={[
@@ -92,45 +94,45 @@ export default function ChangeLogUpdateModal({ record, refetch }: any) {
       />
       <ProFormText
         name="publish_name"
-        label="发布人"
-        placeholder="请输入"
+        label={t("form.publish_name.label")}
+        placeholder={t("form.publish_name.placeholder")}
         rules={[
           {
             required: true,
-            message: "请输入",
+            message: t("form.publish_name.message"),
           },
         ]}
       />
       <ProFormDateTimePicker
         name="publish_time"
-        label="发布日期"
-        placeholder="发布日期"
+        label={t("form.publish_time.label")}
+        placeholder={t("form.publish_time.placeholder")}
         rules={[
           {
             required: true,
-            message: "发布日期",
+            message: t("form.publish_time.message"),
           },
         ]}
       />
       <ProFormText
         name="url"
-        label="跳转地址"
-        placeholder="跳转地址"
+        label={t("form.url.label")}
+        placeholder={t("form.url.placeholder")}
         rules={[
           {
             required: false,
-            message: "请输入",
+            message: t("form.url.message"),
           },
         ]}
       />
       <ProFormTextArea
         name="content"
-        label="更新内容"
-        placeholder="更新内容"
+        label={t("form.content.label")}
+        placeholder={t("form.content.placeholder")}
         rules={[
           {
             required: true,
-            message: "请输入更新内容",
+            message: t("form.content.message"),
           },
         ]}
       />

@@ -9,20 +9,20 @@ import {
 
 import { EditOutlined } from "@ant-design/icons";
 import { createDoc } from "@/admin/apis/admin/docs";
-import { useTransition } from "react";
+import { useTranslation } from "react-i18next";
 
-export function ChangeLogCreateModal({ refetch }: any) {
+export function ChangelogCreateModal({ refetch }: any) {
   const [form] = Form.useForm();
-
+  const { t } = useTranslation("docs");
   return (
     <ModalForm
       key={Date.now()}
       preserve={false}
-      title="创建日志"
+      title={t("modal.create.title")}
       onOpenChange={() => {}}
       trigger={
         <Button type="primary" icon={<EditOutlined />}>
-          新建
+          {t("list.action.create")}
         </Button>
       }
       form={form}
@@ -30,6 +30,13 @@ export function ChangeLogCreateModal({ refetch }: any) {
       modalProps={{
         destroyOnClose: true,
         onCancel: () => form.resetFields(),
+      }}
+      submitter={{
+        render: (props) => {
+          return <Button type="primary" onClick={props.submit}>
+            {t("modal.create.submit")}
+          </Button>
+        },
       }}
       submitTimeout={2000}
       onFinish={async (values: any) => {
@@ -46,23 +53,23 @@ export function ChangeLogCreateModal({ refetch }: any) {
     >
       <ProFormText
         name="publish_version"
-        label="版本"
-        placeholder="请输入版本号"
+        label={t("form.publish_version.label")}
+        placeholder={t("form.publish_version.placeholder")}
         rules={[
           {
             required: true,
-            message: "请输入",
+            message: t("form.publish_version.message"),
           },
         ]}
       />
       <ProFormSelect
         name="type"
-        label="更新类型"
-        placeholder="更新类型"
+        label={t("form.type.label")}
+        placeholder={t("form.type.placeholder")}
         rules={[
           {
             required: true,
-            message: "请选择",
+            message: t("form.type.message"),
           },
         ]}
         options={[
@@ -82,45 +89,45 @@ export function ChangeLogCreateModal({ refetch }: any) {
       />
       <ProFormText
         name="publish_name"
-        label="发布人"
-        placeholder="请输入"
+        label={t("form.publish_name.label")}
+        placeholder={t("form.publish_name.placeholder")}
         rules={[
           {
             required: true,
-            message: "请输入",
+            message: t("form.publish_name.message"),
           },
         ]}
       />
       <ProFormDateTimePicker
         name="publish_time"
-        label="发布日期"
-        placeholder="发布日期"
+        label={t("form.publish_time.label")}
+        placeholder={t("form.publish_time.placeholder")}
         rules={[
           {
             required: true,
-            message: "发布日期",
+            message: t("form.publish_time.message"),
           },
         ]}
       />
       <ProFormText
         name="url"
-        label="跳转地址"
-        placeholder="跳转地址"
+        label={t("form.url.label")}
+        placeholder={t("form.url.placeholder")}
         rules={[
           {
             required: false,
-            message: "请输入",
+            message: t("form.url.message"),
           },
         ]}
       />
       <ProFormTextArea
         name="content"
-        label="更新内容"
-        placeholder="更新内容"
+        label={t("form.content.label")}
+        placeholder={t("form.content.placeholder")}
         rules={[
           {
             required: true,
-            message: "请输入更新内容",
+            message: t("form.content.message"),
           },
         ]}
       />

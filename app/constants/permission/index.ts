@@ -47,23 +47,7 @@ export const permissions = {
         UPDATE: "news:category:update",
         DELETE: "news:category:delete",
       },
-    },
-    docs: {
-      changelog: {
-        READ_LIST: "docs:changelog:list",
-        READ: "docs:changelog:read",
-        CREATE: "docs:changelog:create",
-        UPDATE: "docs:changelog:update",
-        DELETE: "docs:changelog:delete",
-      },
-      feedback: {
-        READ_LIST: "docs:feedback:list",
-        READ: "docs:feedback:read",
-        CREATE: "docs:feedback:create",
-        UPDATE: "docs:feedback:update",
-        DELETE: "docs:feedback:delete",
-      },
-    },
+    }, 
     tools: {
       mail: {
         READ_LIST: "tools:mail:list",
@@ -193,3 +177,20 @@ export const permissions = {
     },
   },
 };
+
+export const docsPermissions = {
+  changelog: {
+    READ_LIST: "docs:changelog:list",
+    READ: "docs:changelog:read",
+    CREATE: "docs:changelog:create",
+    UPDATE: "docs:changelog:update",
+    DELETE: "docs:changelog:delete",
+  },
+  feedback: {
+    READ_LIST: "docs:feedback:list",
+    READ: "docs:feedback:read",
+    CREATE: "docs:feedback:create",
+    UPDATE: "docs:feedback:update",
+    DELETE: "docs:feedback:delete",
+  },
+}

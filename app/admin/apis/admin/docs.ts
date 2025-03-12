@@ -47,7 +47,7 @@ export async function updateDoc(id: string, data: any) {
  * @param id
  * @returns
  * */
-export async function deleteDocs(ids: string) {
+export async function deleteDocsByIds(ids: number[]) {
   try {
     return await api.delete(`/admin/docs/changelog`, { data: { ids } });
   } catch (error) {

@@ -1,0 +1,67 @@
+{
+    "list": {
+        "title": "Changelog",
+        "action": {
+            "create": "Create"
+        },
+        "publish_version": "Version",
+        "publish_name": "Publisher",
+        "type": "Update Type",
+        "content": "Update Content",
+        "url": "Jump Link",
+        "publish_time": "Publish Time",
+        "created_at": "Created At",
+        "updated_at": "Updated At",
+        "op": "Operation",
+        "publish_name_tooltip": "Publisher is manually filled"
+    },
+    "modal": {
+        "update": {
+            "title": "Update Changelog",
+            "submit": "Update"
+        },
+        "create": {
+            "title": "Create Changelog",
+            "submit": "Create"
+        }
+    },
+    "action": {
+        "create": "Create",
+        "update": "Update",
+        "delete": "Are you sure you want to delete?",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+    },
+    "form": {
+        "publish_version": {
+            "label": "Version",
+            "message": "Please enter the version",
+            "placeholder": "Please enter the version    "
+        },
+        "publish_name": {
+            "label": "Publisher",
+            "message": "Please enter the publisher",
+            "placeholder": "Please enter the publisher"
+        },
+        "publish_time": {
+            "label": "Publish Time",
+            "message": "Please select the publish time",
+            "placeholder": "Please select the publish time"
+        },
+        "type": {
+            "label": "Update Type",
+            "message": "Please enter the update type",
+            "placeholder": "Please enter the update type"
+        },
+        "content": {
+            "label": "Update Content",
+            "message": "Please enter the update content",
+            "placeholder": "Please enter the update content"
+        },
+        "url": {
+            "label": "Jump Link",
+            "message": "Please enter the jump link",
+            "placeholder": "Please enter the jump link"
+        }
+    }
+}
