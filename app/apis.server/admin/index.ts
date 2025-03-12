@@ -1,4 +1,4 @@
-import { Context, Hono } from "hono";
+import {  Hono } from "hono";
 import { blogRouter } from "./blog";
 import { dashboardRouter } from "./dashboard";
 import { docsRouter } from "./docs";

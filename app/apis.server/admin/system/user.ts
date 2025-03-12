@@ -5,7 +5,7 @@ import {
   getSearchParamsPageSize,
 } from "~/utils/server";
 
-import { Hono } from "hono";
+import { Hono, Context } from "hono";
 import { joseJwt } from "~/libs/jose";
 import { signInLog } from "~/dals/sign-in/SignInLogDAL";
 import { userDAL } from "~/dals/system/UserDAL";
@@ -155,12 +155,11 @@ userRouter.get("/user/info", async (c) => {
 /**
  * 用户签到
  */
-userRouter.post("/user/signin", async (c) => {
+userRouter.post("/user/signin", async (c: Context) => {
   try {
-    const req = c.req.raw;
-    const data = (await joseJwt.getTokenUserIdByArgs({ request: req })) as any;
+    const userId = c.get("userId");
     const result = await signInLog.create({
-      userId: data.userId,
+      userId: userId,
       signType: 1,
       signTime: new Date(),
     });

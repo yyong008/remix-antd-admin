@@ -73,9 +73,9 @@ export async function getUserList(params: {
   }
 }
 
-export async function userSignIn() {
+export async function userSignIn(data = {}) {
   try {
-    return await api.post("/admin/system/user/signin");
+    return await api.post("/admin/system/user/signin", data); // devlogger middleware print request body
   } catch (error) {
     console.error(error);
     return error;
