@@ -41,7 +41,6 @@ docsRouter.get(
   permission(docsPermissions.changelog.READ_LIST),
   async (c: Context) => {
     try {
-      const req = c.req.raw;
       const query = c.req.queries();
       const page = Number(query.page ?? 1);
       const pageSize = Number(query.pageSize ?? 10);
@@ -52,7 +51,7 @@ docsRouter.get(
         userId: userId,
       };
       const list = await changelogDAL.getList(params);
-      const total = await changelogDAL.getCount();
+      const total = await changelogDAL.getCountByUserId(userId);
       const data = {
         list,
         total,

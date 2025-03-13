@@ -12,6 +12,18 @@ export class ChangeLogDAL {
     return await prisma.changeLog.count();
   }
   /**
+   * 根据 userId 获取数量
+   * @param userId
+   * @returns
+   */
+  async getCountByUserId(userId: number) {
+    return await prisma.changeLog.count({
+      where: {
+        userId,
+      },
+    });
+  }
+  /**
    * 根据 id 获取
    * @param id
    * @returns
@@ -29,8 +41,11 @@ export class ChangeLogDAL {
    * @returns
    */
   async getList(data: TPage) {
-    const { page = 1, pageSize = 10 } = data;
+    const { page = 1, pageSize = 10, userId } = data;
     return await prisma.changeLog.findMany({
+      where: {
+        userId: userId,
+      },
       skip: (page - 1) * pageSize,
       take: pageSize,
       orderBy: {

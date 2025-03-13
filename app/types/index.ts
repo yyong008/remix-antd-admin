@@ -11,6 +11,7 @@ export type TPage = {
   pageSize?: number;
   name?: string;
   role?: string;
+  userId?: number;
 };
 
 export enum SortOrder {
