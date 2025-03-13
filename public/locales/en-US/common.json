@@ -250,5 +250,8 @@
   "thaw-immediately": "Thaw Immediately",
   "account-not-yet-eligible": "Your account is not yet eligible to apply.",
   "apply-unlock": "Apply for Unlock",
-  "auth": "Authorization"
+  "auth": "Authorization",
+  "person-center": "Person Center",
+  "settings": "Settings",
+  "logout": "Logout"
 }

@@ -22,7 +22,7 @@ export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
           {
             key: "profile-center",
             icon: <UserOutlined />,
-            label: t("personal-center"),
+            label: t("person-center"),
             onClick: () => {
               navigate(`/${lang}/admin/profile/account`);
             },
