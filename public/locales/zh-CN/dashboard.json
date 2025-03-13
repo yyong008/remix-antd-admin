@@ -1,0 +1,15 @@
+{
+    "welcome": "欢迎",
+    "loginIn": {
+        "department": "部门",
+        "latestLoginTime": "最新登录时间",
+        "latestLoginIp": "最新登录IP",
+        "latestLoginSystem": "最新登录系统",
+        "latestLoginBrowser": "最新登录浏览器"
+    },
+    "signIn": {
+        "signIned": "已签到",
+        "signIn": "签到",
+        "signInSuccess": "🤖 签到成功，明天再来吧"
+    }
+}

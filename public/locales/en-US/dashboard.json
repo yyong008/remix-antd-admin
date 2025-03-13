@@ -1,0 +1,15 @@
+{
+    "welcome": "Welcome",
+    "loginIn": {
+        "department": "Department",
+        "latestLoginTime": "Latest Login Time",
+        "latestLoginIp": "Latest Login IP",
+        "latestLoginSystem": "Latest Login System",
+        "latestLoginBrowser": "Latest Login Browser"
+    },
+    "signIn": {
+        "signIned": "Signed In",
+        "signIn": "Sign In",
+        "signInSuccess": "🤖 Signed in successfully, come back tomorrow"
+    }
+}

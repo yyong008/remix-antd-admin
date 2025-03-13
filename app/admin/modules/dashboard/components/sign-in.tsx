@@ -2,51 +2,57 @@ import { Button, message } from "antd";
 
 import { CheckCircleFilled } from "@ant-design/icons";
 import confetti from "canvas-confetti";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { userSignIn } from "~/admin/apis/admin/system/user";
+import { useTranslation } from "react-i18next";
 
 export function SignIn({ data: _data }: any) {
+  const [isPending, startTransition] = useTransition();
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState(_data);
-  const [, signInOther] = [
-    (): any => {},
-    { isLoading: false },
-  ]; // eslint-disable-line;
+  const { t } = useTranslation("dashboard");
   const signInHanlder = async () => {
-    const result: any = await userSignIn();
-    if (result.code === 0) {
-      setData({
-        ...data,
-        isLogin: true,
-      });
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-      });
-    } else {
-      message.error(result.message);
-    }
+    startTransition(async () => {
+      setIsLoading(true);
+      const result: any = await userSignIn();
+      setIsLoading(false);
+      if (result.code === 0) {
+        setData({
+          ...data,
+          isLogin: true,
+        });
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+      } else {
+        message.error(result.message);
+      }
+    });
   };
+
   return (
     <div>
       {!data?.isLogin ? (
         <Button
+          type="primary"
           onClick={signInHanlder}
           htmlType="submit"
-          disabled={data?.isLogin}
-          loading={signInOther.isLoading}
+          loading={isLoading}
         >
-          签到
+          {t("signIn.signIn")}
         </Button>
       ) : (
         <Button
           type="primary"
           icon={<CheckCircleFilled />}
+          disabled={data?.isLogin}
           onClick={() => {
-            message.success("🤖 已签到，明天再来吧");
+            message.success(t("signIn.signInSuccess"));
           }}
         >
-          已签到
+          {t("signIn.signIned")}
         </Button>
       )}
     </div>
