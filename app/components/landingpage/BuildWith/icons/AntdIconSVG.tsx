@@ -2,7 +2,7 @@ export function AntdIconSVG() {
   return (
     <svg
       width="32px"
-      height="32x"
+      height="32px"
       viewBox="0 0 200 200"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
