@@ -11,17 +11,19 @@ import { uploadConfig } from "~/config/uploadConfig";
 import { useState } from "react";
 import { updateFeedback } from "~/admin/apis/admin/docs";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
+import { useTranslation } from "react-i18next";
 
 export default function FeedbackModalUpdate({ record, refetch }: any) {
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
   const p = useColorPrimary()
+  const { t } = useTranslation("feedback");
   return (
     <ModalForm
       key={Date.now()}
       preserve={false}
       loading={isLoading}
-      title={"修改反馈"}
+      title={t("modal.update.title")}
       onOpenChange={(c) => {
         if (!c || !record.id) {
           return;
@@ -64,19 +66,19 @@ export default function FeedbackModalUpdate({ record, refetch }: any) {
     >
       <ProFormTextArea
         name="content"
-        label="反馈内容"
-        placeholder="请输入"
+        label={t("form.items.content.label")}
+        placeholder={t("form.items.content.placeholder")}
         rules={[
           {
             required: true,
-            message: "请输入",
+            message: t("form.items.content.required"),
           },
         ]}
       />
       <ProFormUploadButton
-        label="反馈图片"
+        label={t("form.items.image.label")}
         name="file"
-        placeholder="请输入名称"
+        placeholder={t("form.items.image.placeholder")}
         listType="picture-card"
         action="/api/v1/admin/upload/feedback"
         accept="image/*.png"
@@ -107,7 +109,7 @@ export default function FeedbackModalUpdate({ record, refetch }: any) {
         rules={[
           {
             required: false,
-            message: "请上传",
+            message: t("form.items.image.required"),
           },
         ]}
       />

@@ -1,0 +1,54 @@
+{
+    "list": {
+        "title": "反馈列表",
+        "description": "反馈列表描述",
+        "table": {
+            "id": "ID",
+            "userId": "用户ID",
+            "content": "反馈内容",
+            "createdAt": "创建时间",
+            "image": "反馈图片",
+            "op": "操作"
+        }
+    },
+    "modal": {
+        "create": {
+            "title": "创建反馈",
+            "description": "创建反馈描述"
+        },
+        "update": {
+            "title": "更新反馈",
+            "description": "更新反馈描述"
+        }
+    },
+    "action": {
+        "create": "创建反馈",
+        "update": "更新反馈"
+    },
+    "form": {
+        "title": "反馈表单",
+        "description": "反馈表单描述",
+        "items": {
+            "content": {
+                "label": "反馈内容",
+                "placeholder": "请输入",
+                "required": "请输入反馈内容"
+            },
+            "image": {
+                "label": "反馈图片",
+                "placeholder": "请上传",
+                "required": "请上传反馈图片"
+            },
+            "file": {
+                "label": "文件",
+                "placeholder": "请上传",
+                "required": "请上传文件"
+            },
+            "createdAt": {
+                "label": "创建时间",
+                "placeholder": "请选择",
+                "required": "请选择创建时间"
+            }
+        }
+    }
+}

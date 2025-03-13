@@ -8,21 +8,22 @@ import { createFeedback } from "~/admin/apis/admin/docs";
 import { EditOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { uploadConfig } from "~/config/uploadConfig";
-// import { uploadFeedback } from "~/admin/apis/upload";
+import { useTranslation } from "react-i18next";
 
 export function FeedbackModalCreate({ refetch }: any) {
+  const { t } = useTranslation("feedback");
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
   return (
     <ModalForm
       key={Date.now()}
       preserve={false}
-      title="创建反馈"
+      title={t("modal.create.title")}
       loading={isLoading}
       onOpenChange={() => {}}
       trigger={
         <Button type="primary" icon={<EditOutlined />}>
-          新建
+          {t("action.create")}
         </Button>
       }
       form={form}
@@ -57,19 +58,19 @@ export function FeedbackModalCreate({ refetch }: any) {
     >
       <ProFormTextArea
         name="content"
-        label="反馈内容"
-        placeholder="请输入"
+        label={t("form.items.content.label")}
+        placeholder={t("form.items.content.placeholder")}
         rules={[
           {
             required: true,
-            message: "请输入",
+            message: t("form.items.content.required"),
           },
         ]}
       />
       <ProFormUploadButton
-        label="反馈图片"
+        label={t("form.items.image.label")}
         name="file"
-        placeholder="请输入名称"
+        placeholder={t("form.items.image.placeholder")}
         listType="picture-card"
         action="/api/v1/admin/upload/feedback"
         accept="image/*.png"
@@ -100,7 +101,7 @@ export function FeedbackModalCreate({ refetch }: any) {
         rules={[
           {
             required: false,
-            message: "请上传",
+            message: t("form.items.image.required"),
           },
         ]}
       />

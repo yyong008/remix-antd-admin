@@ -1,0 +1,54 @@
+{
+    "list": {
+        "title": "Feedback List",
+        "description": "Feedback List Description",
+        "table": {
+            "id": "ID",
+            "userId": "User ID",
+            "content": "Content",
+            "createdAt": "Created At",
+            "image": "Image",
+            "op": "Operater"
+        }
+    },
+    "modal": {
+        "create": {
+            "title": "Create Feedback",
+            "description": "Create Feedback Description"
+        },
+        "update": {
+            "title": "Update Feedback",
+            "description": "Update Feedback Description"
+        }
+    },
+    "action": {
+        "create": "Create Feedback",
+        "update": "Update Feedback"
+    },
+    "form": {
+        "title": "Feedback Form",
+        "description": "Feedback Form Description",
+        "items": {
+            "content": {
+                "label": "Content", 
+                "placeholder": "Please enter",
+                "required": "Please enter the content"
+            },
+            "image": {
+                "label": "Image",
+                "placeholder": "Please upload",
+                "required": "Please upload the image"
+            },
+            "file": {
+                "label": "File",
+                "placeholder": "Please upload",
+                "required": "Please upload the file"
+            },
+            "createdAt": {
+                "label": "Created At",
+                "placeholder": "Please select",
+                "required": "Please select the created at"
+            }
+        }
+    }
+}
