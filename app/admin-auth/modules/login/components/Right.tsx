@@ -28,20 +28,14 @@ const LoginForm: React.FC = () => {
     const result: any = await login(data);
     setIsLoading(false);
     if (result.code === 0 && result.data.token?.length > 0) {
+      debugger
       const { token, refresh_token } = result.data;
       simpleStorage.setToken(token);
       simpleStorage.setRefreshToken(refresh_token);
-      message.success(result.data.message);
+      message.success(t("login-register.loginMsg.success"));
       navigate(`/${lang}/admin/dashboard`, { replace: true });
     } else {
-      if (
-        result.code === 1 &&
-        result.message === '"exp" claim timestamp check failed'
-      ) {
-        message.error("登录已过期，请重新登录");
-        return;
-      }
-      message.error(result.message ?? "登录失败");
+      message.error(t("login-register.loginMsg.error"));
     }
     return true;
   };

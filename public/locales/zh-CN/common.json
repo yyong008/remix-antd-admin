@@ -9,6 +9,10 @@
     "other-login": "其他登录",
     "submit": "提交",
     "login": "登录",
+    "loginMsg": {
+      "success": "登录成功",
+      "error": "登录失败"
+    },
     "register": "注册",
     "logout": "退出登录",
     "code": {

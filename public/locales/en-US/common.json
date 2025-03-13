@@ -9,6 +9,10 @@
     "other-login": "Other Login",
     "submit": "Submit",
     "login": "Login",
+    "loginMsg": {
+      "success": "Login successfully",
+      "error": "Login failed"
+    },
     "register": "Register",
     "logout": "Logout",
     "code": {
