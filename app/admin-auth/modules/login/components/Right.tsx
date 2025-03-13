@@ -28,7 +28,6 @@ const LoginForm: React.FC = () => {
     const result: any = await login(data);
     setIsLoading(false);
     if (result.code === 0 && result.data.token?.length > 0) {
-      debugger
       const { token, refresh_token } = result.data;
       simpleStorage.setToken(token);
       simpleStorage.setRefreshToken(refresh_token);

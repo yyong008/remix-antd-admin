@@ -78,7 +78,6 @@ export function Route() {
           total: data?.total,
           pageSize: page.pageSize || 10,
           onChange(page, pageSize) {
-            debugger;
             setPage((p) => ({ ...p, page, pageSize }));
           },
         }}
