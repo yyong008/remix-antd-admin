@@ -11,11 +11,13 @@ import { EditOutlined } from "@ant-design/icons";
 import { updateDoc } from "~/admin/apis/admin/docs";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useColorPrimary } from "~/hooks/useColorPrimary";
 
 export function ChangelogUpdateModal({ record, refetch }: any) {
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation("docs");
+  const p = useColorPrimary()
   return (
     <ModalForm
       key={Date.now()}
@@ -30,7 +32,7 @@ export function ChangelogUpdateModal({ record, refetch }: any) {
           ...record,
         });
       }}
-      trigger={<Button type="link" icon={<EditOutlined />}></Button>}
+      trigger={<Button type="link" icon={<EditOutlined style={{ color: p.colorPrimary }} />}></Button>}
       form={form}
       autoFocusFirstInput
       modalProps={{
