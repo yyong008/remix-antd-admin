@@ -77,7 +77,7 @@ export async function createDoc(data: any) {
  */
 export async function getFeedbacks(params: any) {
   try {
-    return await api.get("/admin/feedback", { params });
+    return await api.get("/admin/docs/feedback", { params });
   } catch (error) {
     console.error(error);
     return error;
@@ -91,7 +91,7 @@ export async function getFeedbacks(params: any) {
  * */
 export async function deleteFeedbacks(ids: string) {
   try {
-    return await api.delete(`/admin/feedback`, { data: { ids } });
+    return await api.delete(`/admin/docs/feedback`, { data: { ids } });
   } catch (error) {
     console.error(error);
     return error;
@@ -105,7 +105,7 @@ export async function deleteFeedbacks(ids: string) {
  * */
 export async function getFeedback(id: string) {
   try {
-    return await api.get(`/admin/feedback/${id}`);
+    return await api.get(`/admin/docs/feedback/${id}`);
   } catch (error) {
     console.error(error);
     return error;
@@ -120,7 +120,7 @@ export async function getFeedback(id: string) {
  * */
 export async function updateFeedback(id: string, data: any) {
   try {
-    return await api.put(`/admin/feedback/${id}`, data);
+    return await api.put(`/admin/docs/feedback/${id}`, data);
   } catch (error) {
     console.error(error);
     return error;
@@ -134,7 +134,7 @@ export async function updateFeedback(id: string, data: any) {
  * */
 export async function createFeedback(data: any) {
   try {
-    return await api.post("/admin/feedback", data);
+    return await api.post("/admin/docs/feedback", data);
   } catch (error) {
     console.error(error);
     return error;

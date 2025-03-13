@@ -23,3 +23,31 @@ export const changelogSchema = {
     ids: z.array(z.string().min(1)),
   }),
 };
+
+const feedbackBaseSchema = z.object({
+  content: z.string(),
+  url: z.string().optional(),
+  userId: z.number().optional(),
+});
+
+export const feedbackSchema = {
+  list: z.object({
+    page: z.string().optional(),
+    pageSize: z.string().optional(),
+  }),
+  create: z.object({
+    ...feedbackBaseSchema.shape,
+  }),
+  update: z.object({
+    ...feedbackBaseSchema.shape,
+  }),
+  deleteMany: z.object({
+    ids: z.array(z.string().min(1)),
+  }),
+  getById: z.object({
+    id: z.string().min(1),
+  }),
+  deleteById: z.object({
+    id: z.string().min(1),
+  }),
+};

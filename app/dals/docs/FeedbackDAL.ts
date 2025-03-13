@@ -30,8 +30,11 @@ export class FeedbackDAL {
    * @returns
    */
   async getList(data: TPage): Promise<any[]> {
-    const { page = 1, pageSize = 10 } = data;
+    const { page = 1, pageSize = 10, userId } = data;
     return await prisma.feedBack.findMany({
+      where: {
+        userId,
+      },
       skip: (page - 1) * pageSize,
       take: pageSize,
       orderBy: {
@@ -60,10 +63,10 @@ export class FeedbackDAL {
    * @param data
    * @returns
    */
-  async update(data: Prisma.FeedBackUpdateInput & { id: number }) {
+  async update(id: number, data: Prisma.FeedBackUpdateInput) {
     return await prisma.feedBack.update({
       where: {
-        id: data.id,
+        id,
       },
       data,
     });

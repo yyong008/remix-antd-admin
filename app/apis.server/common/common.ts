@@ -28,7 +28,3 @@ commonRouter.get("/healthcheck", async (c: Context) => {
     });
   }
 });
-
-commonRouter.post("/upload", async () => {
-  //
-});

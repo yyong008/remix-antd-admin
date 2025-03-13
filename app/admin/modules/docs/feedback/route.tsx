@@ -2,19 +2,14 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 import { FeedbackModalCreate } from "./components/FeedbackModalCreate";
 import { FormatTime } from "@/components/common";
-import { Image } from "antd";
-import { useState } from "react";
+import { Image, Button } from "antd";
+import { getFeedbacks } from "~/admin/apis/admin/docs";
+import { useSimplePage } from "~/hooks/useSimplePage";
+import FeedbackModalUpdate from "./components/FeedbackModalUpdate";
 
 export function Route() {
-  const [page, setPage] = useState({
-    page: 1,
-    pageSize: 10,
-  });
-  const { data, isLoading, refetch } = {
-    data: { data: { list: [], total: 0 } },
-    isLoading: false,
-    refetch: () => {},
-  };
+  const { page, setPage, data, isLoading, getPage } =
+    useSimplePage(getFeedbacks);
 
   const columns = [
     {
@@ -30,7 +25,7 @@ export function Route() {
       title: "反馈图片",
       render(_: any, record: any) {
         return (
-          <div className="w-[100px]">
+          <div className="h-[50px] w-[100px] overflow-hidden origin-center">
             <Image src={record.url}></Image>
           </div>
         );
@@ -43,6 +38,15 @@ export function Route() {
         return <FormatTime timeStr={record.createdAt} />;
       },
     },
+    {
+      dataIndex: "op",
+      title: "操作",
+      render(_: any, record: any) {
+        return <div>
+          <FeedbackModalUpdate record={record} refetch={getPage} />
+        </div>
+      },
+    },
   ];
   return (
     <PageContainer>
@@ -52,20 +56,20 @@ export function Route() {
         size="small"
         search={false}
         loading={isLoading}
-        dataSource={data?.data?.list ?? []}
+        dataSource={data?.list ?? []}
         columns={columns}
         options={{
-          reload: refetch,
+          reload: getPage,
         }}
         toolBarRender={() => [
           <FeedbackModalCreate
             key="changelog-modal-create"
-            refetch={refetch}
+            refetch={getPage}
           />,
         ]}
         pagination={{
-          total: data?.data?.total || 0,
-          pageSize: page.pageSize || 10,
+          total: data.total || 0,
+          pageSize: page?.pageSize || 10,
           onChange(page, pageSize) {
             setPage({ page, pageSize });
           },

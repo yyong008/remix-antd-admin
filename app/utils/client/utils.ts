@@ -45,6 +45,7 @@ export function genFileListByName(name: string) {
       response: {
         data: {
           name,
+          url: name,
         },
       },
     },

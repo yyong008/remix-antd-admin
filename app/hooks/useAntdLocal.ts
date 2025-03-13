@@ -10,7 +10,6 @@ const mapLocale = {
 };
 export function useAntdLocal() {
   const { lang = "zh_CN" } = useParams();
-  console.log(lang, enUS);
 
   return mapLocale[lang as keyof typeof mapLocale];
 }
