@@ -8,14 +8,11 @@ import { useTranslation } from "react-i18next";
 
 export function SignIn({ data: _data }: any) {
   const [isPending, startTransition] = useTransition();
-  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState(_data);
   const { t } = useTranslation("dashboard");
   const signInHanlder = async () => {
     startTransition(async () => {
-      setIsLoading(true);
       const result: any = await userSignIn();
-      setIsLoading(false);
       if (result.code === 0) {
         setData({
           ...data,
@@ -39,7 +36,7 @@ export function SignIn({ data: _data }: any) {
           type="primary"
           onClick={signInHanlder}
           htmlType="submit"
-          loading={isLoading}
+          loading={isPending}
         >
           {t("signIn.signIn")}
         </Button>
