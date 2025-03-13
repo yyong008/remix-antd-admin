@@ -1,5 +1,6 @@
 import axios from "axios";
 import { simpleStorage } from "./simpleStorage";
+import { defaultLang } from "~/config/lang";
 
 const api = axios.create({
   baseURL: "/api/v1",
@@ -53,7 +54,7 @@ api.interceptors.response.use(
   async (error) => {
     if (error.response.status === 401) {
       // 跳转到登录页
-      window.location.href = "/login";
+      window.location.href = `/${defaultLang}/admin/login`;
     }
     // 统一的错误处理
     if (error.response) {
