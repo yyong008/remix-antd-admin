@@ -7,13 +7,15 @@ import { getDashboard } from "~/admin/apis/admin/dashboard";
 export function Route() {
   const [data, setData] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [userInfo, setUserInfo] = useState<any>();
 
   const getData = async () => {
     const res: any = await getDashboard();
     setData(res?.data);
+    setUserInfo(JSON.parse(localStorage.getItem("userInfo") || "{}"));
     setIsLoading(false);
   };
-  const userInfo = {};
+  
   useEffect(() => {
     getData();
   }, []);

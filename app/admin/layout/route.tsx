@@ -46,9 +46,9 @@ function AdminLayout() {
     [lang, menu, t],
   );
   const getData = async () => {
-    const _d = await getUserInfo();
-    const { data: d } = _d || ({} as any);
-    setData(d);
+    const result: any = await getUserInfo();
+    setData(result?.data);
+    localStorage.setItem("userInfo", JSON.stringify(result?.data?.userInfo));
   };
 
   useEffect(() => {
@@ -56,14 +56,7 @@ function AdminLayout() {
   }, []);
 
   return (
-    <ProConfigProvider
-      intl={{
-        locale: "en_US",
-        getMessage: (id: string, defaultMessage: string) => {
-          return defaultMessage;
-        },
-      }}
-    >
+    <ProConfigProvider>
       <ConfigProvider locale={locale}>
         <AntdApp>
           <WaterMark content={info.WaterMark}>
@@ -99,7 +92,6 @@ function AdminLayout() {
                 if (item.isLink) {
                   return <MenuItemOutLink path={item.path!} dom={dom} />;
                 }
-
                 return (
                   <MenuItemLink
                     path={item.path!}
