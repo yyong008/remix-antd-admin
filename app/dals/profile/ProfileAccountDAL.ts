@@ -6,11 +6,30 @@ export class ProfileAccountDAL {
    * @param id
    * @returns
    */
-  async getById(id: number) {
+  async getAccountById(id: number) {
     const user = await prisma.user.findUnique({
       where: {
         id,
       },
+      omit: {
+        password: true
+      },
+      include: {
+        department: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+    return user;
+  }
+
+  async updateAccountById(id: number, dto: any) {
+    const user = await prisma.user.update({
+      where: { id },
+      data: dto,
     });
     return user;
   }
