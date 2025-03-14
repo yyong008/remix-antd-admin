@@ -31,6 +31,7 @@ const resetStyles = {
 
 function AdminLayout() {
   useNProgress();
+  const [ensureGetUserInfoData, setEnsureGetUserInfoData] = useState(false);
   const locale = useAntdLocal();
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<any>([]);
@@ -49,6 +50,7 @@ function AdminLayout() {
     setIsLoading(true);
     const result: any = await getUserInfo();
     setData(result?.data);
+    setEnsureGetUserInfoData(true);
     localStorage.setItem("userInfo", JSON.stringify(result?.data?.userInfo));
     setIsLoading(false);
   };
@@ -68,7 +70,7 @@ function AdminLayout() {
               }}
               route={route}
               token={token}
-              loading={isLoading}
+              loading={ensureGetUserInfoData && isLoading}
               {...value.theme}
               logo={prolayoutConfig.logo}
               menu={prolayoutConfig.menu}

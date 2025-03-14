@@ -1,5 +1,6 @@
 import { LoginIn, SignIn } from "./components";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
+import React from "react";
 import { useEffect, useState } from "react";
 
 import { getDashboard } from "~/admin/apis/admin/dashboard";
