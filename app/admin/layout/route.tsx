@@ -9,7 +9,7 @@ import {
 } from "@ant-design/pro-components";
 import { memo, useContext, useEffect, useMemo, useState } from "react";
 
-import { App as AntdApp, ConfigProvider } from "antd";
+import { App as AntdApp, ConfigProvider, Spin } from "antd";
 import { AvatarDropDown } from "./components/AvatarDropdown";
 import { MenuFooterRender } from "./components/MenuFooterRender";
 import { SettingContext } from "@/context/setting-context";
@@ -32,7 +32,7 @@ const resetStyles = {
 function AdminLayout() {
   useNProgress();
   const locale = useAntdLocal();
-  const [isLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<any>([]);
 
   const { lang } = useParams();
@@ -46,18 +46,22 @@ function AdminLayout() {
     [lang, menu, t],
   );
   const getData = async () => {
+    setIsLoading(true);
     const result: any = await getUserInfo();
     setData(result?.data);
     localStorage.setItem("userInfo", JSON.stringify(result?.data?.userInfo));
+    setIsLoading(false);
   };
 
   useEffect(() => {
     getData();
   }, []);
 
+
   return (
     <ProConfigProvider>
       <ConfigProvider locale={locale}>
+        <Spin spinning={isLoading}>
         <AntdApp>
           <WaterMark content={info.WaterMark}>
             <ProLayout
@@ -109,6 +113,7 @@ function AdminLayout() {
             </ProLayout>
           </WaterMark>
         </AntdApp>
+        </Spin>
       </ConfigProvider>
     </ProConfigProvider>
   );
