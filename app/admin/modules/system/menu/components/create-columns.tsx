@@ -1,17 +1,14 @@
-import {
-  AntdIcon,
-  CacheType,
-  FormatTime,
-  LinkType,
-  MenuType,
-  ShowType,
-  StatusType,
-} from "@/components/common";
 import { Space, Tag, Tooltip } from "antd";
 
 import { DeleteAction } from "./DeleteAction";
 import UpdateMenuModal from "./UpdateMenuModal";
-
+import { AntdIcon } from "~/components/common/antd-icon";
+import { MenuType } from "~/components/common/menu-type";
+import { StatusType } from "~/components/common/status-type";
+import { ShowType } from "~/components/common/show-type";
+import { CacheType } from "~/components/common/cache-type";
+import { FormatTime } from "~/components/common/format-time";
+import { LinkType } from "~/components/common/link-type";
 export const createColumns = ({ refetch, menuNotPerm }: any) => [
   {
     key: "name",

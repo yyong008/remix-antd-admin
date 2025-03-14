@@ -1,4 +1,4 @@
-import { ButtonLink } from "~/components/common";
+import { ButtonLink } from "~/components/common/button-link";
 import { DeleteAction } from "../DeleteAction";
 import { Link } from "react-router";
 import { Space } from "antd";

@@ -1,5 +1,5 @@
 import { Tag, Space } from "antd";
-import { FormatTime } from "~/components/common";
+import { FormatTime } from "~/components/common/format-time";
 import { DeleteAction } from "./DeleteAction";
 import { typeMap } from "./typeMapSelect";
 import { ChangelogUpdateModal } from "./ChangelogUpdateModal";

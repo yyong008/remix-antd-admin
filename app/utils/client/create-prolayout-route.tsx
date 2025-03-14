@@ -1,4 +1,4 @@
-import { AntdIcon } from "~/components/common";
+import { AntdIcon } from "~/components/common/antd-icon";
 import { isExternalLink } from "./utils";
 
 function createProLayoutRouteImpl(

@@ -1,4 +1,5 @@
-import { FormatTime, StatusType } from "@/components/common";
+import { FormatTime } from "~/components/common/format-time";
+import { StatusType } from "~/components/common/status-type";
 import { Space, Tag } from "antd";
 
 import { DeleteAction } from "./DeleteAction";

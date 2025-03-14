@@ -1,5 +1,5 @@
 import { Space } from "antd";
-import { AntdIcon } from "@/components/common";
+import { AntdIcon } from "@/components/common/antd-icon";
 
 export function genMenuTreeForRole(
   items: any[],

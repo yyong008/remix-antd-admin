@@ -2,7 +2,7 @@ import { SmileOutlined } from "@ant-design/icons";
 
 import { Descriptions } from "antd";
 import { useTranslation } from "react-i18next";
-import { FormatTime } from "~/components/common";
+import { FormatTime } from "~/components/common/format-time";
 
 export function LoginIn({ data, userInfo }: any) {
   const { t } = useTranslation("dashboard");

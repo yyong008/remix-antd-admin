@@ -1,7 +1,7 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 import { FeedbackModalCreate } from "./components/FeedbackModalCreate";
-import { FormatTime } from "@/components/common";
+import { FormatTime } from "~/components/common/format-time";
 import { Image } from "antd";
 import { getFeedbacks } from "~/admin/apis/admin/docs";
 import { useSimplePage } from "~/hooks/useSimplePage";

@@ -1,7 +1,7 @@
 import { DeleteAction } from "./DeleteAction";
 import { OneToOneOutlined } from "@ant-design/icons";
 import { Space } from "antd";
-import { StatusType } from "@/components/common";
+import { StatusType } from "~/components/common/status-type";
 import { UpdateDictItemModal } from "./UpdateDictItemModal";
 import { formatDate } from "@/utils/client";
 

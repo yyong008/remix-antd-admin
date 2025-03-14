@@ -1,6 +1,5 @@
 import * as clientUtils from "~/utils/client";
-import '@ant-design/v5-patch-for-react-19';
-import { Footer, MenuItemLink, MenuItemOutLink } from "@/components/common";
+import "@ant-design/v5-patch-for-react-19";
 import { Outlet, useParams } from "react-router";
 import {
   ProConfigProvider,
@@ -22,6 +21,9 @@ import { prolayoutConfig } from "@/config/prolayout";
 import { useNProgress } from "@/hooks/useNprogress";
 import { useT } from "@/hooks/useT";
 import { useAntdLocal } from "~/hooks/useAntdLocal";
+import { Footer } from "~/components/common/footer";
+import { MenuItemOutLink } from "~/components/common/menu-item-outer-link";
+import { MenuItemLink } from "~/components/common/menu-item-link";
 
 const resetStyles = {
   padding: "0px",

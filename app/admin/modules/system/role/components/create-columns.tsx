@@ -1,6 +1,6 @@
 import { DeleteAction } from "./DeleteAction";
 import { Space } from "antd";
-import { StatusType } from "@/components/common";
+import { StatusType } from "~/components/common/status-type";
 import { UpdateRoleModal } from "./UpdateRoleModal";
 import { UserOutlined } from "@ant-design/icons";
 import { auth } from "@/utils/client/auth";

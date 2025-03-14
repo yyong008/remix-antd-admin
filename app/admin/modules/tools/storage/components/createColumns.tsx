@@ -1,4 +1,4 @@
-import { FormatTime } from "~/components/common";
+import { FormatTime } from "~/components/common/format-time";
 import { Image } from "antd";
 
 export const createColumns = ({  }: any) => {

@@ -1,6 +1,6 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 
-import { ButtonLink } from "@/components/common";
+import { ButtonLink } from "~/components/common/button-link";
 import { createColumns } from "./components/createColumns";
 import { defaultLang } from "~/config/lang";
 import { useParams } from "react-router";

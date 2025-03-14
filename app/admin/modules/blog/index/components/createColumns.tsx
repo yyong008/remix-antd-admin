@@ -1,10 +1,11 @@
 import * as clientUtils from "@/utils/client";
 
-import { ButtonLink, FormatTime } from "~/components/common";
 import { Space, Tag } from "antd";
 
 import { DeleteAction } from "./DeleteAction";
 import { Link } from "react-router";
+import { ButtonLink } from "~/components/common/button-link";
+import { FormatTime } from "~/components/common/format-time";
 
 export const createColumns = ({ lang, refetch }: any) => [
   {

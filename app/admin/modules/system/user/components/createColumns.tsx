@@ -1,9 +1,11 @@
 import * as clientUtils from "@/utils/client";
 
-import { FormatTime, StatusType, UserAvatar } from "@/components/common";
 
 import { ColumnsOp } from "./columns-op";
 import { Tag } from "antd";
+import { UserAvatar } from "~/components/common/user-avatar";
+import { StatusType } from "~/components/common/status-type";
+import { FormatTime } from "~/components/common/format-time";
 
 export const createUserTableColumns = ({
   depts,

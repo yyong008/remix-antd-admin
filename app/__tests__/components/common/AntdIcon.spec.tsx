@@ -1,10 +1,10 @@
 import "@testing-library/jest-dom/vitest";
 
-import { expect, it } from "vitest";
+import { beforeEach, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 
 // component
-import { AntdIcon } from "@/components/common";
+import { AntdIcon } from "~/components/common/antd-icon";
 
 describe("test Footer component", () => {
   let Icon: any;
