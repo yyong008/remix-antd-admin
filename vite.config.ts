@@ -36,27 +36,19 @@ const __APP_INFO__ = JSON.stringify({
 });
 
 export default defineConfig(({ isSsrBuild, command }) => ({
-  build: {
-    rollupOptions: isSsrBuild
-      ? {
-          input: "./server/index.js",
-          external: ["@prisma/client"],
-        }
-      : undefined,
-  },
   ssr: {
     noExternal: [
-      "@ant-design/icons",
+      // "@ant-design/icons",
       "@ant-design/pro-chat",
       "@ant-design/pro-editor",
-      "react-intersection-observer",
+      // "react-intersection-observer",
     ],
     optimizeDeps: {
       include: [
-        "@ant-design/icons",
+        // "@ant-design/icons",
         "@ant-design/pro-chat",
         "@ant-design/pro-editor",
-        "react-intersection-observer",
+        // "react-intersection-observer",
       ],
     },
   },

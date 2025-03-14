@@ -1,6 +1,7 @@
 import { createRequestHandler } from "@react-router/express";
 import express from "express";
 import figlet from "figlet";
+
 const viteDevServer =
   process.env.NODE_ENV === "production"
     ? undefined
@@ -35,7 +36,7 @@ app.all(
     build: viteDevServer
       ? () => viteDevServer.ssrLoadModule("virtual:react-router/server-build")
       : // @ts-ignore
-        await import("../build/server/index"),
+        await import("../build/server/index.js"),
   }),
 );
 
@@ -43,7 +44,7 @@ app.all(
 let port = 3333;
 
 if (process.env.NODE_ENV === "production") {
-  port = 3000;
+  port = 3001;
 }
 
 app.listen(port, () => {

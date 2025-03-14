@@ -3,7 +3,8 @@ import dayjs from "dayjs";
 import chalk from "chalk";
 export function devLogger() {
   return async (c: Context, next: Function) => {
-    if (process.env.NODE_ENV === "development") {
+    const ENV = import.meta.env.MODE
+    if (ENV === "development") {
       console.log(chalk.green(dayjs().format("HH:mm:ss")) + chalk.blue("[dev request api url]: "), c.req.method, c.req.url);
       if (
         c.req.method === "POST" ||

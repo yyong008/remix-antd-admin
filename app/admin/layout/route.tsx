@@ -57,11 +57,9 @@ function AdminLayout() {
     getData();
   }, []);
 
-
   return (
     <ProConfigProvider>
       <ConfigProvider locale={locale}>
-        <Spin spinning={isLoading}>
         <AntdApp>
           <WaterMark content={info.WaterMark}>
             <ProLayout
@@ -113,7 +111,6 @@ function AdminLayout() {
             </ProLayout>
           </WaterMark>
         </AntdApp>
-        </Spin>
       </ConfigProvider>
     </ProConfigProvider>
   );
