@@ -1,0 +1,21 @@
+{
+    "avatar": "Avatar",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "createTime": "Create Time",
+    "updateTime": "Update Time",
+    "department": "Department",
+    "role": "Role",
+    "nickname": "Nickname",
+    "remark": "Remark",
+    "lang": "Lang",
+    "theme": "Theme",
+    "avatar.placeholder": "Please upload avatar",
+    "action": {
+        "edit": "Edit",
+        "save": "Save",
+        "cancel": "Cancel"
+    }
+}

@@ -72,6 +72,8 @@ export async function readProfileAccountList(params: {
   }
 }
 
+//////////// profile link ////////////
+
 /**
  * 创建链接分类
  * @param data
@@ -93,7 +95,7 @@ export async function createProfileLinkCategory(data: any) {
  */
 export async function updateProfileLinkCategoryById(data: any) {
   try {
-    return await api.put("/admin/profile/link/category", data);
+    return await api.put("/admin/profile/link/category/"+ data.id, data);
   } catch (error) {
     console.error(error);
     return error;
@@ -118,9 +120,26 @@ export async function deleteProfileLinkCategoryByIds(data: any) {
  * 获取链接分类详情
  * @returns
  */
-export async function readProfileLinkCategory() {
+export async function readProfileLinkCategory(params: {
+  page: number;
+  pageSize: number;
+}) {
   try {
-    return await api.get("/admin/profile/link/category");
+    return await api.get("/admin/profile/link/category", { params });
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
+/**
+ * 获取链接分类列表
+ * @param params
+ * @returns
+ */
+export async function readProfileLinkUserCategoryAll() {
+  try {
+    return await api.get("/admin/profile/link/category/user/all");
   } catch (error) {
     console.error(error);
     return error;
@@ -205,15 +224,12 @@ export async function readProfileLink() {
  * @returns
  */
 export async function readProfileLinkList(params: {
-  id: string; // 分类 ID
+  categoryId: number; // 分类 ID
   page: number;
   pageSize: number;
 }) {
   try {
-    const { id, page, pageSize } = params;
-    return await api.get(
-      `/admin/profile/link?category=${id}&page=${page}&pageSize=${pageSize}`,
-    );
+    return await api.get(`/admin/profile/link`, { params });
   } catch (error) {
     console.error(error);
     return error;

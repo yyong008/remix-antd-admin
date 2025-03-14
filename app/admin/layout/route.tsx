@@ -1,5 +1,5 @@
 import * as clientUtils from "~/utils/client";
-
+import '@ant-design/v5-patch-for-react-19';
 import { Footer, MenuItemLink, MenuItemOutLink } from "@/components/common";
 import { Outlet, useParams } from "react-router";
 import {

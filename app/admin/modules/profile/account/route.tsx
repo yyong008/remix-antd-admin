@@ -5,8 +5,10 @@ import { readProfileAccount, updateProfileAccountById } from "~/admin/apis/admin
 import { useEffect, useState, useTransition } from "react";
 import { genFileListByName } from "~/utils/client/utils";
 import { Button, message } from "antd";
+import { useTranslation } from "react-i18next";
 
 export function Route() {
+  const { t } = useTranslation("account");
   const [isPending, startTransition] = useTransition();
   const [isEdit, setIsEdit] = useState(false);
   const [data, setData] = useState<any>(null);
@@ -50,19 +52,19 @@ export function Route() {
           }}
           readonly={!isEdit}
           layout="horizontal"
-          labelCol={{ span: 1 }}
+          labelCol={{ span: 2 }}
           submitter={false}
           onFinish={handleSave}
         >
           <FormItems isEdit={isEdit} />
           <ProForm.Item>
             <div className="flex gap-2">
-              <Button type="primary"  onClick={() => setIsEdit(!isEdit)}>
-                {isEdit ? "取消" : "编辑"}
+              <Button type="primary" onClick={() => setIsEdit(!isEdit)}>
+                {isEdit ? t("action.cancel") : t("action.edit")}
               </Button>
               {isEdit && (
-                <Button htmlType="submit"  type="primary" loading={isPending}>
-                  保存
+                <Button htmlType="submit" type="primary" loading={isPending}>
+                  {t("action.save")}
                 </Button>
               )}
             </div>

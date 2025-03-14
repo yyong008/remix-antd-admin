@@ -3,14 +3,14 @@ import { message } from "antd";
 import { useTranslation } from "react-i18next";
 
 export function FormItems({ isEdit }: { isEdit: boolean }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation("account");
   return (
     <>
       <ProFormUploadButton
         disabled={!isEdit}
-        label={`头像`}
+        label={t("avatar")}
         name="avatar"
-        placeholder={`请上传头像`}
+        placeholder={t("avatar.placeholder")}
         listType="picture-card"
         action="/api/v1/admin/upload/avatar"
         accept="image/*.png"
@@ -32,15 +32,15 @@ export function FormItems({ isEdit }: { isEdit: boolean }) {
           },
         ]}
       />
-      <ProFormText label="用户名" name="name" />
-      <ProFormText label="昵称" name="nickname" />
-      <ProFormText label="邮箱" name="email" />
-      <ProFormText label="备注" name="remark" />
-      <ProFormText label="语言" name="lang" />
-      <ProFormText label="主题" name="theme" />
-      <ProFormDigit label="手机号" name="phone" />
-      <ProFormText label="创建时间" name="createdAt" />
-      <ProFormText label="部门" name="department" />
+      <ProFormText label={t("name")} name="name" />
+      <ProFormText label={t("nickname")} name="nickname" />
+      <ProFormText label={t("email")} name="email" />
+      <ProFormText label={t("remark")} name="remark" />
+      <ProFormText label={t("lang")} name="lang" />
+      <ProFormText label={t("theme")} name="theme" />
+      <ProFormDigit label={t("phone")} name="phone" />
+      <ProFormText label={t("createdAt")} name="createdAt" />
+      <ProFormText label={t("department")} name="department" />
     </>
   );
 }

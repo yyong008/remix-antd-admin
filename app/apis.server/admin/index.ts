@@ -16,6 +16,6 @@ adminRouter.route("/", blogRouter);
 adminRouter.route("/dashboard", dashboardRouter);
 adminRouter.route("/docs", docsRouter);
 adminRouter.route("/", newsRouter);
-adminRouter.route("/", profileRouter);
+adminRouter.route("/profile", profileRouter);
 adminRouter.route("/system", systemRouter);
 adminRouter.route("/upload", uploadRouter);

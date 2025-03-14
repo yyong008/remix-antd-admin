@@ -1,0 +1,117 @@
+{
+    "category": {
+        "action": {
+            "create": "Create Link Category",
+            "update": "Update Link Category"
+        },
+        "list": {
+            "title": "Link Category List",
+            "table": {
+                "name": "Name",
+                "description": "Description",
+                "action": "Action",
+                "url": "URL"
+            }
+        },
+        "modal": {
+            "create": {
+                "title": "Create Link Category",
+                "form": {
+                    "name": {
+                        "label": "Name",
+                        "placeholder": "Please enter",
+                        "required": "Please enter"
+                    },
+                    "description": {
+                        "label": "Description",
+                        "placeholder": "Please enter",
+                        "required": "Please enter"
+                    }
+                }
+            },
+            "update": {
+                "title": "Update Link Category",
+                "form": {
+                    "name": {
+                        "label": "Name",
+                        "placeholder": "Please enter",
+                        "required": "Please enter"
+                    },
+                    "description": {
+                        "label": "Description",
+                        "placeholder": "Please enter",
+                        "required": "Please enter"
+                    }
+                }
+            }
+        }
+    },
+    "link": {
+        "action": {
+            "create": "Create Link",
+            "update": "Update Link"
+        },
+        "list": {
+            "title": "Link List",
+            "all_list": "All",
+            "table": {
+                "name": "Name",
+                "url": "URL",
+                "description": "Description",
+                "action": "Action"
+            }
+        },
+        "modal": {
+            "create": {
+                "title": "创建链接",
+                "form": {
+                    "name": {
+                        "label": "Name",
+                        "placeholder": "Please enter",
+                        "required": "Please enter"
+                    },
+                    "url": {
+                        "label": "URL",
+                        "placeholder": "Please enter",
+                        "required": "Please enter"
+                    },
+                    "description": {
+                        "label": "Description",
+                        "placeholder": "Please enter",
+                        "required": "Please enter"
+                    },
+                    "category": {
+                        "label": "Category",
+                        "placeholder": "Please enter",
+                        "required": "Please enter"
+                    }
+                }
+            },
+            "update": {
+                "title": "更新链接",
+                "form": {
+                    "name": {
+                        "label": "Name",
+                        "placeholder": "Please enter",
+                        "required": "Please enter"
+                    },
+                    "url": {
+                        "label": "URL",
+                        "placeholder": "Please enter",
+                        "required": "Please enter"
+                    },
+                    "description": {
+                        "label": "Description",
+                        "placeholder": "Please enter",
+                        "required": "Please enter"
+                    },
+                    "category": {
+                        "label": "Category",
+                        "placeholder": "Please enter",
+                        "required": "Please enter"
+                    }
+                }
+            }
+        }
+    }
+}

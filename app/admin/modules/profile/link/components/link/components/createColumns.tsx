@@ -3,22 +3,27 @@ import { Space, Tag } from "antd";
 import { Link } from "react-router";
 import { LinkSvg } from "./LinkSvg";
 import { UpdateLinkModal } from "./UpdateLinkModal";
+import { useColorPrimary } from "~/hooks/useColorPrimary";
+import { DeleteAction } from "./DeleteAction";
+import { useTranslation } from "react-i18next";
 
 export function createColumns({ refetch }: any) {
+  const { t } = useTranslation("link");
+  const { colorPrimary } = useColorPrimary();
   return [
     {
       dataIndex: "name",
-      title: "链接名",
+      title: t("link.list.table.name"),
     },
     {
       dataIndex: "url",
-      title: "链接地址",
+      title: t("link.list.table.url"),
       renderText(_: any, record: any) {
         return (
           <Link to={record.url} target="_blank">
-            <Tag className="inline-flex" color="cyan">
+            <Tag className="inline-flex" style={{ color: colorPrimary, borderColor: colorPrimary }}>
               {record.url}
-              <LinkSvg className="border-yellow-200 w-[16px]" />
+              <LinkSvg style={{ color: colorPrimary }} />
             </Tag>
           </Link>
         );
@@ -26,11 +31,11 @@ export function createColumns({ refetch }: any) {
     },
     {
       dataIndex: "description",
-      title: "描述",
+      title: t("link.list.table.description"),
     },
     {
       dataIndex: "op",
-      title: "操作",
+      title: t("link.list.table.action"),
       render(_: any, record: any) {
         return (
           <Space>
@@ -38,6 +43,12 @@ export function createColumns({ refetch }: any) {
               refetch={refetch}
               record={record}
               key="modify-link-modal"
+            />
+            <DeleteAction
+              refetch={refetch}
+              record={record}
+              key="delete-link-modal"
+              title={t("action.delete")}
             />
           </Space>
         );

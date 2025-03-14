@@ -1,0 +1,117 @@
+{
+    "category": {
+        "action": {
+            "create": "创建链接分类",
+            "update": "更新链接分类"
+        },
+        "list": {
+            "title": "链接分类列表",
+            "table": {
+                "name": "名称",
+                "description": "描述",
+                "action": "操作",
+                "url": "URL"
+            }
+        },
+        "modal": {
+            "create": {
+                "title": "创建链接分类",
+                "form": {
+                    "name": {
+                        "label": "名称",
+                        "placeholder": "请输入",
+                        "required": "请输入"
+                    },
+                    "description": {
+                        "label": "描述",
+                        "placeholder": "请输入",
+                        "required": "请输入"
+                    }
+                }
+            },
+            "update": {
+                "title": "更新链接分类",
+                "form": {
+                    "name": {
+                        "label": "名称",
+                        "placeholder": "请输入",
+                        "required": "请输入"
+                    },
+                    "description": {
+                        "label": "描述",
+                        "placeholder": "请输入",
+                        "required": "请输入"
+                    }
+                }
+            }
+        }
+    },
+    "link": {
+        "action": {
+            "create": "创建链接",
+            "update": "更新链接"
+        },
+        "list": {
+            "title": "链接列表",
+            "all_list": "全部",
+            "table": {
+                "name": "名称",
+                "url": "URL",
+                "description": "描述",
+                "action": "操作"
+            }
+        },
+        "modal": {
+            "create": {
+                "title": "创建链接",
+                "form": {
+                    "name": {
+                        "label": "名称",
+                        "placeholder": "请输入",
+                        "required": "请输入"
+                    },
+                    "url": {
+                        "label": "URL",
+                        "placeholder": "请输入",
+                        "required": "请输入"
+                    },
+                    "description": {
+                        "label": "描述",
+                        "placeholder": "请输入",
+                        "required": "请输入"
+                    },
+                    "category": {
+                        "label": "分类",
+                        "placeholder": "请输入",
+                        "required": "请输入"
+                    }
+                }
+            },
+            "update": {
+                "title": "更新链接",
+                "form": {
+                    "name": {
+                        "label": "名称",
+                        "placeholder": "请输入",
+                        "required": "请输入"
+                    },
+                    "url": {
+                        "label": "URL",
+                        "placeholder": "请输入",
+                        "required": "请输入"
+                    },
+                    "description": {
+                        "label": "描述",
+                        "placeholder": "请输入",
+                        "required": "请输入"
+                    },
+                    "category": {
+                        "label": "分类",
+                        "placeholder": "请输入",
+                        "required": "请输入"
+                    }
+                }
+            }
+        }
+    }
+}

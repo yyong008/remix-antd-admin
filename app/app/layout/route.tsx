@@ -1,6 +1,7 @@
 import { Nav } from "./components/Nav";
 import { Outlet } from "react-router";
 import { useNProgress } from "@/hooks/useNprogress";
+import '@ant-design/v5-patch-for-react-19';
 
 export function Route() {
   useNProgress();

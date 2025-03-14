@@ -25,12 +25,7 @@ export const adminRoutes = [
       ]),
       ...prefix("profile", [
         route("account", rf_path("profile", "account")),
-        ...prefix("link", [
-          ...prefix("category", [
-            index(rf_path("profile", "link", "category")),
-            route(":id", rf_path("profile", "link", "category-detail")),
-          ]),
-        ]),
+        route("link", rf_path("profile", "link")),
       ]),
       ...prefix("system", [
         route("config", rf_path("system", "config")),

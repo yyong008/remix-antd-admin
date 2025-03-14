@@ -47,6 +47,7 @@
     "@ant-design/pro-chat": "^1.15.1",
     "@ant-design/pro-components": "^2.7.14",
     "@ant-design/pro-editor": "^1.2.1",
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@bytemd/plugin-gfm": "^1.21.0",
     "@bytemd/react": "^1.21.0",
     "@hono/zod-validator": "^0.4.3",

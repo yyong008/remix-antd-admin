@@ -1,4 +1,4 @@
-export function LinkSvg() {
+export function LinkSvg({ style }: { style?: React.CSSProperties }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -7,7 +7,7 @@ export function LinkSvg() {
       height="24px"
       viewBox="0 0 24 24"
       width="14px"
-      fill="gray"
+      fill={style?.color || "gray"}
     >
       <path d="M0 0h24v24H0V0z" fill="none"></path>
       <path d="M9 5v2h6.59L4 18.59 5.41 20 17 8.41V15h2V5H9z"></path>

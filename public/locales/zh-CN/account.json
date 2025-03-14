@@ -1,0 +1,20 @@
+{
+    "avatar": "头像",
+    "name": "姓名",
+    "email": "邮箱",
+    "phone": "电话",
+    "address": "地址",
+    "createTime": "创建时间",
+    "updateTime": "更新时间",
+    "department": "部门",
+    "role": "角色",
+    "nickname": "昵称",
+    "remark": "备注",
+    "lang": "语言",
+    "theme": "主题",
+    "action": {
+        "edit": "编辑",
+        "save": "保存",
+        "cancel": "取消"
+    }
+}

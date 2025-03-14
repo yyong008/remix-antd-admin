@@ -1,6 +1,7 @@
 import axios from "axios";
 import { simpleStorage } from "./simpleStorage";
 import { defaultLang } from "~/config/lang";
+import { message } from "antd";
 
 const api = axios.create({
   baseURL: "/api/v1",
@@ -34,7 +35,6 @@ api.interceptors.response.use(
       const refreshResponse: any = await api.post("/auth/refresh_token", {
         refresh_token: simpleStorage.getRefreshToken(),
       });
-      console.log("refreshResponse", refreshResponse);
       if (refreshResponse && refreshResponse.code === 0) {
         // 刷新成功，重新请求
         simpleStorage.setToken(refreshResponse.data.token);
@@ -44,7 +44,8 @@ api.interceptors.response.use(
         return await api.request(response.config);
       } else {
         // 刷新失败，跳转到登录页
-        window.location.href = "/login";
+        message.error("登录过期")
+        window.location.href = `/${defaultLang}/admin/login`; 
       }
     }
 
@@ -54,6 +55,7 @@ api.interceptors.response.use(
   async (error) => {
     if (error.response.status === 401) {
       // 跳转到登录页
+      message.error("登录过期")
       window.location.href = `/${defaultLang}/admin/login`;
     }
     // 统一的错误处理
