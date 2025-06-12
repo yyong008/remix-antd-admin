@@ -23,5 +23,9 @@
   },
   "cSpell.words": [
     "dals"
+  ],
+  "i18n-ally.localesPaths": [
+    "public/locales",
+    "app/libs/i18n"
   ]
 }
