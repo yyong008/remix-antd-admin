@@ -2,18 +2,20 @@ import { defineConfig } from "vite";
 
 import dayjs from "dayjs";
 import pkg from "./package.json";
+import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { getLoadContext } from "./load-context";
 import { reactRouter } from "@react-router/dev/vite";
 import serverAdapter from "hono-react-router-adapter/vite";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
+
 const __APP_INFO__ = JSON.stringify({
   pkg,
   lastBuildTime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
 });
 
-export default defineConfig(({ isSsrBuild, command }) => ({
+export default defineConfig({
   ssr: {
     noExternal: [
       "@ant-design/icons",
@@ -41,8 +43,9 @@ export default defineConfig(({ isSsrBuild, command }) => ({
       project: "./project.inlang",
       outdir: "./app/paraglide",
     }),
+    tailwindcss(),
   ],
   define: {
     __APP_INFO__,
   },
-}));
+});
