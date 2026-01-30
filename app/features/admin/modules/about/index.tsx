@@ -1,5 +1,5 @@
 import type { MetaFunction } from "react-router";
-import { Route } from "~/admin/modules/about/route";
+import { Route } from "~/features/admin/modules/about/route";
 
 export const meta: MetaFunction = () => {
   return [{ title: "About" }];

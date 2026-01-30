@@ -1,4 +1,4 @@
-import { Route } from "~/admin/modules/welcome/route";
+import { Route } from "~/features/admin/modules/welcome/route";
 
 export default function Page() {
   return <Route />;

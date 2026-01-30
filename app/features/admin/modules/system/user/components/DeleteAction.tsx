@@ -1,7 +1,7 @@
 import { Button, Popconfirm, message } from "antd";
 
 import { DeleteOutlined } from "@ant-design/icons";
-import { deleteUserByIds } from "~/admin/apis/admin/system/user";
+import { deleteUserByIds } from "~/features/admin/apis/admin/system/user";
 
 export function DeleteAction({ record, reload }: any) {
   return (

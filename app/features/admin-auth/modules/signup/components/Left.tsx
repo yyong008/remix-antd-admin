@@ -6,7 +6,7 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router";
 import React from "react";
 import { message } from "antd";
-import { register } from "~/admin/apis/auth";
+import { register } from "~/features/admin/apis/auth";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { useNavigate } from "react-router";
 import { useParamsLang } from "~/hooks/userParamsLang";

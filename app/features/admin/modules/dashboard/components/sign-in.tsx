@@ -3,7 +3,7 @@ import { Button, message } from "antd";
 import { CheckCircleFilled } from "@ant-design/icons";
 import confetti from "canvas-confetti";
 import { useState } from "react";
-import { userSignIn } from "~/admin/apis/admin/system/user";
+import { userSignIn } from "~/features/admin/apis/admin/system/user";
 
 export function SignIn({ data: _data }: any) {
   const [data, setData] = useState(_data);

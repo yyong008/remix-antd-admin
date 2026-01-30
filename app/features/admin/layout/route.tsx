@@ -12,7 +12,7 @@ import { SettingContext } from "@/context/setting-context";
 import { SettingDrawerWrap } from "./components/SettingDrawerWrap";
 import { createActionRenderWrap } from "./components/createActionsRender";
 import { createTokens } from "./components/createToken";
-import { getUserInfo } from "~/admin/apis/admin/system/user";
+import { getUserInfo } from "~/features/admin/apis/admin/system/user";
 import { info } from "@/config/project";
 import { prolayoutConfig } from "@/config/prolayout";
 import { useNProgress } from "@/hooks/useNprogress";

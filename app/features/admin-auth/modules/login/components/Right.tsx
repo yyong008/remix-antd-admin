@@ -5,7 +5,7 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 
 import { Link } from "react-router";
 import React from "react";
-import { login } from "~/admin/apis/auth";
+import { login } from "~/features/admin/apis/auth";
 import { message } from "antd";
 import { simpleStorage } from "@/libs/simpleStorage";
 import { useColorPrimary } from "~/hooks/useColorPrimary";

@@ -30,7 +30,6 @@ export const authRoutes = [
   ...prefix(":locale?/auth", [
     route("login", auth_file_path("login")),
     route("signup", auth_file_path("signup")),
-    route("welcome", auth_file_path("welcome")),
   ]),
 ];
 
@@ -40,7 +39,7 @@ const rf_path = (...args: string[]) =>
 
 export const adminRoutes = [
   ...prefix(":locale?/admin", [
-    layout("admin/layout/index.tsx", [
+    layout("features/admin/layout/index.tsx", [
       ...prefix("dashboard", [index(rf_path("dashboard"))]),
       ...prefix("ai", [route("simplechat", rf_path("ai", "simplechat"))]),
       ...prefix("news", [

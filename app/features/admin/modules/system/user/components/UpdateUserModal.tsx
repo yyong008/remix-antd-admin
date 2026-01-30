@@ -1,7 +1,7 @@
 import { UpdateUserModalUI } from "./UpdateUserModalUI";
 import { UserModalFormItems } from "./ModalFormItems";
 import { genFileListByName } from "@/utils/server/utils";
-import { updateUserById } from "@/admin/apis/admin/system/user";
+import { updateUserById } from "~/features/admin/apis/admin/system/user";
 
 type UpdateUserModalProps = {
   loading: boolean;

@@ -2,7 +2,7 @@ import * as clientUtils from "@/utils/client";
 
 import { CreateUserModalUI } from "./CreateUserModalUI";
 import { UserModalFormItems } from "./ModalFormItems";
-import { createUser } from "~/admin/apis/admin/system/user";
+import { createUser } from "~/features/admin/apis/admin/system/user";
 
 type CreateUserModalProps = {
   loading?: boolean;

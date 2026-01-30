@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
 import { createToolBarRender } from "./components/create-toolbar-render";
 import { createUserTableColumns } from "./components/createColumns";
-import { getUserList } from "~/admin/apis/admin/system/user";
+import { getUserList } from "~/features/admin/apis/admin/system/user";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 
 export function Route() {

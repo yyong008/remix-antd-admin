@@ -2,7 +2,7 @@ import { LoginIn, SignIn } from "./components";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { useEffect, useState } from "react";
 
-import { getDashboard } from "~/admin/apis/admin/dashboard";
+import { getDashboard } from "~/features/admin/apis/admin/dashboard";
 
 export function Route() {
   const [data, setData] = useState<any>();
