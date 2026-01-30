@@ -41,3 +41,6 @@ paraglide/
 
 # cloudflare
 .wrangler/
+
+# fumadocs-mdx
+.source

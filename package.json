@@ -42,7 +42,8 @@
     "docker:build": "docker build -t remix-antd-admin .",
     "prisma:generate": "prisma generate",
     "prisma:db:push": "prisma db push",
-    "prisma:migrate": "prisma migrate dev"
+    "prisma:migrate": "prisma migrate dev",
+    "postinstall": "fumadocs-mdx"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.21.1",
@@ -56,6 +57,7 @@
     "@js-temporal/polyfill": "^0.4.4",
     "@langchain/core": "^0.3.27",
     "@langchain/ollama": "^0.1.4",
+    "@orama/tokenizers": "^3.1.18",
     "@prisma/adapter-pg": "^7.3.0",
     "@prisma/client": "^7.3.0",
     "@react-router/express": "^7.13.0",
@@ -70,6 +72,9 @@
     "dayjs": "^1.11.10",
     "dompurify": "^3.1.0",
     "figlet": "^1.8.0",
+    "fumadocs-core": "^16.4.11",
+    "fumadocs-mdx": "^14.2.6",
+    "fumadocs-ui": "^16.4.11",
     "hono": "^4.7.2",
     "hono-react-router-adapter": "^0.6.5",
     "i18next": "^24.2.1",
@@ -81,6 +86,7 @@
     "jose": "^5.4.1",
     "js-export-excel": "^1.1.4",
     "jszip": "^3.10.1",
+    "lucide-react": "^0.563.0",
     "nanoid": "^5.0.6",
     "nodemailer": "^6.9.13",
     "nprogress": "^0.2.0",
@@ -100,12 +106,12 @@
     "react-router": "^7.13.0",
     "react-type-animation": "^3.2.0",
     "remix-i18next": "^7.0.2",
-    "remix-utils": "^7.5.0",
+    "remix-utils": "^9.0.1",
     "rxjs": "^7.8.1",
     "systeminformation": "^5.22.9",
     "tailwindcss": "^4.1.18",
     "ua-parser-js": "^1.0.37",
-    "zod": "^3.22.4"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",

@@ -6,7 +6,8 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { reactRouter } from "@react-router/dev/vite";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import { cloudflare } from "@cloudflare/vite-plugin";
-
+import mdx from "fumadocs-mdx/vite";
+import * as MdxConfig from "./source.config.ts";
 const __APP_INFO__ = JSON.stringify({
   pkg,
   lastBuildTime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
@@ -38,6 +39,7 @@ export default defineConfig({
       outdir: "./app/paraglide",
     }),
     tailwindcss(),
+    mdx(MdxConfig),
   ],
   define: {
     __APP_INFO__,
