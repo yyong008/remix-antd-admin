@@ -15,8 +15,6 @@ app.route("/api/v1", commonRouter);
 app.route("/api/v1/auth", authRouter);
 app.route("/api/v1/admin", adminRouter);
 
-console.table(app.routes);
-
 const fetch = app.fetch.bind(app);
 
 export const { loader, action } = fetch();

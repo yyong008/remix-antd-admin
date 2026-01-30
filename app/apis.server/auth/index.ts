@@ -7,7 +7,6 @@ import { registerService } from "~/services/admin-auth/register";
 export const authRouter = new ReactRouterApi();
 
 authRouter.use(async (c: Context, next: Function) => {
-  console.log("authRouter", c.req.url);
   await next();
 });
 

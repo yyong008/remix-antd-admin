@@ -1,35 +1,12 @@
-/// <reference types="vitest" />
+import { defineConfig } from "vite";
 
-import {
-  defaultClientConditions,
-  defaultServerConditions,
-  defineConfig,
-} from "vite";
-
-import type { Plugin } from "vite";
 import dayjs from "dayjs";
 import pkg from "./package.json";
-import { reactRouter } from "@react-router/dev/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { getLoadContext } from "./load-context";
+import { reactRouter } from "@react-router/dev/vite";
 import serverAdapter from "hono-react-router-adapter/vite";
-import { getLoadContext } from './load-context'
-const prismaFixPlugin: Plugin = {
-  name: "prisma-fix",
-  enforce: "post",
-  config() {
-    return {
-      resolve: {
-        conditions: [...defaultClientConditions],
-      },
-      ssr: {
-        resolve: {
-          conditions: [...defaultServerConditions],
-          externalConditions: [...defaultServerConditions],
-        },
-      },
-    };
-  },
-};
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
 const __APP_INFO__ = JSON.stringify({
   pkg,
@@ -54,12 +31,15 @@ export default defineConfig(({ isSsrBuild, command }) => ({
     },
   },
   plugins: [
-    prismaFixPlugin,
     reactRouter(),
     tsconfigPaths(),
     serverAdapter({
       entry: "./server/index.ts",
-      getLoadContext
+      getLoadContext,
+    }),
+    paraglideVitePlugin({
+      project: "./project.inlang",
+      outdir: "./app/paraglide",
     }),
   ],
   define: {

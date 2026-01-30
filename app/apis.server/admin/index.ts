@@ -12,7 +12,6 @@ export const adminRouter = new ReactRouterApi();
 
 adminRouter.use(authMiddleware);
 adminRouter.use(async (c: Context, next: Function) => {
-  console.log("c", c.req.url);
   await next();
 });
 

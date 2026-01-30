@@ -15,7 +15,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     ]);
     return new Response("OK");
   } catch (error: unknown) {
-    console.log("healthcheck ❌", { error });
+    console.error("healthcheck ❌", { error });
     return new Response("ERROR", { status: 500 });
   }
 }
