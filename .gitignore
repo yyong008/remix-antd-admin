@@ -35,3 +35,6 @@ deploy
 
 # React Router
 /.react-router/
+
+# paraglide
+paraglide/
