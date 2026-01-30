@@ -1,11 +1,11 @@
 import type { LinksFunction } from "react-router";
 import type { MiddlewareFunction } from "react-router";
-import { RootRoute } from "~/app/modules/root/route";
+import { RootRoute } from "~/mkt/modules/root/route";
 import global from "@/styles/global.css?url";
 import npStyle from "nprogress/nprogress.css?url";
 import tailwind from "@/styles/tailwind.css?url";
-export { loader } from "~/app/modules/root/loader";
-export { ErrorBoundary } from "~/app/modules/root/error-boundary";
+export { loader } from "~/mkt/modules/root/loader";
+export { ErrorBoundary } from "~/mkt/modules/root/error-boundary";
 
 import { paraglideMiddleware } from "~/paraglide/server.js";
 
