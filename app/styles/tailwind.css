@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@source "../../app/**/*.{ts,tsx}";
+@source "../app/**/*.{ts,tsx}";
 
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)

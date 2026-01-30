@@ -7,7 +7,6 @@ import tailwind from "@/styles/tailwind.css?url";
 export { loader } from "~/app/modules/root/loader";
 export { ErrorBoundary } from "~/app/modules/root/error-boundary";
 
-
 import { paraglideMiddleware } from "~/paraglide/server.js";
 
 export const middleware: MiddlewareFunction[] = [

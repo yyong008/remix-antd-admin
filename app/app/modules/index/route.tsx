@@ -6,7 +6,7 @@ import { Tiper } from "@/components/landingpage/Tiper";
 
 export function Route() {
   return (
-    <div className="flex flex-col pt-[200px] items-center">
+    <div className="flex flex-col pt-50 items-center">
       <Tiper title="2025" content="👋 Happy New Year" />
       <Hero />
       <BuildWith />

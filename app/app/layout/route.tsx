@@ -12,7 +12,7 @@ export function Route() {
   };
   return (
     <div
-      className="flex justify-center relative min-h-[100vh]"
+      className="flex justify-center relative min-h-screen"
       style={gridStyle}
     >
       <Nav />

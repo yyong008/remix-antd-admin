@@ -5,7 +5,7 @@ export const meta: MetaFunction = () => {
   return [{ title: "Remix Antd Admin" }];
 };
 
-export { loader } from "./loader";
+// export { loader } from "./loader";
 
 export default function Page() {
   return <Route />;

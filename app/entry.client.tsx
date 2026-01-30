@@ -13,13 +13,9 @@ const AppClient = () => {
   });
   const [lang, setLang] = useState("zh-CN");
   return (
-    <StoreProvider>
       <SettingContext.Provider value={{ theme, setTheme, lang, setLang }}>
-        <I18nextProvider i18n={i18next}>
           <HydratedRouter />
-        </I18nextProvider>
       </SettingContext.Provider>
-    </StoreProvider>
   );
 };
 

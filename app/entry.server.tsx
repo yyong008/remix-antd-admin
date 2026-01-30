@@ -17,9 +17,7 @@ export default async function handleRequest(
   const isBot = userAgent && isbot(userAgent);
   const isSpaMode = routerContext.isSpaMode;
   const stream = await renderToReadableStream(
-    // <LocaleContextSSR.Provider value={locale}>
     <ServerRouter context={routerContext} url={request.url} />,
-    // </LocaleContextSSR.Provider>,
     {
       onError(error) {
         console.error(error);
