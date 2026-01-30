@@ -1,13 +1,16 @@
 # 欢迎使用 Remix Antd Admin
 
-## remix antd admin update to
+## remix antd admin update to cloudflare
 
-- prisma v7
+- [x] prisma v7
 - Hono handle api
-- fumadocs
+- cms: fumadocs
 - antd v6
 - @tanstack/react-query
--
+- [x] cloudflare worker
+- nodemail -> resend
+- D1
+- R1
 - ...
 
 一个基于 React Router、React、Antd、TailwindCSS、Prisma 和 RBAC 的现代全栈 Web 解决方案（WIP）。

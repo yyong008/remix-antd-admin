@@ -8,7 +8,7 @@
     "**/.client/**/*.ts",
     "**/.client/**/*.tsx",
     "./app/types/**/*.ts",
-    "server/index.js",
+    "./workers/**/*.ts",
     ".react-router/types/**/*.ts"
   ],
   "compilerOptions": {

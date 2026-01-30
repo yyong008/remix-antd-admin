@@ -38,3 +38,6 @@ deploy
 
 # paraglide
 paraglide/
+
+# cloudflare
+.wrangler/

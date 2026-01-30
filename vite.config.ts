@@ -1,14 +1,11 @@
-import { defineConfig } from "vite";
-
 import dayjs from "dayjs";
 import pkg from "./package.json";
+import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { getLoadContext } from "./load-context";
 import { reactRouter } from "@react-router/dev/vite";
-import serverAdapter from "hono-react-router-adapter/vite";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
-
+import { cloudflare } from "@cloudflare/vite-plugin";
 
 const __APP_INFO__ = JSON.stringify({
   pkg,
@@ -35,10 +32,7 @@ export default defineConfig({
   plugins: [
     reactRouter(),
     tsconfigPaths(),
-    serverAdapter({
-      entry: "./server/index.ts",
-      getLoadContext,
-    }),
+    cloudflare({ viteEnvironment: { name: "ssr" } }),
     paraglideVitePlugin({
       project: "./project.inlang",
       outdir: "./app/paraglide",
