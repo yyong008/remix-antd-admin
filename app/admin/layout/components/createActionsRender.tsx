@@ -35,14 +35,14 @@ const ActionRenderImpl = ({ value }: any) => {
             key: "en",
             label: "EN English",
             onClick: () => {
-              choiceLang("en-US");
+              choiceLang("en");
             },
           },
           {
             key: "cn",
             label: "CN 简体中文",
             onClick: () => {
-              choiceLang("zh-CN");
+              choiceLang("zh");
             },
           },
         ],

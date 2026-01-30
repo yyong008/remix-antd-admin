@@ -1,11 +1,11 @@
 export const optionsLang = [
   {
-    label: "zh-CN",
-    value: "zh-CN",
+    label: "zh",
+    value: "zh",
   },
   {
-    label: "en-US",
-    value: "en-US",
+    label: "en",
+    value: "en",
   },
 ];
 

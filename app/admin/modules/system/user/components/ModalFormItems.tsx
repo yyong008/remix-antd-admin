@@ -88,7 +88,7 @@ export function UserModalFormItems(props: UserModalFormItemProps) {
         placeholder="请输入名称"
         options={optionsLang}
         fieldProps={{
-          defaultValue: "en-US",
+          defaultValue: "en",
         }}
       />
       <ProFormSelect
