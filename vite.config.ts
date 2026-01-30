@@ -11,7 +11,8 @@ import dayjs from "dayjs";
 import pkg from "./package.json";
 import { reactRouter } from "@react-router/dev/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-
+import serverAdapter from "hono-react-router-adapter/vite";
+import { getLoadContext } from './load-context'
 const prismaFixPlugin: Plugin = {
   name: "prisma-fix",
   enforce: "post",
@@ -36,14 +37,6 @@ const __APP_INFO__ = JSON.stringify({
 });
 
 export default defineConfig(({ isSsrBuild, command }) => ({
-  build: {
-    rollupOptions: isSsrBuild
-      ? {
-          input: "./server/index.js",
-          external: ["@prisma/client"],
-        }
-      : undefined,
-  },
   ssr: {
     noExternal: [
       "@ant-design/icons",
@@ -60,7 +53,15 @@ export default defineConfig(({ isSsrBuild, command }) => ({
       ],
     },
   },
-  plugins: [prismaFixPlugin, reactRouter(), tsconfigPaths()],
+  plugins: [
+    prismaFixPlugin,
+    reactRouter(),
+    tsconfigPaths(),
+    serverAdapter({
+      entry: "./server/index.ts",
+      getLoadContext
+    }),
+  ],
   define: {
     __APP_INFO__,
   },

@@ -16,7 +16,7 @@ TODO.md
 prisma/migrations/*
 prisma/dev.db
 prisma/dev.db-journal
-
+app/generated
 docker/
 
 .vercel

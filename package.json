@@ -28,7 +28,7 @@
   "scripts": {
     "build": "react-router build",
     "coverage": "vitest run --coverage",
-    "dev": "node ./server/index.js",
+    "dev": "react-router dev",
     "lint": "eslint ./app",
     "format": "prettier --write app/ public/locales",
     "start": "node ./server/index.js",
@@ -39,7 +39,10 @@
     "changeset": "changeset",
     "version": "changeset version",
     "prepare": "husky install",
-    "docker:build": "docker build -t remix-antd-admin ."
+    "docker:build": "docker build -t remix-antd-admin .",
+    "prisma:generate": "prisma generate",
+    "prisma:db:push": "prisma db push",
+    "prisma:migrate": "prisma migrate dev"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.21.1",
@@ -52,7 +55,8 @@
     "@js-temporal/polyfill": "^0.4.4",
     "@langchain/core": "^0.3.27",
     "@langchain/ollama": "^0.1.4",
-    "@prisma/client": "^6.0.1",
+    "@prisma/adapter-pg": "^7.3.0",
+    "@prisma/client": "^7.3.0",
     "@react-router/express": "^7.6.2",
     "@react-router/node": "^7.6.2",
     "@react-router/serve": "^7.6.2",
@@ -67,6 +71,7 @@
     "express": "^4.19.2",
     "figlet": "^1.8.0",
     "hono": "^4.7.2",
+    "hono-react-router-adapter": "^0.6.5",
     "i18next": "^24.2.1",
     "i18next-browser-languagedetector": "^7.2.0",
     "i18next-fs-backend": "^2.3.1",
@@ -81,6 +86,7 @@
     "nprogress": "^0.2.0",
     "ollama": "^0.5.1",
     "path-to-regexp": "^8.2.0",
+    "pg": "^8.17.2",
     "qrcode": "^1.5.3",
     "quill": "^2.0.2",
     "react": "^18.2.0",
@@ -115,6 +121,7 @@
     "@types/node-cron": "^3.0.11",
     "@types/nodemailer": "^6.4.14",
     "@types/nprogress": "^0.2.3",
+    "@types/pg": "^8.16.0",
     "@types/qrcode": "^1.5.5",
     "@types/react": "^18.2.64",
     "@types/react-copy-to-clipboard": "^5.0.7",
@@ -136,7 +143,8 @@
     "lint-staged": "^15.2.2",
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
-    "prisma": "^6.0.1",
+    "prisma": "^7.3.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.4.2",
     "vite": "^6.0.1",
     "vite-tsconfig-paths": "^4.3.1",
@@ -162,5 +170,8 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "prisma": {
+    "schema": "prisma/schema/schema.prisma"
   }
 }
