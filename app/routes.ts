@@ -4,12 +4,12 @@ import { adminRoutes } from "./admin/route";
 
 
 const appModulesClient = (...args: string[]) =>
-  "mkt/modules/" + args.join("/") + "/index.tsx";
+  "features/mkt/modules/" + args.join("/") + "/index.tsx";
 
 export const clientRoutes = [
-  layout("mkt/layout/index.tsx", [
+  layout("features/mkt/layout/index.tsx", [
     ...prefix(":locale?/", [
-      index("mkt/modules/index/index.tsx"),
+      index("features/mkt/modules/index/index.tsx"),
       route("about", appModulesClient("about")),
       ...prefix("blog", [
         index(appModulesClient("blog")),
