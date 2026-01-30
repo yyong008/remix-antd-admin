@@ -122,7 +122,9 @@ export function NavFooter() {
                     icon={social.icon}
                     href={social.url}
                     target="_blank"
-                    style={{ color: "rgba(255, 255, 255, 0.7)" }}
+                    style={linkStyle}
+                    onMouseEnter={(e) => e.currentTarget.style.color = linkHoverStyle.color}
+                    onMouseLeave={(e) => e.currentTarget.style.color = linkStyle.color}
                   />
                 ))}
               </Space>
@@ -130,9 +132,9 @@ export function NavFooter() {
           </Col>
 
           <Col xs={24} md={8}>
-            <Title level={4} style={{ color: "white", marginBottom: "24px" }}>
+            <div style={sectionTitleStyle}>
               核心特性
-            </Title>
+            </div>
             <List
               dataSource={coreFeatures}
               renderItem={(item) => (
@@ -160,9 +162,9 @@ export function NavFooter() {
           </Col>
 
           <Col xs={24} md={8}>
-            <Title level={4} style={{ color: "white", marginBottom: "24px" }}>
+            <div style={sectionTitleStyle}>
               订阅更新
-            </Title>
+            </div>
             <Paragraph style={{ color: "rgba(255, 255, 255, 0.7)", marginBottom: "16px" }}>
               订阅获取最新版本和功能更新
             </Paragraph>
@@ -311,7 +313,7 @@ export function NavFooter() {
         {/* 备案信息 */}
         <Row justify="center" style={{ marginTop: "24px" }}>
           <Col>
-            <Text style={{ color: "rgba(255, 255, 255, 0.3)", fontSize: "12px" }}>
+            <Text style={footerNoteStyle}>
               Made with ❤️ by the Remix Antd Admin team
             </Text>
           </Col>
