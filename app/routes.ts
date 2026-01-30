@@ -1,4 +1,4 @@
-import { type RouteConfig, index, layout, prefix, route  } from "@react-router/dev/routes";
+import { type RouteConfig, index, layout, prefix, route } from "@react-router/dev/routes";
 
 import { adminRoutes } from "./admin/route";
 
@@ -7,9 +7,9 @@ const appModulesClient = (...args: string[]) =>
   "mkt/modules/" + args.join("/") + "/index.tsx";
 
 export const clientRoutes = [
-  layout("app/layout/index.tsx", [
+  layout("mkt/layout/index.tsx", [
     ...prefix(":locale?/", [
-      index("app/modules/index/index.tsx"),
+      index("mkt/modules/index/index.tsx"),
       route("about", appModulesClient("about")),
       ...prefix("blog", [
         index(appModulesClient("blog")),
@@ -27,23 +27,16 @@ export const clientRoutes = [
 ];
 
 const auth_file_path = (...args: string[]) =>
-  "admin-auth/modules/" + args.join("/") + "/index.tsx";
+  "features/admin-auth/modules/" + args.join("/") + "/index.tsx";
 
 export const authRoutes = [
-  ...prefix(":locale/admin", [
+  ...prefix(":locale?/auth", [
     route("login", auth_file_path("login")),
     route("signup", auth_file_path("signup")),
     route("welcome", auth_file_path("welcome")),
   ]),
 ];
 
-
-// ======================================= route =======================================
-
-const routes = [...clientRoutes, ...authRoutes, ...adminRoutes];
-
-// ======================================= export =======================================
-
 export default [
-  ...routes,
+  ...clientRoutes, ...authRoutes, ...adminRoutes,
 ] satisfies RouteConfig;

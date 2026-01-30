@@ -12,10 +12,9 @@ import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { useNavigate } from "react-router";
 import { useParamsLang } from "~/hooks/userParamsLang";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 
 const LoginForm: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = { t: (key: string) => key };
   const navigate = useNavigate();
   const { lang } = useParamsLang();
   const [isLoading, setIsLoading] = useState(false);
@@ -94,7 +93,7 @@ const LoginForm: React.FC = () => {
 };
 
 export function Right() {
-  const { t } = useTranslation();
+  const { t } = { t: (key: string) => key };
   return (
     <div className="relative flex flex-col justify-center items-center w-1/2 gap-10 h-[100%]">
       <LogoImg />
@@ -112,7 +111,7 @@ export function Right() {
 
 function GoRegister() {
   const { lang } = useParamsLang();
-  const { t } = useTranslation();
+  const { t } = { t: (key: string) => key };
   return (
     <div className="absolute top-[40px] right-[40px] text-gray-700">
       <Link to={"/" + lang + "/admin/register"}>

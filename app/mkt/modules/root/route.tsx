@@ -9,14 +9,12 @@ import {
 } from "react-router";
 
 import { ClientOnly } from "~/components/common/client-only";
-import { useChangeLanguage } from "remix-i18next/react";
 
 export function RootRoute() {
   const params = useParams();
   const _data = useLoaderData();
   const { lang } = _data;
 
-  useChangeLanguage(lang!);
 
   return (
     <html lang={params.lang}>
