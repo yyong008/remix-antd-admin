@@ -11,6 +11,8 @@
 - nodemail -> resend
 - D1
 - R1
+- skills
+  - vercel-react-best-practices
 - ...
 
 一个基于 React Router、React、Antd、TailwindCSS、Prisma 和 RBAC 的现代全栈 Web 解决方案（WIP）。
