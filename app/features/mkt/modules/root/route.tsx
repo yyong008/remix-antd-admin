@@ -4,20 +4,17 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
   useParams,
 } from "react-router";
 
 import { ClientOnly } from "~/components/common/client-only";
+import { DocsRootProvider } from "~/features/cms/components/docs/provider";
 
 export function RootRoute() {
   const params = useParams();
-  const _data = useLoaderData();
-  const { lang } = _data;
-
 
   return (
-    <html lang={params.lang}>
+    <html lang={params.locale || "en"}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,7 +22,10 @@ export function RootRoute() {
         <Links />
       </head>
       <body>
-        <ClientOnly fallback={<></>}>{() => <Outlet />}</ClientOnly>
+        <DocsRootProvider>
+          <ClientOnly fallback={<></>}>{() => <Outlet />}</ClientOnly>
+        </DocsRootProvider>
+
         <ScrollRestoration />
         <Scripts />
       </body>

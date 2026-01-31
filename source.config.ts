@@ -6,7 +6,7 @@ import { defineConfig, defineDocs, frontmatterSchema, metaSchema } from "fumadoc
 
 
 export const docs = defineDocs({
-  dir: "/docs",
+  dir: "content/docs",
   docs: {
     /**
      * @see https://fumadocs.dev/docs/ui/llms
@@ -28,7 +28,7 @@ export const docs = defineDocs({
 });
 
 export const legal = defineDocs({
-  dir: "/legal",
+  dir: "content/legal",
   docs: {
     schema: frontmatterSchema.extend({
       title: z.string(),

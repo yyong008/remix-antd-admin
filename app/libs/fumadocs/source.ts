@@ -3,7 +3,7 @@ import { i18n } from "./i18n";
 import { icons } from "lucide-react";
 import { createElement } from "react";
 import { loader } from "fumadocs-core/source";
-import { docs, legal, } from "../../../.source/server";
+import { docs, legal, } from "#source/server";
 
 /**
  * Create icon component from icon name

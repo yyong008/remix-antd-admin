@@ -1,18 +1,11 @@
 import { legalSource } from "~/libs/fumadocs/source";
 import type { Root } from "fumadocs-core/page-tree";
 
-/**
- * Get legal page data
- * @param params - Route parameters
- * @param params.params - Parameters object
- * @param params.params.locale - Optional locale
- * @param params.params.legal - Legal page path
- * @returns Legal page data with page and tree
- */
 export const getLegalData = async ({ params }: { params: { locale?: string; legal: string } }) => {
   const locale = params.locale;
   const legal = params.legal;
   const slugs = legal ? legal.split("/") : [];
+  console.log("lcoale, slugs", locale, legal, slugs)
   const page = legalSource.getPage(slugs, locale);
 
   if (!page) {

@@ -2,8 +2,6 @@ import type { MDXComponents } from "mdx/types";
 
 import { Mermaid } from "./mermaid";
 import { icons } from "lucide-react";
-import { AiAgent } from "./vibe-code/ai-agent";
-import { AiEditors } from "./vibe-code/ai-editors";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { Banner } from "fumadocs-ui/components/banner";
 import { Tab, Tabs } from "fumadocs-ui/components/tabs";
@@ -37,8 +35,6 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     Tab,
     Tabs,
     TypeTable,
-    AiAgent,
-    AiEditors,
     Mermaid,
     img: (props) => <ImageZoom {...(props as any)} />,
   };

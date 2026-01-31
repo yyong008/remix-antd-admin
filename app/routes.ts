@@ -1,4 +1,21 @@
-import { type RouteConfig, index, layout, prefix, route } from "@react-router/dev/routes";
+import {
+  type RouteConfig,
+  index,
+  layout,
+  prefix,
+  route,
+} from "@react-router/dev/routes";
+
+const cmsRoutes = [
+  ...prefix(":locale?/", [
+    route("docs/*", "routes/cms/docs.$.tsx"),
+    route("/privacy-policy", "./routes/cms/privacy-policy.tsx"),
+    route("/terms-of-service", "./routes/cms/terms-of-service.tsx"),
+    route("/cookie-policy", "./routes/cms/cookie-policy.tsx"),
+    route("/license", "./routes/cms/license.tsx"),
+  ]),
+];
+
 
 const appModulesClient = (...args: string[]) =>
   "features/mkt/modules/" + args.join("/") + "/index.tsx";
@@ -18,6 +35,7 @@ export const clientRoutes = [
       ]),
       route("privacy", appModulesClient("privacy")),
     ]),
+    ...cmsRoutes,
   ]),
   // any
   route("*", appModulesClient("any")),
@@ -96,5 +114,7 @@ export const adminRoutes = [
 ];
 
 export default [
-  ...clientRoutes, ...authRoutes, ...adminRoutes,
+  ...clientRoutes,
+  ...authRoutes,
+  ...adminRoutes,
 ] satisfies RouteConfig;
