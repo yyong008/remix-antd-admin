@@ -1,13 +1,11 @@
 import defaultMdxComponents from "fumadocs-ui/mdx";
-import { MktHeader } from "../../components/mkt-header";
-import browserCollections from "@workspace/cms/source/browser";
-import type { LegalPage } from "../../types";
+import browserCollections from "#source/browser";
+
 
 export const clientLoader = browserCollections.legal.createClientLoader({
-  component({ default: Mdx, frontmatter }) {
+  component({ default: Mdx }) {
     return (
       <div className="py-10">
-        <MktHeader title={frontmatter.title} description={frontmatter.description} />
         <div className="prose dark:prose-invert container mx-auto w-6xl py-2">
           <Mdx components={{ ...defaultMdxComponents }} />
         </div>
@@ -20,7 +18,7 @@ export const clientLoader = browserCollections.legal.createClientLoader({
  * Legal component props
  */
 interface LegalComponentProps {
-  page: LegalPage;
+  page: any;
 }
 
 /**
@@ -33,7 +31,8 @@ export function LegalComponent({ page }: LegalComponentProps) {
   if (!page) {
     return <div className="mx-auto max-w-4xl py-10">Document not found.</div>;
   }
-  const Content = clientLoader.getComponent(page.path);
+  const Content:  any = clientLoader.getComponent(page.path);
 
   return <Content />;
 }
+export default LegalComponent;

@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { useMemo, useState } from "react";
-import { cn } from "@workspace/ui/lib/utils";
+import { cn } from "~/utils/index";
 import { cva } from "class-variance-authority";
 import { useCopyButton } from "fumadocs-ui/utils/use-copy-button";
 import { buttonVariants } from "fumadocs-ui/components/ui/button";

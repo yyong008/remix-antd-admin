@@ -31,7 +31,6 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     File,
     Files,
     Folder,
-    GithubInfo,
     InlineTOC,
     Step,
     Steps,

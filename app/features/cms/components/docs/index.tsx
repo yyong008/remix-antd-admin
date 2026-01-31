@@ -1,11 +1,11 @@
-import { GetSaaS } from "./get-saas";
+
 import { useParams } from "react-router";
-import { baseOptions } from "../../lib/layout.shared";
+import { baseOptions } from "./layout.shared";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import { DocsBody, DocsPage } from "fumadocs-ui/page";
 import { getMDXComponents } from "./mdx-components-blog";
 import { LLMCopyButton, ViewOptions } from "./page-actions";
-import browserCollections from "@workspace/cms/source/browser";
+import browserCollections from "#source/browser";
 import { useFumadocsLoader } from "fumadocs-core/source/client";
 
 const clientLoader = browserCollections.docs.createClientLoader({
@@ -16,7 +16,6 @@ const clientLoader = browserCollections.docs.createClientLoader({
         tableOfContent={{
           style: "clerk",
           single: false,
-          footer: <GetSaaS />,
         }}
         lastUpdate={new Date(props.lastModified!)}
       >

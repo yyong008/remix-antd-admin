@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { RefreshCw } from "lucide-react";
-import { cn } from "@workspace/ui/lib/utils";
+import { cn } from "~/utils/index";
 
 interface PreviewContainerProps {
   children: React.ReactNode;
