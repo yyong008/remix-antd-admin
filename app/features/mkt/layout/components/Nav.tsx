@@ -8,7 +8,9 @@ import {
   UserOutlined,
   SettingOutlined,
   LogoutOutlined,
+  BookOutlined,
 } from "@ant-design/icons";
+import { Book } from "lucide-react"
 import { useParams, useNavigate, useLocation, Outlet } from "react-router";
 
 import { defaultLang } from "@/config/lang"; // must import lang no use config (in server)
@@ -39,6 +41,11 @@ export function Nav() {
     {
       key: `/${locale}/blog`,
       label: "Blog",
+      icon: <BookOutlined />,
+    },
+    {
+      key: `/${locale}/docs`,
+      label: "Docs",
       icon: <ReadOutlined />,
     },
     {
