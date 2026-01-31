@@ -5,7 +5,7 @@ import { ProCard } from "@ant-design/pro-components";
 export const ProjectAbout = () => {
   const { pkg } = __APP_INFO__;
   const allDeps = { ...pkg.dependencies, ...pkg.devDependencies };
-
+  console.log("allDeps", allDeps);
   const getMajorVersion = (depName: DepType) => {
     return allDeps[depName].match(/\d+/)?.[0] || "";
   };

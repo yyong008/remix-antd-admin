@@ -4,14 +4,18 @@
 
 - [x] prisma v7
 - Hono handle api
-- cms: fumadocs
-- antd v6
+  - [] api
+  - [] api-client
+- [x]cms: fumadocs
+  - [x]legal
+  - [x]docs
+- [x]antd v6
 - @tanstack/react-query
 - [x] cloudflare worker
 - nodemail -> resend
 - D1
 - R1
-- skills
+- [x]skills
   - vercel-react-best-practices
 - ...
 
