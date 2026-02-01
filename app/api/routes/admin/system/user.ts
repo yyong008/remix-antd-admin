@@ -7,7 +7,6 @@ import {
   getSearchParamsPage,
   getSearchParamsPageSize,
 } from "~/utils/server";
-import { joseJwt } from "~/libs/jose";
 import { signInLog } from "~/dals/sign-in/SignInLogDAL";
 import { userDAL } from "~/dals/system/UserDAL";
 import { userPermsDAL } from "~/dals/system/UserPermsDAL";
@@ -98,15 +97,7 @@ userRouter.delete("/", async (c) => {
 
 userRouter.post("/signin", async (c) => {
   try {
-    const token = c.req.header("Authorization")?.split(" ")[1];
-    if (!token) {
-      return rfj({}, "No Authorization No Token", { status: 401 });
-    }
-    const { payload, error } = await joseJwt.getPayloadByToken(token);
-    if (error || !payload) {
-      return rfj((error as any) ?? {}, "Invalid Token", { status: 401 });
-    }
-    const { userId } = payload as { userId?: number };
+    const userId = c.get("userId");
     if (!userId) {
       return rfj({}, "No Authorization No User", { status: 401 });
     }

@@ -1,47 +1,34 @@
-import * as clientUtils from "@/utils/client";
-
 import { Button, Form, Input } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 
 import { Link } from "react-router";
 import React from "react";
 import { message } from "antd";
-import { simpleStorage } from "@/libs/simpleStorage";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { useNavigate } from "react-router";
 import { useParamsLang } from "~/hooks/userParamsLang";
 import { useLogin } from "~/api-client/queries/auth";
+import { useTranslation } from "react-i18next";
 
 const LoginForm: React.FC = () => {
-  const { t } = { t: (key: string) => key };
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { lang } = useParamsLang();
   const loginMutation = useLogin();
 
   const onFinish = async (values: any) => {
-    const data = {
-      ...values,
-      // password: clientUtils.genHashedPassword(values.password),
-      password: values.password,
-    };
-    const result: any = await loginMutation.mutateAsync(data);
-    if (result.code === 0 && result.data.token?.length > 0) {
-      const { token, refresh_token } = result.data;
-      simpleStorage.setToken(token);
-      simpleStorage.setRefreshToken(refresh_token);
-      message.success(result.data.message);
+    try {
+      await loginMutation.mutateAsync({
+        username: values.username,
+        password: values.password,
+      });
+      message.success("登录成功");
       navigate(`/${lang}/admin/dashboard`, { replace: true });
-    } else {
-      if (
-        result.code === 1 &&
-        result.message === '"exp" claim timestamp check failed'
-      ) {
-        message.error("登录已过期，请重新登录");
-        return;
-      }
-      message.error(result.message ?? "登录失败");
+      return true;
+    } catch (error) {
+      message.error((error as Error)?.message ?? "登录失败");
+      return false;
     }
-    return true;
   };
 
   return (
@@ -51,6 +38,7 @@ const LoginForm: React.FC = () => {
       style={{ width: 560 }}
       onFinish={onFinish}
       size="large"
+      layout="vertical"
     >
       <Form.Item
         name="username"
@@ -64,6 +52,8 @@ const LoginForm: React.FC = () => {
         <Input
           prefix={<UserOutlined />}
           placeholder={t("login-register.placeholder.username") as string}
+          autoComplete="username"
+          allowClear
         />
       </Form.Item>
       <Form.Item
@@ -73,12 +63,16 @@ const LoginForm: React.FC = () => {
             required: true,
             message: t("login-register.message.password-message") as string,
           },
+          {
+            min: 6,
+            message: t("login-register.message.password-message") as string,
+          },
         ]}
       >
-        <Input
+        <Input.Password
           prefix={<LockOutlined />}
-          type="password"
           placeholder={t("login-register.placeholder.password") as string}
+          autoComplete="current-password"
         />
       </Form.Item>
 
@@ -97,7 +91,7 @@ const LoginForm: React.FC = () => {
 };
 
 export function Right() {
-  const { t } = { t: (key: string) => key };
+  const { t } = useTranslation();
   return (
     <div className="relative flex flex-col justify-center items-center w-1/2 gap-10 h-[100%]">
       <LogoImg />

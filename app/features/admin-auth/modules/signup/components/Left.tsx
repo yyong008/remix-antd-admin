@@ -1,7 +1,6 @@
-import * as clientUtils from "@/utils/client";
-
 import { Button, Form, Input } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { MailOutlined } from "@ant-design/icons";
 
 import { Link } from "react-router";
 import React from "react";
@@ -10,30 +9,27 @@ import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { useNavigate } from "react-router";
 import { useParamsLang } from "~/hooks/userParamsLang";
 import { useTranslation } from "react-i18next";
-import { useRegister } from "~/api-client/queries/auth";
+import { useEamilSignup } from "~/api-client/queries/auth";
 
 const LoginForm: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { lang } = useParamsLang();
-  const registerMutation = useRegister();
+  const registerMutation = useEamilSignup();
 
   const onFinish = async (values: any) => {
-    if (values.password !== values.passwordRe) {
-      message.error(t("login-register.password-re-not-equal"));
-      return false;
-    }
-    const data = {
-      ...values,
-      password: clientUtils.genHashedPassword(values.password),
-      passwordRe: clientUtils.genHashedPassword(values.passwordRe),
-    };
-    const result: any = await registerMutation.mutateAsync(data);
-    if (result.code === 0) {
-      message.success(result.message);
+    try {
+      await registerMutation.mutateAsync({
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      });
+      message.success("注册成功");
       navigate(`/${lang}/admin/login`, { replace: true });
-    } else {
-      message.error(result.message);
+      return true;
+    } catch (error) {
+      message.error((error as Error)?.message ?? "注册失败");
+      return false;
     }
   };
 
@@ -44,6 +40,7 @@ const LoginForm: React.FC = () => {
       style={{ width: 560 }}
       onFinish={onFinish}
       size="large"
+      layout="vertical"
     >
       <Form.Item
         name="username"
@@ -57,6 +54,24 @@ const LoginForm: React.FC = () => {
         <Input
           prefix={<UserOutlined />}
           placeholder={t("login-register.placeholder.username") as string}
+          autoComplete="username"
+          allowClear
+        />
+      </Form.Item>
+      <Form.Item
+        name="email"
+        rules={[
+          {
+            type: "email",
+            message: t("login-register.message.username-message")!,
+          },
+        ]}
+      >
+        <Input
+          prefix={<MailOutlined />}
+          placeholder="Email"
+          autoComplete="email"
+          allowClear
         />
       </Form.Item>
       <Form.Item
@@ -66,27 +81,42 @@ const LoginForm: React.FC = () => {
             required: true,
             message: t("login-register.message.password-message") as string,
           },
+          {
+            min: 6,
+            message: t("login-register.message.password-message") as string,
+          },
         ]}
       >
-        <Input
+        <Input.Password
           prefix={<LockOutlined />}
-          type="password"
           placeholder={t("login-register.placeholder.password") as string}
+          autoComplete="new-password"
         />
       </Form.Item>
       <Form.Item
         name="passwordRe"
+        dependencies={["password"]}
         rules={[
           {
             required: true,
             message: t("login-register.message.password-message-re") as string,
           },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue("password") === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(
+                new Error(t("login-register.password-re-not-equal")),
+              );
+            },
+          }),
         ]}
       >
-        <Input
+        <Input.Password
           prefix={<LockOutlined />}
-          type="password"
           placeholder={t("login-register.placeholder.password-re") as string}
+          autoComplete="new-password"
         />
       </Form.Item>
 

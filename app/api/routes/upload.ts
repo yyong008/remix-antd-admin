@@ -5,7 +5,7 @@ import { cwd } from "node:process";
 import type { Context } from "hono";
 
 import { storageDAL } from "~/dals/tools/StorageDAL";
-import { joseJwt } from "~/libs/jose";
+// import { getSystemUserIdFromRequest } from "~/utils/server/auth";
 import { extname } from "~/utils/server";
 import { rfj, rsj } from "~/utils/server/response-json";
 
@@ -41,12 +41,7 @@ export async function uploadHandler(c: Context) {
     const buffer = Buffer.from(await file.arrayBuffer());
     fs.writeFileSync(filePath, buffer);
 
-    let userId = 1;
-    const token = c.req.header("Authorization")?.split(" ")[1];
-    if (token) {
-      const { payload } = await joseJwt.getPayloadByToken(token);
-      if (payload?.userId) userId = payload.userId as number;
-    }
+    // const userId = (await getSystemUserIdFromRequest(c.req.raw)) ?? 1;
 
     const result = await storageDAL.create({
       userId,

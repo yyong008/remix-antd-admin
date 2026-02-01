@@ -66,6 +66,7 @@
     "@tanstack/react-query": "^5.90.20",
     "antd": "^6.2.2",
     "antd-style": "^3.6.2",
+    "better-auth": "^1.4.18",
     "canvas-confetti": "^1.9.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

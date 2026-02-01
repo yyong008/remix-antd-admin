@@ -1,18 +1,18 @@
 import { Hono } from "hono";
 import { logger} from "hono/logger";
 import { v1Router } from "./routes";
-import { uploadHandler } from "./upload";
+import { uploadHandler } from "./routes/upload";
 
-export const app = new Hono();
+export const app = new Hono().basePath("/api");
 
 app.use("*", logger());
 
-app.route("/api", v1Router);
+app.route("/", v1Router);
 
-app.get("/api/health", (c) => {
+app.get("/health", (c) => {
   return c.json({ status: "ok" });
 });
 
-app.post("/api/upload", uploadHandler);
+app.post("/upload", uploadHandler);
 
 export type AppType = typeof app;
