@@ -1,17 +1,14 @@
-import { Button, Form, Input } from "antd";
-import { LockOutlined, UserOutlined, MailOutlined} from "@ant-design/icons";
-
-import { Link } from "react-router";
+import { Button, Card, Divider, Form, Input, Typography } from "antd";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { Link, useNavigate } from "react-router";
 import React from "react";
 import { message } from "antd";
+
 import { useColorPrimary } from "~/hooks/useColorPrimary";
-import { useNavigate } from "react-router";
-import { useParamsLang } from "~/hooks/userParamsLang";
 import { useLogin } from "~/api-client/queries/auth";
-import { useTranslation } from "react-i18next";
+import { useParamsLang } from "~/hooks/userParamsLang";
 
 const LoginForm: React.FC = () => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const { lang } = useParamsLang();
   const loginMutation = useLogin();
@@ -19,42 +16,34 @@ const LoginForm: React.FC = () => {
   const onFinish = async (values: any) => {
     try {
       await loginMutation.mutateAsync({
-        email: values.email,
+        username: values.username,
         password: values.password,
       });
-      message.success("登录成功");
+      message.success("Signed in successfully");
       navigate(`/${lang}/admin/dashboard`, { replace: true });
       return true;
     } catch (error) {
-      message.error((error as Error)?.message ?? "登录失败");
+      message.error((error as Error)?.message ?? "Sign in failed");
       return false;
     }
   };
 
   return (
-    <Form
-      name="login"
-      initialValues={{ remember: true }}
-      style={{ width: 560 }}
-      onFinish={onFinish}
-      size="large"
-      layout="vertical"
-    >
+    <Form name="login" onFinish={onFinish} size="large" layout="vertical">
       <Form.Item
-        name="email"
+        name="username"
         rules={[
           {
             required: true,
-            message:"email"
+            message: "Please enter your username or email.",
           },
         ]}
       >
         <Input
-          prefix={<MailOutlined />}
-          placeholder={"email"}
-          autoComplete="email"
+          prefix={<UserOutlined />}
+          placeholder="Username or email"
+          autoComplete="username"
           allowClear
-          type="email"
         />
       </Form.Item>
       <Form.Item
@@ -62,17 +51,17 @@ const LoginForm: React.FC = () => {
         rules={[
           {
             required: true,
-            message: t("login-register.message.password-message") as string,
+            message: "Please enter your password.",
           },
           {
             min: 6,
-            message: t("login-register.message.password-message") as string,
+            message: "Password must be at least 6 characters.",
           },
         ]}
       >
         <Input.Password
           prefix={<LockOutlined />}
-          placeholder={t("login-register.placeholder.password") as string}
+          placeholder="Password"
           autoComplete="current-password"
         />
       </Form.Item>
@@ -84,7 +73,7 @@ const LoginForm: React.FC = () => {
           htmlType="submit"
           loading={loginMutation.isPending}
         >
-          {t("login-register.submit")}
+          Sign In
         </Button>
       </Form.Item>
     </Form>
@@ -92,62 +81,41 @@ const LoginForm: React.FC = () => {
 };
 
 export function Right() {
-  const { t } = useTranslation();
-  return (
-    <div className="relative flex flex-col justify-center items-center w-1/2 gap-10 h-[100%]">
-      <LogoImg />
-      <div className="flex flex-col items-center text-4xl gap-3">
-        <div className="mb-[20px]">{t("login-register.title")}</div>
-        <div>👏 {t("login-register.account-login")} ~</div>
-      </div>
-      <div className="text-gray-500">{t("login-register.desc")}</div>
-      <LoginForm />
-      <GoRegister />
-      <Tip />
-    </div>
-  );
-}
-
-function GoRegister() {
-  const { lang } = useParamsLang();
-  const { t } = { t: (key: string) => key };
-  return (
-    <div className="absolute top-[40px] right-[40px] text-gray-700">
-      <Link to={"/" + lang + "/admin/register"}>
-        {t("login-register.register")}
-      </Link>
-    </div>
-  );
-}
-
-function Tip() {
-  return (
-    <div className="text-slate-400">
-      By clicking continue, you agree to our Terms of Service and <GoPrivacy />.
-    </div>
-  );
-}
-
-function GoPrivacy() {
-  const { lang } = useParamsLang();
   const p = useColorPrimary();
   return (
-    <Link
-      to={`/${lang}/privacy`}
-      style={{ color: p.colorPrimary, textDecoration: "underline" }}
+    <Card
+      className="w-full max-w-[520px] shadow-[0_20px_80px_rgba(15,23,42,0.12)]"
+      bordered={false}
+      styles={{ body: { padding: "32px" } }}
     >
-      Privacy Policy
-    </Link>
+      <div className="flex items-center gap-3">
+        <LogoImg />
+        <div>
+          <Typography.Title level={4} style={{ margin: 0 }}>
+            Remix Antd Admin
+          </Typography.Title>
+          <Typography.Text type="secondary">
+            Sign in to continue
+          </Typography.Text>
+        </div>
+      </div>
+      <Divider style={{ margin: "20px 0" }} />
+      <LoginForm />
+      <div className="flex items-center justify-between text-sm">
+        <Typography.Text type="secondary">
+          New here?{" "}
+          <Link to="/auth/signup" style={{ color: p.colorPrimary }}>
+            Create an account
+          </Link>
+        </Typography.Text>
+        <Link to="/" className="text-gray-500">
+          Back to home
+        </Link>
+      </div>
+    </Card>
   );
 }
 
 function LogoImg() {
-  return (
-    <img
-      className="w-[30px]"
-      alt="logo"
-      src="/logo.png"
-      style={{ width: "100px" }}
-    />
-  );
+  return <img className="w-[44px] rounded-xl" alt="logo" src="/logo.png" />;
 }

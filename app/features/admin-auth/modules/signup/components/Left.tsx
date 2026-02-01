@@ -1,59 +1,46 @@
-import { Button, Form, Input } from "antd";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { MailOutlined } from "@ant-design/icons";
-
-import { Link } from "react-router";
+import { Button, Card, Divider, Form, Input, Typography } from "antd";
+import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import React from "react";
+import { href, Link, useNavigate, useParams } from "react-router";
 import { message } from "antd";
+
 import { useColorPrimary } from "~/hooks/useColorPrimary";
-import { useNavigate } from "react-router";
-import { useParamsLang } from "~/hooks/userParamsLang";
-import { useTranslation } from "react-i18next";
 import { useEamilSignup } from "~/api-client/queries/auth";
 
-const LoginForm: React.FC = () => {
-  const { t } = useTranslation();
+
+const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
-  const { lang } = useParamsLang();
-  const registerMutation = useEamilSignup();
+  const { locale } = useParams();
+  const signupMutation = useEamilSignup();
 
   const onFinish = async (values: any) => {
     try {
-      await registerMutation.mutateAsync({
+      await signupMutation.mutateAsync({
         username: values.username,
         email: values.email,
         password: values.password,
       });
-      message.success("注册成功");
-      navigate(`/${lang}/admin/login`, { replace: true });
+      message.success("Account created");
+      navigate(href("/:locale?/auth/login", { locale }), { replace: true });
       return true;
     } catch (error) {
-      message.error((error as Error)?.message ?? "注册失败");
+      message.error((error as Error)?.message ?? "Sign up failed");
       return false;
     }
   };
 
   return (
-    <Form
-      name="login"
-      initialValues={{ remember: true }}
-      style={{ width: 560 }}
-      onFinish={onFinish}
-      size="large"
-      layout="vertical"
-    >
+    <Form name="register" onFinish={onFinish} size="large" layout="vertical">
       <Form.Item
         name="username"
         rules={[
-          {
-            required: true,
-            message: t("login-register.message.username-message")!,
-          },
+          { required: true, message: "Please enter a username." },
+          { min: 2, message: "Username must be at least 2 characters." },
         ]}
       >
         <Input
           prefix={<UserOutlined />}
-          placeholder={t("login-register.placeholder.username") as string}
+          placeholder="Username"
           autoComplete="username"
           allowClear
         />
@@ -61,10 +48,7 @@ const LoginForm: React.FC = () => {
       <Form.Item
         name="email"
         rules={[
-          {
-            type: "email",
-            message: t("login-register.message.username-message")!,
-          },
+          { type: "email", message: "Please enter a valid email." },
         ]}
       >
         <Input
@@ -77,19 +61,13 @@ const LoginForm: React.FC = () => {
       <Form.Item
         name="password"
         rules={[
-          {
-            required: true,
-            message: t("login-register.message.password-message") as string,
-          },
-          {
-            min: 6,
-            message: t("login-register.message.password-message") as string,
-          },
+          { required: true, message: "Please enter a password." },
+          { min: 6, message: "Password must be at least 6 characters." },
         ]}
       >
         <Input.Password
           prefix={<LockOutlined />}
-          placeholder={t("login-register.placeholder.password") as string}
+          placeholder="Password"
           autoComplete="new-password"
         />
       </Form.Item>
@@ -97,25 +75,20 @@ const LoginForm: React.FC = () => {
         name="passwordRe"
         dependencies={["password"]}
         rules={[
-          {
-            required: true,
-            message: t("login-register.message.password-message-re") as string,
-          },
+          { required: true, message: "Please confirm your password." },
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue("password") === value) {
                 return Promise.resolve();
               }
-              return Promise.reject(
-                new Error(t("login-register.password-re-not-equal")),
-              );
+              return Promise.reject(new Error("Passwords do not match."));
             },
           }),
         ]}
       >
         <Input.Password
           prefix={<LockOutlined />}
-          placeholder={t("login-register.placeholder.password-re") as string}
+          placeholder="Confirm password"
           autoComplete="new-password"
         />
       </Form.Item>
@@ -125,9 +98,9 @@ const LoginForm: React.FC = () => {
           block
           type="primary"
           htmlType="submit"
-          loading={registerMutation.isPending}
+          loading={signupMutation.isPending}
         >
-          {t("login-register.submit")}
+          Create Account
         </Button>
       </Form.Item>
     </Form>
@@ -135,60 +108,41 @@ const LoginForm: React.FC = () => {
 };
 
 export function Left() {
-  const { t } = useTranslation();
-  return (
-    <div className="relative flex flex-col justify-center items-center w-1/2 gap-10 h-[100%]">
-      <LogoImg />
-      <div className="flex flex-col items-center text-4xl gap-3">
-        <div className="mb-[20px]">{t("login-register.title")}</div>
-        <div>👏 {t("login-register.account-register")} ~</div>
-      </div>
-      <div className="text-gray-500">{t("login-register.desc")}</div>
-      <LoginForm />
-      <GoLogin />
-      <Tip />
-    </div>
-  );
-}
-
-function GoLogin() {
-  const { lang } = useParamsLang();
-  const { t } = useTranslation();
-  return (
-    <div className="absolute top-[40px] left-[40px] text-gray-700">
-      <Link to={"/" + lang + "/admin/login"}>{t("login-register.login")}</Link>
-    </div>
-  );
-}
-
-function Tip() {
-  return (
-    <div className="text-slate-400">
-      By clicking continue, you agree to our Terms of Service and <GoPrivacy />.
-    </div>
-  );
-}
-
-function GoPrivacy() {
-  const { lang } = useParamsLang();
   const p = useColorPrimary();
+  const { locale } = useParams()
   return (
-    <Link
-      to={`/${lang}/privacy`}
-      style={{ color: p.colorPrimary, textDecoration: "underline" }}
+    <Card
+      className="w-full max-w-[560px] shadow-[0_20px_80px_rgba(15,23,42,0.12)]"
+      styles={{ body: { padding: "32px" } }}
     >
-      Privacy Policy
-    </Link>
+      <div className="flex items-center gap-3">
+        <LogoImg />
+        <div>
+          <Typography.Title level={4} style={{ margin: 0 }}>
+            Remix Antd Admin
+          </Typography.Title>
+          <Typography.Text type="secondary">
+            Create your account
+          </Typography.Text>
+        </div>
+      </div>
+      <Divider style={{ margin: "20px 0" }} />
+      <RegisterForm />
+      <div className="flex items-center justify-between text-sm">
+        <Typography.Text type="secondary">
+          Already have an account?{" "}
+          <Link to={href("/:locale?/auth/login", { locale })} style={{ color: p.colorPrimary }}>
+            Sign in
+          </Link>
+        </Typography.Text>
+        <Link to="/" className="text-gray-500">
+          Back to home
+        </Link>
+      </div>
+    </Card>
   );
 }
 
 function LogoImg() {
-  return (
-    <img
-      className="w-[30px]"
-      alt="logo"
-      src="/logo.png"
-      style={{ width: "100px" }}
-    />
-  );
+  return <img className="w-[44px] rounded-xl" alt="logo" src="/logo.png" />;
 }

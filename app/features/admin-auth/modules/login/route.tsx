@@ -1,5 +1,4 @@
 import { ConfigProvider } from "antd";
-import { Left } from "./components/Left";
 import { ProConfigProvider } from "@ant-design/pro-components";
 import { Right } from "./components/Right";
 import { SettingContext } from "@/context/setting-context";
@@ -17,9 +16,10 @@ export function Route() {
           token: value.theme,
         }}
       >
-        <div className="flex flex-1 flex-grow w-[100vw] h-[100vh]">
-          <Left />
-          <Right />
+        <div className="min-h-screen w-full bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.18),_transparent_50%),radial-gradient(circle_at_bottom,_rgba(16,185,129,0.2),_transparent_55%)]">
+          <div className="flex min-h-screen items-center justify-center px-6 py-12">
+            <Right />
+          </div>
         </div>
       </ConfigProvider>
     </ProConfigProvider>

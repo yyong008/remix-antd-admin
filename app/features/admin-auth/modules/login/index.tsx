@@ -4,7 +4,7 @@ import { Route } from "./route";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "用户登录",
+      title: "Sign In",
     },
   ];
 };
