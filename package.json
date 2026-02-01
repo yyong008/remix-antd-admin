@@ -48,8 +48,8 @@
 		"db:seed": "dotenv -c -w ./.env  tsx db/seed.ts"
 	},
 	"dependencies": {
-		"@ant-design/cssinjs": "^1.21.1",
-		"@ant-design/icons": "^5.4.0",
+		"@ant-design/cssinjs": "^2.0.3",
+		"@ant-design/icons": "^6.1.0",
 		"@ant-design/pro-chat": "^1.15.1",
 		"@ant-design/pro-components": "^2.7.14",
 		"@ant-design/pro-editor": "^1.2.1",
