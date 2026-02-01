@@ -1,5 +1,5 @@
 import { Button, Form, Input } from "antd";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { LockOutlined, UserOutlined, MailOutlined} from "@ant-design/icons";
 
 import { Link } from "react-router";
 import React from "react";
@@ -19,7 +19,7 @@ const LoginForm: React.FC = () => {
   const onFinish = async (values: any) => {
     try {
       await loginMutation.mutateAsync({
-        username: values.username,
+        email: values.email,
         password: values.password,
       });
       message.success("登录成功");
@@ -41,19 +41,20 @@ const LoginForm: React.FC = () => {
       layout="vertical"
     >
       <Form.Item
-        name="username"
+        name="email"
         rules={[
           {
             required: true,
-            message: t("login-register.message.username-message")!,
+            message:"email"
           },
         ]}
       >
         <Input
-          prefix={<UserOutlined />}
-          placeholder={t("login-register.placeholder.username") as string}
-          autoComplete="username"
+          prefix={<MailOutlined />}
+          placeholder={"email"}
+          autoComplete="email"
           allowClear
+          type="email"
         />
       </Form.Item>
       <Form.Item

@@ -6,7 +6,7 @@ import { simpleStorage } from "~/libs/simpleStorage";
 type AuthResult<T> = { data?: T | null; error?: { message?: string } | null } | T;
 
 type LoginPayload = {
-  username: string;
+  email: string;
   password: string;
 };
 
@@ -54,8 +54,7 @@ function unwrapResult<T>(result: AuthResult<T>, fallbackMessage: string) {
 
 export function useLogin() {
   return useMutation({
-    mutationFn: async ({ username, password }: LoginPayload) => {
-      const email = normalizeAuthEmail(username);
+    mutationFn: async ({ email, password }: LoginPayload) => {
       if (!email || !password) {
         throw new Error("请输入账号和密码");
       }

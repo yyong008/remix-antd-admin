@@ -98,9 +98,7 @@ export const user = pgTable(
     banned: boolean("banned"),
     banReason: text("ban_reason"),
     banExpires: timestamp("ban_expires"),
-    customerId: text("customer_id"),
   },
-  (t) => [index("user_customer_id_idx").on(t.customerId)],
 );
 
 export const session = pgTable("session", {
