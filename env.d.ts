@@ -2,7 +2,6 @@
 import type packageJSON from '../package.json';
 
 declare module 'js-export-excel';
-declare module 'lax.js';
 
 declare global {
   const __APP_INFO__: {
