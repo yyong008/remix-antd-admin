@@ -41,7 +41,7 @@ export const clientRoutes = [
 ];
 
 const auth_file_path = (...args: string[]) =>
-	"features/admin-auth/modules/" + args.join("/") + "/index.tsx";
+	"features/auth/modules/" + args.join("/") + "/index.tsx";
 
 export const authRoutes = [
 	...prefix(":locale?/auth", [
