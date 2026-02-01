@@ -1,3 +1,3 @@
 export function loader() {
-  return {};
+	return {};
 }

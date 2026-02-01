@@ -6,54 +6,54 @@ import { ModalFormItems } from "./ModalFormItems";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 
 export function UpdateBlogCategoryModal({
-  loading,
-  trigger,
-  title,
-  record,
-  refetch,
+	loading,
+	trigger,
+	title,
+	record,
+	refetch,
 }: any) {
-  const [form] = Form.useForm();
-  const { colorPrimary } = useColorPrimary();
-  const [update] = [(...args: any): any => {}];
-  return (
-    <ModalForm
-      loading={loading}
-      key={Date.now()}
-      preserve={false}
-      title={title}
-      onOpenChange={(c) => {
-        form.setFieldsValue({
-          ...record,
-        });
-      }}
-      trigger={
-        trigger ?? (
-          <Button
-            type={"link"}
-            icon={<EditOutlined style={{ color: colorPrimary }} />}
-          ></Button>
-        )
-      }
-      form={form}
-      autoFocusFirstInput
-      modalProps={{
-        destroyOnClose: true,
-        onCancel: () => form.resetFields(),
-      }}
-      submitTimeout={2000}
-      onFinish={async (values) => {
-        values.id = record.id;
-        const result = await update(values).unwrap();
-        if (result && result.code !== 0) {
-          message.error(result.message);
-          return false;
-        }
-        message.success(result.message);
-        refetch?.();
-        return true;
-      }}
-    >
-      <ModalFormItems />
-    </ModalForm>
-  );
+	const [form] = Form.useForm();
+	const { colorPrimary } = useColorPrimary();
+	const [update] = [(...args: any): any => {}];
+	return (
+		<ModalForm
+			loading={loading}
+			key={Date.now()}
+			preserve={false}
+			title={title}
+			onOpenChange={(c) => {
+				form.setFieldsValue({
+					...record,
+				});
+			}}
+			trigger={
+				trigger ?? (
+					<Button
+						type={"link"}
+						icon={<EditOutlined style={{ color: colorPrimary }} />}
+					></Button>
+				)
+			}
+			form={form}
+			autoFocusFirstInput
+			modalProps={{
+				destroyOnClose: true,
+				onCancel: () => form.resetFields(),
+			}}
+			submitTimeout={2000}
+			onFinish={async (values) => {
+				values.id = record.id;
+				const result = await update(values).unwrap();
+				if (result && result.code !== 0) {
+					message.error(result.message);
+					return false;
+				}
+				message.success(result.message);
+				refetch?.();
+				return true;
+			}}
+		>
+			<ModalFormItems />
+		</ModalForm>
+	);
 }

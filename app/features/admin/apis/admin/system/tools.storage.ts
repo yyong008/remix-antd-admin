@@ -6,15 +6,15 @@ import { getApiClient } from "~/api-client";
  * @returns
  */
 export async function createStorage(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.storage.$post({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.storage.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -23,15 +23,15 @@ export async function createStorage(data: any) {
  * @returns
  */
 export async function updateStorageById(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.storage.$put({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.storage.$put({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -40,15 +40,15 @@ export async function updateStorageById(data: any) {
  * @returns
  */
 export async function deleteStorageByIds(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.storage.$delete({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.storage.$delete({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -56,13 +56,13 @@ export async function deleteStorageByIds(data: any) {
  * @returns
  */
 export async function readStorage() {
-  try {
-    const res = await getApiClient().api.admin.system.storage.$get();
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.storage.$get();
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -71,19 +71,19 @@ export async function readStorage() {
  * @returns
  */
 export async function readStorageList(params: {
-  page: number;
-  pageSize: number;
+	page: number;
+	pageSize: number;
 }) {
-  try {
-    const res = await getApiClient().api.admin.system.storage.$get({
-      query: {
-        page: params.page.toString(),
-        pageSize: params.pageSize.toString(),
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.storage.$get({
+			query: {
+				page: params.page.toString(),
+				pageSize: params.pageSize.toString(),
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }

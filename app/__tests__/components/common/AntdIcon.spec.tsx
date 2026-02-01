@@ -7,16 +7,16 @@ import { render, screen } from "@testing-library/react";
 import { AntdIcon } from "@/components/common";
 
 describe("test Footer component", () => {
-  let Icon: any;
-  let icons: any;
-  beforeEach(async () => {
-    render(<AntdIcon name="StepBackwardOutlined" />);
-    Icon = screen.getByRole("img");
-    icons = await import("@ant-design/icons");
-  });
+	let Icon: any;
+	let icons: any;
+	beforeEach(async () => {
+		render(<AntdIcon name="StepBackwardOutlined" />);
+		Icon = screen.getByRole("img");
+		icons = await import("@ant-design/icons");
+	});
 
-  it("test antd icon StepBackwardOutlined snapshot", () => {
-    expect(Icon).toMatchInlineSnapshot(`
+	it("test antd icon StepBackwardOutlined snapshot", () => {
+		expect(Icon).toMatchInlineSnapshot(`
       <span
         aria-label="step-backward"
         class="anticon anticon-step-backward"
@@ -37,20 +37,20 @@ describe("test Footer component", () => {
         </svg>
       </span>
     `);
-  });
+	});
 
-  it("test @ant-design/icons default", async () => {
-    const ic = icons.default;
-    expect(ic).toMatchInlineSnapshot(`
+	it("test @ant-design/icons default", async () => {
+		const ic = icons.default;
+		expect(ic).toMatchInlineSnapshot(`
       {
         "$$typeof": Symbol(react.forward_ref),
         "render": [Function],
       }
     `);
-  });
+	});
 
-  it("test @ant-design/icons", async () => {
-    expect(Object.keys(icons)).toMatchInlineSnapshot(`
+	it("test @ant-design/icons", async () => {
+		expect(Object.keys(icons)).toMatchInlineSnapshot(`
       [
         "IconProvider",
         "createFromIconfontCN",
@@ -890,12 +890,12 @@ describe("test Footer component", () => {
         "setTwoToneColor",
       ]
     `);
-  });
+	});
 
-  it("antd icon", async () => {
-    const keys = Object.keys(icons)
-      .filter((icon) => /[A-Z]/.test(icon[0]))
-      .filter((icon) => icon !== "IconProvider");
-    expect(keys.length).toMatchInlineSnapshot(`831`);
-  });
+	it("antd icon", async () => {
+		const keys = Object.keys(icons)
+			.filter((icon) => /[A-Z]/.test(icon[0]))
+			.filter((icon) => icon !== "IconProvider");
+		expect(keys.length).toMatchInlineSnapshot(`831`);
+	});
 });

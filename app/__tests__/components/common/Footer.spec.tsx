@@ -7,20 +7,20 @@ import { render, screen } from "@testing-library/react";
 import Footer from "../../../components/common/footer";
 
 describe("test Footer component", () => {
-  let remix: any;
-  beforeEach(() => {
-    render(<Footer />);
-    remix = screen.getByText(/Remix/i);
-  });
+	let remix: any;
+	beforeEach(() => {
+		render(<Footer />);
+		remix = screen.getByText(/Remix/i);
+	});
 
-  it("Footer remix element and attribute", () => {
-    expect(remix.tagName).toBe("A");
-    expect(remix.getAttribute("href")).toBe("https://remix.run/");
-    expect(remix).toBeInTheDocument();
-  });
+	it("Footer remix element and attribute", () => {
+		expect(remix.tagName).toBe("A");
+		expect(remix.getAttribute("href")).toBe("https://remix.run/");
+		expect(remix).toBeInTheDocument();
+	});
 
-  it("Footer remix Snapshot", () => {
-    expect(remix).toMatchInlineSnapshot(`
+	it("Footer remix Snapshot", () => {
+		expect(remix).toMatchInlineSnapshot(`
       <a
         class="ant-pro-global-footer-list-link"
         href="https://remix.run/"
@@ -31,5 +31,5 @@ describe("test Footer component", () => {
         Remix
       </a>
     `);
-  });
+	});
 });

@@ -27,8 +27,33 @@
 		"enabled": true,
 		"actions": {
 			"source": {
-				"organizeImports": "on"
+				"organizeImports": {
+					"options": {
+						"groups": [
+							{
+								"type": true,
+								"source": [":PACKAGE:", "@workspace/**", ":ALIAS:", ":PATH:"]
+							},
+							":BLANK_LINE:",
+							{
+								"type": false,
+								"source": [
+									":URL:",
+									":PACKAGE:",
+									"@workspace/**",
+									":ALIAS:",
+									":PATH:"
+								]
+							}
+						]
+					}
+				}
 			}
+		}
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
 		}
 	}
 }

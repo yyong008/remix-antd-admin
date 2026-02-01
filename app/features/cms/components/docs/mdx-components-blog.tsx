@@ -16,26 +16,26 @@ import { File, Files, Folder } from "fumadocs-ui/components/files";
 import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
-  return {
-    ...(icons as Record<string, React.ComponentType>),
-    ...components,
-    ...defaultMdxComponents,
-    Accordion,
-    Accordions,
-    Banner,
-    Callout,
-    Card,
-    Cards,
-    File,
-    Files,
-    Folder,
-    InlineTOC,
-    Step,
-    Steps,
-    Tab,
-    Tabs,
-    TypeTable,
-    Mermaid,
-    img: (props) => <ImageZoom {...(props as any)} />,
-  };
+	return {
+		...(icons as Record<string, React.ComponentType>),
+		...components,
+		...defaultMdxComponents,
+		Accordion,
+		Accordions,
+		Banner,
+		Callout,
+		Card,
+		Cards,
+		File,
+		Files,
+		Folder,
+		InlineTOC,
+		Step,
+		Steps,
+		Tab,
+		Tabs,
+		TypeTable,
+		Mermaid,
+		img: (props) => <ImageZoom {...(props as any)} />,
+	};
 }

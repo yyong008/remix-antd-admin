@@ -1,6 +1,6 @@
 {
-  "i18n-ally.localesPaths": [
-    "public/locales",
-    "app/libs/i18n"
-  ]
+	"editor.codeActionsOnSave": {
+		"source.organizeImports.biome": "explicit",
+		"source.fixAll.biome": "explicit"
+	}
 }

@@ -6,15 +6,15 @@ import { getApiClient } from "~/api-client";
  * @returns
  */
 export async function createSystemConfig(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.config.$post({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.config.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -23,15 +23,15 @@ export async function createSystemConfig(data: any) {
  * @returns
  */
 export async function updateSystemConfigById(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.config.$put({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.config.$put({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -40,15 +40,15 @@ export async function updateSystemConfigById(data: any) {
  * @returns
  */
 export async function deleteSystemConfigByIds(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.config.$delete({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.config.$delete({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -56,13 +56,13 @@ export async function deleteSystemConfigByIds(data: any) {
  * @returns
  */
 export async function readSystemConfig() {
-  try {
-    const res = await getApiClient().api.admin.system.config.$get();
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.config.$get();
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -71,19 +71,19 @@ export async function readSystemConfig() {
  * @returns
  */
 export async function readSystemConfigList(params: {
-  page: number;
-  pageSize: number;
+	page: number;
+	pageSize: number;
 }) {
-  try {
-    const res = await getApiClient().api.admin.system.config.$get({
-      query: {
-        page: params.page.toString(),
-        pageSize: params.pageSize.toString(),
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.config.$get({
+			query: {
+				page: params.page.toString(),
+				pageSize: params.pageSize.toString(),
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }

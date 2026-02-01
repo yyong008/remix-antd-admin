@@ -1,65 +1,46 @@
 {
-  "include": [
-    "env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/.server/**/*.ts",
-    "**/.server/**/*.tsx",
-    "**/.client/**/*.ts",
-    "**/.client/**/*.tsx",
-    "./app/types/**/*.ts",
-    "./workers/**/*.ts",
-    ".react-router/types/**/*.ts",
-    "./content/*"
-  ],
-  "compilerOptions": {
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ES2022"
-    ],
-    "types": [
-      "@react-router/node",
-      "vite/client"
-    ],
-    "rootDirs": [".", "./.react-router/types"],
-    "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "jsx": "react-jsx",
-    "strict": true,
-    "allowJs": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "noImplicitAny": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowImportingTsExtensions": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "noEmit": true,
-    "baseUrl": ".",
-    "paths": {
-      "~/*": [
-        "./app/*"
-      ],
-      "@/*": [
-        "./app/*"
-      ],
-      "db/*": [
-        "./db/*"
-      ],
-      "~/public/*": [
-        "./public/*"
-      ],
-      "~mock/*": [
-        "./app/__mock__/*"
-      ],
-      "#source/*": [
-        "./.source/*"
-      ],
-      ".react-router/*": [".react-router/*"]
-    },
-  },
+	"include": [
+		"env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		"**/.server/**/*.ts",
+		"**/.server/**/*.tsx",
+		"**/.client/**/*.ts",
+		"**/.client/**/*.tsx",
+		"./app/types/**/*.ts",
+		"./workers/**/*.ts",
+		".react-router/types/**/*.ts",
+		"./content/*"
+	],
+	"compilerOptions": {
+		"lib": ["DOM", "DOM.Iterable", "ES2022"],
+		"types": ["@react-router/node", "vite/client"],
+		"rootDirs": [".", "./.react-router/types"],
+		"target": "ES2022",
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"jsx": "react-jsx",
+		"strict": true,
+		"allowJs": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"noImplicitAny": true,
+		"forceConsistentCasingInFileNames": true,
+		"allowImportingTsExtensions": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"noEmit": true,
+		"baseUrl": ".",
+		"paths": {
+			"~/*": ["./app/*"],
+			"@/*": ["./app/*"],
+			"db/*": ["./db/*"],
+			"~/public/*": ["./public/*"],
+			"~mock/*": ["./app/__mock__/*"],
+			"#source/*": ["./.source/*"],
+			".react-router/*": [".react-router/*"]
+		}
+	}
 }

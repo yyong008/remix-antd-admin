@@ -1,29 +1,29 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "(Bun)React Router dev",
-      "runtimeExecutable": "bun",
-      "runtimeArgs": ["run", "dev"]
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "(pnpm)React Router dev",
-      "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["run", "dev"]
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "(npm)React Router dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"]
-    }
-  ]
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "(Bun)React Router dev",
+			"runtimeExecutable": "bun",
+			"runtimeArgs": ["run", "dev"]
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "(pnpm)React Router dev",
+			"runtimeExecutable": "pnpm",
+			"runtimeArgs": ["run", "dev"]
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "(npm)React Router dev",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": ["run", "dev"]
+		}
+	]
 }

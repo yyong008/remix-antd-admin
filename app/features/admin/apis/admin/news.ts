@@ -8,13 +8,13 @@ import { getApiClient } from "~/api-client";
  * @returns
  */
 export async function createNews(data: any) {
-  try {
-    const res = await getApiClient().api.admin.news.$post({ json: data });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.news.$post({ json: data });
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -23,13 +23,13 @@ export async function createNews(data: any) {
  * @returns
  */
 export async function updateNewsById(data: any) {
-  try {
-    const res = await getApiClient().api.admin.news.$put({ json: data });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.news.$put({ json: data });
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -38,13 +38,13 @@ export async function updateNewsById(data: any) {
  * @returns
  */
 export async function deleteNewsByIds(data: any) {
-  try {
-    const res = await getApiClient().api.admin.news.$delete({ json: data });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.news.$delete({ json: data });
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -53,15 +53,15 @@ export async function deleteNewsByIds(data: any) {
  * @returns
  */
 export async function readNews(id: string) {
-  try {
-    const res = await getApiClient().api.admin.news[":id"].$get({
-      param: { id },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.news[":id"].$get({
+			param: { id },
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -70,24 +70,24 @@ export async function readNews(id: string) {
  * @returns
  */
 export async function readNewsList(params: {
-  page?: number;
-  pageSize?: number;
-  categoryId?: string;
+	page?: number;
+	pageSize?: number;
+	categoryId?: string;
 }) {
-  try {
-    const { page = 1, pageSize = 10, categoryId } = params;
-    const res = await getApiClient().api.admin.news.$get({
-      query: {
-        page: page.toString(),
-        pageSize: pageSize.toString(),
-        category: categoryId ?? "",
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const { page = 1, pageSize = 10, categoryId } = params;
+		const res = await getApiClient().api.admin.news.$get({
+			query: {
+				page: page.toString(),
+				pageSize: pageSize.toString(),
+				category: categoryId ?? "",
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -96,15 +96,15 @@ export async function readNewsList(params: {
  * @returns
  */
 export async function createNewsCategory(data: any) {
-  try {
-    const res = await getApiClient().api.admin.news.category.$post({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.news.category.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -113,15 +113,15 @@ export async function createNewsCategory(data: any) {
  * @returns
  */
 export async function updateNewsCategoryById(data: any) {
-  try {
-    const res = await getApiClient().api.admin.news.category.$put({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.news.category.$put({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -130,15 +130,15 @@ export async function updateNewsCategoryById(data: any) {
  * @returns
  */
 export async function deleteNewsCategoryByIds(data: any) {
-  try {
-    const res = await getApiClient().api.admin.news.category.$delete({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.news.category.$delete({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -146,13 +146,13 @@ export async function deleteNewsCategoryByIds(data: any) {
  * @returns
  */
 export async function readNewsCategory() {
-  try {
-    const res = await getApiClient().api.admin.news.category.$get();
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.news.category.$get();
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -161,19 +161,19 @@ export async function readNewsCategory() {
  * @returns
  */
 export async function readNewsCategoryList(params: {
-  page: number;
-  pageSize: number;
+	page: number;
+	pageSize: number;
 }) {
-  try {
-    const res = await getApiClient().api.admin.news.category.$get({
-      query: {
-        page: params.page.toString(),
-        pageSize: params.pageSize.toString(),
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.news.category.$get({
+			query: {
+				page: params.page.toString(),
+				pageSize: params.pageSize.toString(),
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }

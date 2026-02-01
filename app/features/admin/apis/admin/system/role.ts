@@ -6,13 +6,15 @@ import { getApiClient } from "~/api-client";
  * @returns
  */
 export async function createRole(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.role.$post({ json: data });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.role.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -21,13 +23,13 @@ export async function createRole(data: any) {
  * @returns
  */
 export async function updateRoleById(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.role.$put({ json: data });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.role.$put({ json: data });
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -36,13 +38,15 @@ export async function updateRoleById(data: any) {
  * @returns
  */
 export async function deleteRoleByIds(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.role.$delete({ json: data });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.role.$delete({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -50,13 +54,13 @@ export async function deleteRoleByIds(data: any) {
  * @returns
  */
 export async function readRole() {
-  try {
-    const res = await getApiClient().api.admin.system.role.$get();
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.role.$get();
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -65,16 +69,16 @@ export async function readRole() {
  * @returns
  */
 export async function readRoleList(params: { page: number; pageSize: number }) {
-  try {
-    const res = await getApiClient().api.admin.system.role.$get({
-      query: {
-        page: params.page.toString(),
-        pageSize: params.pageSize.toString(),
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.role.$get({
+			query: {
+				page: params.page.toString(),
+				pageSize: params.pageSize.toString(),
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }

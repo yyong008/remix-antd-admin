@@ -1,250 +1,250 @@
 {
-  "login-register": {
-    "account-register": "Account Register",
-    "account-login": "Account Login",
-    "phone-login": "Phone Login",
-    "remeber": "Remember Password",
-    "title": "Remix Antd Admin",
-    "desc": "Admin management system based on Remix Antd Admin",
-    "other-login": "Other Login",
-    "submit": "Submit",
-    "login": "Login",
-    "register": "Register",
-    "logout": "Logout",
-    "code": {
-      "get-captcha-success": "Captcha obtained successfully",
-      "verification-code-message": "Please enter the verification code",
-      "get-verification-code": "Get Verification Code"
-    },
+	"login-register": {
+		"account-register": "Account Register",
+		"account-login": "Account Login",
+		"phone-login": "Phone Login",
+		"remeber": "Remember Password",
+		"title": "Remix Antd Admin",
+		"desc": "Admin management system based on Remix Antd Admin",
+		"other-login": "Other Login",
+		"submit": "Submit",
+		"login": "Login",
+		"register": "Register",
+		"logout": "Logout",
+		"code": {
+			"get-captcha-success": "Captcha obtained successfully",
+			"verification-code-message": "Please enter the verification code",
+			"get-verification-code": "Get Verification Code"
+		},
 
-    "placeholder": {
-      "username": "Please enter your username",
-      "password": "Please enter your password",
-      "password-re": "Please re-enter your password",
-      "phone": "Please enter your phone number",
-      "code": "Please enter the verification code"
-    },
-    "message": {
-      "username-message": "Please enter your username",
-      "password-message": "Please enter your password",
-      "password-message-re": "Please re-enter your password",
-      "phone-message": "Please enter a valid phone number",
-      "phone-format-message": "Please enter a phone number in the correct format"
-    }
-  },
-  "menu": {
-    "dashboard": {
-      "main": "Dashboard",
-      "workplace": "Workplace"
-    },
-    "demo": {
-      "main": "Demo",
-      "dashboard": {
-        "main": "Dashboard",
-        "dashboard": "Workspace",
-        "analysis": "Analysis",
-        "monitor": "Monitor",
-        "workplace": "Workplace"
-      },
-      "chat": {
-        "main": "Chat"
-      },
-      "health": {
-        "main": "Health",
-        "health": "Health",
-        "disease": "Disease",
-        "cervical": "Cervical",
-        "vision": "Vision",
-        "hand": "Hand",
-        "obesity": "Obesity",
-        "anxiety": "Anxiety and Depression",
-        "sleep": "Sleep",
-        "sport": "Sport"
-      },
-      "form": {
-        "main": "Form",
-        "basic-form": "Basic Form",
-        "step-form": "Step Form",
-        "advanced-form": "Advanced Step Form"
-      },
-      "list": {
-        "main": "List",
-        "search": {
-          "main": "Search List",
-          "articles": "Search List (Articles)",
-          "projects": "Search List (Projects)",
-          "applications": "Search List (Applications)"
-        },
-        "table-list": "Table List",
-        "basic-list": "Basic List",
-        "card-list": "Card List"
-      },
-      "profile": {
-        "main": "Profile",
-        "basic": "Basic Profile",
-        "advanced": "Advanced Profile"
-      },
-      "result": {
-        "main": "Result",
-        "success": "Success",
-        "fail": "Fail"
-      },
-      "exception": {
-        "main": "Exception",
-        "403": "403",
-        "404": "404",
-        "500": "500"
-      },
-      "account": {
-        "main": "Account",
-        "center": "Account Center",
-        "settings": "Account Settings"
-      },
-      "editor": {
-        "main": "Editor",
-        "rich": "Rich Text Editor",
-        "markdown": "Markdown Editor",
-        "json-viewer": "JSON Viewer",
-        "flow": "Flow Editor",
-        "mind": "Mind Map Editor"
-      },
-      "personal": {
-        "main": "Personal Center",
-        "center": "Personal Center",
-        "settings": "Personal Settings"
-      },
-      "excel": {
-        "main": "Excel",
-        "import": "Import Excel",
-        "export": "Export Excel"
-      },
-      "calendar": {
-        "main": "Calendar",
-        "temporal": "Temporal Calendar",
-        "antd": "Antd Calendar"
-      },
-      "game": {
-        "main": "Game",
-        "pocker-guess": "Poker Guess",
-        "rl": "RL",
-        "trbl": "TRBL",
-        "mouse": "Mouse"
-      },
-      "stack": {
-        "main": "Stack",
-        "rxjs": {
-          "main": "RxJS",
-          "keybr": "Keyboard",
-          "count-down": "Countdown"
-        },
-        "laxjs": {
-          "main": "Laxjs",
-          "cursor": "Cursor"
-        }
-      },
-      "lib": {
-        "main": "Library",
-        "qrcode": "QR Code",
-        "clipboard": "Clipboard",
-        "split": "Split",
-        "antd-icon": "Antd Icons"
-      },
-      "other": {
-        "welcome": "Welcome",
-        "not-found": "Sorry, the page you visited does not exist!",
-        "back-home": "Back Home",
-        "server-error": "Sorry, something went wrong with the server",
-        "visit-not-exist": "Sorry, the page you visited does not exist",
-        "not-authorized": "Sorry, you are not authorized to access this page!",
-        "submission-failed": "Submission Failed",
-        "submission-success": "The item has been successfully purchased!",
-        "check-modify-information-fail": "Please check and modify the following information before resubmitting.",
-        "check-modify-information-success": "Order number: 123456789 The item is being shipped, please be patient.",
-        "go-console": "Go to Console",
-        "buy-again": "Buy Again",
-        "content-submitted-following-error": "The content you submitted has the following errors",
-        "account-frozen": "Your account has been frozen.",
-        "thaw-immediately": "Thaw Immediately",
-        "account-not-yet-eligible": "Your account is not yet eligible to apply.",
-        "apply-unlock": "Apply for Unlock",
-        "auth": "Authorization"
-      }
-    },
-    "system": {
-      "main": "System Management",
-      "user": {
-        "main": "User Management"
-      },
-      "role": {
-        "main": "Role Management"
-      },
-      "menu": {
-        "main": "Menu Management"
-      },
-      "dept": {
-        "main": "Department Management"
-      },
-      "dict": "Dictionary Management",
-      "dict-item": "Dictionary Item Management",
-      "config": "Configuration Management",
-      "monitor": {
-        "main": "Monitor Management",
-        "serve": "System Information",
-        "login-log": "Login Log"
-      }
-    },
-    "news": {
-      "main": "News",
-      "edit": "Edit News",
-      "category": "News Category"
-    },
-    "blog": {
-      "main": "Blog",
-      "edit": "Edit Blog",
-      "category": "Blog Category",
-      "tag": "Blog Tags"
-    },
-    "about": {
-      "main": "About"
-    },
-    "lib": {
-      "main": "Library",
-      "clipboard": "Clipboard",
-      "split-pane": "Split Pane",
-      "game": "Game",
-      "qrcode": "QR Code"
-    },
-    "profile": {
-      "main": "Profile",
-      "account": "Account Center",
-      "link": "Link Management"
-    },
-    "tools": {
-      "main": "Tools",
-      "storage": "Storage",
-      "mail": "Mail Management"
-    }
-  },
-  "operator": {
-    "new": "New"
-  },
-  "greeting": "Hello",
-  "welcome": "Welcome",
-  "not-found": "Sorry, the page you visited does not exist!",
-  "back-home": "Back Home",
-  "server-error": "Sorry, something went wrong with the server",
-  "visit-not-exist": "Sorry, the page you visited does not exist",
-  "not-authorized": "Sorry, you are not authorized to access this page!",
-  "submission-failed": "Submission Failed",
-  "submission-success": "The item has been successfully purchased!",
-  "check-modify-information-fail": "Please check and modify the following information before resubmitting.",
-  "check-modify-information-success": "Order number: 123456789 The item is being shipped, please be patient.",
-  "go-console": "Go to Console",
-  "buy-again": "Buy Again",
-  "content-submitted-following-error": "The content you submitted has the following errors",
-  "account-frozen": "Your account has been frozen.",
-  "thaw-immediately": "Thaw Immediately",
-  "account-not-yet-eligible": "Your account is not yet eligible to apply.",
-  "apply-unlock": "Apply for Unlock",
-  "auth": "Authorization"
+		"placeholder": {
+			"username": "Please enter your username",
+			"password": "Please enter your password",
+			"password-re": "Please re-enter your password",
+			"phone": "Please enter your phone number",
+			"code": "Please enter the verification code"
+		},
+		"message": {
+			"username-message": "Please enter your username",
+			"password-message": "Please enter your password",
+			"password-message-re": "Please re-enter your password",
+			"phone-message": "Please enter a valid phone number",
+			"phone-format-message": "Please enter a phone number in the correct format"
+		}
+	},
+	"menu": {
+		"dashboard": {
+			"main": "Dashboard",
+			"workplace": "Workplace"
+		},
+		"demo": {
+			"main": "Demo",
+			"dashboard": {
+				"main": "Dashboard",
+				"dashboard": "Workspace",
+				"analysis": "Analysis",
+				"monitor": "Monitor",
+				"workplace": "Workplace"
+			},
+			"chat": {
+				"main": "Chat"
+			},
+			"health": {
+				"main": "Health",
+				"health": "Health",
+				"disease": "Disease",
+				"cervical": "Cervical",
+				"vision": "Vision",
+				"hand": "Hand",
+				"obesity": "Obesity",
+				"anxiety": "Anxiety and Depression",
+				"sleep": "Sleep",
+				"sport": "Sport"
+			},
+			"form": {
+				"main": "Form",
+				"basic-form": "Basic Form",
+				"step-form": "Step Form",
+				"advanced-form": "Advanced Step Form"
+			},
+			"list": {
+				"main": "List",
+				"search": {
+					"main": "Search List",
+					"articles": "Search List (Articles)",
+					"projects": "Search List (Projects)",
+					"applications": "Search List (Applications)"
+				},
+				"table-list": "Table List",
+				"basic-list": "Basic List",
+				"card-list": "Card List"
+			},
+			"profile": {
+				"main": "Profile",
+				"basic": "Basic Profile",
+				"advanced": "Advanced Profile"
+			},
+			"result": {
+				"main": "Result",
+				"success": "Success",
+				"fail": "Fail"
+			},
+			"exception": {
+				"main": "Exception",
+				"403": "403",
+				"404": "404",
+				"500": "500"
+			},
+			"account": {
+				"main": "Account",
+				"center": "Account Center",
+				"settings": "Account Settings"
+			},
+			"editor": {
+				"main": "Editor",
+				"rich": "Rich Text Editor",
+				"markdown": "Markdown Editor",
+				"json-viewer": "JSON Viewer",
+				"flow": "Flow Editor",
+				"mind": "Mind Map Editor"
+			},
+			"personal": {
+				"main": "Personal Center",
+				"center": "Personal Center",
+				"settings": "Personal Settings"
+			},
+			"excel": {
+				"main": "Excel",
+				"import": "Import Excel",
+				"export": "Export Excel"
+			},
+			"calendar": {
+				"main": "Calendar",
+				"temporal": "Temporal Calendar",
+				"antd": "Antd Calendar"
+			},
+			"game": {
+				"main": "Game",
+				"pocker-guess": "Poker Guess",
+				"rl": "RL",
+				"trbl": "TRBL",
+				"mouse": "Mouse"
+			},
+			"stack": {
+				"main": "Stack",
+				"rxjs": {
+					"main": "RxJS",
+					"keybr": "Keyboard",
+					"count-down": "Countdown"
+				},
+				"laxjs": {
+					"main": "Laxjs",
+					"cursor": "Cursor"
+				}
+			},
+			"lib": {
+				"main": "Library",
+				"qrcode": "QR Code",
+				"clipboard": "Clipboard",
+				"split": "Split",
+				"antd-icon": "Antd Icons"
+			},
+			"other": {
+				"welcome": "Welcome",
+				"not-found": "Sorry, the page you visited does not exist!",
+				"back-home": "Back Home",
+				"server-error": "Sorry, something went wrong with the server",
+				"visit-not-exist": "Sorry, the page you visited does not exist",
+				"not-authorized": "Sorry, you are not authorized to access this page!",
+				"submission-failed": "Submission Failed",
+				"submission-success": "The item has been successfully purchased!",
+				"check-modify-information-fail": "Please check and modify the following information before resubmitting.",
+				"check-modify-information-success": "Order number: 123456789 The item is being shipped, please be patient.",
+				"go-console": "Go to Console",
+				"buy-again": "Buy Again",
+				"content-submitted-following-error": "The content you submitted has the following errors",
+				"account-frozen": "Your account has been frozen.",
+				"thaw-immediately": "Thaw Immediately",
+				"account-not-yet-eligible": "Your account is not yet eligible to apply.",
+				"apply-unlock": "Apply for Unlock",
+				"auth": "Authorization"
+			}
+		},
+		"system": {
+			"main": "System Management",
+			"user": {
+				"main": "User Management"
+			},
+			"role": {
+				"main": "Role Management"
+			},
+			"menu": {
+				"main": "Menu Management"
+			},
+			"dept": {
+				"main": "Department Management"
+			},
+			"dict": "Dictionary Management",
+			"dict-item": "Dictionary Item Management",
+			"config": "Configuration Management",
+			"monitor": {
+				"main": "Monitor Management",
+				"serve": "System Information",
+				"login-log": "Login Log"
+			}
+		},
+		"news": {
+			"main": "News",
+			"edit": "Edit News",
+			"category": "News Category"
+		},
+		"blog": {
+			"main": "Blog",
+			"edit": "Edit Blog",
+			"category": "Blog Category",
+			"tag": "Blog Tags"
+		},
+		"about": {
+			"main": "About"
+		},
+		"lib": {
+			"main": "Library",
+			"clipboard": "Clipboard",
+			"split-pane": "Split Pane",
+			"game": "Game",
+			"qrcode": "QR Code"
+		},
+		"profile": {
+			"main": "Profile",
+			"account": "Account Center",
+			"link": "Link Management"
+		},
+		"tools": {
+			"main": "Tools",
+			"storage": "Storage",
+			"mail": "Mail Management"
+		}
+	},
+	"operator": {
+		"new": "New"
+	},
+	"greeting": "Hello",
+	"welcome": "Welcome",
+	"not-found": "Sorry, the page you visited does not exist!",
+	"back-home": "Back Home",
+	"server-error": "Sorry, something went wrong with the server",
+	"visit-not-exist": "Sorry, the page you visited does not exist",
+	"not-authorized": "Sorry, you are not authorized to access this page!",
+	"submission-failed": "Submission Failed",
+	"submission-success": "The item has been successfully purchased!",
+	"check-modify-information-fail": "Please check and modify the following information before resubmitting.",
+	"check-modify-information-success": "Order number: 123456789 The item is being shipped, please be patient.",
+	"go-console": "Go to Console",
+	"buy-again": "Buy Again",
+	"content-submitted-following-error": "The content you submitted has the following errors",
+	"account-frozen": "Your account has been frozen.",
+	"thaw-immediately": "Thaw Immediately",
+	"account-not-yet-eligible": "Your account is not yet eligible to apply.",
+	"apply-unlock": "Apply for Unlock",
+	"auth": "Authorization"
 }

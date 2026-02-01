@@ -24,7 +24,7 @@ new fullstack:
 - claudflare
   - [x] pg: neon
   - R2
-  - tunnel
+  - tunnel: @marsidev/react-turnstile
 - ai:
   - langchain -> ai-sdk
   - antdx

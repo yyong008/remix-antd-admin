@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { logger} from "hono/logger";
+import { logger } from "hono/logger";
 import { v1Router } from "./routes";
 import { uploadHandler } from "./routes/upload";
 
@@ -10,7 +10,7 @@ app.use("*", logger());
 app.route("/", v1Router);
 
 app.get("/health", (c) => {
-  return c.json({ status: "ok" });
+	return c.json({ status: "ok" });
 });
 
 app.post("/upload", uploadHandler);

@@ -6,15 +6,15 @@ import { getApiClient } from "~/api-client";
  * @returns
  */
 export async function createProfileAccount(data: any) {
-  try {
-    const res = await getApiClient().api.admin.profile.account.$post({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.profile.account.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -23,15 +23,15 @@ export async function createProfileAccount(data: any) {
  * @returns
  */
 export async function updateProfileAccountById(data: any) {
-  try {
-    const res = await getApiClient().api.admin.profile.account.$put({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.profile.account.$put({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -40,15 +40,15 @@ export async function updateProfileAccountById(data: any) {
  * @returns
  */
 export async function deleteProfileAccountByIds(data: any) {
-  try {
-    const res = await getApiClient().api.admin.profile.account.$delete({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.profile.account.$delete({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -56,13 +56,13 @@ export async function deleteProfileAccountByIds(data: any) {
  * @returns
  */
 export async function readProfileAccount() {
-  try {
-    const res = await getApiClient().api.admin.profile.account.$get();
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.profile.account.$get();
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -71,21 +71,21 @@ export async function readProfileAccount() {
  * @returns
  */
 export async function readProfileAccountList(params: {
-  page: number;
-  pageSize: number;
+	page: number;
+	pageSize: number;
 }) {
-  try {
-    const res = await getApiClient().api.admin.profile.account.$get({
-      query: {
-        page: params.page.toString(),
-        pageSize: params.pageSize.toString(),
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.profile.account.$get({
+			query: {
+				page: params.page.toString(),
+				pageSize: params.pageSize.toString(),
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -94,15 +94,15 @@ export async function readProfileAccountList(params: {
  * @returns
  */
 export async function createProfileLinkCategory(data: any) {
-  try {
-    const res = await getApiClient().api.admin.profile.link.category.$post({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.profile.link.category.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -111,15 +111,15 @@ export async function createProfileLinkCategory(data: any) {
  * @returns
  */
 export async function updateProfileLinkCategoryById(data: any) {
-  try {
-    const res = await getApiClient().api.admin.profile.link.category.$put({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.profile.link.category.$put({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -128,15 +128,15 @@ export async function updateProfileLinkCategoryById(data: any) {
  * @returns
  */
 export async function deleteProfileLinkCategoryByIds(data: any) {
-  try {
-    const res = await getApiClient().api.admin.profile.link.category.$delete({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.profile.link.category.$delete({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -144,13 +144,13 @@ export async function deleteProfileLinkCategoryByIds(data: any) {
  * @returns
  */
 export async function readProfileLinkCategory() {
-  try {
-    const res = await getApiClient().api.admin.profile.link.category.$get();
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.profile.link.category.$get();
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -159,21 +159,21 @@ export async function readProfileLinkCategory() {
  * @returns
  */
 export async function readProfileLinkCategoryList(params: {
-  page: number;
-  pageSize: number;
+	page: number;
+	pageSize: number;
 }) {
-  try {
-    const res = await getApiClient().api.admin.profile.link.category.$get({
-      query: {
-        page: params.page.toString(),
-        pageSize: params.pageSize.toString(),
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.profile.link.category.$get({
+			query: {
+				page: params.page.toString(),
+				pageSize: params.pageSize.toString(),
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -182,15 +182,15 @@ export async function readProfileLinkCategoryList(params: {
  * @returns
  */
 export async function createProfileLink(data: any) {
-  try {
-    const res = await getApiClient().api.admin.profile.link.$post({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.profile.link.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -199,15 +199,15 @@ export async function createProfileLink(data: any) {
  * @returns
  */
 export async function updateProfileLinkById(data: any) {
-  try {
-    const res = await getApiClient().api.admin.profile.link.$put({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.profile.link.$put({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -216,15 +216,15 @@ export async function updateProfileLinkById(data: any) {
  * @returns
  */
 export async function deleteProfileLinkByIds(data: any) {
-  try {
-    const res = await getApiClient().api.admin.profile.link.$delete({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.profile.link.$delete({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -232,13 +232,13 @@ export async function deleteProfileLinkByIds(data: any) {
  * @returns
  */
 export async function readProfileLink() {
-  try {
-    const res = await getApiClient().api.admin.profile.link.$get();
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.profile.link.$get();
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -247,21 +247,21 @@ export async function readProfileLink() {
  * @returns
  */
 export async function readProfileLinkList(params: {
-  id: string; // 分类 ID
-  page: number;
-  pageSize: number;
+	id: string; // 分类 ID
+	page: number;
+	pageSize: number;
 }) {
-  try {
-    const res = await getApiClient().api.admin.profile.link.$get({
-      query: {
-        category: params.id,
-        page: params.page.toString(),
-        pageSize: params.pageSize.toString(),
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.profile.link.$get({
+			query: {
+				category: params.id,
+				page: params.page.toString(),
+				pageSize: params.pageSize.toString(),
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }

@@ -1,250 +1,250 @@
 {
-  "login-register": {
-    "account-register": "用户注册",
-    "account-login": "账号登录",
-    "phone-login": "手机登录",
-    "remeber": "记住密码",
-    "title": "Remix Antd Admin",
-    "desc": "基于 Remix Antd Admin 的后台管理系统",
-    "other-login": "其他登录",
-    "submit": "提交",
-    "login": "登录",
-    "register": "注册",
-    "logout": "退出登录",
-    "code": {
-      "get-captcha-success": "获取验证码成功",
-      "verification-code-message": "请输入验证码",
-      "get-verification-code": "获取验证码"
-    },
+	"login-register": {
+		"account-register": "用户注册",
+		"account-login": "账号登录",
+		"phone-login": "手机登录",
+		"remeber": "记住密码",
+		"title": "Remix Antd Admin",
+		"desc": "基于 Remix Antd Admin 的后台管理系统",
+		"other-login": "其他登录",
+		"submit": "提交",
+		"login": "登录",
+		"register": "注册",
+		"logout": "退出登录",
+		"code": {
+			"get-captcha-success": "获取验证码成功",
+			"verification-code-message": "请输入验证码",
+			"get-verification-code": "获取验证码"
+		},
 
-    "placeholder": {
-      "username": "请输入用户名",
-      "password": "请输入密码",
-      "password-re": "请输入密码",
-      "phone": "请输入手机号",
-      "code": "请输入验证码"
-    },
-    "message": {
-      "username-message": "请输入用户名",
-      "password-message": "请输入密码",
-      "password-message-re": "请再次输入消息密码",
-      "phone-message": "请输入正确的手机格式",
-      "phone-format-message": "请输入符合格式的手机号"
-    }
-  },
-  "menu": {
-    "dashboard": {
-      "main": "仪表盘",
-      "workplace": "工作空间"
-    },
-    "demo": {
-      "main": "示例",
-      "dashboard": {
-        "main": "仪表盘",
-        "dashboard": "工作台",
-        "analysis": "分析页",
-        "monitor": "监控页",
-        "workplace": "工作空间"
-      },
-      "chat": {
-        "main": "聊天"
-      },
-      "health": {
-        "main": "健康",
-        "health": "健康",
-        "disease": "疾病",
-        "cervical": "颈椎",
-        "vision": "视力",
-        "hand": "手部",
-        "obesity": "肥胖",
-        "anxiety": "焦虑和抑郁",
-        "sleep": "睡眠",
-        "sport": "运动"
-      },
-      "form": {
-        "main": "表单",
-        "basic-form": "基础表单",
-        "step-form": "步骤表单",
-        "advanced-form": "步骤增强"
-      },
-      "list": {
-        "main": "列表",
-        "search": {
-          "main": "搜索列表",
-          "articles": "搜索列表（文章）",
-          "projects": "搜索列表（项目）",
-          "applications": "搜索列表（应用）"
-        },
-        "table-list": "表格搜索",
-        "basic-list": "基础列表",
-        "card-list": "卡片列表"
-      },
-      "profile": {
-        "main": "详情",
-        "basic": "基础详情页",
-        "advanced": "高阶详情页"
-      },
-      "result": {
-        "main": "结果",
-        "success": "结果-成功",
-        "fail": "结果-失败"
-      },
-      "exception": {
-        "main": "异常",
-        "403": "异常-403",
-        "404": "异常-404",
-        "500": "异常-500"
-      },
-      "account": {
-        "main": "个人页",
-        "center": "个人中心",
-        "settings": "个人设置"
-      },
-      "editor": {
-        "main": "编辑器",
-        "rich": "富文本编辑器",
-        "markdown": "markdown 编辑器",
-        "json-viewer": "json 查看器",
-        "flow": "流编辑器",
-        "mind": "脑图编辑器"
-      },
-      "personal": {
-        "main": "个人中心",
-        "center": "个人中心",
-        "settings": "个人设置"
-      },
-      "excel": {
-        "main": "Excel",
-        "import": "Excel 导入",
-        "export": "Excel 输出"
-      },
-      "calendar": {
-        "main": "日历",
-        "temporal": "Temporal 日历",
-        "antd": "antd 日历"
-      },
-      "game": {
-        "main": "游戏",
-        "pocker-guess": "猜扑克",
-        "rl": "右左",
-        "trbl": "上下左右",
-        "mouse": "鼠标"
-      },
-      "stack": {
-        "main": "技术栈",
-        "rxjs": {
-          "main": "RxJS",
-          "keybr": "键盘",
-          "count-down": "倒计时"
-        },
-        "laxjs": {
-          "main": "Laxjs",
-          "cursor": "光标"
-        }
-      },
-      "lib": {
-        "main": "库",
-        "qrcode": "二维码",
-        "clipboard": "粘贴",
-        "split": "分割",
-        "antd-icon": "antd 图表"
-      },
-      "other": {
-        "welcome": "欢迎光临",
-        "not-found": "对不起，你访问的页面不存在！",
-        "back-home": "返回主页",
-        "server-error": "对不起，服务发生了一些错误的事情",
-        "visit-not-exist": "对不起, 此页面访问不存在",
-        "not-authorized": "对不起你没有授权通过此页面！",
-        "submission-failed": "提交失败",
-        "submission-success": "某商品购买成功！",
-        "check-modify-information-fail": "请在重新提交之前检查并修改以下信息。",
-        "check-modify-information-success": "订单号：123456789 商品就发发货当中，请耐心等待。",
-        "go-console": "去控制台",
-        "buy-again": "再次购买",
-        "content-submitted-following-error": "您提交的内容有以下错误",
-        "account-frozen": "您的帐户已被冻结。",
-        "thaw-immediately": "立即解冻",
-        "account-not-yet-eligible": "您的帐户还没有资格申请。",
-        "apply-unlock": "应用解锁",
-        "auth": "授权"
-      }
-    },
-    "system": {
-      "main": "系统管理",
-      "user": {
-        "main": "用户管理"
-      },
-      "role": {
-        "main": "角色管理"
-      },
-      "menu": {
-        "main": "菜单管理"
-      },
-      "dept": {
-        "main": "部门管理"
-      },
-      "dict": "字典管理",
-      "dict-item": "字典项管理",
-      "config": "配置管理",
-      "monitor": {
-        "main": "监控管理",
-        "serve": "系统信息",
-        "login-log": "登录日志"
-      }
-    },
-    "news": {
-      "main": "新闻",
-      "edit": "编辑新闻",
-      "category": "新闻分类"
-    },
-    "blog": {
-      "main": "博客",
-      "edit": "编辑博客",
-      "category": "博客分类",
-      "tag": "博客标签"
-    },
-    "about": {
-      "main": "关于"
-    },
-    "lib": {
-      "main": "库",
-      "clipboard": "粘贴",
-      "split-pane": "拆分窗格",
-      "game": "游戏",
-      "qrcode": "二维码"
-    },
-    "profile": {
-      "main": "个人中心",
-      "account": "账户中心",
-      "link": "链接管理"
-    },
-    "tools": {
-      "main": "工具中心",
-      "storage": "存储库",
-      "mail": "邮件管理"
-    }
-  },
-  "operator": {
-    "new": "新建"
-  },
-  "greeting": "你好",
-  "welcome": "欢迎光临",
-  "not-found": "对不起，你访问的页面不存在！",
-  "back-home": "返回主页",
-  "server-error": "对不起，服务发生了一些错误的事情",
-  "visit-not-exist": "对不起, 此页面访问不存在",
-  "not-authorized": "对不起你没有授权通过此页面！",
-  "submission-failed": "提交失败",
-  "submission-success": "某商品购买成功！",
-  "check-modify-information-fail": "请在重新提交之前检查并修改以下信息。",
-  "check-modify-information-success": "订单号：123456789 商品就发发货当中，请耐心等待。",
-  "go-console": "去控制台",
-  "buy-again": "再次购买",
-  "content-submitted-following-error": "您提交的内容有以下错误",
-  "account-frozen": "您的帐户已被冻结。",
-  "thaw-immediately": "立即解冻",
-  "account-not-yet-eligible": "您的帐户还没有资格申请。",
-  "apply-unlock": "应用解锁",
-  "auth": "授权"
+		"placeholder": {
+			"username": "请输入用户名",
+			"password": "请输入密码",
+			"password-re": "请输入密码",
+			"phone": "请输入手机号",
+			"code": "请输入验证码"
+		},
+		"message": {
+			"username-message": "请输入用户名",
+			"password-message": "请输入密码",
+			"password-message-re": "请再次输入消息密码",
+			"phone-message": "请输入正确的手机格式",
+			"phone-format-message": "请输入符合格式的手机号"
+		}
+	},
+	"menu": {
+		"dashboard": {
+			"main": "仪表盘",
+			"workplace": "工作空间"
+		},
+		"demo": {
+			"main": "示例",
+			"dashboard": {
+				"main": "仪表盘",
+				"dashboard": "工作台",
+				"analysis": "分析页",
+				"monitor": "监控页",
+				"workplace": "工作空间"
+			},
+			"chat": {
+				"main": "聊天"
+			},
+			"health": {
+				"main": "健康",
+				"health": "健康",
+				"disease": "疾病",
+				"cervical": "颈椎",
+				"vision": "视力",
+				"hand": "手部",
+				"obesity": "肥胖",
+				"anxiety": "焦虑和抑郁",
+				"sleep": "睡眠",
+				"sport": "运动"
+			},
+			"form": {
+				"main": "表单",
+				"basic-form": "基础表单",
+				"step-form": "步骤表单",
+				"advanced-form": "步骤增强"
+			},
+			"list": {
+				"main": "列表",
+				"search": {
+					"main": "搜索列表",
+					"articles": "搜索列表（文章）",
+					"projects": "搜索列表（项目）",
+					"applications": "搜索列表（应用）"
+				},
+				"table-list": "表格搜索",
+				"basic-list": "基础列表",
+				"card-list": "卡片列表"
+			},
+			"profile": {
+				"main": "详情",
+				"basic": "基础详情页",
+				"advanced": "高阶详情页"
+			},
+			"result": {
+				"main": "结果",
+				"success": "结果-成功",
+				"fail": "结果-失败"
+			},
+			"exception": {
+				"main": "异常",
+				"403": "异常-403",
+				"404": "异常-404",
+				"500": "异常-500"
+			},
+			"account": {
+				"main": "个人页",
+				"center": "个人中心",
+				"settings": "个人设置"
+			},
+			"editor": {
+				"main": "编辑器",
+				"rich": "富文本编辑器",
+				"markdown": "markdown 编辑器",
+				"json-viewer": "json 查看器",
+				"flow": "流编辑器",
+				"mind": "脑图编辑器"
+			},
+			"personal": {
+				"main": "个人中心",
+				"center": "个人中心",
+				"settings": "个人设置"
+			},
+			"excel": {
+				"main": "Excel",
+				"import": "Excel 导入",
+				"export": "Excel 输出"
+			},
+			"calendar": {
+				"main": "日历",
+				"temporal": "Temporal 日历",
+				"antd": "antd 日历"
+			},
+			"game": {
+				"main": "游戏",
+				"pocker-guess": "猜扑克",
+				"rl": "右左",
+				"trbl": "上下左右",
+				"mouse": "鼠标"
+			},
+			"stack": {
+				"main": "技术栈",
+				"rxjs": {
+					"main": "RxJS",
+					"keybr": "键盘",
+					"count-down": "倒计时"
+				},
+				"laxjs": {
+					"main": "Laxjs",
+					"cursor": "光标"
+				}
+			},
+			"lib": {
+				"main": "库",
+				"qrcode": "二维码",
+				"clipboard": "粘贴",
+				"split": "分割",
+				"antd-icon": "antd 图表"
+			},
+			"other": {
+				"welcome": "欢迎光临",
+				"not-found": "对不起，你访问的页面不存在！",
+				"back-home": "返回主页",
+				"server-error": "对不起，服务发生了一些错误的事情",
+				"visit-not-exist": "对不起, 此页面访问不存在",
+				"not-authorized": "对不起你没有授权通过此页面！",
+				"submission-failed": "提交失败",
+				"submission-success": "某商品购买成功！",
+				"check-modify-information-fail": "请在重新提交之前检查并修改以下信息。",
+				"check-modify-information-success": "订单号：123456789 商品就发发货当中，请耐心等待。",
+				"go-console": "去控制台",
+				"buy-again": "再次购买",
+				"content-submitted-following-error": "您提交的内容有以下错误",
+				"account-frozen": "您的帐户已被冻结。",
+				"thaw-immediately": "立即解冻",
+				"account-not-yet-eligible": "您的帐户还没有资格申请。",
+				"apply-unlock": "应用解锁",
+				"auth": "授权"
+			}
+		},
+		"system": {
+			"main": "系统管理",
+			"user": {
+				"main": "用户管理"
+			},
+			"role": {
+				"main": "角色管理"
+			},
+			"menu": {
+				"main": "菜单管理"
+			},
+			"dept": {
+				"main": "部门管理"
+			},
+			"dict": "字典管理",
+			"dict-item": "字典项管理",
+			"config": "配置管理",
+			"monitor": {
+				"main": "监控管理",
+				"serve": "系统信息",
+				"login-log": "登录日志"
+			}
+		},
+		"news": {
+			"main": "新闻",
+			"edit": "编辑新闻",
+			"category": "新闻分类"
+		},
+		"blog": {
+			"main": "博客",
+			"edit": "编辑博客",
+			"category": "博客分类",
+			"tag": "博客标签"
+		},
+		"about": {
+			"main": "关于"
+		},
+		"lib": {
+			"main": "库",
+			"clipboard": "粘贴",
+			"split-pane": "拆分窗格",
+			"game": "游戏",
+			"qrcode": "二维码"
+		},
+		"profile": {
+			"main": "个人中心",
+			"account": "账户中心",
+			"link": "链接管理"
+		},
+		"tools": {
+			"main": "工具中心",
+			"storage": "存储库",
+			"mail": "邮件管理"
+		}
+	},
+	"operator": {
+		"new": "新建"
+	},
+	"greeting": "你好",
+	"welcome": "欢迎光临",
+	"not-found": "对不起，你访问的页面不存在！",
+	"back-home": "返回主页",
+	"server-error": "对不起，服务发生了一些错误的事情",
+	"visit-not-exist": "对不起, 此页面访问不存在",
+	"not-authorized": "对不起你没有授权通过此页面！",
+	"submission-failed": "提交失败",
+	"submission-success": "某商品购买成功！",
+	"check-modify-information-fail": "请在重新提交之前检查并修改以下信息。",
+	"check-modify-information-success": "订单号：123456789 商品就发发货当中，请耐心等待。",
+	"go-console": "去控制台",
+	"buy-again": "再次购买",
+	"content-submitted-following-error": "您提交的内容有以下错误",
+	"account-frozen": "您的帐户已被冻结。",
+	"thaw-immediately": "立即解冻",
+	"account-not-yet-eligible": "您的帐户还没有资格申请。",
+	"apply-unlock": "应用解锁",
+	"auth": "授权"
 }

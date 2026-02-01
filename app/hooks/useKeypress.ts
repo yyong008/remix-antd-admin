@@ -1,38 +1,35 @@
 import { useEffect, useRef, useState } from "react";
 
-import { fromEvent } from "rxjs";
-
 export function useKeyPress(resetTime = 100) {
-  const [key, setKey] = useState("");
-  const tRef = useRef<any>();
+	const [key, setKey] = useState("");
+	const tRef = useRef<any>();
 
-  useEffect(() => {
-    const keyDownObservable = fromEvent(document, "keydown");
+	useEffect(() => {
+		const handler = (event: KeyboardEvent) => {
+			if (event.key) {
+				setKey(event.key);
+			}
 
-    const subscription = keyDownObservable.subscribe((event: any) => {
-      if (event.key) {
-        setKey(event.key);
-      }
+			if (resetTime) {
+				if (tRef.current) {
+					clearInterval(tRef.current);
+				}
 
-      if (resetTime) {
-        if (tRef.current) {
-          clearInterval(tRef.current);
-        }
+				tRef.current = setTimeout(() => {
+					setKey("");
+				}, resetTime);
+			}
+		};
 
-        tRef.current = setTimeout(() => {
-          setKey("");
-        }, resetTime);
-      }
-    });
+		document.addEventListener("keydown", handler);
+		return () => {
+			document.removeEventListener("keydown", handler);
+			tRef.current = null;
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-    return () => {
-      subscription.unsubscribe();
-      tRef.current = null;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return [key];
+	return [key];
 }
 
 export default useKeyPress;

@@ -6,15 +6,15 @@ import { getApiClient } from "~/api-client";
  * @returns
  */
 export async function createMailTemplate(data: any) {
-  try {
-    const res = await getApiClient().api.admin.tools.mail.$post({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.tools.mail.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -23,15 +23,15 @@ export async function createMailTemplate(data: any) {
  * @returns
  */
 export async function updateMailTemplateById(data: any) {
-  try {
-    const res = await getApiClient().api.admin.tools.mail.$put({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.tools.mail.$put({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -40,15 +40,15 @@ export async function updateMailTemplateById(data: any) {
  * @returns
  */
 export async function deleteMailTemplateByIds(data: any) {
-  try {
-    const res = await getApiClient().api.admin.tools.mail.$delete({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.tools.mail.$delete({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -57,15 +57,15 @@ export async function deleteMailTemplateByIds(data: any) {
  * @returns
  */
 export async function readMailTemplate(id: number) {
-  try {
-    const res = await getApiClient().api.admin.tools.mail[":id"].$get({
-      param: { id: String(id) },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.tools.mail[":id"].$get({
+			param: { id: String(id) },
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -74,21 +74,21 @@ export async function readMailTemplate(id: number) {
  * @returns
  */
 export async function readMailTemplateList(params: {
-  page: number;
-  pageSize: number;
+	page: number;
+	pageSize: number;
 }) {
-  try {
-    const res = await getApiClient().api.admin.tools.mail.$get({
-      query: {
-        page: params.page.toString(),
-        pageSize: params.pageSize.toString(),
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.tools.mail.$get({
+			query: {
+				page: params.page.toString(),
+				pageSize: params.pageSize.toString(),
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -97,15 +97,15 @@ export async function readMailTemplateList(params: {
  * @returns
  */
 export async function createToolsStorage(data: any) {
-  try {
-    const res = await getApiClient().api.admin.tools.storage.$post({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.tools.storage.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -114,15 +114,15 @@ export async function createToolsStorage(data: any) {
  * @returns
  */
 export async function updateToolsStorageById(data: any) {
-  try {
-    const res = await getApiClient().api.admin.tools.storage.$put({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.tools.storage.$put({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -131,15 +131,15 @@ export async function updateToolsStorageById(data: any) {
  * @returns
  */
 export async function deleteToolsStorageByIds(data: any) {
-  try {
-    const res = await getApiClient().api.admin.tools.storage.$delete({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.tools.storage.$delete({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -147,13 +147,13 @@ export async function deleteToolsStorageByIds(data: any) {
  * @returns
  */
 export async function readToolsStorage() {
-  try {
-    const res = await getApiClient().api.admin.tools.storage.$get();
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.tools.storage.$get();
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -162,19 +162,19 @@ export async function readToolsStorage() {
  * @returns
  */
 export async function readToolsStorageList(params: {
-  page: number;
-  pageSize: number;
+	page: number;
+	pageSize: number;
 }) {
-  try {
-    const res = await getApiClient().api.admin.tools.storage.$get({
-      query: {
-        page: params.page.toString(),
-        pageSize: params.pageSize.toString(),
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.tools.storage.$get({
+			query: {
+				page: params.page.toString(),
+				pageSize: params.pageSize.toString(),
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }

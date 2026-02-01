@@ -1,5 +1,3 @@
-// rxjs
-import { from } from "rxjs";
 // i18n
 import i18n from "~/libs/i18n/i18next.server";
 
@@ -9,5 +7,5 @@ import i18n from "~/libs/i18n/i18next.server";
  * @returns
  */
 export const createT$ = (params: any) => {
-  return from(i18n.getFixedT(params.lang));
+	return i18n.getFixedT(params.lang);
 };

@@ -5,18 +5,18 @@ import { getApiClient } from "~/api-client";
  * @returns
  */
 export async function getDocs(params: any) {
-  try {
-    const res = await getApiClient().api.admin.docs.changelog.$get({
-      query: {
-        page: params.page?.toString?.() ?? "1",
-        pageSize: params.pageSize?.toString?.() ?? "10",
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.docs.changelog.$get({
+			query: {
+				page: params.page?.toString?.() ?? "1",
+				pageSize: params.pageSize?.toString?.() ?? "10",
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -25,15 +25,15 @@ export async function getDocs(params: any) {
  * @return
  * */
 export async function getDoc(id: string) {
-  try {
-    const res = await getApiClient().api.admin.docs.changelog[":id"].$get({
-      param: { id },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.docs.changelog[":id"].$get({
+			param: { id },
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -43,16 +43,16 @@ export async function getDoc(id: string) {
  * @returns
  * */
 export async function updateDoc(id: string, data: any) {
-  try {
-    const res = await getApiClient().api.admin.docs.changelog[":id"].$put({
-      param: { id },
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.docs.changelog[":id"].$put({
+			param: { id },
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -61,15 +61,15 @@ export async function updateDoc(id: string, data: any) {
  * @returns
  * */
 export async function deleteDocs(ids: string) {
-  try {
-    const res = await getApiClient().api.admin.docs.changelog.$delete({
-      json: { ids },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.docs.changelog.$delete({
+			json: { ids },
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -78,15 +78,15 @@ export async function deleteDocs(ids: string) {
  * @returns
  * */
 export async function createDoc(data: any) {
-  try {
-    const res = await getApiClient().api.admin.docs.changelog.$post({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.docs.changelog.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -95,18 +95,18 @@ export async function createDoc(data: any) {
  * @returns
  */
 export async function getFeedbacks(params: any) {
-  try {
-    const res = await getApiClient().api.admin.feedback.$get({
-      query: {
-        page: params.page?.toString?.() ?? "1",
-        pageSize: params.pageSize?.toString?.() ?? "10",
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.feedback.$get({
+			query: {
+				page: params.page?.toString?.() ?? "1",
+				pageSize: params.pageSize?.toString?.() ?? "10",
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -115,15 +115,15 @@ export async function getFeedbacks(params: any) {
  * @returns
  * */
 export async function deleteFeedbacks(ids: string) {
-  try {
-    const res = await getApiClient().api.admin.feedback.$delete({
-      json: { ids },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.feedback.$delete({
+			json: { ids },
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -132,15 +132,15 @@ export async function deleteFeedbacks(ids: string) {
  * @returns
  * */
 export async function getFeedback(id: string) {
-  try {
-    const res = await getApiClient().api.admin.feedback[":id"].$get({
-      param: { id },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.feedback[":id"].$get({
+			param: { id },
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -150,16 +150,16 @@ export async function getFeedback(id: string) {
  * @returns
  * */
 export async function updateFeedback(id: string, data: any) {
-  try {
-    const res = await getApiClient().api.admin.feedback[":id"].$put({
-      param: { id },
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.feedback[":id"].$put({
+			param: { id },
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -168,13 +168,13 @@ export async function updateFeedback(id: string, data: any) {
  * @returns
  * */
 export async function createFeedback(data: any) {
-  try {
-    const res = await getApiClient().api.admin.feedback.$post({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.feedback.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }

@@ -1,4 +1,4 @@
 {
-  "$schema": "https://inlang.com/schema/inlang-message-format",
-  "example_message": "Hello world {username}"
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"example_message": "Hello world {username}"
 }

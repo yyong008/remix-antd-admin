@@ -10,19 +10,19 @@ import remixI18Next from "~/libs/i18n/i18next.server";
 import { resolve } from "node:path";
 
 export const createRemixI18n = async (request: any, remixContext: any) => {
-  const i18nInstance = createInstance();
-  const lng = await remixI18Next.getLocale(request);
-  const ns = remixI18Next.getRouteNamespaces(remixContext);
+	const i18nInstance = createInstance();
+	const lng = await remixI18Next.getLocale(request);
+	const ns = remixI18Next.getRouteNamespaces(remixContext);
 
-  await i18nInstance
-    .use(initReactI18next) // Tell our instance to use react-i18next.
-    .use(Backend) // Setup backend.
-    .init({
-      ...i18nConfig, // Spread configuration.
-      lng, // Locale detected above.
-      ns, // Namespaces detected above.
-      backend: { loadPath: resolve("./public/locales/{{lng}}/{{ns}}.json") },
-    });
+	await i18nInstance
+		.use(initReactI18next) // Tell our instance to use react-i18next.
+		.use(Backend) // Setup backend.
+		.init({
+			...i18nConfig, // Spread configuration.
+			lng, // Locale detected above.
+			ns, // Namespaces detected above.
+			backend: { loadPath: resolve("./public/locales/{{lng}}/{{ns}}.json") },
+		});
 
-  return { I18nextProvider, i18nInstance };
+	return { I18nextProvider, i18nInstance };
 };

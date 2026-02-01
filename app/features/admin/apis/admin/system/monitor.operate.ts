@@ -6,15 +6,15 @@ import { getApiClient } from "~/api-client";
  * @returns
  */
 export async function createMonitorOperate(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.monitor.operate.$post({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.monitor.operate.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -23,15 +23,15 @@ export async function createMonitorOperate(data: any) {
  * @returns
  */
 export async function updateMonitorOperateById(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.monitor.operate.$put({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.monitor.operate.$put({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -40,15 +40,15 @@ export async function updateMonitorOperateById(data: any) {
  * @returns
  */
 export async function deleteMonitorOperateByIds(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.monitor.operate.$delete({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.monitor.operate.$delete({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -56,13 +56,13 @@ export async function deleteMonitorOperateByIds(data: any) {
  * @returns
  */
 export async function readMonitorOperate() {
-  try {
-    const res = await getApiClient().api.admin.system.monitor.operate.$get();
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.monitor.operate.$get();
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -71,19 +71,19 @@ export async function readMonitorOperate() {
  * @returns
  */
 export async function readMonitorOperateList(params: {
-  page: number;
-  pageSize: number;
+	page: number;
+	pageSize: number;
 }) {
-  try {
-    const res = await getApiClient().api.admin.system.monitor.operate.$get({
-      query: {
-        page: params.page.toString(),
-        pageSize: params.pageSize.toString(),
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.monitor.operate.$get({
+			query: {
+				page: params.page.toString(),
+				pageSize: params.pageSize.toString(),
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }

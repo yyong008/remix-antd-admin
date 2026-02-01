@@ -1,35 +1,55 @@
 import { legalSource } from "~/libs/fumadocs/source";
 import type { Root } from "fumadocs-core/page-tree";
 
-export const getLegalData = async ({ params }: { params: { locale?: string; legal: string } }) => {
-  const locale = params.locale;
-  const legal = params.legal;
-  const slugs = legal ? legal.split("/") : [];
-  console.log("lcoale, slugs", locale, legal, slugs)
-  const page = legalSource.getPage(slugs, locale);
+export const getLegalData = async ({
+	params,
+}: {
+	params: { locale?: string; legal: string };
+}) => {
+	const locale = params.locale;
+	const legal = params.legal;
+	const slugs = legal ? legal.split("/") : [];
+	console.log("lcoale, slugs", locale, legal, slugs);
+	const page = legalSource.getPage(slugs, locale);
 
-  if (!page) {
-    throw new Error("Page not found");
-  }
+	if (!page) {
+		throw new Error("Page not found");
+	}
 
-  return {
-    page: page,
-    tree: legalSource.getPageTree(locale) as Root,
-  };
+	return {
+		page: page,
+		tree: legalSource.getPageTree(locale) as Root,
+	};
 };
 
-export const getPrivacyPolicyData = async ({ params }: { params: { locale?: string } }) => {
-  return getLegalData({ params: { ...params, legal: "privacy-policy" } });
+export const getPrivacyPolicyData = async ({
+	params,
+}: {
+	params: { locale?: string };
+}) => {
+	return getLegalData({ params: { ...params, legal: "privacy-policy" } });
 };
 
-export const getTermsOfServiceData = async ({ params }: { params: { locale?: string } }) => {
-  return getLegalData({ params: { ...params, legal: "terms-of-service" } });
+export const getTermsOfServiceData = async ({
+	params,
+}: {
+	params: { locale?: string };
+}) => {
+	return getLegalData({ params: { ...params, legal: "terms-of-service" } });
 };
 
-export const getCookiePolicyData = async ({ params }: { params: { locale?: string } }) => {
-  return getLegalData({ params: { ...params, legal: "cookie-policy" } });
+export const getCookiePolicyData = async ({
+	params,
+}: {
+	params: { locale?: string };
+}) => {
+	return getLegalData({ params: { ...params, legal: "cookie-policy" } });
 };
 
-export const getLicenseData = async ({ params }: { params: { locale?: string } }) => {
-  return getLegalData({ params: { ...params, legal: "license" } });
+export const getLicenseData = async ({
+	params,
+}: {
+	params: { locale?: string };
+}) => {
+	return getLegalData({ params: { ...params, legal: "license" } });
 };

@@ -9,46 +9,46 @@ import { useCreateNews } from "~/api-client/queries/news";
 import { useNewsCategoryList } from "~/api-client/queries/news-category";
 
 export function Route() {
-  const nav = useNavigate();
-  const { lang } = useParams();
-  const createNews = useCreateNews();
-  const [content, setContent] = useState("");
-  const { data: newsCategoryList, isLoading } = useNewsCategoryList({
-    page: 1,
-    pageSize: 200,
-  });
-  return (
-    <PageContainer>
-      <ProCard
-        loading={isLoading}
-        extra={
-          <DrawerForm
-            trigger={<Button type="primary">创建新闻</Button>}
-            onFinish={async (v) => {
-              const result = await createNews.mutateAsync(v);
-              if (result.data?.code !== 0) {
-                message.error(result.data?.message);
-                return false;
-              }
-              message.success(result.data?.message);
-              nav(`/${lang}/admin/news/result`, {
-                state: { title: v.title, id: result.data.data.id },
-              });
-              return true;
-            }}
-          >
-            <FormItems newsCategoryList={newsCategoryList} />
-          </DrawerForm>
-        }
-      >
-        <div style={{ height: "400px" }}>
-          <QuillEditor
-            initContent={""}
-            content={content}
-            setContent={setContent}
-          />
-        </div>
-      </ProCard>
-    </PageContainer>
-  );
+	const nav = useNavigate();
+	const { lang } = useParams();
+	const createNews = useCreateNews();
+	const [content, setContent] = useState("");
+	const { data: newsCategoryList, isLoading } = useNewsCategoryList({
+		page: 1,
+		pageSize: 200,
+	});
+	return (
+		<PageContainer>
+			<ProCard
+				loading={isLoading}
+				extra={
+					<DrawerForm
+						trigger={<Button type="primary">创建新闻</Button>}
+						onFinish={async (v) => {
+							const result = await createNews.mutateAsync(v);
+							if (result.data?.code !== 0) {
+								message.error(result.data?.message);
+								return false;
+							}
+							message.success(result.data?.message);
+							nav(`/${lang}/admin/news/result`, {
+								state: { title: v.title, id: result.data.data.id },
+							});
+							return true;
+						}}
+					>
+						<FormItems newsCategoryList={newsCategoryList} />
+					</DrawerForm>
+				}
+			>
+				<div style={{ height: "400px" }}>
+					<QuillEditor
+						initContent={""}
+						content={content}
+						setContent={setContent}
+					/>
+				</div>
+			</ProCard>
+		</PageContainer>
+	);
 }

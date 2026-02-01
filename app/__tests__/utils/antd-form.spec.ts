@@ -3,8 +3,8 @@ import { expect, it } from "vitest";
 import { genFileListByName } from "~/utils/client";
 
 it("formate", () => {
-  const name = "remix";
-  expect(genFileListByName(name)).toMatchInlineSnapshot(`
+	const name = "remix";
+	expect(genFileListByName(name)).toMatchInlineSnapshot(`
     [
       {
         "name": "remix",

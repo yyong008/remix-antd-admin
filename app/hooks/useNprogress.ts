@@ -4,13 +4,13 @@ import { useEffect } from "react";
 import NProgress from "nprogress";
 
 export function useNProgress() {
-  const navigation = useNavigation();
+	const navigation = useNavigation();
 
-  useEffect(() => {
-    if (navigation.state === "idle") {
-      NProgress.done();
-    } else {
-      NProgress.start();
-    }
-  }, [navigation.state]);
+	useEffect(() => {
+		if (navigation.state === "idle") {
+			NProgress.done();
+		} else {
+			NProgress.start();
+		}
+	}, [navigation.state]);
 }

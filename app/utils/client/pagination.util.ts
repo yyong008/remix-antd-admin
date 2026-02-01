@@ -1,10 +1,8 @@
-import { type Observable, of } from "rxjs";
-
 type IPagination = {
-  page?: number;
-  pageSize?: number;
-  name?: string;
-  role?: string;
+	page?: number;
+	pageSize?: number;
+	name?: string;
+	role?: string;
 };
 
 /**
@@ -13,13 +11,13 @@ type IPagination = {
  * @returns 分页 {IPagination}
  */
 export function getPaginationByRequest(request: Request): IPagination {
-  let { searchParams } = new URL(request.url);
-  let page = Number(searchParams.get("page") ?? 1);
-  let pageSize = Number(searchParams.get("pageSize") ?? 10);
-  let name = searchParams.get("name") ?? "";
-  let role = searchParams.get("role") ?? "";
+	let { searchParams } = new URL(request.url);
+	let page = Number(searchParams.get("page") ?? 1);
+	let pageSize = Number(searchParams.get("pageSize") ?? 10);
+	let name = searchParams.get("name") ?? "";
+	let role = searchParams.get("role") ?? "";
 
-  return { page, pageSize, name, role };
+	return { page, pageSize, name, role };
 }
 
 /**
@@ -27,13 +25,11 @@ export function getPaginationByRequest(request: Request): IPagination {
  * @param request 请求对象
  * @returns 分页 {IPagination}
  */
-export function getPaginationByRequest$(
-  request: Request,
-): Observable<IPagination> {
-  let { searchParams } = new URL(request.url);
-  let page = Number(searchParams.get("page") ?? 1);
-  let pageSize = Number(searchParams.get("pageSize") ?? 10);
-  let name = searchParams.get("name") ?? "";
+export function getPaginationByRequest$(request: Request): IPagination {
+	let { searchParams } = new URL(request.url);
+	let page = Number(searchParams.get("page") ?? 1);
+	let pageSize = Number(searchParams.get("pageSize") ?? 10);
+	let name = searchParams.get("name") ?? "";
 
-  return of({ page, pageSize, name });
+	return { page, pageSize, name };
 }

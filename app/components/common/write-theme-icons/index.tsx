@@ -5,7 +5,7 @@ import { useColorPrimary } from "~/hooks/useColorPrimary";
 const { EditOutlined } = icons;
 
 export const EditThemeIcon = () => {
-  const { colorPrimary } = useColorPrimary();
+	const { colorPrimary } = useColorPrimary();
 
-  return <EditOutlined style={{ color: colorPrimary }} />;
+	return <EditOutlined style={{ color: colorPrimary }} />;
 };

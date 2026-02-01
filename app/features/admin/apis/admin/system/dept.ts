@@ -6,13 +6,15 @@ import { getApiClient } from "~/api-client";
  * @returns
  */
 export async function createSystemDept(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.dept.$post({ json: data });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.dept.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -21,13 +23,13 @@ export async function createSystemDept(data: any) {
  * @returns
  */
 export async function updateSystemDeptById(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.dept.$put({ json: data });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.dept.$put({ json: data });
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -36,13 +38,15 @@ export async function updateSystemDeptById(data: any) {
  * @returns
  */
 export async function deleteSystemDeptByIds(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.dept.$delete({ json: data });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.dept.$delete({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -50,13 +54,13 @@ export async function deleteSystemDeptByIds(data: any) {
  * @returns
  */
 export async function readSystemDept() {
-  try {
-    const res = await getApiClient().api.admin.system.dept.$get();
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.dept.$get();
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -65,19 +69,19 @@ export async function readSystemDept() {
  * @returns
  */
 export async function readSystemDeptList(params: {
-  page: number;
-  pageSize: number;
+	page: number;
+	pageSize: number;
 }) {
-  try {
-    const res = await getApiClient().api.admin.system.dept.$get({
-      query: {
-        page: params.page.toString(),
-        pageSize: params.pageSize.toString(),
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.dept.$get({
+			query: {
+				page: params.page.toString(),
+				pageSize: params.pageSize.toString(),
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }

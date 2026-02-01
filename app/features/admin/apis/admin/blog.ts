@@ -8,25 +8,25 @@ import { getApiClient } from "~/api-client";
  * @returns
  */
 export async function readBlogList(params: {
-  page?: number;
-  pageSize?: number;
-  categoryId?: string;
-  tagId?: string;
+	page?: number;
+	pageSize?: number;
+	categoryId?: string;
+	tagId?: string;
 }) {
-  try {
-    const res = await getApiClient().api.admin.blog.$get({
-      query: {
-        page: (params.page ?? 1).toString(),
-        pageSize: (params.pageSize ?? 10).toString(),
-        categoryId: params.categoryId ?? "",
-        tagId: params.tagId ?? "",
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.blog.$get({
+			query: {
+				page: (params.page ?? 1).toString(),
+				pageSize: (params.pageSize ?? 10).toString(),
+				categoryId: params.categoryId ?? "",
+				tagId: params.tagId ?? "",
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -35,15 +35,15 @@ export async function readBlogList(params: {
  * @returns
  */
 export async function deleteBlogById(id: number) {
-  try {
-    const res = await getApiClient().api.admin.blog[":id"].$delete({
-      param: { id: String(id) },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.blog[":id"].$delete({
+			param: { id: String(id) },
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -52,15 +52,15 @@ export async function deleteBlogById(id: number) {
  * @returns
  */
 export async function deleteBlogByIds(ids: number[]) {
-  try {
-    const res = await getApiClient().api.admin.blog.$delete({
-      json: { ids },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.blog.$delete({
+			json: { ids },
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -70,16 +70,16 @@ export async function deleteBlogByIds(ids: number[]) {
  * @returns
  */
 export async function updateBlogById(id: number, data: any) {
-  try {
-    const res = await getApiClient().api.admin.blog[":id"].$put({
-      param: { id: String(id) },
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.blog[":id"].$put({
+			param: { id: String(id) },
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -88,13 +88,13 @@ export async function updateBlogById(id: number, data: any) {
  * @returns
  */
 export async function createBlog(data: any) {
-  try {
-    const res = await getApiClient().api.admin.blog.$post({ json: data });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.blog.$post({ json: data });
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -103,15 +103,15 @@ export async function createBlog(data: any) {
  * @returns
  */
 export async function readBlog(id: number) {
-  try {
-    const res = await getApiClient().api.admin.blog[":id"].$get({
-      param: { id: String(id) },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.blog[":id"].$get({
+			param: { id: String(id) },
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -119,13 +119,13 @@ export async function readBlog(id: number) {
  * @returns
  */
 export async function readBlogCategory() {
-  try {
-    const res = await getApiClient().api.admin.blog.category.$get();
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.blog.category.$get();
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -134,15 +134,15 @@ export async function readBlogCategory() {
  * @returns
  */
 export async function createBlogCategory(data: any) {
-  try {
-    const res = await getApiClient().api.admin.blog.category.$post({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.blog.category.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -151,15 +151,15 @@ export async function createBlogCategory(data: any) {
  * @returns
  */
 export async function deleteBlogCategoryByIds(ids: number[]) {
-  try {
-    const res = await getApiClient().api.admin.blog.category.$delete({
-      json: { ids },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.blog.category.$delete({
+			json: { ids },
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -169,16 +169,16 @@ export async function deleteBlogCategoryByIds(ids: number[]) {
  * @returns
  */
 export async function updateBlogCategoryById(id: number, data: any) {
-  try {
-    const res = await getApiClient().api.admin.blog.category[":id"].$put({
-      param: { id: String(id) },
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.blog.category[":id"].$put({
+			param: { id: String(id) },
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -187,15 +187,15 @@ export async function updateBlogCategoryById(id: number, data: any) {
  * @returns
  */
 export async function readBlogCategoryById(id: number) {
-  try {
-    const res = await getApiClient().api.admin.blog.category[":id"].$get({
-      param: { id: String(id) },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.blog.category[":id"].$get({
+			param: { id: String(id) },
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -203,19 +203,22 @@ export async function readBlogCategoryById(id: number) {
  * @param params
  * @returns
  */
-export async function readBlogTagList(params?: { page?: number; pageSize?: number }) {
-  try {
-    const res = await getApiClient().api.admin.blog.tag.$get({
-      query: {
-        page: (params?.page ?? 1).toString(),
-        pageSize: (params?.pageSize ?? 10).toString(),
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+export async function readBlogTagList(params?: {
+	page?: number;
+	pageSize?: number;
+}) {
+	try {
+		const res = await getApiClient().api.admin.blog.tag.$get({
+			query: {
+				page: (params?.page ?? 1).toString(),
+				pageSize: (params?.pageSize ?? 10).toString(),
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -224,13 +227,13 @@ export async function readBlogTagList(params?: { page?: number; pageSize?: numbe
  * @returns
  */
 export async function createBlogTag(data: any) {
-  try {
-    const res = await getApiClient().api.admin.blog.tag.$post({ json: data });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.blog.tag.$post({ json: data });
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -239,15 +242,15 @@ export async function createBlogTag(data: any) {
  * @returns
  */
 export async function deleteBlogTagByIds(ids: number[]) {
-  try {
-    const res = await getApiClient().api.admin.blog.tag.$delete({
-      json: { ids },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.blog.tag.$delete({
+			json: { ids },
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -257,16 +260,16 @@ export async function deleteBlogTagByIds(ids: number[]) {
  * @returns
  */
 export async function updateBlogTagById(id: number, data: any) {
-  try {
-    const res = await getApiClient().api.admin.blog.tag[":id"].$put({
-      param: { id: String(id) },
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.blog.tag[":id"].$put({
+			param: { id: String(id) },
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -275,13 +278,13 @@ export async function updateBlogTagById(id: number, data: any) {
  * @returns
  */
 export async function readBlogTagById(id: number) {
-  try {
-    const res = await getApiClient().api.admin.blog.tag[":id"].$get({
-      param: { id: String(id) },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.blog.tag[":id"].$get({
+			param: { id: String(id) },
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }

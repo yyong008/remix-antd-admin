@@ -5,11 +5,11 @@ import { getApiClient } from "~/api-client";
  * @returns
  */
 export async function readRoleAll() {
-  try {
-    const res = await getApiClient().api.admin.system["menu-role"].$get();
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system["menu-role"].$get();
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }

@@ -6,15 +6,15 @@ import { getApiClient } from "~/api-client";
  * @returns
  */
 export async function createMonitorLoginlog(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.monitor.loginlog.$post({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.monitor.loginlog.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -23,15 +23,15 @@ export async function createMonitorLoginlog(data: any) {
  * @returns
  */
 export async function updateMonitorLoginlogById(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.monitor.loginlog.$put({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.monitor.loginlog.$put({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -40,15 +40,15 @@ export async function updateMonitorLoginlogById(data: any) {
  * @returns
  */
 export async function deleteMonitorLoginlogByIds(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.monitor.loginlog.$delete({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.monitor.loginlog.$delete({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -56,13 +56,13 @@ export async function deleteMonitorLoginlogByIds(data: any) {
  * @returns
  */
 export async function readMonitorLoginlog() {
-  try {
-    const res = await getApiClient().api.admin.system.monitor.loginlog.$get();
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.monitor.loginlog.$get();
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -71,19 +71,19 @@ export async function readMonitorLoginlog() {
  * @returns
  */
 export async function readMonitorLoginlogList(params: {
-  page: number;
-  pageSize: number;
+	page: number;
+	pageSize: number;
 }) {
-  try {
-    const res = await getApiClient().api.admin.system.monitor.loginlog.$get({
-      query: {
-        page: params.page.toString(),
-        pageSize: params.pageSize.toString(),
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.monitor.loginlog.$get({
+			query: {
+				page: params.page.toString(),
+				pageSize: params.pageSize.toString(),
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }

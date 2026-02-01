@@ -6,37 +6,37 @@ import { ModalFormItems } from "./ModalFormItems";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 
 export function UpdateBlogModal({ refetch, record }: any) {
-  const [createBlogTag] = [(...args: any): any => {}];
-  const [form] = ProForm.useForm();
-  const { colorPrimary } = useColorPrimary();
-  return (
-    <ModalForm
-      title="创建标签"
-      form={form}
-      trigger={
-        <Button
-          type={"link"}
-          icon={<EditOutlined style={{ color: colorPrimary }} />}
-        ></Button>
-      }
-      onOpenChange={() => {
-        form.setFieldsValue({
-          ...record,
-        });
-      }}
-      onFinish={async (values: any) => {
-        const result = await createBlogTag(values);
-        if (result.data.code !== 0) {
-          message.error(result.data.message);
-          return false;
-        }
-        message.success(result.data.message);
-        form.resetFields();
-        refetch();
-        return true;
-      }}
-    >
-      <ModalFormItems />
-    </ModalForm>
-  );
+	const [createBlogTag] = [(...args: any): any => {}];
+	const [form] = ProForm.useForm();
+	const { colorPrimary } = useColorPrimary();
+	return (
+		<ModalForm
+			title="创建标签"
+			form={form}
+			trigger={
+				<Button
+					type={"link"}
+					icon={<EditOutlined style={{ color: colorPrimary }} />}
+				></Button>
+			}
+			onOpenChange={() => {
+				form.setFieldsValue({
+					...record,
+				});
+			}}
+			onFinish={async (values: any) => {
+				const result = await createBlogTag(values);
+				if (result.data.code !== 0) {
+					message.error(result.data.message);
+					return false;
+				}
+				message.success(result.data.message);
+				form.resetFields();
+				refetch();
+				return true;
+			}}
+		>
+			<ModalFormItems />
+		</ModalForm>
+	);
 }

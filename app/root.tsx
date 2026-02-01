@@ -16,11 +16,11 @@ export const middleware: MiddlewareFunction[] = [
 export let handle = { i18n: ["common", "menu"] };
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: global },
-  { rel: "stylesheet", href: tailwind },
-  { rel: "stylesheet", href: npStyle },
+	{ rel: "stylesheet", href: global },
+	{ rel: "stylesheet", href: tailwind },
+	{ rel: "stylesheet", href: npStyle },
 ];
 
 export default function Root() {
-  return <RootRoute />;
+	return <RootRoute />;
 }

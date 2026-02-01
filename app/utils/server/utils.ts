@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import { of } from "rxjs";
 
 /**
  * noop 空函数
@@ -12,7 +11,7 @@ export function noop() {}
  * @returns
  */
 export function identity<T>(value: T): T {
-  return value;
+	return value;
 }
 
 /**
@@ -22,7 +21,7 @@ export function identity<T>(value: T): T {
  * @returns
  */
 export function formatDate(time: string, format = "YYYY-MM-DD HH:mm:ss") {
-  return dayjs(time).format(format);
+	return dayjs(time).format(format);
 }
 
 /**
@@ -31,22 +30,22 @@ export function formatDate(time: string, format = "YYYY-MM-DD HH:mm:ss") {
  * @returns
  */
 export function genFileListByName(name: string) {
-  if (!name) {
-    return [];
-  }
-  return [
-    {
-      uid: "uid",
-      name,
-      status: "done",
-      url: name,
-      response: {
-        data: {
-          name,
-        },
-      },
-    },
-  ];
+	if (!name) {
+		return [];
+	}
+	return [
+		{
+			uid: "uid",
+			name,
+			status: "done",
+			url: name,
+			response: {
+				data: {
+					name,
+				},
+			},
+		},
+	];
 }
 
 /**
@@ -55,11 +54,11 @@ export function genFileListByName(name: string) {
  * @returns
  */
 export function extname(str: string) {
-  var slug = str.split(/\/|\\/).slice(-1)[0];
-  var idx = slug.lastIndexOf(".");
-  if (idx <= 0) return "";
-  var ext = slug.slice(idx);
-  return ext;
+	var slug = str.split(/\/|\\/).slice(-1)[0];
+	var idx = slug.lastIndexOf(".");
+	if (idx <= 0) return "";
+	var ext = slug.slice(idx);
+	return ext;
 }
 
 /**
@@ -69,16 +68,16 @@ export function extname(str: string) {
  * @returns
  */
 export function getSearchParams(request: Request, name: string) {
-  const r = new URL(request.url).searchParams.get(name);
-  return r;
+	const r = new URL(request.url).searchParams.get(name);
+	return r;
 }
 
 export function getSearchParamsPage(request: Request) {
-  return Number(getSearchParams(request, "page") ?? 1);
+	return Number(getSearchParams(request, "page") ?? 1);
 }
 
 export function getSearchParamsPageSize(request: Request) {
-  return Number(getSearchParams(request, "pageSize") ?? 10);
+	return Number(getSearchParams(request, "pageSize") ?? 10);
 }
 
 /**
@@ -88,18 +87,17 @@ export function getSearchParamsPageSize(request: Request) {
  * @returns
  */
 export function getSearchParams$(request: Request, name: string) {
-  const r = new URL(request.url).searchParams.get(name);
-  return of(r);
+	return getSearchParams(request, name);
 }
 
 export function requestToSearchParamsObj(request: Request) {
-  const obj: any = {};
-  const url = new URL(request.url);
-  const searchParams = url.searchParams;
+	const obj: any = {};
+	const url = new URL(request.url);
+	const searchParams = url.searchParams;
 
-  searchParams.forEach((value, key) => {
-    obj[`${key}`] = value;
-  });
+	searchParams.forEach((value, key) => {
+		obj[`${key}`] = value;
+	});
 
-  return obj;
+	return obj;
 }

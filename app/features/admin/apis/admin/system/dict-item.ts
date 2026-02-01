@@ -7,16 +7,18 @@ import { getApiClient } from "~/api-client";
  * @returns
  */
 export async function createSystemDictItem(dictionaryId: string, data: any) {
-  try {
-    const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$post({
-      param: { dictionaryId },
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system["dict-item"][
+			":dictionaryId"
+		].$post({
+			param: { dictionaryId },
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -26,19 +28,21 @@ export async function createSystemDictItem(dictionaryId: string, data: any) {
  * @returns
  */
 export async function updateSystemDictItemById(
-  dictionaryId: string,
-  data: any,
+	dictionaryId: string,
+	data: any,
 ) {
-  try {
-    const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$put({
-      param: { dictionaryId },
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system["dict-item"][
+			":dictionaryId"
+		].$put({
+			param: { dictionaryId },
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -48,19 +52,21 @@ export async function updateSystemDictItemById(
  * @returns
  */
 export async function deleteSystemDictItemByIds(
-  dictionaryId: string,
-  ids: string[],
+	dictionaryId: string,
+	ids: string[],
 ) {
-  try {
-    const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$delete({
-      param: { dictionaryId },
-      json: { ids },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system["dict-item"][
+			":dictionaryId"
+		].$delete({
+			param: { dictionaryId },
+			json: { ids },
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -69,15 +75,17 @@ export async function deleteSystemDictItemByIds(
  * @returns
  */
 export async function readSystemDictItem(dictionaryId: string) {
-  try {
-    const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$get({
-      param: { dictionaryId },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system["dict-item"][
+			":dictionaryId"
+		].$get({
+			param: { dictionaryId },
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -87,20 +95,22 @@ export async function readSystemDictItem(dictionaryId: string) {
  * @returns
  */
 export async function readSystemDictItemList(
-  dictionaryId: string,
-  params: { page: number; pageSize: number },
+	dictionaryId: string,
+	params: { page: number; pageSize: number },
 ) {
-  try {
-    const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$get({
-      param: { dictionaryId },
-      query: {
-        page: params.page.toString(),
-        pageSize: params.pageSize.toString(),
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system["dict-item"][
+			":dictionaryId"
+		].$get({
+			param: { dictionaryId },
+			query: {
+				page: params.page.toString(),
+				pageSize: params.pageSize.toString(),
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }

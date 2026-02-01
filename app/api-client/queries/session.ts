@@ -11,65 +11,66 @@ export const USER_SESSION_QUERY_KEY = ["user", "session"] as const;
  * @see https://tanstack.com/query/latest/docs/framework/react/guides/important-defaults
  */
 export function useUserSessionQuery() {
-  const queryClient = useQueryClient();
+	const queryClient = useQueryClient();
 
-  return useQuery({
-    queryKey: USER_SESSION_QUERY_KEY,
-    queryFn: async () => {
-      const { data, error } = await authClient.getSession();
+	return useQuery({
+		queryKey: USER_SESSION_QUERY_KEY,
+		queryFn: async () => {
+			const { data, error } = await authClient.getSession();
 
-      if (error) {
-        queryClient.setQueryData(USER_SESSION_QUERY_KEY, null);
-        console.error(error, "Failed to fetch session");
-      }
+			if (error) {
+				queryClient.setQueryData(USER_SESSION_QUERY_KEY, null);
+				console.error(error, "Failed to fetch session");
+			}
 
-      return data;
-    },
-    staleTime: 1000 * 60 * 5, // 5 minutes - balance between freshness and performance
-    refetchOnWindowFocus: true,
-    retry: false,
-    gcTime: 1000 * 60 * 10, // 10 minutes (formerly cacheTime)
-  });
+			return data;
+		},
+		staleTime: 1000 * 60 * 5, // 5 minutes - balance between freshness and performance
+		refetchOnWindowFocus: true,
+		retry: false,
+		gcTime: 1000 * 60 * 10, // 10 minutes (formerly cacheTime)
+	});
 }
 
 export async function refreshUserSession(queryClient: QueryClient) {
-  const { data, error } = await authClient.getSession();
+	const { data, error } = await authClient.getSession();
 
-  if (error) {
-    console.error(error, "Failed to fetch user session");
-  }
+	if (error) {
+		console.error(error, "Failed to fetch user session");
+	}
 
-  queryClient.setQueryData(USER_SESSION_QUERY_KEY, () => data);
+	queryClient.setQueryData(USER_SESSION_QUERY_KEY, () => data);
 }
 
 export function useRefreshUserSession() {
-  const queryClient = useQueryClient();
+	const queryClient = useQueryClient();
 
-  return () => refreshUserSession(queryClient);
+	return () => refreshUserSession(queryClient);
 }
 
 export function useClearUserSession() {
-  const queryClient = useQueryClient();
-  return () => queryClient.invalidateQueries({ queryKey: USER_SESSION_QUERY_KEY });
+	const queryClient = useQueryClient();
+	return () =>
+		queryClient.invalidateQueries({ queryKey: USER_SESSION_QUERY_KEY });
 }
 
 export function useRevokeSessionMutation() {
-  const queryClient = useQueryClient();
+	const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async ({ token }: { token: string }) => {
-      const response = await authClient.revokeSession({
-        token,
-      });
+	return useMutation({
+		mutationFn: async ({ token }: { token: string }) => {
+			const response = await authClient.revokeSession({
+				token,
+			});
 
-      if (response.error) {
-        console.error(response, "Failed to revoke session");
-      }
+			if (response.error) {
+				console.error(response, "Failed to revoke session");
+			}
 
-      return response;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: USER_SESSION_QUERY_KEY });
-    },
-  });
+			return response;
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: USER_SESSION_QUERY_KEY });
+		},
+	});
 }

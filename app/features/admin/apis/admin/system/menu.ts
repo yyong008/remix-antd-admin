@@ -6,13 +6,15 @@ import { getApiClient } from "~/api-client";
  * @returns
  */
 export async function createMenu(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.menu.$post({ json: data });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.menu.$post({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -21,13 +23,13 @@ export async function createMenu(data: any) {
  * @returns
  */
 export async function updateMenuById(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.menu.$put({ json: data });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.menu.$put({ json: data });
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -36,15 +38,15 @@ export async function updateMenuById(data: any) {
  * @returns
  */
 export async function deleteMenuByIds(data: any) {
-  try {
-    const res = await getApiClient().api.admin.system.menu.$delete({
-      json: data,
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.menu.$delete({
+			json: data,
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -52,13 +54,13 @@ export async function deleteMenuByIds(data: any) {
  * @returns
  */
 export async function readMenu() {
-  try {
-    const res = await getApiClient().api.admin.system.menu.$get();
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.menu.$get();
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -67,23 +69,23 @@ export async function readMenu() {
  * @returns
  */
 export async function readMenuList(params: {
-  page: number;
-  pageSize: number;
-  lang: string;
+	page: number;
+	pageSize: number;
+	lang: string;
 }) {
-  try {
-    const res = await getApiClient().api.admin.system.menu.$get({
-      query: {
-        page: params.page.toString(),
-        pageSize: params.pageSize.toString(),
-        lang: params.lang,
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system.menu.$get({
+			query: {
+				page: params.page.toString(),
+				pageSize: params.pageSize.toString(),
+				lang: params.lang,
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
 
 /**
@@ -92,21 +94,21 @@ export async function readMenuList(params: {
  * @returns
  */
 export async function readMenuListRaw(params: {
-  page: number;
-  pageSize: number;
-  lang: string;
+	page: number;
+	pageSize: number;
+	lang: string;
 }) {
-  try {
-    const res = await getApiClient().api.admin.system["menu-list"].$get({
-      query: {
-        page: params.page.toString(),
-        pageSize: params.pageSize.toString(),
-        lang: params.lang,
-      },
-    });
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
+	try {
+		const res = await getApiClient().api.admin.system["menu-list"].$get({
+			query: {
+				page: params.page.toString(),
+				pageSize: params.pageSize.toString(),
+				lang: params.lang,
+			},
+		});
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 }
