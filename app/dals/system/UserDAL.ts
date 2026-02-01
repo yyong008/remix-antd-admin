@@ -30,6 +30,15 @@ async function getById(id: number) {
 	};
 }
 
+async function getByAuthUserId(authUserId: string) {
+	const rows = await db
+		.select()
+		.from(users)
+		.where(eq(users.authUserId, authUserId))
+		.limit(1);
+	return rows[0] ?? null;
+}
+
 async function getCount() {
 	const rows = await db.select({ count: count() }).from(users);
 	return rows[0]?.count ?? 0;
@@ -188,6 +197,7 @@ async function deleteByIds(ids: number[]) {
 
 export const userDAL = {
 	getById,
+	getByAuthUserId,
 	getCount,
 	getList,
 	create,

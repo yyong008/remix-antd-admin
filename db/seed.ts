@@ -40,24 +40,43 @@ async function ensureDepartment() {
 	return created[0];
 }
 
-async function ensureRole() {
-	const existing = await db
-		.select()
-		.from(roles)
-		.where(eq(roles.value, "admin"))
-		.limit(1);
-	const found = existing[0];
-	if (found) return found;
-	const created = await db
-		.insert(roles)
-		.values({
+async function ensureRoles() {
+	const roleDefs = [
+		{
+			name: "Super Admin",
+			value: "super_admin",
+			description: "Super Admin",
+			status: 0,
+		},
+		{
 			name: "Admin",
 			value: "admin",
-			description: "Super Admin",
-			status: 1,
-		})
-		.returning();
-	return created[0];
+			description: "Admin",
+			status: 0,
+		},
+		{
+			name: "User",
+			value: "user",
+			description: "User",
+			status: 0,
+		},
+	];
+
+	const existing = await db.select().from(roles);
+	const byValue = new Map(existing.map((role) => [role.value, role]));
+	const createdRoles: Record<string, any> = {};
+
+	for (const def of roleDefs) {
+		const found = byValue.get(def.value);
+		if (found) {
+			createdRoles[def.value] = found;
+			continue;
+		}
+		const created = await db.insert(roles).values(def).returning();
+		createdRoles[def.value] = created[0];
+	}
+
+	return createdRoles;
 }
 
 async function ensureMenu() {
@@ -139,12 +158,19 @@ async function ensureMenuRole(menuId: number, roleId: number) {
 
 async function main() {
 	const department = await ensureDepartment();
-	const role = await ensureRole();
+	const roleMap = await ensureRoles();
 	const menu = await ensureMenu();
 	const user = await ensureUser(department.id);
 
-	await ensureUserRole(user.id, role.id);
-	await ensureMenuRole(menu.id, role.id);
+	const superAdminRole = roleMap.super_admin ?? roleMap.admin;
+	const adminRole = roleMap.admin ?? roleMap.super_admin;
+	if (superAdminRole) {
+		await ensureUserRole(user.id, superAdminRole.id);
+		await ensureMenuRole(menu.id, superAdminRole.id);
+	}
+	if (adminRole && adminRole.id !== superAdminRole?.id) {
+		await ensureMenuRole(menu.id, adminRole.id);
+	}
 }
 
 main()

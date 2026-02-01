@@ -91,7 +91,9 @@ const RegisterForm: React.FC = () => {
 					autoComplete="new-password"
 				/>
 			</Form.Item>
-			<TurnstileWidget handleSuccess={(token) => setToken(token)} />
+			<Form.Item>
+				<TurnstileWidget handleSuccess={(token) => setToken(token)} />
+			</Form.Item>
 			<Form.Item>
 				<Button
 					block

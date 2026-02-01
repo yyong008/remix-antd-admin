@@ -4,6 +4,7 @@ import { admin, captcha, openAPI } from "better-auth/plugins";
 import * as schema from "db/schema";
 
 import { db } from "~/libs/neon";
+import { rbacLoginPlugin } from "./plugins/rbac-login";
 
 export const auth = betterAuth({
 	baseURL: "http://localhost:5173",
@@ -27,11 +28,12 @@ export const auth = betterAuth({
 			provider: "cloudflare-turnstile", // or google-recaptcha, hcaptcha
 			secretKey: process.env.TURNSTILE_SECRET_KEY,
 		}),
+		rbacLoginPlugin(),
 	],
 	// https://www.better-auth.com/docs/authentication/email-password
 	emailAndPassword: {
 		enabled: true,
-		requireEmailVerification: true,
+		requireEmailVerification: process.env.NODE_ENV === "production",
 	},
 	socialProviders: {
 		// https://www.better-auth.com/docs/authentication/github

@@ -9,8 +9,11 @@ import { newsRouter } from "./news";
 import { toolsRouter } from "./tools";
 import { profileRouter } from "./profile";
 import { systemRouter } from "./system";
+import { authMiddleware } from "../../middleware/auth";
 
 export const adminRouter = new Hono<HonoEnv>();
+
+adminRouter.use("*", authMiddleware);
 
 adminRouter.route("/dashboard", dashboardRouter);
 adminRouter.route("/blog", blogRouter);
