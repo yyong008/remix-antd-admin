@@ -166,7 +166,14 @@ async function main() {
 	const adminRole = roleMap.admin ?? roleMap.super_admin;
 	if (superAdminRole) {
 		await ensureUserRole(user.id, superAdminRole.id);
-		await ensureMenuRole(menu.id, superAdminRole.id);
+		const allMenus = await db.select().from(menus);
+		if (allMenus.length) {
+			for (const item of allMenus) {
+				await ensureMenuRole(item.id, superAdminRole.id);
+			}
+		} else {
+			await ensureMenuRole(menu.id, superAdminRole.id);
+		}
 	}
 	if (adminRole && adminRole.id !== superAdminRole?.id) {
 		await ensureMenuRole(menu.id, adminRole.id);

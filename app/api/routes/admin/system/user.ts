@@ -36,6 +36,7 @@ userRouter.get("/", async (c) => {
 userRouter.get("/info", async (c) => {
 	try {
 		const userId = c.get("userId");
+    console.log("userId", userId)
 		if (!userId) {
 			return rfj({}, "No Authorization No User", { status: 401 });
 		}

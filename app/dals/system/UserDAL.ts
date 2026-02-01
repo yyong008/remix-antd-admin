@@ -5,7 +5,14 @@ import { departments, roles, userRoles, users } from "db/schema";
 
 async function getById(id: number) {
 	const rows = await db
-		.select()
+		.select({
+      lang: users.lang,
+      name: users.name,
+      avatar: users.avatar,
+      createdAt: users.createdAt,
+      email: users.email,
+      nickname: users.nickname,
+    })
 		.from(users)
 		.leftJoin(departments, eq(users.departmentId, departments.id))
 		.where(eq(users.id, id))
@@ -13,21 +20,8 @@ async function getById(id: number) {
 
 	const row = rows[0];
 	if (!row) return null;
-
-	return {
-		email: row.users.email,
-		avatar: row.users.avatar,
-		name: row.users.name,
-		nickname: row.users.nickname,
-		lang: row.users.lang,
-		theme: row.users.theme,
-		phone: row.users.phone,
-		remark: row.users.remark,
-		status: row.users.status,
-		createdAt: row.users.createdAt,
-		updatedAt: row.users.updatedAt,
-		department: row.departments ? { name: row.departments.name } : null,
-	};
+  return row
+	// };
 }
 
 async function getByAuthUserId(authUserId: string) {
