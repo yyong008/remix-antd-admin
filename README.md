@@ -1,8 +1,11 @@
 # 欢迎使用 Remix Antd Admin
 
-## remix antd admin update to cloudflare
+new fullstack:
+
+## mirgrate todo:
 
 - [x] prisma v7 -> drizzle
+- [] better-auth
 - Hono handle api
   - [x] Hono
   - [] api
@@ -19,15 +22,14 @@
   - [x] vercel-react-best-practices
   - [x] ...
 - claudflare
-  - [x] pg: neon/supabase
-  - sqlite: D1
+  - [x] pg: neon
   - R2
   - tunnel
 - ai:
   - langchain -> ai-sdk/element
-- eslint -> biomejs
-- tailwlindcss v4
-- Vite/Vitest/...
+- [ ] eslint -> biomejs
+- [x] tailwlindcss v4
+- [x] Vite/Vitest/...
 
 一个基于 React Router、React、Antd、TailwindCSS、Drizzle ORM 和 RBAC 的现代全栈 Web 解决方案（WIP）。
 
