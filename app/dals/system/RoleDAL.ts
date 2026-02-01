@@ -1,181 +1,171 @@
-import prisma from "@/libs/prisma";
+import { and, count, eq, inArray } from "drizzle-orm";
+import { db } from "@/libs/neon";
+import { menuRoles, menus, roles } from "db/schema";
 
-export class RoleDAL {
-  /**
-   * 获取角色列表
-   * @returns
-   */
-  async getList({ page, pageSize }: { page: number; pageSize: number }) {
-    const roles = await prisma.role.findMany({
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-      // orderBy: {
-      //   createdAt: "desc",
-      // },
-      select: {
-        id: true,
-        remark: true,
-        name: true,
-        value: true,
-        status: true,
-        description: true,
-        createdAt: true,
-        updatedAt: true,
+function mapMenu(row: any) {
+  if (!row) return null;
+  const { parentMenuId, pathFile, ...rest } = row;
+  return {
+    ...rest,
+    parent_menu_id: parentMenuId ?? null,
+    path_file: pathFile ?? null,
+  };
+}
 
-        MenuRole: {
-          include: {
-            menus: true,
-          },
-        },
-      },
-    });
-    return roles;
-  }
-  /**
-   * 获取所有角色
-   * @returns
-   */
-  async getAll() {
-    return await prisma.role.findMany({});
-  }
+async function getList({ page, pageSize }: { page: number; pageSize: number }) {
+  const roleRows = await db
+    .select()
+    .from(roles)
+    .limit(pageSize)
+    .offset((page - 1) * pageSize);
 
-  /**
-   * 获取角色总数
-   * @returns
-   */
-  async getCount() {
-    return await prisma.role.count({});
+  const roleIds = roleRows.map((r) => r.id);
+  const menuRoleRows = roleIds.length
+    ? await db
+        .select()
+        .from(menuRoles)
+        .innerJoin(menus, eq(menuRoles.menuId, menus.id))
+        .where(inArray(menuRoles.roleId, roleIds))
+    : [];
+
+  const menuRoleMap = new Map<number, any[]>();
+  for (const row of menuRoleRows) {
+    const roleId = row.menuRoles.roleId;
+    const entry = {
+      id: row.menuRoles.id,
+      roleId,
+      menuId: row.menuRoles.menuId,
+      menus: mapMenu(row.menus),
+    };
+    const list = menuRoleMap.get(roleId) ?? [];
+    list.push(entry);
+    menuRoleMap.set(roleId, list);
   }
 
-  /**
-   * 创建角色
-   * @param data
-   * @returns
-   */
-  async create(data: any) {
-    return prisma.$transaction(async (tx) => {
-      let role = await tx.role.create({
-        data: {
-          name: data.name,
-          description: data.description,
-          remark: data.remark,
-          status: data.status,
-          value: data.value,
-        },
-      });
-      if (!role.id) {
-        throw new Error(`create user fail`);
-      }
+  return roleRows.map((role) => ({
+    ...role,
+    MenuRole: menuRoleMap.get(role.id) ?? [],
+  }));
+}
 
-      // 更具 data 中的 menus 重新关联中的数组
-      await tx.menuRole.createMany({
-        data: data.menus.map((m: any) => ({
+async function getAll() {
+  return await db.select().from(roles);
+}
+
+async function getCount() {
+  const rows = await db.select({ count: count() }).from(roles);
+  return rows[0]?.count ?? 0;
+}
+
+async function create(data: any) {
+  return db.transaction(async (tx) => {
+    const created = await tx
+      .insert(roles)
+      .values({
+        name: data.name,
+        description: data.description,
+        remark: data.remark,
+        status: data.status,
+        value: data.value,
+      })
+      .returning();
+    const role = created[0];
+    if (!role?.id) {
+      throw new Error("create user fail");
+    }
+    const menusData = data.menus ?? [];
+    if (menusData.length) {
+      await tx.insert(menuRoles).values(
+        menusData.map((m: any) => ({
           roleId: role.id,
           menuId: m.id,
         })),
-      });
-      return role;
-    });
-  }
-
-  /**
-   * 更新角色
-   * @param data
-   * @returns
-   */
-  async update(data: any) {
-    return prisma.$transaction(async (tx) => {
-      const u = await tx.role.findUnique({
-        where: {
-          id: data.id,
-        },
-      });
-
-      if (!u) {
-        throw new Error(`create user fail`);
-      }
-      let role = await tx.role.update({
-        where: { id: data.id },
-        data: {
-          name: data.name,
-          description: data.description,
-          remark: data.remark,
-          status: data.status,
-          value: data.value,
-        },
-      });
-
-      if (!role.id) {
-        throw new Error(`create user fail`);
-      }
-      // 获取当前的菜单关联
-      const existingMenuRoles = await tx.menuRole.findMany({
-        where: { roleId: data.id },
-      });
-
-      // 获取现有菜单ID
-      const existingMenuIds = existingMenuRoles.map((mr) => mr.menuId);
-
-      // 计算需要删除和需要新增的菜单ID
-      const menuIdsToDelete = existingMenuIds.filter(
-        (id) => !data.menus.some((menu: any) => menu.id === id),
       );
-
-      const menuIdsToAdd = data.menus.filter(
-        (menu: any) => !existingMenuIds.includes(menu.id),
-      );
-
-      // 删除不再关联的菜单
-      if (menuIdsToDelete.length > 0) {
-        await tx.menuRole.deleteMany({
-          where: {
-            roleId: data.id,
-            menuId: { in: menuIdsToDelete },
-          },
-        });
-      }
-
-      // 新增未关联的菜单
-      if (menuIdsToAdd.length > 0) {
-        await tx.menuRole.createMany({
-          data: menuIdsToAdd.map((m: any) => ({
-            roleId: data.id,
-            menuId: m.id,
-          })),
-        });
-      }
-      return role;
-    });
-  }
-
-  /**
-   * 根据 ids 删除
-   * @param ids
-   * @returns
-   */
-  async deleteByIds(ids: any) {
-    return prisma.$transaction(async (tx) => {
-      const users = await tx.menuRole.deleteMany({
-        where: {
-          roleId: {
-            in: ids,
-          },
-        },
-      });
-
-      if (!users) {
-        throw new Error(`删除关联 userRole 表数据失败`);
-      }
-      const role = await tx.role.deleteMany({
-        where: {
-          id: {
-            in: ids,
-          },
-        },
-      });
-      return role;
-    });
-  }
+    }
+    return role;
+  });
 }
 
-export const roleDAL = new RoleDAL();
+async function update(data: any) {
+  return db.transaction(async (tx) => {
+    const existing = await tx
+      .select()
+      .from(roles)
+      .where(eq(roles.id, data.id))
+      .limit(1);
+    if (!existing[0]) {
+      throw new Error("create user fail");
+    }
+
+    const updated = await tx
+      .update(roles)
+      .set({
+        name: data.name,
+        description: data.description,
+        remark: data.remark,
+        status: data.status,
+        value: data.value,
+      })
+      .where(eq(roles.id, data.id))
+      .returning();
+
+    const role = updated[0];
+    if (!role?.id) {
+      throw new Error("create user fail");
+    }
+
+    const existingMenuRoles = await tx
+      .select()
+      .from(menuRoles)
+      .where(eq(menuRoles.roleId, data.id));
+    const existingMenuIds = existingMenuRoles.map((mr) => mr.menuId);
+    const menusData = data.menus ?? [];
+    const menuIdsToDelete = existingMenuIds.filter(
+      (id) => !menusData.some((menu: any) => menu.id === id),
+    );
+    const menuIdsToAdd = menusData.filter(
+      (menu: any) => !existingMenuIds.includes(menu.id),
+    );
+
+    if (menuIdsToDelete.length > 0) {
+      await tx
+        .delete(menuRoles)
+        .where(
+          and(
+            inArray(menuRoles.menuId, menuIdsToDelete),
+            eq(menuRoles.roleId, data.id),
+          ),
+        );
+    }
+
+    if (menuIdsToAdd.length > 0) {
+      await tx.insert(menuRoles).values(
+        menuIdsToAdd.map((m: any) => ({
+          roleId: data.id,
+          menuId: m.id,
+        })),
+      );
+    }
+    return role;
+  });
+}
+
+async function deleteByIds(ids: number[]) {
+  return db.transaction(async (tx) => {
+    await tx.delete(menuRoles).where(inArray(menuRoles.roleId, ids));
+    const deleted = await tx
+      .delete(roles)
+      .where(inArray(roles.id, ids))
+      .returning({ id: roles.id });
+    return { count: deleted.length };
+  });
+}
+
+export const roleDAL = {
+  getList,
+  getAll,
+  getCount,
+  create,
+  update,
+  deleteByIds,
+};

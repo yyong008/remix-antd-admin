@@ -79,7 +79,7 @@ const coreFeatures = [
   { icon: <ApiOutlined />, label: "Ant Design 组件" },
   { icon: <CodeOutlined />, label: "TailwindCSS" },
   { icon: <RobotOutlined />, label: "LangChain AI" },
-  { icon: <DatabaseOutlined />, label: "Prisma ORM" },
+  { icon: <DatabaseOutlined />, label: "Drizzle ORM" },
   { icon: <ThunderboltOutlined />, label: "高性能优化" },
 ];
 

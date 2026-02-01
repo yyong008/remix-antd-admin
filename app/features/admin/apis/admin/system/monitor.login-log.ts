@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 创建登录日志
@@ -7,7 +7,10 @@ import api from "~/libs/axios";
  */
 export async function createMonitorLoginlog(data: any) {
   try {
-    return await api.post("/admin/system/monitor/loginlog", data);
+    const res = await getApiClient().api.admin.system.monitor.loginlog.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -21,7 +24,10 @@ export async function createMonitorLoginlog(data: any) {
  */
 export async function updateMonitorLoginlogById(data: any) {
   try {
-    return await api.put("/admin/system/monitor/loginlog", data);
+    const res = await getApiClient().api.admin.system.monitor.loginlog.$put({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -35,7 +41,10 @@ export async function updateMonitorLoginlogById(data: any) {
  */
 export async function deleteMonitorLoginlogByIds(data: any) {
   try {
-    return await api.delete("/admin/system/monitor/loginlog", { data });
+    const res = await getApiClient().api.admin.system.monitor.loginlog.$delete({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -48,7 +57,8 @@ export async function deleteMonitorLoginlogByIds(data: any) {
  */
 export async function readMonitorLoginlog() {
   try {
-    return await api.get("/admin/system/monitor/loginlog");
+    const res = await getApiClient().api.admin.system.monitor.loginlog.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -65,7 +75,13 @@ export async function readMonitorLoginlogList(params: {
   pageSize: number;
 }) {
   try {
-    return await api.get("/admin/system/monitor/loginlog", { params });
+    const res = await getApiClient().api.admin.system.monitor.loginlog.$get({
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

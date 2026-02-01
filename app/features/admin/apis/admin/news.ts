@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 ///// news
 
@@ -9,7 +9,8 @@ import api from "~/libs/axios";
  */
 export async function createNews(data: any) {
   try {
-    return await api.post("/admin/news", data);
+    const res = await getApiClient().api.admin.news.$post({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -23,7 +24,8 @@ export async function createNews(data: any) {
  */
 export async function updateNewsById(data: any) {
   try {
-    return await api.put("/admin/news", data);
+    const res = await getApiClient().api.admin.news.$put({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -37,7 +39,8 @@ export async function updateNewsById(data: any) {
  */
 export async function deleteNewsByIds(data: any) {
   try {
-    return await api.delete("/admin/news", { data });
+    const res = await getApiClient().api.admin.news.$delete({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -51,7 +54,10 @@ export async function deleteNewsByIds(data: any) {
  */
 export async function readNews(id: string) {
   try {
-    return await api.get(`/admin/news/${id}`);
+    const res = await getApiClient().api.admin.news[":id"].$get({
+      param: { id },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -70,11 +76,14 @@ export async function readNewsList(params: {
 }) {
   try {
     const { page = 1, pageSize = 10, categoryId } = params;
-    let url = `/admin/news?page=${page}&pageSize=${pageSize}`;
-    if (categoryId) {
-      url += `&category=${categoryId}`;
-    }
-    return await api.get(url);
+    const res = await getApiClient().api.admin.news.$get({
+      query: {
+        page: page.toString(),
+        pageSize: pageSize.toString(),
+        category: categoryId ?? "",
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -88,7 +97,10 @@ export async function readNewsList(params: {
  */
 export async function createNewsCategory(data: any) {
   try {
-    return await api.post("/admin/news/category", data);
+    const res = await getApiClient().api.admin.news.category.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -102,7 +114,10 @@ export async function createNewsCategory(data: any) {
  */
 export async function updateNewsCategoryById(data: any) {
   try {
-    return await api.put("/admin/news/category", data);
+    const res = await getApiClient().api.admin.news.category.$put({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -116,7 +131,10 @@ export async function updateNewsCategoryById(data: any) {
  */
 export async function deleteNewsCategoryByIds(data: any) {
   try {
-    return await api.delete("/admin/news/category", { data });
+    const res = await getApiClient().api.admin.news.category.$delete({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -129,7 +147,8 @@ export async function deleteNewsCategoryByIds(data: any) {
  */
 export async function readNewsCategory() {
   try {
-    return await api.get("/admin/news/category");
+    const res = await getApiClient().api.admin.news.category.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -146,7 +165,13 @@ export async function readNewsCategoryList(params: {
   pageSize: number;
 }) {
   try {
-    return await api.get("/admin/news/category", { params });
+    const res = await getApiClient().api.admin.news.category.$get({
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

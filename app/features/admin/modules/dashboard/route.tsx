@@ -1,30 +1,19 @@
-import { LoginIn, SignIn } from "./components";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
-import { useEffect, useState } from "react";
 
-import { getDashboard } from "~/features/admin/apis/admin/dashboard";
+import { LoginIn, SignIn } from "./components";
+import { useDashboard } from "~/api-client/queries/dashboard";
 
 export function Route() {
-  const [data, setData] = useState<any>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  const getData = async () => {
-    const res: any = await getDashboard();
-    setData(res?.data);
-    setIsLoading(false);
-  };
-  const userInfo = {};
-  useEffect(() => {
-    getData();
-  }, []);
+  const { data, isLoading } = useDashboard();
+  const dashboardData = (data as any)?.data;
 
   return (
     <PageContainer loading={isLoading}>
       <ProCard>
         <ProCard>
           <div className="flex justify-between">
-            <LoginIn data={data} userInfo={userInfo} />
-            <SignIn data={data} />
+            <LoginIn data={dashboardData} userInfo={{}} />
+            <SignIn data={dashboardData} />
           </div>
         </ProCard>
       </ProCard>

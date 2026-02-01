@@ -1,19 +1,10 @@
-import prisma from "@/libs/prisma";
+import { eq } from "drizzle-orm";
+import { db } from "@/libs/neon";
+import { users } from "db/schema";
 
-export class ProfileAccountDAL {
-  /**
-   * 根据 用户 id 获取用户信息
-   * @param id
-   * @returns
-   */
-  async getById(id: number) {
-    const user = await prisma.user.findUnique({
-      where: {
-        id,
-      },
-    });
-    return user;
-  }
+async function getById(id: number) {
+  const rows = await db.select().from(users).where(eq(users.id, id)).limit(1);
+  return rows[0] ?? null;
 }
 
-export const profileAccountDAL = new ProfileAccountDAL();
+export const profileAccountDAL = { getById };

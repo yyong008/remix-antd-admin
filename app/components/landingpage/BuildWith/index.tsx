@@ -1,7 +1,7 @@
 import { AntdIconSVG } from "./icons/AntdIconSVG";
+import { DrizzleIconSVG } from "./icons/DrizzleIconSVG";
 import { ExpressIconSVG } from "./icons/ExpressIconSVG";
 import { LangChainIconSVG } from "./icons/LangChainIconSVG";
-import { PrismaIconSVG } from "./icons/prismaIconSVG";
 import { ProComponentSVG } from "./icons/ProComponentSVG";
 import { ReactIconSVG } from "./icons/ReactIconSVG";
 import { ReactrouterSVGIcon } from "./icons/ReactrouterSVG";
@@ -19,7 +19,7 @@ export function BuildWith() {
           <AntdIconSVG />
           <ProComponentSVG />
           <TailwindSVG />
-          <PrismaIconSVG />
+          <DrizzleIconSVG />
           <LangChainIconSVG />
         </div>
       </div>

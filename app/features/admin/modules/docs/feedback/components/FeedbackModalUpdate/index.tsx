@@ -6,18 +6,16 @@ import {
 } from "@ant-design/pro-components";
 
 import { EditOutlined } from "@ant-design/icons";
+import { useUpdateFeedback } from "~/api-client/queries/docs-feedback";
 
 export default function FeedbackModal({ record, refetch }: any) {
   const [form] = Form.useForm();
-  const [updateFeedback, other] = [
-    (...args: any): any => {},
-    { isLoading: false },
-  ]; // todo
+  const updateFeedback = useUpdateFeedback();
   return (
     <ModalForm
       key={Date.now()}
       preserve={false}
-      loading={other.isLoading}
+      loading={updateFeedback.isPending}
       title={record?.id ? "修改反馈" : "创建反馈"}
       onOpenChange={(c) => {
         if (!c || !record.id) {
@@ -46,7 +44,7 @@ export default function FeedbackModal({ record, refetch }: any) {
           data.id = record.id;
         }
         delete data.file;
-        const result = await updateFeedback(data);
+        const result = await updateFeedback.mutateAsync(data);
         if (result.data?.code !== 0) {
           message.error(result.data?.message);
           return false;

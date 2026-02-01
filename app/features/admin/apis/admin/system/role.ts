@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 创建角色
@@ -7,7 +7,8 @@ import api from "~/libs/axios";
  */
 export async function createRole(data: any) {
   try {
-    return await api.post("/admin/system/role", data);
+    const res = await getApiClient().api.admin.system.role.$post({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -21,7 +22,8 @@ export async function createRole(data: any) {
  */
 export async function updateRoleById(data: any) {
   try {
-    return await api.put("/admin/system/role", data);
+    const res = await getApiClient().api.admin.system.role.$put({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -35,7 +37,8 @@ export async function updateRoleById(data: any) {
  */
 export async function deleteRoleByIds(data: any) {
   try {
-    return await api.delete("/admin/system/role", { data });
+    const res = await getApiClient().api.admin.system.role.$delete({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -48,7 +51,8 @@ export async function deleteRoleByIds(data: any) {
  */
 export async function readRole() {
   try {
-    return await api.get("/admin/system/role");
+    const res = await getApiClient().api.admin.system.role.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -62,7 +66,13 @@ export async function readRole() {
  */
 export async function readRoleList(params: { page: number; pageSize: number }) {
   try {
-    return await api.get("/admin/system/role", { params });
+    const res = await getApiClient().api.admin.system.role.$get({
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

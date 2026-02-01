@@ -1,43 +1,44 @@
-import prisma from "@/libs/prisma";
+import { count, eq } from "drizzle-orm";
+import { db } from "@/libs/neon";
+import { menuRoles, menus } from "db/schema";
 
-export class MenuRoleDAL {
-  permMenuType = 3;
+const permMenuType = 3;
 
-  /**
-   * 获取
-   */
-  async getCount() {
-    return await prisma.menuRole.count();
-  }
-  /**
-   * 获取所有菜单角色
-   * @returns
-   */
-  public async getAll() {
-    return await prisma.menuRole.findMany();
-  }
-
-  /**
-   * 获取菜单角色
-   * @returns
-   */
-  async getList() {
-    const roles = await prisma.menuRole.findMany({
-      select: {
-        id: true,
-        roleId: true,
-        menuId: true,
-        menus: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-      },
-    });
-
-    return roles;
-  }
+function mapMenu(row: any) {
+  if (!row) return null;
+  const { parentMenuId, pathFile, ...rest } = row;
+  return {
+    ...rest,
+    parent_menu_id: parentMenuId ?? null,
+    path_file: pathFile ?? null,
+  };
 }
 
-export const menuRoleDAL = new MenuRoleDAL();
+async function getCount() {
+  const rows = await db.select({ count: count() }).from(menuRoles);
+  return rows[0]?.count ?? 0;
+}
+
+async function getAll() {
+  return await db.select().from(menuRoles);
+}
+
+async function getList() {
+  const rows = await db
+    .select()
+    .from(menuRoles)
+    .innerJoin(menus, eq(menuRoles.menuId, menus.id));
+  return rows.map((row) => ({
+    id: row.menuRoles.id,
+    roleId: row.menuRoles.roleId,
+    menuId: row.menuRoles.menuId,
+    menus: mapMenu(row.menus),
+  }));
+}
+
+export const menuRoleDAL = {
+  permMenuType,
+  getCount,
+  getAll,
+  getList,
+};

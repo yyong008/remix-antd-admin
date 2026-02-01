@@ -1,15 +1,12 @@
-// serverUtils
 import * as serverUtils from "~/utils/server";
-
-// types
-import type { IUserSignInLog } from "./signInLog.type";
-// rxjs
+import { and, eq, gte, lte } from "drizzle-orm";
 import { from } from "rxjs";
-// prisma
-import prisma from "../../../libs/prisma";
+import type { IUserSignInLog } from "./signInLog.type";
+import { db } from "@/libs/neon";
+import { userSignLogs } from "db/schema";
 
 const createUserSignInLog$ = (data: any) => {
-  return from(prisma.userSignLog.create({ data }));
+  return from(db.insert(userSignLogs).values(data).returning());
 };
 
 const getUserTodayIsSignInById$: IUserSignInLog["getUserTodayIsSignInById$"] = (
@@ -18,37 +15,45 @@ const getUserTodayIsSignInById$: IUserSignInLog["getUserTodayIsSignInById$"] = (
   const { startTime, endTime } = serverUtils.getTodayTime();
 
   return from(
-    prisma.userSignLog.findFirst({
-      where: {
-        userId: id,
-        signTime: {
-          gte: startTime,
-          lte: endTime,
-        },
-      },
-    }),
+    db
+      .select()
+      .from(userSignLogs)
+      .where(
+        and(
+          eq(userSignLogs.userId, id),
+          gte(userSignLogs.signTime, startTime),
+          lte(userSignLogs.signTime, endTime),
+        ),
+      )
+      .limit(1),
   );
 };
 
 export { createUserSignInLog$, getUserTodayIsSignInById$ };
 
-export class SignInLog {
-  async createUserSignInLog(data: any) {
-    return await prisma.userSignLog.create({ data });
-  }
-  async getUserTodayUserSignLogById(id: number) {
-    const { startTime, endTime } = serverUtils.getTodayTime();
-
-    return await prisma.userSignLog.findFirst({
-      where: {
-        userId: id,
-        signTime: {
-          gte: startTime,
-          lte: endTime,
-        },
-      },
-    });
-  }
+async function createUserSignInLog(data: any) {
+  const created = await db.insert(userSignLogs).values(data).returning();
+  return created[0];
 }
 
-export const signInLog = new SignInLog();
+async function getUserTodayUserSignLogById(id: number) {
+  const { startTime, endTime } = serverUtils.getTodayTime();
+
+  const rows = await db
+    .select()
+    .from(userSignLogs)
+    .where(
+      and(
+        eq(userSignLogs.userId, id),
+        gte(userSignLogs.signTime, startTime),
+        lte(userSignLogs.signTime, endTime),
+      ),
+    )
+    .limit(1);
+  return rows[0] ?? null;
+}
+
+export const signInLog = {
+  createUserSignInLog,
+  getUserTodayUserSignLogById,
+};

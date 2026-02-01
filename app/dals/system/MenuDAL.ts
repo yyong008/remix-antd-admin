@@ -1,125 +1,104 @@
-import type { Prisma } from "@prisma/client";
-import prisma from "@/libs/prisma";
+import { count, desc, eq, inArray, ne } from "drizzle-orm";
+import { db } from "@/libs/neon";
+import { menuRoles, menus, userRoles } from "db/schema";
 
-export class MenuDAL {
-  permMenuType = 3;
-  /**
-   * 获取数量
-   * @returns
-   */
-  async getCount() {
-    return await prisma.menu.count();
-  }
+const permMenuType = 3;
 
-  /**
-   * 获取所有的参数
-   */
-  async getAll() {
-    return await prisma.menu.findMany();
-  }
-
-  /**
-   * 获取菜单列表
-   * @returns
-   */
-  async getList({ page, pageSize }: { page: number; pageSize: number }) {
-    return await prisma.menu.findMany({
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-    });
-  }
-
-  /**
-   * 获取过滤权限菜单列表
-   * @returns
-   */
-  async getAllFilterPermMenu() {
-    const { permMenuType } = this;
-    return await prisma.menu.findMany({
-      where: {
-        type: {
-          not: permMenuType,
-        },
-      },
-    });
-  }
-
-  /**
-   * 根据用户id获取菜单树
-   */
-  async getMenuTreeByUserId(userId: number) {
-    // userId -> UserRole -> roles -> MenuRole -> menus
-    return await prisma.user.findUnique({
-      where: { id: userId },
-      include: {
-        UserRole: {
-          include: {
-            roles: {
-              include: {
-                MenuRole: {
-                  include: {
-                    menus: true,
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    });
-  }
-
-  /**
-   * 创建菜单
-   * @param data
-   * @returns
-   */
-  async create(data: Prisma.MenuUncheckedCreateInput) {
-    return await prisma.menu.create({
-      data,
-    });
-  }
-
-  /**
-   * 更新菜单
-   * @param data
-   * @returns
-   */
-  async update(data: Prisma.MenuUncheckedUpdateInput) {
-    return await prisma.menu.update({
-      where: {
-        id: data.id as number,
-      },
-      data: {
-        type: data.type,
-        name: data.name,
-        parent_menu_id: data.parent_menu_id,
-        permission: data.permission,
-        isLink: data.isLink,
-        isShow: data.isShow,
-        path: data.path,
-        path_file: data.path_file,
-        status: data.status,
-        orderNo: data.orderNo,
-        icon: data.icon,
-      },
-    });
-  }
-
-  /**
-   * 根据 ids 删除菜单
-   * @param ids
-   * @returns
-   */
-  async deleteByIds(ids: number[]) {
-    return await prisma.menu.deleteMany({
-      where: {
-        id: {
-          in: ids,
-        },
-      },
-    });
-  }
+function mapMenu(row: any) {
+  if (!row) return null;
+  const { parentMenuId, pathFile, ...rest } = row;
+  return {
+    ...rest,
+    parent_menu_id: parentMenuId ?? null,
+    path_file: pathFile ?? null,
+  };
 }
 
-export const menuDAL = new MenuDAL();
+function mapMenuInput(data: any) {
+  const { parent_menu_id, path_file, ...rest } = data;
+  const parentMenuId = parent_menu_id === -1 ? null : parent_menu_id;
+  return {
+    ...rest,
+    parentMenuId,
+    pathFile: path_file,
+  };
+}
+
+async function getCount() {
+  const rows = await db.select({ count: count() }).from(menus);
+  return rows[0]?.count ?? 0;
+}
+
+async function getAll() {
+  const rows = await db.select().from(menus);
+  return rows.map(mapMenu);
+}
+
+async function getList({ page, pageSize }: { page: number; pageSize: number }) {
+  const rows = await db
+    .select()
+    .from(menus)
+    .limit(pageSize)
+    .offset((page - 1) * pageSize)
+    .orderBy(desc(menus.id));
+  return rows.map(mapMenu);
+}
+
+async function getAllFilterPermMenu() {
+  const rows = await db
+    .select()
+    .from(menus)
+    .where(ne(menus.type, permMenuType));
+  return rows.map(mapMenu);
+}
+
+async function getMenuTreeByUserId(userId: number) {
+  const rows = await db
+    .select()
+    .from(menus)
+    .innerJoin(menuRoles, eq(menuRoles.menuId, menus.id))
+    .innerJoin(userRoles, eq(userRoles.roleId, menuRoles.roleId))
+    .where(eq(userRoles.userId, userId));
+
+  const unique = new Map<number, any>();
+  for (const row of rows) {
+    const menu = mapMenu(row.menus);
+    if (menu && !unique.has(menu.id)) unique.set(menu.id, menu);
+  }
+  return Array.from(unique.values());
+}
+
+async function create(data: any) {
+  const created = await db.insert(menus).values(mapMenuInput(data)).returning();
+  return mapMenu(created[0]);
+}
+
+async function update(data: any) {
+  const { id, ...rest } = data;
+  const updated = await db
+    .update(menus)
+    .set(mapMenuInput(rest))
+    .where(eq(menus.id, id as number))
+    .returning();
+  return mapMenu(updated[0]);
+}
+
+async function deleteByIds(ids: number[]) {
+  const deleted = await db
+    .delete(menus)
+    .where(inArray(menus.id, ids))
+    .returning({ id: menus.id });
+  return { count: deleted.length };
+}
+
+export const menuDAL = {
+  permMenuType,
+  getCount,
+  getAll,
+  getList,
+  getAllFilterPermMenu,
+  getMenuTreeByUserId,
+  create,
+  update,
+  deleteByIds,
+};

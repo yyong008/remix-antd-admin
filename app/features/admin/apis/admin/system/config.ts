@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 创建系统配置
@@ -7,7 +7,10 @@ import api from "~/libs/axios";
  */
 export async function createSystemConfig(data: any) {
   try {
-    return await api.post("/admin/system/config", data);
+    const res = await getApiClient().api.admin.system.config.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -21,7 +24,10 @@ export async function createSystemConfig(data: any) {
  */
 export async function updateSystemConfigById(data: any) {
   try {
-    return await api.put("/admin/system/config", data);
+    const res = await getApiClient().api.admin.system.config.$put({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -35,7 +41,10 @@ export async function updateSystemConfigById(data: any) {
  */
 export async function deleteSystemConfigByIds(data: any) {
   try {
-    return await api.delete("/admin/system/config", { data });
+    const res = await getApiClient().api.admin.system.config.$delete({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -48,7 +57,8 @@ export async function deleteSystemConfigByIds(data: any) {
  */
 export async function readSystemConfig() {
   try {
-    return await api.get("/admin/system/config");
+    const res = await getApiClient().api.admin.system.config.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -65,7 +75,13 @@ export async function readSystemConfigList(params: {
   pageSize: number;
 }) {
   try {
-    return await api.get("/admin/system/config", { params });
+    const res = await getApiClient().api.admin.system.config.$get({
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

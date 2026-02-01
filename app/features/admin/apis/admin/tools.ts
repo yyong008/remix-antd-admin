@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 创建邮件模板
@@ -7,7 +7,10 @@ import api from "~/libs/axios";
  */
 export async function createMailTemplate(data: any) {
   try {
-    return await api.post("/admin/tools/mail", data);
+    const res = await getApiClient().api.admin.tools.mail.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -21,7 +24,10 @@ export async function createMailTemplate(data: any) {
  */
 export async function updateMailTemplateById(data: any) {
   try {
-    return await api.put("/admin/tools/mail", data);
+    const res = await getApiClient().api.admin.tools.mail.$put({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -35,7 +41,10 @@ export async function updateMailTemplateById(data: any) {
  */
 export async function deleteMailTemplateByIds(data: any) {
   try {
-    return await api.delete("/admin/tools/mail", { data });
+    const res = await getApiClient().api.admin.tools.mail.$delete({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -49,7 +58,10 @@ export async function deleteMailTemplateByIds(data: any) {
  */
 export async function readMailTemplate(id: number) {
   try {
-    return await api.get(`/admin/tools/mail/${id}`);
+    const res = await getApiClient().api.admin.tools.mail[":id"].$get({
+      param: { id: String(id) },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -66,7 +78,13 @@ export async function readMailTemplateList(params: {
   pageSize: number;
 }) {
   try {
-    return await api.get("/admin/tools/mail", { params });
+    const res = await getApiClient().api.admin.tools.mail.$get({
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -80,7 +98,10 @@ export async function readMailTemplateList(params: {
  */
 export async function createToolsStorage(data: any) {
   try {
-    return await api.post("/admin/tools/storage", data);
+    const res = await getApiClient().api.admin.tools.storage.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -94,7 +115,10 @@ export async function createToolsStorage(data: any) {
  */
 export async function updateToolsStorageById(data: any) {
   try {
-    return await api.put("/admin/tools/storage", data);
+    const res = await getApiClient().api.admin.tools.storage.$put({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -108,7 +132,10 @@ export async function updateToolsStorageById(data: any) {
  */
 export async function deleteToolsStorageByIds(data: any) {
   try {
-    return await api.delete("/admin/tools/storage", { data });
+    const res = await getApiClient().api.admin.tools.storage.$delete({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -121,7 +148,8 @@ export async function deleteToolsStorageByIds(data: any) {
  */
 export async function readToolsStorage() {
   try {
-    return await api.get("/admin/tools/storage");
+    const res = await getApiClient().api.admin.tools.storage.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -138,7 +166,13 @@ export async function readToolsStorageList(params: {
   pageSize: number;
 }) {
   try {
-    return await api.get("/admin/tools/storage", { params });
+    const res = await getApiClient().api.admin.tools.storage.$get({
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

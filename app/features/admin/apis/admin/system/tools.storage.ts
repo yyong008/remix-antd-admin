@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 创建存储配置
@@ -7,7 +7,10 @@ import api from "~/libs/axios";
  */
 export async function createStorage(data: any) {
   try {
-    return await api.post("/admin/system/storage", data);
+    const res = await getApiClient().api.admin.system.storage.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -21,7 +24,10 @@ export async function createStorage(data: any) {
  */
 export async function updateStorageById(data: any) {
   try {
-    return await api.put("/admin/system/storage", data);
+    const res = await getApiClient().api.admin.system.storage.$put({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -35,7 +41,10 @@ export async function updateStorageById(data: any) {
  */
 export async function deleteStorageByIds(data: any) {
   try {
-    return await api.delete("/admin/system/storage", { data });
+    const res = await getApiClient().api.admin.system.storage.$delete({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -48,7 +57,8 @@ export async function deleteStorageByIds(data: any) {
  */
 export async function readStorage() {
   try {
-    return await api.get("/admin/system/storage");
+    const res = await getApiClient().api.admin.system.storage.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -65,7 +75,13 @@ export async function readStorageList(params: {
   pageSize: number;
 }) {
   try {
-    return await api.get("/admin/system/storage", { params });
+    const res = await getApiClient().api.admin.system.storage.$get({
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

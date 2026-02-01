@@ -1,34 +1,30 @@
 import * as serverUtils from "~/utils/server";
-import prisma from "@/libs/prisma";
+import { and, eq, gte, lte } from "drizzle-orm";
+import { db } from "@/libs/neon";
+import { userSignLogs } from "db/schema";
 
-export class SignInLogDAL {
-  /**
-   * 创建登录日志
-   * @param data
-   * @returns
-   */
-  async create(data: any) {
-    return await prisma.userSignLog.create({ data });
-  }
-
-  /**
-   * 获取用户登录日志
-   * @param id
-   * @returns
-   */
-  async getLatestById(id: number) {
-    const { startTime, endTime } = serverUtils.getTodayTime();
-
-    return await prisma.userSignLog.findFirst({
-      where: {
-        userId: id,
-        signTime: {
-          gte: startTime,
-          lte: endTime,
-        },
-      },
-    });
-  }
+async function create(data: any) {
+  const created = await db.insert(userSignLogs).values(data).returning();
+  return created[0];
 }
 
-export const signInLog = new SignInLogDAL();
+async function getLatestById(id: number) {
+  const { startTime, endTime } = serverUtils.getTodayTime();
+  const rows = await db
+    .select()
+    .from(userSignLogs)
+    .where(
+      and(
+        eq(userSignLogs.userId, id),
+        gte(userSignLogs.signTime, startTime),
+        lte(userSignLogs.signTime, endTime),
+      ),
+    )
+    .limit(1);
+  return rows[0] ?? null;
+}
+
+export const signInLog = {
+  create,
+  getLatestById,
+};

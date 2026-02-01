@@ -1,5 +1,6 @@
 import { ToolbarDeleteButtonUI } from "./ToolbarDeleteButtonUI";
 import { message } from "antd";
+import { useDeleteUser } from "~/api-client/queries/system-user";
 
 type ToolbarDeleteButtonProps = {
   selectedRow: any[];
@@ -9,18 +10,18 @@ type ToolbarDeleteButtonProps = {
 
 export function ToolbarDeleteButton(props: ToolbarDeleteButtonProps) {
   const { selectedRow, reload, setSelectedRow } = props;
-  const [deleteUser] = [(...args: any): any => {}];
+  const deleteUserMutation = useDeleteUser();
   return (
     <ToolbarDeleteButtonUI
       selectedRow={selectedRow}
       onConfirm={async () => {
         const ids = selectedRow.map((id: any) => id);
-        const result = await deleteUser(ids);
-        if (result.data?.code !== 0) {
-          message.error(result.data?.message);
+        const result: any = await deleteUserMutation.mutateAsync({ ids });
+        if (result?.code !== 0) {
+          message.error(result?.message);
           return false;
         }
-        message.success(result.data?.message);
+        message.success(result?.message);
         reload?.();
         setSelectedRow([]);
         return true;

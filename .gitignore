@@ -10,7 +10,10 @@ node_modules
 
 # Local Netlify folder
 .netlify
+
+# todo
 TODO.md
+todos
 
 # prisma db data
 prisma/migrations/*

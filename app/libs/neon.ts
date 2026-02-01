@@ -1,0 +1,20 @@
+/**
+ * https://opennext.js.org/cloudflare/howtos/db
+ *
+ * neon
+ * https://orm.drizzle.team/docs/connect-neon
+ *
+ * For Cloudflare Workers, use HTTP connection (neon-http) instead of WebSocket
+ * WebSocket (ws package) is not compatible with Cloudflare Workers runtime
+ */
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
+
+// No need to configure webSocketConstructor for HTTP connections
+// neonConfig.webSocketConstructor is only needed for WebSocket connections
+
+console.log("DATABASE_URL:", process.env.DATABASE_URL);
+
+const sql = neon(process.env.DATABASE_URL!);
+
+export const db = drizzle({ client: sql });

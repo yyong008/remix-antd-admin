@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 创建服务监控
@@ -7,7 +7,10 @@ import api from "~/libs/axios";
  */
 export async function createMonitorServe(data: any) {
   try {
-    return await api.post("/admin/system/monitor/serve", data);
+    const res = await getApiClient().api.admin.system.monitor.serve.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -21,7 +24,10 @@ export async function createMonitorServe(data: any) {
  */
 export async function updateMonitorServeById(data: any) {
   try {
-    return await api.put("/admin/system/monitor/serve", data);
+    const res = await getApiClient().api.admin.system.monitor.serve.$put({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -35,7 +41,10 @@ export async function updateMonitorServeById(data: any) {
  */
 export async function deleteMonitorServeByIds(data: any) {
   try {
-    return await api.delete("/admin/system/monitor/serve", { data });
+    const res = await getApiClient().api.admin.system.monitor.serve.$delete({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -48,7 +57,8 @@ export async function deleteMonitorServeByIds(data: any) {
  */
 export async function readMonitorServe() {
   try {
-    return await api.get("/admin/system/monitor/serve");
+    const res = await getApiClient().api.admin.system.monitor.serve.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -61,7 +71,8 @@ export async function readMonitorServe() {
  */
 export async function readMonitorServeList() {
   try {
-    return await api.get("/admin/system/monitor/serve");
+    const res = await getApiClient().api.admin.system.monitor.serve.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

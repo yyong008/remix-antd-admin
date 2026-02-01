@@ -1,4 +1,4 @@
-import { getClientIPAddress } from "remix-utils/get-client-ip-address";
+import { getClientIPAddress } from "@/utils/server/client-ip";
 import UAParser from "ua-parser-js";
 
 function isLAN(ip: string) {

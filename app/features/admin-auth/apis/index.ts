@@ -1,13 +1,14 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 登陆
  * @param data
  * @returns
  */
-export function login(data: any) {
+export async function login(data: any) {
   try {
-    return api.post("/admin/login", data);
+    const res = await getApiClient().api.auth.login.$post({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -19,9 +20,10 @@ export function login(data: any) {
  * @param data
  * @returns
  */
-export function register(data: any) {
+export async function register(data: any) {
   try {
-    return api.post("/admin/login", data);
+    const res = await getApiClient().api.auth.register.$post({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -32,9 +34,10 @@ export function register(data: any) {
  * 登出
  * @returns
  */
-export function logout() {
+export async function logout() {
   try {
-    return api.post("/admin/logout");
+    const res = await getApiClient().api.auth.logout.$post();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -45,9 +48,10 @@ export function logout() {
  * 刷新
  * @returns
  */
-export function refresh_token() {
+export async function refresh_token() {
   try {
-    return api.post("/admin/refresh_token");
+    const res = await getApiClient().api.auth.refresh_token.$post();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

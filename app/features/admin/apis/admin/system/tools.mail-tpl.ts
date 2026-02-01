@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 创建邮件模板
@@ -7,7 +7,10 @@ import api from "~/libs/axios";
  */
 export async function createMailTpl(data: any) {
   try {
-    return await api.post("/admin/system/mail/tpl", data);
+    const res = await getApiClient().api.admin.system.mail.tpl.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -21,7 +24,10 @@ export async function createMailTpl(data: any) {
  */
 export async function updateMailTplById(data: any) {
   try {
-    return await api.put("/admin/system/mail/tpl", data);
+    const res = await getApiClient().api.admin.system.mail.tpl.$put({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -35,7 +41,10 @@ export async function updateMailTplById(data: any) {
  */
 export async function deleteMailTplByIds(data: any) {
   try {
-    return await api.delete("/admin/system/mail/tpl", { data });
+    const res = await getApiClient().api.admin.system.mail.tpl.$delete({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -48,7 +57,8 @@ export async function deleteMailTplByIds(data: any) {
  */
 export async function readMailTpl() {
   try {
-    return await api.get("/admin/system/mail/tpl");
+    const res = await getApiClient().api.admin.system.mail.tpl.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -65,7 +75,13 @@ export async function readMailTplList(params: {
   pageSize: number;
 }) {
   try {
-    return await api.get("/admin/system/mail/tpl", { params });
+    const res = await getApiClient().api.admin.system.mail.tpl.$get({
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

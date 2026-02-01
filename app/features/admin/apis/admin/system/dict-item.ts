@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 创建字典项
@@ -8,7 +8,11 @@ import api from "~/libs/axios";
  */
 export async function createSystemDictItem(dictionaryId: string, data: any) {
   try {
-    return await api.post(`/admin/system/dict-item/${dictionaryId}`, data);
+    const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$post({
+      param: { dictionaryId },
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -26,7 +30,11 @@ export async function updateSystemDictItemById(
   data: any,
 ) {
   try {
-    return await api.put(`/admin/system/dict-item/${dictionaryId}`, data);
+    const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$put({
+      param: { dictionaryId },
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -44,9 +52,11 @@ export async function deleteSystemDictItemByIds(
   ids: string[],
 ) {
   try {
-    return await api.delete(`/admin/system/dict-item/${dictionaryId}`, {
-      data: { ids },
+    const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$delete({
+      param: { dictionaryId },
+      json: { ids },
     });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -60,7 +70,10 @@ export async function deleteSystemDictItemByIds(
  */
 export async function readSystemDictItem(dictionaryId: string) {
   try {
-    return await api.get(`/admin/system/dict-item/${dictionaryId}`);
+    const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$get({
+      param: { dictionaryId },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -78,7 +91,14 @@ export async function readSystemDictItemList(
   params: { page: number; pageSize: number },
 ) {
   try {
-    return await api.get(`/admin/system/dict-item/${dictionaryId}`, { params });
+    const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$get({
+      param: { dictionaryId },
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

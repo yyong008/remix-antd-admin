@@ -21,7 +21,7 @@ const techStack = [
   { name: "React", icon: "⚛️", color: "#61DAFB", description: "前端框架" },
   { name: "Ant Design", icon: "🎨", color: "#1890FF", description: "UI 组件库" },
   { name: "Tailwind CSS", icon: "🎯", color: "#06B6D4", description: "CSS 框架" },
-  { name: "Prisma", icon: "🗄️", color: "#2D3748", description: "ORM 工具" },
+  { name: "Drizzle", icon: "🗄️", color: "#0EA5E9", description: "ORM 工具" },
   { name: "LangChain", icon: "🤖", color: "#10B981", description: "AI 框架" },
 ];
 
@@ -53,9 +53,9 @@ const features = [
   },
   {
     icon: <DatabaseOutlined />,
-    title: "Prisma 内置支持",
-    description: "基于 Prisma 的数据库开发项目",
-    color: "#2D3748",
+    title: "Drizzle 内置支持",
+    description: "基于 Drizzle ORM 的数据库开发项目",
+    color: "#0EA5E9",
   },
   {
     icon: <ThunderboltOutlined />,

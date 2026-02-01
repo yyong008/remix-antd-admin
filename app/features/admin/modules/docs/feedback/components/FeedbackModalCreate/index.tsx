@@ -6,16 +6,17 @@ import {
 } from "@ant-design/pro-components";
 
 import { EditOutlined } from "@ant-design/icons";
+import { useCreateFeedback } from "~/api-client/queries/docs-feedback";
 
 export function FeedbackModalCreate({ refetch }: any) {
   const [form] = Form.useForm();
-  const [createFeedback, other] = [(...args: any) => {}, { isLoading: false }];
+  const createFeedback = useCreateFeedback();
   return (
     <ModalForm
       key={Date.now()}
       preserve={false}
       title="创建反馈"
-      loading={other.isLoading}
+      loading={createFeedback.isPending}
       onOpenChange={(c) => {}}
       trigger={
         <Button type="primary" icon={<EditOutlined />}>
@@ -37,7 +38,7 @@ export function FeedbackModalCreate({ refetch }: any) {
           data.url = url.startsWith(prefix) ? url : `${prefix}${url}`;
         }
         delete data.file;
-        const result: any = await createFeedback(data);
+        const result: any = await createFeedback.mutateAsync(data);
         if (result.data?.code !== 0) {
           message.error(result.data?.message);
           return false;

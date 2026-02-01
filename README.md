@@ -2,24 +2,34 @@
 
 ## remix antd admin update to cloudflare
 
-- [x] prisma v7
+- [x] prisma v7 -> drizzle
 - Hono handle api
+  - [x] Hono
   - [] api
   - [] api-client
 - [x]cms: fumadocs
-  - [x]legal
-  - [x]docs
-- [x]antd v6
-- @tanstack/react-query
+  - [x] legal
+  - [x] docs
+- [x] antd v6
+- [x] @tanstack/react-query
 - [x] cloudflare worker
-- nodemail -> resend
-- D1
-- R1
-- [x]skills
-  - vercel-react-best-practices
-- ...
+- [] nodemail -> resend
+- [] i18n -> Paraglide JS
+- [x] skills
+  - [x] vercel-react-best-practices
+  - [x] ...
+- claudflare
+  - [x] pg: neon/supabase
+  - sqlite: D1
+  - R2
+  - tunnel
+- ai:
+  - langchain -> ai-sdk/element
+- eslint -> biomejs
+- tailwlindcss v4
+- Vite/Vitest/...
 
-一个基于 React Router、React、Antd、TailwindCSS、Prisma 和 RBAC 的现代全栈 Web 解决方案（WIP）。
+一个基于 React Router、React、Antd、TailwindCSS、Drizzle ORM 和 RBAC 的现代全栈 Web 解决方案（WIP）。
 
 Remix Antd Admin 正在开发中，如果您有任何建议或问题，请随时提交 Issue 或 Pull Request。
 
@@ -32,7 +42,7 @@ Remix Antd Admin 正在开发中，如果您有任何建议或问题，请随时
 - 🚀 使用 React Router 进行路由管理
 - 🎉 使用 TailwindCSS 进行样式设计
 - 🔒 默认使用 TypeScript
-- 📖 使用 Prisma 作为 ORM
+- 📖 使用 Drizzle ORM 作为 ORM
 - 🔄 多种数据获取方式：redux/loader
 - 🔐 RBAC 权限管理
 - 🌐 使用 remix-i18n 进行国际化

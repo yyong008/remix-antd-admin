@@ -1,6 +1,7 @@
 import { Button, Form, Popconfirm, message } from "antd";
 
 import { DeleteOutlined } from "@ant-design/icons";
+import { useDeleteChangelog } from "~/api-client/queries/docs-changelog";
 
 type DeleteItProps = {
   refetch: any;
@@ -10,7 +11,7 @@ type DeleteItProps = {
 
 export function DeleteIt({ record, title, refetch }: DeleteItProps) {
   const [form] = Form.useForm();
-  const [deleteByIds] = [(...args: any): any => {}];
+  const deleteByIds = useDeleteChangelog();
   return (
     <Form>
       <Popconfirm
@@ -23,7 +24,7 @@ export function DeleteIt({ record, title, refetch }: DeleteItProps) {
             data.ids = [record.id];
           }
 
-          const result = await deleteByIds(data);
+          const result = await deleteByIds.mutateAsync(data);
           if (result.data?.code !== 0) {
             message.error(result.data?.message);
             return false;

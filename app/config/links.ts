@@ -58,8 +58,8 @@ export const getLinks = (lang: string) => [
         isOut: true,
       },
       {
-        text: "Prisma",
-        to: `https://www.prisma.io/`,
+        text: "Drizzle",
+        to: `https://orm.drizzle.team/`,
         isOut: true,
       },
       {

@@ -1,13 +1,28 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
+
+///// blog
 
 /**
  * 获取博客列表
  * @param params
  * @returns
  */
-export function getBlogs(params: any) {
+export async function readBlogList(params: {
+  page?: number;
+  pageSize?: number;
+  categoryId?: string;
+  tagId?: string;
+}) {
   try {
-    return api.get("/admin/blog", { params });
+    const res = await getApiClient().api.admin.blog.$get({
+      query: {
+        page: (params.page ?? 1).toString(),
+        pageSize: (params.pageSize ?? 10).toString(),
+        categoryId: params.categoryId ?? "",
+        tagId: params.tagId ?? "",
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -18,19 +33,30 @@ export function getBlogs(params: any) {
  * 删除博客
  * @param id
  * @returns
- *  */
-export function deleteBlog(id: string) {
+ */
+export async function deleteBlogById(id: number) {
   try {
-    return api.delete(`/admin/blog/${id}`);
+    const res = await getApiClient().api.admin.blog[":id"].$delete({
+      param: { id: String(id) },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
   }
 }
 
-export function deleteManyBlogs(ids: string[]) {
+/**
+ * 批量删除博客
+ * @param ids
+ * @returns
+ */
+export async function deleteBlogByIds(ids: number[]) {
   try {
-    return api.delete("/admin/blog", { data: { ids } });
+    const res = await getApiClient().api.admin.blog.$delete({
+      json: { ids },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -42,10 +68,14 @@ export function deleteManyBlogs(ids: string[]) {
  * @param id
  * @param data
  * @returns
- * */
-export function updateBlog(id: string, data: any) {
+ */
+export async function updateBlogById(id: number, data: any) {
   try {
-    return api.put(`/admin/blog/${id}`, data);
+    const res = await getApiClient().api.admin.blog[":id"].$put({
+      param: { id: String(id) },
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -56,10 +86,11 @@ export function updateBlog(id: string, data: any) {
  * 创建博客
  * @param data
  * @returns
- * */
-export function createBlog(data: any) {
+ */
+export async function createBlog(data: any) {
   try {
-    return api.post("/admin/blog", data);
+    const res = await getApiClient().api.admin.blog.$post({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -70,10 +101,13 @@ export function createBlog(data: any) {
  * 获取博客详情
  * @param id
  * @returns
- * */
-export function getBlogDetail(id: string) {
+ */
+export async function readBlog(id: number) {
   try {
-    return api.get(`/admin/blog/${id}`);
+    const res = await getApiClient().api.admin.blog[":id"].$get({
+      param: { id: String(id) },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -84,9 +118,10 @@ export function getBlogDetail(id: string) {
  * 获取博客分类
  * @returns
  */
-export function getBlogCategories() {
+export async function readBlogCategory() {
   try {
-    return api.get("/admin/blog/category");
+    const res = await getApiClient().api.admin.blog.category.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -98,9 +133,12 @@ export function getBlogCategories() {
  * @param data
  * @returns
  */
-export function createBlogCategory(data: any) {
+export async function createBlogCategory(data: any) {
   try {
-    return api.post("/admin/blog/category", data);
+    const res = await getApiClient().api.admin.blog.category.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -108,13 +146,16 @@ export function createBlogCategory(data: any) {
 }
 
 /**
- * 根据 ids 删除博客分类
+ * 删除博客分类
  * @param ids
  * @returns
  */
-export function deleteManyBlogsCategory(ids: string) {
+export async function deleteBlogCategoryByIds(ids: number[]) {
   try {
-    return api.delete(`/admin/blog/category`, { data: { ids } });
+    const res = await getApiClient().api.admin.blog.category.$delete({
+      json: { ids },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -124,12 +165,16 @@ export function deleteManyBlogsCategory(ids: string) {
 /**
  * 更新博客分类
  * @param id
- *
+ * @param data
  * @returns
- * */
-export function updateBlogCategory(id: string, data: any) {
+ */
+export async function updateBlogCategoryById(id: number, data: any) {
   try {
-    return api.put(`/admin/blog/category/${id}`, data);
+    const res = await getApiClient().api.admin.blog.category[":id"].$put({
+      param: { id: String(id) },
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -141,9 +186,12 @@ export function updateBlogCategory(id: string, data: any) {
  * @param id
  * @returns
  */
-export function getBlogCategoryDetail(id: string) {
+export async function readBlogCategoryById(id: number) {
   try {
-    return api.get(`/admin/blog/category/${id}`);
+    const res = await getApiClient().api.admin.blog.category[":id"].$get({
+      param: { id: String(id) },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -151,12 +199,19 @@ export function getBlogCategoryDetail(id: string) {
 }
 
 /**
- * 获取博客标签
+ * 获取博客标签列表
+ * @param params
  * @returns
  */
-export function getBlogTags(params: any) {
+export async function readBlogTagList(params?: { page?: number; pageSize?: number }) {
   try {
-    return api.get("/admin/blog/tag", { params });
+    const res = await getApiClient().api.admin.blog.tag.$get({
+      query: {
+        page: (params?.page ?? 1).toString(),
+        pageSize: (params?.pageSize ?? 10).toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -167,10 +222,11 @@ export function getBlogTags(params: any) {
  * 创建博客标签
  * @param data
  * @returns
- * */
-export function createBlogTag(data: any) {
+ */
+export async function createBlogTag(data: any) {
   try {
-    return api.post("/admin/blog/tag", data);
+    const res = await getApiClient().api.admin.blog.tag.$post({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -178,13 +234,16 @@ export function createBlogTag(data: any) {
 }
 
 /**
- * 根据 ids 删除博客标签
+ * 删除博客标签
  * @param ids
  * @returns
- * */
-export function deleteManyBlogsTag(ids: string) {
+ */
+export async function deleteBlogTagByIds(ids: number[]) {
   try {
-    return api.delete(`/admin/blog/tag`, { data: { ids } });
+    const res = await getApiClient().api.admin.blog.tag.$delete({
+      json: { ids },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -196,10 +255,14 @@ export function deleteManyBlogsTag(ids: string) {
  * @param id
  * @param data
  * @returns
- * */
-export function updateBlogTag(id: string, data: any) {
+ */
+export async function updateBlogTagById(id: number, data: any) {
   try {
-    return api.put(`/admin/blog/tag/${id}`, data);
+    const res = await getApiClient().api.admin.blog.tag[":id"].$put({
+      param: { id: String(id) },
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -210,10 +273,13 @@ export function updateBlogTag(id: string, data: any) {
  * 获取博客标签详情
  * @param id
  * @returns
- * */
-export function getBlogTagDetail(id: string) {
+ */
+export async function readBlogTagById(id: number) {
   try {
-    return api.get(`/admin/blog/tag/${id}`);
+    const res = await getApiClient().api.admin.blog.tag[":id"].$get({
+      param: { id: String(id) },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

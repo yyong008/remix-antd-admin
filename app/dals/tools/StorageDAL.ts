@@ -1,76 +1,64 @@
-import type { Prisma } from "@prisma/client";
-import prisma from "@/libs/prisma";
+import { and, asc, count, desc, inArray, like } from "drizzle-orm";
+import { db } from "@/libs/neon";
+import { storages } from "db/schema";
 
-export class StorageDAL {
-  /**
-   * 获取数量
-   * @param where
-   * @returns
-   */
-  public async getCount() {
-    return await prisma.storage.count();
-  }
-
-  /**
-   * 获取存储
-   * @param id
-   * @returns
-   */
-  public async getById(id: number) {
-    return await prisma.storage.findUnique({ where: { id } });
-  }
-
-  /**
-   * 获取列表
-   * @param param0
-   * @returns
-   */
-  public async getList({
-    where,
-    skip = 0,
-    take = 10,
-    orderBy,
-  }: {
-    where: Prisma.StorageWhereInput;
-    skip?: number;
-    take?: number;
-    orderBy?: Prisma.StorageOrderByWithRelationInput;
-  }) {
-    return await prisma.storage.findMany({
-      where,
-      skip,
-      take,
-      orderBy,
-    });
-  }
-
-  /**
-   * 创建存储
-   * @param data
-   * @returns
-   */
-  public async create(data: Prisma.StorageCreateInput) {
-    return await prisma.storage.create({ data });
-  }
-
-  /**
-   * 更新存储
-   * @param id
-   * @param data
-   * @returns
-   */
-  public async update(id: number, data: Prisma.StorageUpdateInput) {
-    return await prisma.storage.update({ where: { id }, data });
-  }
-
-  /**
-   * 根据 ids 删除存储
-   * @param ids
-   * @returns
-   */
-  public async deleteByIds(ids: number[]) {
-    return await prisma.storage.deleteMany({ where: { id: { in: ids } } });
-  }
+async function getCount() {
+  const rows = await db.select({ count: count() }).from(storages);
+  return rows[0]?.count ?? 0;
 }
 
-export const storageDAL = new StorageDAL();
+async function getById(id: number) {
+  const rows = await db
+    .select()
+    .from(storages)
+    .where(eq(storages.id, id))
+    .limit(1);
+  return rows[0] ?? null;
+}
+
+async function getList({ where, skip = 0, take = 10, orderBy }: any) {
+  const conditions = [] as any[];
+  if (where?.userId !== undefined) {
+    conditions.push(eq(storages.userId, where.userId));
+  }
+  if (where?.type) {
+    conditions.push(eq(storages.type, where.type));
+  }
+  if (where?.name?.contains) {
+    conditions.push(like(storages.name, `%${where.name.contains}%`));
+  }
+
+  let query = db.select().from(storages);
+  if (conditions.length) query = query.where(and(...conditions));
+  if (orderBy?.id === "desc") query = query.orderBy(desc(storages.id));
+  if (orderBy?.id === "asc") query = query.orderBy(asc(storages.id));
+  return await query.limit(take).offset(skip);
+}
+
+async function create(data: any) {
+  const created = await db.insert(storages).values(data).returning();
+  return created[0];
+}
+
+async function update(id: number, data: any) {
+  const { id: _id, ...values } = data;
+  const updated = await db
+    .update(storages)
+    .set(values)
+    .where(eq(storages.id, id))
+    .returning();
+  return updated[0];
+}
+
+async function deleteByIds(ids: number[]) {
+  return await db.delete(storages).where(inArray(storages.id, ids)).returning();
+}
+
+export const storageDAL = {
+  getCount,
+  getById,
+  getList,
+  create,
+  update,
+  deleteByIds,
+};

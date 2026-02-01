@@ -7,6 +7,7 @@ import {
   useParams,
 } from "react-router";
 
+import { AppQueryProvider } from "~/api-client/query-provider";
 import { ClientOnly } from "~/components/common/client-only";
 import { DocsRootProvider } from "~/features/cms/components/docs/provider";
 
@@ -22,9 +23,11 @@ export function RootRoute() {
         <Links />
       </head>
       <body>
-        <DocsRootProvider>
-          <ClientOnly fallback={<></>}>{() => <Outlet />}</ClientOnly>
-        </DocsRootProvider>
+        <AppQueryProvider>
+          <DocsRootProvider>
+            <ClientOnly fallback={<></>}>{() => <Outlet />}</ClientOnly>
+          </DocsRootProvider>
+        </AppQueryProvider>
 
         <ScrollRestoration />
         <Scripts />

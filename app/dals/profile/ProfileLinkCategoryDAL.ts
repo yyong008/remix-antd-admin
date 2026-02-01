@@ -1,88 +1,68 @@
-import prisma from "@/libs/prisma";
+import { asc, count, desc, eq, inArray } from "drizzle-orm";
+import { db } from "@/libs/neon";
+import { linkCategories } from "db/schema";
 
-export class ProfileLinkCategoryDAL {
-  /**
-   * 获取链接分类总数
-   * @returns
-   */
-  async getCount() {
-    return await prisma.linkCategory.count();
-  }
-  /**
-   * 获取 userId 获取用户的链接分类总数
-   * @param userId
-   * @returns
-   */
-  async getCountByUserId(userId: number) {
-    return await prisma.linkCategory.count({
-      where: {
-        userId,
-      },
-    });
-  }
-
-  /**
-   * 根据 id 获取链接分类
-   * @param id
-   * @returns
-   */
-  async getById(id: number) {
-    return await prisma.linkCategory.findUnique({ where: { id } });
-  }
-
-  /**
-   * 根据 userId 获取链接分类列表
-   * @param param0
-   * @returns
-   */
-  async getListByUserId({ where, skip, take, orderBy }: any) {
-    return await prisma.linkCategory.findMany({
-      where,
-      skip,
-      take,
-      orderBy,
-    });
-  }
-
-  /**
-   * 创建
-   * @param data
-   * @returns
-   */
-  async create(data: any) {
-    return await prisma.linkCategory.create({
-      data,
-    });
-  }
-
-  /**
-   * 更新
-   * @param param0
-   * @returns
-   */
-  async update({ id, ...data }: any) {
-    return await prisma.linkCategory.update({
-      where: {
-        id,
-      },
-      data,
-    });
-  }
-
-  /**
-   * 根据 ids 进行删除
-   * @param ids
-   * @returns
-   */
-  async deleteByIds(ids: number[]) {
-    return await prisma.linkCategory.deleteMany({
-      where: {
-        id: {
-          in: ids,
-        },
-      },
-    });
-  }
+async function getCount() {
+  const rows = await db.select({ count: count() }).from(linkCategories);
+  return rows[0]?.count ?? 0;
 }
 
-export const profileLinkCategoryDAL = new ProfileLinkCategoryDAL();
+async function getCountByUserId(userId: number) {
+  const rows = await db
+    .select({ count: count() })
+    .from(linkCategories)
+    .where(eq(linkCategories.userId, userId));
+  return rows[0]?.count ?? 0;
+}
+
+async function getById(id: number) {
+  const rows = await db
+    .select()
+    .from(linkCategories)
+    .where(eq(linkCategories.id, id))
+    .limit(1);
+  return rows[0] ?? null;
+}
+
+async function getList({ where, skip, take, orderBy }: any) {
+  let query = db.select().from(linkCategories);
+  if (where?.userId !== undefined) {
+    query = query.where(eq(linkCategories.userId, where.userId));
+  }
+  if (orderBy?.id === "desc") query = query.orderBy(desc(linkCategories.id));
+  if (orderBy?.id === "asc") query = query.orderBy(asc(linkCategories.id));
+  if (typeof take === "number") query = query.limit(take);
+  if (typeof skip === "number") query = query.offset(skip);
+  return await query;
+}
+
+async function create(data: any) {
+  const created = await db.insert(linkCategories).values(data).returning();
+  return created[0];
+}
+
+async function update({ id, ...data }: any) {
+  const updated = await db
+    .update(linkCategories)
+    .set(data)
+    .where(eq(linkCategories.id, id))
+    .returning();
+  return updated[0];
+}
+
+async function deleteByIds(ids: number[]) {
+  return await db
+    .delete(linkCategories)
+    .where(inArray(linkCategories.id, ids))
+    .returning();
+}
+
+export const profileLinkCategoryDAL = {
+  getCount,
+  getCountByUserId,
+  getById,
+  getList,
+  create,
+  update,
+  deleteByIds,
+};

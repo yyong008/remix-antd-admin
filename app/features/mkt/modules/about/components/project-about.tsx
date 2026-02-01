@@ -18,8 +18,8 @@ export const ProjectAbout = () => {
     Vite${getMajorVersion("vite")}.x、
     Antd${getMajorVersion("antd")}.x 、
     TailwindCSS${getMajorVersion("tailwindcss")}.x 、
-    prisma${getMajorVersion("prisma")}.x 、
-    @prisma/client${getMajorVersion("@prisma/client")}.x 、
+    Drizzle${getMajorVersion("drizzle-orm")}.x 、
+    drizzle-kit${getMajorVersion("drizzle-kit")}.x 、
     TypeScript${getMajorVersion("typescript")}.x 开发，
     内置了动态路由、权限验证、菜单、数据库全栈管理工具
   `;

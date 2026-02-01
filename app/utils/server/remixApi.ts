@@ -4,7 +4,7 @@ import type { Op, TOption, UrlAndBodySchemas } from "@/types/restful";
 
 import type { ALFunctionArgs } from "@/types/remix";
 import { ERRIR_PRESENTATION_MODE } from "@/constants/error";
-import { getClientIPAddress } from "remix-utils/get-client-ip-address";
+import { getClientIPAddress } from "@/utils/server/client-ip";
 import { hm } from "./api/http";
 import { joseJwt } from "@/libs/jose";
 import { operateDAL } from "@/dals/operate/operateDAL";

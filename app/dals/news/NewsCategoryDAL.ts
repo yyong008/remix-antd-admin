@@ -1,123 +1,100 @@
-import prisma from "@/libs/prisma";
+import { count, eq, inArray } from "drizzle-orm";
+import { db } from "@/libs/neon";
+import { newsCategories } from "db/schema";
 
-export class NewsCategoryDAL {
-  /**
-   * 获取新闻分类数量
-   * @returns
-   */
-  async getCount() {
-    return await prisma.newsCategory.count();
-  }
-
-  /**
-   * 根据 id 获取新闻分类
-   * @param id
-   * @returns
-   */
-  async getById(id: number) {
-    return await prisma.newsCategory.findUnique({ where: { id } });
-  }
-
-  /**
-   * 获取新闻分类列表
-   * @param data
-   * @returns
-   */
-  async getList(data: any) {
-    return await prisma.newsCategory.findMany({
-      skip: data.pageSize * (data.page - 1),
-      take: data.pageSize,
-    });
-  }
-
-  /**
-   * 获取全部新闻分类
-   * @returns
-   */
-  async getAll() {
-    return await prisma.newsCategory.findMany();
-  }
-
-  /**
-   * 获取分类列表带分页
-   * @param param0
-   * @returns
-   */
-  async getListWithMore({ where, skip, take }: any) {
-    return await prisma.newsCategory.findMany({
-      where,
-      skip,
-      take,
-    });
-  }
-  async getNewsCategoryListByUserId(userId: number) {
-    return await prisma.newsCategory.findMany({
-      where: {
-        userId,
-      },
-    });
-  }
-  async getNewsCategoryListByNewsId(newsId: number) {
-    return await prisma.newsCategory.findMany({
-      where: {
-        // news: newsId,
-      },
-    });
-  }
-  async getNewsCategoryListByNewsIds(newsIds: number[]) {
-    return await prisma.newsCategory.findMany({
-      where: {
-        // news: newsIds,
-      },
-    });
-  }
-
-  /**
-   * 创建新闻分类
-   * @param data
-   * @returns
-   */
-  async create(data: any) {
-    return await prisma.newsCategory.create({
-      data: {
-        name: data.name,
-        description: data.description,
-        userId: data.userId,
-      },
-    });
-  }
-
-  /**
-   * 更新新闻分类
-   * @param data
-   * @returns
-   */
-  async update(data: any) {
-    return await prisma.newsCategory.update({
-      where: {
-        id: data.id,
-      },
-      data: {
-        name: data.name,
-        description: data.description,
-        userId: data.userId,
-      },
-    });
-  }
-  /**
-   * 删除
-   * @param ids
-   * @returns
-   */
-  async deleteByIds(ids: number[]) {
-    return await prisma.newsCategory.deleteMany({
-      where: {
-        id: {
-          in: ids,
-        },
-      },
-    });
-  }
+async function getCount() {
+  const rows = await db.select({ count: count() }).from(newsCategories);
+  return rows[0]?.count ?? 0;
 }
 
-export const newsCategoryDAL = new NewsCategoryDAL();
+async function getById(id: number) {
+  const rows = await db
+    .select()
+    .from(newsCategories)
+    .where(eq(newsCategories.id, id))
+    .limit(1);
+  return rows[0] ?? null;
+}
+
+async function getList(data: any) {
+  return await db
+    .select()
+    .from(newsCategories)
+    .limit(data.pageSize)
+    .offset(data.pageSize * (data.page - 1));
+}
+
+async function getAll() {
+  return await db.select().from(newsCategories);
+}
+
+async function getListWithMore({ where, skip, take }: any) {
+  let query = db.select().from(newsCategories);
+  if (where?.userId !== undefined) {
+    query = query.where(eq(newsCategories.userId, where.userId));
+  }
+  if (typeof take === "number") query = query.limit(take);
+  if (typeof skip === "number") query = query.offset(skip);
+  return await query;
+}
+
+async function getNewsCategoryListByUserId(userId: number) {
+  return await db
+    .select()
+    .from(newsCategories)
+    .where(eq(newsCategories.userId, userId));
+}
+
+async function getNewsCategoryListByNewsId(_newsId: number) {
+  return await db.select().from(newsCategories);
+}
+
+async function getNewsCategoryListByNewsIds(_newsIds: number[]) {
+  return await db.select().from(newsCategories);
+}
+
+async function create(data: any) {
+  const created = await db
+    .insert(newsCategories)
+    .values({
+      name: data.name,
+      description: data.description,
+      userId: data.userId,
+    })
+    .returning();
+  return created[0];
+}
+
+async function update(data: any) {
+  const updated = await db
+    .update(newsCategories)
+    .set({
+      name: data.name,
+      description: data.description,
+      userId: data.userId,
+    })
+    .where(eq(newsCategories.id, data.id))
+    .returning();
+  return updated[0];
+}
+
+async function deleteByIds(ids: number[]) {
+  return await db
+    .delete(newsCategories)
+    .where(inArray(newsCategories.id, ids))
+    .returning();
+}
+
+export const newsCategoryDAL = {
+  getCount,
+  getById,
+  getList,
+  getAll,
+  getListWithMore,
+  getNewsCategoryListByUserId,
+  getNewsCategoryListByNewsId,
+  getNewsCategoryListByNewsIds,
+  create,
+  update,
+  deleteByIds,
+};

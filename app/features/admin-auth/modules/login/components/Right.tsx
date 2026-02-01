@@ -5,27 +5,26 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 
 import { Link } from "react-router";
 import React from "react";
-import { login } from "~/features/admin/apis/auth";
 import { message } from "antd";
 import { simpleStorage } from "@/libs/simpleStorage";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { useNavigate } from "react-router";
 import { useParamsLang } from "~/hooks/userParamsLang";
-import { useState } from "react";
+import { useLogin } from "~/api-client/queries/auth";
 
 const LoginForm: React.FC = () => {
   const { t } = { t: (key: string) => key };
   const navigate = useNavigate();
   const { lang } = useParamsLang();
-  const [isLoading, setIsLoading] = useState(false);
+  const loginMutation = useLogin();
+
   const onFinish = async (values: any) => {
     const data = {
       ...values,
-      password: clientUtils.genHashedPassword(values.password),
+      // password: clientUtils.genHashedPassword(values.password),
+      password: values.password,
     };
-    setIsLoading(true);
-    const result: any = await login(data);
-    setIsLoading(false);
+    const result: any = await loginMutation.mutateAsync(data);
     if (result.code === 0 && result.data.token?.length > 0) {
       const { token, refresh_token } = result.data;
       simpleStorage.setToken(token);
@@ -84,7 +83,12 @@ const LoginForm: React.FC = () => {
       </Form.Item>
 
       <Form.Item>
-        <Button block type="primary" htmlType="submit" loading={isLoading}>
+        <Button
+          block
+          type="primary"
+          htmlType="submit"
+          loading={loginMutation.isPending}
+        >
           {t("login-register.submit")}
         </Button>
       </Form.Item>

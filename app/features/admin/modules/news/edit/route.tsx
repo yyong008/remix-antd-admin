@@ -5,13 +5,18 @@ import { useNavigate, useParams } from "react-router";
 import { FormItems } from "./components/FormItems";
 import { QuillEditor } from "~/components/common/quill-editor";
 import { useState } from "react";
+import { useCreateNews } from "~/api-client/queries/news";
+import { useNewsCategoryList } from "~/api-client/queries/news-category";
 
 export function Route() {
   const nav = useNavigate();
   const { lang } = useParams();
-  const [createNews] = [(...args: any): any => {}];
+  const createNews = useCreateNews();
   const [content, setContent] = useState("");
-  const { data: newsCategoryList, isLoading } = { data: [], isLoading: false };
+  const { data: newsCategoryList, isLoading } = useNewsCategoryList({
+    page: 1,
+    pageSize: 200,
+  });
   return (
     <PageContainer>
       <ProCard
@@ -20,7 +25,7 @@ export function Route() {
           <DrawerForm
             trigger={<Button type="primary">创建新闻</Button>}
             onFinish={async (v) => {
-              const result = await createNews(v);
+              const result = await createNews.mutateAsync(v);
               if (result.data?.code !== 0) {
                 message.error(result.data?.message);
                 return false;

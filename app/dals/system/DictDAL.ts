@@ -1,56 +1,45 @@
-import prisma from "@/libs/prisma";
+import { count, eq, inArray } from "drizzle-orm";
+import { db } from "@/libs/neon";
+import { dictionaries } from "db/schema";
 
-export class DictDAL {
-  /**
-   * 获取字典数量
-   * @returns
-   */
-  async getCount() {
-    return await prisma.dictionary.count();
-  }
-
-  /**
-   * 获取字典列表
-   * @param data
-   * @returns
-   */
-  async getList(data: any) {
-    const { skip, take } = {
-      skip: data.pageSize * (data.page - 1),
-      take: data.pageSize,
-    };
-    return await prisma.dictionary.findMany({
-      skip,
-      take,
-    });
-  }
-
-  /**
-   * 创建字典
-   * @param data
-   * @returns
-   */
-  async create(data: any) {
-    return await prisma.dictionary.create({ data });
-  }
-
-  /**
-   * 更新字典
-   * @param data
-   * @returns
-   */
-  async update(data: any) {
-    return await prisma.dictionary.update({ where: { id: data.id }, data });
-  }
-
-  /**
-   * 删除
-   * @param ids
-   * @returns
-   */
-  async deleteByIds(ids: number[]) {
-    return await prisma.dictionary.deleteMany({ where: { id: { in: ids } } });
-  }
+async function getCount() {
+  const rows = await db.select({ count: count() }).from(dictionaries);
+  return rows[0]?.count ?? 0;
 }
 
-export const dictDAL = new DictDAL();
+async function getList(data: any) {
+  const skip = data.pageSize * (data.page - 1);
+  const take = data.pageSize;
+  return await db.select().from(dictionaries).limit(take).offset(skip);
+}
+
+async function create(data: any) {
+  const created = await db.insert(dictionaries).values(data).returning();
+  return created[0];
+}
+
+async function update(data: any) {
+  const { id, ...values } = data;
+  const updated = await db
+    .update(dictionaries)
+    .set(values)
+    .where(eq(dictionaries.id, id))
+    .returning();
+  return updated[0];
+}
+
+async function deleteByIds(ids: number[]) {
+  const deleted = await db
+    .delete(dictionaries)
+    .where(inArray(dictionaries.id, ids))
+    .returning({ id: dictionaries.id });
+  return { count: deleted.length };
+}
+
+export const dictDAL = {
+  getCount,
+  getList,
+  create,
+  update,
+  deleteByIds,
+};

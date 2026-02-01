@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 创建操作日志
@@ -7,7 +7,10 @@ import api from "~/libs/axios";
  */
 export async function createMonitorOperate(data: any) {
   try {
-    return await api.post("/admin/system/monitor/operate", data);
+    const res = await getApiClient().api.admin.system.monitor.operate.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -21,7 +24,10 @@ export async function createMonitorOperate(data: any) {
  */
 export async function updateMonitorOperateById(data: any) {
   try {
-    return await api.put("/admin/system/monitor/operate", data);
+    const res = await getApiClient().api.admin.system.monitor.operate.$put({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -35,7 +41,10 @@ export async function updateMonitorOperateById(data: any) {
  */
 export async function deleteMonitorOperateByIds(data: any) {
   try {
-    return await api.delete("/admin/system/monitor/operate", { data });
+    const res = await getApiClient().api.admin.system.monitor.operate.$delete({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -48,7 +57,8 @@ export async function deleteMonitorOperateByIds(data: any) {
  */
 export async function readMonitorOperate() {
   try {
-    return await api.get("/admin/system/monitor/operate");
+    const res = await getApiClient().api.admin.system.monitor.operate.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -65,7 +75,13 @@ export async function readMonitorOperateList(params: {
   pageSize: number;
 }) {
   try {
-    return await api.get("/admin/system/monitor/operate", { params });
+    const res = await getApiClient().api.admin.system.monitor.operate.$get({
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

@@ -9,7 +9,6 @@
     "tailwindcss",
     "express",
     "admin",
-    "prisma",
     "postresql",
     "langchain",
     "ai"
@@ -40,10 +39,11 @@
     "version": "changeset version",
     "prepare": "husky install",
     "docker:build": "docker build -t remix-antd-admin .",
-    "prisma:generate": "prisma generate",
-    "prisma:db:push": "prisma db push",
-    "prisma:migrate": "prisma migrate dev",
-    "postinstall": "fumadocs-mdx"
+    "drizzle:generate": "drizzle-kit generate",
+    "drizzle:push": "drizzle-kit push",
+    "drizzle:migrate": "drizzle-kit migrate",
+    "postinstall": "fumadocs-mdx",
+    "db:seed": "dotenv -c -w ./.env  tsx db/seed.ts"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.21.1",
@@ -57,22 +57,25 @@
     "@js-temporal/polyfill": "^0.4.4",
     "@langchain/core": "^0.3.27",
     "@langchain/ollama": "^0.1.4",
+    "@neondatabase/serverless": "^1.0.2",
     "@orama/tokenizers": "^3.1.18",
-    "@prisma/adapter-pg": "^7.3.0",
-    "@prisma/client": "^7.3.0",
     "@react-router/express": "^7.13.0",
     "@react-router/node": "^7.13.0",
     "@react-router/serve": "^7.13.0",
     "@reduxjs/toolkit": "^2.2.5",
+    "@tanstack/react-query": "^5.90.20",
     "antd": "^6.2.2",
     "antd-style": "^3.6.2",
-    "axios": "^1.7.9",
     "canvas-confetti": "^1.9.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.10",
     "dompurify": "^3.1.0",
+    "dotenv": "^17.2.3",
+    "drizzle": "^1.4.0",
+    "drizzle-kit": "^0.31.8",
+    "drizzle-orm": "^0.45.1",
     "figlet": "^1.8.0",
     "fumadocs-core": "^16.4.11",
     "fumadocs-mdx": "^14.2.6",
@@ -116,6 +119,7 @@
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18",
     "ua-parser-js": "^1.0.37",
+    "ws": "^8.19.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
@@ -143,11 +147,13 @@
     "@types/react-dom": "^19.2.3",
     "@types/swagger-ui-react": "^4.18.3",
     "@types/ua-parser-js": "^0.7.39",
+    "@types/ws": "^8.18.1",
     "@typescript-eslint/eslint-plugin": "^8.20.0",
     "@typescript-eslint/parser": "^8.20.0",
     "autoprefixer": "^10.4.18",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9.18.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -158,7 +164,6 @@
     "lint-staged": "^15.2.2",
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
-    "prisma": "^7.3.0",
     "tsx": "^4.21.0",
     "typescript": "^5.4.2",
     "vite": "^7.3.1",
@@ -186,8 +191,5 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
-  },
-  "prisma": {
-    "schema": "prisma/schema/schema.prisma"
   }
 }

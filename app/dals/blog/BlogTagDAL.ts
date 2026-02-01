@@ -1,109 +1,63 @@
-import prisma from "@/libs/prisma";
+import { count, eq, inArray } from "drizzle-orm";
+import { db } from "@/libs/neon";
+import { blogTags } from "db/schema";
 
-export class BlogTagDAL {
-  /**
-   * 获取数量
-   * @returns
-   */
-  async getCount() {
-    return await prisma.blogTag.count();
-  }
-  /**
-   * 获取所有
-   * @returns
-   */
-  async getAll() {
-    return await prisma.blogTag.findMany();
-  }
-  /**
-   * 根据获取博客标签
-   * @param userId
-   * @returns
-   */
-  async getByUserId(userId: number) {
-    return await prisma.blogTag.findMany({
-      where: {
-        userId,
-      },
-    });
-  }
-  /**
-   * 根据 id 获取博客标签
-   * @param id
-   * @returns
-   */
-  async getBlogTagById(id: number) {
-    return await prisma.blogTag.findUnique({ where: { id } });
-  }
-  /**
-   * 根据 id 获取博客标签
-   * @param userId
-   * @returns
-   */
-  async getBlogCategoryTag(userId: number) {
-    return await prisma.blogTag.findMany({
-      where: {
-        userId,
-      },
-    });
-  }
-  /**
-   * 创建
-   * @param data
-   * @returns
-   */
-  async create(data: any) {
-    return await prisma.blogTag.create({
-      data: {
-        name: data.name,
-        description: data.description,
-        userId: data.userId,
-      },
-    });
-  }
-  /**
-   *
-   * @param data
-   * @returns
-   */
-  async update(data: any) {
-    return await prisma.blogTag.update({
-      where: {
-        id: data.id,
-      },
-      data: {
-        name: data.name,
-        description: data.description,
-        userId: data.userId,
-      },
-    });
-  }
-  /**
-   * 根据 id 删除
-   * @param id
-   * @returns
-   */
-  async deleteById(id: number) {
-    return await prisma.blogTag.delete({
-      where: {
-        id,
-      },
-    });
-  }
-  /**
-   * 根据 ids 删除
-   * @param ids
-   * @returns
-   */
-  async deleteBlogTagByIds(ids: number[]) {
-    return await prisma.blogTag.deleteMany({
-      where: {
-        id: {
-          in: ids,
-        },
-      },
-    });
-  }
+async function getCount() {
+  const rows = await db.select({ count: count() }).from(blogTags);
+  return rows[0]?.count ?? 0;
 }
 
-export const blogTagDAL = new BlogTagDAL();
+async function getList() {
+  return await db.select().from(blogTags);
+}
+
+async function getListByUserId(userId: number) {
+  return await db
+    .select()
+    .from(blogTags)
+    .where(eq(blogTags.userId, userId));
+}
+
+async function getById(id: number) {
+  const rows = await db
+    .select()
+    .from(blogTags)
+    .where(eq(blogTags.id, id))
+    .limit(1);
+  return rows[0] ?? null;
+}
+
+async function create(data: any) {
+  const created = await db.insert(blogTags).values(data).returning();
+  return created[0];
+}
+
+async function update(data: any) {
+  const { id, ...values } = data;
+  const updated = await db
+    .update(blogTags)
+    .set(values)
+    .where(eq(blogTags.id, id))
+    .returning();
+  return updated[0];
+}
+
+async function deleteById(id: number) {
+  const deleted = await db.delete(blogTags).where(eq(blogTags.id, id)).returning();
+  return deleted[0] ?? null;
+}
+
+async function deleteByIds(ids: number[]) {
+  return await db.delete(blogTags).where(inArray(blogTags.id, ids)).returning();
+}
+
+export const blogTagDAL = {
+  getCount,
+  getList,
+  getListByUserId,
+  getById,
+  create,
+  update,
+  deleteById,
+  deleteByIds,
+};

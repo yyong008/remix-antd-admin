@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 获取文档列表
@@ -6,7 +6,13 @@ import api from "~/libs/axios";
  */
 export async function getDocs(params: any) {
   try {
-    return await api.get("/admin/docs/changelog", { params });
+    const res = await getApiClient().api.admin.docs.changelog.$get({
+      query: {
+        page: params.page?.toString?.() ?? "1",
+        pageSize: params.pageSize?.toString?.() ?? "10",
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -20,7 +26,10 @@ export async function getDocs(params: any) {
  * */
 export async function getDoc(id: string) {
   try {
-    return await api.get(`/admin/docs/changelog/${id}`);
+    const res = await getApiClient().api.admin.docs.changelog[":id"].$get({
+      param: { id },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -35,7 +44,11 @@ export async function getDoc(id: string) {
  * */
 export async function updateDoc(id: string, data: any) {
   try {
-    return await api.put(`/admin/docs/changelog/${id}`, data);
+    const res = await getApiClient().api.admin.docs.changelog[":id"].$put({
+      param: { id },
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -49,7 +62,10 @@ export async function updateDoc(id: string, data: any) {
  * */
 export async function deleteDocs(ids: string) {
   try {
-    return await api.delete(`/admin/docs/changelog`, { data: { ids } });
+    const res = await getApiClient().api.admin.docs.changelog.$delete({
+      json: { ids },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -63,7 +79,10 @@ export async function deleteDocs(ids: string) {
  * */
 export async function createDoc(data: any) {
   try {
-    return await api.post("/admin/docs/changelog", data);
+    const res = await getApiClient().api.admin.docs.changelog.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -77,7 +96,13 @@ export async function createDoc(data: any) {
  */
 export async function getFeedbacks(params: any) {
   try {
-    return await api.get("/admin/feedback", { params });
+    const res = await getApiClient().api.admin.feedback.$get({
+      query: {
+        page: params.page?.toString?.() ?? "1",
+        pageSize: params.pageSize?.toString?.() ?? "10",
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -91,7 +116,10 @@ export async function getFeedbacks(params: any) {
  * */
 export async function deleteFeedbacks(ids: string) {
   try {
-    return await api.delete(`/admin/feedback`, { data: { ids } });
+    const res = await getApiClient().api.admin.feedback.$delete({
+      json: { ids },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -105,7 +133,10 @@ export async function deleteFeedbacks(ids: string) {
  * */
 export async function getFeedback(id: string) {
   try {
-    return await api.get(`/admin/feedback/${id}`);
+    const res = await getApiClient().api.admin.feedback[":id"].$get({
+      param: { id },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -120,7 +151,11 @@ export async function getFeedback(id: string) {
  * */
 export async function updateFeedback(id: string, data: any) {
   try {
-    return await api.put(`/admin/feedback/${id}`, data);
+    const res = await getApiClient().api.admin.feedback[":id"].$put({
+      param: { id },
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -134,7 +169,10 @@ export async function updateFeedback(id: string, data: any) {
  * */
 export async function createFeedback(data: any) {
   try {
-    return await api.post("/admin/feedback", data);
+    const res = await getApiClient().api.admin.feedback.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

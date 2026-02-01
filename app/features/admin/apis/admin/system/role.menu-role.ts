@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 获取所有角色
@@ -6,7 +6,8 @@ import api from "~/libs/axios";
  */
 export async function readRoleAll() {
   try {
-    return await api.get("/admin/system/menu-role");
+    const res = await getApiClient().api.admin.system["menu-role"].$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

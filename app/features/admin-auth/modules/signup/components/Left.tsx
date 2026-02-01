@@ -6,24 +6,18 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router";
 import React from "react";
 import { message } from "antd";
-import { register } from "~/features/admin/apis/auth";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { useNavigate } from "react-router";
 import { useParamsLang } from "~/hooks/userParamsLang";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useRegister } from "~/api-client/queries/auth";
 
 const LoginForm: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { lang } = useParamsLang();
-  const [isLoading, setIsLoading] = useState(false);
+  const registerMutation = useRegister();
 
-  /**
-   * 注册
-   * @param values
-   * @returns
-   */
   const onFinish = async (values: any) => {
     if (values.password !== values.passwordRe) {
       message.error(t("login-register.password-re-not-equal"));
@@ -34,14 +28,12 @@ const LoginForm: React.FC = () => {
       password: clientUtils.genHashedPassword(values.password),
       passwordRe: clientUtils.genHashedPassword(values.passwordRe),
     };
-    setIsLoading(true);
-    const result: any = await register(data);
-    setIsLoading(false);
-    if (result.data.code === 0) {
-      message.success(result.data.message);
+    const result: any = await registerMutation.mutateAsync(data);
+    if (result.code === 0) {
+      message.success(result.message);
       navigate(`/${lang}/admin/login`, { replace: true });
     } else {
-      message.error(result.data.message);
+      message.error(result.message);
     }
   };
 
@@ -99,7 +91,12 @@ const LoginForm: React.FC = () => {
       </Form.Item>
 
       <Form.Item>
-        <Button block type="primary" htmlType="submit" loading={isLoading}>
+        <Button
+          block
+          type="primary"
+          htmlType="submit"
+          loading={registerMutation.isPending}
+        >
           {t("login-register.submit")}
         </Button>
       </Form.Item>

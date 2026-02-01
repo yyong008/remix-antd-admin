@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 创建部门
@@ -7,7 +7,8 @@ import api from "~/libs/axios";
  */
 export async function createSystemDept(data: any) {
   try {
-    return await api.post("/admin/system/dept", data);
+    const res = await getApiClient().api.admin.system.dept.$post({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -21,7 +22,8 @@ export async function createSystemDept(data: any) {
  */
 export async function updateSystemDeptById(data: any) {
   try {
-    return await api.put("/admin/system/dept", data);
+    const res = await getApiClient().api.admin.system.dept.$put({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -35,7 +37,8 @@ export async function updateSystemDeptById(data: any) {
  */
 export async function deleteSystemDeptByIds(data: any) {
   try {
-    return await api.delete("/admin/system/dept", { data });
+    const res = await getApiClient().api.admin.system.dept.$delete({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -48,7 +51,8 @@ export async function deleteSystemDeptByIds(data: any) {
  */
 export async function readSystemDept() {
   try {
-    return await api.get("/admin/system/dept");
+    const res = await getApiClient().api.admin.system.dept.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -65,7 +69,13 @@ export async function readSystemDeptList(params: {
   pageSize: number;
 }) {
   try {
-    return await api.get("/admin/system/dept", { params });
+    const res = await getApiClient().api.admin.system.dept.$get({
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

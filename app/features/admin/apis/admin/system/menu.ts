@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 创建菜单
@@ -7,7 +7,8 @@ import api from "~/libs/axios";
  */
 export async function createMenu(data: any) {
   try {
-    return await api.post("/admin/system/menu", data);
+    const res = await getApiClient().api.admin.system.menu.$post({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -21,7 +22,8 @@ export async function createMenu(data: any) {
  */
 export async function updateMenuById(data: any) {
   try {
-    return await api.put("/admin/system/menu", data);
+    const res = await getApiClient().api.admin.system.menu.$put({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -35,7 +37,10 @@ export async function updateMenuById(data: any) {
  */
 export async function deleteMenuByIds(data: any) {
   try {
-    return await api.delete("/admin/system/menu", { data });
+    const res = await getApiClient().api.admin.system.menu.$delete({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -48,7 +53,8 @@ export async function deleteMenuByIds(data: any) {
  */
 export async function readMenu() {
   try {
-    return await api.get("/admin/system/menu");
+    const res = await getApiClient().api.admin.system.menu.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -66,7 +72,14 @@ export async function readMenuList(params: {
   lang: string;
 }) {
   try {
-    return await api.get("/admin/system/menu", { params });
+    const res = await getApiClient().api.admin.system.menu.$get({
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+        lang: params.lang,
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -84,7 +97,14 @@ export async function readMenuListRaw(params: {
   lang: string;
 }) {
   try {
-    return await api.get("/admin/system/menu-list", { params });
+    const res = await getApiClient().api.admin.system["menu-list"].$get({
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+        lang: params.lang,
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

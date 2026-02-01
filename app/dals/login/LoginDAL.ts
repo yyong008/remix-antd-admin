@@ -1,30 +1,25 @@
-import prisma from "@/libs/prisma";
+import { eq } from "drizzle-orm";
+import { db } from "@/libs/neon";
+import { users } from "db/schema";
 
-export class LoginDAL {
-  /**
-   * 根据用户名查找用户
-   * @param name
-   * @returns
-   */
-  async findByUserName(name: string) {
-    try {
-      const user = await prisma.user.findFirst({
-        where: {
-          name,
-        },
-        select: {
-          id: true,
-          name: true,
-          password: true,
-        },
-      });
-
-      return user;
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
+async function findByUserName(name: string) {
+  try {
+    const rows = await db
+      .select({
+        id: users.id,
+        name: users.name,
+        password: users.password,
+      })
+      .from(users)
+      .where(eq(users.name, name))
+      .limit(1);
+    return rows[0] ?? null;
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 }
 
-export const loginDAL = new LoginDAL();
+export const loginDAL = {
+  findByUserName,
+};

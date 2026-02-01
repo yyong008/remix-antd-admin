@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 签到
@@ -7,7 +7,10 @@ import api from "~/libs/axios";
  */
 export async function signIn(data: any) {
   try {
-    return await api.post("/signin", data);
+    const res = await getApiClient().api.admin.system.user.signin.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -20,7 +23,8 @@ export async function signIn(data: any) {
  */
 export async function userinfo() {
   try {
-    return await api.get("/userinfo");
+    const res = await getApiClient().api.admin.system.user.info.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

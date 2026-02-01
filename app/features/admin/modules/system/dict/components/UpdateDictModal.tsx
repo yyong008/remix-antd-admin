@@ -4,11 +4,12 @@ import { EditOutlined } from "@ant-design/icons";
 import { ModalForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItems";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
+import { useUpdateDict } from "~/api-client/queries/system-dict";
 
 export function UpdateDictModal({ trigger, record, refetch }: any) {
   const [form] = Form.useForm();
   const { colorPrimary } = useColorPrimary();
-  const [update] = [(...args: any): any => {}]; // todo
+  const update = useUpdateDict();
   return (
     <ModalForm
       key={Date.now()}
@@ -42,7 +43,7 @@ export function UpdateDictModal({ trigger, record, refetch }: any) {
         if (record.id) {
           vals.id = record.id;
         }
-        await update(vals);
+        await update.mutateAsync(vals);
         refetch?.();
         form.resetFields();
         return true;

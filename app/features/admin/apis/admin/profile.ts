@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 创建账户
@@ -7,7 +7,10 @@ import api from "~/libs/axios";
  */
 export async function createProfileAccount(data: any) {
   try {
-    return await api.post("/admin/profile/account", data);
+    const res = await getApiClient().api.admin.profile.account.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -21,7 +24,10 @@ export async function createProfileAccount(data: any) {
  */
 export async function updateProfileAccountById(data: any) {
   try {
-    return await api.put("/admin/profile/account", data);
+    const res = await getApiClient().api.admin.profile.account.$put({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -35,7 +41,10 @@ export async function updateProfileAccountById(data: any) {
  */
 export async function deleteProfileAccountByIds(data: any) {
   try {
-    return await api.delete("/admin/profile/account", { data });
+    const res = await getApiClient().api.admin.profile.account.$delete({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -48,7 +57,8 @@ export async function deleteProfileAccountByIds(data: any) {
  */
 export async function readProfileAccount() {
   try {
-    return await api.get("/admin/profile/account");
+    const res = await getApiClient().api.admin.profile.account.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -65,7 +75,13 @@ export async function readProfileAccountList(params: {
   pageSize: number;
 }) {
   try {
-    return await api.get("/admin/profile/account", { params });
+    const res = await getApiClient().api.admin.profile.account.$get({
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -79,7 +95,10 @@ export async function readProfileAccountList(params: {
  */
 export async function createProfileLinkCategory(data: any) {
   try {
-    return await api.post("/admin/profile/link/category", data);
+    const res = await getApiClient().api.admin.profile.link.category.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -93,7 +112,10 @@ export async function createProfileLinkCategory(data: any) {
  */
 export async function updateProfileLinkCategoryById(data: any) {
   try {
-    return await api.put("/admin/profile/link/category", data);
+    const res = await getApiClient().api.admin.profile.link.category.$put({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -107,7 +129,10 @@ export async function updateProfileLinkCategoryById(data: any) {
  */
 export async function deleteProfileLinkCategoryByIds(data: any) {
   try {
-    return await api.delete("/admin/profile/link/category", { data });
+    const res = await getApiClient().api.admin.profile.link.category.$delete({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -120,7 +145,8 @@ export async function deleteProfileLinkCategoryByIds(data: any) {
  */
 export async function readProfileLinkCategory() {
   try {
-    return await api.get("/admin/profile/link/category");
+    const res = await getApiClient().api.admin.profile.link.category.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -137,7 +163,13 @@ export async function readProfileLinkCategoryList(params: {
   pageSize: number;
 }) {
   try {
-    return await api.get("/admin/profile/link/category", { params });
+    const res = await getApiClient().api.admin.profile.link.category.$get({
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -151,7 +183,10 @@ export async function readProfileLinkCategoryList(params: {
  */
 export async function createProfileLink(data: any) {
   try {
-    return await api.post("/admin/profile/link", data);
+    const res = await getApiClient().api.admin.profile.link.$post({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -165,7 +200,10 @@ export async function createProfileLink(data: any) {
  */
 export async function updateProfileLinkById(data: any) {
   try {
-    return await api.put("/admin/profile/link", data);
+    const res = await getApiClient().api.admin.profile.link.$put({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -179,7 +217,10 @@ export async function updateProfileLinkById(data: any) {
  */
 export async function deleteProfileLinkByIds(data: any) {
   try {
-    return await api.delete("/admin/profile/link", { data });
+    const res = await getApiClient().api.admin.profile.link.$delete({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -192,7 +233,8 @@ export async function deleteProfileLinkByIds(data: any) {
  */
 export async function readProfileLink() {
   try {
-    return await api.get("/admin/profile/link");
+    const res = await getApiClient().api.admin.profile.link.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -210,10 +252,14 @@ export async function readProfileLinkList(params: {
   pageSize: number;
 }) {
   try {
-    const { id, page, pageSize } = params;
-    return await api.get(
-      `/admin/profile/link?category=${id}&page=${page}&pageSize=${pageSize}`,
-    );
+    const res = await getApiClient().api.admin.profile.link.$get({
+      query: {
+        category: params.id,
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

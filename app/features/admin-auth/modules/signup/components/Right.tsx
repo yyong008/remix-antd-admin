@@ -22,7 +22,7 @@ export function Right() {
 
         <div className="flex flex-col items-center mb-[20px]">
           Remix Antd Admin is a fullstack website building solution based on
-          fullstack React Router、Antd、Prisma.
+          fullstack React Router、Antd、Drizzle.
         </div>
       </div>
     </div>

@@ -1,60 +1,53 @@
-import type { Prisma } from "@prisma/client";
-import { SortOrder } from "@/types";
+import { and, count, desc, eq, inArray, like } from "drizzle-orm";
 import type { TPage } from "@/types";
-import prisma from "@/libs/prisma";
+import { db } from "@/libs/neon";
+import { loginLogs } from "db/schema";
 
-export class LoginLogDAL {
-  /**
-   * 创建 loginLog
-   * @param data
-   * @returns
-   */
-  async create(data: Prisma.LoginlogCreateInput) {
-    return await prisma.loginlog.create({
-      data,
-    });
-  }
-
-  /**
-   * 获取 loginLog 数量
-   * @returns
-   */
-  async getCount() {
-    return await prisma.loginlog.count();
-  }
-
-  /**
-   * 获取 loginLog 列表
-   * @param data
-   * @returns
-   */
-  async getLoginLogList(data: TPage) {
-    return await prisma.loginlog.findMany({
-      where: {
-        name: {
-          contains: data.name || "",
-        },
-      },
-      skip: ((data.page || 1) - 1) * (data.pageSize || 10),
-      take: data.pageSize,
-      orderBy: {
-        id: SortOrder.DESCENDING,
-      },
-    });
-  }
-
-  /**
-   * 通过 userId 获取最新的 loginLog
-   * @param userId
-   * @returns
-   */
-  async getLoginLogLatestByUserId(userId: number) {
-    return await prisma.loginlog.findFirst({
-      where: {
-        userId,
-      },
-    });
-  }
+async function create(data: any) {
+  const created = await db.insert(loginLogs).values(data).returning();
+  return created[0];
 }
 
-export const loginLogDAL = new LoginLogDAL();
+async function getCount() {
+  const rows = await db.select({ count: count() }).from(loginLogs);
+  return rows[0]?.count ?? 0;
+}
+
+async function getLoginLogList(data: TPage) {
+  const conditions = [] as any[];
+  if (data.name) {
+    conditions.push(like(loginLogs.name, `%${data.name}%`));
+  }
+  let query = db.select().from(loginLogs);
+  if (conditions.length) query = query.where(and(...conditions));
+  return await query
+    .orderBy(desc(loginLogs.id))
+    .limit(data.pageSize ?? 10)
+    .offset(((data.page ?? 1) - 1) * (data.pageSize ?? 10));
+}
+
+async function getLoginLogLatestByUserId(userId: number) {
+  const rows = await db
+    .select()
+    .from(loginLogs)
+    .where(eq(loginLogs.userId, userId))
+    .orderBy(desc(loginLogs.id))
+    .limit(1);
+  return rows[0] ?? null;
+}
+
+async function deleteByIds(ids: number[]) {
+  const deleted = await db
+    .delete(loginLogs)
+    .where(inArray(loginLogs.id, ids))
+    .returning({ id: loginLogs.id });
+  return { count: deleted.length };
+}
+
+export const loginLogDAL = {
+  create,
+  getCount,
+  getLoginLogList,
+  getLoginLogLatestByUserId,
+  deleteByIds,
+};

@@ -1,71 +1,58 @@
-import prisma from "@/libs/prisma";
+import { count, eq, inArray } from "drizzle-orm";
+import { db } from "@/libs/neon";
+import { links } from "db/schema";
 
-export class ProfileLinkDAL {
-  /**
-   * 获取个人链接数量
-   * @returns
-   */
-  async getCount({ userId }: { userId: number }) {
-    return await prisma.link.count({
-      where: {
-        userId,
-      },
-    });
-  }
-  /**
-   * 获取所有个人链接
-   * @param param0
-   * @returns
-   */
-  async getAll({ userId }: { userId: number }) {
-    return await prisma.link.findMany({
-      where: {
-        userId,
-      },
-    });
-  }
-  /**
-   * 获取个人链接列表
-   * @param id
-   * @returns
-   */
-  async getById(id: number) {
-    return await prisma.link.findUnique({ where: { id } });
-  }
-  /**
-   * 获取 categoryId 个人链接列表
-   * @param categoryId
-   * @returns
-   */
-  async getList({ where, skip, take }: any) {
-    return await prisma.link.findMany({ where, skip, take });
-  }
-
-  /**
-   * 创建个人链接
-   * @param data
-   * @returns
-   */
-  async create(data: any) {
-    return await prisma.link.create({ data });
-  }
-  /**
-   * 创建
-   * @param param0
-   * @returns
-   */
-  async update({ id, data }: { id: number; data: any }) {
-    return await prisma.link.update({ where: { id }, data });
-  }
-
-  /**
-   * 根据 ids 进行删除
-   * @param ids
-   * @returns
-   */
-  async deleteByIds(ids: number[]) {
-    return await prisma.link.deleteMany({ where: { id: { in: ids } } });
-  }
+async function getCount(userId: number) {
+  const rows = await db
+    .select({ count: count() })
+    .from(links)
+    .where(eq(links.userId, userId));
+  return rows[0]?.count ?? 0;
 }
 
-export const profileLinkDAL = new ProfileLinkDAL();
+async function getListByUserId(userId: number) {
+  return await db.select().from(links).where(eq(links.userId, userId));
+}
+
+async function getById(id: number) {
+  const rows = await db.select().from(links).where(eq(links.id, id)).limit(1);
+  return rows[0] ?? null;
+}
+
+async function getList({ where, skip, take }: any) {
+  let query = db.select().from(links);
+  if (where?.userId !== undefined) {
+    query = query.where(eq(links.userId, where.userId));
+  }
+  if (typeof take === "number") query = query.limit(take);
+  if (typeof skip === "number") query = query.offset(skip);
+  return await query;
+}
+
+async function create(data: any) {
+  const created = await db.insert(links).values(data).returning();
+  return created[0];
+}
+
+async function update({ id, ...data }: any) {
+  const updated = await db
+    .update(links)
+    .set(data)
+    .where(eq(links.id, id))
+    .returning();
+  return updated[0];
+}
+
+async function deleteByIds(ids: number[]) {
+  return await db.delete(links).where(inArray(links.id, ids)).returning();
+}
+
+export const profileLinkDAL = {
+  getCount,
+  getListByUserId,
+  getById,
+  getList,
+  create,
+  update,
+  deleteByIds,
+};

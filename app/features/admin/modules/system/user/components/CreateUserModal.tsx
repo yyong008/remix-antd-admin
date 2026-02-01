@@ -2,7 +2,7 @@ import * as clientUtils from "@/utils/client";
 
 import { CreateUserModalUI } from "./CreateUserModalUI";
 import { UserModalFormItems } from "./ModalFormItems";
-import { createUser } from "~/features/admin/apis/admin/system/user";
+import { useCreateUser } from "~/api-client/queries/system-user";
 
 type CreateUserModalProps = {
   loading?: boolean;
@@ -14,10 +14,11 @@ type CreateUserModalProps = {
 
 export function CreateUserModal(props: CreateUserModalProps) {
   const { loading, reload, depts, roles, ...rest } = props;
+  const createUserMutation = useCreateUser();
   return (
     <CreateUserModalUI
       {...rest}
-      loading={loading || false}
+      loading={loading || createUserMutation.isPending}
       handleCreate={async (values: any, form: any) => {
         let avatar = "";
 
@@ -36,7 +37,7 @@ export function CreateUserModal(props: CreateUserModalProps) {
         if (vals.email === "") {
           delete vals.email; // no empty string
         }
-        await createUser(vals);
+        await createUserMutation.mutateAsync(vals);
         reload?.();
         return true;
       }}

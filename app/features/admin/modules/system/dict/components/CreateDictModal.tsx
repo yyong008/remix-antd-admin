@@ -3,6 +3,7 @@ import { Button, Form } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { ModalForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItems";
+import { useCreateDict } from "~/api-client/queries/system-dict";
 
 type CreateDictModalProps = {
   trigger?: any;
@@ -12,7 +13,7 @@ type CreateDictModalProps = {
 export function CreateDictModal(props: CreateDictModalProps) {
   const { trigger, refetch } = props;
   const [form] = Form.useForm();
-  const [createDict] = [(...args: any): any => {}];
+  const createDict = useCreateDict();
   return (
     <ModalForm
       key={Date.now()}
@@ -40,7 +41,7 @@ export function CreateDictModal(props: CreateDictModalProps) {
       submitTimeout={2000}
       onFinish={async (values: any) => {
         const vals = { ...values };
-        await createDict(vals);
+        await createDict.mutateAsync(vals);
         refetch?.();
         form.resetFields();
         return true;

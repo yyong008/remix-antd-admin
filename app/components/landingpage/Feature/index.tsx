@@ -1,6 +1,6 @@
 import { AntdIconSVG } from "../BuildWith/icons/AntdIconSVG";
+import { DrizzleIconSVG } from "../BuildWith/icons/DrizzleIconSVG";
 import { LangChainIconSVG } from "../BuildWith/icons/LangChainIconSVG";
-import { PrismaIconSVG } from "../BuildWith/icons/prismaIconSVG";
 import { ReactrouterSVGIcon } from "../BuildWith/icons/ReactrouterSVG";
 import { TailwindSVG } from "../BuildWith/icons/TailwindSVG";
 
@@ -49,9 +49,9 @@ function FeatureItem() {
               content="基于 LangChain 的 AI 能力开发项目"
             />
             <Item
-              icon={<PrismaIconSVG />}
-              title={"Prisma 内置支持"}
-              content="基于 Prisma 的数据库开发项目"
+              icon={<DrizzleIconSVG />}
+              title={"Drizzle 内置支持"}
+              content="基于 Drizzle ORM 的数据库开发项目"
             />
           </div>
         </div>

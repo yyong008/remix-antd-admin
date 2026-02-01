@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 创建字典
@@ -7,7 +7,8 @@ import api from "~/libs/axios";
  */
 export async function createSystemDict(data: any) {
   try {
-    return await api.post("/admin/system/dict", data);
+    const res = await getApiClient().api.admin.system.dict.$post({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -21,7 +22,8 @@ export async function createSystemDict(data: any) {
  */
 export async function updateSystemDictById(data: any) {
   try {
-    return await api.put("/admin/system/dict", data);
+    const res = await getApiClient().api.admin.system.dict.$put({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -35,7 +37,8 @@ export async function updateSystemDictById(data: any) {
  */
 export async function deleteSystemDictByIds(data: any) {
   try {
-    return await api.delete("/admin/system/dict", { data });
+    const res = await getApiClient().api.admin.system.dict.$delete({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -48,7 +51,8 @@ export async function deleteSystemDictByIds(data: any) {
  */
 export async function readSystemDict() {
   try {
-    return await api.get("/admin/system/dict");
+    const res = await getApiClient().api.admin.system.dict.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -65,7 +69,13 @@ export async function readSystemDictList(params: {
   pageSize: number;
 }) {
   try {
-    return await api.get("/admin/system/dict", { params });
+    const res = await getApiClient().api.admin.system.dict.$get({
+      query: {
+        page: params.page.toString(),
+        pageSize: params.pageSize.toString(),
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

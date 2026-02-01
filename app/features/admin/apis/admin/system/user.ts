@@ -1,4 +1,4 @@
-import api from "~/libs/axios";
+import { getApiClient } from "~/api-client";
 
 /**
  * 创建用户
@@ -7,7 +7,8 @@ import api from "~/libs/axios";
  */
 export async function createUser(data: any) {
   try {
-    return await api.post("/admin/system/user", data);
+    const res = await getApiClient().api.admin.system.user.$post({ json: data });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -21,7 +22,11 @@ export async function createUser(data: any) {
  */
 export async function updateUserById(data: any) {
   try {
-    return await api.put("/admin/system/user", data);
+    const res = await getApiClient().api.admin.system.user[":id"].$put({
+      param: { id: String(data.id) },
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -35,7 +40,10 @@ export async function updateUserById(data: any) {
  */
 export async function deleteUserByIds(data: any) {
   try {
-    return await api.delete("/admin/system/user", { data });
+    const res = await getApiClient().api.admin.system.user.$delete({
+      json: data,
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -48,7 +56,8 @@ export async function deleteUserByIds(data: any) {
  */
 export async function getUserInfo() {
   try {
-    return await api.get("/admin/system/user/info");
+    const res = await getApiClient().api.admin.system.user.info.$get();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
@@ -61,21 +70,32 @@ export async function getUserInfo() {
  * @returns
  */
 export async function getUserList(params: {
-  page: number;
-  pageSize: number;
+  page?: number;
+  pageSize?: number;
   name?: string;
 }) {
   try {
-    return await api.get("/admin/system/user", { params });
+    const res = await getApiClient().api.admin.system.user.$get({
+      query: {
+        page: (params.page ?? 1).toString(),
+        pageSize: (params.pageSize ?? 10).toString(),
+        name: params.name ?? "",
+      },
+    });
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;
   }
 }
 
+/**
+ * 用户签到
+ */
 export async function userSignIn() {
   try {
-    return await api.post("/admin/system/user/signin");
+    const res = await getApiClient().api.admin.system.user.signin.$post();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return error;

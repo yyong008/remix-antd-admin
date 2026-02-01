@@ -1,84 +1,59 @@
-import prisma from "@/libs/prisma";
+import { count, eq, inArray } from "drizzle-orm";
+import { db } from "@/libs/neon";
+import { departments } from "db/schema";
 
-export class DeptDAL {
-  /**
-   * 获取部门总数
-   * @returns
-   */
-  async getCount() {
-    return await prisma.department.count();
-  }
-
-  /**
-   * 根据id获取部门
-   * @param id
-   * @returns
-   */
-  async getById(id: number) {
-    return await prisma.department.findUnique({ where: { id } });
-  }
-
-  /**
-   * 获取所有的部门
-   * @returns
-   */
-  async getAll() {
-    return await prisma.department.findMany();
-  }
-
-  /**
-   * 获取分页的部门列表
-   * @param data
-   * @returns
-   */
-  async getList(data: any) {
-    const { skip, take } = {
-      skip: data.pageSize * (data.page - 1),
-      take: data.pageSize,
-    };
-    return await prisma.department.findMany({
-      skip,
-      take,
-    });
-  }
-
-  /**
-   * 创建部门
-   * @param data
-   * @returns
-   */
-  async create(data: any) {
-    return await prisma.department.create({
-      data,
-    });
-  }
-
-  /**
-   * 更新部门
-   * @param param0
-   * @returns
-   */
-  async update({ id, ...data }: any) {
-    return await prisma.department.update({
-      where: { id },
-      data,
-    });
-  }
-
-  /**
-   * 删除部门
-   * @param param0
-   * @returns
-   */
-  async deleteByIds(ids: any) {
-    return await prisma.department.deleteMany({
-      where: {
-        id: {
-          in: ids,
-        },
-      },
-    });
-  }
+async function getCount() {
+  const rows = await db.select({ count: count() }).from(departments);
+  return rows[0]?.count ?? 0;
 }
 
-export const deptDAL = new DeptDAL();
+async function getById(id: number) {
+  const rows = await db
+    .select()
+    .from(departments)
+    .where(eq(departments.id, id))
+    .limit(1);
+  return rows[0] ?? null;
+}
+
+async function getAll() {
+  return await db.select().from(departments);
+}
+
+async function getList(data: any) {
+  const skip = data.pageSize * (data.page - 1);
+  const take = data.pageSize;
+  return await db.select().from(departments).limit(take).offset(skip);
+}
+
+async function create(data: any) {
+  const created = await db.insert(departments).values(data).returning();
+  return created[0];
+}
+
+async function update({ id, ...data }: any) {
+  const updated = await db
+    .update(departments)
+    .set(data)
+    .where(eq(departments.id, id))
+    .returning();
+  return updated[0];
+}
+
+async function deleteByIds(ids: number[]) {
+  const deleted = await db
+    .delete(departments)
+    .where(inArray(departments.id, ids))
+    .returning({ id: departments.id });
+  return { count: deleted.length };
+}
+
+export const deptDAL = {
+  getCount,
+  getById,
+  getAll,
+  getList,
+  create,
+  update,
+  deleteByIds,
+};

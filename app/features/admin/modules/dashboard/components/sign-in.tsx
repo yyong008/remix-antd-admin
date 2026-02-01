@@ -2,17 +2,19 @@ import { Button, message } from "antd";
 
 import { CheckCircleFilled } from "@ant-design/icons";
 import confetti from "canvas-confetti";
-import { useState } from "react";
-import { userSignIn } from "~/features/admin/apis/admin/system/user";
+import { useEffect, useState } from "react";
+import { useUserSignIn } from "~/api-client/queries/dashboard";
 
-export function SignIn({ data: _data }: any) {
-  const [data, setData] = useState(_data);
-  const [signIn, signInOther] = [
-    (...args: any): any => {},
-    { isLoading: false },
-  ]; // eslint-disable-line;
+export function SignIn({ data: initialData }: any) {
+  const [data, setData] = useState(initialData);
+  const signInMutation = useUserSignIn();
+
+  useEffect(() => {
+    setData(initialData);
+  }, [initialData]);
+
   const signInHanlder = async () => {
-    const result: any = await userSignIn();
+    const result: any = await signInMutation.mutateAsync();
     if (result.code === 0) {
       setData({
         ...data,
@@ -34,7 +36,7 @@ export function SignIn({ data: _data }: any) {
           onClick={signInHanlder}
           htmlType="submit"
           disabled={data?.isLogin}
-          loading={signInOther.isLoading}
+          loading={signInMutation.isPending}
         >
           签到
         </Button>

@@ -5,13 +5,18 @@ import { FormItems } from "./components/FormItems";
 import { QuillEditor } from "@/components/common/quill-editor";
 import { useParams } from "react-router";
 import { useState } from "react";
+import { useNewsById, useUpdateNews } from "~/api-client/queries/news";
+import { useNewsCategoryList } from "~/api-client/queries/news-category";
 
 export function Route() {
   const { id } = useParams();
   const [content, setContent] = useState("");
-  const { data: newsCategoryList } = { data: [] };
-  const { data, isLoading } = { data: { data: {} as any }, isLoading: false }; // useGetNewsByIdQuery(id);
-  const [updateNewsById] = [(...args: any): any => {}];
+  const { data: newsCategoryList } = useNewsCategoryList({
+    page: 1,
+    pageSize: 200,
+  });
+  const { data, isLoading } = useNewsById(id ? Number(id) : undefined);
+  const updateNewsById = useUpdateNews();
   return (
     <PageContainer>
       <ProCard
@@ -19,11 +24,14 @@ export function Route() {
         extra={
           <DrawerForm
             trigger={<Button type="primary">编辑新闻</Button>}
-            initialValues={{ ...data?.data, date: data?.data?.publishedAt }}
+            initialValues={{
+              ...(data as any)?.data,
+              date: (data as any)?.data?.publishedAt,
+            }}
             onFinish={async (v) => {
               const data = v;
               data.id = Number(id);
-              const result = await updateNewsById(data);
+              const result = await updateNewsById.mutateAsync(data);
               if (result.data?.code !== 0) {
                 message.error(result.data?.message);
                 return false;
