@@ -14,7 +14,6 @@ import { createActionRenderWrap } from "./components/createActionsRender";
 import { createTokens } from "./components/createToken";
 import { info } from "@/config/project";
 import { prolayoutConfig } from "@/config/prolayout";
-import { useNProgress } from "@/hooks/useNprogress";
 import { useT } from "@/hooks/useT";
 import { useUserInfo } from "~/api-client/queries/system-user";
 
@@ -25,7 +24,6 @@ const resetStyles = {
 };
 
 function AdminLayout() {
-	useNProgress();
 	const { data, isLoading } = useUserInfo();
 	const payload = (data as any)?.data ?? {};
 

@@ -1,4 +1,3 @@
-import { QueryClientProvider } from "@tanstack/react-query";
 import {
 	Links,
 	Meta,
@@ -13,6 +12,7 @@ import { ClientOnly } from "~/components/common/client-only";
 import { DocsRootProvider } from "~/features/cms/components/docs/provider";
 import { SessionProvider } from "~/session/provider/index";
 import { QueryProvider } from "~/query-provider";
+import { ReactRouterTopLoader } from "~/components/toploader";
 
 export function RootRoute() {
 	const params = useParams();
@@ -30,11 +30,11 @@ export function RootRoute() {
 					<SessionProvider>
 						<AppQueryProvider>
 							<DocsRootProvider>
-								<ClientOnly fallback={<></>}>{() => <Outlet />}</ClientOnly>
+								<ClientOnly fallback={null}>{() => <Outlet />}</ClientOnly>
 							</DocsRootProvider>
 						</AppQueryProvider>
 					</SessionProvider>
-
+					<ReactRouterTopLoader />
 					<ScrollRestoration />
 				</QueryProvider>
 				<Scripts />

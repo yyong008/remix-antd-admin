@@ -3,10 +3,8 @@ import { Left } from "./components/Left";
 import { ProConfigProvider } from "@ant-design/pro-components";
 import { SettingContext } from "@/context/setting-context";
 import { useContext } from "react";
-import { useNProgress } from "@/hooks/useNprogress";
 
 export function Route() {
-	useNProgress();
 	const value = useContext(SettingContext);
 
 	return (
