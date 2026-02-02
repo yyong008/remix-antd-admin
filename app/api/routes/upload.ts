@@ -7,13 +7,30 @@ import type { Context } from "hono";
 import { storageDAL } from "~/dals/tools/StorageDAL";
 // import { getSystemUserIdFromRequest } from "~/utils/server/auth";
 import { extname } from "~/utils/server";
-import { rfj, rsj } from "~/utils/server/response-json";
+import {
+	rfj,
+	rsj,
+	respPresentationModeJson,
+} from "~/utils/server/response-json";
+
+const DEMO_TRUE_VALUES = new Set(["1", "true", "yes", "on"]);
+const isDemoModeEnabled = () => {
+	const raw = process.env.DEMO_MODE;
+	if (!raw) {
+		return false;
+	}
+	return DEMO_TRUE_VALUES.has(raw.toLowerCase());
+};
 
 const uploadDir = path.join(cwd(), "public", "uploads");
 const storageDirectory = "/uploads/";
 
 export async function uploadHandler(c: Context) {
 	try {
+		if (isDemoModeEnabled()) {
+			return respPresentationModeJson();
+		}
+
 		const formData = await c.req.raw.formData();
 		const file = formData.get("file");
 

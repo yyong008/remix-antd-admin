@@ -4,34 +4,47 @@ import {
 	ProjectInfo,
 	ProjectProductionDep,
 } from "./components";
-import { Segmented, Space } from "antd";
+import { Space, Tabs } from "antd";
 
 import { ProConfigProvider } from "@ant-design/pro-components";
 import { useState } from "react";
 
 export function Route() {
 	const [value, setValue] = useState("about");
+	const items = [
+		{
+			key: "about",
+			label: "about",
+			children: (
+				<Space direction="vertical">
+					<ProjectAbout />
+					<ProjectInfo />
+				</Space>
+			),
+		},
+		{
+			key: "development",
+			label: "development",
+			children: <ProjectDevelopmentDep />,
+		},
+		{
+			key: "production",
+			label: "production",
+			children: <ProjectProductionDep />,
+		},
+	];
 	return (
-		<div className="flex flex-col py-[100px] w-[60vw] min-h-[80vh]">
-			<ProConfigProvider>
-				<Segmented<string>
-					block
-					options={["about", "development", "production"]}
-					onChange={(value) => {
-						setValue(value);
-					}}
-				/>
-				<div className="my-[20px]">
-					{value === "about" && (
-						<Space direction="vertical">
-							<ProjectAbout />
-							<ProjectInfo />
-						</Space>
-					)}
-					{value === "development" && <ProjectDevelopmentDep />}
-					{value === "production" && <ProjectProductionDep />}
-				</div>
-			</ProConfigProvider>
+		<div className="min-h-[80vh] py-[100px] px-4">
+			<div className="mx-auto w-full max-w-5xl">
+				<ProConfigProvider>
+					<Tabs
+						items={items}
+						activeKey={value}
+						onChange={setValue}
+						tabPosition="left"
+					/>
+				</ProConfigProvider>
+			</div>
 		</div>
 	);
 }

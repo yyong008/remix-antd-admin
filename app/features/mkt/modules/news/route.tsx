@@ -1,10 +1,9 @@
 import { NewsItem } from "./components";
-import type { loader } from "./loader";
 import { useLoaderData } from "react-router";
 
 export function Route() {
-	const _data = useLoaderData<typeof loader>();
-	const news = _data.data?.list ?? [];
+	const _data = useLoaderData() as { data?: { list?: any[] } } | null;
+	const news = _data?.data?.list ?? [];
 	return (
 		<div className="flex flex-col pt-[140px] w-[40vw] h-[80vh]">
 			<div>

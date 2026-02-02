@@ -19,28 +19,27 @@ const cmsRoutes = [
 export const clientRoutes = [
 	layout("features/mkt/layout/index.tsx", [
 		...prefix(":locale?/", [
-			index("features/mkt/modules/index/index.tsx"),
-			route("about", "features/mkt/modules/about/index.tsx"),
+			index("routes/mkt/index.tsx"),
+			route("about", "routes/mkt/about.tsx"),
 			...prefix("blog", [
-				index("features/mkt/modules/blog/index.tsx"),
-				route(":id", "features/mkt/modules/blog-detail/index.tsx"),
+				index("routes/mkt/blog.tsx"),
+				route(":id", "routes/mkt/blog-detail.tsx"),
 			]),
 			...prefix("news", [
-				index("features/mkt/modules/news/index.tsx"),
-				route(":id", "features/mkt/modules/news-detail/index.tsx"),
+				index("routes/mkt/news.tsx"),
+				route(":id", "routes/mkt/news-detail.tsx"),
 			]),
-			route("privacy", "features/mkt/modules/privacy/index.tsx"),
 		]),
 		...cmsRoutes,
 	]),
 	// any
-	route("*", "features/mkt/modules/any/index.tsx"),
+	route("*", "routes/mkt/any.tsx"),
 ];
 
 export const authRoutes = [
 	...prefix(":locale?/auth", [
-		route("login", "features/auth/modules/login/index.tsx"),
-		route("signup", "features/auth/modules/signup/index.tsx"),
+		route("login", "routes/auth/login.tsx"),
+		route("signup", "routes/auth/signup.tsx"),
 	]),
 ];
 
@@ -48,89 +47,89 @@ export const adminRoutes = [
 	...prefix(":locale?/admin", [
 		layout("features/admin/layout/index.tsx", [
 			...prefix("dashboard", [
-				index("features/admin/modules/dashboard/index.tsx"),
+				index("routes/admin/dashboard.tsx"),
 			]),
 			...prefix("ai", [
 				route(
 					"simplechat",
-					"features/admin/modules/ai/simplechat/index.tsx",
+					"routes/admin/ai/simplechat.tsx",
 				),
 			]),
 			...prefix("news", [
-				route("edit", "features/admin/modules/news/edit/index.tsx"),
+				route("edit", "routes/admin/news/edit.tsx"),
 				route(
 					"edit/:id",
-					"features/admin/modules/news/edit-detail/index.tsx",
+					"routes/admin/news/edit-detail.tsx",
 				),
-				route("category", "features/admin/modules/news/category/index.tsx"),
-				route("category/:id", "features/admin/modules/news/list/index.tsx"),
-				route("result", "features/admin/modules/news/result/index.tsx"),
+				route("category", "routes/admin/news/category.tsx"),
+				route("category/:id", "routes/admin/news/list.tsx"),
+				route("result", "routes/admin/news/result.tsx"),
 			]),
 			...prefix("blog", [
-				index("features/admin/modules/blog/index/index.tsx"),
-				route("category", "features/admin/modules/blog/category/index.tsx"),
-				route("tag", "features/admin/modules/blog/tag/index.tsx"),
-				route("edit", "features/admin/modules/blog/create/index.tsx"),
-				route("edit/:id", "features/admin/modules/blog/edit/index.tsx"),
-				route("result", "features/admin/modules/blog/result/index.tsx"),
+				index("routes/admin/blog.tsx"),
+				route("category", "routes/admin/blog/category.tsx"),
+				route("tag", "routes/admin/blog/tag.tsx"),
+				route("edit", "routes/admin/blog/create.tsx"),
+				route("edit/:id", "routes/admin/blog/edit.tsx"),
+				route("result", "routes/admin/blog/result.tsx"),
 			]),
 			...prefix("profile", [
-				route("account", "features/admin/modules/profile/account/index.tsx"),
+				route("account", "routes/admin/profile/account.tsx"),
 				...prefix("link", [
 					...prefix("category", [
 						index(
-							"features/admin/modules/profile/link/category/index.tsx",
+							"routes/admin/profile/link/category.tsx",
 						),
 						route(
 							":id",
-							"features/admin/modules/profile/link/category-detail/index.tsx",
+							"routes/admin/profile/link/category-detail.tsx",
 						),
 					]),
 				]),
 			]),
 			...prefix("system", [
-				route("config", "features/admin/modules/system/config/index.tsx"),
-				route("dept", "features/admin/modules/system/dept/index.tsx"),
-				route("dict", "features/admin/modules/system/dict/index.tsx"),
+				route("config", "routes/admin/system/config.tsx"),
+				route("dept", "routes/admin/system/dept.tsx"),
+				route("dict", "routes/admin/system/dict.tsx"),
 				route(
 					"dict-item/:id",
-					"features/admin/modules/system/dict-item/index.tsx",
+					"routes/admin/system/dict-item.tsx",
 				),
-				route("menu", "features/admin/modules/system/menu/index.tsx"),
+				route("menu", "routes/admin/system/menu.tsx"),
 				...prefix("monitor", [
 					route(
 						"login-log",
-						"features/admin/modules/system/monitor/login-log/index.tsx",
+						"routes/admin/system/monitor/login-log.tsx",
 					),
 					route(
 						"serve",
-						"features/admin/modules/system/monitor/serve/index.tsx",
+						"routes/admin/system/monitor/serve.tsx",
 					),
 					route(
 						"moperate",
-						"features/admin/modules/system/monitor/operate/index.tsx",
+						"routes/admin/system/monitor/operate.tsx",
 					),
 				]),
 
-				route("role", "features/admin/modules/system/role/index.tsx"),
-				route("user", "features/admin/modules/system/user/index.tsx"),
+				route("role", "routes/admin/system/role.tsx"),
+				route("user", "routes/admin/system/user.tsx"),
 			]),
 			...prefix("tools", [
 				...prefix("mail", [
-					index("features/admin/modules/tools/mail/index.tsx"),
-					route("list", "features/admin/modules/tools/mail-list/index.tsx"),
+					index("routes/admin/tools/mail.tsx"),
+					route("list", "routes/admin/tools/mail-list.tsx"),
 					route(
 						":id",
-						"features/admin/modules/tools/mail-detail/index.tsx",
+						"routes/admin/tools/mail-detail.tsx",
 					),
 				]),
 
 				route(
 					"storage",
-					"features/admin/modules/tools/storage/index.tsx",
+					"routes/admin/tools/storage.tsx",
 				),
 			]),
-			route("about", "features/admin/modules/about/index.tsx"),
+			route("about", "routes/admin/about.tsx"),
 		]),
 	]),
 ];

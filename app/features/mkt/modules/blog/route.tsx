@@ -2,8 +2,8 @@ import { BlogItem } from "./components";
 import { useLoaderData } from "react-router";
 
 export function Route() {
-	const _data = useLoaderData();
-	const blogs = _data.data?.list || [];
+	const _data = useLoaderData() as { data?: { list?: any[] } } | null;
+	const blogs = _data?.data?.list ?? [];
 	return (
 		<div className="flex flex-col pt-[140px] w-[40vw] h-[80vh]">
 			<div>
