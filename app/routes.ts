@@ -16,97 +16,121 @@ const cmsRoutes = [
 	]),
 ];
 
-const appModulesClient = (...args: string[]) =>
-	"features/mkt/modules/" + args.join("/") + "/index.tsx";
-
 export const clientRoutes = [
 	layout("features/mkt/layout/index.tsx", [
 		...prefix(":locale?/", [
 			index("features/mkt/modules/index/index.tsx"),
-			route("about", appModulesClient("about")),
+			route("about", "features/mkt/modules/about/index.tsx"),
 			...prefix("blog", [
-				index(appModulesClient("blog")),
-				route(":id", appModulesClient("blog-detail")),
+				index("features/mkt/modules/blog/index.tsx"),
+				route(":id", "features/mkt/modules/blog-detail/index.tsx"),
 			]),
 			...prefix("news", [
-				index(appModulesClient("news")),
-				route(":id", appModulesClient("news-detail")),
+				index("features/mkt/modules/news/index.tsx"),
+				route(":id", "features/mkt/modules/news-detail/index.tsx"),
 			]),
-			route("privacy", appModulesClient("privacy")),
+			route("privacy", "features/mkt/modules/privacy/index.tsx"),
 		]),
 		...cmsRoutes,
 	]),
 	// any
-	route("*", appModulesClient("any")),
+	route("*", "features/mkt/modules/any/index.tsx"),
 ];
-
-const auth_file_path = (...args: string[]) =>
-	"features/auth/modules/" + args.join("/") + "/index.tsx";
 
 export const authRoutes = [
 	...prefix(":locale?/auth", [
-		route("login", auth_file_path("login")),
-		route("signup", auth_file_path("signup")),
+		route("login", "features/auth/modules/login/index.tsx"),
+		route("signup", "features/auth/modules/signup/index.tsx"),
 	]),
 ];
-
-const rf_path = (...args: string[]) =>
-	"features/admin/modules/" + args.join("/") + "/index.tsx";
 
 export const adminRoutes = [
 	...prefix(":locale?/admin", [
 		layout("features/admin/layout/index.tsx", [
-			...prefix("dashboard", [index(rf_path("dashboard"))]),
-			...prefix("ai", [route("simplechat", rf_path("ai", "simplechat"))]),
+			...prefix("dashboard", [
+				index("features/admin/modules/dashboard/index.tsx"),
+			]),
+			...prefix("ai", [
+				route(
+					"simplechat",
+					"features/admin/modules/ai/simplechat/index.tsx",
+				),
+			]),
 			...prefix("news", [
-				route("edit", rf_path("news", "edit")),
-				route("edit/:id", rf_path("news", "edit-detail")),
-				route("category", rf_path("news", "category")),
-				route("category/:id", rf_path("news", "list")),
-				route("result", rf_path("news", "result")),
+				route("edit", "features/admin/modules/news/edit/index.tsx"),
+				route(
+					"edit/:id",
+					"features/admin/modules/news/edit-detail/index.tsx",
+				),
+				route("category", "features/admin/modules/news/category/index.tsx"),
+				route("category/:id", "features/admin/modules/news/list/index.tsx"),
+				route("result", "features/admin/modules/news/result/index.tsx"),
 			]),
 			...prefix("blog", [
-				index(rf_path("blog", "index")),
-				route("category", rf_path("blog", "category")),
-				route("tag", rf_path("blog", "tag")),
-				route("edit", rf_path("blog", "create")),
-				route("edit/:id", rf_path("blog", "edit")),
-				route("result", rf_path("blog", "result")),
+				index("features/admin/modules/blog/index/index.tsx"),
+				route("category", "features/admin/modules/blog/category/index.tsx"),
+				route("tag", "features/admin/modules/blog/tag/index.tsx"),
+				route("edit", "features/admin/modules/blog/create/index.tsx"),
+				route("edit/:id", "features/admin/modules/blog/edit/index.tsx"),
+				route("result", "features/admin/modules/blog/result/index.tsx"),
 			]),
 			...prefix("profile", [
-				route("account", rf_path("profile", "account")),
+				route("account", "features/admin/modules/profile/account/index.tsx"),
 				...prefix("link", [
 					...prefix("category", [
-						index(rf_path("profile", "link", "category")),
-						route(":id", rf_path("profile", "link", "category-detail")),
+						index(
+							"features/admin/modules/profile/link/category/index.tsx",
+						),
+						route(
+							":id",
+							"features/admin/modules/profile/link/category-detail/index.tsx",
+						),
 					]),
 				]),
 			]),
 			...prefix("system", [
-				route("config", rf_path("system", "config")),
-				route("dept", rf_path("system", "dept")),
-				route("dict", rf_path("system", "dict")),
-				route("dict-item/:id", rf_path("system", "dict-item")),
-				route("menu", rf_path("system", "menu")),
+				route("config", "features/admin/modules/system/config/index.tsx"),
+				route("dept", "features/admin/modules/system/dept/index.tsx"),
+				route("dict", "features/admin/modules/system/dict/index.tsx"),
+				route(
+					"dict-item/:id",
+					"features/admin/modules/system/dict-item/index.tsx",
+				),
+				route("menu", "features/admin/modules/system/menu/index.tsx"),
 				...prefix("monitor", [
-					route("login-log", rf_path("system", "monitor", "login-log")),
-					route("serve", rf_path("system", "monitor", "serve")),
-					route("moperate", rf_path("system", "monitor", "operate")),
+					route(
+						"login-log",
+						"features/admin/modules/system/monitor/login-log/index.tsx",
+					),
+					route(
+						"serve",
+						"features/admin/modules/system/monitor/serve/index.tsx",
+					),
+					route(
+						"moperate",
+						"features/admin/modules/system/monitor/operate/index.tsx",
+					),
 				]),
 
-				route("role", rf_path("system", "role")),
-				route("user", rf_path("system", "user")),
+				route("role", "features/admin/modules/system/role/index.tsx"),
+				route("user", "features/admin/modules/system/user/index.tsx"),
 			]),
 			...prefix("tools", [
 				...prefix("mail", [
-					index(rf_path("tools", "mail")),
-					route("list", rf_path("tools", "mail-list")),
-					route(":id", rf_path("tools", "mail-detail")),
+					index("features/admin/modules/tools/mail/index.tsx"),
+					route("list", "features/admin/modules/tools/mail-list/index.tsx"),
+					route(
+						":id",
+						"features/admin/modules/tools/mail-detail/index.tsx",
+					),
 				]),
 
-				route("storage", rf_path("tools", "storage")),
+				route(
+					"storage",
+					"features/admin/modules/tools/storage/index.tsx",
+				),
 			]),
-			route("about", rf_path("about")),
+			route("about", "features/admin/modules/about/index.tsx"),
 		]),
 	]),
 ];
