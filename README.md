@@ -2,35 +2,26 @@
 
 new fullstack:
 
-## mirgrate todo:
+## 迁移进度
 
-- [x] prisma v7 -> drizzle
-- [] better-auth
-- Hono handle api
-  - [x] Hono
-  - [] api
-  - [] api-client
-- [x]cms: fumadocs
-  - [x] legal
-  - [x] docs
-- [x] antd v6
+- [x] Prisma v7 -> Drizzle
+- [x] Antd v6
 - [x] @tanstack/react-query
-- [x] cloudflare worker
-- [] nodemail -> resend
-- [] i18n -> Paraglide JS
-- [x] skills
-  - [x] vercel-react-best-practices
-  - [x] ...
-- claudflare
-  - [x] pg: neon
-  - R2
-  - tunnel: @marsidev/react-turnstile
-- ai:
-  - langchain -> ai-sdk
-  - antdx
-- [x] eslint -> biomejs
-- [x] tailwlindcss v4
-- [x] Vite/Vitest/...
+- [x] Cloudflare Worker
+- [x] ESLint -> BiomeJS
+- [x] TailwindCSS v4
+- [x] Vite / Vitest
+- [x] CMS: Fumadocs（Legal / Docs）
+- [x] Hono 接入
+- [ ] Hono API 迁移完善
+- [ ] API Client 迁移
+- [ ] better-auth 接入
+- [ ] nodemail -> Resend
+- [ ] i18n -> Paraglide JS
+- [ ] Cloudflare R2
+- [ ] Turnstile 接入（@marsidev/react-turnstile）
+- [ ] AI：LangChain -> ai-sdk
+- [ ] AI：AntdX
 
 一个基于 React Router、React、Antd、TailwindCSS、Drizzle ORM 和 RBAC 的现代全栈 Web 解决方案（WIP）。
 
