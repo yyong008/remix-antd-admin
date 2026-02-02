@@ -134,8 +134,20 @@ export const adminRoutes = [
 	]),
 ];
 
+export const aiRoutes = [
+	...prefix(":locale?/ai", [
+		layout("features/ai/layout/index.tsx", [
+			index("routes/ai/index.tsx"),
+			route("chatbot", "routes/ai/chatbot.tsx"),
+			route("chatbot/:id", "routes/ai/chatbot.$id.tsx"),
+			route("image", "routes/ai/image.tsx"),
+		]),
+	]),
+];
+
 export default [
 	...clientRoutes,
 	...authRoutes,
 	...adminRoutes,
+	...aiRoutes,
 ] satisfies RouteConfig;

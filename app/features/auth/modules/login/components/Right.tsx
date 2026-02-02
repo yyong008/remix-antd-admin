@@ -1,7 +1,6 @@
 import { Button, Card, Divider, Form, Input, Typography, message } from "antd";
 import { href, Link, useNavigate, useParams } from "react-router";
 import { useState } from "react";
-import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { useLogin } from "~/api-client/queries/auth";
 import { TurnstileWidget } from "~/components/captcha";
 import { LoadingOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
@@ -79,6 +78,7 @@ const LoginForm: React.FC = () => {
 					type="primary"
 					htmlType="submit"
 					loading={loginMutation.isPending}
+					className="rounded-full transition hover:-translate-y-0.5 hover:shadow-[var(--mkt-shadow)]"
 				>
 					Login
 				</Button>
@@ -88,33 +88,40 @@ const LoginForm: React.FC = () => {
 };
 
 export function Right() {
-	const p = useColorPrimary();
 	return (
 		<Card
-			className="w-full max-w-[520px] shadow-[0_20px_80px_rgba(15,23,42,0.12)]"
+			className="w-full max-w-[520px] rounded-[32px]"
+			style={{
+				background: "var(--mkt-surface)",
+				borderColor: "var(--mkt-border)",
+				boxShadow: "var(--mkt-shadow)",
+			}}
 			styles={{ body: { padding: "32px" } }}
 		>
 			<div className="flex items-center gap-3">
 				<LogoImg />
 				<div>
-					<Typography.Title level={4} style={{ margin: 0 }}>
+					<Typography.Title
+						level={4}
+						style={{ margin: 0, color: "var(--mkt-text)" }}
+					>
 						Remix Antd Admin
 					</Typography.Title>
-					<Typography.Text type="secondary">
+					<Typography.Text style={{ color: "var(--mkt-muted)" }}>
 						Login in to continue
 					</Typography.Text>
 				</div>
 			</div>
-			<Divider style={{ margin: "20px 0" }} />
+			<Divider style={{ margin: "20px 0", borderColor: "var(--mkt-border)" }} />
 			<LoginForm />
 			<div className="flex items-center justify-between text-sm">
-				<Typography.Text type="secondary">
+				<Typography.Text style={{ color: "var(--mkt-muted)" }}>
 					New here?{" "}
-					<Link to="/auth/signup" style={{ color: p.colorPrimary }}>
+					<Link to="/auth/signup" className="text-[var(--mkt-accent)]">
 						Create an account
 					</Link>
 				</Typography.Text>
-				<Link to="/" className="text-gray-500">
+				<Link to="/" className="text-[var(--mkt-muted)]">
 					Back to home
 				</Link>
 			</div>

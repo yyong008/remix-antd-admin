@@ -5,7 +5,6 @@ import { useState } from "react";
 import { href, Link, useNavigate, useParams } from "react-router";
 import { useEamilSignup } from "~/api-client/queries/auth";
 import { TurnstileWidget } from "~/components/captcha";
-import { useColorPrimary } from "~/hooks/useColorPrimary";
 
 const RegisterForm: React.FC = () => {
 	const navigate = useNavigate();
@@ -100,6 +99,7 @@ const RegisterForm: React.FC = () => {
 					type="primary"
 					htmlType="submit"
 					loading={signupMutation.isPending}
+					className="rounded-full transition hover:-translate-y-0.5 hover:shadow-[var(--mkt-shadow)]"
 				>
 					Create Account
 				</Button>
@@ -109,37 +109,44 @@ const RegisterForm: React.FC = () => {
 };
 
 export function Left() {
-	const p = useColorPrimary();
 	const { locale } = useParams();
 	return (
 		<Card
-			className="w-full max-w-[560px] shadow-[0_20px_80px_rgba(15,23,42,0.12)]"
+			className="w-full max-w-[560px] rounded-[32px]"
+			style={{
+				background: "var(--mkt-surface)",
+				borderColor: "var(--mkt-border)",
+				boxShadow: "var(--mkt-shadow)",
+			}}
 			styles={{ body: { padding: "32px" } }}
 		>
 			<div className="flex items-center gap-3">
 				<LogoImg />
 				<div>
-					<Typography.Title level={4} style={{ margin: 0 }}>
+					<Typography.Title
+						level={4}
+						style={{ margin: 0, color: "var(--mkt-text)" }}
+					>
 						Remix Antd Admin
 					</Typography.Title>
-					<Typography.Text type="secondary">
+					<Typography.Text style={{ color: "var(--mkt-muted)" }}>
 						Create your account
 					</Typography.Text>
 				</div>
 			</div>
-			<Divider style={{ margin: "20px 0" }} />
+			<Divider style={{ margin: "20px 0", borderColor: "var(--mkt-border)" }} />
 			<RegisterForm />
 			<div className="flex items-center justify-between text-sm">
-				<Typography.Text type="secondary">
+				<Typography.Text style={{ color: "var(--mkt-muted)" }}>
 					Already have an account?{" "}
 					<Link
 						to={href("/:locale?/auth/login", { locale })}
-						style={{ color: p.colorPrimary }}
+						className="text-[var(--mkt-accent)]"
 					>
 						Sign in
 					</Link>
 				</Typography.Text>
-				<Link to="/" className="text-gray-500">
+				<Link to="/" className="text-[var(--mkt-muted)]">
 					Back to home
 				</Link>
 			</div>

@@ -14,8 +14,10 @@ export function Route() {
 					token: value.theme,
 				}}
 			>
-				<div className="min-h-screen w-full bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.18),_transparent_50%),radial-gradient(circle_at_bottom,_rgba(16,185,129,0.2),_transparent_55%)]">
-					<div className="flex min-h-screen items-center justify-center px-6 py-12">
+				<div className="relative min-h-[100dvh] w-full overflow-hidden bg-[var(--mkt-bg)] text-[var(--mkt-text)]">
+					<div className="pointer-events-none absolute -left-24 top-8 h-72 w-72 rounded-full bg-[var(--mkt-accent)] opacity-20 blur-[110px]" />
+					<div className="pointer-events-none absolute right-[-110px] bottom-10 h-80 w-80 rounded-full bg-[var(--mkt-accent-2)] opacity-20 blur-[120px]" />
+					<div className="flex min-h-full items-center justify-center px-6 py-16 box-border">
 						<Right />
 					</div>
 				</div>
