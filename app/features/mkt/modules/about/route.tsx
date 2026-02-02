@@ -4,7 +4,7 @@ export function Route() {
 	const { pkg, lastBuildTime } = __APP_INFO__;
 	const allDeps = useMemo(
 		() => ({ ...pkg.dependencies, ...pkg.devDependencies }),
-		[pkg.dependencies, pkg.devDependencies],
+		[],
 	);
 	const [activeDeps, setActiveDeps] = useState<"development" | "production">(
 		"development",

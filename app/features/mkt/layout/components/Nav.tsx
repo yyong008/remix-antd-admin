@@ -19,28 +19,28 @@ export function Nav() {
 	const activePath = location.pathname;
 
 	return (
-		<div className="relative min-h-screen bg-[var(--mkt-bg)] text-[var(--mkt-text)]">
+		<div className="relative  bg-(--mkt-bg) text-(--mkt-text)">
 			<div
 				aria-hidden
-				className="pointer-events-none absolute inset-0 -z-10"
+				className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
 			>
-				<div className="absolute -left-32 top-10 h-72 w-72 rounded-full bg-[var(--mkt-accent)] opacity-20 blur-[110px]" />
-				<div className="absolute right-[-120px] top-48 h-80 w-80 rounded-full bg-[var(--mkt-accent-2)] opacity-20 blur-[120px]" />
+				<div className="absolute -left-32 top-10 h-72 w-72 rounded-full bg-(--mkt-accent) opacity-20 blur-[110px]" />
+				<div className="absolute right-[-120px] top-48 h-80 w-80 rounded-full bg-(--mkt-accent-2) opacity-20 blur-[120px]" />
 				<div className="absolute bottom-[-200px] left-1/4 h-96 w-96 rounded-full bg-[#f4b860] opacity-20 blur-[140px]" />
 			</div>
 
-			<header className="mkt-header sticky top-0 z-30 border-b border-[var(--mkt-border)] backdrop-blur">
+			<header className="mkt-header sticky top-0 z-30 border-b border-(--mkt-border) backdrop-blur">
 				<div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
 					<button
 						type="button"
 						onClick={() => navigate(`/${locale}`)}
 						className="flex items-center gap-3 text-left"
 					>
-						<span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--mkt-text)] text-lg font-bold text-[var(--mkt-surface)]">
+						<span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-(--mkt-text) text-lg font-bold text-[var(--mkt-surface)]">
 							R
 						</span>
 						<div className="leading-tight">
-							<p className="text-sm font-semibold uppercase tracking-[0.25em] text-[var(--mkt-muted)]">
+							<p className="text-sm font-semibold uppercase tracking-[0.25em] text-(--mkt-muted)">
 								Remix
 							</p>
 							<p className="text-lg font-semibold">Antd Admin</p>
@@ -60,8 +60,8 @@ export function Nav() {
 									to={href}
 									className={`text-sm font-semibold tracking-wide transition ${
 										isActive
-											? "text-[var(--mkt-text)]"
-											: "text-[var(--mkt-muted)] hover:text-[var(--mkt-text)]"
+											? "text-(--mkt-text)"
+											: "text-(--mkt-muted) hover:text-(--mkt-text)"
 									}`}
 								>
 									{item.label}
@@ -95,8 +95,8 @@ export function Nav() {
 								to={href}
 								className={`whitespace-nowrap rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] transition ${
 									isActive
-										? "border-[var(--mkt-text)] bg-[var(--mkt-text)] text-[var(--mkt-surface)]"
-										: "border-[var(--mkt-border)] text-[var(--mkt-muted)]"
+										? "border-(--mkt-text) bg-(--mkt-text) text-(--mkt-surface)"
+										: "border-(--mkt-border) text-(--mkt-muted)"
 								}`}
 							>
 								{item.label}
@@ -109,7 +109,7 @@ export function Nav() {
 			<main className="px-6 py-10">
 				<Outlet />
 			</main>
-			<footer className="border-t border-[var(--mkt-border)]">
+			<footer className="border-t border-(--mkt-border)">
 				<NavFooter />
 			</footer>
 		</div>
