@@ -30,8 +30,8 @@ function FeatureItem() {
 					<div className="flex flex-col">
 						<Item
 							icon={<ReactrouterSVGIcon />}
-							title={"React Router Express 内置支持"}
-							content="基于 Remix + Express路由快开发项目"
+							title={"React Router Hono 内置支持"}
+							content="基于 Remix + Hono 路由快速开发项目"
 						/>
 						<Item
 							icon={<AntdIconSVG />}

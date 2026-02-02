@@ -1,6 +1,6 @@
 import { AntdIconSVG } from "./icons/AntdIconSVG";
 import { DrizzleIconSVG } from "./icons/DrizzleIconSVG";
-import { ExpressIconSVG } from "./icons/ExpressIconSVG";
+import { HonoIconSVG } from "./icons/HonoIconSVG";
 import { LangChainIconSVG } from "./icons/LangChainIconSVG";
 import { ProComponentSVG } from "./icons/ProComponentSVG";
 import { ReactIconSVG } from "./icons/ReactIconSVG";
@@ -14,7 +14,7 @@ export function BuildWith() {
 				<div className="text-xl mt-4 text-slate-400">Build on: </div>
 				<div className="flex justify-center items-center gap-4">
 					<ReactrouterSVGIcon />
-					<ExpressIconSVG />
+					<HonoIconSVG />
 					<ReactIconSVG />
 					<AntdIconSVG />
 					<ProComponentSVG />

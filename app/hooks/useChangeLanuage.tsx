@@ -1,9 +1,8 @@
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import { setLocale } from "~/paraglide/runtime.js";
 
 export function useChangeLanguage(locale: string) {
-	let { i18n } = useTranslation();
 	useEffect(() => {
-		i18n.changeLanguage(locale);
-	}, [locale, i18n]);
+		setLocale(locale, { reload: false });
+	}, [locale]);
 }

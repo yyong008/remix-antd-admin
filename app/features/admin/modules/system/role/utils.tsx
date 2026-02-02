@@ -3,7 +3,6 @@ import { AntdIcon } from "@/components/common";
 
 export function genMenuTreeForRole(
 	items: any[],
-	t: (v: string) => string,
 	parentId?: number | null,
 ): any[] {
 	return items
@@ -16,12 +15,12 @@ export function genMenuTreeForRole(
 			title: item.icon ? (
 				<Space>
 					<AntdIcon name={item.icon} />
-					{t(item.name)}
+					{item.name}
 				</Space>
 			) : (
-				t(item.name)
+				item.name
 			),
-			children: genMenuTreeForRole(items, t, item.id), // 递归构建子树
+			children: genMenuTreeForRole(items, item.id), // 递归构建子树
 		}))
 		.sort((a, b) => a.orderNo - b.orderNo);
 }

@@ -1,9 +1,7 @@
-import { I18nextProvider, i18next } from "~/libs/i18n/client";
 import { startTransition, useState } from "react";
 
 import { HydratedRouter } from "react-router/dom";
 import { SettingContext } from "~/context";
-import StoreProvider from "./store-provider";
 import { hydrateRoot } from "react-dom/client";
 
 const AppClient = () => {
@@ -23,7 +21,6 @@ async function hydrate() {
 	startTransition(() => {
 		hydrateRoot(
 			document,
-			// @ts-ignore
 			<AppClient />,
 		);
 	});

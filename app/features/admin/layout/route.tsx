@@ -31,10 +31,9 @@ function AdminLayout() {
   const { menu = [], userInfo = {} } = payload || ({} as any);
   const [pathname, setPathname] = useState(location.pathname);
   const token = useMemo(() => createTokens(value), [value]);
-  const t = (k: any) => k;
   const route = useMemo(
-    () => clientUtils.createProLayoutRoute(locale!, menu, t),
-    [locale, menu, t],
+    () => clientUtils.createProLayoutRoute(locale!, menu),
+    [locale, menu],
   );
 
   return (

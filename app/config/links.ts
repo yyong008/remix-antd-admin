@@ -43,8 +43,8 @@ export const getLinks = (lang: string) => [
 				isOut: true,
 			},
 			{
-				text: "Express.js",
-				to: `https://expressjs.com/`,
+				text: "Hono",
+				to: `https://hono.dev/`,
 				isOut: true,
 			},
 			{

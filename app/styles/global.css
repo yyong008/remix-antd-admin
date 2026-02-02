@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
 *,
 *::before,
 *::after {
@@ -6,4 +8,33 @@
 
 body {
 	margin: 0;
+	font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+	background: var(--mkt-bg);
+	color: var(--mkt-text);
+}
+
+:root {
+	--mkt-bg: #f6f4f0;
+	--mkt-surface: #ffffff;
+	--mkt-text: #121212;
+	--mkt-muted: #5c5c5c;
+	--mkt-accent: #ff6b3d;
+	--mkt-accent-2: #2a6df4;
+	--mkt-border: rgba(18, 18, 18, 0.08);
+	--mkt-shadow: 0 20px 50px rgba(12, 12, 12, 0.08);
+}
+
+.theme-dark {
+	--mkt-bg: #0c0c0f;
+	--mkt-surface: #16161a;
+	--mkt-text: #f5f5f7;
+	--mkt-muted: #b0b0b8;
+	--mkt-accent: #ff8a5b;
+	--mkt-accent-2: #7aa2ff;
+	--mkt-border: rgba(245, 245, 247, 0.12);
+	--mkt-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.mkt-header {
+	background: color-mix(in srgb, var(--mkt-bg) 86%, transparent);
 }

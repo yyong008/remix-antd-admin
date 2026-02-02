@@ -90,7 +90,7 @@ const socialLinks = [
 
 // 核心特性
 const coreFeatures = [
-	{ icon: <RocketOutlined />, label: "React Router Express" },
+	{ icon: <RocketOutlined />, label: "React Router Hono" },
 	{ icon: <ApiOutlined />, label: "Ant Design 组件" },
 	{ icon: <CodeOutlined />, label: "TailwindCSS" },
 	{ icon: <RobotOutlined />, label: "LangChain AI" },

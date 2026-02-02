@@ -4,7 +4,6 @@ import { simpleStorage } from "@/libs/simpleStorage";
 import { useNavigate, useParams } from "react-router";
 
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 type AvatarDropDownProps = {
 	dom: any;
@@ -12,8 +11,8 @@ type AvatarDropDownProps = {
 
 export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
 	const navigate = useNavigate();
-	const { t } = useTranslation();
 	const { lang } = useParams();
+	const isZh = lang === "zh";
 
 	return (
 		<Dropdown
@@ -22,7 +21,7 @@ export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
 					{
 						key: "profile-center",
 						icon: <UserOutlined />,
-						label: t("personal-center"),
+						label: isZh ? "个人中心" : "Personal Center",
 						onClick: () => {
 							navigate(`/${lang}/admin/profile/account`);
 						},
@@ -37,7 +36,7 @@ export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
 								<LogoutOutlined />
 							</Form>
 						),
-						label: t("logout"),
+						label: isZh ? "退出登录" : "Logout",
 						onClick() {
 							simpleStorage.clearAllToken();
 							navigate(`/${lang}/admin/login`, { replace: true });

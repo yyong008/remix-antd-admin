@@ -7,13 +7,11 @@ import { createColumns } from "./components/create-columns";
 import { genMenuTreeForRole } from "./utils";
 import { usePage } from "~/hooks/usePagination";
 import { useParams } from "react-router";
-import { useTranslation } from "react-i18next";
 
 export function Route() {
 	const [page] = usePage();
 	const { lang } = useParams();
 	const actionRef = useRef();
-	const { t } = useTranslation();
 	const { data: flatMenu } = { data: { data: { list: [] } } };
 	const { data, isLoading, refetch } = {
 		data: { data: { list: [] } },
@@ -27,9 +25,9 @@ export function Route() {
 
 	const menus = useMemo(() => {
 		if (flatMenu) {
-			return genMenuTreeForRole(menuAll, t, null);
+			return genMenuTreeForRole(menuAll, null);
 		}
-	}, [flatMenu, menuAll, t]);
+	}, [flatMenu, menuAll]);
 
 	return (
 		<PageContainer>

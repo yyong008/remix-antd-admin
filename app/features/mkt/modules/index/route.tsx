@@ -35,7 +35,7 @@ const techStack = [
 		color: "#FF6B6B",
 		description: "路由框架",
 	},
-	{ name: "Express", icon: "⚡", color: "#4ECDC4", description: "后端框架" },
+	{ name: "Hono", icon: "⚡", color: "#4ECDC4", description: "后端框架" },
 	{ name: "React", icon: "⚛️", color: "#61DAFB", description: "前端框架" },
 	{
 		name: "Ant Design",
@@ -57,8 +57,8 @@ const techStack = [
 const features = [
 	{
 		icon: <RocketOutlined />,
-		title: "React Router Express 内置支持",
-		description: "基于 Remix + Express 路由快速开发项目",
+		title: "React Router Hono 内置支持",
+		description: "基于 Remix + Hono 路由快速开发项目",
 		color: "#FF6B6B",
 	},
 	{

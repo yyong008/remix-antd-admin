@@ -1,14 +1,15 @@
 import { Card } from "antd";
 import { PageContainer } from "@ant-design/pro-components";
-import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 
 export function Route() {
-	const { t } = useTranslation();
+	const { lang } = useParams();
+	const label = lang === "zh" ? "欢迎" : "Welcome";
 
 	return (
 		<PageContainer>
 			<Card>
-				<div>{t("welcome")}</div>
+				<div>{label}</div>
 			</Card>
 		</PageContainer>
 	);
