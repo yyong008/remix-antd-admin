@@ -33,7 +33,11 @@ export function useUserInfo() {
 	return useQuery({
 		queryKey: userKeys.info,
 		queryFn: async () => {
-			const res = await getApiClient().api.admin.system.user.info.$get();
+			const res = await getApiClient().api.admin.system.user.info.$get({
+        query: {
+          debug: "1",
+        }
+      });
 			return res.json();
 		},
 	});

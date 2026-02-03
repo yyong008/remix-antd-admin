@@ -11,8 +11,8 @@ type AvatarDropDownProps = {
 
 export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
 	const navigate = useNavigate();
-	const { lang } = useParams();
-	const isZh = lang === "zh";
+	const { locale } = useParams();
+	const isZh = locale === "zh";
 
 	return (
 		<Dropdown
@@ -39,7 +39,7 @@ export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
 						label: isZh ? "退出登录" : "Logout",
 						onClick() {
 							simpleStorage.clearAllToken();
-							navigate(`/${lang}/admin/login`, { replace: true });
+							navigate(`/${locale}/auth/login`, { replace: true });
 						},
 					},
 				],

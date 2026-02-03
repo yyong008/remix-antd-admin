@@ -1,11 +1,14 @@
 import { Hono } from "hono";
+import { and, eq, inArray, ne } from "drizzle-orm";
 
 import type { HonoEnv } from "../../../types";
-import { getSearchParams, getSearchParamsPage, getSearchParamsPageSize } from "~/utils/server";
+import { getSearchParamsPage, getSearchParamsPageSize } from "~/utils/server";
 import { signInLog } from "~/dals/sign-in/SignInLogDAL";
 import { userDAL } from "~/dals/system/UserDAL";
 import { userPermsDAL } from "~/dals/system/UserPermsDAL";
 import { rfj, rsj } from "~/utils/server/response-json";
+import { db } from "~/libs/neon";
+import { menuRoles, menus, userRoles } from "db/schema";
 
 export const userRouter = new Hono<HonoEnv>();
 
@@ -30,12 +33,57 @@ userRouter.get("/", async (c) => {
 
 userRouter.get("/info", async (c) => {
 	try {
-	const userId = c.get("userId");
+		const userId = c.get("userId");
 		if (!userId) {
 			return rfj({}, "No Authorization No User", { status: 401 });
 		}
-		const menu = await userPermsDAL.getFlatMenuByUserId(userId);
+		let menu = await userPermsDAL.getFlatMenuByUserId(userId);
 		const userInfo = await userDAL.getById(userId);
+		if (menu.length === 0) {
+			const roleRows = await db
+				.select({ roleId: userRoles.roleId })
+				.from(userRoles)
+				.where(eq(userRoles.userId, userId));
+			const roleIds = roleRows
+				.map((row) => Number(row.roleId))
+				.filter((id) => Number.isFinite(id));
+			if (roleIds.length) {
+				const rows = await db
+					.select({
+						id: menus.id,
+						name: menus.name,
+						type: menus.type,
+						description: menus.description,
+						remark: menus.remark,
+						icon: menus.icon,
+						path: menus.path,
+						path_file: menus.pathFile,
+						status: menus.status,
+						isShow: menus.isShow,
+						isCache: menus.isCache,
+						permission: menus.permission,
+						isLink: menus.isLink,
+						orderNo: menus.orderNo,
+						createdAt: menus.createdAt,
+						updatedAt: menus.updatedAt,
+						parent_menu_id: menus.parentMenuId,
+					})
+					.from(menus)
+					.innerJoin(menuRoles, eq(menuRoles.menuId, menus.id))
+					.where(
+						and(inArray(menuRoles.roleId, roleIds), ne(menus.type, 3)),
+					);
+				const unique = new Map<number, any>();
+				for (const row of rows) {
+					const item = row;
+					if (!item) continue;
+					if (!unique.has(item.id)) {
+						unique.set(item.id, item);
+					}
+				}
+				menu = Array.from(unique.values());
+			}
+		}
 		return rsj({ menu, userInfo });
 	} catch (error) {
 		return rfj(error as Error);

@@ -75,7 +75,7 @@ export function Nav() {
 						<ThemeSwitcher />
 						<button
 							type="button"
-							onClick={() => navigate(`/${locale}/admin/login`)}
+							onClick={() => navigate(`/${locale}/auth/login`)}
 							className="hidden rounded-full border border-[var(--mkt-border)] bg-[var(--mkt-text)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--mkt-surface)] transition hover:-translate-y-0.5 hover:shadow-lg md:inline-flex"
 						>
 							Admin

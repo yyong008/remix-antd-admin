@@ -33,8 +33,8 @@ export const { getSession, commitSession, destroySession } =
  * @param lang 语言
  * @returns
  */
-const redirectToLoginHigherOrder = (SetCookie: string, lang: string) => () => {
-	return redirect(`/${lang}/admin/login`, {
+const redirectToLoginHigherOrder = (SetCookie: string, locale: string) => () => {
+	return redirect(`/${locale}/auth/login`, {
 		headers: {
 			"Set-Cookie": SetCookie,
 		},
@@ -104,11 +104,11 @@ export class UserSession {
 
 export class Auth {
 	async logout({ request, params }: any) {
-		const { lang } = params;
+		const { locale } = params;
 		const cookie = request.headers.get("Cookie");
 		const session = await getSession(cookie);
 		const SetCookie = await destroySession(session);
-		return redirect(`/${lang}/admin/login`, {
+		return redirect(`/${locale}/auth/login`, {
 			headers: {
 				"Set-Cookie": SetCookie,
 			},

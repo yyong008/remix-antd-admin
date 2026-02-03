@@ -68,6 +68,22 @@ async function getMenuTreeByUserId(userId: string) {
 	return Array.from(unique.values());
 }
 
+async function getMenuTreeByRoleIds(roleIds: number[]) {
+	if (!roleIds.length) return [];
+	const rows = await db
+		.select()
+		.from(menus)
+		.innerJoin(menuRoles, eq(menuRoles.menuId, menus.id))
+		.where(inArray(menuRoles.roleId, roleIds));
+
+	const unique = new Map<number, any>();
+	for (const row of rows) {
+		const menu = mapMenu(row.menus);
+		if (menu && !unique.has(menu.id)) unique.set(menu.id, menu);
+	}
+	return Array.from(unique.values());
+}
+
 async function create(data: any) {
 	const created = await db.insert(menus).values(mapMenuInput(data)).returning();
 	return mapMenu(created[0]);
@@ -98,6 +114,7 @@ export const menuDAL = {
 	getList,
 	getAllFilterPermMenu,
 	getMenuTreeByUserId,
+	getMenuTreeByRoleIds,
 	create,
 	update,
 	deleteByIds,
