@@ -1,6 +1,6 @@
 import { AntdIcon } from "~/components/common";
 import { isExternalLink } from "./utils";
-
+import { href } from "react-router";
 function createProLayoutRouteImpl(
 	locale: string,
 	items: any[],
@@ -13,7 +13,7 @@ function createProLayoutRouteImpl(
 			name: item.name,
 			path: isExternalLink(item.path)
 				? item.path
-				: `/${locale}/admin${item.path}`,
+				: href(`/:locale?/admin${item.path}` as any, { locale }),
 			key: item.id + item.path, // https://github.com/ant-design/pro-components/issues/2511
 			hideInMenu: !item.isShow,
 			icon: item.icon ? <AntdIcon name={item.icon} /> : item.icon,
