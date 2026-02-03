@@ -12,7 +12,7 @@ export function MailForm({ content, refetch }: any) {
 	const [visible, setVisible] = useState(false);
 	const [type, setType] = useState();
 	const [form] = Form.useForm();
-	// const { lang } = useParams();
+	// const { locale } = useParams();
 
 	const onSaveTemplate = async () => {
 		if (!content) {

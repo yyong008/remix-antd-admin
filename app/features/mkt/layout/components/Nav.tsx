@@ -1,5 +1,4 @@
 import { NavLink, Outlet, useLocation, useNavigate, useParams } from "react-router";
-import { defaultLang } from "@/config/lang";
 import { NavFooter } from "./footer";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { LanguageSwitcher } from "./LanguageSwitcher";
@@ -13,7 +12,7 @@ const navItems = [
 ];
 
 export function Nav() {
-	const { locale = defaultLang } = useParams();
+	const { locale } = useParams();
 	const location = useLocation();
 	const navigate = useNavigate();
 	const activePath = location.pathname;

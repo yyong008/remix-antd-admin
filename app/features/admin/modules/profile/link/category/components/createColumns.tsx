@@ -1,13 +1,15 @@
-import { Link, useParams } from "react-router";
+import { href, Link, useParams } from "react-router";
 import { Space, Tag } from "antd";
 
 import { DeleteAction } from "./DeleteAction";
 import { UpdateLinkCategoryModal } from "./UpdateLinkCategoryModal";
 
 function LinkTag({ record }: any) {
-	const { lang } = useParams();
+	const { locale } = useParams();
 	return (
-		<Link to={`/${lang}/admin/profile/link/category/${record?.id}`}>
+		<Link to={{
+          pathname: href("/:locale?/admin/profile/link/category/:id", { locale, id: record.id }),
+        }}>
 			<Tag color="blue">{record?.name}</Tag>
 		</Link>
 	);

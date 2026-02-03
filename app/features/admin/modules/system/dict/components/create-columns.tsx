@@ -2,11 +2,11 @@ import { FormatTime, StatusType } from "@/components/common";
 import { Space, Tag } from "antd";
 
 import { DeleteAction } from "./DeleteAction";
-import { Link } from "react-router";
+import { href, Link } from "react-router";
 import { ProfileOutlined } from "@ant-design/icons";
 import { UpdateDictModal } from "./UpdateDictModal";
 
-export const createColumns = ({ lang, refetch }: any) => [
+export const createColumns = ({ locale, refetch }: any) => [
 	{
 		dataIndex: "name",
 		title: "字典名",
@@ -23,7 +23,7 @@ export const createColumns = ({ lang, refetch }: any) => [
 		dataIndex: "code",
 		title: "字典值(编码)",
 		render(_: any, record: any) {
-			return <TagLink lang={lang} record={record} />;
+			return <TagLink locale={locale} record={record} />;
 		},
 	},
 	{
@@ -77,9 +77,11 @@ export const createColumns = ({ lang, refetch }: any) => [
 	},
 ];
 
-function TagLink({ lang, record }: any) {
+function TagLink({ locale, record }: any) {
 	return (
-		<Link to={`/${lang}/admin/system/dict-item/${record.id}`}>
+		<Link to={{
+          pathname: href("/:locale?/admin/system/dict-item/:id", { locale, id: record.id }),
+        }}>
 			<Tag color="blue">{record.code}</Tag>
 		</Link>
 	);

@@ -6,12 +6,12 @@ import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
 import { createColumns } from "./components/create-columns";
 import { genMenuTreeForRole } from "./utils";
 import { usePage } from "~/hooks/usePagination";
-import { useParams } from "react-router";
+import { href, useParams } from "react-router";
 
 export function Route() {
 	const [page] = usePage();
-	const { lang } = useParams();
-	const actionRef = useRef();
+	const { locale } = useParams();
+	const actionRef = useRef<ActionType | null>(null);
 	const { data: flatMenu } = { data: { data: { list: [] } } };
 	const { data, isLoading, refetch } = {
 		data: { data: { list: [] } },
@@ -40,7 +40,7 @@ export function Route() {
 				search={false}
 				loading={isLoading}
 				dataSource={data?.data?.list || []}
-				columns={createColumns({ lang, menus, menuRoles, refetch }) as any}
+				columns={createColumns({ locale, menus, menuRoles, refetch }) as any}
 				options={{
 					reload: refetch,
 				}}

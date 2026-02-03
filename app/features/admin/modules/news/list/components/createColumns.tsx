@@ -1,15 +1,17 @@
 import { ButtonLink } from "~/components/common";
 import { DeleteAction } from "../DeleteAction";
-import { Link } from "react-router";
+import { href, Link } from "react-router";
 import { Space } from "antd";
 
-export function createColumns({ refetch, lang }: any) {
+export function createColumns({ refetch, locale }: any) {
 	return [
 		{
 			dataIndex: "title",
 			title: "新闻标题",
 			renderText(_: any, record: any) {
-				return <Link to={`/${lang}/news/${record.id}`}>{record.title}</Link>;
+				return <Link to={{
+          pathname: href("/:locale?/news/:id", { locale, id: record.id }),
+        }}>{record.title}</Link>;
 			},
 		},
 		{
@@ -43,7 +45,7 @@ export function createColumns({ refetch, lang }: any) {
 					<Space>
 						<ButtonLink
 							type="edit"
-							to={`/${lang}/admin/news/edit/${record.id}`}
+							to={href("/:locale?/admin/news/edit/:id", { locale, id: record.id })}
 						/>
 						<DeleteAction refetch={refetch} record={record} title={""} />
 					</Space>

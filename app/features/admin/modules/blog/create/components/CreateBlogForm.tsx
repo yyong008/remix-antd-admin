@@ -1,6 +1,6 @@
 import { Button, message } from "antd";
 import { DrawerForm, ProForm } from "@ant-design/pro-components";
-import { useNavigate, useParams } from "react-router";
+import { href, useNavigate, useParams } from "react-router";
 
 import { ModalFormItems } from "./ModalFormItems";
 import { useMemo } from "react";
@@ -8,7 +8,7 @@ import { useMemo } from "react";
 export function CreateBlogForm(props: { content: string }) {
 	const [form] = ProForm.useForm();
 	const nav = useNavigate();
-	const { lang } = useParams();
+	const { locale } = useParams();
 	const [createBlog, others] = [
 		(...args: any): any => {},
 		{ isLoading: false },
@@ -45,7 +45,7 @@ export function CreateBlogForm(props: { content: string }) {
 		}
 
 		message.success(result.data?.message);
-		nav(`/${lang}/admin/blog/result`, {
+		nav(href("/:locale?/admin/blog/result", { locale }), {
 			state: { title: v.title, id: result.data.data.id },
 		});
 		return true;

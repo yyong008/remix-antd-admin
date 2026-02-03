@@ -1,17 +1,19 @@
 import { Space, Tag } from "antd";
 
 import { DeleteAction } from "./DeleteAction";
-import { Link } from "react-router";
+import { href, Link } from "react-router";
 import { UpdateNewsCategoryModal } from "./UpdateNewsCategoryModal";
 
-export function createColumns({ refetch, lang }: any) {
+export function createColumns({ refetch, locale }: any) {
 	return [
 		{
 			dataIndex: "name",
 			title: "新闻分类名",
 			render(_: any, record: any) {
 				return (
-					<Link to={`/${lang}/admin/news/category/${record.id}`}>
+					<Link to={{
+            pathname: href("/:locale?/admin/news/category/:id", { locale, id: record.id }),
+          }}>
 						<Tag color="blue">{record.name}</Tag>
 					</Link>
 				);

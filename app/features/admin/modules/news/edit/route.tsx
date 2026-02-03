@@ -1,6 +1,6 @@
 import { Button, message } from "antd";
 import { DrawerForm, PageContainer, ProCard } from "@ant-design/pro-components";
-import { useNavigate, useParams } from "react-router";
+import { href, useNavigate, useParams } from "react-router";
 
 import { FormItems } from "./components/FormItems";
 import { QuillEditor } from "~/components/common/quill-editor";
@@ -10,7 +10,7 @@ import { useNewsCategoryList } from "~/api-client/queries/news-category";
 
 export function Route() {
 	const nav = useNavigate();
-	const { lang } = useParams();
+	const { locale } = useParams();
 	const createNews = useCreateNews();
 	const [content, setContent] = useState("");
 	const { data: newsCategoryList, isLoading } = useNewsCategoryList({
@@ -31,7 +31,7 @@ export function Route() {
 								return false;
 							}
 							message.success(result.data?.message);
-							nav(`/${lang}/admin/news/result`, {
+							nav(href("/:locale?/admin/news/result", { locale }), {
 								state: { title: v.title, id: result.data.data.id },
 							});
 							return true;

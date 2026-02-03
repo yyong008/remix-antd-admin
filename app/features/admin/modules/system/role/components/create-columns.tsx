@@ -6,7 +6,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { auth } from "@/utils/client/auth";
 
 type CreateColumnsParams = {
-	lang?: any;
+	locale?: any;
 	menus: any;
 	menuRoles: any;
 	refetch: any;

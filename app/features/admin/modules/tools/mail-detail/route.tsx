@@ -1,7 +1,7 @@
 import "./styles.css";
 
 import { Button, Space } from "antd";
-import { Link, useParams } from "react-router";
+import { href, Link, useParams } from "react-router";
 import { PageContainer, ProCard } from "@ant-design/pro-components";
 import { useEffect, useState } from "react";
 
@@ -9,7 +9,7 @@ import { MailForm } from "./components/MailForm";
 import { QuillEditor } from "@/components/common/quill-editor";
 
 export function Route() {
-	const { lang } = useParams();
+	const { locale } = useParams();
 	const [content, setContent] = useState("");
 	const { id } = useParams();
 	const { data, isLoading } = {
@@ -19,7 +19,7 @@ export function Route() {
 
 	useEffect(() => {
 		setContent(data?.data?.content);
-	}, [data]);
+	}, [data?.data?.content]);
 	return (
 		<PageContainer>
 			<ProCard
@@ -29,7 +29,7 @@ export function Route() {
 				tooltip="默认支持的邮箱服务包括：”QQ”、”163”、”126”、”iCloud”、”Hotmail”、”Yahoo”等"
 				extra={
 					<Space>
-						<Link to={`/${lang}/admin/tools/mail/list`}>
+						<Link to={href(`/:locale?/admin/tools/mail/list`, { locale })}>
 							<Button type="primary">查看所有模板</Button>
 						</Link>
 						<MailForm data={data?.data} content={content} />

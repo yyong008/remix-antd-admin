@@ -1,6 +1,6 @@
 import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { useEffect, useMemo } from "react";
-import { useParams, useSearchParams } from "react-router";
+import { href, useParams, useSearchParams } from "react-router";
 
 import { ButtonLink } from "@/components/common/button-link";
 import { createColumns } from "./components/createColumns";
@@ -18,7 +18,7 @@ export function Route() {
 		refetch: () => {},
 	};
 	const { tag: tagInfo, category: categoryInfo, list } = data?.data || {};
-	const { lang } = useParams();
+	const { locale } = useParams();
 
 	const info = useMemo(() => {
 		let name = "";
@@ -48,12 +48,12 @@ export function Route() {
 				toolBarRender={() => [
 					<ButtonLink
 						key="tag-modal"
-						to={`/${lang}/admin/blog/edit`}
+						to={href(`/:locale?/admin/blog/edit`, { locale })}
 						type={"new"}
 						content="新建"
 					/>,
 				]}
-				columns={createColumns({ lang, refetch, info }) as any}
+				columns={createColumns({ locale, refetch, info }) as any}
 			/>
 		</PageContainer>
 	);

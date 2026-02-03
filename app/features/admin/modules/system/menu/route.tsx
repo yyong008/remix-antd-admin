@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { MenuProTable } from "./components/MenuProTable";
 import { PageContainer } from "@ant-design/pro-components";
@@ -16,12 +16,7 @@ function removeType3(data: any[]) {
 }
 
 export function Route() {
-	const { lang } = useParams();
-	const [page] = useState({
-		page: 1,
-		pageSize: 10,
-		lang,
-	});
+	const { locale } = useParams();
 	const { data, isLoading, refetch } = {
 		data: { data: { list: [], total: 0 } },
 		isLoading: false,

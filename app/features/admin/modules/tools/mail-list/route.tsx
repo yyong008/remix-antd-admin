@@ -3,10 +3,10 @@ import { useMemo, useState } from "react";
 
 import { ButtonLink } from "@/components/common";
 import { createColumns } from "./components/createColumns";
-import { useParams } from "react-router";
+import { href, useParams } from "react-router";
 
 export function Route() {
-	const { lang } = useParams();
+	const { locale } = useParams();
 	const [page, setPage] = useState({
 		page: 1,
 		pageSize: 110,
@@ -18,8 +18,8 @@ export function Route() {
 	};
 
 	const columns = useMemo(() => {
-		return createColumns({ lang, refetch });
-	}, [lang, refetch]);
+		return createColumns({ locale, refetch });
+	}, [locale, refetch]);
 
 	return (
 		<PageContainer>
@@ -34,7 +34,7 @@ export function Route() {
 				toolBarRender={() => [
 					<ButtonLink
 						key="create-mail"
-						to={`/${lang!}/admin/tools/mail`}
+						to={href(`/:locale?/admin/tools/mail`, { locale })}
 						type={"new"}
 						content="去新建"
 					/>,

@@ -1,13 +1,12 @@
 import { useMemo } from "react";
-import { NavLink, Outlet, useNavigate, useParams } from "react-router";
+import { href, NavLink, Outlet, useNavigate, useParams } from "react-router";
 
-import { defaultLang } from "~/config/lang";
 
 export function Route() {
-	const { locale = defaultLang } = useParams();
+	const { locale } = useParams();
 	const navigate = useNavigate();
 
-	const basePath = useMemo(() => `/${locale}/ai`, [locale]);
+	const basePath = useMemo(() => href(`/:locale?/ai`, { locale }), [locale]);
 	const createChat = () => {
 		navigate(`${basePath}/chatbot/demo`);
 	};

@@ -1,17 +1,20 @@
 import { DeleteAction } from "./DeleteAction";
-import { Link } from "react-router";
+import { href, Link } from "react-router";
 import { Space } from "antd";
 import { TagOutlined } from "@ant-design/icons";
 import { UpdateBlogModal } from "./UpdateBlogModal";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 
-export const createColumns = ({ lang, refetch }: any) => [
+export const createColumns = ({ locale, refetch }: any) => [
 	{
 		dataIndex: "name",
 		title: "标签名字",
 		renderText(_: any, record: any) {
 			return (
-				<Link to={`/${lang}/admin/blog?tag=${record.id}`}>
+				<Link to={{
+          pathname: href("/:locale?/admin/blog", { locale }),
+          search: `tag=${record.id}`,
+        }}>
 					<Space>
 						<TagIcons />
 						<span>{record.name}</span>

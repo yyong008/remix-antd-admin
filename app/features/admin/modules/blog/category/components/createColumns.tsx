@@ -1,18 +1,22 @@
 import { DeleteAction } from "./DeleteAction";
-import { Link } from "react-router";
+import { href, Link, useParams } from "react-router";
 import { Space } from "antd";
 import { SwitcherOutlined } from "@ant-design/icons";
 import { UpdateBlogCategoryModal } from "./UpdateBlogCategoryModal";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 
-export function createColumns({ lang, refetch }: any) {
+export function createColumns({ refetch }: any) {
+  const { locale } = useParams();
 	return [
 		{
 			dataIndex: "name",
 			title: "分类名字",
 			renderText(_: any, record: any) {
 				return (
-					<Link to={`/${lang}/admin/blog?category=${record.id}`}>
+					<Link to={{
+            pathname: href("/:locale?/admin/blog", { locale }),
+            search: `category=${record.id}`,
+          }} >
 						<Space>
 							<CategoryIcons />
 							<span>{record.name}</span>

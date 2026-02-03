@@ -1,8 +1,9 @@
 import { ButtonLink } from "@/components/common";
 import { DeleteAction } from "./DeleteAction";
 import { Space } from "antd";
+import { href } from "react-router";
 
-export const createColumns = ({ lang, refetch }: any) => [
+export const createColumns = ({ locale, refetch }: any) => [
 	{
 		dataIndex: "subject",
 		title: "邮件标题",
@@ -48,7 +49,7 @@ export const createColumns = ({ lang, refetch }: any) => [
 				<Space>
 					<ButtonLink
 						key="create-mail"
-						to={`/${lang!}/admin/tools/mail/${record.id}`}
+						to={href(`/:locale?/admin/tools/mail/:id`, { locale, id: record.id })}
 						type={"edit"}
 					/>
 					<DeleteAction record={record} title={"用户"} refetch={refetch} />

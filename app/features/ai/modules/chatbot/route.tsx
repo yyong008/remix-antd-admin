@@ -1,10 +1,8 @@
 import { useMemo } from "react";
 import { useParams } from "react-router";
 
-import { defaultLang } from "~/config/lang";
-
 export function Route() {
-	const { locale = defaultLang, id } = useParams();
+	const { locale, id } = useParams();
 
 	const title = useMemo(() => (id ? `Chat ${id.slice(0, 6)}` : "Chatbot"), [id]);
 	const messages = [

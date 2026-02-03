@@ -6,7 +6,7 @@ import { createColumns } from "./components/createColumns";
 import { useState } from "react";
 
 export function Route() {
-	const { lang } = useParams();
+	const { locale } = useParams();
 	const [page, setPage] = useState({
 		page: 1,
 		pageSize: 10,
@@ -45,7 +45,7 @@ export function Route() {
 					/>,
 				]}
 				dataSource={data?.data?.list}
-				columns={createColumns({ lang, refetch }) as any}
+				columns={createColumns({ locale, refetch }) as any}
 			/>
 			<Outlet />
 		</PageContainer>

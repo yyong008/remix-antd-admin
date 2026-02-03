@@ -19,7 +19,6 @@ import {
 	MailOutlined,
 	HeartOutlined,
 	RocketOutlined,
-	BookOutlined,
 	ApiOutlined,
 	CodeOutlined,
 	DatabaseOutlined,
@@ -28,7 +27,6 @@ import {
 	CopyrightOutlined,
 } from "@ant-design/icons";
 
-import { defaultLang } from "~/config/lang";
 import { getLinks } from "~/config/links";
 
 const { Footer } = Layout;
@@ -99,8 +97,8 @@ const coreFeatures = [
 ];
 
 export function NavFooter() {
-	const { lang } = useParams();
-	const data = getLinks(lang || defaultLang);
+	const { locale } = useParams();
+	const data = getLinks(locale || "en");
 
 	return (
 		<Footer

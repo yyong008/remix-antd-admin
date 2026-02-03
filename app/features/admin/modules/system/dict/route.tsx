@@ -3,11 +3,11 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { CreateDictModal } from "./components/CreateDictModal";
 import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
 import { createColumns } from "./components/create-columns";
-import { useParamsLang } from "~/hooks/userParamsLang";
 import { useState } from "react";
+import { useParams } from "react-router";
 
 export function Route() {
-	const { lang } = useParamsLang();
+	const { locale } = useParams();
 	const [page] = useState({ page: 1, pageSize: 10 });
 	const { data, isLoading, refetch } = {
 		data: { data: { list: [] } },
@@ -27,7 +27,7 @@ export function Route() {
 					<CreateDictModal refetch={refetch} key="create-dict-modal" />,
 				]}
 				dataSource={data?.data?.list || []}
-				columns={createColumns({ lang, refetch })}
+				columns={createColumns({ locale, refetch })}
 				options={{
 					reload: refetch,
 				}}

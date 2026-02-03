@@ -2,12 +2,11 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 import { ButtonLink } from "@/components/common";
 import { createColumns } from "./components/createColumns";
-import { defaultLang } from "~/config/lang";
-import { useParams } from "react-router";
+import { href, useParams } from "react-router";
 import { useState } from "react";
 
 export function Route() {
-	const { lang = defaultLang, id } = useParams();
+	const { locale } = useParams();
 	const [page] = useState({
 		page: 1,
 		pageSize: 10,
@@ -34,10 +33,10 @@ export function Route() {
 						key="create-news-modal"
 						type="new"
 						content="添加新闻"
-						to={`/${lang}/admin/news/edit`}
+						to={href(`/:locale?/admin/news/edit`, { locale })}
 					/>,
 				]}
-				columns={createColumns({ lang, refetch }) as any}
+				columns={createColumns({ locale, refetch }) as any}
 			/>
 		</PageContainer>
 	);

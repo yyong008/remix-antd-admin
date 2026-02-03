@@ -7,28 +7,20 @@ import {
 } from "@ant-design/icons";
 
 import { Dropdown } from "antd";
-import { defaultLang } from "@/config/lang";
-import { useNavigate } from "react-router";
+import { href, useNavigate, useParams } from "react-router";
 
-const ActionRenderImpl = ({ value }: any) => {
+const ActionRenderImpl = () => {
 	const navigate = useNavigate();
+	const { locale } = useParams();
 
-	const choiceLang = (lang: string) => {
-		const lg = lang || defaultLang;
-		let p = location.pathname.split("/");
-		p[1] = lg;
-
-		const to = p.join("/").trim();
-		navigate(to, {
+	const choiceLang = ( locale: string) => {
+		navigate(href("/:locale?/admin/dashboard", { locale }), {
 			replace: true,
 		});
-
-		value.setLang(lg);
-		window.location.href = to;
 	};
 	return (
 		<Dropdown
-			key="lang"
+			key="locale"
 			menu={{
 				items: [
 					{
@@ -54,7 +46,7 @@ const ActionRenderImpl = ({ value }: any) => {
 };
 
 export const createActionRenderWrap =
-	({ value }: any) =>
+	() =>
 	(props: any) => {
 		const goGithub = () => {
 			let aTag: any = document.createElement("a");
@@ -69,16 +61,17 @@ export const createActionRenderWrap =
 			<InfoCircleFilled key="InfoCircleFilled" />,
 			<QuestionCircleFilled key="QuestionCircleFilled" />,
 			<GithubFilled key="GithubFilled" onClick={goGithub} />,
-			<ActionRenderImpl key="actionRender" value={value} />,
+			<ActionRenderImpl key="actionRender" />,
 		];
 	};
 
 function HomeIcon() {
 	const navigate = useNavigate();
+	const { locale } = useParams();
 	return (
 		<HomeFilled
 			onClick={() => {
-				navigate("/");
+				navigate(href("/:locale?", { locale: locale }));
 			}}
 		/>
 	);

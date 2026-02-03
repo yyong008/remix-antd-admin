@@ -2,11 +2,11 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 import { CreateBlogModal } from "./components/CreateBlogModal";
 import { createColumns } from "./components/createColumns";
-import { useParams } from "react-router";
+import { href, useParams } from "react-router";
 import { useState } from "react";
 
 export function Route() {
-	const { lang } = useParams();
+	const { locale } = useParams();
 	const [page, setPage] = useState({
 		page: 1,
 		pageSize: 10,
@@ -28,7 +28,7 @@ export function Route() {
 				toolBarRender={() => [
 					<CreateBlogModal key="create" refetch={refetch} />,
 				]}
-				columns={createColumns({ lang, refetch })}
+				columns={createColumns({ locale, refetch })}
 				options={{
 					reload: refetch,
 				}}

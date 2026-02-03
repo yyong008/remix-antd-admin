@@ -1,8 +1,8 @@
 import { Button, Result } from "antd";
-import { useLocation, useNavigate, useParams } from "react-router";
+import { href, useLocation, useNavigate, useParams } from "react-router";
 
 export function Route() {
-	const { lang } = useParams();
+	const { locale } = useParams();
 	const state = useLocation().state;
 	const nav = useNavigate();
 	if (!state || !state?.title) {
@@ -19,7 +19,7 @@ export function Route() {
 					type="primary"
 					key="console"
 					onClick={() => {
-						nav(`/${lang}/news/${state.id}`);
+						nav(href("/:locale?/news/:id", { locale, id: state.id }));
 					}}
 				>
 					Go Read
@@ -27,7 +27,7 @@ export function Route() {
 				<Button
 					key="buy"
 					onClick={() => {
-						nav(`/${lang}/admin/news/edit`);
+						nav(href("/:locale?/admin/news/edit", { locale }));
 					}}
 				>
 					To Create News Again
