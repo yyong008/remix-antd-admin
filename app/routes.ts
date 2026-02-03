@@ -74,18 +74,9 @@ export const adminRoutes = [
 				route("result", "routes/admin/blog/result.tsx"),
 			]),
 			...prefix("profile", [
-				route("account", "routes/admin/profile/account.tsx"),
-				...prefix("link", [
-					...prefix("category", [
-						index(
-							"routes/admin/profile/link/category.tsx",
-						),
-						route(
-							":id",
-							"routes/admin/profile/link/category-detail.tsx",
-						),
-					]),
-				]),
+				route("home", "routes/admin/profile/account.tsx"),
+				route("link", "routes/admin/profile/link/category.tsx"),
+				route("link-category", "routes/admin/profile/link/category-detail.tsx"),
 			]),
 			...prefix("system", [
 				route("config", "routes/admin/system/config.tsx"),
