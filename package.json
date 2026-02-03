@@ -45,7 +45,7 @@
 		"drizzle:push": "drizzle-kit push",
 		"drizzle:migrate": "drizzle-kit migrate",
 		"postinstall": "fumadocs-mdx",
-		"db:seed": "dotenv -c -w ./.env  tsx db/seed.ts"
+		"db:seed": "dotenv -c -e ./.env  tsx db/seed.ts"
 	},
 	"dependencies": {
 		"@ant-design/cssinjs": "^2.0.3",

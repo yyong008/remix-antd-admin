@@ -59,11 +59,12 @@ function unwrapResult<T>(result: AuthResult<T>, fallbackMessage: string) {
 export function useLogin() {
 	return useMutation({
 		mutationFn: async ({ email, password, token }: LoginPayload) => {
-			if (!email || !password || !token) {
+			const resolvedEmail = normalizeAuthEmail(email);
+			if (!resolvedEmail || !password || !token) {
 				throw new Error("请输入账号和密码");
 			}
 			const result = await authClient.signIn.email({
-				email,
+				email: resolvedEmail,
 				password,
 				fetchOptions: {
 					headers: {

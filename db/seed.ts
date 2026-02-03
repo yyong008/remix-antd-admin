@@ -151,6 +151,7 @@ const menuSeeds: MenuSeed[] = [
 	},
 	{
 		key: "news-category",
+
 		parentKey: "news",
 		name: "News Category",
 		type: 2,
