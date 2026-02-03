@@ -1,4 +1,4 @@
-import { and, asc, count, desc, inArray, like } from "drizzle-orm";
+import { and, asc, count, desc, eq, inArray, like } from "drizzle-orm";
 import { db } from "@/libs/neon";
 import { storages } from "db/schema";
 

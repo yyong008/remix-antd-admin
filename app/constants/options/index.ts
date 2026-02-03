@@ -1,4 +1,4 @@
-export const optionsLang = [
+export const optionsLocale = [
 	{
 		label: "zh",
 		value: "zh",

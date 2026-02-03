@@ -5,7 +5,7 @@ import {
 	ProFormTextArea,
 	ProFormTreeSelect,
 } from "@ant-design/pro-components";
-import { optionsLang, optionsStatus, optionsTheme } from "@/constants/options";
+import { optionsLocale, optionsStatus, optionsTheme } from "@/constants/options";
 
 import UploadWithCrop from "@/components/common/UploadWithCrop";
 
@@ -83,10 +83,10 @@ export function UserModalFormItems(props: UserModalFormItemProps) {
 			<ProFormText name="email" label="邮箱" placeholder="请输入" />
 			<ProFormText name="phone" label="手机号" placeholder="请输入" />
 			<ProFormSelect
-				name="lang"
+				name="locale"
 				label="语言"
 				placeholder="请输入名称"
-				options={optionsLang}
+				options={optionsLocale}
 				fieldProps={{
 					defaultValue: "en",
 				}}

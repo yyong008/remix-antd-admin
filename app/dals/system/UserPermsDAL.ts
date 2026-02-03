@@ -1,6 +1,6 @@
 import { menuDAL } from "./MenuDAL";
 
-async function getFlatMenuByUserId(userId: number) {
+async function getFlatMenuByUserId(userId: string) {
 	const menus = await menuDAL.getMenuTreeByUserId(userId);
 	const filtered = menus.filter((menu) => menu.type !== 3);
 	const unique = new Map<number, any>();
@@ -10,7 +10,7 @@ async function getFlatMenuByUserId(userId: number) {
 	return Array.from(unique.values());
 }
 
-async function getAllFlatMenuByUserId(userId: number) {
+async function getAllFlatMenuByUserId(userId: string) {
 	const menus = await menuDAL.getMenuTreeByUserId(userId);
 	const unique = new Map<number, any>();
 	for (const menu of menus) {
@@ -19,7 +19,7 @@ async function getAllFlatMenuByUserId(userId: number) {
 	return Array.from(unique.values());
 }
 
-async function getUserPerms(userId: number) {
+async function getUserPerms(userId: string) {
 	const menus = await getAllFlatMenuByUserId(userId);
 	return menus.filter((e) => e.permission).map((m) => m.permission);
 }

@@ -444,28 +444,28 @@ const adminSchemas = {
 				ids: z.array(z.number()),
 			}),
 		},
-		storage: {
-			CREATE: z.object({
-				type: z.string(),
-				size: z.string(),
-				path: z.string(),
-				extName: z.string(),
-				fileName: z.string(),
-				createdAt: z.date().optional(),
-				updatedAt: z.date().optional(),
-				userId: z.number(),
-			}),
-			UPDATE: z.object({
-				id: z.number(),
-				type: z.string(),
-				size: z.string(),
-				path: z.string(),
-				extName: z.string(),
-				fileName: z.string(),
-				createdAt: z.date().optional(),
-				updatedAt: z.date().optional(),
-				userId: z.number(),
-			}),
+			storage: {
+				CREATE: z.object({
+					type: z.string(),
+					size: z.string(),
+					path: z.string(),
+					extName: z.string(),
+					fileName: z.string(),
+					createdAt: z.date().optional(),
+					updatedAt: z.date().optional(),
+					userId: z.string(),
+				}),
+				UPDATE: z.object({
+					id: z.number(),
+					type: z.string(),
+					size: z.string(),
+					path: z.string(),
+					extName: z.string(),
+					fileName: z.string(),
+					createdAt: z.date().optional(),
+					updatedAt: z.date().optional(),
+					userId: z.string(),
+				}),
 			READ: z.object({
 				id: z.number(),
 			}),
@@ -511,7 +511,7 @@ const adminSchemas = {
 	profile: {
 		account: {
 			READ: z.object({
-				id: z.number(),
+				id: z.string(),
 			}),
 		},
 		link: {
@@ -544,13 +544,13 @@ const adminSchemas = {
 				CREATE: z.object({
 					name: z.string(),
 					description: z.string().optional(),
-					userId: z.number(),
+					userId: z.string(),
 				}),
 				UPDATE: z.object({
 					id: z.number(),
 					name: z.string(),
 					description: z.string().optional(),
-					userId: z.number(),
+					userId: z.string(),
 				}),
 				READ: z.object({
 					id: z.number(),

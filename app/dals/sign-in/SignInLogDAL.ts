@@ -8,7 +8,7 @@ async function create(data: any) {
 	return created[0];
 }
 
-async function getLatestById(id: number) {
+async function getLatestById(id: string) {
 	const { startTime, endTime } = serverUtils.getTodayTime();
 	const rows = await db
 		.select()

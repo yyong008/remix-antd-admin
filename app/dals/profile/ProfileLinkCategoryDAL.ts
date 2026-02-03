@@ -7,7 +7,7 @@ async function getCount() {
 	return rows[0]?.count ?? 0;
 }
 
-async function getCountByUserId(userId: number) {
+async function getCountByUserId(userId: string) {
 	const rows = await db
 		.select({ count: count() })
 		.from(linkCategories)

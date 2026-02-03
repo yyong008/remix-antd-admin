@@ -28,7 +28,7 @@ async function getAll() {
 	return await db.select().from(news);
 }
 
-async function getListByUserId(userId: number) {
+async function getListByUserId(userId: string) {
 	return await db.select().from(news).where(eq(news.userId, userId));
 }
 

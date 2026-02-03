@@ -58,10 +58,13 @@ export async function uploadHandler(c: Context) {
 		const buffer = Buffer.from(await file.arrayBuffer());
 		fs.writeFileSync(filePath, buffer);
 
-		// const userId = (await getSystemUserIdFromRequest(c.req.raw)) ?? 1;
+		const userId = c.get("userId");
+		if (!userId) {
+			return rfj({}, "No Authorization No User", { status: 401 });
+		}
 
 		const result = await storageDAL.create({
-			userId: 1,
+			userId,
 			name: file.name,
 			fileName: uniqueFileName,
 			extName: extname(file.name),

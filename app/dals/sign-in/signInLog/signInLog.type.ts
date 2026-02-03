@@ -8,5 +8,5 @@ export interface IUserSignInLog {
 	getUserSignInLogById$(id: number): Promise<any>;
 	getUserSignInLogPage$(data: TPage): Promise<any>;
 	// 用户今天是否签到
-	getUserTodayIsSignInById$(id: number): Promise<any>;
+	getUserTodayIsSignInById$(id: string): Promise<any>;
 }

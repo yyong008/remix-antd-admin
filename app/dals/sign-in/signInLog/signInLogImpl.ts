@@ -9,7 +9,7 @@ const createUserSignInLog$ = async (data: any) => {
 };
 
 const getUserTodayIsSignInById$: IUserSignInLog["getUserTodayIsSignInById$"] = (
-	id: number,
+	id: string,
 ) => {
 	const { startTime, endTime } = serverUtils.getTodayTime();
 
@@ -33,7 +33,7 @@ async function createUserSignInLog(data: any) {
 	return created[0];
 }
 
-async function getUserTodayUserSignLogById(id: number) {
+async function getUserTodayUserSignLogById(id: string) {
 	const { startTime, endTime } = serverUtils.getTodayTime();
 
 	const rows = await db

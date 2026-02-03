@@ -29,7 +29,7 @@ async function deleteByIds(ids: number[]) {
 		.returning();
 }
 
-async function getListByUserId(userId: number) {
+async function getListByUserId(userId: string) {
 	return await db
 		.select()
 		.from(blogCategories)

@@ -52,7 +52,7 @@ async function getAllFilterPermMenu() {
 	return rows.map(mapMenu);
 }
 
-async function getMenuTreeByUserId(userId: number) {
+async function getMenuTreeByUserId(userId: string) {
 	const rows = await db
 		.select()
 		.from(menus)

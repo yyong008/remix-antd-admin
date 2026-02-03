@@ -1,61 +1,64 @@
 import { and, count, desc, eq, inArray, like } from "drizzle-orm";
 import type { TPage } from "~/types";
 import { db } from "@/libs/neon";
-import { departments, roles, userRoles, users } from "db/schema";
+import { departments, roles, userRoles, user } from "db/schema";
+import { auth } from "~/libs/auth/server";
 
-async function getById(id: number) {
+async function getById(id: string) {
 	const rows = await db
-		.select({
-      lang: users.lang,
-      name: users.name,
-      avatar: users.avatar,
-      createdAt: users.createdAt,
-      email: users.email,
-      nickname: users.nickname,
-    })
-		.from(users)
-		.leftJoin(departments, eq(users.departmentId, departments.id))
-		.where(eq(users.id, id))
+		.select()
+		.from(user)
+		.leftJoin(departments, eq(user.departmentId, departments.id))
+		.where(eq(user.id, id))
 		.limit(1);
 
 	const row = rows[0];
 	if (!row) return null;
-  return row
-	// };
-}
-
-async function getByAuthUserId(authUserId: string) {
-	const rows = await db
-		.select()
-		.from(users)
-		.where(eq(users.authUserId, authUserId))
-		.limit(1);
-	return rows[0] ?? null;
+	return {
+		id: row.user.id,
+		avatar: row.user.avatar ?? row.user.image ?? null,
+		email: row.user.email,
+		name: row.user.name,
+		nickname: row.user.nickname,
+			locale: row.user.locale,
+		theme: row.user.theme,
+		phone: row.user.phone,
+		remark: row.user.remark,
+		status: row.user.status,
+		createdAt: row.user.createdAt,
+		updatedAt: row.user.updatedAt,
+		department: row.departments
+			? {
+					id: row.departments.id,
+					name: row.departments.name,
+				}
+			: null,
+	};
 }
 
 async function getCount() {
-	const rows = await db.select({ count: count() }).from(users);
+	const rows = await db.select({ count: count() }).from(user);
 	return rows[0]?.count ?? 0;
 }
 
 async function getList({ page = 1, pageSize = 10, name = "" }: TPage) {
 	const conditions = [] as any[];
 	if (name) {
-		conditions.push(like(users.name, `%${name}%`));
+		conditions.push(like(user.name, `%${name}%`));
 	}
 
 	let query = db
 		.select()
-		.from(users)
-		.leftJoin(departments, eq(users.departmentId, departments.id));
+		.from(user)
+		.leftJoin(departments, eq(user.departmentId, departments.id));
 	if (conditions.length) query = query.where(and(...conditions));
 
 	const userRows = await query
-		.orderBy(desc(users.id))
+		.orderBy(desc(user.createdAt))
 		.limit(pageSize)
 		.offset((page - 1) * pageSize);
 
-	const userIds = userRows.map((row) => row.users.id);
+	const userIds = userRows.map((row) => row.user.id);
 	const roleRows = userIds.length
 		? await db
 				.select()
@@ -64,7 +67,7 @@ async function getList({ page = 1, pageSize = 10, name = "" }: TPage) {
 				.where(inArray(userRoles.userId, userIds))
 		: [];
 
-	const roleMap = new Map<number, any[]>();
+	const roleMap = new Map<string, any[]>();
 	for (const row of roleRows) {
 		const userId = row.userRoles.userId;
 		const list = roleMap.get(userId) ?? [];
@@ -73,95 +76,126 @@ async function getList({ page = 1, pageSize = 10, name = "" }: TPage) {
 	}
 
 	return userRows.map((row) => ({
-		id: row.users.id,
-		avatar: row.users.avatar,
-		email: row.users.email,
-		name: row.users.name,
-		nickname: row.users.nickname,
-		lang: row.users.lang,
-		theme: row.users.theme,
-		phone: row.users.phone,
-		remark: row.users.remark,
-		status: row.users.status,
-		createdAt: row.users.createdAt,
-		updatedAt: row.users.updatedAt,
+		id: row.user.id,
+		avatar: row.user.avatar ?? row.user.image ?? null,
+		email: row.user.email,
+		name: row.user.name,
+		nickname: row.user.nickname,
+		locale: row.user.locale,
+		theme: row.user.theme,
+		phone: row.user.phone,
+		remark: row.user.remark,
+		status: row.user.status,
+		createdAt: row.user.createdAt,
+		updatedAt: row.user.updatedAt,
 		department: row.departments
 			? {
 					id: row.departments.id,
 					name: row.departments.name,
 				}
 			: null,
-		UserRole: roleMap.get(row.users.id) ?? [],
+		UserRole: roleMap.get(row.user.id) ?? [],
 	}));
 }
 
+function normalizeAuthEmail(input: string) {
+	const value = input.trim().toLowerCase();
+	if (!value) return value;
+	return value.includes("@") ? value : `${value}@local`;
+}
+
 async function create(data: any) {
-	return db.transaction(async (tx) => {
-		const created = await tx
-			.insert(users)
-			.values({
-				avatar: data.avatar,
-				name: data.name,
-				password: data.password,
-				nickname: data.nickname,
-				email: data.email,
-				lang: data.lang,
-				theme: data.theme,
-				remark: data.remark,
-				departmentId: data.departmentId as number,
-				phone: data.phone,
-				status: data.status,
-			})
-			.returning();
-		const user = created[0];
-		if (!user?.id) {
-			throw new Error("create user fail");
-		}
-		const rolesList = data.roles ?? [];
-		if (rolesList.length) {
-			await tx.insert(userRoles).values(
-				rolesList.map((roleId: number) => ({
-					roleId,
-					userId: user.id,
-				})),
-			);
-		}
-		return user;
+	const rawEmail = data?.email ?? data?.name ?? "";
+	const email = normalizeAuthEmail(rawEmail);
+	if (!email || !data?.password || !data?.name) {
+		throw new Error("Missing required user fields");
+	}
+
+	const existing = await db
+		.select()
+		.from(user)
+		.where(eq(user.email, email))
+		.limit(1);
+	if (existing[0]) {
+		throw new Error("User already exists");
+	}
+
+	// Create auth user via better-auth
+	// @ts-expect-error - better-auth endpoint typing is stricter than server usage
+	await auth.api.signUpEmail({
+		body: {
+			name: data.name,
+			email,
+			password: data.password,
+		},
 	});
+
+	const created = await db
+		.select()
+		.from(user)
+		.where(eq(user.email, email))
+		.limit(1);
+	const authUser = created[0];
+	if (!authUser?.id) {
+		throw new Error("create user fail");
+	}
+
+	await db
+		.update(user)
+		.set({
+			nickname: data.nickname,
+			avatar: data.avatar,
+			image: data.image ?? data.avatar,
+			locale: data.locale,
+			theme: data.theme,
+			remark: data.remark,
+			phone: data.phone,
+			status: data.status,
+			departmentId: data.departmentId as number | null,
+		})
+		.where(eq(user.id, authUser.id));
+
+	const rolesList = data.roles ?? [];
+	if (rolesList.length) {
+		await db.insert(userRoles).values(
+			rolesList.map((roleId: number) => ({
+				roleId,
+				userId: authUser.id,
+			})),
+		);
+	}
+
+	return authUser;
 }
 
 async function update({ id, ...data }: any) {
 	return db.transaction(async (tx) => {
-		const existing = await tx
-			.select()
-			.from(users)
-			.where(eq(users.id, id))
-			.limit(1);
+		const existing = await tx.select().from(user).where(eq(user.id, id)).limit(1);
 		if (!existing[0]) {
-			throw new Error("create user fail");
+			throw new Error("update user fail");
 		}
 
 		const updated = await tx
-			.update(users)
+			.update(user)
 			.set({
 				avatar: data.avatar,
+				image: data.image ?? data.avatar,
 				name: data.name,
-				password: data.password,
 				nickname: data.nickname,
 				email: data.email,
-				lang: data.lang,
+				locale: data.locale,
 				theme: data.theme,
 				remark: data.remark,
 				departmentId: data.departmentId,
 				phone: data.phone,
 				status: data.status,
 			})
-			.where(eq(users.id, id))
+			.where(eq(user.id, id))
 			.returning();
 
-		const user = updated[0];
-		if (!user?.id) {
-			throw new Error("create user fail");
+		const authUser = updated[0];
+		if (!authUser?.id) {
+			throw new Error("update user fail");
 		}
 
 		await tx.delete(userRoles).where(eq(userRoles.userId, id));
@@ -170,28 +204,27 @@ async function update({ id, ...data }: any) {
 			await tx.insert(userRoles).values(
 				rolesList.map((roleId: number) => ({
 					roleId,
-					userId: user.id,
+					userId: authUser.id,
 				})),
 			);
 		}
-		return user;
+		return authUser;
 	});
 }
 
-async function deleteByIds(ids: number[]) {
+async function deleteByIds(ids: string[]) {
 	return db.transaction(async (tx) => {
 		await tx.delete(userRoles).where(inArray(userRoles.userId, ids));
 		const deleted = await tx
-			.delete(users)
-			.where(inArray(users.id, ids))
-			.returning({ id: users.id });
+			.delete(user)
+			.where(inArray(user.id, ids))
+			.returning({ id: user.id });
 		return { count: deleted.length };
 	});
 }
 
 export const userDAL = {
 	getById,
-	getByAuthUserId,
 	getCount,
 	getList,
 	create,

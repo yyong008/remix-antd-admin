@@ -26,7 +26,7 @@ async function getLoginLogList(data: TPage) {
 		.offset(((data.page ?? 1) - 1) * (data.pageSize ?? 10));
 }
 
-async function getLoginLogLatestByUserId(userId: number) {
+async function getLoginLogLatestByUserId(userId: string) {
 	const rows = await db
 		.select()
 		.from(loginLogs)

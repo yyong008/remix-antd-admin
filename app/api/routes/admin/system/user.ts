@@ -1,12 +1,7 @@
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../../../types";
-import {
-	bcryptUtil,
-	getSearchParams,
-	getSearchParamsPage,
-	getSearchParamsPageSize,
-} from "~/utils/server";
+import { getSearchParams, getSearchParamsPage, getSearchParamsPageSize } from "~/utils/server";
 import { signInLog } from "~/dals/sign-in/SignInLogDAL";
 import { userDAL } from "~/dals/system/UserDAL";
 import { userPermsDAL } from "~/dals/system/UserPermsDAL";
@@ -35,8 +30,7 @@ userRouter.get("/", async (c) => {
 
 userRouter.get("/info", async (c) => {
 	try {
-		const userId = c.get("userId");
-    console.log("userId", userId)
+	const userId = c.get("userId");
 		if (!userId) {
 			return rfj({}, "No Authorization No User", { status: 401 });
 		}
@@ -50,7 +44,7 @@ userRouter.get("/info", async (c) => {
 
 userRouter.get("/:id", async (c) => {
 	try {
-		const userId = Number(c.req.param("id"));
+		const userId = c.req.param("id");
 		if (!userId) {
 			return rfj({}, "Invalid User Id", { status: 400 });
 		}
@@ -65,9 +59,6 @@ userRouter.get("/:id", async (c) => {
 userRouter.post("/", async (c) => {
 	try {
 		const dto = await c.req.json();
-		if (dto.password) {
-			dto.password = bcryptUtil.hashPassword(dto.password);
-		}
 		const result = await userDAL.create(dto);
 		return rsj(result);
 	} catch (error) {
@@ -78,7 +69,7 @@ userRouter.post("/", async (c) => {
 userRouter.put("/:id", async (c) => {
 	try {
 		const dto = await c.req.json();
-		const id = Number(c.req.param("id"));
+		const id = c.req.param("id");
 		const result = await userDAL.update({ ...dto, id });
 		return rsj(result);
 	} catch (error) {
@@ -89,7 +80,8 @@ userRouter.put("/:id", async (c) => {
 userRouter.delete("/", async (c) => {
 	try {
 		const dto = await c.req.json();
-		const result = await userDAL.deleteByIds(dto.ids ?? []);
+		const ids = (dto.ids ?? []).map((id: any) => String(id));
+		const result = await userDAL.deleteByIds(ids);
 		return rsj(result ?? {});
 	} catch (error) {
 		return rfj(error as Error);

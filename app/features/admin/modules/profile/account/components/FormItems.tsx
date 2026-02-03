@@ -7,8 +7,8 @@ export function FormItems() {
 			<ProFormText label="昵称" name="nickname" />
 			<ProFormText label="邮箱" name="email" />
 			<ProFormText label="备注" name="remark" />
-			<ProFormText label="语言" name="theme" />
-			<ProFormText label="主题" name="lang" />
+			<ProFormText label="语言" name="locale" />
+			<ProFormText label="主题" name="theme" />
 			<ProFormDigit label="手机号" name="phone" />
 			<ProFormText label="创建时间" name="createdAt" />
 			<ProFormText label="部门" name="department" />

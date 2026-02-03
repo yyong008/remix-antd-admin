@@ -15,14 +15,14 @@ export const blogCategories = pgTable("blog_category", {
 	id: serial("id").primaryKey(),
 	name: text("name").notNull().unique(),
 	description: text("description"),
-	userId: integer("user_id").notNull(),
+	userId: uuid("user_id").notNull().references(() => user.id),
 });
 
 export const blogTags = pgTable("blog_tag", {
 	id: serial("id").primaryKey(),
 	name: text("name").notNull().unique(),
 	description: text("description"),
-	userId: integer("user_id").notNull(),
+	userId: uuid("user_id").notNull().references(() => user.id),
 });
 
 export const blogs = pgTable("blog", {
@@ -39,12 +39,12 @@ export const blogs = pgTable("blog", {
 	tagId: integer("tag_id")
 		.notNull()
 		.references(() => blogTags.id),
-	userId: integer("user_id").notNull(),
+	userId: uuid("user_id").notNull().references(() => user.id),
 });
 
 export const changeLogs = pgTable("change_log", {
 	id: serial("id").primaryKey(),
-	userId: integer("userId").notNull(),
+	userId: uuid("userId").notNull().references(() => user.id),
 	publishName: text("publish_name").notNull(),
 	publishVersion: text("publish_version").notNull(),
 	publishTime: timestamp("publish_time", { mode: "date" }).notNull(),
@@ -57,7 +57,7 @@ export const changeLogs = pgTable("change_log", {
 
 export const feedbacks = pgTable("feed_back", {
 	id: serial("id").primaryKey(),
-	userId: integer("userId").notNull(),
+	userId: uuid("userId").notNull().references(() => user.id),
 	content: text("content").notNull(),
 	url: text("url"),
 	createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
@@ -88,6 +88,14 @@ export const user = pgTable("user", {
 		.$defaultFn(() => false)
 		.notNull(),
 	image: text("image"),
+	nickname: text("nickname"),
+	avatar: text("avatar"),
+	locale: text("locale").notNull().default("en-US"),
+	theme: text("theme").notNull().default("light"),
+	phone: text("phone"),
+	remark: text("remark"),
+	status: integer("status"),
+	departmentId: integer("department_id"),
 	createdAt: timestamp("created_at")
 		.$defaultFn(() => /* @__PURE__ */ new Date())
 		.notNull(),
@@ -149,7 +157,7 @@ export const newsCategories = pgTable("news_category", {
 	id: serial("id").primaryKey(),
 	name: text("name").notNull().unique(),
 	description: text("description"),
-	userId: integer("user_id").notNull(),
+	userId: uuid("user_id").notNull().references(() => user.id),
 });
 
 export const news = pgTable("news", {
@@ -163,12 +171,12 @@ export const news = pgTable("news", {
 	newsId: integer("news_id")
 		.notNull()
 		.references(() => newsCategories.id),
-	userId: integer("user_id").notNull(),
+	userId: uuid("user_id").notNull().references(() => user.id),
 });
 
 export const operates = pgTable("Operate", {
 	id: serial("id").primaryKey(),
-	userId: integer("user_id").notNull(),
+	userId: uuid("user_id").notNull().references(() => user.id),
 	username: text("username"),
 	path: text("path").notNull(),
 	url: text("url").notNull(),
@@ -183,7 +191,7 @@ export const linkCategories = pgTable("profile_link_category", {
 	id: serial("id").primaryKey(),
 	name: text("name").notNull(),
 	description: text("description"),
-	userId: integer("user_id").notNull(),
+	userId: uuid("user_id").notNull().references(() => user.id),
 });
 
 export const links = pgTable("profile_link", {
@@ -194,7 +202,7 @@ export const links = pgTable("profile_link", {
 	categoryId: integer("category_id")
 		.notNull()
 		.references(() => linkCategories.id),
-	userId: integer("user_id").notNull(),
+	userId: uuid("user_id").notNull().references(() => user.id),
 });
 
 export const departments = pgTable(
@@ -250,7 +258,7 @@ export const loginLogs = pgTable("sys_loginlog", {
 	loginAt: timestamp("login_at", { mode: "date" }).notNull().defaultNow(),
 	system: text("system"),
 	browser: text("browser"),
-	userId: integer("userId").notNull(),
+	userId: uuid("userId").notNull().references(() => user.id),
 });
 
 export const menus = pgTable(
@@ -306,30 +314,11 @@ export const menuRoles = pgTable("sys_menu_role", {
 	updatedAt: timestamp("updatedAt", { mode: "date" }),
 });
 
-export const users = pgTable("sys_user", {
-	id: serial("id").primaryKey(),
-	avatar: text("avatar"),
-	email: text("email"),
-	name: text("name").notNull(),
-	nickname: text("nickname"),
-	password: text("password").notNull(),
-	lang: text("lang").notNull().default("en-US"),
-	theme: text("theme").notNull().default("light"),
-	phone: text("phone"),
-	remark: text("remark"),
-	status: integer("status"),
-	createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
-	updatedAt: timestamp("updatedAt", { mode: "date" }),
-	departmentId: integer("department_id").references(() => departments.id, {
-		onDelete: "cascade",
-	}),
-});
-
 export const userRoles = pgTable("sys_user_role", {
 	id: serial("id").primaryKey(),
-	userId: integer("user_id")
+	userId: uuid("user_id")
 		.notNull()
-		.references(() => users.id),
+		.references(() => user.id),
 	roleId: integer("role_id")
 		.notNull()
 		.references(() => roles.id),
@@ -339,7 +328,7 @@ export const userRoles = pgTable("sys_user_role", {
 
 export const userSignLogs = pgTable("user_sign_log", {
 	id: serial("id").primaryKey(),
-	userId: integer("userId").notNull(),
+	userId: uuid("userId").notNull().references(() => user.id),
 	signType: integer("sign_type").notNull(),
 	signTime: timestamp("sign_time", { mode: "date" }).notNull(),
 	createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
@@ -348,7 +337,7 @@ export const userSignLogs = pgTable("user_sign_log", {
 
 export const userSigns = pgTable("user_sign", {
 	id: serial("id").primaryKey(),
-	userId: integer("userId").notNull(),
+	userId: uuid("userId").notNull().references(() => user.id),
 	resignNums: integer("resign_nums").notNull(),
 	signedNums: integer("signed_nums").notNull(),
 	continuitySignedNums: integer("continuity_signed_nums").notNull(),
@@ -358,7 +347,7 @@ export const storages = pgTable("tools_storage", {
 	id: serial("id").primaryKey(),
 	createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
 	updatedAt: timestamp("updatedAt", { mode: "date" }),
-	userId: integer("user_id").notNull(),
+	userId: uuid("user_id").notNull().references(() => user.id),
 	name: text("name").notNull(),
 	fileName: text("file_name").notNull(),
 	extName: text("ext_name").notNull(),
@@ -367,9 +356,14 @@ export const storages = pgTable("tools_storage", {
 	type: text("type").notNull(),
 });
 
-export const authUserRelations = relations(user, ({ many }) => ({
+export const authUserRelations = relations(user, ({ many, one }) => ({
 	accounts: many(account),
 	sessions: many(session),
+	userRoles: many(userRoles),
+	department: one(departments, {
+		fields: [user.departmentId],
+		references: [departments.id],
+	}),
 }));
 
 export const authAccountRelations = relations(account, ({ one }) => ({
@@ -431,7 +425,7 @@ export const departmentRelations = relations(departments, ({ one, many }) => ({
 		relationName: "department_parent",
 	}),
 	children: many(departments, { relationName: "department_parent" }),
-	users: many(users),
+	users: many(user),
 }));
 
 export const dictionaryRelations = relations(dictionaries, ({ many }) => ({
@@ -468,15 +462,7 @@ export const roleRelations = relations(roles, ({ many }) => ({
 	userRoles: many(userRoles),
 }));
 
-export const userRelations = relations(users, ({ one, many }) => ({
-	department: one(departments, {
-		fields: [users.departmentId],
-		references: [departments.id],
-	}),
-	userRoles: many(userRoles),
-}));
-
 export const userRoleRelations = relations(userRoles, ({ one }) => ({
-	user: one(users, { fields: [userRoles.userId], references: [users.id] }),
+	user: one(user, { fields: [userRoles.userId], references: [user.id] }),
 	role: one(roles, { fields: [userRoles.roleId], references: [roles.id] }),
 }));

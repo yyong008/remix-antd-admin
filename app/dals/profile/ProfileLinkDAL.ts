@@ -2,7 +2,7 @@ import { count, eq, inArray } from "drizzle-orm";
 import { db } from "@/libs/neon";
 import { links } from "db/schema";
 
-async function getCount(userId: number) {
+async function getCount(userId: string) {
 	const rows = await db
 		.select({ count: count() })
 		.from(links)
@@ -10,7 +10,7 @@ async function getCount(userId: number) {
 	return rows[0]?.count ?? 0;
 }
 
-async function getListByUserId(userId: number) {
+async function getListByUserId(userId: string) {
 	return await db.select().from(links).where(eq(links.userId, userId));
 }
 

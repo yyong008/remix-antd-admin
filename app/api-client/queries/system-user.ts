@@ -73,9 +73,9 @@ export function useUpdateUser() {
 export function useDeleteUser() {
 	const queryClient = useQueryClient();
 	return useMutation({
-		mutationFn: async (data: { ids: number[] }) => {
+		mutationFn: async (data: { ids: string[] }) => {
 			const res = await getApiClient().api.admin.system.user.$delete({
-				json: data,
+				json: { ids: data.ids.map((id) => String(id)) },
 			});
 			return res.json();
 		},

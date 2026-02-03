@@ -1,9 +1,9 @@
 import { eq } from "drizzle-orm";
 import { db } from "@/libs/neon";
-import { users } from "db/schema";
+import { user } from "db/schema";
 
-async function getById(id: number) {
-	const rows = await db.select().from(users).where(eq(users.id, id)).limit(1);
+async function getById(id: string) {
+	const rows = await db.select().from(user).where(eq(user.id, id)).limit(1);
 	return rows[0] ?? null;
 }
 

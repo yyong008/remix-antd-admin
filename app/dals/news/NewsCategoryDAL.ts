@@ -38,7 +38,7 @@ async function getListWithMore({ where, skip, take }: any) {
 	return await query;
 }
 
-async function getNewsCategoryListByUserId(userId: number) {
+async function getNewsCategoryListByUserId(userId: string) {
 	return await db
 		.select()
 		.from(newsCategories)

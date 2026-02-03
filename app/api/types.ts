@@ -1,5 +1,5 @@
 export type HonoEnv = {
 	Variables: {
-		userId: number;
+		userId: string;
 	};
 };

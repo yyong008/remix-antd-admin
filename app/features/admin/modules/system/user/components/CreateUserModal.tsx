@@ -1,5 +1,3 @@
-import * as clientUtils from "@/utils/client";
-
 import { CreateUserModalUI } from "./CreateUserModalUI";
 import { UserModalFormItems } from "./ModalFormItems";
 import { useCreateUser } from "~/api-client/queries/system-user";
@@ -29,8 +27,6 @@ export function CreateUserModal(props: CreateUserModalProps) {
 				}
 				if (!values.password) {
 					delete values.password;
-				} else {
-					values.password = clientUtils.genHashedPassword(values.password);
 				}
 				delete values.file;
 				const vals = { ...values, avatar };

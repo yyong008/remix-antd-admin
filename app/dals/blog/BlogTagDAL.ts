@@ -11,7 +11,7 @@ async function getList() {
 	return await db.select().from(blogTags);
 }
 
-async function getListByUserId(userId: number) {
+async function getListByUserId(userId: string) {
 	return await db.select().from(blogTags).where(eq(blogTags.userId, userId));
 }
 

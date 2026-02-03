@@ -1,19 +1,23 @@
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { db } from "@/libs/neon";
-import { users } from "db/schema";
+import { account, user } from "db/schema";
 
 async function findByUserName(name: string) {
 	try {
 		const rows = await db
 			.select({
-				id: users.id,
-				name: users.name,
-				password: users.password,
-				status: users.status,
-				email: users.email,
+				id: user.id,
+				name: user.name,
+				password: account.password,
+				status: user.status,
+				email: user.email,
 			})
-			.from(users)
-			.where(eq(users.name, name))
+			.from(user)
+			.leftJoin(
+				account,
+				and(eq(account.userId, user.id), eq(account.providerId, "credential")),
+			)
+			.where(eq(user.name, name))
 			.limit(1);
 		return rows[0] ?? null;
 	} catch (error) {
@@ -26,14 +30,18 @@ async function findByEmail(email: string) {
 	try {
 		const rows = await db
 			.select({
-				id: users.id,
-				name: users.name,
-				password: users.password,
-				status: users.status,
-				email: users.email,
+				id: user.id,
+				name: user.name,
+				password: account.password,
+				status: user.status,
+				email: user.email,
 			})
-			.from(users)
-			.where(eq(users.email, email))
+			.from(user)
+			.leftJoin(
+				account,
+				and(eq(account.userId, user.id), eq(account.providerId, "credential")),
+			)
+			.where(eq(user.email, email))
 			.limit(1);
 		return rows[0] ?? null;
 	} catch (error) {
