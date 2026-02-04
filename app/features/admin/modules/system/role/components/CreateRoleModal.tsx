@@ -4,6 +4,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { FormItems } from "./RoleFormItems";
 import { ModalForm } from "@ant-design/pro-components";
 import { useState } from "react";
+import { useCreateRole } from "~/api-client/queries/system-role";
 
 type CreateRoleModalProps = {
 	trigger?: React.ReactNode;
@@ -16,7 +17,7 @@ export function CreateRoleModal(props: CreateRoleModalProps) {
 	const { trigger, menu, refetch } = props;
 	const [form] = Form.useForm();
 	const [checkedKeys, setCheckedKeys] = useState<any[]>([]);
-	const [createRole] = [(...args: any[]): any => {}]; // todo
+	const createRole = useCreateRole();
 	const onCheck = (checkedKeys: any, info: any) => {
 		setCheckedKeys(checkedKeys);
 	};
@@ -45,7 +46,7 @@ export function CreateRoleModal(props: CreateRoleModalProps) {
 			}}
 			submitTimeout={2000}
 			onFinish={async (vals) => {
-				await createRole({ ...vals });
+				await createRole.mutateAsync({ ...vals });
 				refetch?.();
 				return true;
 			}}

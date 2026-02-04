@@ -5,6 +5,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { FormItems } from "./RoleFormItems";
 import { ModalForm } from "@ant-design/pro-components";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
+import { useUpdateRole } from "~/api-client/queries/system-role";
 
 type CreateRoleModalProps = {
 	trigger?: React.ReactNode;
@@ -18,7 +19,7 @@ export function UpdateRoleModal(props: CreateRoleModalProps) {
 	const [form] = Form.useForm();
 	const { colorPrimary } = useColorPrimary();
 	const [checkedKeys, setCheckedKeys] = useState<any[]>([]);
-	const [updateRole] = [(...args: any): any => {}];
+	const updateRole = useUpdateRole();
 
 	const onCheck = (checkedKeys: any, info: any) => {
 		setCheckedKeys(checkedKeys);
@@ -86,7 +87,7 @@ export function UpdateRoleModal(props: CreateRoleModalProps) {
 					id: record.id,
 				};
 
-				await updateRole(values);
+				await updateRole.mutateAsync(values);
 				refetch?.();
 				return true;
 			}}

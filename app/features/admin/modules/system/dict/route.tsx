@@ -5,15 +5,12 @@ import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
 import { createColumns } from "./components/create-columns";
 import { useState } from "react";
 import { useParams } from "react-router";
+import { useDictList } from "~/api-client/queries/system-dict";
 
 export function Route() {
 	const { locale } = useParams();
-	const [page] = useState({ page: 1, pageSize: 10 });
-	const { data, isLoading, refetch } = {
-		data: { data: { list: [] } },
-		isLoading: false,
-		refetch: () => {},
-	};
+	const [page, setPage] = useState({ page: 1, pageSize: 10 });
+	const { data, isLoading, refetch } = useDictList(page);
 	return (
 		<PageContainer>
 			<ProTable
@@ -30,6 +27,13 @@ export function Route() {
 				columns={createColumns({ locale, refetch })}
 				options={{
 					reload: refetch,
+				}}
+				pagination={{
+					total: data?.data?.total || 0,
+					pageSize: page.pageSize || 10,
+					onChange(pageNumber, pageSize) {
+						setPage({ page: pageNumber, pageSize });
+					},
 				}}
 			/>
 		</PageContainer>

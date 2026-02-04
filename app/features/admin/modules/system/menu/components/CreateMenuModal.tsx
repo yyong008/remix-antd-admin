@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import { MenuModalFormItems } from "./MenuModalFormItems";
 import { ModalForm } from "@ant-design/pro-components";
+import { useCreateMenu } from "~/api-client/queries/system-menu";
 
 type MenuModalProps = {
 	trigger?: () => void;
@@ -14,7 +15,7 @@ type MenuModalProps = {
 export function CreateMenuModal(props: MenuModalProps) {
 	const { trigger, menuNotPerm, refetch } = props;
 	const [form] = Form.useForm();
-	const [createMenu] = [(...args: any): any => {}];
+	const createMenu = useCreateMenu();
 
 	const [innerMenuNotPerm, setInnerMenuNotPerm] = useState<any>();
 
@@ -58,7 +59,7 @@ export function CreateMenuModal(props: MenuModalProps) {
 			}}
 			submitTimeout={2000}
 			onFinish={async (values: any) => {
-				await createMenu(values);
+				await createMenu.mutateAsync(values);
 				form.resetFields();
 				refetch?.();
 				return true;

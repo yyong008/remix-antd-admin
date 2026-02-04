@@ -6,6 +6,7 @@ import { ProTableFooter } from "./components/ProTableFooter";
 import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
 import { createColumns } from "./components/create-columns";
 import { useMemo } from "react";
+import { useDeptList } from "~/api-client/queries/system-dept";
 
 // Define TypeScript interfaces for better type safety
 interface DeptItem {
@@ -32,11 +33,10 @@ const listToTree = (list: DeptItem[]): TreeOption[] => {
 };
 
 export function Route() {
-	const { data, isLoading, refetch } = {
-		data: { data: { list: [], total: 0 } },
-		isLoading: false,
-		refetch: () => {},
-	};
+	const { data, isLoading, refetch } = useDeptList({
+		page: 1,
+		pageSize: 1000,
+	});
 
 	const treeOptions = useMemo(() => {
 		if (data?.data?.list) {

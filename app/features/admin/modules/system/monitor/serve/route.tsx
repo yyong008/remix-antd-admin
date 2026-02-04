@@ -6,6 +6,7 @@ import { Disk } from "./components/disk";
 import { Mem } from "./components/mem";
 import { OsRuntime } from "./components/os-runtime";
 import { PageContainer } from "@ant-design/pro-components";
+import { useMonitorServeInfo } from "~/api-client/queries/system-monitor-serve";
 
 export function Route() {
 	const [data, setData] = useState({
@@ -17,10 +18,10 @@ export function Route() {
 		currentLoadInfo: {},
 	});
 
-	const { data: _data, isLoading } = { data: { data }, isLoading: false };
+	const { data: _data, isLoading } = useMonitorServeInfo();
 	useEffect(() => {
-		if (_data && _data.data) {
-			setData(_data?.data);
+		if (_data?.code === 0 && _data.data) {
+			setData(_data.data);
 		}
 	}, [_data, isLoading]);
 

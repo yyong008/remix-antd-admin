@@ -2,17 +2,14 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 
 import { createColumns } from "./components/createColumns";
 import { useState } from "react";
+import { useMonitorOperateList } from "~/api-client/queries/system-monitor-operate";
 
 export function Route() {
 	const [page, setPage] = useState({
 		page: 1,
 		pageSize: 10,
 	});
-	const { data, isLoading, refetch } = {
-		data: { data: { list: [], total: 0 } },
-		isLoading: false,
-		refetch: () => {},
-	};
+	const { data, isLoading, refetch } = useMonitorOperateList(page);
 
 	return (
 		<PageContainer>

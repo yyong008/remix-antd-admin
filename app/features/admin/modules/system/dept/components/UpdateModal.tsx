@@ -4,6 +4,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { ModalForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItem";
 import { useAntdThemeToken } from "~/hooks/useAntdThemeToken";
+import { useUpdateDept } from "~/api-client/queries/system-dept";
 
 type UpdateDeptModalProps = {
 	trigger?: any;
@@ -15,7 +16,7 @@ type UpdateDeptModalProps = {
 export function UpdateDeptModal(props: UpdateDeptModalProps) {
 	const { trigger, record, treeOptions, refetch } = props;
 	const [form] = Form.useForm();
-	const [updateDept] = [(...args: any): any => {}];
+	const updateDept = useUpdateDept();
 	const token = useAntdThemeToken();
 
 	return (
@@ -56,9 +57,9 @@ export function UpdateDeptModal(props: UpdateDeptModalProps) {
 				if (record.id) {
 					vals.id = record.id;
 				}
-				const result: any = await updateDept(vals).unwrap();
-				if (result.code !== 0) {
-					message.error(result.message ?? "删除失败");
+				const result: any = await updateDept.mutateAsync(vals);
+				if (result?.code !== 0) {
+					message.error(result?.message ?? "更新失败");
 					return false;
 				}
 

@@ -3,6 +3,7 @@ import { Button, Form, message } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { ModalForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItem";
+import { useCreateDept } from "~/api-client/queries/system-dept";
 
 type CreateDeptModalProps = {
 	trigger?: JSX.Element;
@@ -13,7 +14,7 @@ type CreateDeptModalProps = {
 export function CreateDeptModal(props: CreateDeptModalProps) {
 	const { trigger, treeOptions, refetch } = props;
 	const [form] = Form.useForm();
-	const [createSystemDept] = [(...args: any[]): any => {}]; // todo
+	const createSystemDept = useCreateDept();
 	return (
 		<ModalForm
 			key={Date.now()}
@@ -39,9 +40,9 @@ export function CreateDeptModal(props: CreateDeptModalProps) {
 			}}
 			submitTimeout={2000}
 			onFinish={async (values: any) => {
-				const result: any = await createSystemDept(values).unwrap();
-				if (result.code !== 0) {
-					message.error(result.message ?? "删除失败");
+				const result: any = await createSystemDept.mutateAsync(values);
+				if (result?.code !== 0) {
+					message.error(result?.message ?? "创建失败");
 					return false;
 				}
 

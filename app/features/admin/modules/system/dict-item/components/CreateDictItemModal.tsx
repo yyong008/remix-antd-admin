@@ -4,6 +4,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { ModalForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItems";
 import { useParams } from "react-router";
+import { useCreateDictItem } from "~/api-client/queries/system-dict-item";
 
 type CreateDictModalProps = {
 	trigger?: any;
@@ -13,8 +14,9 @@ type CreateDictModalProps = {
 export function CreateDictItemModal(props: CreateDictModalProps) {
 	const { trigger, refetch } = props;
 	const { id } = useParams();
+	const dictionaryId = Number(id);
 	const [form] = Form.useForm();
-	const [createDictItem] = [(...args: any): any => {}];
+	const createDictItem = useCreateDictItem();
 
 	return (
 		<ModalForm
@@ -42,8 +44,14 @@ export function CreateDictItemModal(props: CreateDictModalProps) {
 			}}
 			submitTimeout={2000}
 			onFinish={async (values: any) => {
-				const vals = { ...values, dictionary_id: Number(id) };
-				await createDictItem({ dictionary_id: Number(id), data: vals });
+				if (!dictionaryId) {
+					return false;
+				}
+				const vals = { ...values, dictionary_id: dictionaryId };
+				await createDictItem.mutateAsync({
+					dictionaryId,
+					data: vals,
+				});
 				refetch?.();
 				form.resetFields();
 				return true;

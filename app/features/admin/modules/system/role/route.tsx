@@ -6,20 +6,19 @@ import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
 import { createColumns } from "./components/create-columns";
 import { genMenuTreeForRole } from "./utils";
 import { usePage } from "~/hooks/usePagination";
-import { href, useParams } from "react-router";
+import { useParams } from "react-router";
+import { useMenuList } from "~/api-client/queries/system-menu";
+import { useMenuRoleList } from "~/api-client/queries/system-menu-role";
+import { useRoleList } from "~/api-client/queries/system-role";
 
 export function Route() {
-	const [page] = usePage();
+	const [page, setPage] = usePage();
 	const { locale } = useParams();
 	const actionRef = useRef<ActionType | null>(null);
-	const { data: flatMenu } = { data: { data: { list: [] } } };
-	const { data, isLoading, refetch } = {
-		data: { data: { list: [] } },
-		isLoading: false,
-		refetch: () => {},
-	};
-	const { data: menuRoleData } = { data: { data: { list: [] } } };
-	const menuRoles = menuRoleData?.data || [];
+	const { data: flatMenu } = useMenuList({ page: 1, pageSize: 1000 });
+	const { data, isLoading, refetch } = useRoleList(page);
+	const { data: menuRoleData } = useMenuRoleList();
+	const menuRoles = menuRoleData?.data?.list || [];
 
 	const menuAll = flatMenu?.data?.list || [];
 
@@ -43,6 +42,13 @@ export function Route() {
 				columns={createColumns({ locale, menus, menuRoles, refetch }) as any}
 				options={{
 					reload: refetch,
+				}}
+				pagination={{
+					total: data?.data?.total || 0,
+					pageSize: page.pageSize || 10,
+					onChange(pageNumber, pageSize) {
+						setPage({ page: pageNumber, pageSize });
+					},
 				}}
 				toolBarRender={() => [
 					<CreateRoleModal

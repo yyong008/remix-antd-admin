@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 import { MenuProTable } from "./components/MenuProTable";
 import { PageContainer } from "@ant-design/pro-components";
-import { useParams } from "react-router";
+import { useMenuFlatList, useMenuList } from "~/api-client/queries/system-menu";
 
 function removeType3(data: any[]) {
 	return data
@@ -16,16 +16,16 @@ function removeType3(data: any[]) {
 }
 
 export function Route() {
-	const { locale } = useParams();
-	const { data, isLoading, refetch } = {
-		data: { data: { list: [], total: 0 } },
-		isLoading: false,
-		refetch: () => {},
-	};
+	const { data, isLoading, refetch } = useMenuList({
+		page: 1,
+		pageSize: 1000,
+	});
+	const { data: flatData } = useMenuFlatList();
 	const menuTreeData = JSON.parse(JSON.stringify(data?.data?.list || []));
 	const menuTreeDataNotPerm = useMemo(() => {
-		return removeType3(JSON.parse(JSON.stringify(menuTreeData)) || []);
-	}, [menuTreeData]);
+		const list = flatData?.data?.list || menuTreeData;
+		return removeType3(JSON.parse(JSON.stringify(list)) || []);
+	}, [flatData, menuTreeData]);
 	return (
 		<PageContainer>
 			<MenuProTable

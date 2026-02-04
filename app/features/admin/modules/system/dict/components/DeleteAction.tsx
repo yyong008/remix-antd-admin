@@ -1,6 +1,7 @@
 import { Button, Form, Popconfirm, message } from "antd";
 
 import { DeleteOutlined } from "@ant-design/icons";
+import { useDeleteDict } from "~/api-client/queries/system-dict";
 
 type DeleteActionProps = {
 	record: any;
@@ -10,10 +11,7 @@ type DeleteActionProps = {
 
 export function DeleteAction(props: DeleteActionProps) {
 	const { record, title, refetch } = props;
-	const [deleteByIds, { isLoading }] = [
-		(...args: any): any => {},
-		{ isLoading: false },
-	];
+	const deleteByIds = useDeleteDict();
 
 	return (
 		<Form>
@@ -22,10 +20,10 @@ export function DeleteAction(props: DeleteActionProps) {
 				onConfirm={async () => {
 					const ids = [record.id];
 
-					const result = await deleteByIds({ ids }).unwrap();
+					const result: any = await deleteByIds.mutateAsync({ ids });
 
-					if (result.code !== 0) {
-						message.error(result.message ?? "删除失败");
+					if (result?.code !== 0) {
+						message.error(result?.message ?? "删除失败");
 						return;
 					}
 
@@ -37,7 +35,7 @@ export function DeleteAction(props: DeleteActionProps) {
 					type="link"
 					danger
 					icon={<DeleteOutlined />}
-					loading={isLoading}
+					loading={deleteByIds.isPending}
 				/>
 			</Popconfirm>
 		</Form>

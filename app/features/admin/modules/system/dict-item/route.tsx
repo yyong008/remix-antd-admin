@@ -6,20 +6,21 @@ import { CreateDictItemModal } from "./components/CreateDictItemModal";
 import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
 import { createColumns } from "./components/create-columns";
 import { useState } from "react";
+import { useDictItemList } from "~/api-client/queries/system-dict-item";
 
 export function Route() {
 	const nav = useNavigate();
 	const { id } = useParams();
+	const dictionaryId = Number(id);
 	const [page, setPage] = useState({
 		page: 1,
 		pageSize: 10,
-		dictionary_id: id,
 	});
-	const { data, isLoading, refetch } = {
-		data: { data: { list: [], total: 0 } },
-		isLoading: false,
-		refetch: () => {},
-	};
+	const { data, isLoading, refetch } = useDictItemList({
+		dictionaryId,
+		page: page.page,
+		pageSize: page.pageSize,
+	});
 	return (
 		<PageContainer>
 			<ProTable

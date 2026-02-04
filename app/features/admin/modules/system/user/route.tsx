@@ -7,6 +7,8 @@ import { createUserTableColumns } from "./components/createColumns";
 import { useUserList } from "~/api-client/queries/system-user";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { useQueryClient } from "@tanstack/react-query";
+import { useDeptList } from "~/api-client/queries/system-dept";
+import { useRoleList } from "~/api-client/queries/system-role";
 
 export function Route() {
 	const [page, setPage] = useState({
@@ -24,8 +26,8 @@ export function Route() {
 		queryClient.invalidateQueries({ queryKey: ["system-user"] });
 	};
 
-	const { data: deptsData } = { data: { data: { list: [] } } };
-	const { data: rolesData } = { data: { data: { list: [] } } };
+	const { data: deptsData } = useDeptList({ page: 1, pageSize: 1000 });
+	const { data: rolesData } = useRoleList({ page: 1, pageSize: 1000 });
 	const depts = deptsData?.data?.list || [];
 	const roles = rolesData?.data?.list || [];
 

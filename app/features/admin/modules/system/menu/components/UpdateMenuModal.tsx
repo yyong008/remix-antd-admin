@@ -5,6 +5,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { MenuModalFormItems } from "./MenuModalFormItems";
 import { ModalForm } from "@ant-design/pro-components";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
+import { useUpdateMenu } from "~/api-client/queries/system-menu";
 
 type MenuModalProps = {
 	trigger?: () => void;
@@ -22,7 +23,7 @@ export default function UpdateMenuModal({
 	const [form] = Form.useForm();
 	const { colorPrimary } = useColorPrimary();
 	const [innerMenuNotPerm, setInnerMenuNotPerm] = useState<any>();
-	const [updateMenu] = [(...args: any): any => {}];
+	const updateMenu = useUpdateMenu();
 
 	useEffect(() => {
 		const n = [
@@ -85,7 +86,7 @@ export default function UpdateMenuModal({
 				if (record.id) {
 					vals.id = record.id;
 				}
-				await updateMenu(vals);
+				await updateMenu.mutateAsync(vals);
 				refetch?.();
 				form.resetFields();
 				return true;
