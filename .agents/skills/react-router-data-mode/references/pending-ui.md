@@ -1,7 +1,7 @@
 ---
 title: Pending UI and Optimistic Updates
-description: Loading states, optimistic UI, useNavigation, and fetcher states
-tags: [pending-ui, optimistic-ui, loading, useNavigation, useFetcher, spinner]
+description: Loading states, optimistic UI with useNavigation and useFetcher
+tags: [pending-ui, optimistic-ui, useNavigation, useFetcher, loading, spinner]
 ---
 
 # Pending UI and Optimistic Updates
@@ -15,7 +15,6 @@ tags: [pending-ui, optimistic-ui, loading, useNavigation, useFetcher, spinner]
 | Optimistic mutations     | `useFetcher` + `formData` | Likes, ratings, toggles    |
 | Global loading indicator | `useNavigation`           | Page-level spinner         |
 | Link pending state       | `NavLink`                 | Nav item loading indicator |
-| Deferred data            | `Await` + `Suspense`      | Stream slow data           |
 
 For mutation patterns (when to use Form vs useFetcher), see [actions.md](./actions.md#choosing-the-right-pattern).
 
@@ -26,19 +25,17 @@ For mutation patterns (when to use Form vs useFetcher), see [actions.md](./actio
 Track global navigation state:
 
 ```tsx
-import { useNavigation } from "react-router";
+import { useNavigation, Outlet } from "react-router";
 
-export default function Root() {
+function Root() {
   const navigation = useNavigation();
   const isNavigating = Boolean(navigation.location);
 
   return (
-    <html>
-      <body className={isNavigating ? "loading" : ""}>
-        {isNavigating && <GlobalSpinner />}
-        <Outlet />
-      </body>
-    </html>
+    <div className={isNavigating ? "loading" : ""}>
+      {isNavigating && <GlobalSpinner />}
+      <Outlet />
+    </div>
   );
 }
 ```
@@ -62,6 +59,8 @@ const isSubmitting = navigation.state === "submitting";
 // Check if loading after submission
 const isLoading = navigation.state === "loading";
 ```
+
+---
 
 ## NavLink Pending State
 
@@ -89,6 +88,8 @@ Or use className:
   Dashboard
 </NavLink>
 ```
+
+---
 
 ## useFetcher for Local State
 
@@ -119,6 +120,8 @@ function LikeButton({ postId, liked }) {
 - `fetcher.data` - Data returned from the action/loader
 - `fetcher.formData` - Form data being submitted
 
+---
+
 ## Optimistic UI with useFetcher (Recommended Pattern)
 
 **This is the standard pattern for mutations.** Show the expected result immediately using `fetcher.formData`:
@@ -126,18 +129,18 @@ function LikeButton({ postId, liked }) {
 ```tsx
 import { useFetcher } from "react-router";
 
-function LikeButton({ postId, initialLiked }) {
+function FavoriteButton({ itemId, isFavorite }) {
   const fetcher = useFetcher();
 
-  // Optimistic: check pending form data first, fallback to server state
-  const liked = fetcher.formData
-    ? fetcher.formData.get("liked") === "true"
-    : initialLiked;
+  // Optimistic: use pending form data, fallback to server state
+  const optimistic = fetcher.formData
+    ? fetcher.formData.get("favorite") === "true"
+    : isFavorite;
 
   return (
-    <fetcher.Form method="post" action={`/posts/${postId}/like`}>
-      <input type="hidden" name="liked" value={String(!liked)} />
-      <button>{liked ? "❤️" : "🤍"}</button>
+    <fetcher.Form method="post" action={`/items/${itemId}/favorite`}>
+      <input type="hidden" name="favorite" value={String(!optimistic)} />
+      <button>{optimistic ? "★" : "☆"}</button>
     </fetcher.Form>
   );
 }
@@ -179,9 +182,11 @@ function RatingStars({ itemId, currentRating }) {
 - **No loading spinners needed** - the optimistic state IS the loading state
 - **Automatic rollback** - if the action fails, loaders revalidate and reset to server state
 
+---
+
 ## Optimistic UI with useNavigation
 
-For form submissions that navigate:
+For form submissions that navigate (using `<Form>` instead of `useFetcher`):
 
 ```tsx
 import { Form, useNavigation } from "react-router";
@@ -206,35 +211,7 @@ function NewProjectForm() {
 }
 ```
 
-## Skeleton Loading
-
-Show skeletons while data loads:
-
-```tsx
-import { Suspense } from "react";
-import { Await } from "react-router";
-
-export async function loader() {
-  return {
-    fastData: await getFastData(),
-    slowData: getSlowData(), // Don't await
-  };
-}
-
-export default function Page({ loaderData }: Route.ComponentProps) {
-  return (
-    <div>
-      <h1>{loaderData.fastData.title}</h1>
-
-      <Suspense fallback={<CommentsSkeleton />}>
-        <Await resolve={loaderData.slowData}>
-          {(data) => <Comments data={data} />}
-        </Await>
-      </Suspense>
-    </div>
-  );
-}
-```
+---
 
 ## Disabling During Submission
 
@@ -256,19 +233,192 @@ function ContactForm() {
 }
 ```
 
-## Busy Indicators with CSS
+With useFetcher:
 
-Use CSS for simple loading indicators:
+```tsx
+function CommentForm() {
+  const fetcher = useFetcher();
+  const isSubmitting = fetcher.state === "submitting";
 
-```css
-.loading {
-  opacity: 0.5;
-  pointer-events: none;
+  return (
+    <fetcher.Form method="post">
+      <textarea name="comment" disabled={isSubmitting} />
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Posting..." : "Post Comment"}
+      </button>
+    </fetcher.Form>
+  );
 }
 ```
 
+---
+
+## Skeleton Loading Patterns
+
+Show skeletons while data loads during navigation:
+
 ```tsx
-<body className={isNavigating ? "loading" : ""}>
+import { useNavigation, Outlet } from "react-router";
+
+function Root() {
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
+
+  return (
+    <div>
+      <nav>...</nav>
+      <main>{isLoading ? <PageSkeleton /> : <Outlet />}</main>
+    </div>
+  );
+}
+```
+
+### Route-specific Skeletons
+
+```tsx
+function Root() {
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
+  const nextPath = navigation.location?.pathname;
+
+  return (
+    <div>
+      <nav>...</nav>
+      <main>
+        {isLoading && nextPath?.startsWith("/dashboard") ? (
+          <DashboardSkeleton />
+        ) : isLoading ? (
+          <GenericSkeleton />
+        ) : (
+          <Outlet />
+        )}
+      </main>
+    </div>
+  );
+}
+```
+
+---
+
+## Busy Indicators with CSS
+
+```tsx
+function Root() {
+  const navigation = useNavigation();
+  const isNavigating = navigation.state !== "idle";
+
+  return (
+    <div style={{ opacity: isNavigating ? 0.5 : 1 }}>
+      <Outlet />
+    </div>
+  );
+}
+```
+
+---
+
+## Progress Indicators
+
+Show progress during slow navigations:
+
+```tsx
+import { useNavigation } from "react-router";
+
+function GlobalProgress() {
+  const navigation = useNavigation();
+  const isNavigating = navigation.state !== "idle";
+
+  if (!isNavigating) return null;
+
+  return <ProgressBar />;
+}
+
+function Root() {
+  return (
+    <div>
+      <GlobalProgress />
+      <nav>...</nav>
+      <Outlet />
+    </div>
+  );
+}
+```
+
+---
+
+## Complete Example
+
+```tsx
+import {
+  createBrowserRouter,
+  RouterProvider,
+  NavLink,
+  Outlet,
+  useNavigation,
+  useFetcher,
+} from "react-router";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    Component: Root,
+    children: [
+      { index: true, Component: Home },
+      {
+        path: "items/:itemId",
+        loader: async ({ params }) => fetchItem(params.itemId),
+        action: async ({ request, params }) => {
+          const formData = await request.formData();
+          return toggleFavorite(
+            params.itemId,
+            formData.get("favorite") === "true",
+          );
+        },
+        Component: Item,
+      },
+    ],
+  },
+]);
+
+function Root() {
+  const navigation = useNavigation();
+  const isNavigating = navigation.state !== "idle";
+
+  return (
+    <div style={{ opacity: isNavigating ? 0.5 : 1 }}>
+      <nav>
+        <NavLink
+          to="/"
+          className={({ isPending }) => (isPending ? "pending" : "")}
+        >
+          Home
+        </NavLink>
+      </nav>
+      {isNavigating && <GlobalSpinner />}
+      <Outlet />
+    </div>
+  );
+}
+
+function Item() {
+  const { item } = useLoaderData();
+  const fetcher = useFetcher();
+
+  // Optimistic UI
+  const isFavorite = fetcher.formData
+    ? fetcher.formData.get("favorite") === "true"
+    : item.isFavorite;
+
+  return (
+    <div>
+      <h1>{item.name}</h1>
+      <fetcher.Form method="post">
+        <input type="hidden" name="favorite" value={String(!isFavorite)} />
+        <button>{isFavorite ? "★ Favorited" : "☆ Add to Favorites"}</button>
+      </fetcher.Form>
+    </div>
+  );
+}
 ```
 
 ---
@@ -276,4 +426,5 @@ Use CSS for simple loading indicators:
 ## See Also
 
 - [actions.md](./actions.md) - Form handling and useFetcher patterns
-- [special-files.md](./special-files.md#customizing-roottsx-complete-example) - Global loading indicators in root.tsx
+- [navigation.md](./navigation.md) - NavLink and navigation
+- [React Router Pending UI Documentation](https://reactrouter.com/start/data/pending-ui)

@@ -147,24 +147,22 @@ export default function App() {
   const isNavigating = navigation.state !== "idle";
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="app-layout">
       {/* Global loading indicator */}
-      {isNavigating && (
-        <div className="fixed top-0 left-0 right-0 h-1 bg-blue-500 animate-pulse" />
-      )}
+      {isNavigating && <ProgressBar />}
 
       {/* Global navigation */}
-      <header className="border-b">
-        <nav className="container mx-auto px-4 py-3 flex gap-6">
+      <header className="app-header">
+        <nav className="app-nav">
           <NavLink
             to="/"
-            className={({ isActive }) => (isActive ? "font-bold" : "")}
+            className={({ isActive }) => (isActive ? "active" : "")}
           >
             Home
           </NavLink>
           <NavLink
             to="/products"
-            className={({ isActive }) => (isActive ? "font-bold" : "")}
+            className={({ isActive }) => (isActive ? "active" : "")}
           >
             Products
           </NavLink>
@@ -172,12 +170,12 @@ export default function App() {
       </header>
 
       {/* Page content */}
-      <main className="flex-1 container mx-auto px-4 py-8">
+      <main className="app-main">
         <Outlet />
       </main>
 
       {/* Global footer */}
-      <footer className="border-t py-6 text-center text-sm text-gray-500">
+      <footer className="app-footer">
         © {new Date().getFullYear()} My App
       </footer>
     </div>
