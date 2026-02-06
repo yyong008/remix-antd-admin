@@ -10,33 +10,33 @@ export function Route() {
 		pageSize: 10,
 	});
 	const { data, isLoading, refetch } = useMonitorOperateList(page);
-
-	return (
-		<PageContainer>
-			<ProTable
-				bordered
-				size="small"
-				search={false}
-				headerTitle="操作记录"
-				rowKey="id"
-				showSorterTooltip
-				dataSource={data?.data?.list || []}
-				columns={createColumns()}
-				loading={isLoading}
-				options={{
-					reload: refetch,
-				}}
-				pagination={{
-					total: data?.data?.total || 0,
-					pageSize: 10,
-					onChange(page, pageSize) {
-						setPage({
-							page,
-							pageSize,
-						});
-					},
-				}}
-			/>
-		</PageContainer>
-	);
+  return <div>sdf</div>
+	// return (
+	// 	<PageContainer>
+	// 		<ProTable
+	// 			bordered
+	// 			size="small"
+	// 			search={false}
+	// 			headerTitle="操作记录"
+	// 			rowKey="id"
+	// 			showSorterTooltip
+	// 			dataSource={data?.data?.list || []}
+	// 			columns={createColumns()}
+	// 			loading={isLoading}
+	// 			options={{
+	// 				reload: refetch,
+	// 			}}
+	// 			pagination={{
+	// 				total: data?.data?.total || 0,
+	// 				pageSize: 10,
+	// 				onChange(page, pageSize) {
+	// 					setPage({
+	// 						page,
+	// 						pageSize,
+	// 					});
+	// 				},
+	// 			}}
+	// 		/>
+	// 	</PageContainer>
+	// );
 }

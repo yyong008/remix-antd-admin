@@ -98,7 +98,7 @@ export function UpdateUserModalUI(props: UpdateUserModalProps) {
 			{...restProps}
 		>
 			<div className="flex flex-col gap-3">
-				<Alert message="不能在这里修改密码" type="warning" banner />
+				<Alert title="不能在这里修改密码" type="warning" banner />
 				{children}
 			</div>
 		</PUpdateModal>

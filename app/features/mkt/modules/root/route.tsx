@@ -18,7 +18,7 @@ export function RootRoute() {
 	const params = useParams();
 
 	return (
-		<html lang={params.locale || "en"}>
+		<html lang={params.locale || "en"} suppressHydrationWarning>
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />

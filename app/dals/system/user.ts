@@ -61,7 +61,7 @@ async function getList({ page = 1, pageSize = 10, name = "" }: TPage) {
 	const userIds = userRows.map((row) => row.user.id);
 	const roleRows = userIds.length
 		? await db
-				.select()
+				.select({ userId: userRoles.userId, roleName: roles.name })
 				.from(userRoles)
 				.innerJoin(roles, eq(userRoles.roleId, roles.id))
 				.where(inArray(userRoles.userId, userIds))
@@ -69,9 +69,9 @@ async function getList({ page = 1, pageSize = 10, name = "" }: TPage) {
 
 	const roleMap = new Map<string, any[]>();
 	for (const row of roleRows) {
-		const userId = row.userRoles.userId;
+		const userId = row.userId;
 		const list = roleMap.get(userId) ?? [];
-		list.push({ roles: { name: row.roles.name } });
+		list.push({ roles: { name: row.roleName } });
 		roleMap.set(userId, list);
 	}
 

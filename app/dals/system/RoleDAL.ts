@@ -22,7 +22,12 @@ async function getList({ page, pageSize }: { page: number; pageSize: number }) {
 	const roleIds = roleRows.map((r) => r.id);
 	const menuRoleRows = roleIds.length
 		? await db
-				.select()
+				.select({
+					menuRoleId: menuRoles.id,
+					roleId: menuRoles.roleId,
+					menuId: menuRoles.menuId,
+					menu: menus,
+				})
 				.from(menuRoles)
 				.innerJoin(menus, eq(menuRoles.menuId, menus.id))
 				.where(inArray(menuRoles.roleId, roleIds))
@@ -30,12 +35,12 @@ async function getList({ page, pageSize }: { page: number; pageSize: number }) {
 
 	const menuRoleMap = new Map<number, any[]>();
 	for (const row of menuRoleRows) {
-		const roleId = row.menuRoles.roleId;
+		const roleId = row.roleId;
 		const entry = {
-			id: row.menuRoles.id,
+			id: row.menuRoleId,
 			roleId,
-			menuId: row.menuRoles.menuId,
-			menus: mapMenu(row.menus),
+			menuId: row.menuId,
+			menus: mapMenu(row.menu),
 		};
 		const list = menuRoleMap.get(roleId) ?? [];
 		list.push(entry);

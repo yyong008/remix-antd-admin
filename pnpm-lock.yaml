@@ -119,9 +119,6 @@ importers:
       hono:
         specifier: ^4.7.2
         version: 4.7.4
-      hono-react-router-adapter:
-        specifier: ^0.6.5
-        version: 0.6.5(hono@4.7.4)(miniflare@4.20260128.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.8.2)(wrangler@4.61.1)
       is-ip:
         specifier: ^5.0.1
         version: 5.0.1
@@ -149,18 +146,12 @@ importers:
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      nodemailer:
-        specifier: ^6.9.13
-        version: 6.10.0
       nprogress:
         specifier: ^0.2.0
         version: 0.2.0
       ollama:
         specifier: ^0.5.1
         version: 0.5.14
-      path-to-regexp:
-        specifier: ^8.2.0
-        version: 8.2.0
       pg:
         specifier: ^8.17.2
         version: 8.17.2
@@ -200,9 +191,6 @@ importers:
       resend:
         specifier: ^6.9.1
         version: 6.9.1
-      systeminformation:
-        specifier: ^5.22.9
-        version: 5.25.11
       tailwind-merge:
         specifier: ^3.4.0
         version: 3.4.0
@@ -1865,19 +1853,6 @@ packages:
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: ^4
-
-  '@hono/vite-dev-server@0.18.3':
-    resolution: {integrity: sha512-JztypLmq6qtQ3OAcz5vDzwXYBBymLztSbfDuNf4XTWkfppLjf6DHvYHtQZ5idOfNhUzdnbYY7/6QAKlVk6G3QQ==}
-    engines: {node: '>=18.14.1'}
-    peerDependencies:
-      hono: '*'
-      miniflare: '*'
-      wrangler: '*'
-    peerDependenciesMeta:
-      miniflare:
-        optional: true
-      wrangler:
-        optional: true
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -4312,9 +4287,6 @@ packages:
   brace-expansion@1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
 
-  brace-expansion@2.0.1:
-    resolution: {integrity: sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==}
-
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
@@ -6161,12 +6133,6 @@ packages:
     resolution: {integrity: sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==}
     engines: {node: '>=0.10.0'}
 
-  hono-react-router-adapter@0.6.5:
-    resolution: {integrity: sha512-ql45m3PPNzw/QPruhWsphpAShboqcmY4yqBFQXyX8lvIxcjQrQKdenM5qA05fm/bxwWOXCRK7ONp7PBZDziiOw==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      hono: '*'
-
   hono@4.11.4:
     resolution: {integrity: sha512-U7tt8JsyrxSRKspfhtLET79pU8K+tInj5QZXs1jSugO1Vq5dFj3kmZsRldo29mTBfcjDRVRXrEZ6LS63Cog9ZA==}
     engines: {node: '>=16.9.0'}
@@ -7412,10 +7378,6 @@ packages:
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
 
-  minimatch@9.0.5:
-    resolution: {integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==}
-    engines: {node: '>=16 || 14 >=14.17'}
-
   minimist@1.2.7:
     resolution: {integrity: sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==}
 
@@ -7573,10 +7535,6 @@ packages:
 
   node-releases@2.0.27:
     resolution: {integrity: sha512-nmh3lCkYZ3grZvqcCH+fjmQ7X+H0OeZgP40OierEaAptX4XofMh5kwNbWh7lBduUzCcV/8kZ+NDLCwm2iorIlA==}
-
-  nodemailer@6.10.0:
-    resolution: {integrity: sha512-SQ3wZCExjeSatLE/HBaXS5vqUOQk6GtBdIIKxiFdmm01mOQZX/POJkO3SUX1wDiYcwUOJwT23scFSC9fY2H8IA==}
-    engines: {node: '>=6.0.0'}
 
   nodemailer@7.0.11:
     resolution: {integrity: sha512-gnXhNRE0FNhD7wPSCGhdNh46Hs6nm+uTyg+Kq0cZukNQiYdnCsoQjodNP9BQVG9XrcK/v6/MgpAPBUFyzh9pvw==}
@@ -9111,12 +9069,6 @@ packages:
 
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
-
-  systeminformation@5.25.11:
-    resolution: {integrity: sha512-jI01fn/t47rrLTQB0FTlMCC+5dYx8o0RRF+R4BPiUNsvg5OdY0s9DKMFmJGrx5SwMZQ4cag0Gl6v8oycso9b/g==}
-    engines: {node: '>=8.0.0'}
-    os: [darwin, linux, win32, freebsd, openbsd, netbsd, sunos, android]
-    hasBin: true
 
   tabbable@6.2.0:
     resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
@@ -11586,19 +11538,6 @@ snapshots:
     dependencies:
       hono: 4.11.4
     optional: true
-
-  '@hono/node-server@1.19.9(hono@4.7.4)':
-    dependencies:
-      hono: 4.7.4
-
-  '@hono/vite-dev-server@0.18.3(hono@4.7.4)(miniflare@4.20260128.0)(wrangler@4.61.1)':
-    dependencies:
-      '@hono/node-server': 1.19.9(hono@4.7.4)
-      hono: 4.7.4
-      minimatch: 9.0.5
-    optionalDependencies:
-      miniflare: 4.20260128.0
-      wrangler: 4.61.1
 
   '@iconify/types@2.0.0': {}
 
@@ -14419,10 +14358,6 @@ snapshots:
       balanced-match: 1.0.2
       concat-map: 0.0.1
 
-  brace-expansion@2.0.1:
-    dependencies:
-      balanced-match: 1.0.2
-
   braces@3.0.3:
     dependencies:
       fill-range: 7.1.1
@@ -16722,21 +16657,6 @@ snapshots:
     dependencies:
       parse-passwd: 1.0.0
 
-  hono-react-router-adapter@0.6.5(hono@4.7.4)(miniflare@4.20260128.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.8.2)(wrangler@4.61.1):
-    dependencies:
-      '@hono/vite-dev-server': 0.18.3(hono@4.7.4)(miniflare@4.20260128.0)(wrangler@4.61.1)
-      hono: 4.7.4
-      react-router: 7.13.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-    optionalDependencies:
-      '@hono/node-server': 1.19.9(hono@4.7.4)
-      '@react-router/node': 7.13.0(react-router@7.13.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.8.2)
-    transitivePeerDependencies:
-      - miniflare
-      - react
-      - react-dom
-      - typescript
-      - wrangler
-
   hono@4.11.4:
     optional: true
 
@@ -18401,10 +18321,6 @@ snapshots:
     dependencies:
       brace-expansion: 1.1.11
 
-  minimatch@9.0.5:
-    dependencies:
-      brace-expansion: 2.0.1
-
   minimist@1.2.7: {}
 
   minimist@1.2.8: {}
@@ -18555,8 +18471,6 @@ snapshots:
   node-releases@2.0.19: {}
 
   node-releases@2.0.27: {}
-
-  nodemailer@6.10.0: {}
 
   nodemailer@7.0.11: {}
 
@@ -20335,8 +20249,6 @@ snapshots:
       use-sync-external-store: 1.4.0(react@19.2.4)
 
   symbol-tree@3.2.4: {}
-
-  systeminformation@5.25.11: {}
 
   tabbable@6.2.0: {}
 

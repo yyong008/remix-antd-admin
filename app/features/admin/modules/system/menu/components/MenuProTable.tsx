@@ -12,7 +12,7 @@ export type Status = {
 
 export type TableListItem = {
 	id: number;
-	parentId: number;
+	parent_menu_id: number | null;
 	key: number;
 	name: string;
 	icon: string;
@@ -55,7 +55,7 @@ export function MenuProTable(props: SystemMenuProps) {
 				reload: refetch,
 			}}
 			rowClassName={(record) => {
-				return record.parentId ? "bg-yellow-50" : "";
+				return record.parent_menu_id ? "bg-yellow-50" : "";
 			}}
 			toolBarRender={() => [
 				<CreateMenuModal

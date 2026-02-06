@@ -2,9 +2,13 @@ import { Hono } from "hono";
 import { and, eq, inArray, ne } from "drizzle-orm";
 
 import type { HonoEnv } from "../../../types";
-import { getSearchParamsPage, getSearchParamsPageSize } from "~/utils/server";
+import {
+	getSearchParams,
+	getSearchParamsPage,
+	getSearchParamsPageSize,
+} from "~/utils/server";
 import { signInLog } from "~/dals/sign-in/SignInLogDAL";
-import { userDAL } from "~/dals/system/UserDAL";
+import { userDAL } from "~/dals/system/user";
 import { userPermsDAL } from "~/dals/system/UserPermsDAL";
 import { rfj, rsj } from "~/utils/server/response-json";
 import { db } from "~/libs/neon";
@@ -27,6 +31,7 @@ userRouter.get("/", async (c) => {
 
 		return rsj({ total, list });
 	} catch (error) {
+    console.error("Error in GET /api/admin/system/user", error);
 		return rfj(error as Error);
 	}
 });

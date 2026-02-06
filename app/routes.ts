@@ -87,17 +87,18 @@ export const adminRoutes = [
 					"routes/admin/system/dict-item.tsx",
 				),
 				route("menu", "routes/admin/system/menu.tsx"),
+				route("storage", "routes/admin/system/storage.tsx"),
 				...prefix("monitor", [
 					route(
-						"login-log",
-						"routes/admin/system/monitor/login-log.tsx",
+						"loginlog",
+						"routes/admin/system/monitor/loginlog.tsx",
 					),
 					route(
 						"serve",
 						"routes/admin/system/monitor/serve.tsx",
 					),
 					route(
-						"moperate",
+						"operate",
 						"routes/admin/system/monitor/operate.tsx",
 					),
 				]),
