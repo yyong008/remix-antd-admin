@@ -16,6 +16,7 @@ export const authMiddleware = createMiddleware<HonoEnv>(async (c, next) => {
 		return c.json(fail(result.user.banReason || "User banned", 403), 403);
 	}
 	c.set("userId", result.user.id);
+	c.set("username", result.user.name || result.user.email || null);
 
 	await next();
 });

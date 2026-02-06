@@ -11,10 +11,12 @@ import { profileRouter } from "./profile";
 import { systemRouter } from "./system";
 import { authMiddleware } from "../../middleware/auth";
 import { demoModeMiddleware } from "../../middleware/demo";
+import { operateMiddleware } from "../../middleware/operate";
 
 export const adminRouter = new Hono<HonoEnv>();
 
 adminRouter.use("*", authMiddleware);
+adminRouter.use("*", operateMiddleware);
 adminRouter.use("*", demoModeMiddleware);
 
 adminRouter.route("/dashboard", dashboardRouter);
