@@ -1,12 +1,8 @@
-import fs from "node:fs";
-import path from "node:path";
-import { cwd } from "node:process";
-
 import type { Context } from "hono";
 
 import { storageDAL } from "~/dals/tools/StorageDAL";
-// import { getSystemUserIdFromRequest } from "~/utils/server/auth";
 import { extname } from "~/utils/server";
+import { getPublicUrl, getStorageKey, uploadObject } from "~/libs/storage/s3";
 import {
 	rfj,
 	rsj,
@@ -22,9 +18,6 @@ const isDemoModeEnabled = () => {
 	return DEMO_TRUE_VALUES.has(raw.toLowerCase());
 };
 
-const uploadDir = path.join(cwd(), "public", "uploads");
-const storageDirectory = "/uploads/";
-
 export async function uploadHandler(c: Context) {
 	try {
 		if (isDemoModeEnabled()) {
@@ -39,24 +32,20 @@ export async function uploadHandler(c: Context) {
 		}
 
 		const originalFileName = file.name;
-		const fileExtension = path.extname(originalFileName);
-		const fileBaseName = path.basename(originalFileName, fileExtension);
+		const fileExtension = extname(originalFileName);
+		const randomId = globalThis.crypto?.randomUUID
+			? globalThis.crypto.randomUUID()
+			: `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+		const uniqueFileName = `${randomId}${fileExtension}`;
+		const key = getStorageKey(uniqueFileName);
+		const body = new Uint8Array(await file.arrayBuffer());
 
-		let uniqueFileName = originalFileName;
-		let filePath = path.join(uploadDir, uniqueFileName);
-
-		if (fs.existsSync(filePath)) {
-			const timestamp = Date.now();
-			uniqueFileName = `${fileBaseName}-${timestamp}${fileExtension}`;
-			filePath = path.join(uploadDir, uniqueFileName);
-		}
-
-		if (!fs.existsSync(uploadDir)) {
-			fs.mkdirSync(uploadDir, { recursive: true });
-		}
-
-		const buffer = Buffer.from(await file.arrayBuffer());
-		fs.writeFileSync(filePath, buffer);
+		await uploadObject({
+			key,
+			body,
+			contentType: file.type || undefined,
+		});
+		const path = getPublicUrl(key);
 
 		const userId = c.get("userId");
 		if (!userId) {
@@ -66,9 +55,9 @@ export async function uploadHandler(c: Context) {
 		const result = await storageDAL.create({
 			userId,
 			name: file.name,
-			fileName: uniqueFileName,
+			fileName: key,
 			extName: extname(file.name),
-			path: storageDirectory + uniqueFileName,
+			path,
 			size: file.size.toString(),
 			type: file.type,
 		});

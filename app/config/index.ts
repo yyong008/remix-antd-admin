@@ -4,6 +4,8 @@ export * from "./lang";
 export * from "./project";
 export * from "./common/mail";
 export * from "./client/mail";
+export * from "./common/storage";
+export * from "./client/storage";
 
 export const prolayoutConfig = {
 	title: "Remix Antd Admin",

@@ -4,6 +4,7 @@ import type { HonoEnv } from "../../types";
 import { mailTemplateDAL } from "~/dals/tools/MailDAL";
 import { sendMail } from "~/mails/resend";
 import { storageDAL } from "~/dals/tools/StorageDAL";
+import { deleteObject, resolveStorageKey } from "~/libs/storage/s3";
 import { getSearchParamsPage, getSearchParamsPageSize } from "~/utils/server";
 import { rfj, rsj } from "~/utils/server/response-json";
 
@@ -170,7 +171,17 @@ toolsRouter.put("/storage", async (c) => {
 toolsRouter.delete("/storage", async (c) => {
 	try {
 		const dto = await c.req.json();
-		const result = await storageDAL.deleteByIds(dto.ids ?? []);
+		const deleted = await storageDAL.deleteByIds(dto.ids ?? []);
+		for (const item of deleted ?? []) {
+			const key = resolveStorageKey({
+				fileName: item.fileName,
+				path: item.path,
+			});
+			if (key) {
+				await deleteObject(key);
+			}
+		}
+		const result = { count: deleted?.length ?? 0 };
 		return rsj(result ?? {});
 	} catch (error) {
 		return rfj(error as Error);
