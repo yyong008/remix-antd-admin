@@ -1,6 +1,5 @@
 import { Dropdown, Form } from "antd";
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
-import { simpleStorage } from "@/libs/simpleStorage";
 import { href, useNavigate, useParams } from "react-router";
 
 import type React from "react";
@@ -23,7 +22,7 @@ export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
 						icon: <UserOutlined />,
 						label: isZh ? "个人中心" : "Personal Center",
 						onClick: () => {
-							navigate(href("/:locale?/admin/profile/account", { locale }));
+							navigate(href("/:locale?/admin/profile/home", { locale }));
 						},
 					},
 					{
@@ -38,7 +37,6 @@ export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
 						),
 						label: isZh ? "退出登录" : "Logout",
 						onClick() {
-							simpleStorage.clearAllToken();
 							navigate(href("/:locale?/auth/login", { locale }), { replace: true });
 						},
 					},

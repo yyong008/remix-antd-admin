@@ -1,7 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-
+import { href, useNavigate, useParams } from "react-router";
 import { authClient } from "~/libs/auth/client";
-import { simpleStorage } from "~/libs/simpleStorage";
 
 type AuthResult<T> =
 	| { data?: T | null; error?: { message?: string } | null }
@@ -76,7 +75,6 @@ export function useLogin() {
 			if (!data?.token) {
 				throw new Error("登录失败，未返回凭证");
 			}
-			simpleStorage.setToken(data.token);
 			return data;
 		},
 	});
@@ -111,16 +109,17 @@ export function useEamilSignup() {
 }
 
 export function useLogout() {
+  const navigate = useNavigate();
+  const { locale } = useParams();
 	return useMutation({
 		mutationFn: async () => {
-			const token = simpleStorage.getToken();
 			const result = await authClient.signOut({
-				fetchOptions: token
-					? { headers: { Authorization: `Bearer ${token}` } }
-					: undefined,
-			});
+
+      });
 			const data = unwrapResult<{ success: boolean }>(result, "退出失败");
-			simpleStorage.removeToken();
+      if(data.success) {
+        navigate(href("/:locale?/auth/login", { locale }), { replace: true });
+      }
 			return data;
 		},
 	});
