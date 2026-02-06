@@ -2,6 +2,8 @@ export * from "./debug";
 export * from "./antd-grid";
 export * from "./lang";
 export * from "./project";
+export * from "./common/mail";
+export * from "./client/mail";
 
 export const prolayoutConfig = {
 	title: "Remix Antd Admin",

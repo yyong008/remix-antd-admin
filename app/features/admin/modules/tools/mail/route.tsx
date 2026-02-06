@@ -16,7 +16,7 @@ export function Route() {
 			<ProCard
 				style={{ height: 600 }}
 				title="发送邮件"
-				tooltip="默认支持的邮箱服务包括：”QQ”、”163”、”126”、”iCloud”、”Hotmail”、”Yahoo”等"
+				tooltip="当前使用 Resend 发送服务"
 				extra={
 					<Space>
 						<Link to={href(`/:locale?/admin/tools/mail/list`, { locale })}>

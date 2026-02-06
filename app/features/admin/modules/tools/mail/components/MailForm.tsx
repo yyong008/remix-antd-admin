@@ -2,15 +2,14 @@ import { Button, Form, message } from "antd";
 
 import { DrawerForm } from "@ant-design/pro-components";
 import { FormItems } from "./FormItems";
-import { useState } from "react";
+import {
+	useCreateToolsMail,
+	useSendToolsMail,
+} from "~/api-client/queries/tools-mail";
 
 export function MailForm({ content, refetch }: any) {
-	const [createMailTemplate, other] = [
-		(...args: any): any => {},
-		{ isLoading: false },
-	];
-	const [visible, setVisible] = useState(false);
-	const [type, setType] = useState();
+	const createMailTemplate = useCreateToolsMail();
+	const sendMail = useSendToolsMail();
 	const [form] = Form.useForm();
 	// const { locale } = useParams();
 
@@ -20,28 +19,26 @@ export function MailForm({ content, refetch }: any) {
 		}
 
 		const vals = {
+			name: form.getFieldValue("name"),
 			subject: form.getFieldValue("subject"),
 			to: form.getFieldValue("to"),
+			replyTo: form.getFieldValue("replyTo"),
 			content,
-			host: form.getFieldValue("host"),
-			port: form.getFieldValue("port"),
-			user: form.getFieldValue("user"),
-			pass: form.getFieldValue("pass"),
 		};
 
-		const result = await createMailTemplate(vals);
-		if (result.data?.code !== 0) {
-			message.error(result.data?.message);
+		const result = await createMailTemplate.mutateAsync(vals);
+		if (result?.code !== 0) {
+			message.error(result?.message ?? "保存失败");
 			return false;
 		}
-		message.success(result.data?.message);
+		message.success(result?.message ?? "保存成功");
 		refetch?.();
 		form.resetFields();
 		return true;
 	};
 	return (
 		<DrawerForm
-			loading={other.isLoading}
+			loading={createMailTemplate.isPending || sendMail.isPending}
 			form={form}
 			submitter={{
 				render: (props, doms) => {
@@ -66,7 +63,23 @@ export function MailForm({ content, refetch }: any) {
 				},
 			}}
 			onFinish={async (v) => {
-				//
+				if (!content) {
+					message.error("input email content ~");
+					return false;
+				}
+				const payload = {
+					to: v.to,
+					subject: v.subject,
+					replyTo: v.replyTo,
+					content,
+				};
+				const result = await sendMail.mutateAsync(payload);
+				if (result?.code !== 0) {
+					message.error(result?.message ?? "发送失败");
+					return false;
+				}
+				message.success(result?.message ?? "发送成功");
+				return true;
 			}}
 			trigger={<Button type="primary">发布邮件</Button>}
 		>

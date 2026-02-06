@@ -7,18 +7,18 @@ import { useEffect, useState } from "react";
 
 import { MailForm } from "./components/MailForm";
 import { QuillEditor } from "@/components/common/quill-editor";
+import { useToolsMailById } from "~/api-client/queries/tools-mail";
 
 export function Route() {
 	const { locale } = useParams();
 	const [content, setContent] = useState("");
 	const { id } = useParams();
-	const { data, isLoading } = {
-		data: { data: { content: "hello" } },
-		isLoading: false,
-	}; // TODO: 获取邮件模板详情
+	const { data, isLoading } = useToolsMailById(id ? Number(id) : undefined);
 
 	useEffect(() => {
-		setContent(data?.data?.content);
+		if (data?.data?.content) {
+			setContent(data?.data?.content);
+		}
 	}, [data?.data?.content]);
 	return (
 		<PageContainer>
@@ -26,7 +26,7 @@ export function Route() {
 				loading={isLoading}
 				style={{ height: 600 }}
 				title="发送邮件"
-				tooltip="默认支持的邮箱服务包括：”QQ”、”163”、”126”、”iCloud”、”Hotmail”、”Yahoo”等"
+				tooltip="当前使用 Resend 发送服务"
 				extra={
 					<Space>
 						<Link to={href(`/:locale?/admin/tools/mail/list`, { locale })}>

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { ButtonLink } from "@/components/common";
 import { createColumns } from "./components/createColumns";
 import { href, useParams } from "react-router";
+import { useToolsMailList } from "~/api-client/queries/tools-mail";
 
 export function Route() {
 	const { locale } = useParams();
@@ -11,11 +12,7 @@ export function Route() {
 		page: 1,
 		pageSize: 110,
 	});
-	const { data, isLoading, refetch } = {
-		data: { data: { list: [], total: 0 } },
-		isLoading: false,
-		refetch: () => {},
-	};
+	const { data, isLoading, refetch } = useToolsMailList(page);
 
 	const columns = useMemo(() => {
 		return createColumns({ locale, refetch });

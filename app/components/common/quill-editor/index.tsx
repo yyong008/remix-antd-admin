@@ -37,11 +37,12 @@ export const Editor = ({
 			},
 		});
 
-		quillRef.current.root.innerHTML = initContent;
+		const initial = (initContent ?? content ?? "") as string;
+		quillRef.current.root.innerHTML = initial;
 		quillRef.current?.on("text-change", () => {
-			const content = quillRef.current?.root.innerHTML;
-			onChange?.(content);
-			setContent(content);
+			const next = quillRef.current?.root.innerHTML ?? "";
+			onChange?.(next);
+			setContent?.(next);
 		});
 
 		return quillRef;

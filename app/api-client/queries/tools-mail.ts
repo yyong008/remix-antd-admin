@@ -85,3 +85,14 @@ export function useDeleteToolsMail() {
 		},
 	});
 }
+
+export function useSendToolsMail() {
+	return useMutation({
+		mutationFn: async (data: any) => {
+			const res = await getApiClient().api.admin.tools.mail.send.$post({
+				json: data,
+			});
+			return res.json();
+		},
+	});
+}

@@ -2,6 +2,7 @@ import { Hono } from "hono";
 
 import type { HonoEnv } from "../../types";
 import { mailTemplateDAL } from "~/dals/tools/MailDAL";
+import { sendMail } from "~/mails/resend";
 import { storageDAL } from "~/dals/tools/StorageDAL";
 import { getSearchParamsPage, getSearchParamsPageSize } from "~/utils/server";
 import { rfj, rsj } from "~/utils/server/response-json";
@@ -43,6 +44,46 @@ toolsRouter.post("/mail", async (c) => {
 	try {
 		const dto = await c.req.json();
 		const result = await mailTemplateDAL.create(dto);
+		return rsj(result);
+	} catch (error) {
+		return rfj(error as Error);
+	}
+});
+
+toolsRouter.post("/mail/send", async (c) => {
+	try {
+		const dto = await c.req.json();
+		const toRaw = dto.to ?? "";
+		const to = Array.isArray(toRaw)
+			? toRaw
+			: String(toRaw)
+					.split(",")
+					.map((item) => item.trim())
+					.filter(Boolean);
+
+		if (!to.length) {
+			return rfj({}, "Missing recipient", { status: 400 });
+		}
+
+		const subject = dto.subject ?? dto.title ?? "";
+		if (!subject) {
+			return rfj({}, "Missing subject", { status: 400 });
+		}
+
+		const html = dto.html ?? dto.content ?? "";
+		const text = dto.text;
+
+		const result = await sendMail({
+			to,
+			subject,
+			html: html || undefined,
+			text: text || undefined,
+			replyTo: dto.replyTo,
+			cc: dto.cc,
+			bcc: dto.bcc,
+			from: dto.from,
+		});
+
 		return rsj(result);
 	} catch (error) {
 		return rfj(error as Error);

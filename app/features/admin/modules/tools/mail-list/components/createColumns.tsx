@@ -5,6 +5,11 @@ import { href } from "react-router";
 
 export const createColumns = ({ locale, refetch }: any) => [
 	{
+		dataIndex: "name",
+		title: "模板名称",
+		ellipsis: true,
+	},
+	{
 		dataIndex: "subject",
 		title: "邮件标题",
 		ellipsis: true,
@@ -17,26 +22,6 @@ export const createColumns = ({ locale, refetch }: any) => [
 	{
 		dataIndex: "content",
 		title: "邮件内容",
-		ellipsis: true,
-	},
-	{
-		dataIndex: "host",
-		title: "Host",
-		ellipsis: true,
-	},
-	{
-		dataIndex: "port",
-		title: "端口",
-		ellipsis: true,
-	},
-	{
-		dataIndex: "user",
-		title: "用户名",
-		ellipsis: true,
-	},
-	{
-		dataIndex: "pass",
-		title: "输入授权码或密码",
 		ellipsis: true,
 	},
 	{
