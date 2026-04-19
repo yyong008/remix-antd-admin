@@ -1,26 +1,12 @@
 {
   "version": "7",
-  "dialect": "postgresql",
+  "dialect": "sqlite",
   "entries": [
     {
       "idx": 0,
-      "version": "7",
-      "when": 1769875826455,
-      "tag": "0000_wet_annihilus",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1769933255109,
-      "tag": "0001_lyrical_lord_tyger",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1770090438097,
-      "tag": "0002_stale_northstar",
+      "version": "6",
+      "when": 1776612789960,
+      "tag": "0000_common_xavin",
       "breakpoints": true
     }
   ]

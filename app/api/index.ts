@@ -4,14 +4,14 @@ import { v1Router } from "./routes";
 import { uploadHandler } from "./routes/upload";
 import { authMiddleware } from "./middleware/auth";
 
-export const app = new Hono().basePath("/api");
+export const app = new Hono<{ Bindings: { DB: D1Database } }>().basePath("/api");
 
 app.use("*", logger());
 
 app.route("/", v1Router);
 
 app.get("/health", (c) => {
-	return c.json({ status: "ok" });
+  return c.json({ status: "ok" });
 });
 
 app.post("/upload", authMiddleware, uploadHandler);

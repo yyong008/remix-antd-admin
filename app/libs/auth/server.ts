@@ -1,65 +1,65 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { admin, captcha, openAPI } from "better-auth/plugins";
+import { drizzle } from "drizzle-orm/d1";
 import * as schema from "db/schema";
-
-import { db } from "~/libs/neon";
+import type { D1Database } from "@cloudflare/workers-types";
 import { rbacLoginPlugin } from "./plugins/rbac-login";
 
-export const auth = betterAuth({
-	baseURL: "http://localhost:5173",
-	// https://www.better-auth.com/docs/adapters/drizzle
-	database: drizzleAdapter(db, {
-		provider: "pg",
-		schema,
-	}),
-	plugins: [
-		/**
-		 * https://www.better-auth.com/docs/plugins/admin
-		 * operations such as creating users, managing user roles, banning/unbanning users, impersonating users, and more.
-		 */
-		admin(),
-		/**
-     /**
-     * https://www.better-auth.com/docs/plugins/open-api#configuration
-     */
-		openAPI(),
-		captcha({
-			provider: "cloudflare-turnstile", // or google-recaptcha, hcaptcha
-			secretKey: process.env.TURNSTILE_SECRET_KEY,
-		}),
-		rbacLoginPlugin(),
-	],
-	// https://www.better-auth.com/docs/authentication/email-password
-	emailAndPassword: {
-		enabled: true,
-		requireEmailVerification: process.env.NODE_ENV === "production",
-	},
-	socialProviders: {
-		// https://www.better-auth.com/docs/authentication/github
-		github: {
-			clientId: process.env.GITHUB_CLIENT_ID,
-			clientSecret: process.env.GITHUB_CLIENT_SECRET,
-		},
-		// https://www.better-auth.com/docs/authentication/google
-		google: {
-			clientId: process.env.GOOGLE_CLIENT_ID,
-			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-		},
-	},
-	// Session configuration
-	// https://www.better-auth.com/docs/concepts/session
-	session: {
-		// Session expires after 7 days
-		expiresIn: 60 * 60 * 24 * 7, // 7 days in seconds
-		// Update session age every 24 hours
-		updateAge: 60 * 60 * 24, // 1 day in seconds
-	},
-	advanced: {
-		database: {
-			generateId: () => {
-				return crypto.randomUUID();
-			},
-		},
-	},
-});
+type AuthEnv = {
+  DB: D1Database;
+  TURNSTILE_SECRET_KEY?: string;
+  GITHUB_CLIENT_ID?: string;
+  GITHUB_CLIENT_SECRET?: string;
+  GOOGLE_CLIENT_ID?: string;
+  GOOGLE_CLIENT_SECRET?: string;
+  NODE_ENV?: string;
+};
+
+export function createAuth(env: AuthEnv) {
+  const db = drizzle(env.DB);
+
+  return betterAuth({
+    baseURL: "http://localhost:5173",
+    database: drizzleAdapter(db, {
+      provider: "sqlite",
+      schema,
+    }),
+    plugins: [
+      admin(),
+      openAPI(),
+      captcha({
+        provider: "cloudflare-turnstile",
+        secretKey: env.TURNSTILE_SECRET_KEY,
+      }),
+      rbacLoginPlugin({ db }),
+    ],
+    emailAndPassword: {
+      enabled: true,
+      requireEmailVerification: env.NODE_ENV === "production",
+    },
+    socialProviders: {
+      github: {
+        clientId: env.GITHUB_CLIENT_ID,
+        clientSecret: env.GITHUB_CLIENT_SECRET,
+      },
+      google: {
+        clientId: env.GOOGLE_CLIENT_ID,
+        clientSecret: env.GOOGLE_CLIENT_SECRET,
+      },
+    },
+    session: {
+      expiresIn: 60 * 60 * 24 * 7,
+      updateAge: 60 * 60 * 24,
+    },
+    advanced: {
+      database: {
+        generateId: () => {
+          return crypto.randomUUID();
+        },
+      },
+    },
+  });
+}
+
+export type AuthInstance = ReturnType<typeof createAuth>;
