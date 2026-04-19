@@ -153,7 +153,6 @@
     "typescript": "^5.9.3",
     "vite": "npm:@voidzero-dev/vite-plus-core@^0.1.18",
     "vite-plus": "latest",
-    "vite-tsconfig-paths": "^4.3.2",
     "vitest": "npm:@voidzero-dev/vite-plus-test@^0.1.18",
     "wrangler": "^4.83.0"
   },

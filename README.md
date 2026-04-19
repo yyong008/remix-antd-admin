@@ -22,6 +22,7 @@ new fullstack:
 - [ ] Turnstile 接入（@marsidev/react-turnstile）
 - [ ] AI：LangChain -> ai-sdk
 - [ ] AI：AntdX
+- [ ] neon -> d1
 
 一个基于 React Router、React、Antd、TailwindCSS、Drizzle ORM 和 RBAC 的现代全栈 Web 解决方案（WIP）。
 
