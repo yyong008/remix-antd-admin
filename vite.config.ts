@@ -14,9 +14,6 @@ const __APP_INFO__ = JSON.stringify({
 });
 
 export default defineConfig({
-  staged: {
-    "*.{ts,tsx,js,jsx}": "vp check --fix"
-  },
   resolve: {
     tsconfigPaths: true,
   },
