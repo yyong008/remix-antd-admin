@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom/vitest";
 
-import { expect, it } from "vitest";
+import { expect, it } from "vite-plus/test";
 import { render, screen } from "@testing-library/react";
 
 // component

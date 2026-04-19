@@ -1,6 +1,6 @@
 import * as clientUtils from "~/utils/client";
 
-import { expect, it } from "vitest";
+import { expect, it } from "vite-plus/test";
 
 it("formate from observable", async () => {
 	expect(

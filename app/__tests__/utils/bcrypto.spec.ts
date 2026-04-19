@@ -1,6 +1,6 @@
 import * as serverUtils from "~/utils/server";
 
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vite-plus/test";
 
 describe("bcrypt util", () => {
 	const pwd = "123456789abcdefghijgklmnopqrstuvwxyz";

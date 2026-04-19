@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom/vitest";
 
 // libs
-import { expect, it } from "vitest";
+import { expect, it } from "vite-plus/test";
 import { render, screen, waitFor } from "@testing-library/react";
 
 // types

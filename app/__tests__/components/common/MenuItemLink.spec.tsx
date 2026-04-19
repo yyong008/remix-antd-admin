@@ -2,7 +2,7 @@
 import { useState, type ComponentType } from "react";
 
 // libs
-import { expect, it } from "vitest";
+import { expect, it } from "vite-plus/test";
 import { createRoutesStub } from "react-router";
 import { render, screen } from "@testing-library/react";
 

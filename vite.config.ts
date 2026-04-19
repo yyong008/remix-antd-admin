@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import pkg from "./package.json";
-import { defineConfig } from "vite";
+import { defineConfig } from "vite-plus";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { reactRouter } from "@react-router/dev/vite";

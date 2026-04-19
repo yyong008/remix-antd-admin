@@ -1,6 +1,6 @@
 import * as clientUtils from "~/utils/client";
 
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vite-plus/test";
 
 describe("test remove html tag", () => {
 	const rich =
