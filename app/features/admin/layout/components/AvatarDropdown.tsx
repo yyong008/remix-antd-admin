@@ -5,45 +5,45 @@ import { href, useNavigate, useParams } from "react-router";
 import type React from "react";
 
 type AvatarDropDownProps = {
-	dom: any;
+  dom: any;
 };
 
 export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
-	const navigate = useNavigate();
-	const { locale } = useParams();
-	const isZh = locale === "zh";
+  const navigate = useNavigate();
+  const { locale } = useParams();
+  const isZh = locale === "zh";
 
-	return (
-		<Dropdown
-			menu={{
-				items: [
-					{
-						key: "profile-center",
-						icon: <UserOutlined />,
-						label: isZh ? "个人中心" : "Personal Center",
-						onClick: () => {
-							navigate(href("/:locale?/admin/profile/home", { locale }));
-						},
-					},
-					{
-						type: "divider",
-					},
-					{
-						key: "logout",
-						icon: (
-							<Form method="post" action="/logout">
-								<LogoutOutlined />
-							</Form>
-						),
-						label: isZh ? "退出登录" : "Logout",
-						onClick() {
-							navigate(href("/:locale?/auth/login", { locale }), { replace: true });
-						},
-					},
-				],
-			}}
-		>
-			{dom}
-		</Dropdown>
-	);
+  return (
+    <Dropdown
+      menu={{
+        items: [
+          {
+            key: "profile-center",
+            icon: <UserOutlined />,
+            label: isZh ? "个人中心" : "Personal Center",
+            onClick: () => {
+              navigate(href("/:locale?/admin/profile/home", { locale }));
+            },
+          },
+          {
+            type: "divider",
+          },
+          {
+            key: "logout",
+            icon: (
+              <Form method="post" action="/logout">
+                <LogoutOutlined />
+              </Form>
+            ),
+            label: isZh ? "退出登录" : "Logout",
+            onClick() {
+              navigate(href("/:locale?/auth/login", { locale }), { replace: true });
+            },
+          },
+        ],
+      }}
+    >
+      {dom}
+    </Dropdown>
+  );
 };

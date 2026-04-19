@@ -2,5 +2,5 @@ import { Route as EditDetailImpl } from "~/features/admin/modules/news/edit-deta
 export { meta } from "~/features/admin/modules/news/edit-detail/index";
 
 export default function Page() {
-	return <EditDetailImpl />;
+  return <EditDetailImpl />;
 }

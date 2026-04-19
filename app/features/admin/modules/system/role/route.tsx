@@ -12,53 +12,53 @@ import { useMenuRoleList } from "~/api-client/queries/system-menu-role";
 import { useRoleList } from "~/api-client/queries/system-role";
 
 export function Route() {
-	const [page, setPage] = usePage();
-	const { locale } = useParams();
-	const actionRef = useRef<ActionType | null>(null);
-	const { data: flatMenu } = useMenuList({ page: 1, pageSize: 1000 });
-	const { data, isLoading, refetch } = useRoleList(page);
-	const { data: menuRoleData } = useMenuRoleList();
-	const menuRoles = menuRoleData?.data?.list || [];
+  const [page, setPage] = usePage();
+  const { locale } = useParams();
+  const actionRef = useRef<ActionType | null>(null);
+  const { data: flatMenu } = useMenuList({ page: 1, pageSize: 1000 });
+  const { data, isLoading, refetch } = useRoleList(page);
+  const { data: menuRoleData } = useMenuRoleList();
+  const menuRoles = menuRoleData?.data?.list || [];
 
-	const menuAll = flatMenu?.data?.list || [];
+  const menuAll = flatMenu?.data?.list || [];
 
-	const menus = useMemo(() => {
-		if (flatMenu) {
-			return genMenuTreeForRole(menuAll, null);
-		}
-	}, [flatMenu, menuAll]);
+  const menus = useMemo(() => {
+    if (flatMenu) {
+      return genMenuTreeForRole(menuAll, null);
+    }
+  }, [flatMenu, menuAll]);
 
-	return (
-		<PageContainer>
-			<ProTable
-				size="small"
-				bordered
-				headerTitle={<ProTableHeaderTitle title="角色管理" />}
-				actionRef={actionRef}
-				rowKey="id"
-				search={false}
-				loading={isLoading}
-				dataSource={data?.data?.list || []}
-				columns={createColumns({ locale, menus, menuRoles, refetch }) as any}
-				options={{
-					reload: refetch,
-				}}
-				pagination={{
-					total: data?.data?.total || 0,
-					pageSize: page.pageSize || 10,
-					onChange(pageNumber, pageSize) {
-						setPage({ page: pageNumber, pageSize });
-					},
-				}}
-				toolBarRender={() => [
-					<CreateRoleModal
-						refetch={refetch}
-						key="create-role-modal"
-						menu={menus as any}
-						menuRoles={menuRoles as any}
-					/>,
-				]}
-			/>
-		</PageContainer>
-	);
+  return (
+    <PageContainer>
+      <ProTable
+        size="small"
+        bordered
+        headerTitle={<ProTableHeaderTitle title="角色管理" />}
+        actionRef={actionRef}
+        rowKey="id"
+        search={false}
+        loading={isLoading}
+        dataSource={data?.data?.list || []}
+        columns={createColumns({ locale, menus, menuRoles, refetch }) as any}
+        options={{
+          reload: refetch,
+        }}
+        pagination={{
+          total: data?.data?.total || 0,
+          pageSize: page.pageSize || 10,
+          onChange(pageNumber, pageSize) {
+            setPage({ page: pageNumber, pageSize });
+          },
+        }}
+        toolBarRender={() => [
+          <CreateRoleModal
+            refetch={refetch}
+            key="create-role-modal"
+            menu={menus as any}
+            menuRoles={menuRoles as any}
+          />,
+        ]}
+      />
+    </PageContainer>
+  );
 }

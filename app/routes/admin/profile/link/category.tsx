@@ -2,5 +2,5 @@ import { Route as CategoryImpl } from "~/features/admin/modules/profile/link/cat
 export { meta } from "~/features/admin/modules/profile/link/category/index";
 
 export default function Page() {
-	return <CategoryImpl />;
+  return <CategoryImpl />;
 }

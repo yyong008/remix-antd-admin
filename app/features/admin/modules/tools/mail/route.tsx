@@ -9,27 +9,27 @@ import { QuillEditor } from "@/components/common/quill-editor";
 import { useState } from "react";
 
 export function Route() {
-	const { locale } = useParams();
-	const [content, setContent] = useState("");
-	return (
-		<PageContainer>
-			<ProCard
-				style={{ height: 600 }}
-				title="发送邮件"
-				tooltip="当前使用 Resend 发送服务"
-				extra={
-					<Space>
-						<Link to={href(`/:locale?/admin/tools/mail/list`, { locale })}>
-							<Button type="primary">查看所有模板</Button>
-						</Link>
-						<MailForm content={content} />
-					</Space>
-				}
-			>
-				<div style={{ height: "400px" }}>
-					<QuillEditor content={content} setContent={setContent} />
-				</div>
-			</ProCard>
-		</PageContainer>
-	);
+  const { locale } = useParams();
+  const [content, setContent] = useState("");
+  return (
+    <PageContainer>
+      <ProCard
+        style={{ height: 600 }}
+        title="发送邮件"
+        tooltip="当前使用 Resend 发送服务"
+        extra={
+          <Space>
+            <Link to={href(`/:locale?/admin/tools/mail/list`, { locale })}>
+              <Button type="primary">查看所有模板</Button>
+            </Link>
+            <MailForm content={content} />
+          </Space>
+        }
+      >
+        <div style={{ height: "400px" }}>
+          <QuillEditor content={content} setContent={setContent} />
+        </div>
+      </ProCard>
+    </PageContainer>
+  );
 }

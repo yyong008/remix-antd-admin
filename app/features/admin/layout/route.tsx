@@ -31,10 +31,7 @@ function AdminLayout() {
   const { menu = [], userInfo = {} } = payload || ({} as any);
   const [pathname, setPathname] = useState(location.pathname);
   const token = useMemo(() => createTokens(value), [value]);
-  const route = useMemo(
-    () => clientUtils.createProLayoutRoute(locale!, menu),
-    [locale, menu],
-  );
+  const route = useMemo(() => clientUtils.createProLayoutRoute(locale!, menu), [locale, menu]);
 
   return (
     <AntdApp>
@@ -70,13 +67,7 @@ function AdminLayout() {
               return <MenuItemOutLink path={item.path!} dom={dom} />;
             }
 
-            return (
-              <MenuItemLink
-                path={item.path!}
-                dom={dom}
-                setPathname={setPathname}
-              />
-            );
+            return <MenuItemLink path={item.path!} dom={dom} setPathname={setPathname} />;
           }}
         >
           <Outlet />

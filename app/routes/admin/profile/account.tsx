@@ -2,5 +2,5 @@ import { Route as AccountImpl } from "~/features/admin/modules/profile/account/r
 export { meta } from "~/features/admin/modules/profile/account/index";
 
 export default function Page() {
-	return <AccountImpl />;
+  return <AccountImpl />;
 }

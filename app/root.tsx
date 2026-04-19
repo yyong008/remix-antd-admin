@@ -10,15 +10,15 @@ export { ErrorBoundary } from "~/features/mkt/modules/root/error-boundary";
 import { paraglideMiddleware } from "~/paraglide/server.js";
 
 export const middleware: MiddlewareFunction[] = [
-	(ctx, next) => paraglideMiddleware(ctx.request, () => next()),
+  (ctx, next) => paraglideMiddleware(ctx.request, () => next()),
 ];
 
 export const links: LinksFunction = () => [
-	{ rel: "stylesheet", href: global },
-	{ rel: "stylesheet", href: tailwind },
-	{ rel: "stylesheet", href: npStyle },
+  { rel: "stylesheet", href: global },
+  { rel: "stylesheet", href: tailwind },
+  { rel: "stylesheet", href: npStyle },
 ];
 
 export default function Root() {
-	return <RootRoute />;
+  return <RootRoute />;
 }

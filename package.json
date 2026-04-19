@@ -2,28 +2,28 @@
   "name": "react-router-antd-admin",
   "version": "0.2.0",
   "description": "React Router Antd Admin",
-  "type": "module",
   "keywords": [
     "React Router",
-    "antd",
-    "tailwindcss",
-    "hono",
     "admin",
-    "postresql",
+    "ai",
+    "antd",
+    "hono",
     "langchain",
-    "ai"
+    "postresql",
+    "tailwindcss"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yyong008/remix-antd-admin.git"
-  },
   "homepage": "https://remix-antd-admin.vercel.app/",
+  "license": "MIT",
   "author": {
     "name": "yong",
     "email": "yyong008@outlook.com",
     "url": "https://github.com/yyong008"
   },
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yyong008/remix-antd-admin.git"
+  },
+  "type": "module",
   "scripts": {
     "build": "react-router build",
     "coverage": "vp test run --coverage",
@@ -113,7 +113,6 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    
     "@changesets/cli": "^2.31.0",
     "@cloudflare/vite-plugin": "^1.32.3",
     "@react-router/dev": "^7.14.1",
@@ -153,9 +152,15 @@
     "vitest": "npm:@voidzero-dev/vite-plus-test@^0.1.18",
     "wrangler": "^4.83.0"
   },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
   "engines": {
     "node": ">=18"
   },
+  "packageManager": "pnpm@10.33.0",
   "pnpm": {
     "peerDependencyRules": {
       "ignoreMissing": [
@@ -166,11 +171,5 @@
       "vite": "npm:@voidzero-dev/vite-plus-core@latest",
       "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
     }
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
-  "packageManager": "pnpm@10.33.0"
+  }
 }

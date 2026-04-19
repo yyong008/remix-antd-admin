@@ -5,37 +5,37 @@ import { useState } from "react";
 import { useMonitorOperateList } from "~/api-client/queries/system-monitor-operate";
 
 export function Route() {
-	const [page, setPage] = useState({
-		page: 1,
-		pageSize: 10,
-	});
-	const { data, isLoading, refetch } = useMonitorOperateList(page);
-	return (
-		<PageContainer>
-			<ProTable
-				bordered
-				size="small"
-				search={false}
-				headerTitle="操作记录"
-				rowKey="id"
-				showSorterTooltip
-				dataSource={data?.data?.list || []}
-				columns={createColumns()}
-				loading={isLoading}
-				options={{
-					reload: refetch,
-				}}
-				pagination={{
-					total: data?.data?.total || 0,
-					pageSize: 10,
-					onChange(page, pageSize) {
-						setPage({
-							page,
-							pageSize,
-						});
-					},
-				}}
-			/>
-		</PageContainer>
-	);
+  const [page, setPage] = useState({
+    page: 1,
+    pageSize: 10,
+  });
+  const { data, isLoading, refetch } = useMonitorOperateList(page);
+  return (
+    <PageContainer>
+      <ProTable
+        bordered
+        size="small"
+        search={false}
+        headerTitle="操作记录"
+        rowKey="id"
+        showSorterTooltip
+        dataSource={data?.data?.list || []}
+        columns={createColumns()}
+        loading={isLoading}
+        options={{
+          reload: refetch,
+        }}
+        pagination={{
+          total: data?.data?.total || 0,
+          pageSize: 10,
+          onChange(page, pageSize) {
+            setPage({
+              page,
+              pageSize,
+            });
+          },
+        }}
+      />
+    </PageContainer>
+  );
 }

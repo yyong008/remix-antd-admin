@@ -7,44 +7,46 @@ import { useColorPrimary } from "~/hooks/useColorPrimary";
 
 export function createColumns({ refetch }: any) {
   const { locale } = useParams();
-	return [
-		{
-			dataIndex: "name",
-			title: "分类名字",
-			renderText(_: any, record: any) {
-				return (
-					<Link to={{
-            pathname: href("/:locale?/admin/blog", { locale }),
-            search: `category=${record.id}`,
-          }} >
-						<Space>
-							<CategoryIcons />
-							<span>{record.name}</span>
-						</Space>
-					</Link>
-				);
-			},
-		},
-		{
-			dataIndex: "description",
-			title: "标签内容",
-		},
-		{
-			dataIndex: "op",
-			title: "操作",
-			render(_: any, record: any) {
-				return (
-					<Space>
-						<UpdateBlogCategoryModal record={record} refetch={refetch} />
-						<DeleteAction record={record} refetch={refetch} title={""} />
-					</Space>
-				);
-			},
-		},
-	];
+  return [
+    {
+      dataIndex: "name",
+      title: "分类名字",
+      renderText(_: any, record: any) {
+        return (
+          <Link
+            to={{
+              pathname: href("/:locale?/admin/blog", { locale }),
+              search: `category=${record.id}`,
+            }}
+          >
+            <Space>
+              <CategoryIcons />
+              <span>{record.name}</span>
+            </Space>
+          </Link>
+        );
+      },
+    },
+    {
+      dataIndex: "description",
+      title: "标签内容",
+    },
+    {
+      dataIndex: "op",
+      title: "操作",
+      render(_: any, record: any) {
+        return (
+          <Space>
+            <UpdateBlogCategoryModal record={record} refetch={refetch} />
+            <DeleteAction record={record} refetch={refetch} title={""} />
+          </Space>
+        );
+      },
+    },
+  ];
 }
 
 function CategoryIcons() {
-	const { colorPrimary } = useColorPrimary();
-	return <SwitcherOutlined style={{ color: colorPrimary }} />;
+  const { colorPrimary } = useColorPrimary();
+  return <SwitcherOutlined style={{ color: colorPrimary }} />;
 }

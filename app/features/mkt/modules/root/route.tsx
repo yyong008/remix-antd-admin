@@ -1,11 +1,4 @@
-import {
-	Links,
-	Meta,
-	Outlet,
-	Scripts,
-	ScrollRestoration,
-	useParams,
-} from "react-router";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, useParams } from "react-router";
 
 import { AppQueryProvider } from "~/api-client/query-provider";
 import { ClientOnly } from "~/components/common/client-only";
@@ -15,30 +8,30 @@ import { QueryProvider } from "~/query-provider";
 import { ReactRouterTopLoader } from "~/components/toploader";
 
 export function RootRoute() {
-	const params = useParams();
+  const params = useParams();
 
-	return (
-		<html lang={params.locale || "en"} suppressHydrationWarning>
-			<head>
-				<meta charSet="utf-8" />
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<Meta />
-				<Links />
-			</head>
-			<body>
-				<QueryProvider>
-					<SessionProvider>
-						<AppQueryProvider>
-							<DocsRootProvider>
-								<ClientOnly fallback={null}>{() => <Outlet />}</ClientOnly>
-							</DocsRootProvider>
-						</AppQueryProvider>
-					</SessionProvider>
-					<ReactRouterTopLoader />
-					<ScrollRestoration />
-				</QueryProvider>
-				<Scripts />
-			</body>
-		</html>
-	);
+  return (
+    <html lang={params.locale || "en"} suppressHydrationWarning>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <QueryProvider>
+          <SessionProvider>
+            <AppQueryProvider>
+              <DocsRootProvider>
+                <ClientOnly fallback={null}>{() => <Outlet />}</ClientOnly>
+              </DocsRootProvider>
+            </AppQueryProvider>
+          </SessionProvider>
+          <ReactRouterTopLoader />
+          <ScrollRestoration />
+        </QueryProvider>
+        <Scripts />
+      </body>
+    </html>
+  );
 }

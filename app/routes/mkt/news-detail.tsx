@@ -3,5 +3,5 @@ export { meta } from "~/features/mkt/modules/news-detail/index";
 export { loader } from "~/features/mkt/modules/news-detail/index";
 
 export default function Page() {
-	return <NewsDetailImpl />;
+  return <NewsDetailImpl />;
 }

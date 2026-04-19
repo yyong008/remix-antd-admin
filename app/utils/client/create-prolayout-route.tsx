@@ -1,25 +1,21 @@
 import { AntdIcon } from "~/components/common";
 import { isExternalLink } from "./utils";
 import { href } from "react-router";
-function createProLayoutRouteImpl(
-	locale: string,
-	items: any[],
-	parentId: number | null,
-): any[] {
-	return items
-		.filter((item) => item.parent_menu_id === parentId)
-		.map((item) => ({
-			...item,
-			name: item.name,
-			path: isExternalLink(item.path)
-				? item.path
-				: href(`/:locale?/admin${item.path}` as any, { locale }),
-			key: item.id + item.path, // https://github.com/ant-design/pro-components/issues/2511
-			hideInMenu: !item.isShow,
-			icon: item.icon ? <AntdIcon name={item.icon} /> : item.icon,
-			children: createProLayoutRouteImpl(locale, items, item.id), // 递归构建子树
-		}))
-		.sort((a, b) => a.orderNo - b.orderNo);
+function createProLayoutRouteImpl(locale: string, items: any[], parentId: number | null): any[] {
+  return items
+    .filter((item) => item.parent_menu_id === parentId)
+    .map((item) => ({
+      ...item,
+      name: item.name,
+      path: isExternalLink(item.path)
+        ? item.path
+        : href(`/:locale?/admin${item.path}` as any, { locale }),
+      key: item.id + item.path, // https://github.com/ant-design/pro-components/issues/2511
+      hideInMenu: !item.isShow,
+      icon: item.icon ? <AntdIcon name={item.icon} /> : item.icon,
+      children: createProLayoutRouteImpl(locale, items, item.id), // 递归构建子树
+    }))
+    .sort((a, b) => a.orderNo - b.orderNo);
 }
 
 /**
@@ -28,7 +24,7 @@ function createProLayoutRouteImpl(
  * @returns
  */
 export const createProLayoutRoute = (locale: string, menus: any): any => {
-	return {
-		routes: createProLayoutRouteImpl(locale, menus, null),
-	};
+  return {
+    routes: createProLayoutRouteImpl(locale, menus, null),
+  };
 };

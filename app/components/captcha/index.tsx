@@ -8,27 +8,26 @@ import { useTheme } from "next-themes";
  */
 
 export function TurnstileWidget({
-	handleSuccess,
-	className,
-	size = "flexible",
+  handleSuccess,
+  className,
+  size = "flexible",
 }: {
-	handleSuccess: (token: string) => void;
-	className?: string;
-	size?: "normal" | "compact" | "flexible" | "invisible";
+  handleSuccess: (token: string) => void;
+  className?: string;
+  size?: "normal" | "compact" | "flexible" | "invisible";
 }) {
-	const { theme } = useTheme();
+  const { theme } = useTheme();
 
-	return (
-		<Turnstile
-			className={className}
-			onSuccess={handleSuccess}
-			siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
-			options={{
-				theme:
-					theme === "system" ? "auto" : theme === "dark" ? "dark" : "light",
-				language: "en",
-				size: size,
-			}}
-		/>
-	);
+  return (
+    <Turnstile
+      className={className}
+      onSuccess={handleSuccess}
+      siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
+      options={{
+        theme: theme === "system" ? "auto" : theme === "dark" ? "dark" : "light",
+        language: "en",
+        size: size,
+      }}
+    />
+  );
 }

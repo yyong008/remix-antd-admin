@@ -3,5 +3,5 @@ export { meta } from "~/features/mkt/modules/about/index";
 export { loader } from "~/features/mkt/modules/about/index";
 
 export default function Page() {
-	return <AboutImpl />;
+  return <AboutImpl />;
 }

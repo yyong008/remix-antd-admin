@@ -2,5 +2,5 @@ import { Route as DictItemImpl } from "~/features/admin/modules/system/dict-item
 export { meta } from "~/features/admin/modules/system/dict-item/index";
 
 export default function Page() {
-	return <DictItemImpl />;
+  return <DictItemImpl />;
 }

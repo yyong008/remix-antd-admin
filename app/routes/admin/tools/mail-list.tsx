@@ -2,5 +2,5 @@ import { Route as MailListImpl } from "~/features/admin/modules/tools/mail-list/
 export { meta } from "~/features/admin/modules/tools/mail-list/index";
 
 export default function Page() {
-	return <MailListImpl />;
+  return <MailListImpl />;
 }
