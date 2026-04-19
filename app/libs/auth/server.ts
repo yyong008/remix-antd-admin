@@ -5,6 +5,7 @@ import { drizzle } from "drizzle-orm/d1";
 import * as schema from "db/schema";
 import type { D1Database } from "@cloudflare/workers-types";
 import { rbacLoginPlugin } from "./plugins/rbac-login";
+import { getBaseUrl } from "~/utils/url";
 
 type AuthEnv = {
   DB: D1Database;
@@ -20,7 +21,7 @@ export function createAuth(env: AuthEnv) {
   const db = drizzle(env.DB);
 
   return betterAuth({
-    baseURL: "http://localhost:5173",
+    baseURL: getBaseUrl(),
     database: drizzleAdapter(db, {
       provider: "sqlite",
       schema,
@@ -28,10 +29,10 @@ export function createAuth(env: AuthEnv) {
     plugins: [
       admin(),
       openAPI(),
-      captcha({
-        provider: "cloudflare-turnstile",
-        secretKey: env.TURNSTILE_SECRET_KEY,
-      }),
+      // captcha({
+      //   provider: "cloudflare-turnstile",
+      //   secretKey: env.TURNSTILE_SECRET_KEY,
+      // }),
       rbacLoginPlugin({ db }),
     ],
     emailAndPassword: {

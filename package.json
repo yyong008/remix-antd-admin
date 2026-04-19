@@ -41,6 +41,8 @@
     "drizzle:generate": "drizzle-kit generate",
     "drizzle:push": "drizzle-kit push",
     "drizzle:migrate": "drizzle-kit migrate",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local",
+    "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
     "postinstall": "fumadocs-mdx",
     "db:seed": "dotenv -c -e ./.env  tsx db/seed.ts"
   },
@@ -54,6 +56,7 @@
     "@aws-sdk/client-s3": "^3.1032.0",
     "@bytemd/plugin-gfm": "^1.22.0",
     "@bytemd/react": "^1.22.0",
+    "@cloudflare/workers-types": "^4.20260418.1",
     "@inlang/paraglide-js": "^2.16.0",
     "@js-temporal/polyfill": "^0.4.4",
     "@langchain/core": "^0.3.80",
