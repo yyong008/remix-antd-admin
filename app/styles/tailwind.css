@@ -4,3 +4,17 @@
 @import "fumadocs-ui/css/preset.css";
 
 @source "../app/**/*.{ts,tsx}";
+
+@keyframes shake {
+	0%,
+	100% {
+		transform: translateX(-10px);
+	}
+	50% {
+		transform: translateX(10px);
+	}
+}
+
+.animate-shake {
+	animation: shake 0.5s ease-in-out infinite;
+}
