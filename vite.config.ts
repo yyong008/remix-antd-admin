@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import pkg from "./package.json";
+import pkg from "./package.json" with { type: "json" };
 import { defineConfig } from "vite-plus";
 import tailwindcss from "@tailwindcss/vite";
 import { reactRouter } from "@react-router/dev/vite";
@@ -14,6 +14,9 @@ const __APP_INFO__ = JSON.stringify({
 });
 
 export default defineConfig({
+  staged: {
+    "*.{ts,tsx,js,jsx}": "vp check --fix"
+  },
   resolve: {
     tsconfigPaths: true,
   },
