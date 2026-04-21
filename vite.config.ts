@@ -15,12 +15,6 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
   },
-  ssr: {
-    noExternal: ["@ant-design/icons", "react-intersection-observer"],
-    optimizeDeps: {
-      include: ["@ant-design/icons", "react-intersection-observer"],
-    },
-  },
   plugins: [
     reactRouter(),
     cloudflare({ viteEnvironment: { name: "ssr" } }),
