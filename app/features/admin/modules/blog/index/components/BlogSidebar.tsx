@@ -1,4 +1,14 @@
-import { Button, Dropdown, Empty, Flex, Space, Tabs, Typography, type MenuProps } from "antd";
+import {
+  Badge,
+  Button,
+  Dropdown,
+  Empty,
+  Flex,
+  Space,
+  Tabs,
+  Typography,
+  type MenuProps,
+} from "antd";
 import { MoreOutlined } from "@ant-design/icons";
 import { useMemo, useState } from "react";
 
@@ -91,11 +101,15 @@ export function BlogSidebar({
   onCategorySelect,
   selectedTagId,
   onTagSelect,
+  categoryCounts,
+  tagCounts,
 }: {
   selectedCategoryId?: string;
   onCategorySelect: (id?: string) => void;
   selectedTagId?: string;
   onTagSelect: (id?: string) => void;
+  categoryCounts?: Map<string, number>;
+  tagCounts?: Map<string, number>;
 }) {
   const [activeTab, setActiveTab] = useState("category");
 
@@ -165,11 +179,39 @@ export function BlogSidebar({
                         <Button
                           block
                           size="small"
-                          type={selected ? "primary" : "text"}
-                          style={{ flex: 1, textAlign: "left", fontWeight: selected ? 600 : 400 }}
+                          type={selected ? "primary" : "link"}
+                          style={{
+                            flex: 1,
+                            textAlign: "left",
+                            fontWeight: selected ? 600 : 400,
+                            padding: "4px 8px",
+                            borderRadius: 6,
+                          }}
                           onClick={() => onCategorySelect(selected ? undefined : String(cat.id))}
                         >
-                          {cat.name}
+                          <Flex
+                            gap={6}
+                            align="center"
+                            justify="space-between"
+                            style={{ width: "100%" }}
+                          >
+                            <span
+                              style={{
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              {cat.name}
+                            </span>
+                            {categoryCounts && categoryCounts.get(String(cat.id)) ? (
+                              <Badge
+                                count={categoryCounts.get(String(cat.id))}
+                                size="small"
+                                style={{ fontSize: 10 }}
+                              />
+                            ) : null}
+                          </Flex>
                         </Button>
                         <CategoryActionsCell cat={cat} refetch={refetchCategories} />
                       </Flex>
@@ -218,11 +260,39 @@ export function BlogSidebar({
                         <Button
                           block
                           size="small"
-                          type={selected ? "primary" : "text"}
-                          style={{ flex: 1, textAlign: "left", fontWeight: selected ? 600 : 400 }}
+                          type={selected ? "primary" : "link"}
+                          style={{
+                            flex: 1,
+                            textAlign: "left",
+                            fontWeight: selected ? 600 : 400,
+                            padding: "4px 8px",
+                            borderRadius: 6,
+                          }}
                           onClick={() => onTagSelect(selected ? undefined : String(tag.id))}
                         >
-                          {tag.name}
+                          <Flex
+                            gap={6}
+                            align="center"
+                            justify="space-between"
+                            style={{ width: "100%" }}
+                          >
+                            <span
+                              style={{
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              {tag.name}
+                            </span>
+                            {tagCounts && tagCounts.get(String(tag.id)) ? (
+                              <Badge
+                                count={tagCounts.get(String(tag.id))}
+                                size="small"
+                                style={{ fontSize: 10 }}
+                              />
+                            ) : null}
+                          </Flex>
                         </Button>
                         <TagActionsCell tag={tag} refetch={refetchTags} />
                       </Flex>

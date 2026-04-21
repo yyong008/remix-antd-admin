@@ -105,11 +105,11 @@ export function StatsSection() {
                     width: "56px",
                     height: "56px",
                     borderRadius: "14px",
-                    background: `linear-gradient(135deg, ${stat.color} 0%, ${stat.color}cc 100%)`,
+                    background: `linear-gradient(135deg, ${stat.color} 0%, color-mix(in srgb, ${stat.color} 80%, transparent) 100%)`,
                     fontSize: "24px",
                     color: "white",
                     marginBottom: "16px",
-                    boxShadow: `0 8px 24px ${stat.color}30`,
+                    boxShadow: `0 8px 24px color-mix(in srgb, ${stat.color} 30%, transparent)`,
                   }}
                 >
                   {stat.icon}

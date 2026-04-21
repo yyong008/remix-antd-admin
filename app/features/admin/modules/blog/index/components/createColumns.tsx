@@ -96,7 +96,7 @@ export const createColumns = ({
     dataIndex: "title",
     title: "文章标题",
     ellipsis: true,
-    width: 300,
+    width: 360,
     render: (_: unknown, record: any) => (
       <a
         style={{
@@ -136,7 +136,7 @@ export const createColumns = ({
     dataIndex: "source",
     title: "来源",
     ellipsis: true,
-    width: 100,
+    width: 120,
   },
   {
     dataIndex: "categoryId",
@@ -168,7 +168,7 @@ export const createColumns = ({
   {
     dataIndex: "publishedAt",
     title: "发布时间",
-    width: 120,
+    width: 130,
     render: (_: unknown, record: any) => {
       return <FormatTime timeStr={record.publishedAt} format="YYYY-MM-DD" />;
     },

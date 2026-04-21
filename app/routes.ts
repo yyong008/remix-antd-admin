@@ -25,10 +25,7 @@ export const adminRoutes = [
   ...prefix(":locale?/admin", [
     layout("features/admin/layout/index.tsx", [
       ...prefix("dashboard", [index("routes/admin/dashboard.tsx")]),
-      ...prefix("ai", [
-        route("chatbot", "routes/admin/ai/chatbot.tsx"),
-        route("simplechat", "routes/admin/ai/simplechat.tsx"),
-      ]),
+      ...prefix("ai", [route("chatbot", "routes/admin/ai/chatbot.tsx")]),
       ...prefix("news", [
         route("list", "routes/admin/news/list.tsx"),
         route("edit", "routes/admin/news/edit.tsx"),

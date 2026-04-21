@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Pagination, Skeleton, Row, Col, Card, Input, Button } from "antd";
+import { Pagination, Skeleton, Row, Col, Card, Input } from "antd";
 import { SearchOutlined, FileTextOutlined } from "@ant-design/icons";
 import { isNewsCategoryVisible } from "~/features/admin/modules/news/news-category-select";
 import { NewsItem } from "./components";
@@ -7,13 +7,17 @@ import { useNewsList } from "~/api-client/queries/news";
 import { useNewsCategoryList } from "~/api-client/queries/news-category";
 
 const { Search } = Input;
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 10;
 
 export function Route() {
   const [category, setCategory] = useState<string>("");
   const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState<number>(1);
-  const { data: newsData, isLoading: newsLoading } = useNewsList({ category, pageSize: 1000 });
+  const { data: newsData, isLoading: newsLoading } = useNewsList({
+    category,
+    page,
+    pageSize: PAGE_SIZE,
+  });
   const { data: categoryData, isLoading: categoryLoading } = useNewsCategoryList({ pageSize: 100 });
 
   const allCategories = categoryData?.list ?? [];
@@ -23,6 +27,7 @@ export function Route() {
   );
 
   const allNews = newsData?.list ?? [];
+  const total = newsData?.total ?? 0;
 
   const publishedNews = useMemo(() => allNews.filter((n: any) => n.status === 1), [allNews]);
 
@@ -35,30 +40,16 @@ export function Route() {
 
   const categoryNewsCount = useMemo(() => {
     const counts: Record<string, number> = {};
-    for (const n of visibleNews) {
-      counts[n.newsId] = (counts[n.newsId] ?? 0) + 1;
+    for (const c of visibleCategories) {
+      counts[c.id] = 0;
+    }
+    for (const n of allNews) {
+      if (counts[n.newsId] !== undefined) {
+        counts[n.newsId]++;
+      }
     }
     return counts;
-  }, [visibleNews]);
-
-  const filteredNews = useMemo(() => {
-    if (!search.trim()) return visibleNews;
-    const lower = search.toLowerCase();
-    return visibleNews.filter(
-      (n: any) =>
-        n.title?.toLowerCase().includes(lower) ||
-        n.author?.toLowerCase().includes(lower) ||
-        n.source?.toLowerCase().includes(lower),
-    );
-  }, [visibleNews, search]);
-
-  const paginatedNews = useMemo(() => {
-    const start = (page - 1) * PAGE_SIZE;
-    return filteredNews.slice(start, start + PAGE_SIZE);
-  }, [filteredNews, page]);
-
-  const featuredNews = paginatedNews[0];
-  const restNews = paginatedNews.slice(1);
+  }, [visibleCategories, allNews]);
 
   const selectedCategory = visibleCategories.find((c: any) => c.id === category);
 
@@ -96,8 +87,8 @@ export function Route() {
           </h1>
           <p style={{ color: "var(--mkt-muted)" }}>
             {selectedCategory
-              ? `${selectedCategory.name} · 共 ${filteredNews.length} 篇`
-              : `全部新闻 · 共 ${filteredNews.length} 篇`}
+              ? `${selectedCategory.name} · 共 ${total} 篇`
+              : `全部新闻 · 共 ${total} 篇`}
           </p>
         </header>
 
@@ -153,7 +144,7 @@ export function Route() {
                       color: !category ? "white" : "var(--mkt-muted)",
                     }}
                   >
-                    {filteredNews.length}
+                    {total}
                   </span>
                 </button>
                 {categoryLoading ? (
@@ -198,21 +189,22 @@ export function Route() {
 
           <Col xs={24} lg={18}>
             {newsLoading ? (
-              <Row gutter={[16, 16]}>
-                {[...Array(6)].map((_, i) => (
-                  <Col key={i} xs={24} sm={12} lg={8}>
-                    <Card
-                      style={{
-                        background: "var(--mkt-surface)",
-                        border: "1px solid var(--mkt-border)",
-                      }}
-                    >
-                      <Skeleton active paragraph={{ rows: 3 }} />
-                    </Card>
-                  </Col>
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                {[...Array(5)].map((_, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      height: "72px",
+                      background: "var(--mkt-surface)",
+                      border: "1px solid var(--mkt-border)",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <Skeleton active style={{ height: "100%" }} />
+                  </div>
                 ))}
-              </Row>
-            ) : filteredNews.length <= 0 ? (
+              </div>
+            ) : visibleNews.length <= 0 ? (
               <Card
                 style={{
                   background: "var(--mkt-surface)",
@@ -228,31 +220,21 @@ export function Route() {
               </Card>
             ) : (
               <>
-                <Row gutter={[16, 16]}>
-                  {featuredNews && (
-                    <Col xs={24}>
-                      <NewsItem
-                        data={featuredNews}
-                        featured
-                        categoryName={selectedCategory?.name}
-                      />
-                    </Col>
-                  )}
-                  {restNews.map((n: any) => (
-                    <Col key={n.id} xs={24} sm={12} lg={8}>
-                      <NewsItem data={n} categoryName={selectedCategory?.name} />
-                    </Col>
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  {visibleNews.map((n: any) => (
+                    <NewsItem key={n.id} data={n} categoryName={selectedCategory?.name} />
                   ))}
-                </Row>
-                {filteredNews.length > PAGE_SIZE && (
+                </div>
+                {total > PAGE_SIZE && (
                   <div style={{ marginTop: "32px", textAlign: "center" }}>
                     <Pagination
                       current={page}
                       pageSize={PAGE_SIZE}
-                      total={filteredNews.length}
-                      onChange={(p, size) => setPage(p)}
+                      total={total}
+                      onChange={(p) => setPage(p)}
                       showSizeChanger={false}
                       showQuickJumper={false}
+                      showTotal={(total) => `共 ${total} 条`}
                     />
                   </div>
                 )}

@@ -1,71 +1,55 @@
-import { Row, Col, Card, Typography, Table } from "antd";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { Card, Typography, Table } from "antd";
+import { CheckOutlined } from "@ant-design/icons";
 
 const { Title, Paragraph } = Typography;
 
 const features = [
-  { feature: "React Router v7 支持", ours: true, remix: true, nextjs: false },
-  { feature: "Ant Design 组件库", ours: true, remix: true, nextjs: true },
-  { feature: "Hono API 集成", ours: true, remix: false, nextjs: false },
-  { feature: "AI SDK 支持", ours: true, remix: false, nextjs: false },
-  { feature: "Drizzle ORM", ours: true, remix: false, nextjs: false },
-  { feature: "开箱即用的 AI 功能", ours: true, remix: false, nextjs: false },
-  { feature: "原生 CSS 暗色模式", ours: true, remix: false, nextjs: false },
-  { feature: "Cloudflare 部署优化", ours: true, remix: false, nextjs: false },
-  { feature: "中文文档", ours: true, remix: false, nextjs: false },
+  { feature: "React Router v7 支持", has: true },
+  { feature: "Ant Design 组件库", has: true },
+  { feature: "Hono API 集成", has: true },
+  { feature: "AI SDK 支持", has: true },
+  { feature: "Drizzle ORM", has: true },
+  { feature: "开箱即用的 AI 功能", has: true },
+  { feature: "原生 CSS 暗色模式", has: true },
+  { feature: "Cloudflare 部署优化", has: true },
+  { feature: "中文文档", has: true },
 ];
 
 export function ComparisonSection() {
-  const [activeTab, setActiveTab] = useState<"ours" | "remix" | "nextjs">("ours");
-
   const columns = [
     {
-      title: "功能",
+      title: "功能特性",
       dataIndex: "feature",
       key: "feature",
-      width: "40%",
+      width: "80%",
     },
     {
-      title: "React Router Antd Admin",
-      dataIndex: "ours",
-      key: "ours",
+      title: "支持",
+      dataIndex: "has",
+      key: "has",
       width: "20%",
       align: "center" as const,
-    },
-    {
-      title: "Remix",
-      dataIndex: "remix",
-      key: "remix",
-      width: "20%",
-      align: "center" as const,
-    },
-    {
-      title: "Next.js",
-      dataIndex: "nextjs",
-      key: "nextjs",
-      width: "20%",
-      align: "center" as const,
+      render: (has: boolean) =>
+        has ? <CheckOutlined style={{ color: "#52c41a", fontSize: "16px" }} /> : null,
     },
   ];
 
   return (
     <section style={{ padding: "60px 24px" }}>
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: "48px" }}>
-          <Title level={2} style={{ marginBottom: "12px" }}>
-            为什么选择我们
+        <div style={{ textAlign: "center", marginBottom: "32px" }}>
+          <Title level={2} style={{ marginBottom: "8px" }}>
+            技术特性
           </Title>
           <Paragraph type="secondary" style={{ maxWidth: "600px", margin: "0 auto" }}>
-            与其他方案相比，React Router Antd Admin 提供更完整的解决方案
+            React Router Antd Admin 内置的功能特性，开箱即用
           </Paragraph>
         </div>
 
         <Card
           style={{
-            borderRadius: "16px",
+            borderRadius: "12px",
             border: "1px solid var(--mkt-border)",
-            overflow: "hidden",
           }}
           bodyStyle={{ padding: 0 }}
         >
@@ -74,8 +58,9 @@ export function ComparisonSection() {
             columns={columns}
             rowKey="feature"
             pagination={false}
+            size="small"
             style={{ width: "100%" }}
-            rowClassName={(record, index) => (index % 2 === 0 ? "table-row-even" : "table-row-odd")}
+            rowClassName={(_, index) => (index % 2 === 0 ? "table-row-even" : "table-row-odd")}
           />
         </Card>
 
@@ -83,8 +68,8 @@ export function ComparisonSection() {
         <div
           style={{
             textAlign: "center",
-            marginTop: "40px",
-            padding: "24px",
+            marginTop: "32px",
+            padding: "20px",
             background: "var(--mkt-surface)",
             borderRadius: "12px",
             border: "1px solid var(--mkt-border)",
@@ -100,26 +85,25 @@ export function ComparisonSection() {
       </div>
 
       <style>{`
-        .table-row-even {
+        .table-row-even td {
           background: var(--mkt-bg) !important;
         }
-        .table-row-odd {
+        .table-row-odd td {
           background: var(--mkt-surface) !important;
         }
         .ant-table-thead > tr > th {
-          background: var(--mkt-accent) !important;
-          color: white !important;
-          font-weight: 600;
-          border: none !important;
+          padding: 12px 16px !important;
         }
         .ant-table-tbody > tr > td {
-          background: var(--mkt-surface) !important;
           border-bottom: 1px solid var(--mkt-border) !important;
-          padding: 16px 20px !important;
+          padding: 10px 16px !important;
           color: var(--mkt-text) !important;
         }
         .ant-table {
-          background: var(--mkt-surface) !important;
+          background: transparent !important;
+        }
+        .ant-table-tbody > tr:last-child > td {
+          border-bottom: none !important;
         }
       `}</style>
     </section>

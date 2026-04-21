@@ -180,13 +180,9 @@ export const permissions = {
       },
     },
     ai: {
-      /** 菜单「Chatbot」与后台占位页 `/admin/ai/chatbot` */
+      /** Ollama 流式 Chatbot：`/admin/ai/chatbot` */
       chatbot: {
-        READ: "system:ai:simplechat:read",
-      },
-      /** Ollama 流式 Simple Chat：`/admin/ai/simplechat` */
-      simplechat: {
-        READ: "system:ai:simplechat:read",
+        READ: "system:ai:chatbot:read",
       },
     },
   },

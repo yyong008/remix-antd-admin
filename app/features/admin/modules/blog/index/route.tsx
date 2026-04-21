@@ -61,6 +61,27 @@ export function Route() {
     return filteredBlogs.slice(start, start + page.pageSize);
   }, [filteredBlogs, page.page, page.pageSize]);
 
+  // Build category/tag counts from the full list for sidebar badges
+  const categoryCounts = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const b of filteredBlogs) {
+      if (b.categoryId) {
+        m.set(String(b.categoryId), (m.get(String(b.categoryId)) ?? 0) + 1);
+      }
+    }
+    return m;
+  }, [filteredBlogs]);
+
+  const tagCounts = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const b of filteredBlogs) {
+      if (b.tagId) {
+        m.set(String(b.tagId), (m.get(String(b.tagId)) ?? 0) + 1);
+      }
+    }
+    return m;
+  }, [filteredBlogs]);
+
   useEffect(() => {
     setPage((p) => ({ ...p, page: 1 }));
   }, [categoryId, tagId, search]);
@@ -134,6 +155,8 @@ export function Route() {
             onCategorySelect={setCategoryFilter}
             selectedTagId={tagId}
             onTagSelect={setTagFilter}
+            categoryCounts={categoryCounts}
+            tagCounts={tagCounts}
           />
         </Card>
 

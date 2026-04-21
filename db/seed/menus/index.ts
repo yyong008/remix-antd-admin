@@ -44,7 +44,7 @@ export const menuSeeds: MenuSeed[] = [
     type: 2,
     path: "/ai/chatbot",
     pathFile: "admin/ai/chatbot",
-    permission: "system:ai:simplechat:read",
+    permission: "system:ai:chatbot:read",
     icon: "MessageOutlined",
     orderNo: 1,
     isShow: 1,

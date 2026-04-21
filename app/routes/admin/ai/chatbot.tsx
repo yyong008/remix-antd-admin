@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-import { PageContainer } from "~/components/page-container";
 import {
   AiChatConversation,
   AiChatLoading,
@@ -21,13 +20,25 @@ export default function Page() {
     };
   }, []);
 
+  // Calculate available height: 100dvh - header(~52px) - footer(~48px) - page padding
+  const headerHeight = 52;
+  const footerHeight = 48;
+  const topPadding = 12;
+  const bottomPadding = 0;
+  const availableHeight = `calc(100dvh - ${headerHeight}px - ${footerHeight}px - ${topPadding}px - ${bottomPadding}px)`;
+
   return (
-    <PageContainer
-      ghost
-      title="Chatbot"
-      subTitle="Ant Design X · Ollama · Vercel AI SDK（streamText）"
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: availableHeight,
+        overflow: "hidden",
+        padding: "12px 20px 0",
+        boxSizing: "border-box",
+      }}
     >
-      {!chatId ? <AiChatLoading /> : <AiChatConversation chatId={chatId} variant="plain" />}
-    </PageContainer>
+      {!chatId ? <AiChatLoading /> : <AiChatConversation chatId={chatId} variant="plain" gap={0} />}
+    </div>
   );
 }

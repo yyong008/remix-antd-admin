@@ -116,7 +116,7 @@ export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ user }) => {
               ) : null}
             </div>
           </div>
-          {menu}
+          <div style={{ padding: "8px 0" }}>{menu}</div>
         </div>
       )}
     >

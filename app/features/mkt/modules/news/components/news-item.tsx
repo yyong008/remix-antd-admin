@@ -2,8 +2,7 @@ import { href, useParams } from "react-router";
 import { defaultLang } from "~/config/lang";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { CalendarOutlined, UserOutlined, FolderOutlined } from "@ant-design/icons";
-import { Card } from "antd";
+import { CalendarOutlined, UserOutlined, FolderOutlined, RightOutlined } from "@ant-design/icons";
 
 dayjs.extend(relativeTime);
 
@@ -14,63 +13,65 @@ function stripHtml(html: string): string {
     .trim();
 }
 
-export function NewsItem(props: { data: any; featured?: boolean; categoryName?: string }) {
-  const { data, featured = false, categoryName } = props;
+export function NewsItem(props: { data: any; categoryName?: string }) {
+  const { data, categoryName } = props;
   const { locale: localeParam } = useParams();
   const locale = localeParam ?? defaultLang;
-  const excerpt = data.content
-    ? stripHtml(data.content).slice(0, featured ? 200 : 120) + "..."
-    : "";
-
-  const cardStyle: React.CSSProperties = {
-    background: "var(--mkt-surface)",
-    border: "1px solid var(--mkt-border)",
-    borderRadius: "12px",
-    padding: "20px",
-    height: "100%",
-    transition: "all 0.3s",
-    cursor: "pointer",
-  };
+  const excerpt = data.content ? stripHtml(data.content).slice(0, 120) + "..." : "";
 
   return (
-    <Card
-      style={cardStyle}
-      bodyStyle={{ padding: 0, height: "100%", display: "flex", flexDirection: "column" }}
-      hoverable
+    <div
       onClick={() => (window.location.href = href(`/:locale?/news/:id`, { locale, id: data.id }))}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "16px",
+        padding: "16px 20px",
+        background: "var(--mkt-surface)",
+        border: "1px solid var(--mkt-border)",
+        borderRadius: "10px",
+        cursor: "pointer",
+        transition: "all 0.2s ease",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = "var(--mkt-accent)";
+        e.currentTarget.style.boxShadow = "0 2px 8px rgba(102, 126, 234, 0.15)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = "var(--mkt-border)";
+        e.currentTarget.style.boxShadow = "none";
+      }}
     >
-      <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        {categoryName && (
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "4px",
-              fontSize: "12px",
-              color: "var(--mkt-accent)",
-              background: "var(--mkt-surface)",
-              padding: "4px 8px",
-              borderRadius: "9999px",
-              marginBottom: "12px",
-              border: "1px solid var(--mkt-accent)",
-              width: "fit-content",
-            }}
-          >
-            <FolderOutlined />
-            {categoryName}
-          </div>
-        )}
+      {categoryName && (
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "4px",
+            fontSize: "12px",
+            color: "var(--mkt-accent)",
+            background: "var(--mkt-surface)",
+            padding: "4px 10px",
+            borderRadius: "9999px",
+            border: "1px solid var(--mkt-accent)",
+            whiteSpace: "nowrap",
+            flexShrink: 0,
+          }}
+        >
+          <FolderOutlined />
+          {categoryName}
+        </div>
+      )}
+      <div style={{ flex: 1, minWidth: 0 }}>
         <h3
           style={{
             fontWeight: 600,
             color: "var(--mkt-text)",
-            marginBottom: "8px",
+            marginBottom: "4px",
             overflow: "hidden",
             textOverflow: "ellipsis",
-            display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical",
-            fontSize: featured ? "18px" : "16px",
+            whiteSpace: "nowrap",
+            fontSize: "15px",
           }}
         >
           {data.title}
@@ -79,64 +80,48 @@ export function NewsItem(props: { data: any; featured?: boolean; categoryName?: 
           <p
             style={{
               color: "var(--mkt-muted)",
-              marginBottom: "12px",
+              fontSize: "13px",
               overflow: "hidden",
               textOverflow: "ellipsis",
-              display: "-webkit-box",
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: "vertical",
-              fontSize: featured ? "14px" : "12px",
-              flex: 1,
+              whiteSpace: "nowrap",
+              margin: 0,
             }}
           >
             {excerpt}
           </p>
         )}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "16px",
-            marginTop: "auto",
-            paddingTop: "12px",
-            fontSize: featured ? "13px" : "12px",
-            color: "var(--mkt-muted)",
-          }}
-        >
-          {data.author && (
-            <span
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "4px",
-                maxWidth: "80px",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-              }}
-            >
-              <UserOutlined />
-              <span>{data.author}</span>
-            </span>
-          )}
-          {data.source && (
-            <span
-              style={{
-                maxWidth: "80px",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {data.source}
-            </span>
-          )}
-          <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-            <CalendarOutlined />
-            {dayjs(data.publishedAt).fromNow()}
-          </span>
-        </div>
       </div>
-    </Card>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+          fontSize: "12px",
+          color: "var(--mkt-muted)",
+          flexShrink: 0,
+        }}
+      >
+        {data.author && (
+          <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <UserOutlined />
+            <span
+              style={{
+                maxWidth: "60px",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {data.author}
+            </span>
+          </span>
+        )}
+        <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <CalendarOutlined />
+          {dayjs(data.publishedAt).fromNow()}
+        </span>
+        <RightOutlined style={{ fontSize: "10px", color: "var(--mkt-muted)" }} />
+      </div>
+    </div>
   );
 }

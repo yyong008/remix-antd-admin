@@ -40,6 +40,8 @@ export function HeroSection() {
     color: "var(--mkt-muted)",
     boxShadow: "0 4px 16px var(--mkt-shadow)",
     animation: mounted ? "floatBadge 3s ease-in-out infinite" : "none",
+    opacity: mounted ? 1 : 0,
+    transition: "opacity 0.3s ease",
   };
 
   const titleStyle: React.CSSProperties = {
@@ -204,6 +206,7 @@ export function HeroSection() {
                 icon={<RocketOutlined />}
                 href="https://github.com/yyong008/remix-antd-admin"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="cta-primary"
                 style={{
                   height: "52px",
@@ -224,6 +227,7 @@ export function HeroSection() {
                 icon={<EyeOutlined />}
                 href="https://remix-antd-admin-docs.vercel.app/"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="cta-secondary"
                 style={{
                   height: "52px",
@@ -242,6 +246,7 @@ export function HeroSection() {
                 icon={<GithubOutlined />}
                 href="https://github.com/yyong008/remix-antd-admin"
                 target="_blank"
+                rel="noopener noreferrer"
                 ghost
                 className="cta-ghost"
                 style={{

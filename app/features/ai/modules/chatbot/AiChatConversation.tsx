@@ -146,17 +146,15 @@ export function AiChatConversation({
       variant === "plain"
         ? {
             display: "flex",
-            minHeight: 360,
-            flex: 1,
             flexDirection: "column",
             overflow: "hidden",
+            flex: 1,
             borderRadius: 8,
             border: "1px solid rgba(5,5,5,0.08)",
             background: "var(--ant-color-bg-container)",
           }
         : {
             display: "flex",
-            minHeight: 320,
             flex: 1,
             flexDirection: "column",
             overflow: "hidden",
@@ -169,8 +167,8 @@ export function AiChatConversation({
 
   const listRegionStyle: CSSProperties = useMemo(
     () => ({
-      minHeight: 0,
       flex: 1,
+      minHeight: 0,
       overflowY: "auto",
       padding: 16,
       borderBottom: `1px solid ${variant === "plain" ? "rgba(5,5,5,0.08)" : "var(--mkt-border)"}`,
@@ -265,7 +263,7 @@ export function AiChatConversation({
         vertical
         gap={gap}
         className={className}
-        style={{ minHeight: 420, width: "100%", ...outerStyle }}
+        style={{ height: "100%", width: "100%", overflow: "hidden", ...outerStyle }}
       >
         <div style={shellStyle}>
           <div style={listRegionStyle}>
@@ -291,6 +289,8 @@ export function AiChatConversation({
           <Sender
             styles={{
               root: {
+                position: "sticky",
+                bottom: 0,
                 borderRadius: 0,
                 border: "none",
                 boxShadow: "none",
@@ -323,7 +323,7 @@ export function AiChatConversation({
 
 export function AiChatLoading() {
   return (
-    <Flex justify="center" align="center" style={{ minHeight: 240 }}>
+    <Flex justify="center" align="center" style={{ height: "100%", width: "100%" }}>
       <Spin tip="准备会话…" />
     </Flex>
   );

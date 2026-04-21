@@ -14,9 +14,6 @@ export type PageContainerProps = {
   style?: CSSProperties;
 };
 
-/**
- * 替代 `@ant-design/pro-components` 的 `PageContainer`：页面标题区 + 内边距 + 可选加载态。
- */
 export function PageContainer({
   children,
   title,

@@ -90,7 +90,7 @@ export function FeaturesSection() {
                   transform: hoveredIndex === index ? "translateY(-4px)" : "translateY(0)",
                   boxShadow:
                     hoveredIndex === index
-                      ? `0 20px 40px ${feature.color}25, 0 0 0 1px ${feature.color}40`
+                      ? `0 20px 40px color-mix(in srgb, ${feature.color} 25%, transparent), 0 0 0 1px color-mix(in srgb, ${feature.color} 40%, transparent)`
                       : "none",
                 }}
               >
@@ -98,8 +98,9 @@ export function FeaturesSection() {
                   hoverable={false}
                   style={{
                     height: "100%",
-                    background: `radial-gradient(circle at top right, ${feature.color}15, transparent 60%), var(--mkt-surface)`,
-                    border: `1px solid ${feature.color}30`,
+                    position: "relative",
+                    background: `radial-gradient(circle at top right, color-mix(in srgb, ${feature.color} 15%, transparent), transparent 60%), var(--mkt-surface)`,
+                    border: `1px solid color-mix(in srgb, ${feature.color} 30%, transparent)`,
                     borderRadius: "15px",
                     transition: "all 0.3s ease",
                   }}
@@ -110,7 +111,7 @@ export function FeaturesSection() {
                       width: "64px",
                       height: "64px",
                       borderRadius: "14px",
-                      background: `linear-gradient(135deg, ${feature.color} 0%, ${feature.color}cc 100%)`,
+                      background: `linear-gradient(135deg, ${feature.color} 0%, color-mix(in srgb, ${feature.color} 80%, transparent) 100%)`,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -119,8 +120,8 @@ export function FeaturesSection() {
                       marginBottom: "20px",
                       boxShadow:
                         hoveredIndex === index
-                          ? `0 8px 32px ${feature.color}60, 0 0 48px ${feature.color}30`
-                          : `0 8px 24px ${feature.color}40`,
+                          ? `0 8px 32px color-mix(in srgb, ${feature.color} 60%, transparent), 0 0 48px color-mix(in srgb, ${feature.color} 30%, transparent)`
+                          : `0 8px 24px color-mix(in srgb, ${feature.color} 40%, transparent)`,
                       transform: hoveredIndex === index ? "scale(1.1)" : "scale(1)",
                       transition: "all 0.4s ease",
                     }}
@@ -158,7 +159,7 @@ export function FeaturesSection() {
                       left: "28px",
                       right: "28px",
                       height: "2px",
-                      background: `linear-gradient(90deg, transparent, ${feature.color}60, transparent)`,
+                      background: `linear-gradient(90deg, transparent, color-mix(in srgb, ${feature.color} 60%, transparent), transparent)`,
                       opacity: hoveredIndex === index ? 1 : 0,
                       transition: "opacity 0.4s ease",
                     }}

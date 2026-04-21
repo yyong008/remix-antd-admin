@@ -60,24 +60,10 @@ export function HowItWorks() {
                   transition: `all 0.5s ease-out ${index * 0.15}s`,
                 }}
               >
-                {/* 连接线 */}
-                {index < steps.length - 1 && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "40px",
-                      right: "-16px",
-                      width: "32px",
-                      height: "2px",
-                      background: "linear-gradient(90deg, var(--mkt-border), transparent)",
-                      zIndex: 1,
-                    }}
-                  />
-                )}
-
                 <Card
                   hoverable
                   style={{
+                    position: "relative",
                     height: "100%",
                     borderRadius: "16px",
                     border: "1px solid var(--mkt-border)",
@@ -85,6 +71,20 @@ export function HowItWorks() {
                   }}
                   bodyStyle={{ padding: "32px", textAlign: "center" }}
                 >
+                  {/* 连接线 */}
+                  {index < steps.length - 1 && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "40px",
+                        right: "-16px",
+                        width: "32px",
+                        height: "2px",
+                        background: "linear-gradient(90deg, var(--mkt-border), transparent)",
+                        zIndex: 1,
+                      }}
+                    />
+                  )}
                   {/* 步骤编号 */}
                   <div
                     style={{

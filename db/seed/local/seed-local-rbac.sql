@@ -110,7 +110,7 @@ INSERT OR REPLACE INTO sys_menu (id, name, type, description, remark, icon, path
   'm-ai', 'AI', 1, NULL, NULL, 'RobotOutlined', '/ai', NULL, 1, 1, 0, NULL, 0, 2, (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), NULL
 );
 INSERT OR REPLACE INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, "isShow", "isCache", permission, "isLink", order_no, created_at, updated_at, parent_menu_id) VALUES (
-  'm-ai-chatbot', 'Chatbot', 2, NULL, NULL, 'MessageOutlined', '/ai/chatbot', 'admin/ai/chatbot', 1, 1, 0, 'system:ai:simplechat:read', 0, 1, (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), 'm-ai'
+  'm-ai-chatbot', 'Chatbot', 2, NULL, NULL, 'MessageOutlined', '/ai/chatbot', 'admin/ai/chatbot', 1, 1, 0, 'system:ai:chatbot:read', 0, 1, (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), 'm-ai'
 );
 INSERT OR REPLACE INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, "isShow", "isCache", permission, "isLink", order_no, created_at, updated_at, parent_menu_id) VALUES (
   'm-news', 'News', 1, NULL, NULL, 'NotificationOutlined', '/news', NULL, 1, 1, 0, NULL, 0, 3, (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), NULL
