@@ -176,81 +176,81 @@ export function Route() {
       <div
         style={{
           display: "grid",
-          minHeight: 560,
           width: "100%",
           minWidth: 0,
           flex: 1,
           alignItems: "stretch",
           gap: 16,
-          gridTemplateColumns: "minmax(0, 1fr)",
+          gridTemplateColumns: "280px 1fr",
         }}
       >
         <Card
+          size="small"
           title={
             <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <FolderOutlined style={{ color: "#eab308" }} />
               新闻分类
             </span>
           }
-          size="small"
-          style={{ width: "100%", maxWidth: "100%", flexShrink: 0 }}
-          styles={{ body: { paddingBlock: 12 } }}
+          styles={{ body: { height: "100%", padding: 0 } }}
           extra={<CreateNewsCategoryModal refetch={refetchCategories} />}
         >
-          <Space direction="vertical" size={8} style={{ width: "100%" }}>
-            <Button
-              block
-              type={!categoryId ? "primary" : "default"}
-              onClick={() => setCategoryFilter(undefined)}
-              icon={<FileTextOutlined />}
-            >
-              全部
-              <span style={{ marginLeft: "auto", fontSize: 12, opacity: 0.6 }}>
-                {newsData?.total ?? 0}
-              </span>
-            </Button>
-            {catLoading ? (
-              <Skeleton active paragraph={false} />
-            ) : (sidebarCategories?.length ?? 0) === 0 ? (
-              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无分类" />
-            ) : (
-              (sidebarCategories ?? []).map((cat) => (
-                <Flex
-                  key={cat.id}
-                  align="center"
-                  justify="space-between"
-                  gap={8}
-                  style={{
-                    borderRadius: 8,
-                    padding: "6px 12px",
-                    transition: "all 0.2s",
-                    backgroundColor: categoryId === cat.id ? "#fef9c3" : "transparent",
-                  }}
-                >
-                  <Button
-                    block
-                    style={{
-                      flex: 1,
-                      textAlign: "left",
-                      fontWeight: categoryId === cat.id ? 600 : 400,
-                    }}
-                    type={categoryId === cat.id ? "primary" : "text"}
-                    onClick={() => setCategoryFilter(cat.id)}
+          <div style={{ height: "100%", overflowY: "auto", padding: "8px 4px" }}>
+            <Space direction="vertical" size={1} style={{ width: "100%" }}>
+              <Button
+                block
+                type={!categoryId ? "primary" : "default"}
+                onClick={() => setCategoryFilter(undefined)}
+                icon={<FileTextOutlined />}
+              >
+                全部
+                <span style={{ marginLeft: "auto", fontSize: 12, opacity: 0.6 }}>
+                  {newsData?.total ?? 0}
+                </span>
+              </Button>
+              {catLoading ? (
+                <Skeleton active paragraph={false} />
+              ) : (sidebarCategories?.length ?? 0) === 0 ? (
+                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无分类" />
+              ) : (
+                (sidebarCategories ?? []).map((cat) => (
+                  <Flex
+                    key={cat.id}
+                    align="center"
+                    justify="space-between"
+                    gap={2}
+                    wrap="nowrap"
+                    style={{ paddingInline: 4 }}
                   >
-                    <span
-                      style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+                    <Button
+                      block
+                      size="small"
+                      type={categoryId === cat.id ? "primary" : "text"}
+                      style={{
+                        flex: 1,
+                        textAlign: "left",
+                        fontWeight: categoryId === cat.id ? 600 : 400,
+                      }}
+                      onClick={() => setCategoryFilter(cat.id)}
                     >
-                      {cat.name}
-                    </span>
-                    <span style={{ marginLeft: "auto", fontSize: 12, opacity: 0.6 }}>
-                      {cat.newsCount ?? 0}
-                    </span>
-                  </Button>
-                  <CategoryActionsCell cat={cat} refetch={refetchCategories} />
-                </Flex>
-              ))
-            )}
-          </Space>
+                      <span
+                        style={{
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                          fontSize: 13,
+                          display: "block",
+                        }}
+                      >
+                        {cat.name}
+                      </span>
+                    </Button>
+                    <CategoryActionsCell cat={cat} refetch={refetchCategories} />
+                  </Flex>
+                ))
+              )}
+            </Space>
+          </div>
         </Card>
 
         <Card

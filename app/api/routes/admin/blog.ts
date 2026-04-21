@@ -18,8 +18,8 @@ blogRouter.get("/", requirePermission("blog:list:read", "blog:detail:read"), asy
     const req = c.req.raw;
     const page = getSearchParamsPage(req);
     const pageSize = getSearchParamsPageSize(req);
-    const categoryId = Number(getSearchParams(req, "categoryId") ?? 0);
-    const tagId = Number(getSearchParams(req, "tagId") ?? 0);
+    const categoryId = getSearchParams(req, "categoryId");
+    const tagId = getSearchParams(req, "tagId");
     const db = getD1Db(c);
     const blogDAL = createBlogDAL(db);
     const total = await blogDAL.getCount();

@@ -1,41 +1,62 @@
-import { Space, Tag } from "antd";
+import { Dropdown, message, Tag } from "antd";
+import type { MenuProps } from "antd";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
-import { DeleteAction } from "./DeleteAction";
-import { UpdateLinkCategoryModal } from "./UpdateLinkCategoryModal";
-
-export function createColumns({ refetch }: { refetch: () => void }) {
+export function createColumns({
+  refetch,
+  onUpdate,
+  onDelete,
+}: {
+  refetch: () => void;
+  onUpdate: (record: { id: string; name: string; description?: string }) => void;
+  onDelete: (record: { id: string }) => void;
+}) {
   return [
     {
       dataIndex: "name",
-      title: "分类名",
-      render(_: unknown, record: { id: string; name: string }) {
-        return <span style={{ fontWeight: 500 }}>{record?.name}</span>;
-      },
-    },
-    {
-      dataIndex: "description",
-      title: "描述",
-      ellipsis: true,
-    },
-    {
-      dataIndex: "linkCount",
-      title: "链接数",
-      width: 80,
-      align: "right" as const,
-      render(n: number) {
-        return <Tag color="processing">{typeof n === "number" ? n : 0}</Tag>;
-      },
-    },
-    {
-      dataIndex: "op",
-      title: "操作",
-      render(_: unknown, record: { id: string }) {
+      title: "",
+      render(_: unknown, record: { id: string; name: string; linkCount?: number }) {
+        const items: MenuProps["items"] = [
+          {
+            key: "update",
+            label: (
+              <span>
+                <EditOutlined style={{ marginRight: 8 }} />
+                编辑
+              </span>
+            ),
+            onClick: () => onUpdate(record),
+          },
+          {
+            key: "delete",
+            label: (
+              <span style={{ color: "#ff4d4f" }}>
+                <DeleteOutlined style={{ marginRight: 8 }} />
+                删除
+              </span>
+            ),
+            onClick: () => onDelete(record),
+          },
+        ];
         return (
-          <div onClick={(e) => e.stopPropagation()}>
-            <Space>
-              <UpdateLinkCategoryModal record={record} refetch={refetch} />
-              <DeleteAction record={record} refetch={refetch} title="删除分类" />
-            </Space>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingRight: 8,
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span style={{ fontWeight: 500 }}>{record.name}</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <Tag color="processing" style={{ margin: 0 }}>
+                {typeof record.linkCount === "number" ? record.linkCount : 0}
+              </Tag>
+              <Dropdown menu={{ items }} trigger={["click"]}>
+                <span style={{ cursor: "pointer", fontSize: 16, padding: "0 4px" }}>⋮</span>
+              </Dropdown>
+            </div>
           </div>
         );
       },

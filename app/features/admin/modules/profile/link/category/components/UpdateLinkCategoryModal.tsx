@@ -9,9 +9,13 @@ import { FormItems } from "./FormItems";
 export function UpdateLinkCategoryModal({
   record,
   refetch,
+  open,
+  onClose,
 }: {
   record: Record<string, unknown> & { id: string };
   refetch: () => void;
+  open?: boolean;
+  onClose?: () => void;
 }) {
   const [form] = Form.useForm();
   const update = useUpdateProfileLinkCategory();
@@ -20,10 +24,14 @@ export function UpdateLinkCategoryModal({
     <ModalForm
       preserve={false}
       title="编辑分类"
+      open={open}
       initialValues={{ ...record }}
-      onOpenChange={(open) => {
-        if (open && record?.id) {
+      onOpenChange={(isOpen) => {
+        if (isOpen && record?.id) {
           form.setFieldsValue({ ...record });
+        }
+        if (!isOpen) {
+          onClose?.();
         }
       }}
       trigger={<Button type="link" size="small" icon={<EditOutlined />} />}
@@ -31,7 +39,10 @@ export function UpdateLinkCategoryModal({
       autoFocusFirstInput
       modalProps={{
         destroyOnHidden: true,
-        onCancel: () => form.resetFields(),
+        onCancel: () => {
+          form.resetFields();
+          onClose?.();
+        },
       }}
       loading={update.isPending}
       submitTimeout={2000}
@@ -47,6 +58,7 @@ export function UpdateLinkCategoryModal({
         message.success(res.message ?? "已更新");
         refetch();
         form.resetFields();
+        onClose?.();
         return true;
       }}
     >

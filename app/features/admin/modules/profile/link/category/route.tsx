@@ -1,12 +1,17 @@
 import { AdminTable } from "~/components/admin-table";
 import { PageContainer } from "~/components/page-container";
-import { Alert, Button, Card, Empty, Spin, theme, Typography } from "antd";
+import { Alert, Button, Card, Empty, Spin, message, theme, Typography } from "antd";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { useProfileLinkCategoryList } from "~/api-client/queries/profile-link-category";
+import {
+  useProfileLinkCategoryList,
+  useUpdateProfileLinkCategory,
+  useDeleteProfileLinkCategory,
+} from "~/api-client/queries/profile-link-category";
 import { useProfileLinkList } from "~/api-client/queries/profile-link";
 
 import { CreateLinkCategoryModal } from "./components/CreateLinkCategoryModal";
+import { UpdateLinkCategoryModal } from "./components/UpdateLinkCategoryModal";
 import { createColumns as createCategoryColumns } from "./components/createColumns";
 import { createColumns as createLinkColumns } from "../category-detail/components/createColumns";
 import { LinkModalCreate } from "../category-detail/components/CreateLinkModal";
@@ -27,6 +32,14 @@ export function Route() {
     error: catErr,
     refetch: refetchCategories,
   } = useProfileLinkCategoryList({ page: 1, pageSize: 500 });
+
+  const [updateCategory, setUpdateCategory] = useState<{
+    id: string;
+    name: string;
+    description?: string;
+  } | null>(null);
+  const updateMutation = useUpdateProfileLinkCategory();
+  const deleteMutation = useDeleteProfileLinkCategory();
 
   const categories = catData?.list ?? [];
 
@@ -70,9 +83,30 @@ export function Route() {
     refetchLinks();
   }, [refetchCategories, refetchLinks]);
 
+  const handleDeleteCategory = useCallback(
+    async (record: { id: string }) => {
+      const res = (await deleteMutation.mutateAsync({ ids: [record.id] })) as {
+        code?: number;
+        message?: string;
+      };
+      if (res.code !== 0) {
+        message.error(res.message ?? "删除失败");
+        return;
+      }
+      message.success("删除成功");
+      refetchAll();
+    },
+    [deleteMutation, refetchAll],
+  );
+
   const categoryColumns = useMemo(
-    () => createCategoryColumns({ refetch: refetchAll }),
-    [refetchAll],
+    () =>
+      createCategoryColumns({
+        refetch: refetchAll,
+        onUpdate: (record) => setUpdateCategory(record),
+        onDelete: handleDeleteCategory,
+      }),
+    [refetchAll, handleDeleteCategory],
   );
 
   const linkColumns = useMemo(
@@ -120,10 +154,10 @@ export function Route() {
           }
         />
       ) : null}
-      <div style={{ display: "flex", minHeight: 480, flexDirection: "column", gap: 16 }}>
+      <div style={{ display: "flex", minHeight: 480, gap: 16 }}>
         <Card
           size="small"
-          style={{ width: "100%", flexShrink: 0, borderColor: token.colorPrimaryBorder }}
+          style={{ width: 280, flexShrink: 0, borderColor: token.colorPrimaryBorder }}
           title={
             <span>
               链接分类
@@ -155,6 +189,7 @@ export function Route() {
                 search={false}
                 options={false}
                 pagination={false}
+                showHeader={false}
                 dataSource={categories}
                 columns={categoryColumns}
                 onRow={(record) => ({
@@ -172,7 +207,6 @@ export function Route() {
         <Card
           size="small"
           style={{
-            minWidth: 0,
             flex: 1,
             borderColor: selectedCategoryId ? token.colorPrimaryBorder : undefined,
           }}
@@ -201,6 +235,12 @@ export function Route() {
           )}
         </Card>
       </div>
+      <UpdateLinkCategoryModal
+        record={updateCategory ?? { id: "", name: "", description: "" }}
+        refetch={refetchAll}
+        open={updateCategory != null}
+        onClose={() => setUpdateCategory(null)}
+      />
     </PageContainer>
   );
 }

@@ -43,7 +43,7 @@ function CategoryActionsCell({ cat, refetch }: { cat: any; refetch: () => void }
         <Button type="text" size="small" icon={<MoreOutlined />} />
       </Dropdown>
       <UpdateBlogCategoryModal
-        trigger={null}
+        trigger={<></>}
         record={cat}
         refetch={refetch}
         open={editOpen}
@@ -142,7 +142,7 @@ export function BlogSidebar({
                   }
                 />
               </Flex>
-              <Space orientation="vertical" size={1} style={{ width: "100%" }}>
+              <Space orientation="vertical" size={4} style={{ width: "100%" }}>
                 {catLoading ? (
                   <Flex justify="center" style={{ paddingBlock: 24 }}>
                     <Typography.Text type="secondary" style={{ fontSize: 12 }}>
@@ -150,11 +150,7 @@ export function BlogSidebar({
                     </Typography.Text>
                   </Flex>
                 ) : categories.length === 0 ? (
-                  <Empty
-                    image={Empty.PRESENTED_IMAGE_SIMPLE}
-                    description="暂无分类"
-                    style={{ marginBlock: 16 }}
-                  />
+                  <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无分类" />
                 ) : (
                   categories.map((cat) => {
                     const selected = selectedCategoryId === String(cat.id);
@@ -163,28 +159,17 @@ export function BlogSidebar({
                         key={cat.id}
                         align="center"
                         justify="space-between"
-                        gap={2}
+                        gap={4}
                         wrap="nowrap"
-                        style={{ paddingInline: 4 }}
                       >
                         <Button
                           block
                           size="small"
                           type={selected ? "primary" : "text"}
                           style={{ flex: 1, textAlign: "left", fontWeight: selected ? 600 : 400 }}
-                          onClick={() => onCategorySelect(String(cat.id))}
+                          onClick={() => onCategorySelect(selected ? undefined : String(cat.id))}
                         >
-                          <Typography.Text
-                            style={{
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                              whiteSpace: "nowrap",
-                              fontSize: 13,
-                              display: "block",
-                            }}
-                          >
-                            {cat.name}
-                          </Typography.Text>
+                          {cat.name}
                         </Button>
                         <CategoryActionsCell cat={cat} refetch={refetchCategories} />
                       </Flex>
@@ -210,7 +195,7 @@ export function BlogSidebar({
                   }
                 />
               </Flex>
-              <Space orientation="vertical" size={1} style={{ width: "100%" }}>
+              <Space orientation="vertical" size={4} style={{ width: "100%" }}>
                 {tagLoading ? (
                   <Flex justify="center" style={{ paddingBlock: 24 }}>
                     <Typography.Text type="secondary" style={{ fontSize: 12 }}>
@@ -218,11 +203,7 @@ export function BlogSidebar({
                     </Typography.Text>
                   </Flex>
                 ) : tags.length === 0 ? (
-                  <Empty
-                    image={Empty.PRESENTED_IMAGE_SIMPLE}
-                    description="暂无标签"
-                    style={{ marginBlock: 16 }}
-                  />
+                  <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无标签" />
                 ) : (
                   tags.map((tag) => {
                     const selected = selectedTagId === String(tag.id);
@@ -231,28 +212,17 @@ export function BlogSidebar({
                         key={tag.id}
                         align="center"
                         justify="space-between"
-                        gap={2}
+                        gap={4}
                         wrap="nowrap"
-                        style={{ paddingInline: 4 }}
                       >
                         <Button
                           block
                           size="small"
                           type={selected ? "primary" : "text"}
                           style={{ flex: 1, textAlign: "left", fontWeight: selected ? 600 : 400 }}
-                          onClick={() => onTagSelect(String(tag.id))}
+                          onClick={() => onTagSelect(selected ? undefined : String(tag.id))}
                         >
-                          <Typography.Text
-                            style={{
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                              whiteSpace: "nowrap",
-                              fontSize: 13,
-                              display: "block",
-                            }}
-                          >
-                            {tag.name}
-                          </Typography.Text>
+                          {tag.name}
                         </Button>
                         <TagActionsCell tag={tag} refetch={refetchTags} />
                       </Flex>

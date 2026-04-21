@@ -258,10 +258,10 @@ export function MenuProTable(props: SystemMenuProps) {
 
   return (
     <Spin spinning={props.loading}>
-      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ display: "flex", gap: 12 }}>
         <Card
           variant="borderless"
-          style={{ boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
+          style={{ width: 360, flexShrink: 0, boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
           styles={{ body: { paddingBlock: 12 } }}
           title={
             <span style={{ color: "var(--ant-color-text-heading)", fontWeight: 600 }}>
@@ -317,7 +317,7 @@ export function MenuProTable(props: SystemMenuProps) {
 
         <Card
           variant="borderless"
-          style={{ boxShadow: "0 1px 2px rgba(0,0,0,0.06)", width: "100%" }}
+          style={{ flex: 1, boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
           styles={{ body: { paddingBlock: 12 } }}
           title={
             <span style={{ color: "var(--ant-color-text-heading)", fontWeight: 600 }}>
