@@ -2,7 +2,7 @@ import { SessionUserContext } from "../context/index";
 import { useUserSessionQuery, useRefreshUserSession } from "~/api-client/queries/session";
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
-  const { data: sessionData } = useUserSessionQuery();
+  const { data: sessionData, isPending: isSessionPending } = useUserSessionQuery();
   const refreshUserSession = useRefreshUserSession();
 
   return (
@@ -10,6 +10,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       value={{
         session: sessionData?.session || null,
         user: sessionData?.user || null,
+        isSessionPending,
         refreshUserSession,
       }}
     >

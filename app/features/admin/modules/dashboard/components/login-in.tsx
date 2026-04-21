@@ -5,11 +5,12 @@ import { FormatTime } from "~/components/common";
 
 export function LoginIn({ data, userInfo }: any) {
   const latestLoginLog = data?.latestLoginLog ?? {};
+  const displayName = userInfo?.name || userInfo?.email || "—";
   return (
     <div>
-      <div className="flex items-center text-[20px] pb-[10px]">
-        <SmileOutlined className="mr-[10px]" />
-        欢迎，<span className="text-lime-500">{userInfo?.name}</span>
+      <div style={{ display: "flex", alignItems: "center", fontSize: 20, paddingBottom: 10 }}>
+        <SmileOutlined style={{ marginRight: 10 }} />
+        欢迎，<span style={{ color: "#84cc16" }}>{displayName}</span>
       </div>
       <Descriptions column={3} size="small">
         <Descriptions.Item label="所属部门">{userInfo?.department?.name}</Descriptions.Item>

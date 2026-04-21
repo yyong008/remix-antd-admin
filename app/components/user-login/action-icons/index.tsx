@@ -1,16 +1,18 @@
 import { AlipayCircleOutlined, TaobaoCircleOutlined, WeiboCircleOutlined } from "@ant-design/icons";
 
-import { Space } from "antd";
+import { Flex, Space } from "antd";
+
+const iconStyle = { color: "rgba(0,0,0,0.25)" };
 
 const ActionIcons = () => {
   return (
-    <div className="inline-flex flex-nowrap pl-[10px]">
+    <Flex style={{ display: "inline-flex", flexWrap: "nowrap", paddingLeft: 10 }}>
       <Space>
-        <AlipayCircleOutlined key="AlipayCircleOutlined" className="text-gray-300" />
-        <TaobaoCircleOutlined key="TaobaoCircleOutlined" className="text-gray-300" />
-        <WeiboCircleOutlined key="WeiboCircleOutlined" className="text-gray-300" />
+        <AlipayCircleOutlined style={iconStyle} />
+        <TaobaoCircleOutlined style={iconStyle} />
+        <WeiboCircleOutlined style={iconStyle} />
       </Space>
-    </div>
+    </Flex>
   );
 };
 

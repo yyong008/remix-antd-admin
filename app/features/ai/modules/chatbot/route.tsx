@@ -1,68 +1,88 @@
-import { useMemo } from "react";
-import { useParams } from "react-router";
+import { Flex, Typography } from "antd";
+import { useEffect, useState } from "react";
+import { href, useNavigate, useParams } from "react-router";
 
+import { AiChatConversation, AiChatLoading } from "./AiChatConversation";
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** Resolves a server chat session id (creates one for slugs like `demo`). */
+function useResolvedChatId() {
+  const { locale, id: rawId } = useParams();
+  const navigate = useNavigate();
+  const [chatId, setChatId] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const run = async () => {
+      if (!rawId) {
+        const res = await fetch("/api/ai/chats", { method: "POST" });
+        const data = (await res.json()) as { id?: string };
+        if (cancelled || !data.id) return;
+        setChatId(data.id);
+        navigate(href(`/:locale?/ai/chatbot/:id`, { locale, id: data.id }), { replace: true });
+        return;
+      }
+
+      if (UUID_RE.test(rawId)) {
+        setChatId(rawId);
+        return;
+      }
+
+      const res = await fetch("/api/ai/chats", { method: "POST" });
+      const data = (await res.json()) as { id?: string };
+      if (cancelled || !data.id) return;
+      setChatId(data.id);
+      navigate(href(`/:locale?/ai/chatbot/:id`, { locale, id: data.id }), { replace: true });
+    };
+
+    void run();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [rawId, locale, navigate]);
+
+  return chatId;
+}
+
+/** Marketing-site AI chat: Ollama via `/api/ai` + Ant Design X. */
 export function Route() {
-  const { locale, id } = useParams();
-
-  const title = useMemo(() => (id ? `Chat ${id.slice(0, 6)}` : "Chatbot"), [id]);
-  const messages = [
-    {
-      id: "m1",
-      role: "assistant" as const,
-      content: "你好，我可以帮你整理需求、生成文案或提供数据总结。",
-    },
-    {
-      id: "m2",
-      role: "user" as const,
-      content: "帮我总结一下这周的增长表现。",
-    },
-    {
-      id: "m3",
-      role: "assistant" as const,
-      content: "好的，我会先抓取数据，并整理成 3 个重点结论。",
-    },
-  ];
+  const { locale } = useParams();
+  const chatId = useResolvedChatId();
 
   return (
-    <div className="flex h-full flex-col gap-6">
+    <Flex vertical gap={24} style={{ height: "100%", minHeight: 420 }}>
       <div>
-        <p className="text-xs uppercase tracking-[0.3em] text-[var(--mkt-muted)]">AI Chatbot</p>
-        <h1 className="text-2xl font-semibold">{title}</h1>
-        <p className="mt-2 text-sm text-[var(--mkt-muted)]">输入消息即可开始，当前语言：{locale}</p>
-      </div>
-
-      <div className="flex-1 space-y-4 overflow-y-auto rounded-3xl border border-[var(--mkt-border)] bg-[var(--mkt-bg)] p-4">
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
-          >
-            <div
-              className={`max-w-[75%] rounded-2xl px-4 py-3 text-sm shadow-sm ${
-                message.role === "user"
-                  ? "bg-[var(--mkt-text)] text-[var(--mkt-surface)]"
-                  : "bg-[var(--mkt-surface)] text-[var(--mkt-text)]"
-              }`}
-            >
-              {message.content}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="flex items-end gap-3">
-        <textarea
-          rows={3}
-          placeholder="输入消息..."
-          className="flex-1 resize-none rounded-2xl border border-[var(--mkt-border)] bg-[var(--mkt-surface)] p-3 text-sm focus:outline-none"
-        />
-        <button
-          type="button"
-          className="rounded-2xl bg-[var(--mkt-text)] px-5 py-3 text-sm font-semibold text-[var(--mkt-surface)] disabled:opacity-50"
+        <Typography.Text
+          style={{
+            fontSize: 12,
+            textTransform: "uppercase",
+            letterSpacing: "0.3em",
+            color: "var(--mkt-muted)",
+          }}
         >
-          发送
-        </button>
+          AI Chatbot
+        </Typography.Text>
+        <Typography.Title level={2} style={{ margin: "8px 0 0", fontWeight: 600 }}>
+          对话
+        </Typography.Title>
+        <Typography.Paragraph
+          style={{ marginTop: 8, marginBottom: 0, color: "var(--mkt-muted)", fontSize: 14 }}
+        >
+          当前语言：
+          <Typography.Text strong style={{ color: "var(--mkt-text)" }}>
+            {locale ?? "—"}
+          </Typography.Text>
+        </Typography.Paragraph>
       </div>
-    </div>
+
+      {!chatId ? (
+        <AiChatLoading />
+      ) : (
+        <AiChatConversation chatId={chatId} style={{ minHeight: 480 }} gap={16} />
+      )}
+    </Flex>
   );
 }

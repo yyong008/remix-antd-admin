@@ -20,7 +20,11 @@ export const createApiClient = (options: CreateClientOptions = {}): ApiClient =>
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
-      return fetch(input, { ...init, headers });
+      return fetch(input, {
+        ...init,
+        headers,
+        credentials: "include",
+      });
     },
   });
 };

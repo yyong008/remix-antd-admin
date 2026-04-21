@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
 import { MenuProTable } from "./components/MenuProTable";
-import { PageContainer } from "@ant-design/pro-components";
+import { PageContainer } from "~/components/page-container";
 import { useMenuList } from "~/api-client/queries/system-menu";
 
 function removeType3(data: any[]) {
@@ -36,7 +36,7 @@ export function Route() {
     return removeType3(JSON.parse(JSON.stringify(menuTreeData)) || []);
   }, [menuTreeData]);
   return (
-    <PageContainer>
+    <PageContainer ghost title="菜单管理" headerSpacing="compact">
       <MenuProTable
         menuRaw={menuTreeData}
         loading={isLoading}

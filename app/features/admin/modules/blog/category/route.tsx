@@ -1,4 +1,5 @@
-import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { PageContainer } from "@/components/page-container";
+import { AdminTable } from "@/components/admin-table/AdminTable";
 
 import { CreateBlogCategoryModal } from "./components/CreateBlogCategoryModal";
 import { createColumns } from "./components/createColumns";
@@ -18,10 +19,9 @@ export function Route() {
   };
   return (
     <PageContainer>
-      <ProTable
+      <AdminTable
         rowKey="id"
         size="small"
-        search={false}
         loading={isLoading}
         dataSource={data?.data?.list || ([] as any[])}
         toolBarRender={() => [<CreateBlogCategoryModal key="create" refetch={refetch} />]}

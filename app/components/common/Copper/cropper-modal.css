@@ -1,0 +1,107 @@
+/* Avatar / image crop modal — layout isolated from global admin styles */
+
+.rr-cropper-modal .ant-modal-header {
+  margin-bottom: 0;
+}
+
+.rr-cropper-modal .ant-modal-body {
+  padding-top: 8px;
+}
+
+.rr-cropper-modal__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 576px) {
+  .rr-cropper-modal__body {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.rr-cropper-modal__stage {
+  flex: 1;
+  min-width: 0;
+  border-radius: 8px;
+  border: 1px solid var(--ant-color-border-secondary, #f0f0f0);
+  background: var(--ant-color-fill-quaternary, #fafafa);
+  padding: 12px;
+}
+
+.rr-cropper-modal__stage-title {
+  font-size: 12px;
+  color: var(--ant-color-text-secondary, rgba(0, 0, 0, 0.45));
+  margin-bottom: 8px;
+}
+
+.rr-cropper-modal__crop-wrap {
+  display: flex;
+  justify-content: center;
+  max-height: min(52vh, 420px);
+  overflow: auto;
+}
+
+.rr-cropper-modal__crop-wrap img {
+  display: block;
+  max-width: 100%;
+  max-height: 400px;
+  width: auto;
+  height: auto;
+}
+
+.rr-cropper-modal__preview {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+@media (min-width: 576px) {
+  .rr-cropper-modal__preview {
+    width: 168px;
+  }
+}
+
+.rr-cropper-modal__preview-inner {
+  border-radius: 8px;
+  border: 1px solid var(--ant-color-border-secondary, #f0f0f0);
+  background: var(--ant-color-fill-quaternary, #fafafa);
+  padding: 12px;
+  text-align: center;
+}
+
+.rr-cropper-modal__preview-title {
+  font-size: 12px;
+  color: var(--ant-color-text-secondary, rgba(0, 0, 0, 0.45));
+  margin-bottom: 12px;
+}
+
+.rr-cropper-modal__preview-img-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+}
+
+.rr-cropper-modal__preview-img-wrap img {
+  max-width: 120px;
+  max-height: 120px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.rr-cropper-modal__preview-img-wrap--rect img {
+  border-radius: 8px;
+}
+
+.rr-cropper-modal__preview-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  color: var(--ant-color-text-quaternary, rgba(0, 0, 0, 0.25));
+  font-size: 13px;
+}

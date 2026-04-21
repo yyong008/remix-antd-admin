@@ -1,79 +1,51 @@
 import * as clientUtils from "~/utils/client";
 
-import { Footer, MenuItemLink, MenuItemOutLink } from "@/components/common";
 import { Outlet, useParams } from "react-router";
-import { ProLayout, WaterMark } from "@ant-design/pro-components";
-import { memo, useContext, useMemo, useState } from "react";
+import { memo, useContext, useMemo } from "react";
 
 import { App as AntdApp } from "antd";
-import { AvatarDropDown } from "./components/AvatarDropdown";
-import { MenuFooterRender } from "./components/MenuFooterRender";
+import { AdminShellLayout } from "./components/AdminShellLayout";
 import { SettingContext } from "@/context/setting-context";
 import { SettingDrawerWrap } from "./components/SettingDrawerWrap";
-import { createActionRenderWrap } from "./components/createActionsRender";
-import { createTokens } from "./components/createToken";
-import { info } from "@/config/project";
-import { prolayoutConfig } from "@/config/prolayout";
 import { useUserInfo } from "~/api-client/queries/system-user";
-
-const resetStyles = {
-  padding: "0px",
-  margin: "0px",
-  height: "100vh",
-};
+import { useSession } from "~/session/hooks";
 
 function AdminLayout() {
   const { data, isLoading } = useUserInfo();
-  const payload = (data as any)?.data ?? {};
+  const sessionCtx = useSession();
 
   const { locale } = useParams();
   const value = useContext(SettingContext);
-  const { menu = [], userInfo = {} } = payload || ({} as any);
-  const [pathname, setPathname] = useState(location.pathname);
-  const token = useMemo(() => createTokens(value), [value]);
+  const menu = data?.menu ?? [];
+  const userInfo = data?.userInfo;
   const route = useMemo(() => clientUtils.createProLayoutRoute(locale!, menu), [locale, menu]);
+
+  /** System profile (menu/RBAC) + session user (better-auth) so name/avatar always show when either source has data. */
+  const headerUser = useMemo(() => {
+    const api = userInfo as {
+      name?: string | null;
+      nickname?: string | null;
+      email?: string | null;
+      avatar?: string | null;
+    } | null;
+    const su = sessionCtx?.user as
+      | { name?: string | null; email?: string | null; image?: string | null }
+      | null
+      | undefined;
+    return {
+      name: api?.name ?? su?.name ?? null,
+      nickname: api?.nickname ?? null,
+      email: api?.email ?? su?.email ?? null,
+      avatar: api?.avatar ?? su?.image ?? null,
+    };
+  }, [userInfo, sessionCtx?.user]);
 
   return (
     <AntdApp>
-      <WaterMark content={info.WaterMark}>
-        <ProLayout
-          location={{ pathname }}
-          route={route}
-          token={token}
-          loading={isLoading}
-          {...value.theme}
-          logo={prolayoutConfig.logo}
-          menu={prolayoutConfig.menu}
-          style={resetStyles}
-          title={prolayoutConfig.title}
-          ErrorBoundary={false}
-          pageTitleRender={false}
-          contentStyle={resetStyles}
-          layout={prolayoutConfig.layout as any}
-          footerRender={() => <Footer />}
-          suppressSiderWhenMenuEmpty={true}
-          menuFooterRender={MenuFooterRender}
-          actionsRender={createActionRenderWrap({ value })}
-          avatarProps={{
-            src: userInfo?.avatar || prolayoutConfig.avatar.src,
-            size: prolayoutConfig.avatar.size as any,
-            title: userInfo?.name,
-            render: (_, dom) => {
-              return <AvatarDropDown dom={dom} />;
-            },
-          }}
-          menuItemRender={(item, dom) => {
-            if (item.isLink) {
-              return <MenuItemOutLink path={item.path!} dom={dom} />;
-            }
-
-            return <MenuItemLink path={item.path!} dom={dom} setPathname={setPathname} />;
-          }}
-        >
-          <Outlet />
-          <SettingDrawerWrap theme={value.theme} setTheme={value.setTheme} />
-        </ProLayout>
-      </WaterMark>
+      <AdminShellLayout loading={isLoading} route={route} user={headerUser}>
+        <Outlet />
+        <SettingDrawerWrap theme={value.theme} setTheme={value.setTheme} />
+      </AdminShellLayout>
     </AntdApp>
   );
 }

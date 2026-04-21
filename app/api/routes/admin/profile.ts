@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../../types";
+import { requirePermission } from "~/api/middleware/rbac";
 import { createProfileAccountDAL } from "~/dals/profile/ProfileAccountDAL";
 import { createProfileLinkCategoryDAL } from "~/dals/profile/ProfileLinkCategoryDAL";
 import { createProfileLinkDAL } from "~/dals/profile/ProfileLinkDAL";
@@ -8,9 +9,14 @@ import { getSearchParams, getSearchParamsPage, getSearchParamsPageSize } from "~
 import { rfj, rsj } from "~/utils/server/response-json";
 import { getD1Db } from "~/api/helpers/d1";
 
+function rfjFromCatch(error: unknown) {
+  const message = error instanceof Error ? error.message : String(error);
+  return rfj(null, message);
+}
+
 export const profileRouter = new Hono<HonoEnv>();
 
-profileRouter.get("/profile/account", async (c) => {
+profileRouter.get("/profile/account", requirePermission("profile:account:read"), async (c) => {
   try {
     const db = getD1Db(c);
     const profileAccountDAL = createProfileAccountDAL(db);
@@ -21,87 +27,109 @@ profileRouter.get("/profile/account", async (c) => {
     const result = await profileAccountDAL.getById(userId);
     return rsj(result ?? {});
   } catch (error) {
-    return rfj(error as Error);
+    return rfjFromCatch(error);
   }
 });
 
-profileRouter.post("/profile/account", async () => {
+profileRouter.post("/profile/account", requirePermission("profile:account:read"), async () => {
   return rfj({}, "Unsupport", { status: 501 });
 });
 
-profileRouter.put("/profile/account", async () => {
+profileRouter.put("/profile/account", requirePermission("profile:account:read"), async () => {
   return rfj({}, "Unsupport", { status: 501 });
 });
 
-profileRouter.delete("/profile/account", async () => {
+profileRouter.delete("/profile/account", requirePermission("profile:account:read"), async () => {
   return rfj({}, "Unsupport", { status: 501 });
 });
 
-profileRouter.get("/profile/link/category", async (c) => {
-  try {
-    const db = getD1Db(c);
-    const profileLinkCategoryDAL = createProfileLinkCategoryDAL(db);
-    const userId = c.get("userId");
-    if (!userId) {
-      return rfj({}, "No Authorization No User", { status: 401 });
+profileRouter.get(
+  "/profile/link/category",
+  requirePermission("profile:link-category:read", "profile:link:read"),
+  async (c) => {
+    try {
+      const db = getD1Db(c);
+      const profileLinkCategoryDAL = createProfileLinkCategoryDAL(db);
+      const profileLinkDAL = createProfileLinkDAL(db);
+      const userId = c.get("userId");
+      if (!userId) {
+        return rfj({}, "No Authorization No User", { status: 401 });
+      }
+      const req = c.req.raw;
+      const page = getSearchParamsPage(req);
+      const pageSize = getSearchParamsPageSize(req);
+      const total = await profileLinkCategoryDAL.getCountByUserId(userId);
+      const list = await profileLinkCategoryDAL.getList({
+        where: { userId },
+        skip: (page - 1) * pageSize,
+        take: pageSize,
+        orderBy: { id: "desc" } as any,
+      });
+      const linkCounts = await profileLinkDAL.getLinkCountsByCategoryForUser(userId);
+      const listWithCounts = list.map((row: { id: string }) => ({
+        ...row,
+        linkCount: linkCounts[row.id] ?? 0,
+      }));
+      return rsj({ total, list: listWithCounts });
+    } catch (error) {
+      return rfjFromCatch(error);
     }
-    const req = c.req.raw;
-    const page = getSearchParamsPage(req);
-    const pageSize = getSearchParamsPageSize(req);
-    const total = await profileLinkCategoryDAL.getCountByUserId(userId);
-    const list = await profileLinkCategoryDAL.getListByUserId({
-      where: { userId },
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-      orderBy: { id: "desc" } as any,
-    });
-    return rsj({ total, list });
-  } catch (error) {
-    return rfj(error as Error);
-  }
-});
+  },
+);
 
-profileRouter.post("/profile/link/category", async (c) => {
-  try {
-    const db = getD1Db(c);
-    const profileLinkCategoryDAL = createProfileLinkCategoryDAL(db);
-    const userId = c.get("userId");
-    if (!userId) {
-      return rfj({}, "No Authorization No User", { status: 401 });
+profileRouter.post(
+  "/profile/link/category",
+  requirePermission("profile:link-category:read", "profile:link:read"),
+  async (c) => {
+    try {
+      const db = getD1Db(c);
+      const profileLinkCategoryDAL = createProfileLinkCategoryDAL(db);
+      const userId = c.get("userId");
+      if (!userId) {
+        return rfj({}, "No Authorization No User", { status: 401 });
+      }
+      const dto = await c.req.json();
+      const result = await profileLinkCategoryDAL.create({ ...dto, userId });
+      return rsj(result);
+    } catch (error) {
+      return rfjFromCatch(error);
     }
-    const dto = await c.req.json();
-    const result = await profileLinkCategoryDAL.create({ ...dto, userId });
-    return rsj(result);
-  } catch (error) {
-    return rfj(error as Error);
-  }
-});
+  },
+);
 
-profileRouter.put("/profile/link/category", async (c) => {
-  try {
-    const db = getD1Db(c);
-    const profileLinkCategoryDAL = createProfileLinkCategoryDAL(db);
-    const dto = await c.req.json();
-    const result = await profileLinkCategoryDAL.update(dto);
-    return rsj(result);
-  } catch (error) {
-    return rfj(error as Error);
-  }
-});
+profileRouter.put(
+  "/profile/link/category",
+  requirePermission("profile:link-category:read", "profile:link:read"),
+  async (c) => {
+    try {
+      const db = getD1Db(c);
+      const profileLinkCategoryDAL = createProfileLinkCategoryDAL(db);
+      const dto = await c.req.json();
+      const result = await profileLinkCategoryDAL.update(dto);
+      return rsj(result);
+    } catch (error) {
+      return rfjFromCatch(error);
+    }
+  },
+);
 
-profileRouter.delete("/profile/link/category", async (c) => {
-  try {
-    const db = getD1Db(c);
-    const profileLinkCategoryDAL = createProfileLinkCategoryDAL(db);
-    const dto = await c.req.json();
-    const result = await profileLinkCategoryDAL.deleteByIds(dto.ids ?? []);
-    return rsj(result ?? {});
-  } catch (error) {
-    return rfj(error as Error);
-  }
-});
+profileRouter.delete(
+  "/profile/link/category",
+  requirePermission("profile:link-category:read", "profile:link:read"),
+  async (c) => {
+    try {
+      const db = getD1Db(c);
+      const profileLinkCategoryDAL = createProfileLinkCategoryDAL(db);
+      const dto = await c.req.json();
+      const result = await profileLinkCategoryDAL.deleteByIds(dto.ids ?? []);
+      return rsj(result ?? {});
+    } catch (error) {
+      return rfjFromCatch(error);
+    }
+  },
+);
 
-profileRouter.get("/profile/link", async (c) => {
+profileRouter.get("/profile/link", requirePermission("profile:link:read"), async (c) => {
   try {
     const db = getD1Db(c);
     const profileLinkDAL = createProfileLinkDAL(db);
@@ -112,8 +140,8 @@ profileRouter.get("/profile/link", async (c) => {
     const req = c.req.raw;
     const page = getSearchParamsPage(req);
     const pageSize = getSearchParamsPageSize(req);
-    const categoryId = Number(getSearchParams(req, "category") ?? 0);
-    const total = await profileLinkDAL.getCount({ userId });
+    const categoryId = (getSearchParams(req, "category") ?? "").trim();
+    const total = await profileLinkDAL.getCount(userId, categoryId || undefined);
     const list = await profileLinkDAL.getList({
       where: {
         userId,
@@ -124,11 +152,11 @@ profileRouter.get("/profile/link", async (c) => {
     });
     return rsj({ total, list });
   } catch (error) {
-    return rfj(error as Error);
+    return rfjFromCatch(error);
   }
 });
 
-profileRouter.post("/profile/link", async (c) => {
+profileRouter.post("/profile/link", requirePermission("profile:link:read"), async (c) => {
   try {
     const db = getD1Db(c);
     const profileLinkDAL = createProfileLinkDAL(db);
@@ -140,11 +168,11 @@ profileRouter.post("/profile/link", async (c) => {
     const result = await profileLinkDAL.create({ ...dto, userId });
     return rsj(result);
   } catch (error) {
-    return rfj(error as Error);
+    return rfjFromCatch(error);
   }
 });
 
-profileRouter.put("/profile/link", async (c) => {
+profileRouter.put("/profile/link", requirePermission("profile:link:read"), async (c) => {
   try {
     const db = getD1Db(c);
     const profileLinkDAL = createProfileLinkDAL(db);
@@ -152,14 +180,14 @@ profileRouter.put("/profile/link", async (c) => {
     if (!dto.id) {
       return rfj({}, "Invalid Link Id", { status: 400 });
     }
-    const result = await profileLinkDAL.update({ id: dto.id, data: dto });
+    const result = await profileLinkDAL.update(dto);
     return rsj(result);
   } catch (error) {
-    return rfj(error as Error);
+    return rfjFromCatch(error);
   }
 });
 
-profileRouter.delete("/profile/link", async (c) => {
+profileRouter.delete("/profile/link", requirePermission("profile:link:read"), async (c) => {
   try {
     const db = getD1Db(c);
     const profileLinkDAL = createProfileLinkDAL(db);
@@ -167,6 +195,6 @@ profileRouter.delete("/profile/link", async (c) => {
     const result = await profileLinkDAL.deleteByIds(dto.ids ?? []);
     return rsj(result ?? {});
   } catch (error) {
-    return rfj(error as Error);
+    return rfjFromCatch(error);
   }
 });

@@ -1,0 +1,83 @@
+/**
+ * Quill snow: toolbar + container are **siblings** (no wrapper `.ql-snow` around both).
+ * We use flex column on `.rr-quill-snow` and flex-wrap on the toolbar so buttons don’t
+ * collapse under Ant Design / Tailwind; `float:none` overrides Quill’s float toolbar layout.
+ */
+.rr-quill-snow {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+  border: 1px solid var(--ant-color-border, #d9d9d9);
+  border-radius: var(--ant-border-radius, 8px);
+  overflow: hidden;
+  background: var(--ant-color-bg-container, #fff);
+}
+
+.rr-quill-snow > .ql-toolbar.ql-snow {
+  flex-shrink: 0;
+  border: none;
+  border-bottom: 1px solid var(--ant-color-border, #d9d9d9);
+  background: var(--ant-color-bg-container, #fff);
+  padding: 8px 10px;
+  /* Replace float-based single row with wrapping flex rows */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: flex-start;
+  gap: 6px 4px;
+  row-gap: 8px;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  box-sizing: border-box;
+}
+
+.rr-quill-snow > .ql-toolbar.ql-snow::after {
+  /* Quill’s clearfix fights flex; not needed */
+  content: none;
+  display: none;
+}
+
+.rr-quill-snow .ql-toolbar.ql-snow .ql-formats {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-right: 0;
+  vertical-align: middle;
+}
+
+.rr-quill-snow .ql-toolbar.ql-snow button,
+.rr-quill-snow .ql-toolbar.ql-snow .ql-picker {
+  float: none !important;
+}
+
+.rr-quill-snow > .ql-container.ql-snow {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.rr-quill-snow .ql-editor {
+  flex: 1;
+  min-height: 200px;
+  overflow-y: auto;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.rr-quill-snow .ql-dropdown,
+.rr-quill-snow .ql-picker-label,
+.rr-quill-snow .ql-picker-options {
+  z-index: 1060 !important;
+  overflow: visible !important;
+}
+
+.rr-quill-snow .ql-toolbar.ql-snow {
+  overflow: visible !important;
+}

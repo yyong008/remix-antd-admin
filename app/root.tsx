@@ -3,8 +3,8 @@ import type { MiddlewareFunction } from "react-router";
 
 import { RootRoute } from "~/features/mkt/modules/root/route";
 import global from "@/styles/global.css?url";
+import adminShell from "@/styles/admin-shell.css?url";
 import npStyle from "nprogress/nprogress.css?url";
-import tailwind from "@/styles/tailwind.css?url";
 export { loader } from "~/features/mkt/modules/root/loader";
 export { ErrorBoundary } from "~/features/mkt/modules/root/error-boundary";
 import { paraglideMiddleware } from "~/paraglide/server.js";
@@ -15,7 +15,7 @@ export const middleware: MiddlewareFunction[] = [
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: global },
-  { rel: "stylesheet", href: tailwind },
+  { rel: "stylesheet", href: adminShell },
   { rel: "stylesheet", href: npStyle },
 ];
 

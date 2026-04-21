@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getApiClient } from "~/api-client";
+import { parseRsj } from "~/api-client/parse-rsj";
 
 export type BlogCategoryListParams = {
   page?: number;
@@ -10,6 +11,17 @@ export type BlogCategoryListParams = {
 export const blogCategoryKeys = {
   list: (params: BlogCategoryListParams) => ["blog-category", "list", params] as const,
   detail: (id?: number) => ["blog-category", "detail", id] as const,
+};
+
+export type BlogCategoryRow = {
+  id: number;
+  name: string;
+  description?: string | null;
+};
+
+export type BlogCategoryListData = {
+  total: number;
+  list: BlogCategoryRow[];
 };
 
 export function useBlogCategoryList(params: BlogCategoryListParams) {
@@ -22,7 +34,7 @@ export function useBlogCategoryList(params: BlogCategoryListParams) {
           pageSize: (params.pageSize ?? 10).toString(),
         },
       });
-      return res.json();
+      return parseRsj<BlogCategoryListData>(res);
     },
   });
 }
@@ -43,14 +55,15 @@ export function useBlogCategoryById(id?: number) {
 export function useCreateBlogCategory() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: any) => {
+    mutationFn: async (data: Record<string, unknown>) => {
       const res = await getApiClient().api.admin.blog.category.$post({
         json: data,
       });
-      return res.json();
+      return parseRsj(res);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["blog-category"] });
+      void queryClient.invalidateQueries({ queryKey: ["blog-category"] });
+      void queryClient.invalidateQueries({ queryKey: ["blog"] });
     },
   });
 }

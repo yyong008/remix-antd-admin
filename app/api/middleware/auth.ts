@@ -1,9 +1,15 @@
 import { createMiddleware } from "hono/factory";
 import { createAuth } from "~/libs/auth/server";
 import { fail } from "~/utils/response";
+import { HonoEnv } from "../types";
 
-export const authMiddleware = createMiddleware(async (c, next) => {
-  const env = c.env as { DB: D1Database; TURNSTILE_SECRET_KEY?: string; NODE_ENV?: string };
+export const authMiddleware = createMiddleware<HonoEnv>(async (c, next) => {
+  const env = c.env as {
+    DB: D1Database;
+    TURNSTILE_ENABLED?: string;
+    TURNSTILE_SECRET_KEY?: string;
+    NODE_ENV?: string;
+  };
   const auth = createAuth(env);
 
   const result = await auth.api.getSession({

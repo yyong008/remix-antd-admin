@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../../types";
+import { requirePermission } from "~/api/middleware/rbac";
 import { createBlogDAL, createBlogCategoryDAL, createBlogTagDAL } from "~/dals/blog";
 import { getD1Db } from "../../helpers/d1";
 import { getSearchParams, getSearchParamsPage, getSearchParamsPageSize } from "~/utils/server";
@@ -8,7 +9,7 @@ import { rfj, rsj } from "~/utils/server/response-json";
 
 export const blogRouter = new Hono<HonoEnv>();
 
-blogRouter.get("/", async (c) => {
+blogRouter.get("/", requirePermission("blog:list:read", "blog:detail:read"), async (c) => {
   try {
     const userId = c.get("userId");
     if (!userId) {
@@ -35,7 +36,7 @@ blogRouter.get("/", async (c) => {
   }
 });
 
-blogRouter.post("/", async (c) => {
+blogRouter.post("/", requirePermission("blog:list:read", "blog:detail:read"), async (c) => {
   try {
     const userId = c.get("userId");
     if (!userId) {
@@ -55,7 +56,7 @@ blogRouter.post("/", async (c) => {
   }
 });
 
-blogRouter.delete("/", async (c) => {
+blogRouter.delete("/", requirePermission("blog:list:read", "blog:detail:read"), async (c) => {
   try {
     const dto = await c.req.json();
     const db = getD1Db(c);
@@ -67,7 +68,7 @@ blogRouter.delete("/", async (c) => {
   }
 });
 
-blogRouter.get("/tag", async (c) => {
+blogRouter.get("/tag", requirePermission("blog:tag:read", "blog:list:read"), async (c) => {
   try {
     const userId = c.get("userId");
     if (!userId) {
@@ -83,7 +84,7 @@ blogRouter.get("/tag", async (c) => {
   }
 });
 
-blogRouter.get("/tag/:id", async (c) => {
+blogRouter.get("/tag/:id", requirePermission("blog:tag:read", "blog:list:read"), async (c) => {
   try {
     const id = Number(c.req.param("id"));
     if (!id) {
@@ -98,7 +99,7 @@ blogRouter.get("/tag/:id", async (c) => {
   }
 });
 
-blogRouter.post("/tag", async (c) => {
+blogRouter.post("/tag", requirePermission("blog:tag:read", "blog:list:read"), async (c) => {
   try {
     const userId = c.get("userId");
     if (!userId) {
@@ -114,7 +115,7 @@ blogRouter.post("/tag", async (c) => {
   }
 });
 
-blogRouter.put("/tag/:id", async (c) => {
+blogRouter.put("/tag/:id", requirePermission("blog:tag:read", "blog:list:read"), async (c) => {
   try {
     const userId = c.get("userId");
     if (!userId) {
@@ -131,7 +132,7 @@ blogRouter.put("/tag/:id", async (c) => {
   }
 });
 
-blogRouter.delete("/tag/:id", async (c) => {
+blogRouter.delete("/tag/:id", requirePermission("blog:tag:read", "blog:list:read"), async (c) => {
   try {
     const id = Number(c.req.param("id"));
     if (!id) {
@@ -146,7 +147,7 @@ blogRouter.delete("/tag/:id", async (c) => {
   }
 });
 
-blogRouter.delete("/tag", async (c) => {
+blogRouter.delete("/tag", requirePermission("blog:tag:read", "blog:list:read"), async (c) => {
   try {
     const dto = await c.req.json();
     const db = getD1Db(c);
@@ -158,98 +159,122 @@ blogRouter.delete("/tag", async (c) => {
   }
 });
 
-blogRouter.get("/category", async (c) => {
-  try {
-    const userId = c.get("userId");
-    if (!userId) {
-      return rfj({}, "No Authorization No User", { status: 401 });
+blogRouter.get(
+  "/category",
+  requirePermission("blog:category:read", "blog:list:read"),
+  async (c) => {
+    try {
+      const userId = c.get("userId");
+      if (!userId) {
+        return rfj({}, "No Authorization No User", { status: 401 });
+      }
+      const db = getD1Db(c);
+      const blogCategoryDAL = createBlogCategoryDAL(db);
+      const total = await blogCategoryDAL.getCount();
+      const list = await blogCategoryDAL.getListByUserId(userId);
+      return rsj({ total, list });
+    } catch (error) {
+      return rfj(error as Error);
     }
-    const db = getD1Db(c);
-    const blogCategoryDAL = createBlogCategoryDAL(db);
-    const total = await blogCategoryDAL.getCount();
-    const list = await blogCategoryDAL.getListByUserId(userId);
-    return rsj({ total, list });
-  } catch (error) {
-    return rfj(error as Error);
-  }
-});
+  },
+);
 
-blogRouter.get("/category/:id", async (c) => {
-  try {
-    const id = Number(c.req.param("id"));
-    if (!id) {
-      return rfj({}, "Invalid Category Id", { status: 400 });
+blogRouter.get(
+  "/category/:id",
+  requirePermission("blog:category:read", "blog:list:read"),
+  async (c) => {
+    try {
+      const id = Number(c.req.param("id"));
+      if (!id) {
+        return rfj({}, "Invalid Category Id", { status: 400 });
+      }
+      const db = getD1Db(c);
+      const blogCategoryDAL = createBlogCategoryDAL(db);
+      const result = await blogCategoryDAL.getById(id);
+      return rsj(result ?? {});
+    } catch (error) {
+      return rfj(error as Error);
     }
-    const db = getD1Db(c);
-    const blogCategoryDAL = createBlogCategoryDAL(db);
-    const result = await blogCategoryDAL.getById(id);
-    return rsj(result ?? {});
-  } catch (error) {
-    return rfj(error as Error);
-  }
-});
+  },
+);
 
-blogRouter.post("/category", async (c) => {
-  try {
-    const userId = c.get("userId");
-    if (!userId) {
-      return rfj({}, "No Authorization No User", { status: 401 });
+blogRouter.post(
+  "/category",
+  requirePermission("blog:category:read", "blog:list:read"),
+  async (c) => {
+    try {
+      const userId = c.get("userId");
+      if (!userId) {
+        return rfj({}, "No Authorization No User", { status: 401 });
+      }
+      const dto = await c.req.json();
+      const db = getD1Db(c);
+      const blogCategoryDAL = createBlogCategoryDAL(db);
+      const result = await blogCategoryDAL.create({ ...dto, userId });
+      return rsj(result);
+    } catch (error) {
+      return rfj(error as Error);
     }
-    const dto = await c.req.json();
-    const db = getD1Db(c);
-    const blogCategoryDAL = createBlogCategoryDAL(db);
-    const result = await blogCategoryDAL.create({ ...dto, userId });
-    return rsj(result);
-  } catch (error) {
-    return rfj(error as Error);
-  }
-});
+  },
+);
 
-blogRouter.put("/category/:id", async (c) => {
-  try {
-    const userId = c.get("userId");
-    if (!userId) {
-      return rfj({}, "No Authorization No User", { status: 401 });
+blogRouter.put(
+  "/category/:id",
+  requirePermission("blog:category:read", "blog:list:read"),
+  async (c) => {
+    try {
+      const userId = c.get("userId");
+      if (!userId) {
+        return rfj({}, "No Authorization No User", { status: 401 });
+      }
+      const id = Number(c.req.param("id"));
+      const dto = await c.req.json();
+      const db = getD1Db(c);
+      const blogCategoryDAL = createBlogCategoryDAL(db);
+      const result = await blogCategoryDAL.update({ ...dto, id, userId });
+      return rsj(result);
+    } catch (error) {
+      return rfj(error as Error);
     }
-    const id = Number(c.req.param("id"));
-    const dto = await c.req.json();
-    const db = getD1Db(c);
-    const blogCategoryDAL = createBlogCategoryDAL(db);
-    const result = await blogCategoryDAL.update({ ...dto, id, userId });
-    return rsj(result);
-  } catch (error) {
-    return rfj(error as Error);
-  }
-});
+  },
+);
 
-blogRouter.delete("/category/:id", async (c) => {
-  try {
-    const id = Number(c.req.param("id"));
-    if (!id) {
-      return rfj({}, "Invalid Category Id", { status: 400 });
+blogRouter.delete(
+  "/category/:id",
+  requirePermission("blog:category:read", "blog:list:read"),
+  async (c) => {
+    try {
+      const id = Number(c.req.param("id"));
+      if (!id) {
+        return rfj({}, "Invalid Category Id", { status: 400 });
+      }
+      const db = getD1Db(c);
+      const blogCategoryDAL = createBlogCategoryDAL(db);
+      const result = await blogCategoryDAL.deleteByIds([id]);
+      return rsj(result ?? {});
+    } catch (error) {
+      return rfj(error as Error);
     }
-    const db = getD1Db(c);
-    const blogCategoryDAL = createBlogCategoryDAL(db);
-    const result = await blogCategoryDAL.deleteByIds([id]);
-    return rsj(result ?? {});
-  } catch (error) {
-    return rfj(error as Error);
-  }
-});
+  },
+);
 
-blogRouter.delete("/category", async (c) => {
-  try {
-    const dto = await c.req.json();
-    const db = getD1Db(c);
-    const blogCategoryDAL = createBlogCategoryDAL(db);
-    const result = await blogCategoryDAL.deleteByIds(dto.ids ?? []);
-    return rsj(result ?? {});
-  } catch (error) {
-    return rfj(error as Error);
-  }
-});
+blogRouter.delete(
+  "/category",
+  requirePermission("blog:category:read", "blog:list:read"),
+  async (c) => {
+    try {
+      const dto = await c.req.json();
+      const db = getD1Db(c);
+      const blogCategoryDAL = createBlogCategoryDAL(db);
+      const result = await blogCategoryDAL.deleteByIds(dto.ids ?? []);
+      return rsj(result ?? {});
+    } catch (error) {
+      return rfj(error as Error);
+    }
+  },
+);
 
-blogRouter.get("/:id", async (c) => {
+blogRouter.get("/:id", requirePermission("blog:detail:read", "blog:list:read"), async (c) => {
   try {
     const id = Number(c.req.param("id"));
     if (!id) {
@@ -264,7 +289,7 @@ blogRouter.get("/:id", async (c) => {
   }
 });
 
-blogRouter.put("/:id", async (c) => {
+blogRouter.put("/:id", requirePermission("blog:detail:read", "blog:list:read"), async (c) => {
   try {
     const userId = c.get("userId");
     if (!userId) {
@@ -286,7 +311,7 @@ blogRouter.put("/:id", async (c) => {
   }
 });
 
-blogRouter.delete("/:id", async (c) => {
+blogRouter.delete("/:id", requirePermission("blog:detail:read", "blog:list:read"), async (c) => {
   try {
     const id = Number(c.req.param("id"));
     if (!id) {

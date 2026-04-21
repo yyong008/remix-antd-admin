@@ -10,7 +10,7 @@ export const createColumns = ({ treeOptions, refetch }: any) => [
     width: 300,
     // ellipsis: true,
     render(_: any, record: any) {
-      return <span className="font-bold">{record?.name}</span>;
+      return <span style={{ fontWeight: 700 }}>{record?.name}</span>;
     },
   },
   {

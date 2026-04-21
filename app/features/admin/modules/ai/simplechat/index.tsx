@@ -1,4 +1,6 @@
 import type { MetaFunction } from "react-router";
+
+import { ai } from "@/config/ai";
 import { Route } from "./route";
 
 export const meta: MetaFunction = () => {
@@ -7,7 +9,7 @@ export const meta: MetaFunction = () => {
 
 export const loader = () => {
   return {
-    ollama_url: "http://localhost:8000",
+    ollama_url: ai.ollama.baseUrl,
   };
 };
 

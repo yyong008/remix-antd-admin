@@ -1,59 +1,90 @@
-import { Button, Form, message } from "antd";
-
+import { Button, Divider, Flex, Form, Modal, message } from "antd";
 import { EditOutlined } from "@ant-design/icons";
+import { useState, useEffect } from "react";
+
+import { useUpdateProfileLink } from "~/api-client/queries/profile-link";
+
 import { FormItems } from "./FormItems";
-import { ModalForm } from "@ant-design/pro-components";
-import { useParams } from "react-router";
 
-export function UpdateLinkModal({ record, refetch }: any) {
+export function UpdateLinkModal({
+  record,
+  refetch,
+  categoryId,
+  open,
+  onClose,
+}: {
+  record: { id: string; name?: string; url?: string; description?: string | null };
+  refetch: () => void;
+  categoryId: string;
+  open?: boolean;
+  onClose?: () => void;
+}) {
+  const [internalOpen, setOpen] = useState(false);
   const [form] = Form.useForm();
-  const { id } = useParams();
-  const [updateProfileLinkById, other] = [(...args: any): any => {}, { isLoading: false }];
-  return (
-    <ModalForm
-      key={Date.now()}
-      preserve={false}
-      title="更新 link"
-      loading={other.isLoading}
-      onOpenChange={(c) => {
-        if (!c || !record.id) {
-          return;
-        }
-        form.setFieldsValue({
-          ...record,
-        });
-      }}
-      trigger={<Button type={"link"} icon={<EditOutlined />}></Button>}
-      form={form}
-      autoFocusFirstInput
-      modalProps={{
-        destroyOnClose: true,
-        onCancel: () => form.resetFields(),
-      }}
-      submitTimeout={2000}
-      onFinish={async (values: any) => {
-        const vals = {
-          ...values,
-        };
+  const update = useUpdateProfileLink();
 
-        if (id) {
-          vals.categoryId = Number(id);
-        }
-        const result = await updateProfileLinkById({
-          id: record.id,
-          ...vals,
-        });
-        if (result.data?.code !== 0) {
-          message.error(result.data?.message);
-          return false;
-        }
-        message.success(result.data?.message);
-        refetch();
-        form.resetFields();
-        return true;
-      }}
-    >
-      <FormItems />
-    </ModalForm>
+  const isControlled = open !== undefined;
+  const isOpen = isControlled ? open : internalOpen;
+
+  useEffect(() => {
+    if (isOpen && record?.id) {
+      form.setFieldsValue({ ...record });
+    }
+  }, [isOpen, form, record]);
+
+  const handleClose = () => {
+    if (isControlled) {
+      onClose?.();
+    } else {
+      setOpen(false);
+    }
+    form.resetFields();
+  };
+
+  return (
+    <>
+      {!isControlled && (
+        <Button type="link" size="small" icon={<EditOutlined />} onClick={() => setOpen(true)} />
+      )}
+      <Modal
+        title="编辑链接"
+        open={isOpen}
+        onCancel={handleClose}
+        footer={null}
+        destroyOnHidden
+        width={520}
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={async (values) => {
+            const res = (await update.mutateAsync({
+              ...values,
+              id: record.id,
+              categoryId,
+            })) as { code?: number; message?: string };
+            if (res.code !== 0) {
+              message.error(res.message ?? "更新失败");
+              return false;
+            }
+            message.success(res.message ?? "已更新");
+            refetch();
+            handleClose();
+            return true;
+          }}
+        >
+          <FormItems />
+          <Divider style={{ margin: "24px 0 0" }} />
+          <Form.Item style={{ marginBottom: 0 }}>
+            <Flex gap="small" wrap="wrap">
+              <Button type="primary" htmlType="submit" loading={update.isPending}>
+                更新
+              </Button>
+              <Button onClick={handleClose}>取消</Button>
+            </Flex>
+          </Form.Item>
+        </Form>
+      </Modal>
+    </>
   );
 }

@@ -1,13 +1,9 @@
-import {
-  ProForm,
-  ProFormDateTimePicker,
-  ProFormSelect,
-  ProFormText,
-  ProFormTextArea,
-} from "@ant-design/pro-components";
+import { ProFormDateTimePicker, ProFormSelect, ProFormText } from "~/components/pro-form-kit";
 
-export function FormItems(props: any) {
-  const { newsCategoryList } = props;
+import { categoriesForNewsSelect } from "../../news-category-select";
+
+export function FormItems(props: { newsCategoryList: any; activeCategoryId?: string }) {
+  const { newsCategoryList, activeCategoryId } = props;
   return (
     <>
       <ProFormText
@@ -55,13 +51,9 @@ export function FormItems(props: any) {
         label="分类"
         name="newsId"
         request={async () => {
-          const ncs = newsCategoryList?.data?.list || [];
-          return ncs?.map((c: any) => {
-            return {
-              label: c.name,
-              value: c.id,
-            };
-          }) as any;
+          const ncs = newsCategoryList?.list || [];
+          const pick = categoriesForNewsSelect(ncs, activeCategoryId);
+          return pick.map((c) => ({ label: c.name, value: c.id })) as any;
         }}
         rules={[
           {
@@ -70,18 +62,6 @@ export function FormItems(props: any) {
           },
         ]}
       />
-      <ProForm.Item
-        label="编写新闻"
-        name="content"
-        rules={[
-          {
-            required: true,
-            message: "请输入",
-          },
-        ]}
-      >
-        <ProFormTextArea />
-      </ProForm.Item>
     </>
   );
 }

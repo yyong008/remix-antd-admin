@@ -3,10 +3,13 @@ import dompurify from "dompurify";
 export function NewsContent({ content }: { content: string }) {
   return (
     <div
-      className="mt-[20px]"
-      dangerouslySetInnerHTML={{
-        __html: dompurify.sanitize(content),
+      style={{
+        color: "var(--mkt-text)",
+        lineHeight: 1.8,
       }}
-    ></div>
+      dangerouslySetInnerHTML={{
+        __html: dompurify.sanitize(content || ""),
+      }}
+    />
   );
 }

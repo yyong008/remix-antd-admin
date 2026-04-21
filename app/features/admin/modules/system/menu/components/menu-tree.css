@@ -1,0 +1,38 @@
+/* Tree rows: compact directory list + detail panel (admin menu) */
+.admin-menu-tree.ant-tree {
+  background: transparent;
+}
+
+.admin-menu-tree.ant-tree .ant-tree-treenode {
+  align-items: center;
+  padding-bottom: 2px;
+}
+
+.admin-menu-tree.ant-tree .ant-tree-node-content-wrapper {
+  border-radius: 8px;
+  min-height: auto;
+  padding: 8px 10px;
+  transition: background 0.15s ease;
+}
+
+.admin-menu-tree.ant-tree .ant-tree-node-content-wrapper:hover {
+  background: var(--ant-color-fill-secondary, rgba(0, 0, 0, 0.04));
+}
+
+.admin-menu-tree.ant-tree .ant-tree-node-selected .ant-tree-node-content-wrapper,
+.admin-menu-tree.ant-tree .ant-tree-node-selected .ant-tree-node-content-wrapper:hover {
+  background: var(--ant-control-item-bg-active, rgba(0, 0, 0, 0.06));
+}
+
+.admin-menu-tree.ant-tree .ant-tree-switcher {
+  line-height: 2rem;
+}
+
+.admin-menu-tree-row {
+  line-height: 1.35;
+}
+
+/* 详情区 Descriptions 在暗色主题下更易读 */
+.menu-detail-descriptions .ant-descriptions-item-label {
+  font-weight: 500;
+}

@@ -1,6 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { href, useNavigate, useParams } from "react-router";
+import { isTurnstileEnabled } from "~/config/turnstile";
 import { authClient } from "~/libs/auth/client";
+import { useSession } from "~/session/hooks";
 
 type AuthResult<T> = { data?: T | null; error?: { message?: string } | null } | T;
 
@@ -57,8 +59,11 @@ export function useLogin() {
   return useMutation({
     mutationFn: async ({ email, password, token }: LoginPayload) => {
       const resolvedEmail = normalizeAuthEmail(email);
-      if (!resolvedEmail || !password || !token) {
+      if (!resolvedEmail || !password) {
         throw new Error("请输入账号和密码");
+      }
+      if (isTurnstileEnabled() && !token) {
+        throw new Error("请完成人机验证");
       }
       const result = await authClient.signIn.email({
         email: resolvedEmail,
@@ -104,11 +109,13 @@ export function useEamilSignup() {
 export function useLogout() {
   const navigate = useNavigate();
   const { locale } = useParams();
+  const session = useSession();
   return useMutation({
     mutationFn: async () => {
       const result = await authClient.signOut({});
       const data = unwrapResult<{ success: boolean }>(result, "退出失败");
       if (data.success) {
+        session?.refreshUserSession();
         navigate(href("/:locale?/auth/login", { locale }), { replace: true });
       }
       return data;

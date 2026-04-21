@@ -27,10 +27,10 @@ export function createUserDAL(db: DrizzleD1Database) {
       status: row.user.status,
       createdAt: row.user.createdAt,
       updatedAt: row.user.updatedAt,
-      department: row.departments
+      department: row.sys_department
         ? {
-            id: row.departments.id,
-            name: row.departments.name,
+            id: row.sys_department.id,
+            name: row.sys_department.name,
           }
         : null,
     };
@@ -85,10 +85,10 @@ export function createUserDAL(db: DrizzleD1Database) {
       status: row.user.status,
       createdAt: row.user.createdAt,
       updatedAt: row.user.updatedAt,
-      department: row.departments
+      department: row.sys_department
         ? {
-            id: row.departments.id,
-            name: row.departments.name,
+            id: row.sys_department.id,
+            name: row.sys_department.name,
           }
         : null,
       UserRole: roleMap.get(row.user.id) ?? [],
@@ -126,7 +126,7 @@ export function createUserDAL(db: DrizzleD1Database) {
         remark: data.remark,
         phone: data.phone,
         status: data.status,
-        departmentId: data.departmentId as number | null,
+        departmentId: data.departmentId as string | null,
       })
       .where(eq(user.id, authUser.id));
 

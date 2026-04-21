@@ -1,6 +1,6 @@
 import { DeleteAction } from "./DeleteAction";
 import { OneToOneOutlined } from "@ant-design/icons";
-import { Space } from "antd";
+import { Flex, Space } from "antd";
 import { StatusType } from "@/components/common";
 import { UpdateDictItemModal } from "./UpdateDictItemModal";
 import { formatDate } from "@/utils/client";
@@ -11,10 +11,10 @@ export const createColumns = ({ refetch }: any) => [
     title: "字典键",
     render(_: any, record: any) {
       return (
-        <div className="flex font-bold gap-4">
+        <Flex align="center" gap={16} style={{ fontWeight: 700 }}>
           <OneToOneOutlined />
           <span>{record.key}</span>
-        </div>
+        </Flex>
       );
     },
   },

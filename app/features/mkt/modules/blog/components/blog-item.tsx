@@ -1,17 +1,41 @@
 import { href, NavLink, useParams } from "react-router";
+import { defaultLang } from "~/config/lang";
+import { Typography } from "antd";
+
+const { Text } = Typography;
 
 export function BlogItem(props: any) {
   const { data } = props;
-  const { locale } = useParams();
+  const { locale: localeParam } = useParams();
+  const locale = localeParam ?? defaultLang;
   return (
     <div>
       <NavLink
-        className="hover:text-yellow-500"
+        style={({ isActive }) => ({
+          color: isActive ? "#ca8a04" : undefined,
+        })}
         to={href(`/:locale?/blog/:id`, { locale, id: props.data.id })}
       >
-        <h1 className="flex text-[16px] my-[10px] before:block before:content-['·'] before:text-yellow-600 before:mr-[4px]">
+        <Text
+          strong
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginTop: 10,
+            marginBottom: 10,
+            fontSize: 16,
+          }}
+        >
+          <span
+            style={{
+              marginRight: 4,
+              color: "#ca8a04",
+            }}
+          >
+            ·
+          </span>
           {data.title}
-        </h1>
+        </Text>
       </NavLink>
     </div>
   );

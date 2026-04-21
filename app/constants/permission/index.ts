@@ -141,13 +141,6 @@ export const permissions = {
         UPDATE: "system:menu:update",
         DELETE: "system:menu:delete",
       },
-      menuRole: {
-        READ_LIST: "system:menu-role:list",
-        READ: "system:menu-role:read",
-        CREATE: "system:menu-role:create",
-        UPDATE: "system:menu-role:update",
-        DELETE: "system:menu-role:delete",
-      },
       monitor: {
         loginlog: {
           READ_LIST: "system:monitor:loginlog:list",
@@ -187,6 +180,11 @@ export const permissions = {
       },
     },
     ai: {
+      /** 菜单「Chatbot」与后台占位页 `/admin/ai/chatbot` */
+      chatbot: {
+        READ: "system:ai:simplechat:read",
+      },
+      /** Ollama 流式 Simple Chat：`/admin/ai/simplechat` */
       simplechat: {
         READ: "system:ai:simplechat:read",
       },

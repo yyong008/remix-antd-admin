@@ -1,5 +1,5 @@
 import { Card } from "antd";
-import { PageContainer } from "@ant-design/pro-components";
+import { PageContainer } from "~/components/page-container";
 import { useParams } from "react-router";
 
 export function Route() {

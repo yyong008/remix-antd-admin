@@ -1,4 +1,6 @@
-import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { AdminTable } from "~/components/admin-table";
+
+import { PageContainer } from "~/components/page-container";
 
 import { CreateDictModal } from "./components/CreateDictModal";
 import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
@@ -13,7 +15,7 @@ export function Route() {
   const { data, isLoading, refetch } = useDictList(page);
   return (
     <PageContainer>
-      <ProTable
+      <AdminTable
         bordered
         rowKey="id"
         size="small"
@@ -28,6 +30,7 @@ export function Route() {
         }}
         pagination={{
           total: data?.data?.total || 0,
+          current: page.page,
           pageSize: page.pageSize || 10,
           onChange(pageNumber, pageSize) {
             setPage({ page: pageNumber, pageSize });

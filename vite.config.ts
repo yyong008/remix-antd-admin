@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import pkg from "./package.json" with { type: "json" };
 import { defineConfig } from "vite-plus";
-import tailwindcss from "@tailwindcss/vite";
 import { reactRouter } from "@react-router/dev/vite";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import { cloudflare } from "@cloudflare/vite-plugin";
@@ -19,19 +18,9 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   ssr: {
-    noExternal: [
-      "@ant-design/icons",
-      "@ant-design/pro-chat",
-      "@ant-design/pro-editor",
-      "react-intersection-observer",
-    ],
+    noExternal: ["@ant-design/icons", "react-intersection-observer"],
     optimizeDeps: {
-      include: [
-        "@ant-design/icons",
-        "@ant-design/pro-chat",
-        "@ant-design/pro-editor",
-        "react-intersection-observer",
-      ],
+      include: ["@ant-design/icons", "react-intersection-observer"],
     },
   },
   plugins: [
@@ -41,7 +30,6 @@ export default defineConfig({
       project: "./project.inlang",
       outdir: "./app/paraglide",
     }),
-    tailwindcss(),
     mdx(MdxConfig),
   ],
   define: {

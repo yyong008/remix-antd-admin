@@ -1,17 +1,18 @@
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../../types";
+import { requirePermission } from "~/api/middleware/rbac";
 import { createMailTemplateDAL } from "~/dals/tools/MailDAL";
 import { sendMail } from "~/mails/resend";
 import { createStorageDAL } from "~/dals/tools/StorageDAL";
-import { deleteObject, resolveStorageKey } from "~/libs/storage/s3";
+import { deleteObject, resolveStorageKey } from "~/libs/storage/r2";
 import { getSearchParamsPage, getSearchParamsPageSize } from "~/utils/server";
 import { rfj, rsj } from "~/utils/server/response-json";
 import { getD1Db } from "~/api/helpers/d1";
 
 export const toolsRouter = new Hono<HonoEnv>();
 
-toolsRouter.get("/mail", async (c) => {
+toolsRouter.get("/mail", requirePermission("tools:mail:read"), async (c) => {
   try {
     const db = getD1Db(c);
     const mailTemplateDAL = createMailTemplateDAL(db);
@@ -31,7 +32,7 @@ toolsRouter.get("/mail", async (c) => {
   }
 });
 
-toolsRouter.get("/mail/:id", async (c) => {
+toolsRouter.get("/mail/:id", requirePermission("tools:mail:read"), async (c) => {
   try {
     const db = getD1Db(c);
     const mailTemplateDAL = createMailTemplateDAL(db);
@@ -46,7 +47,7 @@ toolsRouter.get("/mail/:id", async (c) => {
   }
 });
 
-toolsRouter.post("/mail", async (c) => {
+toolsRouter.post("/mail", requirePermission("tools:mail:create"), async (c) => {
   try {
     const db = getD1Db(c);
     const mailTemplateDAL = createMailTemplateDAL(db);
@@ -58,7 +59,7 @@ toolsRouter.post("/mail", async (c) => {
   }
 });
 
-toolsRouter.post("/mail/send", async (c) => {
+toolsRouter.post("/mail/send", requirePermission("tools:mail:create"), async (c) => {
   try {
     const dto = await c.req.json();
     const toRaw = dto.to ?? "";
@@ -98,7 +99,7 @@ toolsRouter.post("/mail/send", async (c) => {
   }
 });
 
-toolsRouter.put("/mail", async (c) => {
+toolsRouter.put("/mail", requirePermission("tools:mail:update"), async (c) => {
   try {
     const db = getD1Db(c);
     const mailTemplateDAL = createMailTemplateDAL(db);
@@ -113,7 +114,7 @@ toolsRouter.put("/mail", async (c) => {
   }
 });
 
-toolsRouter.delete("/mail", async (c) => {
+toolsRouter.delete("/mail", requirePermission("tools:mail:delete"), async (c) => {
   try {
     const db = getD1Db(c);
     const mailTemplateDAL = createMailTemplateDAL(db);
@@ -125,7 +126,7 @@ toolsRouter.delete("/mail", async (c) => {
   }
 });
 
-toolsRouter.get("/storage", async (c) => {
+toolsRouter.get("/storage", requirePermission("tools:storage:read"), async (c) => {
   try {
     const db = getD1Db(c);
     const storageDAL = createStorageDAL(db);
@@ -145,7 +146,7 @@ toolsRouter.get("/storage", async (c) => {
   }
 });
 
-toolsRouter.get("/storage/:id", async (c) => {
+toolsRouter.get("/storage/:id", requirePermission("tools:storage:read"), async (c) => {
   try {
     const db = getD1Db(c);
     const storageDAL = createStorageDAL(db);
@@ -160,7 +161,7 @@ toolsRouter.get("/storage/:id", async (c) => {
   }
 });
 
-toolsRouter.post("/storage", async (c) => {
+toolsRouter.post("/storage", requirePermission("tools:storage:create"), async (c) => {
   try {
     const db = getD1Db(c);
     const storageDAL = createStorageDAL(db);
@@ -172,7 +173,7 @@ toolsRouter.post("/storage", async (c) => {
   }
 });
 
-toolsRouter.put("/storage", async (c) => {
+toolsRouter.put("/storage", requirePermission("tools:storage:update"), async (c) => {
   try {
     const db = getD1Db(c);
     const storageDAL = createStorageDAL(db);
@@ -187,7 +188,7 @@ toolsRouter.put("/storage", async (c) => {
   }
 });
 
-toolsRouter.delete("/storage", async (c) => {
+toolsRouter.delete("/storage", requirePermission("tools:storage:delete"), async (c) => {
   try {
     const db = getD1Db(c);
     const storageDAL = createStorageDAL(db);
@@ -199,7 +200,7 @@ toolsRouter.delete("/storage", async (c) => {
         path: item.path,
       });
       if (key) {
-        await deleteObject(key);
+        await deleteObject(c, key);
       }
     }
     const result = { count: deleted?.length ?? 0 };

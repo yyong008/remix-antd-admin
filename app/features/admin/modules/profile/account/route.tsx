@@ -1,27 +1,27 @@
-import { PageContainer, ProCard, ProForm } from "@ant-design/pro-components";
+import { Card, Flex } from "antd";
 
-import { FormItems } from "./components/FormItems";
+import { PageContainer } from "~/components/page-container";
+
+import { AccountSessions } from "./components/AccountSessions";
+import { BasicInfoDescriptions } from "./components/BasicInfoDescriptions";
+import { OAuthAccountsSection } from "./components/LinkedOAuthAccounts";
+import { useUserInfo } from "~/api-client/queries/system-user";
 
 export function Route() {
-  const { data, isLoading } = {
-    data: { data: { name: "John Doe" } },
-    isLoading: false,
-  }; // TODO: get data from API
+  const { data, isLoading } = useUserInfo();
+  const userInfo = data?.userInfo;
+
   return (
-    <PageContainer>
-      <ProCard loading={isLoading}>
-        <ProForm
-          initialValues={{
-            ...data?.data,
-          }}
-          readonly={true}
-          layout="horizontal"
-          labelCol={{ span: 1.7 }}
-          submitter={false}
-        >
-          <FormItems />
-        </ProForm>
-      </ProCard>
+    <PageContainer title="账户" loading={isLoading}>
+      <Flex vertical gap={16}>
+        <Card title="基本信息" variant="outlined">
+          <BasicInfoDescriptions userInfo={userInfo} loading={isLoading} />
+        </Card>
+        <Card title="登录会话" variant="outlined">
+          <AccountSessions />
+        </Card>
+        <OAuthAccountsSection />
+      </Flex>
     </PageContainer>
   );
 }

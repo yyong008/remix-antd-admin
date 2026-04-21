@@ -1,4 +1,6 @@
-import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { AdminTable } from "~/components/admin-table";
+
+import { PageContainer } from "~/components/page-container";
 import { useMemo, useState } from "react";
 
 import { ButtonLink } from "@/components/common";
@@ -20,7 +22,7 @@ export function Route() {
 
   return (
     <PageContainer>
-      <ProTable
+      <AdminTable
         loading={isLoading}
         size="small"
         search={false}
@@ -42,11 +44,12 @@ export function Route() {
         }}
         pagination={{
           total: data?.data?.total,
-          pageSize: 10,
-          onChange(page, pageSize) {
+          current: page.page,
+          pageSize: page.pageSize,
+          onChange(p, pageSize) {
             setPage({
-              page,
-              pageSize,
+              page: p,
+              pageSize: pageSize ?? page.pageSize,
             });
           },
         }}

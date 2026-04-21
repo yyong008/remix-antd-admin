@@ -5,7 +5,7 @@ import {
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
-} from "@ant-design/pro-components";
+} from "~/components/pro-form-kit";
 
 import { EditOutlined } from "@ant-design/icons";
 
@@ -28,7 +28,7 @@ export function ChangeLogCreateModal({ refetch }: any) {
       form={form}
       autoFocusFirstInput
       modalProps={{
-        destroyOnClose: true,
+        destroyOnHidden: true,
         onCancel: () => form.resetFields(),
       }}
       submitTimeout={2000}

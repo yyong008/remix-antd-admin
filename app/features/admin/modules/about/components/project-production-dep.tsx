@@ -1,11 +1,10 @@
 import { BlankLink } from "./blank-link";
-import { Descriptions } from "antd";
-import { ProCard } from "@ant-design/pro-components";
+import { Card, Descriptions } from "antd";
 
 export const ProjectProductionDep = () => {
   const { pkg } = __APP_INFO__;
   return (
-    <ProCard>
+    <Card>
       <Descriptions title="生产依赖" column={2} bordered>
         {Object.keys(pkg.dependencies)?.map((value: string, number: number) => {
           return (
@@ -15,6 +14,6 @@ export const ProjectProductionDep = () => {
           );
         })}
       </Descriptions>
-    </ProCard>
+    </Card>
   );
 };

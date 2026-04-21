@@ -1,12 +1,11 @@
-import { Descriptions, Tag } from "antd";
+import { Card, Descriptions, Tag } from "antd";
 
 import { BlankLink } from "./blank-link";
-import { ProCard } from "@ant-design/pro-components";
 
 export const ProjectInfo = () => {
   const { pkg, lastBuildTime } = __APP_INFO__;
   return (
-    <ProCard>
+    <Card>
       <Descriptions title="项目信息" column={2} bordered>
         <Descriptions.Item label="版本">
           <Tag color="processing">{pkg.version}</Tag>
@@ -21,6 +20,6 @@ export const ProjectInfo = () => {
           <BlankLink url={pkg.homepage} text="预览地址" />
         </Descriptions.Item>
       </Descriptions>
-    </ProCard>
+    </Card>
   );
 };

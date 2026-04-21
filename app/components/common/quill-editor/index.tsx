@@ -1,4 +1,5 @@
 import "quill/dist/quill.snow.css";
+import "./layout.css";
 
 import { useEffect, useRef } from "react";
 
@@ -19,14 +20,15 @@ export const Editor = ({ value, onChange, content, setContent, initContent }: an
       theme: "snow",
       modules: {
         toolbar: [
-          [{ header: "1" }, { header: "2" }, { font: [] }],
+          [{ header: 1 }, { header: 2 }, { font: [] }],
+          [{ size: ["small", false, "large", "huge"] }],
           [{ list: "ordered" }, { list: "bullet" }],
           ["bold", "italic", "underline", "strike"],
           [{ align: [] }],
           ["link"],
           [{ color: [] }, { background: [] }],
           ["blockquote", "code-block"],
-          ["clean"], // 清除格式按钮
+          ["clean"],
         ],
       },
     });
@@ -53,7 +55,14 @@ export const Editor = ({ value, onChange, content, setContent, initContent }: an
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <div ref={editorRef} />;
+  return (
+    <div className="rr-quill-snow">
+      <div
+        ref={editorRef}
+        style={{ display: "flex", flexDirection: "column", flex: 1, minHeight: 0 }}
+      />
+    </div>
+  );
 };
 
 export const QuillEditor = ({ content, setContent, initContent }: any) => {

@@ -1,4 +1,6 @@
-import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { AdminTable } from "~/components/admin-table";
+
+import { PageContainer } from "~/components/page-container";
 import { useNavigate, useParams } from "react-router";
 
 import { Button } from "antd";
@@ -23,7 +25,7 @@ export function Route() {
   });
   return (
     <PageContainer>
-      <ProTable
+      <AdminTable
         bordered
         rowKey="id"
         size="small"
@@ -49,6 +51,7 @@ export function Route() {
         columns={createColumns({ refetch })}
         pagination={{
           total: data?.data?.total,
+          current: page.page,
           pageSize: page.pageSize || 10,
           onChange(_page, pageSize) {
             setPage({ ...page, page: _page, pageSize });

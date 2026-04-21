@@ -1,137 +1,314 @@
-import { useMemo, useState } from "react";
+import { Card, Typography, Avatar, Tooltip, Row, Col, Divider, Button } from "antd";
+import { GithubOutlined, RocketOutlined } from "@ant-design/icons";
+import { ExternalLink } from "lucide-react";
+import { useAboutData } from "~/hooks";
+
+const { Title, Paragraph, Text } = Typography;
+
+const TECH_STACK_ICONS: Record<string, { icon: string; color: string }> = {
+  react: { icon: "⚛️", color: "#61DAFB" },
+  "react-router": { icon: "🚀", color: "#FF6B6B" },
+  vite: { icon: "⚡", color: "#646CFF" },
+  antd: { icon: "🎨", color: "#1890FF" },
+  tailwindcss: { icon: "🎯", color: "#06B6D4" },
+  hono: { icon: "🔥", color: "#E3602C" },
+  drizzle: { icon: "🗄️", color: "#0EA5E9" },
+  typescript: { icon: "📘", color: "#3178C6" },
+  aiSdk: { icon: "🤖", color: "#10B981" },
+};
+
+function getTechIcon(depName: string) {
+  const lower = depName.toLowerCase();
+  for (const [key, value] of Object.entries(TECH_STACK_ICONS)) {
+    if (lower.includes(key)) {
+      return value;
+    }
+  }
+  return { icon: "📦", color: "#8B8B8B" };
+}
 
 export function Route() {
-  const { pkg, lastBuildTime } = __APP_INFO__;
-  const allDeps = useMemo(() => ({ ...pkg.dependencies, ...pkg.devDependencies }), []);
-  const [activeDeps, setActiveDeps] = useState<"development" | "production">("development");
-
-  const getMajorVersion = (depName: string) => allDeps[depName]?.match(/\d+/)?.[0] || "";
-  const description = `${pkg.name}是基于 reac-router${getMajorVersion("react-router")}.x、
-    Vite${getMajorVersion("vite")}.x、
-    Antd${getMajorVersion("antd")}.x 、
-    TailwindCSS${getMajorVersion("tailwindcss")}.x 、
-    Drizzle${getMajorVersion("drizzle-orm")}.x 、
-    drizzle-kit${getMajorVersion("drizzle-kit")}.x 、
-    TypeScript${getMajorVersion("typescript")}.x 开发，
-    内置了动态路由、权限验证、菜单、数据库全栈管理工具`;
-
-  const depsSource = activeDeps === "production" ? pkg.dependencies : pkg.devDependencies;
-  const depsEntries = Object.entries(depsSource || {}).sort(([a], [b]) => a.localeCompare(b));
-
-  const repoUrl = pkg.repository?.url?.replace(/^git\+/, "").replace(/\.git$/, "") || pkg.homepage;
-  const repoLabel = repoUrl?.replace(/^https?:\/\//, "") || "repository";
-
-  const toNpmUrl = (name: string) =>
-    /^http(s)?:/.test(name) ? name : `https://www.npmjs.com/package/${name}`;
+  const data = useAboutData();
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-16">
-      <section className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-        <div className="rounded-[32px] border border-[var(--mkt-border)] bg-[var(--mkt-surface)] p-8 shadow-[var(--mkt-shadow)]">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--mkt-muted)]">
-            about
-          </p>
-          <h1 className="mt-3 text-3xl font-semibold">关于</h1>
-          <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-[var(--mkt-muted)] md:text-base">
-            {description}
-          </p>
-        </div>
-
-        <div className="rounded-[32px] border border-[var(--mkt-border)] bg-[var(--mkt-surface)] p-8 shadow-[var(--mkt-shadow)]">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--mkt-muted)]">
-            project info
-          </p>
-          <h2 className="mt-3 text-2xl font-semibold">项目信息</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl border border-[var(--mkt-border)] bg-[var(--mkt-bg)] p-4">
-              <p className="text-xs uppercase tracking-[0.2em] text-[var(--mkt-muted)]">版本</p>
-              <p className="mt-3 text-lg font-semibold">{pkg.version}</p>
-            </div>
-            <div className="rounded-2xl border border-[var(--mkt-border)] bg-[var(--mkt-bg)] p-4">
-              <p className="text-xs uppercase tracking-[0.2em] text-[var(--mkt-muted)]">
-                最后编译时间
-              </p>
-              <p className="mt-3 text-sm font-semibold">{lastBuildTime}</p>
-            </div>
-            <div className="rounded-2xl border border-[var(--mkt-border)] bg-[var(--mkt-bg)] p-4">
-              <p className="text-xs uppercase tracking-[0.2em] text-[var(--mkt-muted)]">GitHub</p>
+    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "24px" }}>
+      <Card
+        variant="borderless"
+        style={{
+          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          borderRadius: 16,
+          overflow: "hidden",
+          marginBottom: 32,
+        }}
+        bodyStyle={{ padding: 48 }}
+      >
+        <Row align="middle" gutter={[48, 24]}>
+          <Col xs={24} md={14}>
+            <Title level={1} style={{ color: "white", marginBottom: 16, fontSize: "2.5rem" }}>
+              {data.projectName}
+            </Title>
+            <Paragraph style={{ color: "rgba(255,255,255,0.9)", fontSize: 16, lineHeight: 1.8 }}>
+              {data.description}
+            </Paragraph>
+            <div style={{ display: "flex", gap: "12px" }}>
               <a
-                href={repoUrl}
+                href={data.repoUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-3 inline-flex rounded-full border border-[var(--mkt-border)] px-4 py-2 text-xs font-semibold text-[var(--mkt-text)] transition hover:-translate-y-0.5 hover:shadow-[var(--mkt-shadow)]"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  borderRadius: "8px",
+                  background: "rgba(255,255,255,0.2)",
+                  padding: "8px 16px",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  color: "white",
+                  backdropFilter: "blur(8px)",
+                  textDecoration: "none",
+                  transition: "background 0.2s",
+                }}
               >
-                {repoLabel}
+                <GithubOutlined />
+                GitHub
               </a>
-            </div>
-            <div className="rounded-2xl border border-[var(--mkt-border)] bg-[var(--mkt-bg)] p-4">
-              <p className="text-xs uppercase tracking-[0.2em] text-[var(--mkt-muted)]">预览地址</p>
               <a
-                href={pkg.homepage}
+                href={data.homepage}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-3 inline-flex rounded-full border border-[var(--mkt-border)] px-4 py-2 text-xs font-semibold text-[var(--mkt-text)] transition hover:-translate-y-0.5 hover:shadow-[var(--mkt-shadow)]"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  borderRadius: "8px",
+                  background: "rgba(255,255,255,0.2)",
+                  padding: "8px 16px",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  color: "white",
+                  backdropFilter: "blur(8px)",
+                  textDecoration: "none",
+                  transition: "background 0.2s",
+                }}
               >
-                预览地址
+                <RocketOutlined />
+                预览
               </a>
             </div>
-          </div>
-        </div>
-      </section>
+          </Col>
+          <Col xs={24} md={10}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
+              <div
+                style={{
+                  borderRadius: "12px",
+                  background: "rgba(255,255,255,0.1)",
+                  padding: "16px",
+                  textAlign: "center",
+                  backdropFilter: "blur(8px)",
+                }}
+              >
+                <Text style={{ color: "rgba(255,255,255,0.7)", fontSize: 12 }}>版本</Text>
+                <Title level={3} style={{ color: "white", margin: "8px 0 0" }}>
+                  {data.version}
+                </Title>
+              </div>
+              <div
+                style={{
+                  borderRadius: "12px",
+                  background: "rgba(255,255,255,0.1)",
+                  padding: "16px",
+                  textAlign: "center",
+                  backdropFilter: "blur(8px)",
+                }}
+              >
+                <Text style={{ color: "rgba(255,255,255,0.7)", fontSize: 12 }}>最后编译</Text>
+                <Title level={5} style={{ color: "white", margin: "8px 0 0", fontSize: 14 }}>
+                  {data.lastBuildTime}
+                </Title>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Card>
 
-      <section className="grid gap-8 rounded-[32px] border border-[var(--mkt-border)] bg-[var(--mkt-surface)] p-8 shadow-[var(--mkt-shadow)]">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--mkt-muted)]">
-              dependencies
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold">
-              {activeDeps === "development" ? "开发依赖" : "生产依赖"}
-            </h2>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <button
-              type="button"
-              onClick={() => setActiveDeps("development")}
-              className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition ${
-                activeDeps === "development"
-                  ? "border-[var(--mkt-text)] bg-[var(--mkt-text)] text-[var(--mkt-surface)]"
-                  : "border-[var(--mkt-border)] text-[var(--mkt-muted)] hover:text-[var(--mkt-text)]"
-              }`}
-            >
-              development
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveDeps("production")}
-              className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition ${
-                activeDeps === "production"
-                  ? "border-[var(--mkt-text)] bg-[var(--mkt-text)] text-[var(--mkt-surface)]"
-                  : "border-[var(--mkt-border)] text-[var(--mkt-muted)] hover:text-[var(--mkt-text)]"
-              }`}
-            >
-              production
-            </button>
-          </div>
-        </div>
-        <div className="grid max-h-[520px] gap-3 overflow-auto pr-1 sm:grid-cols-2 lg:grid-cols-3">
-          {depsEntries.map(([name, version]) => (
-            <a
-              key={name}
-              href={toNpmUrl(name)}
-              target="_blank"
-              rel="noreferrer"
-              className="group rounded-2xl border border-[var(--mkt-border)] bg-[var(--mkt-bg)] p-4 transition hover:-translate-y-0.5 hover:shadow-[var(--mkt-shadow)]"
-            >
-              <p className="text-sm font-semibold">{name}</p>
-              <p className="mt-2 text-xs text-[var(--mkt-muted)]">{version}</p>
-              <p className="mt-3 text-[10px] uppercase tracking-[0.3em] text-[var(--mkt-muted)] group-hover:text-[var(--mkt-text)]">
-                NPM
-              </p>
-            </a>
-          ))}
-        </div>
-      </section>
+      <Card
+        title={
+          <Title level={3} style={{ margin: 0 }}>
+            技术栈
+          </Title>
+        }
+        style={{ borderRadius: 12, marginBottom: 32 }}
+      >
+        <Row gutter={[12, 12]}>
+          {data.productionDeps
+            .filter((dep) => {
+              const name = dep.name.toLowerCase();
+              return (
+                name.includes("react") ||
+                name.includes("router") ||
+                name.includes("vite") ||
+                name.includes("antd") ||
+                name.includes("tailwind") ||
+                name.includes("hono") ||
+                name.includes("drizzle") ||
+                name.includes("typescript") ||
+                name.includes("ai-sdk")
+              );
+            })
+            .slice(0, 9)
+            .map((dep) => {
+              const tech = getTechIcon(dep.name);
+              return (
+                <Col xs={12} sm={8} md={6} lg={4} key={dep.name}>
+                  <Tooltip title={`${dep.name}@${dep.version}`}>
+                    <Card
+                      hoverable
+                      size="small"
+                      style={{
+                        textAlign: "center",
+                        borderRadius: 10,
+                        border: `2px solid ${tech.color}30`,
+                      }}
+                      bodyStyle={{ padding: "16px 8px" }}
+                    >
+                      <Avatar
+                        size={48}
+                        style={{ backgroundColor: tech.color, marginBottom: 8, fontSize: 24 }}
+                      >
+                        {tech.icon}
+                      </Avatar>
+                      <Text strong style={{ fontSize: 13, display: "block" }}>
+                        {dep.name}
+                      </Text>
+                      <Text type="secondary" style={{ fontSize: 11 }}>
+                        {dep.version}
+                      </Text>
+                    </Card>
+                  </Tooltip>
+                </Col>
+              );
+            })}
+        </Row>
+      </Card>
+
+      <Card
+        title={
+          <Title level={3} style={{ margin: 0 }}>
+            依赖详情
+          </Title>
+        }
+        style={{ borderRadius: 12 }}
+      >
+        <Row gutter={[12, 12]}>
+          {data.productionDeps.map((dep) => {
+            const tech = getTechIcon(dep.name);
+            return (
+              <Col xs={12} sm={8} md={6} lg={4} key={dep.name}>
+                <Tooltip title={`${dep.version} - 点击查看 NPM`}>
+                  <a
+                    href={dep.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ display: "block", textDecoration: "none" }}
+                  >
+                    <Card
+                      hoverable
+                      size="small"
+                      style={{
+                        borderRadius: 10,
+                        border: "1px solid var(--ant-border-secondary)",
+                      }}
+                      bodyStyle={{ padding: "12px" }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                        <Avatar size={32} style={{ backgroundColor: tech.color, fontSize: 14 }}>
+                          {tech.icon}
+                        </Avatar>
+                        <div style={{ minWidth: 0, flex: 1 }}>
+                          <Text
+                            ellipsis
+                            style={{ fontSize: 12, display: "block", fontWeight: 500 }}
+                          >
+                            {dep.name}
+                          </Text>
+                          <Text type="secondary" style={{ fontSize: 10 }}>
+                            {dep.version}
+                          </Text>
+                        </div>
+                        <ExternalLink
+                          style={{
+                            width: 12,
+                            height: 12,
+                            flexShrink: 0,
+                            color: "var(--ant-color-text-tertiary)",
+                          }}
+                        />
+                      </div>
+                    </Card>
+                  </a>
+                </Tooltip>
+              </Col>
+            );
+          })}
+        </Row>
+
+        <Divider style={{ margin: "24px 0" }} />
+
+        <Title level={5}>开发依赖</Title>
+        <Row gutter={[12, 12]}>
+          {data.developmentDeps.map((dep) => {
+            const tech = getTechIcon(dep.name);
+            return (
+              <Col xs={12} sm={8} md={6} lg={4} key={dep.name}>
+                <Tooltip title={`${dep.version} - 点击查看 NPM`}>
+                  <a
+                    href={dep.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ display: "block", textDecoration: "none" }}
+                  >
+                    <Card
+                      hoverable
+                      size="small"
+                      style={{
+                        borderRadius: 10,
+                        border: "1px solid var(--ant-border-secondary)",
+                      }}
+                      bodyStyle={{ padding: "12px" }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                        <Avatar size={32} style={{ backgroundColor: tech.color, fontSize: 14 }}>
+                          {tech.icon}
+                        </Avatar>
+                        <div style={{ minWidth: 0, flex: 1 }}>
+                          <Text
+                            ellipsis
+                            style={{ fontSize: 12, display: "block", fontWeight: 500 }}
+                          >
+                            {dep.name}
+                          </Text>
+                          <Text type="secondary" style={{ fontSize: 10 }}>
+                            {dep.version}
+                          </Text>
+                        </div>
+                        <ExternalLink
+                          style={{
+                            width: 12,
+                            height: 12,
+                            flexShrink: 0,
+                            color: "var(--ant-color-text-tertiary)",
+                          }}
+                        />
+                      </div>
+                    </Card>
+                  </a>
+                </Tooltip>
+              </Col>
+            );
+          })}
+        </Row>
+      </Card>
     </div>
   );
 }

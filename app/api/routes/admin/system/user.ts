@@ -1,18 +1,17 @@
 import { Hono } from "hono";
-import { and, eq, inArray, ne } from "drizzle-orm";
 
 import type { HonoEnv } from "../../../types";
+import { requirePermission } from "~/api/middleware/rbac";
 import { getSearchParams, getSearchParamsPage, getSearchParamsPageSize } from "~/utils/server";
 import { createSignInLogDAL } from "~/dals/sign-in/SignInLogDAL";
 import { createUserDAL } from "~/dals/system/user";
 import { createUserPermsDAL } from "~/dals/system/UserPermsDAL";
 import { rfj, rsj } from "~/utils/server/response-json";
 import { getD1Db } from "~/api/helpers/d1";
-import { menuRoles, menus, userRoles } from "db/schema";
 
 export const userRouter = new Hono<HonoEnv>();
 
-userRouter.get("/", async (c) => {
+userRouter.get("/", requirePermission("system:user:read"), async (c) => {
   try {
     const db = getD1Db(c);
     const userDAL = createUserDAL(db);
@@ -43,56 +42,34 @@ userRouter.get("/info", async (c) => {
     if (!userId) {
       return rfj({}, "No Authorization No User", { status: 401 });
     }
-    let menu = await userPermsDAL.getFlatMenuByUserId(userId);
-    const userInfo = await userDAL.getById(userId);
-    if (menu.length === 0) {
-      const roleRows = await db
-        .select({ roleId: userRoles.roleId })
-        .from(userRoles)
-        .where(eq(userRoles.userId, userId));
-      const roleIds = roleRows.map((row) => Number(row.roleId)).filter((id) => Number.isFinite(id));
-      if (roleIds.length) {
-        const rows = await db
-          .select({
-            id: menus.id,
-            name: menus.name,
-            type: menus.type,
-            description: menus.description,
-            remark: menus.remark,
-            icon: menus.icon,
-            path: menus.path,
-            path_file: menus.pathFile,
-            status: menus.status,
-            isShow: menus.isShow,
-            isCache: menus.isCache,
-            permission: menus.permission,
-            isLink: menus.isLink,
-            orderNo: menus.orderNo,
-            createdAt: menus.createdAt,
-            updatedAt: menus.updatedAt,
-            parent_menu_id: menus.parentMenuId,
-          })
-          .from(menus)
-          .innerJoin(menuRoles, eq(menuRoles.menuId, menus.id))
-          .where(and(inArray(menuRoles.roleId, roleIds), ne(menus.type, 3)));
-        const unique = new Map<number, any>();
-        for (const row of rows) {
-          const item = row;
-          if (!item) continue;
-          if (!unique.has(item.id)) {
-            unique.set(item.id, item);
-          }
-        }
-        menu = Array.from(unique.values());
-      }
-    }
-    return rsj({ menu, userInfo });
+    const profile = await userDAL.getById(userId);
+    /** Auth session exists but no `user` row yet — still return a stable shape for the client. */
+    const userInfo =
+      profile ??
+      ({
+        id: userId,
+        avatar: null,
+        email: "",
+        name: c.get("username") ?? "",
+        nickname: null,
+        locale: null,
+        theme: "light",
+        phone: null,
+        remark: null,
+        status: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        department: null,
+      } as NonNullable<Awaited<ReturnType<ReturnType<typeof createUserDAL>["getById"]>>>);
+    const { menu, menuTree, permissions, roles } = await userPermsDAL.getSessionAccess(userId);
+    return rsj({ menu, menuTree, permissions, roles, userInfo });
   } catch (error) {
+    console.error("Error in GET /api/admin/system/user/info", error);
     return rfj(error as Error);
   }
 });
 
-userRouter.get("/:id", async (c) => {
+userRouter.get("/:id", requirePermission("system:user:read"), async (c) => {
   try {
     const db = getD1Db(c);
     const userDAL = createUserDAL(db);
@@ -101,15 +78,15 @@ userRouter.get("/:id", async (c) => {
     if (!userId) {
       return rfj({}, "Invalid User Id", { status: 400 });
     }
-    const menu = await userPermsDAL.getFlatMenuByUserId(userId);
+    const { menu, menuTree, permissions, roles } = await userPermsDAL.getSessionAccess(userId);
     const userInfo = await userDAL.getById(userId);
-    return rsj({ menu, userInfo });
+    return rsj({ menu, menuTree, permissions, roles, userInfo });
   } catch (error) {
     return rfj(error as Error);
   }
 });
 
-userRouter.post("/", async (c) => {
+userRouter.post("/", requirePermission("system:user:create"), async (c) => {
   try {
     const db = getD1Db(c);
     const userDAL = createUserDAL(db);
@@ -121,7 +98,7 @@ userRouter.post("/", async (c) => {
   }
 });
 
-userRouter.put("/:id", async (c) => {
+userRouter.put("/:id", requirePermission("system:user:update"), async (c) => {
   try {
     const db = getD1Db(c);
     const userDAL = createUserDAL(db);
@@ -134,7 +111,7 @@ userRouter.put("/:id", async (c) => {
   }
 });
 
-userRouter.delete("/", async (c) => {
+userRouter.delete("/", requirePermission("system:user:delete"), async (c) => {
   try {
     const db = getD1Db(c);
     const userDAL = createUserDAL(db);
@@ -155,6 +132,10 @@ userRouter.post("/signin", async (c) => {
     if (!userId) {
       return rfj({}, "No Authorization No User", { status: 401 });
     }
+    const existing = await signInLogDAL.getLatestById(userId);
+    if (existing) {
+      return rsj({ alreadySigned: true, record: existing }, "今日已签到");
+    }
     const result = await signInLogDAL.create({
       userId,
       signType: 1,
@@ -162,6 +143,8 @@ userRouter.post("/signin", async (c) => {
     });
     return rsj(result);
   } catch (error) {
-    return rfj(error as Error);
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error("POST /api/admin/system/user/signin", error);
+    return rfj({ detail: msg }, msg);
   }
 });

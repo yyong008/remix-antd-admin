@@ -34,7 +34,7 @@ export function createRoleDAL(db: DrizzleD1Database) {
           .where(inArray(menuRoles.roleId, roleIds))
       : [];
 
-    const menuRoleMap = new Map<number, any[]>();
+    const menuRoleMap = new Map<string, any[]>();
     for (const row of menuRoleRows) {
       const roleId = row.roleId;
       const entry = {
@@ -65,9 +65,11 @@ export function createRoleDAL(db: DrizzleD1Database) {
 
   async function create(data: any) {
     return db.transaction(async (tx) => {
+      const roleId = data.id ?? crypto.randomUUID();
       const created = await tx
         .insert(roles)
         .values({
+          id: roleId,
           name: data.name,
           description: data.description,
           remark: data.remark,
@@ -79,12 +81,16 @@ export function createRoleDAL(db: DrizzleD1Database) {
       if (!role?.id) {
         throw new Error("create user fail");
       }
-      const menusData = data.menus ?? [];
+      const menusData = (data.menus ?? []).filter((m: any) => m?.id);
       if (menusData.length) {
+        const now = new Date();
         await tx.insert(menuRoles).values(
           menusData.map((m: any) => ({
+            id: crypto.randomUUID(),
             roleId: role.id,
             menuId: m.id,
+            createdAt: now,
+            updatedAt: now,
           })),
         );
       }
@@ -121,7 +127,7 @@ export function createRoleDAL(db: DrizzleD1Database) {
         .from(menuRoles)
         .where(eq(menuRoles.roleId, data.id));
       const existingMenuIds = existingMenuRoles.map((mr) => mr.menuId);
-      const menusData = data.menus ?? [];
+      const menusData = (data.menus ?? []).filter((m: any) => m?.id);
       const menuIdsToDelete = existingMenuIds.filter(
         (id) => !menusData.some((menu: any) => menu.id === id),
       );
@@ -134,10 +140,14 @@ export function createRoleDAL(db: DrizzleD1Database) {
       }
 
       if (menuIdsToAdd.length > 0) {
+        const now = new Date();
         await tx.insert(menuRoles).values(
           menuIdsToAdd.map((m: any) => ({
+            id: crypto.randomUUID(),
             roleId: data.id,
             menuId: m.id,
+            createdAt: now,
+            updatedAt: now,
           })),
         );
       }
@@ -145,7 +155,7 @@ export function createRoleDAL(db: DrizzleD1Database) {
     });
   }
 
-  async function deleteByIds(ids: number[]) {
+  async function deleteByIds(ids: string[]) {
     return db.transaction(async (tx) => {
       await tx.delete(menuRoles).where(inArray(menuRoles.roleId, ids));
       const deleted = await tx

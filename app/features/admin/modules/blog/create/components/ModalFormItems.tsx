@@ -1,14 +1,9 @@
-import {
-  ProFormDateTimePicker,
-  ProFormSelect,
-  ProFormText,
-  ProFormTextArea,
-} from "@ant-design/pro-components";
+import { DatePicker, Form, Input, Select } from "antd";
 
 export const ModalFormItems = ({ categoriesOptions, tagsOptions }: any) => {
   return (
     <>
-      <ProFormText
+      <Form.Item
         label="博客标题"
         name="title"
         rules={[
@@ -17,8 +12,10 @@ export const ModalFormItems = ({ categoriesOptions, tagsOptions }: any) => {
             message: "请输入",
           },
         ]}
-      />
-      <ProFormText
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
         label="博客作者"
         name="author"
         rules={[
@@ -27,8 +24,10 @@ export const ModalFormItems = ({ categoriesOptions, tagsOptions }: any) => {
             message: "请输入",
           },
         ]}
-      />
-      <ProFormText
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
         label="博客来源"
         name="source"
         rules={[
@@ -37,19 +36,22 @@ export const ModalFormItems = ({ categoriesOptions, tagsOptions }: any) => {
             message: "请输入",
           },
         ]}
-      />
-      <ProFormDateTimePicker
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
         label="博客发布时间"
         name="publishedAt"
-        width={"100%" as any}
         rules={[
           {
             required: true,
             message: "请输入",
           },
         ]}
-      />
-      <ProFormSelect
+      >
+        <DatePicker showTime style={{ width: "100%" }} />
+      </Form.Item>
+      <Form.Item
         label="分类"
         name="categoryId"
         rules={[
@@ -58,20 +60,22 @@ export const ModalFormItems = ({ categoriesOptions, tagsOptions }: any) => {
             message: "请输入",
           },
         ]}
-        options={categoriesOptions}
-      />
-      <ProFormSelect
+      >
+        <Select options={categoriesOptions} />
+      </Form.Item>
+      <Form.Item
         label="标签"
         name="tagId"
-        options={tagsOptions}
         rules={[
           {
             required: true,
             message: "请输入",
           },
         ]}
-      />
-      <ProFormTextArea
+      >
+        <Select options={tagsOptions} />
+      </Form.Item>
+      <Form.Item
         style={{ display: "none" }}
         label="编写博客"
         name="content"
@@ -81,7 +85,9 @@ export const ModalFormItems = ({ categoriesOptions, tagsOptions }: any) => {
             message: "请输入",
           },
         ]}
-      ></ProFormTextArea>
+      >
+        <Input.TextArea />
+      </Form.Item>
     </>
   );
 };

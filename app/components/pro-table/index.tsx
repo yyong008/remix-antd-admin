@@ -1,5 +1,5 @@
-import { type ProColumns, ProTable } from "@ant-design/pro-components";
-import { type SizeType } from "antd/es/config-provider/SizeContext";
+import { AdminTable } from "~/components/admin-table";
+import type { SizeType } from "antd/es/config-provider/SizeContext";
 
 type PTable = {
   rowKey?: string;
@@ -14,16 +14,16 @@ type PTable = {
   total?: number;
   pageSize?: number;
   onPaginationChange?: (page: number, pageSize: number) => any;
-  columns: ProColumns<any, "text">[] | undefined;
+  columns: any[] | undefined;
 };
 
 export function PTable(props: PTable) {
   return (
-    <ProTable
+    <AdminTable
       rowKey={props.rowKey || "id"}
       size={props.size || "small"}
       headerTitle={props.headerTitle}
-      search={props.search || false}
+      search={false}
       loading={props?.loading || false}
       options={{
         reload: props?.reload,

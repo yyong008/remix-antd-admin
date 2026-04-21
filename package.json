@@ -8,8 +8,7 @@
     "ai",
     "antd",
     "hono",
-    "langchain",
-    "postresql",
+    "ollama",
     "tailwindcss"
   ],
   "homepage": "https://remix-antd-admin.vercel.app/",
@@ -37,39 +36,34 @@
     "commit": "git-cz",
     "changeset": "changeset",
     "version": "changeset version",
-    "docker:build": "docker build -t remix-antd-admin .",
     "drizzle:generate": "drizzle-kit generate",
+    "auth:generate:schema": "pnpm dlx auth@latest generate --config=./db/seed/local/auth.ts --output=./db/schema/auth.ts",
     "drizzle:push": "drizzle-kit push",
     "drizzle:migrate": "drizzle-kit migrate",
     "db:migrate:local": "wrangler d1 migrations apply DB --local",
-    "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
+    "db:setup:local": "pnpm run db:migrate:local && pnpm run db:seed:local",
+    "db:generate:seed-sql": "tsx db/seed/local/generate-rbac-seed-sql.ts",
+    "db:seed:local": "pnpm exec wrangler d1 execute DB --local --file=./db/seed/local/seed-local-rbac.sql",
     "postinstall": "fumadocs-mdx",
-    "db:seed": "dotenv -c -e ./.env  tsx db/seed.ts"
+    "db:seed": "pnpm run db:seed:local",
+    "db:studio:local": "drizzle-kit studio",
+    "db:generate:sqlite_file": "wrangler d1 execute DB --local --command \"SELECT 1\"",
+    "cf:size": "pnpm run build && wrangler deploy --dry-run"
   },
   "dependencies": {
-    "@ant-design/cssinjs": "^2.1.2",
     "@ant-design/icons": "^6.1.1",
-    "@ant-design/pro-chat": "^1.15.3",
-    "@ant-design/pro-components": "^2.8.10",
-    "@ant-design/pro-editor": "^1.3.0",
     "@ant-design/x": "^2.5.0",
-    "@aws-sdk/client-s3": "^3.1032.0",
-    "@bytemd/plugin-gfm": "^1.22.0",
-    "@bytemd/react": "^1.22.0",
+    "@ant-design/x-sdk": "^2.5.0",
     "@cloudflare/workers-types": "^4.20260418.1",
+    "@fontsource-variable/rubik": "^5.2.8",
     "@inlang/paraglide-js": "^2.16.0",
-    "@js-temporal/polyfill": "^0.4.4",
-    "@langchain/core": "^0.3.80",
-    "@langchain/ollama": "^0.1.6",
     "@marsidev/react-turnstile": "^1.5.0",
     "@neondatabase/serverless": "^1.1.0",
-    "@orama/tokenizers": "^3.1.18",
     "@react-router/node": "^7.14.1",
     "@react-router/serve": "^7.14.1",
     "@tanstack/react-query": "^5.99.2",
     "ai": "^6.0.168",
     "antd": "^6.3.6",
-    "antd-style": "^3.7.1",
     "better-auth": "^1.6.5",
     "canvas-confetti": "^1.9.4",
     "class-variance-authority": "^0.7.1",
@@ -77,8 +71,6 @@
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.20",
     "dompurify": "^3.4.0",
-    "dotenv": "^17.4.2",
-    "drizzle": "^1.4.0",
     "drizzle-kit": "^0.31.10",
     "drizzle-orm": "^0.45.2",
     "fumadocs-core": "^16.8.0",
@@ -87,24 +79,18 @@
     "hono": "^4.12.14",
     "is-ip": "^5.0.1",
     "isbot": "^5.1.39",
-    "jose": "^5.10.0",
-    "js-export-excel": "^1.1.4",
-    "jszip": "^3.10.1",
     "lucide-react": "^0.563.0",
     "mermaid": "^11.14.0",
     "nanoid": "^5.1.9",
     "next-themes": "^0.4.6",
     "nprogress": "^0.2.0",
-    "ollama": "^0.5.18",
+    "ollama-ai-provider-v2": "^3.5.0",
     "pg": "^8.20.0",
-    "qrcode": "^1.5.4",
     "quill": "^2.0.3",
     "react": "^19.2.5",
-    "react-advanced-cropper": "^0.19.6",
     "react-dom": "^19.2.5",
     "react-image-crop": "^11.0.10",
     "react-intersection-observer": "^9.16.0",
-    "react-quill": "^2.0.0",
     "react-router": "^7.14.1",
     "react-type-animation": "^3.2.0",
     "remix-utils": "^9.3.1",
@@ -112,12 +98,13 @@
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.2",
     "ua-parser-js": "^1.0.41",
-    "ws": "^8.20.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@better-auth/cli": "^1.4.21",
     "@changesets/cli": "^2.31.0",
-    "@cloudflare/vite-plugin": "^1.32.3",
+    "@cloudflare/vite-plugin": "^1.33.0",
+    "@libsql/client": "^0.17.2",
     "@react-router/dev": "^7.14.1",
     "@tailwindcss/postcss": "^4.2.2",
     "@tailwindcss/vite": "^4.2.2",
@@ -133,12 +120,10 @@
     "@types/nodemailer": "^6.4.23",
     "@types/nprogress": "^0.2.3",
     "@types/pg": "^8.20.0",
-    "@types/qrcode": "^1.5.6",
     "@types/react": "^19.2.14",
     "@types/react-copy-to-clipboard": "^5.0.7",
     "@types/react-dom": "^19.2.3",
     "@types/ua-parser-js": "^0.7.39",
-    "@types/ws": "^8.18.1",
     "autoprefixer": "^10.5.0",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
@@ -153,7 +138,7 @@
     "vite": "npm:@voidzero-dev/vite-plus-core@^0.1.18",
     "vite-plus": "latest",
     "vitest": "npm:@voidzero-dev/vite-plus-test@^0.1.18",
-    "wrangler": "^4.83.0"
+    "wrangler": "^4.84.0"
   },
   "config": {
     "commitizen": {
@@ -163,16 +148,5 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "pnpm@10.33.0",
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "react"
-      ]
-    },
-    "overrides": {
-      "vite": "npm:@voidzero-dev/vite-plus-core@latest",
-      "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
-    }
-  }
+  "packageManager": "pnpm@10.33.0"
 }

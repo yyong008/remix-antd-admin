@@ -3,6 +3,7 @@ import { Links, Meta, Outlet, Scripts, ScrollRestoration, useParams } from "reac
 import { AppQueryProvider } from "~/api-client/query-provider";
 import { ClientOnly } from "~/components/common/client-only";
 import { DocsRootProvider } from "~/features/cms/components/docs/provider";
+import { MktThemeSync } from "~/features/mkt/layout/components/MktThemeSync";
 import { SessionProvider } from "~/session/provider/index";
 import { QueryProvider } from "~/query-provider";
 import { ReactRouterTopLoader } from "~/components/toploader";
@@ -19,6 +20,7 @@ export function RootRoute() {
         <Links />
       </head>
       <body>
+        <MktThemeSync />
         <QueryProvider>
           <SessionProvider>
             <AppQueryProvider>

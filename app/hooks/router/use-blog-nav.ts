@@ -12,17 +12,17 @@ export function useBlogNav() {
   const { lang } = useParams();
 
   const navBlog = (options: IOptions) => {
-    const tag = options.tag ? `&tag=${options.tag}` : "";
-    const category = options.category ? `&category=${options.category}` : "";
+    const tag = options.tag ? `&tagId=${options.tag}` : "";
+    const category = options.category ? `&categoryId=${options.category}` : "";
     return nav(
-      `/${lang}/admin/blog?page=${options.page}&pageSize=${options.pageSize}${category}${tag}`,
+      `/${lang}/admin/blog/list?page=${options.page ?? 1}&pageSize=${options.pageSize ?? 10}${category}${tag}`,
     );
   };
   return [navBlog];
 }
 
 export function goBlogNav(lang: string, options?: IOptions) {
-  const tag = options?.tag ? `&tag=${options.tag}` : "";
-  const category = options?.category ? `&category=${options.category}` : "";
-  return `/${lang}/admin/blog?page=${options?.page ?? 1}&pageSize=${options?.pageSize ?? 10}${category}${tag}`;
+  const tag = options?.tag ? `&tagId=${options.tag}` : "";
+  const category = options?.category ? `&categoryId=${options.category}` : "";
+  return `/${lang}/admin/blog/list?page=${options?.page ?? 1}&pageSize=${options?.pageSize ?? 10}${category}${tag}`;
 }

@@ -1,4 +1,4 @@
-import { ProFormRadio, ProFormText, ProFormTextArea } from "@ant-design/pro-components";
+import { ProFormRadio, ProFormText, ProFormTextArea } from "~/components/pro-form-kit";
 
 export function ModalFormItems() {
   return (

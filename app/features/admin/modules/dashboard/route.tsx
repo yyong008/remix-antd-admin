@@ -1,22 +1,33 @@
-import { PageContainer, ProCard } from "@ant-design/pro-components";
+import { Card, Flex, Grid } from "antd";
 
-import { LoginIn, SignIn } from "./components";
+import { PageContainer } from "~/components/page-container";
 import { useDashboard } from "~/api-client/queries/dashboard";
+import { useUserInfo } from "~/api-client/queries/system-user";
+
+import { AdminDashboardStats, LoginIn, SignIn } from "./components";
 
 export function Route() {
-  const { data, isLoading } = useDashboard();
-  const dashboardData = (data as any)?.data;
+  const screens = Grid.useBreakpoint();
+  const { data: dashboardData, isLoading } = useDashboard();
+  const { data: userPayload, isLoading: userInfoLoading } = useUserInfo();
+  const userInfo = userPayload?.userInfo ?? null;
+  const stats = dashboardData?.stats;
 
   return (
-    <PageContainer loading={isLoading}>
-      <ProCard>
-        <ProCard>
-          <div className="flex justify-between">
-            <LoginIn data={dashboardData} userInfo={{}} />
-            <SignIn data={dashboardData} />
-          </div>
-        </ProCard>
-      </ProCard>
+    <PageContainer loading={isLoading || userInfoLoading}>
+      {stats && Object.keys(stats).length > 0 ? <AdminDashboardStats stats={stats} /> : null}
+      <Card>
+        <Flex
+          vertical={!screens.md}
+          gap={24}
+          justify={screens.md ? "space-between" : undefined}
+          align={screens.md ? "flex-start" : undefined}
+          style={{ width: "100%" }}
+        >
+          <LoginIn data={dashboardData} userInfo={userInfo} />
+          <SignIn data={dashboardData} />
+        </Flex>
+      </Card>
     </PageContainer>
   );
 }

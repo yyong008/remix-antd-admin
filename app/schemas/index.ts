@@ -133,7 +133,7 @@ const adminSchemas = {
         password: z.string().optional(),
         email: z.string().email().optional(),
         roles: z.array(z.number()),
-        departmentId: z.number(),
+        departmentId: z.string(),
         nickname: z.string().optional(),
         phone: z.string().optional(),
         lang: z.string().optional(),
@@ -198,20 +198,6 @@ const adminSchemas = {
           }),
         ),
       }),
-      READ: z.object({
-        id: z.number(),
-      }),
-      READ_LIST: z.object({
-        page: z.string().optional(),
-        pageSize: z.string().optional(),
-      }),
-      DELETE: z.object({
-        ids: z.array(z.number()),
-      }),
-    },
-    menuRole: {
-      CREATE: z.object({}),
-      UPDATE: z.object({}),
       READ: z.object({
         id: z.number(),
       }),

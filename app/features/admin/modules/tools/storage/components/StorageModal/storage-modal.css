@@ -1,0 +1,58 @@
+/* Tools → Storage upload modal */
+
+.rr-storage-upload-modal .ant-modal-header {
+  margin-bottom: 0;
+}
+
+.rr-storage-upload-modal__intro {
+  margin-bottom: 16px;
+}
+
+.rr-storage-upload-modal__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.rr-storage-upload-modal__summary {
+  font-size: 13px;
+  color: var(--ant-color-text-secondary, rgba(0, 0, 0, 0.45));
+}
+
+.rr-storage-upload-modal__summary strong {
+  color: var(--ant-color-text, rgba(0, 0, 0, 0.88));
+  font-weight: 600;
+}
+
+.rr-storage-upload-modal__card .ant-card-body {
+  padding: 0 16px 16px;
+}
+
+.rr-storage-upload-modal__table .ant-table-thead > tr > th {
+  background: var(--ant-color-fill-quaternary, #fafafa);
+}
+
+.rr-storage-upload-modal__preview {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid var(--ant-color-border-secondary, #f0f0f0);
+  background: var(--ant-color-fill-quaternary, #fafafa);
+}
+
+.rr-storage-upload-modal__file-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid var(--ant-color-border-secondary, #f0f0f0);
+  background: var(--ant-color-fill-quaternary, #fafafa);
+  font-size: 20px;
+  color: var(--ant-color-text-tertiary, rgba(0, 0, 0, 0.45));
+}

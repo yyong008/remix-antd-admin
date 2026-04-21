@@ -2,5 +2,6 @@ import { storageCommonConfig } from "../common/storage";
 
 export const storageClientConfig = {
   ...storageCommonConfig,
-  publicBaseUrl: "https://example.com/",
+  /** Prefer same-origin URLs from the API (`/api/storage/object?key=…`) when rendering stored files. */
+  publicBaseUrl: typeof window !== "undefined" ? window.location.origin : "",
 };

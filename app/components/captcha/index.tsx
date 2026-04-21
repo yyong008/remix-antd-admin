@@ -1,10 +1,11 @@
 import { Turnstile } from "@marsidev/react-turnstile";
-import { useTheme } from "next-themes";
+
+import { isTurnstileEnabled } from "~/config/turnstile";
+import { useSiteDarkMode } from "~/hooks/useSiteDarkMode";
 
 /**
  * @see https://developers.cloudflare.com/turnstile/community-resources/
  * @see https://github.com/marsidev/react-turnstile
- *
  */
 
 export function TurnstileWidget({
@@ -16,7 +17,11 @@ export function TurnstileWidget({
   className?: string;
   size?: "normal" | "compact" | "flexible" | "invisible";
 }) {
-  const { theme } = useTheme();
+  const isDark = useSiteDarkMode();
+
+  if (!isTurnstileEnabled()) {
+    return null;
+  }
 
   return (
     <Turnstile
@@ -24,7 +29,7 @@ export function TurnstileWidget({
       onSuccess={handleSuccess}
       siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
       options={{
-        theme: theme === "system" ? "auto" : theme === "dark" ? "dark" : "light",
+        theme: isDark ? "dark" : "light",
         language: "en",
         size: size,
       }}

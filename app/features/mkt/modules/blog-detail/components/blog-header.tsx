@@ -1,4 +1,7 @@
 import dayjs from "dayjs";
+import { Flex, Typography } from "antd";
+
+const { Text } = Typography;
 
 type BlogHeaderProps = {
   blog: {
@@ -11,13 +14,19 @@ type BlogHeaderProps = {
 
 export function BlogHeader({ blog }: BlogHeaderProps) {
   return (
-    <div className="flex flex-col pt-[140px] w-[40vw] h-[80vh]">
-      <div className="text-[30px]">{blog.title}</div>
-      <div className="flex text-gray-500 text-[14px] mt-[10px]">
-        <div className="mr-[10px]">作者：{blog.author}</div>
-        <div className="mr-[10px]">来源：{blog.source}</div>
-        <div>发布时间：{dayjs(blog.publishedAt).format("YYYY-MM-DD")}</div>
-      </div>
-    </div>
+    <Flex vertical style={{ paddingTop: 140, width: "40vw", height: "80vh" }}>
+      <Text style={{ fontSize: 30 }}>{blog.title}</Text>
+      <Flex style={{ marginTop: 10 }} gap={10}>
+        <Text type="secondary" style={{ fontSize: 14 }}>
+          作者：{blog.author}
+        </Text>
+        <Text type="secondary" style={{ fontSize: 14 }}>
+          来源：{blog.source}
+        </Text>
+        <Text type="secondary" style={{ fontSize: 14 }}>
+          发布时间：{dayjs(blog.publishedAt).format("YYYY-MM-DD")}
+        </Text>
+      </Flex>
+    </Flex>
   );
 }

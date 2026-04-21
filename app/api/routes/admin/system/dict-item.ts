@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../../../types";
+import { requirePermission } from "~/api/middleware/rbac";
 import { createDictItemDAL } from "~/dals/system/DictItemDAL";
 import { getSearchParamsPage, getSearchParamsPageSize } from "~/utils/server";
 import { rfj, rsj } from "~/utils/server/response-json";
@@ -8,7 +9,7 @@ import { getD1Db } from "~/api/helpers/d1";
 
 export const dictItemRouter = new Hono<HonoEnv>();
 
-dictItemRouter.get("/dict-item/:dictionaryId", async (c) => {
+dictItemRouter.get("/dict-item/:dictionaryId", requirePermission("system:dict:read"), async (c) => {
   try {
     const db = getD1Db(c);
     const dictItemDAL = createDictItemDAL(db);
@@ -31,56 +32,68 @@ dictItemRouter.get("/dict-item/:dictionaryId", async (c) => {
   }
 });
 
-dictItemRouter.post("/dict-item/:dictionaryId", async (c) => {
-  try {
-    const db = getD1Db(c);
-    const dictItemDAL = createDictItemDAL(db);
-    const dictionaryId = Number(c.req.param("dictionaryId"));
-    if (!dictionaryId) {
-      return rfj({}, "Invalid Dictionary Id", { status: 400 });
+dictItemRouter.post(
+  "/dict-item/:dictionaryId",
+  requirePermission("system:dict:create"),
+  async (c) => {
+    try {
+      const db = getD1Db(c);
+      const dictItemDAL = createDictItemDAL(db);
+      const dictionaryId = Number(c.req.param("dictionaryId"));
+      if (!dictionaryId) {
+        return rfj({}, "Invalid Dictionary Id", { status: 400 });
+      }
+      const dto = await c.req.json();
+      const result = await dictItemDAL.create({
+        ...dto,
+        dictionary_id: dictionaryId,
+      });
+      return rsj(result);
+    } catch (error) {
+      return rfj(error as Error);
     }
-    const dto = await c.req.json();
-    const result = await dictItemDAL.create({
-      ...dto,
-      dictionary_id: dictionaryId,
-    });
-    return rsj(result);
-  } catch (error) {
-    return rfj(error as Error);
-  }
-});
+  },
+);
 
-dictItemRouter.put("/dict-item/:dictionaryId", async (c) => {
-  try {
-    const db = getD1Db(c);
-    const dictItemDAL = createDictItemDAL(db);
-    const dictionaryId = Number(c.req.param("dictionaryId"));
-    if (!dictionaryId) {
-      return rfj({}, "Invalid Dictionary Id", { status: 400 });
+dictItemRouter.put(
+  "/dict-item/:dictionaryId",
+  requirePermission("system:dict:update"),
+  async (c) => {
+    try {
+      const db = getD1Db(c);
+      const dictItemDAL = createDictItemDAL(db);
+      const dictionaryId = Number(c.req.param("dictionaryId"));
+      if (!dictionaryId) {
+        return rfj({}, "Invalid Dictionary Id", { status: 400 });
+      }
+      const dto = await c.req.json();
+      const result = await dictItemDAL.update({
+        ...dto,
+        dictionary_id: dictionaryId,
+      });
+      return rsj(result);
+    } catch (error) {
+      return rfj(error as Error);
     }
-    const dto = await c.req.json();
-    const result = await dictItemDAL.update({
-      ...dto,
-      dictionary_id: dictionaryId,
-    });
-    return rsj(result);
-  } catch (error) {
-    return rfj(error as Error);
-  }
-});
+  },
+);
 
-dictItemRouter.delete("/dict-item/:dictionaryId", async (c) => {
-  try {
-    const db = getD1Db(c);
-    const dictItemDAL = createDictItemDAL(db);
-    const dictionaryId = Number(c.req.param("dictionaryId"));
-    if (!dictionaryId) {
-      return rfj({}, "Invalid Dictionary Id", { status: 400 });
+dictItemRouter.delete(
+  "/dict-item/:dictionaryId",
+  requirePermission("system:dict:delete"),
+  async (c) => {
+    try {
+      const db = getD1Db(c);
+      const dictItemDAL = createDictItemDAL(db);
+      const dictionaryId = Number(c.req.param("dictionaryId"));
+      if (!dictionaryId) {
+        return rfj({}, "Invalid Dictionary Id", { status: 400 });
+      }
+      const dto = await c.req.json();
+      const result = await dictItemDAL.deleteByIds(dto.ids ?? []);
+      return rsj(result ?? {});
+    } catch (error) {
+      return rfj(error as Error);
     }
-    const dto = await c.req.json();
-    const result = await dictItemDAL.deleteByIds(dto.ids ?? []);
-    return rsj(result ?? {});
-  } catch (error) {
-    return rfj(error as Error);
-  }
-});
+  },
+);

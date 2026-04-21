@@ -1,7 +1,7 @@
 import { Button, Form } from "antd";
 
 import { EditOutlined } from "@ant-design/icons";
-import { ModalForm } from "@ant-design/pro-components";
+import { ModalForm } from "~/components/pro-form-kit";
 import { ModalFormItems } from "./ModalFormItems";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { useUpdateDictItem } from "~/api-client/queries/system-dict-item";
@@ -31,7 +31,7 @@ export function UpdateDictItemModal({ trigger, record, refetch }: any) {
       form={form}
       autoFocusFirstInput
       modalProps={{
-        destroyOnClose: true,
+        destroyOnHidden: true,
         onCancel: () => form.resetFields(),
       }}
       submitTimeout={2000}

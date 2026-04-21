@@ -1,107 +1,355 @@
-import { NavLink, Outlet, useLocation, useNavigate, useParams } from "react-router";
+import type { MenuProps } from "antd";
+import { Avatar, Dropdown, Layout, Space } from "antd";
+import { href, NavLink, Outlet, useLocation, useNavigate, useParams } from "react-router";
+import { useLogout } from "~/api-client/queries/auth";
+import { defaultLang } from "~/config/lang";
+import type { SessionUserContextType } from "~/session/context";
+import { useSession } from "~/session/hooks";
 import { NavFooter } from "./footer";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { RocketOutlined } from "@ant-design/icons";
+
+const { Header, Footer } = Layout;
+
+type SessionUser = NonNullable<SessionUserContextType["user"]>;
+
+function pickAvatarUrl(u: SessionUser): string | undefined {
+  const extended = u as SessionUser & { avatar?: string | null };
+  const raw = extended.avatar?.trim() || u.image?.trim();
+  return raw || undefined;
+}
+
+function pickDisplayName(u: SessionUser): string {
+  const extended = u as SessionUser & { nickname?: string | null };
+  const n = extended.nickname?.trim() || u.name?.trim() || u.email?.trim() || "User";
+  return n;
+}
 
 const navItems = [
   { key: "home", label: "Home", href: "" },
   { key: "news", label: "News", href: "news" },
   { key: "blog", label: "Blog", href: "blog" },
-  { key: "docs", label: "Docs", href: "docs" },
   { key: "about", label: "About", href: "about" },
 ];
 
 export function Nav() {
-  const { locale } = useParams();
+  const { locale: localeParam } = useParams();
+  const locale = localeParam ?? defaultLang;
   const location = useLocation();
   const navigate = useNavigate();
   const activePath = location.pathname;
+  const sessionCtx = useSession();
+  const user = sessionCtx?.user ?? null;
+  const sessionPending = sessionCtx?.isSessionPending ?? false;
+  const logoutMutation = useLogout();
+
+  const accountMenu: MenuProps = {
+    items: [
+      {
+        key: "dashboard",
+        label: "Dashboard",
+        onClick: () => navigate(href("/:locale?/admin/dashboard", { locale })),
+      },
+      { type: "divider" },
+      {
+        key: "logout",
+        danger: true,
+        label: logoutMutation.isPending ? "Signing out…" : "Sign out",
+        disabled: logoutMutation.isPending,
+        onClick: () => {
+          void logoutMutation.mutateAsync();
+        },
+      },
+    ],
+  };
+
+  const avatarUrl = user ? pickAvatarUrl(user) : undefined;
+  const displayName = user ? pickDisplayName(user) : "";
+  const avatarLetter = displayName.slice(0, 1).toUpperCase();
+
+  const getNavLinkClassName = (isActive: boolean) => {
+    return isActive
+      ? "text-sm font-semibold tracking-wide text-(--mkt-text) no-underline"
+      : "text-sm font-semibold tracking-wide text-(--mkt-muted) transition-colors hover:text-(--mkt-text) no-underline";
+  };
+
+  const getMobileNavLinkClassName = (isActive: boolean) => {
+    return isActive
+      ? "whitespace-nowrap rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] transition border-(--mkt-text) bg-(--mkt-text) text-(--mkt-surface)"
+      : "whitespace-nowrap rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] transition border-(--mkt-border) text-(--mkt-muted)";
+  };
 
   return (
-    <div className="relative  bg-(--mkt-bg) text-(--mkt-text)">
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -left-32 top-10 h-72 w-72 rounded-full bg-(--mkt-accent) opacity-20 blur-[110px]" />
-        <div className="absolute right-[-120px] top-48 h-80 w-80 rounded-full bg-(--mkt-accent-2) opacity-20 blur-[120px]" />
-        <div className="absolute bottom-[-200px] left-1/4 h-96 w-96 rounded-full bg-[#f4b860] opacity-20 blur-[140px]" />
+    <Layout style={{ minHeight: "100vh", background: "var(--mkt-bg)" }}>
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          overflow: "hidden",
+          zIndex: 0,
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: "40px",
+            left: "-128px",
+            width: "288px",
+            height: "288px",
+            borderRadius: "50%",
+            background: "var(--mkt-accent)",
+            opacity: 0.2,
+            filter: "blur(110px)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: "192px",
+            right: "-120px",
+            width: "320px",
+            height: "320px",
+            borderRadius: "50%",
+            background: "var(--mkt-accent-2)",
+            opacity: 0.2,
+            filter: "blur(120px)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: "-200px",
+            left: "25%",
+            width: "384px",
+            height: "384px",
+            borderRadius: "50%",
+            background: "#f4b860",
+            opacity: 0.2,
+            filter: "blur(140px)",
+          }}
+        />
       </div>
 
-      <header className="mkt-header sticky top-0 z-30 border-b border-(--mkt-border) backdrop-blur">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
+      <Header
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 30,
+          borderBottom: "1px solid var(--mkt-border)",
+          background: "var(--mkt-bg)",
+          backdropFilter: "blur(8px)",
+          padding: "0 24px",
+          height: "auto",
+          lineHeight: "normal",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "16px 0",
+          }}
+        >
           <button
             type="button"
             onClick={() => navigate(`/${locale}`)}
-            className="flex items-center gap-3 text-left"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              textAlign: "left",
+            }}
           >
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-(--mkt-text) text-lg font-bold text-[var(--mkt-surface)]">
-              R
+            <span
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "40px",
+                height: "40px",
+                borderRadius: "16px",
+                background: "var(--mkt-text)",
+                fontSize: "18px",
+                fontWeight: "bold",
+                color: "var(--mkt-surface)",
+              }}
+            >
+              <RocketOutlined />
             </span>
-            <div className="leading-tight">
-              <p className="text-sm font-semibold uppercase tracking-[0.25em] text-(--mkt-muted)">
+            <div style={{ lineHeight: 1.2 }}>
+              <p
+                style={{
+                  fontSize: "12px",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  color: "var(--mkt-muted)",
+                  margin: 0,
+                }}
+              >
                 Remix
               </p>
-              <p className="text-lg font-semibold">Antd Admin</p>
+              <p style={{ fontSize: "18px", fontWeight: 600, color: "var(--mkt-text)", margin: 0 }}>
+                Antd Admin
+              </p>
             </div>
           </button>
 
-          <nav className="hidden items-center gap-6 lg:flex">
+          <nav style={{ display: "flex", alignItems: "center", gap: "24px" }}>
             {navItems.map((item) => {
-              const href = item.href ? `/${locale}/${item.href}` : `/${locale}`;
-              const isActive =
-                href === `/${locale}` ? activePath === `/${locale}` : activePath.startsWith(href);
+              const hrefPath = item.href ? `/${locale}/${item.href}` : `/${locale}`;
+              const isActive = item.href
+                ? activePath === hrefPath || activePath.startsWith(`${hrefPath}/`)
+                : activePath === "/" || activePath === `/${locale}` || activePath === `/${locale}/`;
               return (
-                <NavLink
-                  key={item.key}
-                  to={href}
-                  className={`text-sm font-semibold tracking-wide transition ${
-                    isActive ? "text-(--mkt-text)" : "text-(--mkt-muted) hover:text-(--mkt-text)"
-                  }`}
-                >
+                <NavLink key={item.key} to={hrefPath} className={getNavLinkClassName(isActive)}>
                   {item.label}
                 </NavLink>
               );
             })}
           </nav>
 
-          <div className="flex items-center gap-3">
+          <Space size="middle">
             <LanguageSwitcher />
             <ThemeSwitcher />
-            <button
-              type="button"
-              onClick={() => navigate(`/${locale}/auth/login`)}
-              className="hidden rounded-full border border-[var(--mkt-border)] bg-[var(--mkt-text)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--mkt-surface)] transition hover:-translate-y-0.5 hover:shadow-lg md:inline-flex"
-            >
-              Admin
-            </button>
-          </div>
-        </div>
-        <div className="flex items-center gap-4 overflow-x-auto px-6 pb-4 lg:hidden">
-          {navItems.map((item) => {
-            const href = item.href ? `/${locale}/${item.href}` : `/${locale}`;
-            const isActive =
-              href === `/${locale}` ? activePath === `/${locale}` : activePath.startsWith(href);
-            return (
-              <NavLink
-                key={item.key}
-                to={href}
-                className={`whitespace-nowrap rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] transition ${
-                  isActive
-                    ? "border-(--mkt-text) bg-(--mkt-text) text-(--mkt-surface)"
-                    : "border-(--mkt-border) text-(--mkt-muted)"
-                }`}
+            {sessionPending ? (
+              <div
+                style={{
+                  width: "36px",
+                  height: "36px",
+                  borderRadius: "50%",
+                  background: "var(--mkt-border)",
+                }}
+              />
+            ) : user ? (
+              <Dropdown
+                menu={accountMenu}
+                trigger={["click"]}
+                placement="bottomRight"
+                popupRender={(menu) => (
+                  <div
+                    style={{
+                      minWidth: "260px",
+                      overflow: "hidden",
+                      borderRadius: "16px",
+                      border: "1px solid var(--mkt-border)",
+                      background: "var(--mkt-surface)",
+                      boxShadow: "var(--mkt-shadow)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "12px",
+                        padding: "12px 16px",
+                        borderBottom: "1px solid var(--mkt-border)",
+                      }}
+                    >
+                      <Avatar src={avatarUrl} size={48}>
+                        {avatarLetter}
+                      </Avatar>
+                      <div style={{ minWidth: 0, flex: 1 }}>
+                        <div
+                          style={{
+                            fontSize: "15px",
+                            fontWeight: 600,
+                            color: "var(--mkt-text)",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {displayName}
+                        </div>
+                        {user.email ? (
+                          <div
+                            style={{
+                              fontSize: "12px",
+                              color: "var(--mkt-muted)",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              marginTop: "2px",
+                            }}
+                          >
+                            {user.email}
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
+                    <div style={{ padding: "8px 0" }}>{menu}</div>
+                  </div>
+                )}
               >
-                {item.label}
-              </NavLink>
-            );
-          })}
+                <button
+                  type="button"
+                  aria-label={displayName}
+                  title={displayName}
+                  style={{
+                    display: "flex",
+                    borderRadius: "50%",
+                    border: "1px solid var(--mkt-border)",
+                    background: "var(--mkt-surface)",
+                    padding: "2px",
+                    cursor: "pointer",
+                    transition: "transform 0.2s, box-shadow 0.2s",
+                  }}
+                >
+                  <Avatar src={avatarUrl} size={36}>
+                    {avatarLetter}
+                  </Avatar>
+                </button>
+              </Dropdown>
+            ) : (
+              <button
+                type="button"
+                onClick={() => navigate(href("/:locale?/auth/login", { locale }))}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  borderRadius: "9999px",
+                  border: "1px solid var(--mkt-border)",
+                  background: "var(--mkt-text)",
+                  padding: "8px 16px",
+                  fontSize: "12px",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  color: "var(--mkt-surface)",
+                  cursor: "pointer",
+                  transition: "transform 0.2s, box-shadow 0.2s",
+                }}
+              >
+                Log in
+              </button>
+            )}
+          </Space>
         </div>
-      </header>
+      </Header>
 
-      <main className="px-6 py-10">
+      <main style={{ flex: 1 }}>
         <Outlet />
       </main>
-      <footer className="border-t border-(--mkt-border)">
+
+      <Footer
+        style={{
+          borderTop: "1px solid var(--mkt-border)",
+          padding: 0,
+          background: "var(--mkt-bg)",
+        }}
+      >
         <NavFooter />
-      </footer>
-    </div>
+      </Footer>
+    </Layout>
   );
 }

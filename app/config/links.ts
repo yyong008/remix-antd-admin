@@ -1,41 +1,36 @@
 export const getLinks = (lang: string) => [
   {
-    title: "更多",
-    links: [
-      {
-        text: "Github",
-        to: "https://github.com/yyong008/remix-antd-admin",
-        isOut: true,
-      },
-      {
-        text: "组件",
-        to: "https://remix-antd-admin-docs.vercel.app/antd/",
-        isOut: true,
-      },
-      {
-        text: "业务",
-        to: "https://remix-antd-admin-docs.vercel.app/feature/home.html",
-        isOut: true,
-      },
-    ],
-  },
-  {
     title: "资源",
     links: [
       {
+        text: "首页",
+        to: `/${lang}`,
+        isOut: false,
+      },
+      {
+        text: "新闻",
+        to: `/${lang}/news`,
+        isOut: false,
+      },
+      {
+        text: "博客",
+        to: `/${lang}/blog`,
+        isOut: false,
+      },
+      {
         text: "文档",
-        to: "https://remix-antd-admin-docs.vercel.app/",
+        to: "/docs",
         isOut: true,
       },
       {
-        text: "privacy",
-        to: `/${lang}/privacy`,
+        text: "About",
+        to: `/${lang}/about`,
         isOut: false,
       },
     ],
   },
   {
-    title: "其他",
+    title: "技术",
     links: [
       {
         text: "React Router",
@@ -44,27 +39,47 @@ export const getLinks = (lang: string) => [
       },
       {
         text: "Hono",
-        to: `https://hono.dev/`,
+        to: "https://hono.dev/",
         isOut: true,
       },
       {
-        text: "Antd",
-        to: `https://ant.design`,
+        text: "Ant Design",
+        to: "https://ant.design",
         isOut: true,
       },
       {
-        text: "Tailwindcss",
-        to: `https://tailwindcss.com/`,
+        text: "Tailwind CSS",
+        to: "https://tailwindcss.com/",
         isOut: true,
       },
       {
         text: "Drizzle",
-        to: `https://orm.drizzle.team/`,
+        to: "https://orm.drizzle.team/",
         isOut: true,
       },
       {
-        text: "Langchain.js",
-        to: `https://js.langchain.com/docs/introduction/`,
+        text: "AI SDK",
+        to: "https://sdk.vercel.ai/docs",
+        isOut: true,
+      },
+    ],
+  },
+  {
+    title: "更多",
+    links: [
+      {
+        text: "Github",
+        to: "https://github.com/yyong008/remix-antd-admin",
+        isOut: true,
+      },
+      {
+        text: "组件库",
+        to: "https://remix-antd-admin-docs.vercel.app/antd/",
+        isOut: true,
+      },
+      {
+        text: "业务示例",
+        to: "https://remix-antd-admin-docs.vercel.app/feature/home.html",
         isOut: true,
       },
     ],

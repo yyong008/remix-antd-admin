@@ -3,7 +3,7 @@ import {
   ProFormRadio,
   ProFormText,
   ProFormTreeSelect,
-} from "@ant-design/pro-components";
+} from "~/components/pro-form-kit";
 
 export function TypePermission({ menuNotPerm }: any) {
   return (

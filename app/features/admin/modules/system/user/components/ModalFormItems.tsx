@@ -4,7 +4,7 @@ import {
   ProFormText,
   ProFormTextArea,
   ProFormTreeSelect,
-} from "@ant-design/pro-components";
+} from "~/components/pro-form-kit";
 import { optionsLocale, optionsStatus, optionsTheme } from "@/constants/options";
 
 import UploadWithCrop from "@/components/common/UploadWithCrop";
@@ -19,7 +19,7 @@ export function UserModalFormItems(props: UserModalFormItemProps) {
   const { depts = [], roles = [], showPassword } = props;
   return (
     <>
-      <UploadWithCrop />
+      <UploadWithCrop label="上传头像" placeholder="选择图片" />
       <ProFormText
         name="name"
         label="用户名"

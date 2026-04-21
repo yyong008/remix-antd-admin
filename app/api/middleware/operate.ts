@@ -12,29 +12,37 @@ function getClientIp(headers: Headers) {
   return headers.get("x-real-ip");
 }
 
+/** Persists after the handler runs so `c.res.status` is final; uses `waitUntil` on Workers when available. */
 export const operateMiddleware = createMiddleware<HonoEnv>(async (c, next) => {
   await next();
 
+  if (c.req.method === "OPTIONS") return;
+
+  const userId = c.get("userId");
+  if (!userId) return;
+
+  const persist = async () => {
+    try {
+      const db = getD1Db(c);
+      const operateDAL = createOperateDAL(db);
+      const req = c.req;
+      await operateDAL.createOperate({
+        userId,
+        username: c.get("username") ?? null,
+        path: req.path,
+        url: req.url,
+        method: req.method,
+        ipAddress: getClientIp(req.raw.headers) ?? null,
+        statusCode: c.res.status,
+      });
+    } catch (error) {
+      console.error("operateMiddleware failed:", error);
+    }
+  };
+
   try {
-    const userId = c.get("userId");
-    if (!userId) return;
-
-    const db = getD1Db(c);
-    const operateDAL = createOperateDAL(db);
-
-    const req = c.req;
-    await operateDAL.createOperate({
-      userId,
-      username: c.get("username") ?? null,
-      path: req.path,
-      url: req.url,
-      method: req.method,
-      ipAddress: getClientIp(req.raw.headers) ?? null,
-      statusCode: c.res.status,
-      updatedAt: new Date(),
-    });
-  } catch (error) {
-    // logging failures should not break the request
-    console.error("operateMiddleware failed:", error);
+    c.executionCtx.waitUntil(persist());
+  } catch {
+    void persist();
   }
 });

@@ -1,7 +1,7 @@
 import { Button, Form, message } from "antd";
 
 import { EditOutlined } from "@ant-design/icons";
-import { ModalForm } from "@ant-design/pro-components";
+import { ModalForm } from "~/components/pro-form-kit";
 import { ModalFormItems } from "./ModalFormItem";
 import { useCreateDept } from "~/api-client/queries/system-dept";
 
@@ -35,7 +35,7 @@ export function CreateDeptModal(props: CreateDeptModalProps) {
       form={form}
       autoFocusFirstInput
       modalProps={{
-        destroyOnClose: true,
+        destroyOnHidden: true,
         onCancel: () => form.resetFields(),
       }}
       submitTimeout={2000}

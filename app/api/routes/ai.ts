@@ -1,6 +1,9 @@
+import { createOllama } from "ollama-ai-provider-v2";
 import { Hono } from "hono";
-import { createTextStreamResponse } from "ai";
+import type { ModelMessage } from "ai";
+import { streamText } from "ai";
 
+import { ai as aiConfig } from "@/config/ai";
 import type { HonoEnv } from "../types";
 
 type ChatMessage = {
@@ -28,17 +31,103 @@ const toChatList = () =>
       updatedAt: chat.updatedAt,
     }));
 
-const chunkTextStream = (text: string) => {
-  const chunks = text.match(/.{1,16}/g) ?? [text];
-  return new ReadableStream<string>({
-    start(controller) {
-      chunks.forEach((chunk) => controller.enqueue(chunk));
-      controller.close();
-    },
+function getOllamaOrigin(): string {
+  const raw =
+    (typeof process !== "undefined" && process.env?.OLLAMA_URL) || aiConfig.ollama.baseUrl;
+  return raw.replace(/\/$/, "");
+}
+
+function getOllamaBaseApiUrl(): string {
+  return `${getOllamaOrigin()}/api`;
+}
+
+function normalizeMessageContent(content: unknown): string {
+  if (typeof content === "string") return content;
+  if (
+    content &&
+    typeof content === "object" &&
+    "text" in content &&
+    typeof (content as { text: unknown }).text === "string"
+  ) {
+    return (content as { text: string }).text;
+  }
+  return "";
+}
+
+function toModelMessages(raw: unknown): ModelMessage[] {
+  if (!Array.isArray(raw)) return [];
+  const out: ModelMessage[] = [];
+  for (const m of raw) {
+    if (!m || typeof m !== "object") continue;
+    const role = (m as { role?: string }).role;
+    const content = normalizeMessageContent((m as { content?: unknown }).content);
+    if (!content) continue;
+    if (role === "user") {
+      out.push({ role: "user", content });
+    } else if (role === "assistant") {
+      out.push({ role: "assistant", content });
+    } else if (role === "system") {
+      out.push({ role: "system", content });
+    }
+  }
+  return out;
+}
+
+function syncSessionFromClient(chat: ChatSession, modelMessages: ModelMessage[]) {
+  const now = new Date().toISOString();
+  chat.messages = modelMessages.map((m) => {
+    const content = typeof m.content === "string" ? m.content : "";
+    const role: "user" | "assistant" = m.role === "assistant" ? "assistant" : "user";
+    return {
+      id: crypto.randomUUID(),
+      role,
+      content,
+      createdAt: now,
+    };
   });
-};
+  chat.updatedAt = now;
+  const firstUser = modelMessages.find((x) => x.role === "user");
+  const firstText = firstUser && typeof firstUser.content === "string" ? firstUser.content : "";
+  if (firstText) {
+    chat.title = firstText.slice(0, 48) || chat.title;
+  }
+}
 
 export const aiRouter = new Hono<HonoEnv>();
+
+/** Lists models from the local Ollama instance (`GET /api/tags`). */
+aiRouter.get("/models", async (c) => {
+  try {
+    const res = await fetch(`${getOllamaOrigin()}/api/tags`);
+    if (!res.ok) {
+      return c.json(
+        {
+          models: [] as string[],
+          providers: [] as { id: string; label: string; models: string[] }[],
+          error: `Ollama returned ${res.status}`,
+        },
+        502,
+      );
+    }
+    const data = (await res.json()) as { models?: { name?: string }[] };
+    const models = (data.models ?? [])
+      .map((m) => m.name)
+      .filter((n): n is string => typeof n === "string" && n.length > 0);
+    /** 分组供前端展示；后续可在此追加其他接入（如 OpenAI 兼容网关等）。 */
+    const providers = [{ id: "ollama" as const, label: "Ollama（本地）", models }];
+    return c.json({ models, providers });
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    return c.json(
+      {
+        models: [] as string[],
+        providers: [] as { id: string; label: string; models: string[] }[],
+        error: message,
+      },
+      503,
+    );
+  }
+});
 
 aiRouter.get("/chats", (c) => {
   return c.json({ items: toChatList() });
@@ -74,26 +163,49 @@ aiRouter.post("/chats/:id/messages", async (c) => {
   const id = c.req.param("id");
   const chat = chats.get(id);
   if (!chat) return c.json({ error: "Chat not found" }, 404);
-  const body = await c.req.json<{ content?: string }>().catch(() => ({}));
-  const content = body.content?.trim();
-  if (!content) return c.json({ error: "Empty message" }, 400);
 
-  const now = new Date().toISOString();
-  chat.messages.push({
-    id: crypto.randomUUID(),
-    role: "user",
-    content,
-    createdAt: now,
+  let body: { content?: string; messages?: unknown; model?: string } = {};
+  try {
+    body = await c.req.json();
+  } catch {
+    body = {};
+  }
+
+  let modelMessages: ModelMessage[];
+  if (Array.isArray(body.messages) && body.messages.length > 0) {
+    modelMessages = toModelMessages(body.messages);
+  } else if (typeof body.content === "string" && body.content.trim()) {
+    modelMessages = [{ role: "user", content: body.content.trim() }];
+  } else {
+    return c.json({ error: "Empty message" }, 400);
+  }
+
+  if (modelMessages.length === 0) {
+    return c.json({ error: "No valid messages" }, 400);
+  }
+
+  syncSessionFromClient(chat, modelMessages);
+
+  const ollama = createOllama({
+    baseURL: getOllamaBaseApiUrl(),
   });
 
-  const reply = `AI: ${content}`;
-  chat.messages.push({
-    id: crypto.randomUUID(),
-    role: "assistant",
-    content: reply,
-    createdAt: new Date().toISOString(),
-  });
-  chat.updatedAt = new Date().toISOString();
+  const modelName = (body.model as string | undefined) || aiConfig.ollama.initModelName;
 
-  return createTextStreamResponse({ textStream: chunkTextStream(reply) });
+  const result = streamText({
+    model: ollama.chat(modelName),
+    messages: modelMessages,
+    onFinish: ({ text }) => {
+      const now = new Date().toISOString();
+      chat.messages.push({
+        id: crypto.randomUUID(),
+        role: "assistant",
+        content: text,
+        createdAt: now,
+      });
+      chat.updatedAt = now;
+    },
+  });
+
+  return result.toTextStreamResponse();
 });

@@ -21,5 +21,13 @@ interface DocsRootProviderProps {
 
 export function DocsRootProvider({ children }: DocsRootProviderProps) {
   const { locale = "en" } = useParams();
-  return <RootProvider i18n={provider(locale)}>{children}</RootProvider>;
+  return (
+    <RootProvider
+      i18n={provider(locale)}
+      /** Fumadocs defaults to `next-themes` (system preference), which fights `MktThemeSync` + marketing `mkt-theme`. Theme + `.dark` for `--color-fd-*` come from `applyMktTheme` on `<html>`. */
+      theme={{ enabled: false }}
+    >
+      {children}
+    </RootProvider>
+  );
 }

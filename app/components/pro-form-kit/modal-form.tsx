@@ -1,0 +1,158 @@
+import { Button, Form, type FormProps, Modal, type ModalProps, Space } from "antd";
+
+import { adminModalFormLayout } from "./admin-modal-form-layout";
+import type { FormInstance } from "antd/es/form";
+import { cloneElement, type ReactElement, type ReactNode, useCallback, useState } from "react";
+
+export type ModalFormSubmitter =
+  | false
+  | {
+      searchConfig?: { submitText?: string };
+      submitButtonProps?: React.ComponentProps<typeof Button>;
+      resetButtonProps?: false | React.ComponentProps<typeof Button>;
+    };
+
+export type ModalFormProps = Omit<FormProps, "onFinish"> & {
+  title?: ReactNode;
+  trigger?: ReactElement;
+  form?: FormInstance;
+  onFinish?: (values: Record<string, unknown>) => Promise<boolean | void> | boolean | void;
+  onOpenChange?: (open: boolean) => void;
+  modalProps?: Omit<ModalProps, "open" | "onOk" | "onCancel" | "title" | "footer" | "children">;
+  loading?: boolean;
+  submitter?: ModalFormSubmitter;
+  submitTimeout?: number;
+  width?: ModalProps["width"];
+  autoFocusFirstInput?: boolean;
+};
+
+export function ModalForm({
+  title,
+  trigger,
+  children,
+  form: propForm,
+  onFinish,
+  onOpenChange,
+  modalProps,
+  loading,
+  submitter,
+  submitTimeout,
+  width,
+  initialValues,
+  autoFocusFirstInput: _autoFocus,
+  ...formRest
+}: ModalFormProps) {
+  const [innerForm] = Form.useForm();
+  const form = propForm ?? innerForm;
+  const [open, setOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  const mergedLoading = Boolean(loading) || submitting;
+
+  const close = useCallback(() => {
+    setOpen(false);
+    onOpenChange?.(false);
+  }, [onOpenChange]);
+
+  const handleOpen = useCallback(
+    (next: boolean) => {
+      setOpen(next);
+      onOpenChange?.(next);
+    },
+    [onOpenChange],
+  );
+
+  const runFinish = useCallback(
+    async (values: Record<string, unknown>) => {
+      if (!onFinish) {
+        close();
+        return;
+      }
+      setSubmitting(true);
+      try {
+        const result = await onFinish(values);
+        if (result === false) return;
+        const done = () => {
+          form.resetFields();
+          close();
+        };
+        if (submitTimeout && submitTimeout > 0) {
+          window.setTimeout(done, submitTimeout);
+        } else {
+          done();
+        }
+      } finally {
+        setSubmitting(false);
+      }
+    },
+    [close, form, onFinish, submitTimeout],
+  );
+
+  const triggerEl =
+    trigger &&
+    cloneElement(trigger, {
+      onClick: (e: React.MouseEvent) => {
+        (trigger.props as { onClick?: (ev: React.MouseEvent) => void }).onClick?.(e);
+        handleOpen(true);
+      },
+    });
+
+  const submitText =
+    submitter && submitter !== false ? (submitter.searchConfig?.submitText ?? "确定") : "确定";
+
+  const showCancel = submitter === false ? false : submitter?.resetButtonProps !== false;
+
+  const footer: ReactNode =
+    submitter === false ? null : (
+      <Space>
+        {showCancel ? (
+          <Button
+            onClick={() => {
+              modalProps?.onCancel?.({} as React.MouseEvent<HTMLButtonElement>);
+              form.resetFields();
+              close();
+            }}
+          >
+            取消
+          </Button>
+        ) : null}
+        <Button
+          type="primary"
+          loading={mergedLoading}
+          {...(submitter && submitter !== false ? submitter.submitButtonProps : {})}
+          onClick={() => form.submit()}
+        >
+          {submitText}
+        </Button>
+      </Space>
+    );
+
+  return (
+    <>
+      {triggerEl}
+      <Modal
+        {...modalProps}
+        title={title ?? modalProps?.title}
+        open={open}
+        width={width ?? modalProps?.width}
+        footer={footer}
+        onCancel={(e) => {
+          modalProps?.onCancel?.(e);
+          form.resetFields();
+          close();
+        }}
+      >
+        <Form
+          form={form}
+          initialValues={initialValues}
+          {...adminModalFormLayout}
+          {...formRest}
+          onFinish={runFinish}
+          component={false}
+        >
+          {children}
+        </Form>
+      </Modal>
+    </>
+  );
+}

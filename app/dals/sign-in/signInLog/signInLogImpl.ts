@@ -5,7 +5,13 @@ import { userSignLogs } from "db/schema";
 
 export function createSignInLogDAL(db: DrizzleD1Database) {
   const createUserSignInLog$ = async (data: any) => {
-    return db.insert(userSignLogs).values(data).returning();
+    return db
+      .insert(userSignLogs)
+      .values({
+        ...data,
+        id: data.id ?? crypto.randomUUID(),
+      })
+      .returning();
   };
 
   const getUserTodayIsSignInById$ = (id: string) => {
@@ -25,7 +31,13 @@ export function createSignInLogDAL(db: DrizzleD1Database) {
   };
 
   async function createUserSignInLog(data: any) {
-    const created = await db.insert(userSignLogs).values(data).returning();
+    const created = await db
+      .insert(userSignLogs)
+      .values({
+        ...data,
+        id: data.id ?? crypto.randomUUID(),
+      })
+      .returning();
     return created[0];
   }
 

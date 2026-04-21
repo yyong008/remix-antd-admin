@@ -5,7 +5,13 @@ import { userSignLogs } from "db/schema";
 
 export function createSignInLogDAL(db: DrizzleD1Database) {
   async function create(data: any) {
-    const created = await db.insert(userSignLogs).values(data).returning();
+    const created = await db
+      .insert(userSignLogs)
+      .values({
+        ...data,
+        id: data.id ?? crypto.randomUUID(),
+      })
+      .returning();
     return created[0];
   }
 

@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../../../types";
+import { requirePermission } from "~/api/middleware/rbac";
 import { createRoleDAL } from "~/dals/system/RoleDAL";
 import { getSearchParamsPage, getSearchParamsPageSize } from "~/utils/server";
 import { rfj, rsj } from "~/utils/server/response-json";
@@ -8,7 +9,7 @@ import { getD1Db } from "~/api/helpers/d1";
 
 export const roleRouter = new Hono<HonoEnv>();
 
-roleRouter.get("/role", async (c) => {
+roleRouter.get("/role", requirePermission("system:role:read"), async (c) => {
   try {
     const db = getD1Db(c);
     const roleDAL = createRoleDAL(db);
@@ -23,7 +24,7 @@ roleRouter.get("/role", async (c) => {
   }
 });
 
-roleRouter.post("/role", async (c) => {
+roleRouter.post("/role", requirePermission("system:role:create"), async (c) => {
   try {
     const db = getD1Db(c);
     const roleDAL = createRoleDAL(db);
@@ -35,7 +36,7 @@ roleRouter.post("/role", async (c) => {
   }
 });
 
-roleRouter.put("/role", async (c) => {
+roleRouter.put("/role", requirePermission("system:role:update"), async (c) => {
   try {
     const db = getD1Db(c);
     const roleDAL = createRoleDAL(db);
@@ -47,7 +48,7 @@ roleRouter.put("/role", async (c) => {
   }
 });
 
-roleRouter.delete("/role", async (c) => {
+roleRouter.delete("/role", requirePermission("system:role:delete"), async (c) => {
   try {
     const db = getD1Db(c);
     const roleDAL = createRoleDAL(db);

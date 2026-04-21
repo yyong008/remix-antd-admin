@@ -1,50 +1,62 @@
-import { useEffect, useState } from "react";
+import type { MenuProps } from "antd";
+import { Dropdown } from "antd";
 import { Moon, Sun } from "lucide-react";
-
-const STORAGE_KEY = "mkt-theme";
-
-type ThemeMode = "light" | "dark";
-
-function applyTheme(mode: ThemeMode) {
-  if (typeof document === "undefined") return;
-  const root = document.documentElement;
-  root.classList.toggle("theme-dark", mode === "dark");
-  root.dataset.theme = mode;
-}
+import { useTheme } from "next-themes";
 
 export function ThemeSwitcher() {
-  const [mode, setMode] = useState<ThemeMode>("light");
+  const { theme, setTheme } = useTheme();
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const stored = window.localStorage.getItem(STORAGE_KEY) as ThemeMode | null;
-    const preferred = stored ?? "light";
-    setMode(preferred);
-    applyTheme(preferred);
-  }, []);
+  const items: MenuProps["items"] = [
+    {
+      key: "light",
+      label: (
+        <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <Sun size={14} style={{ color: "var(--mkt-accent)" }} />
+          Light
+        </span>
+      ),
+    },
+    {
+      key: "dark",
+      label: (
+        <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <Moon size={14} style={{ color: "var(--mkt-accent-2)" }} />
+          Dark
+        </span>
+      ),
+    },
+  ];
 
-  const toggle = () => {
-    const next = mode === "dark" ? "light" : "dark";
-    setMode(next);
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem(STORAGE_KEY, next);
-    }
-    applyTheme(next);
+  const menu: MenuProps = {
+    items,
+    selectedKeys: [theme ?? "light"],
+    onClick: ({ key }) => setTheme(key),
   };
 
   return (
-    <button
-      type="button"
-      onClick={toggle}
-      aria-label="Toggle theme"
-      className="inline-flex items-center gap-2 rounded-full border border-[var(--mkt-border)] bg-[var(--mkt-surface)] px-3 py-2 text-sm font-medium text-[var(--mkt-text)] shadow-[var(--mkt-shadow)] transition hover:-translate-y-0.5 hover:shadow-lg"
-    >
-      {mode === "dark" ? (
-        <Moon size={16} className="text-[var(--mkt-accent-2)]" />
-      ) : (
-        <Sun size={16} className="text-[var(--mkt-accent)]" />
-      )}
-      <span className="hidden sm:inline">{mode === "dark" ? "Dark" : "Light"}</span>
-    </button>
+    <Dropdown menu={menu} trigger={["click"]} placement="bottomRight">
+      <button
+        type="button"
+        aria-label="Theme"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "36px",
+          height: "36px",
+          borderRadius: "50%",
+          border: "1px solid var(--mkt-border)",
+          background: "var(--mkt-surface)",
+          cursor: "pointer",
+          transition: "transform 0.2s, box-shadow 0.2s",
+        }}
+      >
+        {theme === "dark" ? (
+          <Moon size={18} style={{ color: "var(--mkt-accent-2)" }} />
+        ) : (
+          <Sun size={18} style={{ color: "var(--mkt-accent)" }} />
+        )}
+      </button>
+    </Dropdown>
   );
 }

@@ -20,7 +20,7 @@ new fullstack:
 - [ ] i18n -> Paraglide JS
 - [ ] Cloudflare R2
 - [ ] Turnstile 接入（@marsidev/react-turnstile）
-- [ ] AI：LangChain -> ai-sdk
+- [x] AI：LangChain -> ai-sdk
 - [ ] AI：AntdX
 - [ ] neon -> d1
 

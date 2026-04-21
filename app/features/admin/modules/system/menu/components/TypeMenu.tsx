@@ -3,7 +3,7 @@ import {
   ProFormRadio,
   ProFormText,
   ProFormTreeSelect,
-} from "@ant-design/pro-components";
+} from "~/components/pro-form-kit";
 
 import { AntdIcon } from "@/components/common/antd-icon";
 import { AntdIconSelect } from "@/components/common/AntdIconSelect";

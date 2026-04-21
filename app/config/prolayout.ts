@@ -1,5 +1,7 @@
+import { PRODUCT_NAME } from "./product";
+
 export const prolayoutConfig = {
-  title: "Remix Antd Admin",
+  title: PRODUCT_NAME,
   logo: "/logo.png",
   layout: "mix",
   menu: {

@@ -5,7 +5,13 @@ import { loginLogs } from "db/schema";
 
 export function createLoginLogDAL(db: DrizzleD1Database) {
   async function create(data: any) {
-    const created = await db.insert(loginLogs).values(data).returning();
+    const created = await db
+      .insert(loginLogs)
+      .values({
+        ...data,
+        id: data.id ?? crypto.randomUUID(),
+      })
+      .returning();
     return created[0];
   }
 
@@ -37,7 +43,7 @@ export function createLoginLogDAL(db: DrizzleD1Database) {
     return rows[0] ?? null;
   }
 
-  async function deleteByIds(ids: number[]) {
+  async function deleteByIds(ids: string[]) {
     const deleted = await db
       .delete(loginLogs)
       .where(inArray(loginLogs.id, ids))

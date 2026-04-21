@@ -1,13 +1,35 @@
+import { JSX } from "react";
+
 export function Tiper({ title, content }: { title: string; content: JSX.Element | string }) {
   return (
     <a
       href="#"
-      className=" bg-slate-100 mx-auto mb-3 inline-flex items-center gap-3 rounded-full border border-yellow-800 px-2 py-1 text-sm backdrop-blur-sm"
+      style={{
+        backgroundColor: "#f1f5f9",
+        margin: "0 auto 12px",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 12,
+        borderRadius: 9999,
+        border: "1px solid #92400e",
+        padding: "4px 8px",
+        fontSize: 14,
+        backdropFilter: "blur(4px)",
+      }}
     >
-      <div className="bg-yellow-800  rounded-full text-xs px-[8px] py-[4px] text-white font-bold">
+      <div
+        style={{
+          backgroundColor: "#92400e",
+          borderRadius: 9999,
+          fontSize: 12,
+          padding: "2px 8px",
+          color: "white",
+          fontWeight: "bold",
+        }}
+      >
         {title}
       </div>
-      <div className="font-bold">{content}</div>
+      <div style={{ fontWeight: "bold" }}>{content}</div>
     </a>
   );
 }

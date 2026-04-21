@@ -2,7 +2,7 @@ import { Button, Form, message } from "antd";
 
 import { EditOutlined } from "@ant-design/icons";
 
-import { ModalForm } from "@ant-design/pro-components";
+import { ModalForm } from "~/components/pro-form-kit";
 import { type FormLayout } from "antd/es/form/Form";
 
 type PModleProps = {
@@ -26,9 +26,9 @@ export function PModal({ reload, ...props }: PModleProps) {
   return (
     <ModalForm
       {...(props.initValue ? { initValue: props.initValue } : {})}
-      labelCol={props.labelCol || { span: 3 }} // 设置 label 占用的列数
-      wrapperCol={props.wrapperCol || { span: 18 }} // 设置 input 占用的列数
-      layout={props.layout || undefined}
+      {...(props.labelCol !== undefined ? { labelCol: props.labelCol } : {})}
+      {...(props.wrapperCol !== undefined ? { wrapperCol: props.wrapperCol } : {})}
+      {...(props.layout !== undefined ? { layout: props.layout } : {})}
       key={Date.now()}
       preserve={false}
       title={props.title}
@@ -38,7 +38,7 @@ export function PModal({ reload, ...props }: PModleProps) {
       autoFocusFirstInput
       modalProps={{
         ...props.modalProps,
-        destroyOnClose: true,
+        destroyOnHidden: true,
         onCancel: () => form.resetFields(),
       }}
       loading={props.loading}

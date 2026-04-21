@@ -1,18 +1,35 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getApiClient } from "~/api-client";
+import { parseRsj } from "~/api-client/parse-rsj";
 
 export type ProfileLinkListParams = {
   page?: number;
   pageSize?: number;
-  category?: number;
+  /** 不传则返回当前用户下全部链接 */
+  category?: string;
+};
+
+/** `rsj` payload for GET `/admin/profile/link` */
+export type ProfileLinkListData = {
+  list: Array<{
+    id: string;
+    name: string;
+    url: string;
+    description?: string | null;
+    categoryId: string;
+    userId?: string;
+    createdAt?: Date | string | number | null;
+    updatedAt?: Date | string | number | null;
+  }>;
+  total: number;
 };
 
 export const profileLinkKeys = {
   list: (params: ProfileLinkListParams) => ["profile-link", "list", params] as const,
 };
 
-export function useProfileLinkList(params: ProfileLinkListParams) {
+export function useProfileLinkList(params: ProfileLinkListParams, options?: { enabled?: boolean }) {
   return useQuery({
     queryKey: profileLinkKeys.list(params),
     queryFn: async () => {
@@ -20,11 +37,12 @@ export function useProfileLinkList(params: ProfileLinkListParams) {
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
-          category: (params.category ?? 0).toString(),
+          ...(params.category ? { category: params.category } : {}),
         },
       });
-      return res.json();
+      return parseRsj<ProfileLinkListData>(res);
     },
+    ...options,
   });
 }
 
@@ -39,6 +57,7 @@ export function useCreateProfileLink() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["profile-link"] });
+      queryClient.invalidateQueries({ queryKey: ["profile-link-category"] });
     },
   });
 }
@@ -54,6 +73,7 @@ export function useUpdateProfileLink() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["profile-link"] });
+      queryClient.invalidateQueries({ queryKey: ["profile-link-category"] });
     },
   });
 }
@@ -61,7 +81,7 @@ export function useUpdateProfileLink() {
 export function useDeleteProfileLink() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: { ids: number[] }) => {
+    mutationFn: async (data: { ids: string[] }) => {
       const res = await getApiClient().api.admin.profile.link.$delete({
         json: data,
       });
@@ -69,6 +89,7 @@ export function useDeleteProfileLink() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["profile-link"] });
+      queryClient.invalidateQueries({ queryKey: ["profile-link-category"] });
     },
   });
 }

@@ -1,54 +1,79 @@
-import { Button, Form, message } from "antd";
+import { Button, Divider, Flex, Form, Modal, message } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import { nanoid } from "nanoid";
 
-import { EditOutlined } from "@ant-design/icons";
+import { useCreateProfileLink } from "~/api-client/queries/profile-link";
+
 import { FormItems } from "./FormItems";
-import { ModalForm } from "@ant-design/pro-components";
-import { useParams } from "react-router";
 
-export function LinkModalCreate({ refetch }: any) {
+export function LinkModalCreate({
+  refetch,
+  categoryId,
+}: {
+  refetch: () => void;
+  categoryId: string;
+}) {
+  const [open, setOpen] = useState(false);
   const [form] = Form.useForm();
-  const { id } = useParams();
-  const [createProfileLinkById, other] = [(...args: any): any => {}, { isLoading: false }];
+  const create = useCreateProfileLink();
 
   return (
-    <ModalForm
-      key={Date.now()}
-      preserve={false}
-      title={"创建链接"}
-      onOpenChange={(c) => {}}
-      loading={other.isLoading}
-      trigger={
-        <Button type={"primary"} icon={<EditOutlined />}>
-          新建
-        </Button>
-      }
-      form={form}
-      autoFocusFirstInput
-      modalProps={{
-        destroyOnClose: true,
-        onCancel: () => form.resetFields(),
-      }}
-      submitTimeout={2000}
-      onFinish={async (values: any) => {
-        const vals = {
-          ...values,
-        };
-
-        if (id) {
-          vals.categoryId = Number(id);
-        }
-        const result = await createProfileLinkById(vals);
-        if (result.data?.code !== 0) {
-          message.error(result.data?.message);
-          return false;
-        }
-        message.success(result.data?.message);
-        refetch();
-        form.resetFields();
-        return true;
-      }}
-    >
-      <FormItems />
-    </ModalForm>
+    <>
+      <Button type="primary" icon={<PlusOutlined />} onClick={() => setOpen(true)}>
+        新建链接
+      </Button>
+      <Modal
+        title="创建链接"
+        open={open}
+        onCancel={() => {
+          setOpen(false);
+          form.resetFields();
+        }}
+        footer={null}
+        destroyOnHidden
+        width={520}
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={async (values) => {
+            const id = nanoid();
+            const res = (await create.mutateAsync({
+              ...values,
+              id,
+              categoryId,
+            })) as { code?: number; message?: string };
+            if (res.code !== 0) {
+              message.error(res.message ?? "创建失败");
+              return false;
+            }
+            message.success(res.message ?? "创建成功");
+            refetch();
+            form.resetFields();
+            setOpen(false);
+            return true;
+          }}
+        >
+          <FormItems />
+          <Divider style={{ margin: "24px 0 0" }} />
+          <Form.Item style={{ marginBottom: 0 }}>
+            <Flex gap="small" wrap="wrap">
+              <Button type="primary" htmlType="submit" loading={create.isPending}>
+                创建
+              </Button>
+              <Button
+                onClick={() => {
+                  setOpen(false);
+                  form.resetFields();
+                }}
+              >
+                取消
+              </Button>
+            </Flex>
+          </Form.Item>
+        </Form>
+      </Modal>
+    </>
   );
 }

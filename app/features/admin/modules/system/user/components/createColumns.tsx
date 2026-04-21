@@ -23,9 +23,9 @@ export const createUserTableColumns = ({ depts, roles, colorPrimary, reload }: a
     ellipsis: true,
     render(_: any, record: any) {
       return (
-        <h1 style={{ color: colorPrimary }} className="font-bold">
+        <span style={{ color: colorPrimary, fontWeight: 700, fontSize: "inherit" }}>
           {record.name}
-        </h1>
+        </span>
       );
     },
   },

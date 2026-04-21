@@ -1,4 +1,6 @@
-import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { AdminTable } from "~/components/admin-table";
+
+import { PageContainer } from "~/components/page-container";
 import { useState } from "react";
 
 import { ProTableHeaderTitle } from "./components/ProTableHeaderTitle";
@@ -33,7 +35,7 @@ export function Route() {
 
   return (
     <PageContainer>
-      <ProTable
+      <AdminTable
         bordered
         size="small"
         headerTitle={<ProTableHeaderTitle title="用户管理" />}
@@ -46,12 +48,6 @@ export function Route() {
           onChange: (selectedRowKeys) => {
             setSelectedRow(selectedRowKeys as any);
           },
-        }}
-        onSubmit={(values) => {
-          setPage({
-            ...page,
-            name: values.name ?? "",
-          });
         }}
         toolBarRender={() =>
           createToolBarRender({
@@ -76,6 +72,7 @@ export function Route() {
         }}
         pagination={{
           total: result.total,
+          current: page.page,
           pageSize: page.pageSize || 10,
           onChange(pageNumber, pageSize) {
             setPage((p) => ({ ...p, page: pageNumber, pageSize }));

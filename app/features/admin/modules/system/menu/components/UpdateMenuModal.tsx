@@ -2,8 +2,15 @@ import { Button, Form } from "antd";
 import { useEffect, useState } from "react";
 
 import { EditOutlined } from "@ant-design/icons";
+import {
+  MENU_MODAL_CLASS_NAMES,
+  MENU_MODAL_WIDTH,
+  menuModalFormLayout,
+  menuModalStyles,
+} from "./menu-modal-config";
 import { MenuModalFormItems } from "./MenuModalFormItems";
-import { ModalForm } from "@ant-design/pro-components";
+import "./menu-modal-form.css";
+import { ModalForm } from "~/components/pro-form-kit";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { useUpdateMenu } from "~/api-client/queries/system-menu";
 
@@ -34,11 +41,10 @@ export default function UpdateMenuModal({ trigger, record, refetch, menuNotPerm 
   }, [menuNotPerm]);
   return (
     <ModalForm
-      layout="horizontal"
-      labelCol={{ span: 3 }}
-      key={Date.now()}
+      {...menuModalFormLayout}
       preserve={false}
       title={record?.id ? "修改菜单" : "创建菜单"}
+      width={MENU_MODAL_WIDTH}
       onOpenChange={(c) => {
         if (!c || !record.id) {
           return;
@@ -67,7 +73,10 @@ export default function UpdateMenuModal({ trigger, record, refetch, menuNotPerm 
       form={form}
       autoFocusFirstInput
       modalProps={{
-        destroyOnClose: true,
+        destroyOnHidden: true,
+        centered: true,
+        styles: menuModalStyles(),
+        classNames: MENU_MODAL_CLASS_NAMES,
         onCancel: () => form.resetFields(),
       }}
       submitTimeout={2000}

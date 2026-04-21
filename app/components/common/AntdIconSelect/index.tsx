@@ -1,6 +1,6 @@
 import * as ic from "@ant-design/icons";
 
-import { Dropdown, Input, Row, Segmented } from "antd";
+import { Dropdown, Flex, Input, Row, Segmented } from "antd";
 import { useMemo, useState } from "react";
 
 import { AntdIcon } from "../antd-icon";
@@ -32,59 +32,93 @@ export const AntdIconSelect = (props: AntdIconSelectProps) => {
     <Dropdown
       className={props.classname}
       trigger={["click", "hover"]}
-      dropdownRender={() => {
+      popupRender={() => {
         return (
-          <div className="flex flex-col w-[400px] h-[500px] bg-white overflow-hidden  p-[10px] gap-[10px] rounded-t-md shadow-md">
-            <div className="flex items-center gap-3">
-              <div className="text-[16px] font-bold">选择图标</div>
-              <div>
-                <Segmented<string>
-                  options={["OutlinedKeys", "FilledKeys", "TwoToneKeys"]}
-                  onChange={(value) => {
-                    setKeyType(value);
-                  }}
-                />
-              </div>
-            </div>
-            <div className="flex">
-              <Input
-                prefix={<ic.SearchOutlined />}
-                placeholder="搜索图标"
-                onChange={(v) => {
-                  const value = v.target.value;
-                  setFilterKey(value);
+          <Flex
+            vertical
+            style={{
+              width: 400,
+              height: 500,
+              background: "#fff",
+              overflow: "hidden",
+              padding: 10,
+              gap: 10,
+              borderTopLeftRadius: 6,
+              borderTopRightRadius: 6,
+              boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+            }}
+          >
+            <Flex align="center" gap={12}>
+              <div style={{ fontSize: 16, fontWeight: 700 }}>选择图标</div>
+              <Segmented<string>
+                options={["OutlinedKeys", "FilledKeys", "TwoToneKeys"]}
+                onChange={(value) => {
+                  setKeyType(value);
                 }}
               />
-            </div>
-            <div className="flex flex-wrap overflow-y gap-4 overflow-y-auto p-[10px]">
+            </Flex>
+            <Input
+              prefix={<ic.SearchOutlined />}
+              placeholder="搜索图标"
+              onChange={(v) => {
+                const value = v.target.value;
+                setFilterKey(value);
+              }}
+            />
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 16,
+                overflowY: "auto",
+                padding: 10,
+                flex: 1,
+                minHeight: 0,
+              }}
+            >
               {currentKey.length > 0 ? (
-                <Row gutter={16}>
+                <Row gutter={16} style={{ width: "100%" }}>
                   {currentKey.map((icon: string) => {
                     return (
                       <div
                         key={icon}
-                        className="flex justify-center w-[40px] h-[40px] items-center text-[20px] hover:bg-gray-200 cursor-pointer"
+                        role="button"
+                        tabIndex={0}
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          width: 40,
+                          height: 40,
+                          alignItems: "center",
+                          fontSize: 20,
+                          cursor: "pointer",
+                          borderRadius: 4,
+                        }}
                         onClick={() => {
                           props?.onChange?.(icon);
                         }}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") props?.onChange?.(icon);
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = "#f0f0f0";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = "";
+                        }}
                       >
-                        <AntdIcon
-                          name={icon}
-                          key={icon}
-                          className="text-[20px]"
-                          styles={{ fontSize: "20px" }}
-                        />
+                        <AntdIcon name={icon} key={icon} styles={{ fontSize: "20px" }} />
                       </div>
                     );
                   })}
                 </Row>
               ) : (
-                <div className="w-[100%] flex items-center justify-center text-center">
+                <Flex style={{ width: "100%" }} align="center" justify="center">
                   暂无数据
-                </div>
+                </Flex>
               )}
             </div>
-          </div>
+          </Flex>
         );
       }}
     >

@@ -1,0 +1,20 @@
+/* Create / update menu modal: align controls and avoid narrow columns */
+.menu-modal-form-body .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.menu-modal-form-body .ant-input-group,
+.menu-modal-form-body .ant-input-affix-wrapper,
+.menu-modal-form-body .ant-input-number {
+  width: 100%;
+  max-width: 100%;
+}
+
+.menu-modal-form-body .ant-select:not(.ant-select-customize-input) {
+  width: 100% !important;
+  max-width: 100%;
+}
+
+.menu-modal-form-body textarea.ant-input {
+  width: 100%;
+}

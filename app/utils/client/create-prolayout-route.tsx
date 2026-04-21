@@ -3,7 +3,7 @@ import { isExternalLink } from "./utils";
 import { href } from "react-router";
 function createProLayoutRouteImpl(locale: string, items: any[], parentId: number | null): any[] {
   return items
-    .filter((item) => item.parent_menu_id === parentId)
+    .filter((item) => item.parent_menu_id === parentId && item.isShow !== 0)
     .map((item) => ({
       ...item,
       name: item.name,

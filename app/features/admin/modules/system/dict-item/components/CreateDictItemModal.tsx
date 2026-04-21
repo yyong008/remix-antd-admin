@@ -1,7 +1,7 @@
 import { Button, Form } from "antd";
 
 import { EditOutlined } from "@ant-design/icons";
-import { ModalForm } from "@ant-design/pro-components";
+import { ModalForm } from "~/components/pro-form-kit";
 import { ModalFormItems } from "./ModalFormItems";
 import { useParams } from "react-router";
 import { useCreateDictItem } from "~/api-client/queries/system-dict-item";
@@ -39,7 +39,7 @@ export function CreateDictItemModal(props: CreateDictModalProps) {
       form={form}
       autoFocusFirstInput
       modalProps={{
-        destroyOnClose: true,
+        destroyOnHidden: true,
         onCancel: () => form.resetFields(),
       }}
       submitTimeout={2000}

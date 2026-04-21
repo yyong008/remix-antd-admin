@@ -1,5 +1,17 @@
 import type { ReactNode } from "react";
+import { Flex } from "antd";
 
 export function Layout({ children }: { children?: ReactNode }) {
-  return <div className="flex flex-col pt-[140px] w-[40vw] h-[80vh]">{children}</div>;
+  return (
+    <Flex
+      vertical
+      style={{
+        paddingTop: 140,
+        width: "40vw",
+        height: "80vh",
+      }}
+    >
+      {children}
+    </Flex>
+  );
 }

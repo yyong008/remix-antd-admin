@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getApiClient } from "~/api-client";
+import { parseRsj } from "~/api-client/parse-rsj";
 
 export type BlogTagListParams = {
   page?: number;
@@ -10,6 +11,17 @@ export type BlogTagListParams = {
 export const blogTagKeys = {
   list: (params: BlogTagListParams) => ["blog-tag", "list", params] as const,
   detail: (id?: number) => ["blog-tag", "detail", id] as const,
+};
+
+export type BlogTagRow = {
+  id: number;
+  name: string;
+  description?: string | null;
+};
+
+export type BlogTagListData = {
+  total: number;
+  list: BlogTagRow[];
 };
 
 export function useBlogTagList(params: BlogTagListParams) {
@@ -22,7 +34,7 @@ export function useBlogTagList(params: BlogTagListParams) {
           pageSize: (params.pageSize ?? 10).toString(),
         },
       });
-      return res.json();
+      return parseRsj<BlogTagListData>(res);
     },
   });
 }
@@ -43,14 +55,15 @@ export function useBlogTagById(id?: number) {
 export function useCreateBlogTag() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: any) => {
+    mutationFn: async (data: Record<string, unknown>) => {
       const res = await getApiClient().api.admin.blog.tag.$post({
         json: data,
       });
-      return res.json();
+      return parseRsj(res);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["blog-tag"] });
+      void queryClient.invalidateQueries({ queryKey: ["blog-tag"] });
+      void queryClient.invalidateQueries({ queryKey: ["blog"] });
     },
   });
 }

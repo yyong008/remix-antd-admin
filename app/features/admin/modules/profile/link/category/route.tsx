@@ -1,50 +1,206 @@
-import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { AdminTable } from "~/components/admin-table";
+import { PageContainer } from "~/components/page-container";
+import { Alert, Button, Card, Empty, Spin, theme, Typography } from "antd";
+import { useCallback, useEffect, useMemo, useState } from "react";
+
+import { useProfileLinkCategoryList } from "~/api-client/queries/profile-link-category";
+import { useProfileLinkList } from "~/api-client/queries/profile-link";
 
 import { CreateLinkCategoryModal } from "./components/CreateLinkCategoryModal";
-import { createColumns } from "./components/createColumns";
-import { useParams } from "react-router";
-import { useState } from "react";
+import { createColumns as createCategoryColumns } from "./components/createColumns";
+import { createColumns as createLinkColumns } from "../category-detail/components/createColumns";
+import { LinkModalCreate } from "../category-detail/components/CreateLinkModal";
+
+function idKey(v: unknown) {
+  return v == null ? null : String(v);
+}
 
 export function Route() {
-  const { id } = useParams();
-  const [page, setPage] = useState({
-    page: 1,
-    pageSize: 10,
-    category: id,
-  });
-  const { data, isLoading, refetch } = {
-    data: { data: { list: [], total: 0 } },
-    isLoading: false,
-    refetch: () => {},
-  };
+  const { token } = theme.useToken();
+
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+
+  const {
+    data: catData,
+    isLoading: catLoading,
+    isError: catError,
+    error: catErr,
+    refetch: refetchCategories,
+  } = useProfileLinkCategoryList({ page: 1, pageSize: 500 });
+
+  const categories = catData?.list ?? [];
+
+  const selectedCategory = useMemo(
+    () => categories.find((c) => idKey(c.id) === idKey(selectedCategoryId)) ?? null,
+    [categories, selectedCategoryId],
+  );
+
+  useEffect(() => {
+    if (!categories.length) {
+      setSelectedCategoryId(null);
+      return;
+    }
+    setSelectedCategoryId((prev) => {
+      const p = idKey(prev);
+      if (p && categories.some((c) => idKey(c.id) === p)) return p;
+      return idKey(categories[0]?.id);
+    });
+  }, [categories]);
+
+  const {
+    data: linkData,
+    isLoading: linkLoading,
+    isError: linkError,
+    error: linkErr,
+    refetch: refetchLinks,
+  } = useProfileLinkList(
+    {
+      page: 1,
+      pageSize: 100,
+      category: idKey(selectedCategoryId) ?? undefined,
+    },
+    { enabled: selectedCategoryId != null },
+  );
+
+  const linkList = linkData?.list ?? [];
+  const linkTotal = linkData?.total ?? 0;
+
+  const refetchAll = useCallback(() => {
+    refetchCategories();
+    refetchLinks();
+  }, [refetchCategories, refetchLinks]);
+
+  const categoryColumns = useMemo(
+    () => createCategoryColumns({ refetch: refetchAll }),
+    [refetchAll],
+  );
+
+  const linkColumns = useMemo(
+    () =>
+      createLinkColumns({
+        refetch: refetchLinks,
+        categoryId: selectedCategoryId ?? "",
+      }),
+    [refetchLinks, selectedCategoryId],
+  );
+
+  const pageSubTitle = selectedCategory
+    ? `分类：${selectedCategory.name}`
+    : "请先创建或选择左侧分类";
+
+  const errMsg = (e: unknown) => (e instanceof Error ? e.message : String(e));
+
   return (
-    <PageContainer>
-      <ProTable
-        rowKey="id"
-        size="small"
-        headerTitle="链接分类管理"
-        search={false}
-        loading={isLoading}
-        options={{
-          reload: refetch,
-        }}
-        toolBarRender={() => [
-          <CreateLinkCategoryModal refetch={refetch} key="link-category-modal-create" />,
-        ]}
-        dataSource={data?.data?.list || []}
-        columns={createColumns({ refetch })}
-        pagination={{
-          total: data?.data?.total,
-          pageSize: 10,
-          onChange(_page, pageSize) {
-            setPage({
-              ...page,
-              page: _page,
-              pageSize,
-            });
-          },
-        }}
-      />
+    <PageContainer title="链接管理" subTitle={pageSubTitle}>
+      {catError ? (
+        <Alert
+          type="error"
+          showIcon
+          style={{ marginBottom: 16 }}
+          message="分类列表加载失败"
+          description={errMsg(catErr)}
+          action={
+            <Button type="link" size="small" onClick={() => void refetchCategories()}>
+              重试
+            </Button>
+          }
+        />
+      ) : null}
+      {linkError && selectedCategoryId ? (
+        <Alert
+          type="error"
+          showIcon
+          style={{ marginBottom: 16 }}
+          message="链接列表加载失败"
+          description={errMsg(linkErr)}
+          action={
+            <Button type="link" size="small" onClick={() => void refetchLinks()}>
+              重试
+            </Button>
+          }
+        />
+      ) : null}
+      <div style={{ display: "flex", minHeight: 480, flexDirection: "column", gap: 16 }}>
+        <Card
+          size="small"
+          style={{ width: "100%", flexShrink: 0, borderColor: token.colorPrimaryBorder }}
+          title={
+            <span>
+              链接分类
+              {categories.length > 0 ? (
+                <Typography.Text
+                  type="secondary"
+                  style={{ marginLeft: 8, fontSize: 12, fontWeight: 400 }}
+                >
+                  （{categories.length}）
+                </Typography.Text>
+              ) : null}
+            </span>
+          }
+          styles={{ body: { padding: 12 } }}
+          extra={
+            <CreateLinkCategoryModal
+              refetch={refetchAll}
+              onCreated={(id) => setSelectedCategoryId(idKey(id))}
+            />
+          }
+        >
+          <Spin spinning={catLoading}>
+            {categories.length === 0 ? (
+              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无分类，请先新建" />
+            ) : (
+              <AdminTable
+                rowKey="id"
+                size="small"
+                search={false}
+                options={false}
+                pagination={false}
+                dataSource={categories}
+                columns={categoryColumns}
+                onRow={(record) => ({
+                  onClick: () => setSelectedCategoryId(idKey(record.id)),
+                  style:
+                    idKey(record.id) === idKey(selectedCategoryId)
+                      ? { background: token.colorPrimaryBg }
+                      : undefined,
+                })}
+              />
+            )}
+          </Spin>
+        </Card>
+
+        <Card
+          size="small"
+          style={{
+            minWidth: 0,
+            flex: 1,
+            borderColor: selectedCategoryId ? token.colorPrimaryBorder : undefined,
+          }}
+          styles={{ body: { padding: 0 } }}
+        >
+          {!selectedCategoryId ? (
+            <Empty style={{ paddingTop: 48 }} description="请先选择左侧分类" />
+          ) : (
+            <AdminTable
+              rowKey="id"
+              size="small"
+              search={false}
+              loading={linkLoading}
+              options={false}
+              dataSource={linkList}
+              columns={linkColumns}
+              toolBarRender={() => [
+                <LinkModalCreate
+                  key="link-create"
+                  categoryId={selectedCategoryId}
+                  refetch={refetchLinks}
+                />,
+              ]}
+              pagination={false}
+            />
+          )}
+        </Card>
+      </div>
     </PageContainer>
   );
 }

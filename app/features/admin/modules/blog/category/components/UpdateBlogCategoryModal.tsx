@@ -1,7 +1,7 @@
-import { Button, Form, message } from "antd";
+import { Button, Form, Modal, message } from "antd";
+import { useState } from "react";
 
 import { EditOutlined } from "@ant-design/icons";
-import { ModalForm } from "@ant-design/pro-components";
 import { ModalFormItems } from "./ModalFormItems";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 
@@ -9,42 +9,52 @@ export function UpdateBlogCategoryModal({ loading, trigger, title, record, refet
   const [form] = Form.useForm();
   const { colorPrimary } = useColorPrimary();
   const [update] = [(...args: any): any => {}];
+  const [open, setOpen] = useState(false);
   return (
-    <ModalForm
-      loading={loading}
-      key={Date.now()}
-      preserve={false}
-      title={title}
-      onOpenChange={(c) => {
-        form.setFieldsValue({
-          ...record,
-        });
-      }}
-      trigger={
-        trigger ?? (
-          <Button type={"link"} icon={<EditOutlined style={{ color: colorPrimary }} />}></Button>
-        )
-      }
-      form={form}
-      autoFocusFirstInput
-      modalProps={{
-        destroyOnClose: true,
-        onCancel: () => form.resetFields(),
-      }}
-      submitTimeout={2000}
-      onFinish={async (values) => {
-        values.id = record.id;
-        const result = await update(values).unwrap();
-        if (result && result.code !== 0) {
-          message.error(result.message);
-          return false;
-        }
-        message.success(result.message);
-        refetch?.();
-        return true;
-      }}
-    >
-      <ModalFormItems />
-    </ModalForm>
+    <>
+      {trigger ?? (
+        <Button
+          type={"link"}
+          icon={<EditOutlined style={{ color: colorPrimary }} />}
+          onClick={() => setOpen(true)}
+        ></Button>
+      )}
+      <Modal
+        title={title}
+        open={open}
+        onCancel={() => {
+          setOpen(false);
+          form.resetFields();
+        }}
+        footer={null}
+        destroyOnHidden
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          initialValues={record}
+          onFinish={async (values) => {
+            values.id = record.id;
+            const result = await update(values).unwrap();
+            if (result && result.code !== 0) {
+              message.error(result.message);
+              return false;
+            }
+            message.success(result.message);
+            refetch?.();
+            form.resetFields();
+            setOpen(false);
+            return true;
+          }}
+        >
+          <ModalFormItems />
+          <Form.Item style={{ marginTop: 16 }}>
+            <Button type="primary" htmlType="submit" loading={loading}>
+              提交
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+    </>
   );
 }

@@ -1,13 +1,14 @@
-import { PageContainer, ProCard } from "@ant-design/pro-components";
+import { Card } from "antd";
+import { PageContainer } from "~/components/page-container";
 
 import { ConfigProTable } from "./components/config-pro-table/config-pro-table";
 
 export function Route() {
   return (
     <PageContainer>
-      <ProCard>
+      <Card>
         <ConfigProTable />
-      </ProCard>
+      </Card>
     </PageContainer>
   );
 }

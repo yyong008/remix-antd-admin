@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getApiClient } from "~/api-client";
+import { parseRsj } from "~/api-client/parse-rsj";
+import type { DashboardPayload } from "~/types/admin-dashboard-stats";
 
 export const dashboardKeys = {
   info: ["dashboard", "info"] as const,
@@ -11,7 +13,7 @@ export function useDashboard() {
     queryKey: dashboardKeys.info,
     queryFn: async () => {
       const res = await getApiClient().api.admin.dashboard.$get();
-      return res.json();
+      return parseRsj<DashboardPayload>(res);
     },
   });
 }

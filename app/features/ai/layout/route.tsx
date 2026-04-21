@@ -1,5 +1,6 @@
+import { Button, Card, Flex, Typography } from "antd";
 import { useMemo } from "react";
-import { href, NavLink, Outlet, useNavigate, useParams } from "react-router";
+import { href, Outlet, useNavigate, useParams } from "react-router";
 
 export function Route() {
   const { locale } = useParams();
@@ -17,63 +18,146 @@ export function Route() {
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--mkt-bg)] text-[var(--mkt-text)]">
-      <div className="mx-auto flex w-full max-w-6xl gap-6 px-6 py-10">
-        <aside className="w-full max-w-[280px] space-y-6">
-          <div className="rounded-3xl border border-[var(--mkt-border)] bg-[var(--mkt-surface)] p-6 shadow-[var(--mkt-shadow)]">
-            <h2 className="text-lg font-semibold">AI Center</h2>
-            <p className="mt-2 text-xs text-[var(--mkt-muted)]">Chatbot 与图像能力入口</p>
-            <div className="mt-6 space-y-2">
-              <button
-                type="button"
-                onClick={createChat}
-                className="flex w-full items-center justify-between rounded-2xl border border-[var(--mkt-border)] bg-[var(--mkt-text)] px-4 py-3 text-sm font-semibold text-[var(--mkt-surface)]"
+    <div style={{ minHeight: "100vh", background: "var(--mkt-bg)", color: "var(--mkt-text)" }}>
+      <Flex
+        gap={24}
+        style={{
+          margin: "0 auto",
+          width: "100%",
+          maxWidth: 1152,
+          padding: "40px 24px",
+          alignItems: "flex-start",
+        }}
+      >
+        <aside style={{ width: "100%", maxWidth: 280, flexShrink: 0 }}>
+          <Flex vertical gap={24}>
+            <Card
+              styles={{ body: { padding: 24 } }}
+              style={{
+                borderRadius: 24,
+                border: "1px solid var(--mkt-border)",
+                background: "var(--mkt-surface)",
+                boxShadow: "var(--mkt-shadow)",
+              }}
+            >
+              <Typography.Title level={5} style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>
+                AI Center
+              </Typography.Title>
+              <Typography.Text
+                type="secondary"
+                style={{ display: "block", marginTop: 8, fontSize: 12 }}
               >
-                Chatbot
-                <span className="text-xs font-normal">新建</span>
-              </button>
-              <NavLink
-                to={`${basePath}/image`}
-                className="flex w-full items-center justify-between rounded-2xl border border-[var(--mkt-border)] px-4 py-3 text-sm font-semibold text-[var(--mkt-text)]"
-              >
-                Image
-                <span className="text-xs font-normal text-[var(--mkt-muted)]">Beta</span>
-              </NavLink>
-            </div>
-          </div>
-
-          <div className="rounded-3xl border border-[var(--mkt-border)] bg-[var(--mkt-surface)] p-6 shadow-[var(--mkt-shadow)]">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold">聊天历史</h3>
-              <span className="text-xs text-[var(--mkt-muted)]">{chatHistory.length} 条</span>
-            </div>
-            <div className="mt-4 space-y-2">
-              {chatHistory.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => navigate(`${basePath}/chatbot/${item.id}`)}
-                  className="group flex w-full items-center justify-between rounded-2xl border border-[var(--mkt-border)] px-3 py-2 text-left text-xs font-semibold transition hover:bg-[var(--mkt-bg)]"
+                Chatbot（Ollama + AI SDK）
+              </Typography.Text>
+              <div style={{ marginTop: 24 }}>
+                <Button
+                  type="primary"
+                  block
+                  size="large"
+                  onClick={createChat}
+                  style={{
+                    height: "auto",
+                    borderRadius: 16,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "12px 16px",
+                    background: "var(--mkt-text)",
+                    color: "var(--mkt-surface)",
+                    border: "1px solid var(--mkt-border)",
+                    fontWeight: 600,
+                  }}
                 >
-                  <span className="truncate">{item.title}</span>
-                  <span className="text-[10px] text-[var(--mkt-muted)] group-hover:text-[var(--mkt-text)]">
-                    删除
-                  </span>
-                </button>
-              ))}
-              {chatHistory.length === 0 && (
-                <div className="rounded-2xl border border-dashed border-[var(--mkt-border)] px-4 py-6 text-center text-xs text-[var(--mkt-muted)]">
-                  暂无聊天记录
-                </div>
-              )}
-            </div>
-          </div>
+                  Chatbot
+                  <Typography.Text
+                    style={{ fontSize: 12, fontWeight: 400, color: "inherit", opacity: 0.9 }}
+                  >
+                    新建
+                  </Typography.Text>
+                </Button>
+              </div>
+            </Card>
+
+            <Card
+              styles={{ body: { padding: 24 } }}
+              style={{
+                borderRadius: 24,
+                border: "1px solid var(--mkt-border)",
+                background: "var(--mkt-surface)",
+                boxShadow: "var(--mkt-shadow)",
+              }}
+            >
+              <Flex justify="space-between" align="center">
+                <Typography.Text strong style={{ fontSize: 14 }}>
+                  聊天历史
+                </Typography.Text>
+                <Typography.Text type="secondary" style={{ fontSize: 12 }}>
+                  {chatHistory.length} 条
+                </Typography.Text>
+              </Flex>
+              <Flex vertical gap={8} style={{ marginTop: 16 }}>
+                {chatHistory.map((item) => (
+                  <Button
+                    key={item.id}
+                    type="text"
+                    onClick={() => navigate(`${basePath}/chatbot/${item.id}`)}
+                    style={{
+                      height: "auto",
+                      borderRadius: 16,
+                      border: "1px solid var(--mkt-border)",
+                      padding: "8px 12px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      textAlign: "left",
+                      fontSize: 12,
+                      fontWeight: 600,
+                      width: "100%",
+                    }}
+                  >
+                    <span
+                      style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+                    >
+                      {item.title}
+                    </span>
+                    <Typography.Text type="secondary" style={{ fontSize: 10, flexShrink: 0 }}>
+                      删除
+                    </Typography.Text>
+                  </Button>
+                ))}
+                {chatHistory.length === 0 && (
+                  <div
+                    style={{
+                      borderRadius: 16,
+                      border: "1px dashed var(--mkt-border)",
+                      padding: "24px 16px",
+                      textAlign: "center",
+                      fontSize: 12,
+                      color: "var(--mkt-muted)",
+                    }}
+                  >
+                    暂无聊天记录
+                  </div>
+                )}
+              </Flex>
+            </Card>
+          </Flex>
         </aside>
 
-        <section className="flex-1 rounded-[32px] border border-[var(--mkt-border)] bg-[var(--mkt-surface)] p-8 shadow-[var(--mkt-shadow)]">
+        <section
+          style={{
+            flex: 1,
+            minWidth: 0,
+            borderRadius: 32,
+            border: "1px solid var(--mkt-border)",
+            background: "var(--mkt-surface)",
+            padding: 32,
+            boxShadow: "var(--mkt-shadow)",
+          }}
+        >
           <Outlet />
         </section>
-      </div>
+      </Flex>
     </div>
   );
 }

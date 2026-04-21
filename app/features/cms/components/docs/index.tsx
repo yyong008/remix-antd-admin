@@ -22,7 +22,16 @@ const clientLoader = browserCollections.docs.createClientLoader({
         <meta name="description" content={frontmatter.description} />
         <h1 className="text-[1.75em] font-semibold">{frontmatter.title}</h1>
         <p className="text-lg text-fd-muted-foreground">{frontmatter.description}</p>
-        <div className="flex flex-row gap-2 items-center border-b pb-4">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: 8,
+            alignItems: "center",
+            paddingBottom: 16,
+            borderBottom: "1px solid var(--fd-border, rgba(0,0,0,0.08))",
+          }}
+        >
           <LLMCopyButton markdownUrl={`${props.url}`} />
           <ViewOptions markdownUrl={`${props.url}.mdx`} />
         </div>

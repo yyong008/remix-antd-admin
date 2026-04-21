@@ -1,5 +1,4 @@
-import { Descriptions } from "antd";
-import { ProCard } from "@ant-design/pro-components";
+import { Card, Descriptions } from "antd";
 import { useEffect, useState } from "react";
 
 export const ProjectAbout = () => {
@@ -26,10 +25,10 @@ export const ProjectAbout = () => {
     setDescription(description);
   }, []);
   return (
-    <ProCard>
+    <Card>
       <Descriptions title="关于">
         <Descriptions.Item>{description}</Descriptions.Item>
       </Descriptions>
-    </ProCard>
+    </Card>
   );
 };

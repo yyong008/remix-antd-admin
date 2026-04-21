@@ -198,7 +198,7 @@ export function ViewOptions({ markdownUrl }: ViewOptionsProps) {
         Open
         <ChevronDown className="size-3.5 text-fd-muted-foreground" />
       </PopoverTrigger>
-      <PopoverContent className="flex flex-col overflow-auto">
+      <PopoverContent style={{ display: "flex", flexDirection: "column", overflow: "auto" }}>
         {items.map((item) => (
           <a
             key={item.href}

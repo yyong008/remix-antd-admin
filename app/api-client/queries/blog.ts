@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getApiClient } from "~/api-client";
+import { parseRsj } from "~/api-client/parse-rsj";
 
 export type BlogListParams = {
   page?: number;
@@ -12,6 +13,11 @@ export type BlogListParams = {
 export const blogKeys = {
   list: (params: BlogListParams) => ["blog", "list", params] as const,
   detail: (id?: number) => ["blog", "detail", id] as const,
+};
+
+export type BlogListData = {
+  total: number;
+  list: Record<string, unknown>[];
 };
 
 export function useBlogList(params: BlogListParams) {
@@ -26,7 +32,7 @@ export function useBlogList(params: BlogListParams) {
           tagId: (params.tagId ?? 0).toString(),
         },
       });
-      return res.json();
+      return parseRsj<BlogListData>(res);
     },
   });
 }

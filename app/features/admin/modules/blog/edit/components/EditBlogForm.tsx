@@ -1,6 +1,6 @@
-import { DrawerForm, ProForm } from "@ant-design/pro-components";
+import { Button, Drawer, Form } from "antd";
+import { useState } from "react";
 
-import { Button } from "antd";
 import { ModalFormItems } from "./ModalFormItems";
 import { useMemo } from "react";
 
@@ -12,7 +12,8 @@ type EditBlogFormProps = {
 };
 
 export function EditBlogForm(props: EditBlogFormProps) {
-  const [form] = ProForm.useForm();
+  const [open, setOpen] = useState(false);
+  const [form] = Form.useForm();
   const { data, content, onFinish, loading } = props;
   const { data: categories = {} } = { data: { data: { list: [] } } };
   const { data: tags = {} } = { data: { data: { list: [] } } };
@@ -40,27 +41,34 @@ export function EditBlogForm(props: EditBlogFormProps) {
   }, [tags]);
 
   return (
-    <DrawerForm
-      form={form}
-      submitter={{
-        resetButtonProps: {
-          style: {
-            display: "none",
-          },
-        },
-      }}
-      onOpenChange={() => {
-        form.setFieldsValue({
-          ...data,
-          content: content,
-          categoryId: data.categoryId,
-        });
-      }}
-      onFinish={onFinish}
-      loading={loading}
-      trigger={<Button type="primary">修改博客</Button>}
-    >
-      <ModalFormItems categoriesOptions={categoriesOptions} tagsOptions={tagsOptions} />
-    </DrawerForm>
+    <>
+      <Button type="primary" onClick={() => setOpen(true)}>
+        修改博客
+      </Button>
+      <Drawer title="修改博客" open={open} onClose={() => setOpen(false)} footer={null}>
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={async (values) => {
+            const result = await onFinish(values);
+            if (result !== false) {
+              setOpen(false);
+            }
+          }}
+          initialValues={{
+            ...data,
+            content: content,
+            categoryId: data.categoryId,
+          }}
+        >
+          <ModalFormItems categoriesOptions={categoriesOptions} tagsOptions={tagsOptions} />
+          <Form.Item style={{ marginTop: 16 }}>
+            <Button type="primary" htmlType="submit" loading={loading}>
+              提交
+            </Button>
+          </Form.Item>
+        </Form>
+      </Drawer>
+    </>
   );
 }

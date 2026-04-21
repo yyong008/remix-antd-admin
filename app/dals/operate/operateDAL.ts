@@ -3,7 +3,7 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 import { operates } from "db/schema";
 
 export function createOperateDAL(db: DrizzleD1Database) {
-  async function getById(id: number) {
+  async function getById(id: string) {
     const rows = await db.select().from(operates).where(eq(operates.id, id)).limit(1);
     return rows[0] ?? null;
   }
@@ -37,12 +37,18 @@ export function createOperateDAL(db: DrizzleD1Database) {
     return rows[0]?.count ?? 0;
   }
 
-  async function createOperate(data: any) {
-    const created = await db.insert(operates).values(data).returning();
+  async function createOperate(data: Record<string, unknown>) {
+    const created = await db
+      .insert(operates)
+      .values({
+        ...data,
+        id: (data.id as string | undefined) ?? crypto.randomUUID(),
+      })
+      .returning();
     return created[0];
   }
 
-  async function deleteByIdsOperate(ids: number[]) {
+  async function deleteByIdsOperate(ids: string[]) {
     const deleted = await db
       .delete(operates)
       .where(inArray(operates.id, ids))

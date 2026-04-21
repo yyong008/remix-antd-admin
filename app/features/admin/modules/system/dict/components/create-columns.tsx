@@ -1,5 +1,5 @@
 import { FormatTime, StatusType } from "@/components/common";
-import { Space, Tag } from "antd";
+import { Flex, Space, Tag } from "antd";
 
 import { DeleteAction } from "./DeleteAction";
 import { href, Link } from "react-router";
@@ -12,10 +12,10 @@ export const createColumns = ({ locale, refetch }: any) => [
     title: "字典名",
     render(_: any, record: any) {
       return (
-        <div className="flex font-bold gap-4">
+        <Flex align="center" gap={16} style={{ fontWeight: 700 }}>
           <ProfileOutlined />
           <span>{record.name}</span>
-        </div>
+        </Flex>
       );
     },
   },

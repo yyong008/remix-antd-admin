@@ -3,7 +3,7 @@ import dompurify from "dompurify";
 export function BlogContent({ content }: { content: string }) {
   return (
     <div
-      className="mt-[20px]"
+      style={{ marginTop: 20 }}
       dangerouslySetInnerHTML={{
         __html: dompurify.sanitize(content),
       }}

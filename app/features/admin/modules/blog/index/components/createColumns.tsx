@@ -1,81 +1,170 @@
-import * as clientUtils from "@/utils/client";
+import { Button, Dropdown, Modal, type MenuProps } from "antd";
+import { EyeOutlined, EditOutlined, MoreOutlined, DeleteOutlined } from "@ant-design/icons";
+import { useDeleteBlog } from "~/api-client/queries/blog";
+import { FormatTime } from "~/components/common";
 
-import { ButtonLink, FormatTime } from "~/components/common";
-import { Space, Tag } from "antd";
+function BlogActionsCell({
+  record,
+  refetch,
+  locale,
+}: {
+  record: any;
+  refetch?: () => void;
+  locale?: string;
+}) {
+  const { mutateAsync: deleteBlog, isPending: isDeleting } = useDeleteBlog();
 
-import { DeleteAction } from "./DeleteAction";
-import { href, Link } from "react-router";
+  const handleDelete = () => {
+    Modal.confirm({
+      title: "确定要删除吗？",
+      okText: "确认",
+      cancelText: "取消",
+      async onOk() {
+        const result = (await deleteBlog({ ids: [record.id] })) as {
+          code?: number;
+          message?: string;
+        };
+        if (result.code !== 0) {
+          Modal.error({ title: result.message ?? "删除失败" });
+          return;
+        }
+        refetch?.();
+        Modal.success({ title: "删除成功" });
+      },
+    });
+  };
 
-export const createColumns = ({ locale, info, refetch }: any) => [
+  const items: MenuProps["items"] = [
+    {
+      key: "view",
+      icon: <EyeOutlined />,
+      label: "查看内容",
+      onClick: () => {
+        Modal.info({
+          title: record.title,
+          content: (
+            <div
+              style={{ maxHeight: "60vh", overflow: "auto" }}
+              dangerouslySetInnerHTML={{ __html: record.content || "" }}
+            />
+          ),
+          width: 700,
+          okText: "关闭",
+        });
+      },
+    },
+    {
+      key: "edit",
+      icon: <EditOutlined />,
+      label: "编辑",
+      onClick: () => {
+        window.location.href = `/${locale || ""}/admin/blog/edit/${record.id}`.replace(/\/+/g, "/");
+      },
+    },
+    {
+      type: "divider",
+    },
+    {
+      key: "delete",
+      icon: <DeleteOutlined />,
+      label: "删除",
+      danger: true,
+      disabled: isDeleting,
+      onClick: handleDelete,
+    },
+  ];
+
+  return (
+    <Dropdown menu={{ items }} trigger={["click"]}>
+      <Button type="text" size="small" icon={<MoreOutlined />} />
+    </Dropdown>
+  );
+}
+
+export const createColumns = ({
+  locale,
+  refetch,
+  categoryById,
+}: {
+  locale?: string;
+  refetch?: () => void;
+  categoryById?: Map<string, string>;
+}) => [
   {
     dataIndex: "title",
-    title: "文章名字",
-    renderText(text: string, record: any) {
-      return (
-        <Link
-          to={{
-            pathname: href("/:locale?/blog/:id", { locale, id: record.id }),
-            search: `category=${record.id}`,
-          }}
-        >
-          {text}
-        </Link>
-      );
-    },
-  },
-  {
-    dataIndex: "content",
-    title: "文章",
-    renderText(text: string) {
-      return <div>{clientUtils.removeHtmlTag(text).slice(0, 50)}</div>;
-    },
+    title: "文章标题",
+    ellipsis: true,
+    render: (_: unknown, record: any) => (
+      <a
+        style={{
+          display: "block",
+          maxWidth: "100%",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+        }}
+        title={record.title}
+        onClick={(e) => {
+          e.preventDefault();
+          Modal.info({
+            title: record.title,
+            content: (
+              <div
+                style={{ maxHeight: "60vh", overflow: "auto" }}
+                dangerouslySetInnerHTML={{ __html: record.content || "" }}
+              />
+            ),
+            width: 700,
+            okText: "关闭",
+          });
+        }}
+      >
+        {record.title}
+      </a>
+    ),
   },
   {
     dataIndex: "author",
     title: "作者",
+    ellipsis: true,
+    width: 100,
   },
   {
     dataIndex: "source",
     title: "来源",
+    ellipsis: true,
+    width: 100,
+  },
+  {
+    dataIndex: "categoryId",
+    title: "分类",
+    ellipsis: true,
+    width: 100,
+    render: (_: unknown, record: { categoryId?: string | null }) => {
+      const id = record.categoryId;
+      if (!id) return "—";
+      return categoryById?.get(id) ?? id;
+    },
   },
   {
     dataIndex: "viewCount",
-    title: "查看数",
+    title: "浏览",
+    width: 80,
   },
   {
     dataIndex: "publishedAt",
     title: "发布时间",
-    renderText(text: string) {
-      return <FormatTime timeStr={text} />;
-    },
-  },
-  {
-    dataIndex: "categories",
-    title: "分类",
-    renderText(_: string, record: any) {
-      return <Tag>{info.categoryName}</Tag>;
-    },
-  },
-  {
-    dataIndex: "tags",
-    title: "标签",
-    renderText(_: string, record: any) {
-      return <Tag>{record?.tags?.name}</Tag>;
+    width: 160,
+    render: (_: unknown, record: any) => {
+      return <FormatTime timeStr={record.publishedAt} />;
     },
   },
   {
     dataIndex: "op",
     title: "操作",
-    render(_: string, record: any) {
-      return (
-        <Space>
-          <ButtonLink
-            to={href("/:locale?/admin/blog/edit/:id", { locale, id: record.id })}
-            type={"edit"}
-          />
-          <DeleteAction record={record} title={""} refetch={refetch} />
-        </Space>
-      );
-    },
+    width: 60,
+    render: (_: unknown, record: any) => (
+      <BlogActionsCell record={record} refetch={refetch} locale={locale} />
+    ),
   },
 ];

@@ -2,6 +2,7 @@ import { Space, Tag } from "antd";
 
 import { DeleteAction } from "./DeleteAction";
 import { href, Link } from "react-router";
+import { isNewsCategoryVisible } from "../../news-category-select";
 import { UpdateNewsCategoryModal } from "./UpdateNewsCategoryModal";
 
 export function createColumns({ refetch, locale }: any) {
@@ -13,7 +14,8 @@ export function createColumns({ refetch, locale }: any) {
         return (
           <Link
             to={{
-              pathname: href("/:locale?/admin/news/category/:id", { locale, id: record.id }),
+              pathname: href("/:locale?/admin/news/list", { locale }),
+              search: `?category=${encodeURIComponent(record.id)}`,
             }}
           >
             <Tag color="blue">{record.name}</Tag>
@@ -24,6 +26,17 @@ export function createColumns({ refetch, locale }: any) {
     {
       dataIndex: "description",
       title: "描述",
+    },
+    {
+      dataIndex: "visible",
+      title: "侧栏展示",
+      render(_: unknown, record: { visible?: unknown }) {
+        return isNewsCategoryVisible(record.visible) ? (
+          <Tag color="green">展示</Tag>
+        ) : (
+          <Tag>隐藏</Tag>
+        );
+      },
     },
     {
       dataIndex: "op",

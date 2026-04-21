@@ -1,4 +1,4 @@
 export const storageCommonConfig = {
-  provider: "s3",
+  provider: "r2",
   prefix: "uploads/",
 };

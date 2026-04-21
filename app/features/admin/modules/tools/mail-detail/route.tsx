@@ -1,8 +1,9 @@
 import "./styles.css";
 
-import { Button, Space } from "antd";
+import { QuestionCircleOutlined } from "@ant-design/icons";
+import { Button, Card, Space, Tooltip } from "antd";
 import { href, Link, useParams } from "react-router";
-import { PageContainer, ProCard } from "@ant-design/pro-components";
+import { PageContainer } from "~/components/page-container";
 import { useEffect, useState } from "react";
 
 import { MailForm } from "./components/MailForm";
@@ -22,11 +23,17 @@ export function Route() {
   }, [data?.data?.content]);
   return (
     <PageContainer>
-      <ProCard
+      <Card
         loading={isLoading}
         style={{ height: 600 }}
-        title="发送邮件"
-        tooltip="当前使用 Resend 发送服务"
+        title={
+          <Space size={4}>
+            发送邮件
+            <Tooltip title="当前使用 Resend 发送服务">
+              <QuestionCircleOutlined style={{ color: "var(--ant-color-text-description)" }} />
+            </Tooltip>
+          </Space>
+        }
         extra={
           <Space>
             <Link to={href(`/:locale?/admin/tools/mail/list`, { locale })}>
@@ -43,7 +50,7 @@ export function Route() {
             setContent={setContent}
           />
         </div>
-      </ProCard>
+      </Card>
     </PageContainer>
   );
 }

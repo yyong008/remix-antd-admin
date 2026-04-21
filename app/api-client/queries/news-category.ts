@@ -1,10 +1,25 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getApiClient } from "~/api-client";
+import { parseRsj } from "~/api-client/parse-rsj";
 
 export type NewsCategoryListParams = {
   page?: number;
   pageSize?: number;
+};
+
+/** 单条分类（列表/表单用） */
+export type NewsCategoryRow = {
+  id: string;
+  name: string;
+  description?: string | null;
+  visible?: unknown;
+  newsCount?: number;
+};
+
+export type NewsCategoryListData = {
+  total: number;
+  list: NewsCategoryRow[];
 };
 
 export const newsCategoryKeys = {
@@ -21,7 +36,8 @@ export function useNewsCategoryList(params: NewsCategoryListParams) {
           pageSize: (params.pageSize ?? 10).toString(),
         },
       });
-      return res.json();
+      /** 统一解析 rsj，避免组件里把 `data` 包一层又解一层弄混 */
+      return parseRsj<NewsCategoryListData>(res);
     },
   });
 }
@@ -29,14 +45,15 @@ export function useNewsCategoryList(params: NewsCategoryListParams) {
 export function useCreateNewsCategory() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: any) => {
+    mutationFn: async (data: Record<string, unknown>) => {
       const res = await getApiClient().api.admin.news.category.$post({
         json: data,
       });
-      return res.json();
+      return parseRsj<NewsCategoryRow>(res);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["news-category"] });
+      void queryClient.invalidateQueries({ queryKey: ["news-category"] });
+      void queryClient.invalidateQueries({ queryKey: ["news"] });
     },
   });
 }
@@ -44,14 +61,15 @@ export function useCreateNewsCategory() {
 export function useUpdateNewsCategory() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: any) => {
+    mutationFn: async (data: Record<string, unknown>) => {
       const res = await getApiClient().api.admin.news.category.$put({
         json: data,
       });
-      return res.json();
+      return parseRsj<NewsCategoryRow>(res);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["news-category"] });
+      void queryClient.invalidateQueries({ queryKey: ["news-category"] });
+      void queryClient.invalidateQueries({ queryKey: ["news"] });
     },
   });
 }
@@ -59,14 +77,15 @@ export function useUpdateNewsCategory() {
 export function useDeleteNewsCategory() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: { ids: number[] }) => {
+    mutationFn: async (data: { ids: string[] }) => {
       const res = await getApiClient().api.admin.news.category.$delete({
         json: data,
       });
-      return res.json();
+      return parseRsj<unknown>(res);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["news-category"] });
+      void queryClient.invalidateQueries({ queryKey: ["news-category"] });
+      void queryClient.invalidateQueries({ queryKey: ["news"] });
     },
   });
 }

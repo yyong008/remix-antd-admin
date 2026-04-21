@@ -1,4 +1,4 @@
-import { ProFormDependency, ProFormRadio } from "@ant-design/pro-components";
+import { ProFormDependency, ProFormRadio } from "~/components/pro-form-kit";
 
 import { TypeDir } from "./TypeDir";
 import { TypeMenu } from "./TypeMenu";
@@ -27,8 +27,8 @@ export function MenuModalFormItems({ innerMenuNotPerm, record, form }: any) {
         radioType="button"
         fieldProps={{
           buttonStyle: "solid",
+          className: "flex flex-wrap gap-1",
         }}
-        width={300}
         initialValue={!record?.id ? 1 : record.type}
         options={[
           {
@@ -50,7 +50,7 @@ export function MenuModalFormItems({ innerMenuNotPerm, record, form }: any) {
         rules={[
           {
             required: true,
-            message: "请输入用户名",
+            message: "请选择菜单类型",
           },
         ]}
       />

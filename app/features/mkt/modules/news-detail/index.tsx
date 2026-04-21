@@ -5,8 +5,6 @@ export const meta: MetaFunction = () => {
   return [{ title: "News Detail" }];
 };
 
-export { loader } from "./loader";
-
 export default function Page() {
   return <Route />;
 }

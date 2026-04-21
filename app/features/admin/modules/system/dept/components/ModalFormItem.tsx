@@ -3,7 +3,7 @@ import {
   ProFormText,
   ProFormTextArea,
   ProFormTreeSelect,
-} from "@ant-design/pro-components";
+} from "~/components/pro-form-kit";
 
 type ModalFormItemsProps = {
   treeOptions: any;

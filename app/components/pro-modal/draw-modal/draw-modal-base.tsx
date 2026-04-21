@@ -1,6 +1,6 @@
 import { Button, Form } from "antd";
 
-import { DrawerForm } from "@ant-design/pro-components";
+import { DrawerForm } from "~/components/pro-form-kit";
 
 export function PDrawerForm({
   data,

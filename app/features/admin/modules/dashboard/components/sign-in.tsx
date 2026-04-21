@@ -14,19 +14,27 @@ export function SignIn({ data: initialData }: any) {
   }, [initialData]);
 
   const signInHanlder = async () => {
-    const result: any = await signInMutation.mutateAsync();
-    if (result.code === 0) {
-      setData({
-        ...data,
-        isLogin: true,
-      });
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-      });
-    } else {
-      message.error(result.message);
+    try {
+      const result: any = await signInMutation.mutateAsync();
+      if (result.code === 0) {
+        setData({
+          ...data,
+          isLogin: true,
+        });
+        if (result.data?.alreadySigned) {
+          message.info(result.message ?? "今日已签到");
+        } else {
+          confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 },
+          });
+        }
+      } else {
+        message.error(result.message ?? "签到失败");
+      }
+    } catch (e) {
+      message.error(e instanceof Error ? e.message : "签到请求失败");
     }
   };
   return (

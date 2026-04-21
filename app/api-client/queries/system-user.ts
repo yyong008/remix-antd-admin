@@ -1,11 +1,39 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getApiClient } from "~/api-client";
+import { parseRsj } from "~/api-client/parse-rsj";
+import type { MenuFlatRow, MenuTreeNode } from "~/utils/menu-tree";
 
 export type UserListParams = {
   page?: number;
   pageSize?: number;
   name?: string;
+};
+
+/** Row from `GET /api/admin/system/user/info` → `data.userInfo` (system user + profile). */
+export type AdminSysUserInfo = {
+  id: string;
+  avatar: string | null;
+  email: string;
+  name: string;
+  nickname: string | null;
+  locale: string | null;
+  theme: string;
+  phone: string | null;
+  remark: string | null;
+  status: number;
+  createdAt?: string;
+  updatedAt?: string;
+  department: { id: string; name: string } | null;
+};
+
+/** `data` payload of `GET /api/admin/system/user/info` (after `rsj` unwrap). */
+export type AdminUserInfoPayload = {
+  menu: MenuFlatRow[];
+  menuTree: MenuTreeNode[];
+  permissions: string[];
+  roles: { id: string; name: string; value: string }[];
+  userInfo: AdminSysUserInfo | null;
 };
 
 export const userKeys = {
@@ -33,12 +61,8 @@ export function useUserInfo() {
   return useQuery({
     queryKey: userKeys.info,
     queryFn: async () => {
-      const res = await getApiClient().api.admin.system.user.info.$get({
-        query: {
-          debug: "1",
-        },
-      });
-      return res.json();
+      const res = await getApiClient().api.admin.system.user.info.$get();
+      return parseRsj<AdminUserInfoPayload>(res);
     },
   });
 }

@@ -1,5 +1,4 @@
-import { Input } from "antd";
-import { ProCard } from "@ant-design/pro-components";
+import { Card, Input } from "antd";
 
 type ListHeaderSearchProps = {
   title: string;
@@ -7,7 +6,7 @@ type ListHeaderSearchProps = {
 
 export function ListHeaderSearch({ title }: ListHeaderSearchProps) {
   return (
-    <ProCard>
+    <Card>
       <h2>{title}</h2>
       <div
         style={{
@@ -27,6 +26,6 @@ export function ListHeaderSearch({ title }: ListHeaderSearchProps) {
           onSearch={() => {}}
         />
       </div>
-    </ProCard>
+    </Card>
   );
 }

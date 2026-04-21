@@ -1,4 +1,4 @@
-import { ProFormText, ProFormTextArea } from "@ant-design/pro-components";
+import { ProFormText, ProFormTextArea } from "~/components/pro-form-kit";
 
 export function FormItems() {
   return (

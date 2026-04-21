@@ -1,23 +1,59 @@
 import dayjs from "dayjs";
+import { CalendarOutlined, UserOutlined, FolderOutlined } from "@ant-design/icons";
 
 export function NewsHeader({
   news,
 }: {
   news: {
     title: string;
-    author: string;
-    source: string;
+    author?: string | null;
+    source?: string | null;
     publishedAt: string;
   };
 }) {
   return (
-    <div className="">
-      <div className="text-[30px]">{news.title}</div>
-      <div className="flex text-gray-500 text-[14px] mt-[10px]">
-        <div className="mr-[10px]">作者：{news.author}</div>
-        <div className="mr-[10px]">来源：{news.source}</div>
-        <div>发布时间：{dayjs(news.publishedAt).format("YYYY-MM-DD")}</div>
+    <header style={{ marginBottom: "40px" }}>
+      <h1
+        style={{
+          fontSize: "clamp(24px, 4vw, 36px)",
+          fontWeight: 700,
+          color: "var(--mkt-text)",
+          lineHeight: 1.2,
+          marginBottom: "24px",
+        }}
+      >
+        {news.title}
+      </h1>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          gap: "16px 24px",
+          fontSize: "14px",
+          borderBottom: "1px solid var(--mkt-border)",
+          paddingBottom: "20px",
+        }}
+      >
+        {news.author && (
+          <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <span style={{ color: "var(--mkt-muted)" }}>作者:</span>
+            <span style={{ color: "var(--mkt-text)", fontWeight: 500 }}>{news.author}</span>
+          </span>
+        )}
+        {news.source && (
+          <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <span style={{ color: "var(--mkt-muted)" }}>来源:</span>
+            <span style={{ color: "var(--mkt-text)" }}>{news.source}</span>
+          </span>
+        )}
+        <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <span style={{ color: "var(--mkt-muted)" }}>发布时间:</span>
+          <span style={{ color: "var(--mkt-text)" }}>
+            {dayjs(news.publishedAt).format("YYYY-MM-DD HH:mm")}
+          </span>
+        </span>
       </div>
-    </div>
+    </header>
   );
 }

@@ -1,12 +1,19 @@
-import { Button, message } from "antd";
-import { DrawerForm, ProForm } from "@ant-design/pro-components";
+import { Button, Drawer, Form, message } from "antd";
 import { href, useNavigate, useParams } from "react-router";
+import { useState } from "react";
 
 import { ModalFormItems } from "./ModalFormItems";
 import { useMemo } from "react";
 
-export function CreateBlogForm(props: { content: string }) {
-  const [form] = ProForm.useForm();
+export function CreateBlogForm(props: {
+  content: string;
+  open?: boolean;
+  setOpen?: (open: boolean) => void;
+}) {
+  const [internalOpen, setInternalOpen] = useState(false);
+  const open = props.open ?? internalOpen;
+  const setOpen = props.setOpen ?? setInternalOpen;
+  const [form] = Form.useForm();
   const nav = useNavigate();
   const { locale } = useParams();
   const [createBlog, others] = [(...args: any): any => {}, { isLoading: false }];
@@ -48,26 +55,32 @@ export function CreateBlogForm(props: { content: string }) {
     return true;
   };
   return (
-    <DrawerForm
-      form={form}
-      title="创建博客"
-      submitter={{
-        resetButtonProps: {
-          style: {
-            display: "none",
-          },
-        },
-      }}
-      onOpenChange={(open) => {
-        form.setFieldsValue({
-          content: props.content,
-        });
-      }}
-      onFinish={onFinish}
-      loading={others.isLoading}
-      trigger={<Button type="primary">创建博客</Button>}
-    >
-      <ModalFormItems categoriesOptions={categoriesOptions} tagsOptions={tagsOptions} />
-    </DrawerForm>
+    <>
+      <Button type="primary" onClick={() => setOpen(true)}>
+        创建博客
+      </Button>
+      <Drawer title="创建博客" open={open} onClose={() => setOpen(false)} footer={null}>
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={async (values) => {
+            const result = await onFinish(values);
+            if (result !== false) {
+              setOpen(false);
+            }
+          }}
+          initialValues={{
+            content: props.content,
+          }}
+        >
+          <ModalFormItems categoriesOptions={categoriesOptions} tagsOptions={tagsOptions} />
+          <Form.Item style={{ marginTop: 16 }}>
+            <Button type="primary" htmlType="submit" loading={others.isLoading}>
+              提交
+            </Button>
+          </Form.Item>
+        </Form>
+      </Drawer>
+    </>
   );
 }

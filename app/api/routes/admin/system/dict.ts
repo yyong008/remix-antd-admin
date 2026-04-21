@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../../../types";
+import { requirePermission } from "~/api/middleware/rbac";
 import { createDictDAL } from "~/dals/system/DictDAL";
 import { getSearchParamsPage, getSearchParamsPageSize } from "~/utils/server";
 import { rfj, rsj } from "~/utils/server/response-json";
@@ -8,7 +9,7 @@ import { getD1Db } from "~/api/helpers/d1";
 
 export const dictRouter = new Hono<HonoEnv>();
 
-dictRouter.get("/dict", async (c) => {
+dictRouter.get("/dict", requirePermission("system:dict:read"), async (c) => {
   try {
     const db = getD1Db(c);
     const dictDAL = createDictDAL(db);
@@ -23,7 +24,7 @@ dictRouter.get("/dict", async (c) => {
   }
 });
 
-dictRouter.post("/dict", async (c) => {
+dictRouter.post("/dict", requirePermission("system:dict:create"), async (c) => {
   try {
     const db = getD1Db(c);
     const dictDAL = createDictDAL(db);
@@ -35,7 +36,7 @@ dictRouter.post("/dict", async (c) => {
   }
 });
 
-dictRouter.put("/dict", async (c) => {
+dictRouter.put("/dict", requirePermission("system:dict:update"), async (c) => {
   try {
     const db = getD1Db(c);
     const dictDAL = createDictDAL(db);
@@ -47,7 +48,7 @@ dictRouter.put("/dict", async (c) => {
   }
 });
 
-dictRouter.delete("/dict", async (c) => {
+dictRouter.delete("/dict", requirePermission("system:dict:delete"), async (c) => {
   try {
     const db = getD1Db(c);
     const dictDAL = createDictDAL(db);

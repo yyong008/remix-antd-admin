@@ -1,30 +1,32 @@
-import { ProFormText, ProFormTextArea } from "@ant-design/pro-components";
+import { Form, Input } from "antd";
 
 export function ModalFormItems() {
   return (
     <>
-      <ProFormText
+      <Form.Item
         name="name"
         label="分类名"
-        placeholder="请输入"
         rules={[
           {
             required: true,
             message: "请输入",
           },
         ]}
-      />
-      <ProFormTextArea
+      >
+        <Input placeholder="请输入" />
+      </Form.Item>
+      <Form.Item
         name="description"
         label="标签描述"
-        placeholder="请输入"
         rules={[
           {
             required: false,
             message: "请输入",
           },
         ]}
-      />
+      >
+        <Input.TextArea placeholder="请输入" />
+      </Form.Item>
     </>
   );
 }

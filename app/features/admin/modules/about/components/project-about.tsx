@@ -1,6 +1,4 @@
-import { Descriptions, Tag } from "antd";
-
-import { ProCard } from "@ant-design/pro-components";
+import { Card, Descriptions, Tag } from "antd";
 
 export const ProjectAbout = () => {
   const { pkg } = __APP_INFO__;
@@ -12,7 +10,7 @@ export const ProjectAbout = () => {
 
   type DepType = keyof typeof allDeps;
   return (
-    <ProCard>
+    <Card>
       <Descriptions title="关于">
         <Descriptions.Item>
           {pkg.name}是基于 react-router
@@ -26,6 +24,6 @@ export const ProjectAbout = () => {
           内置了动态路由、权限验证、菜单、数据库全栈管理工具
         </Descriptions.Item>
       </Descriptions>
-    </ProCard>
+    </Card>
   );
 };

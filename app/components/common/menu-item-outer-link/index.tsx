@@ -10,7 +10,12 @@ export function MenuItemOutLink(props: MProps) {
   const { path, dom } = props;
   const { colorPrimary } = useColorPrimary();
   return (
-    <a className="flex items-center gap-1" href={path} target={"_blank"} rel="noreferrer">
+    <a
+      href={path}
+      target="_blank"
+      rel="noreferrer"
+      style={{ display: "flex", alignItems: "center", gap: 4 }}
+    >
       {dom} <ExportOutlined style={{ fontSize: "10px", color: colorPrimary }} />
     </a>
   );

@@ -1,18 +1,142 @@
-import { href, NavLink, useParams } from "react-router";
+import { href, useParams } from "react-router";
+import { defaultLang } from "~/config/lang";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { CalendarOutlined, UserOutlined, FolderOutlined } from "@ant-design/icons";
+import { Card } from "antd";
 
-export function NewsItem(props: any) {
-  const { data } = props;
-  const { locale } = useParams();
+dayjs.extend(relativeTime);
+
+function stripHtml(html: string): string {
+  return html
+    .replace(/<[^>]*>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export function NewsItem(props: { data: any; featured?: boolean; categoryName?: string }) {
+  const { data, featured = false, categoryName } = props;
+  const { locale: localeParam } = useParams();
+  const locale = localeParam ?? defaultLang;
+  const excerpt = data.content
+    ? stripHtml(data.content).slice(0, featured ? 200 : 120) + "..."
+    : "";
+
+  const cardStyle: React.CSSProperties = {
+    background: "var(--mkt-surface)",
+    border: "1px solid var(--mkt-border)",
+    borderRadius: "12px",
+    padding: "20px",
+    height: "100%",
+    transition: "all 0.3s",
+    cursor: "pointer",
+  };
+
   return (
-    <div>
-      <NavLink
-        className="text-gray-900  hover:text-yellow-500"
-        to={href(`/:locale?/news/:id`, { locale, id: props.data.id })}
-      >
-        <h1 className="flex text-[16px] my-[10px]  before:block before:content-['·'] before:text-yellow-700 before:mr-[4px]">
+    <Card
+      style={cardStyle}
+      bodyStyle={{ padding: 0, height: "100%", display: "flex", flexDirection: "column" }}
+      hoverable
+      onClick={() => (window.location.href = href(`/:locale?/news/:id`, { locale, id: data.id }))}
+    >
+      <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+        {categoryName && (
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "4px",
+              fontSize: "12px",
+              color: "var(--mkt-accent)",
+              background: "var(--mkt-surface)",
+              padding: "4px 8px",
+              borderRadius: "9999px",
+              marginBottom: "12px",
+              border: "1px solid var(--mkt-accent)",
+              width: "fit-content",
+            }}
+          >
+            <FolderOutlined />
+            {categoryName}
+          </div>
+        )}
+        <h3
+          style={{
+            fontWeight: 600,
+            color: "var(--mkt-text)",
+            marginBottom: "8px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            fontSize: featured ? "18px" : "16px",
+          }}
+        >
           {data.title}
-        </h1>
-      </NavLink>
-    </div>
+        </h3>
+        {excerpt && (
+          <p
+            style={{
+              color: "var(--mkt-muted)",
+              marginBottom: "12px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              fontSize: featured ? "14px" : "12px",
+              flex: 1,
+            }}
+          >
+            {excerpt}
+          </p>
+        )}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "16px",
+            marginTop: "auto",
+            paddingTop: "12px",
+            fontSize: featured ? "13px" : "12px",
+            color: "var(--mkt-muted)",
+          }}
+        >
+          {data.author && (
+            <span
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "4px",
+                maxWidth: "80px",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <UserOutlined />
+              <span>{data.author}</span>
+            </span>
+          )}
+          {data.source && (
+            <span
+              style={{
+                maxWidth: "80px",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {data.source}
+            </span>
+          )}
+          <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <CalendarOutlined />
+            {dayjs(data.publishedAt).fromNow()}
+          </span>
+        </div>
+      </div>
+    </Card>
   );
 }

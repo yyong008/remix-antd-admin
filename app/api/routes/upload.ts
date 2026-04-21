@@ -1,8 +1,9 @@
 import type { Context } from "hono";
 
+import { isStorageUploadAllowed } from "~/config/server/storage";
 import { createStorageDAL } from "~/dals/tools/StorageDAL";
 import { extname } from "~/utils/server";
-import { getPublicUrl, getStorageKey, uploadObject } from "~/libs/storage/s3";
+import { getPublicObjectUrl, getStorageKey, uploadObject } from "~/libs/storage/r2";
 import { rfj, rsj, respPresentationModeJson } from "~/utils/server/response-json";
 import { getD1Db } from "~/api/helpers/d1";
 
@@ -19,6 +20,24 @@ export async function uploadHandler(c: Context) {
   try {
     if (isDemoModeEnabled()) {
       return respPresentationModeJson();
+    }
+
+    const userId = c.get("userId");
+    if (!userId) {
+      return rfj({}, "No Authorization No User", { status: 401 });
+    }
+
+    if (!isStorageUploadAllowed(c)) {
+      if (!c.env.STORAGE) {
+        return rfj(
+          {},
+          "对象存储未配置：请在 wrangler.jsonc 中为 R2 桶设置 binding「STORAGE」（可从 wrangler.jsonc.example 复制并创建桶）。",
+        );
+      }
+      return rfj(
+        {},
+        "生产环境默认关闭文件上传；确认上线后请在部署环境设置 R2_ALLOW_PRODUCTION_UPLOAD=true",
+      );
     }
 
     const db = getD1Db(c);
@@ -40,17 +59,12 @@ export async function uploadHandler(c: Context) {
     const key = getStorageKey(uniqueFileName);
     const body = new Uint8Array(await file.arrayBuffer());
 
-    await uploadObject({
+    await uploadObject(c, {
       key,
       body,
       contentType: file.type || undefined,
     });
-    const path = getPublicUrl(key);
-
-    const userId = c.get("userId");
-    if (!userId) {
-      return rfj({}, "No Authorization No User", { status: 401 });
-    }
+    const path = getPublicObjectUrl(c, key);
 
     const result = await storageDAL.create({
       userId,

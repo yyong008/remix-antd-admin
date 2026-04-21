@@ -1,17 +1,19 @@
 import { createAuthMiddleware } from "better-auth/api";
 import type { BetterAuthPlugin } from "better-auth";
 import { eq } from "drizzle-orm";
-import { user, userRoles } from "db/schema";
+import { roles, userRoles } from "db/schema";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
-import { getLoginInfo } from "~/utils/server/ip.util";
+
+import { DEFAULT_SIGNUP_ROLE_VALUE } from "~/config/rbac";
 
 type RbacLoginPluginOptions = {
-  defaultRoleId?: number;
   db?: DrizzleD1Database;
+  /** Must match `sys_role.value` (e.g. `user`). */
+  defaultRoleValue?: string;
 };
 
 export function rbacLoginPlugin(options: RbacLoginPluginOptions = {}): BetterAuthPlugin {
-  const defaultRoleId = Number(options.defaultRoleId ?? 3);
+  const defaultRoleValue = options.defaultRoleValue ?? DEFAULT_SIGNUP_ROLE_VALUE;
 
   return {
     id: "rbac-login",
@@ -33,43 +35,22 @@ export function rbacLoginPlugin(options: RbacLoginPluginOptions = {}): BetterAut
             }
 
             if (path === "/sign-up/email") {
-              if (Number.isFinite(defaultRoleId)) {
+              const roleRows = await db
+                .select({ id: roles.id })
+                .from(roles)
+                .where(eq(roles.value, defaultRoleValue))
+                .limit(1);
+              const roleId = roleRows[0]?.id;
+              if (roleId) {
                 await db.insert(userRoles).values({
+                  id: crypto.randomUUID(),
                   userId: newSession.user.id,
-                  roleId: defaultRoleId,
+                  roleId,
                 });
-              }
-            }
-
-            if (
-              path.startsWith("/sign-in") ||
-              path.startsWith("/callback") ||
-              path.startsWith("/oauth2/callback")
-            ) {
-              try {
-                const rows = await db
-                  .select()
-                  .from(user)
-                  .where(eq(user.id, newSession.user.id))
-                  .limit(1);
-                const authUser = rows[0];
-                if (!authUser) return;
-                const request = ctx.request ?? ctx.context.request;
-                if (!request) return;
-                const loginInfo = await getLoginInfo(request);
-                const { createLoginLogDAL } = await import("~/dals/system/LoginLogDAL");
-                const loginLogDAL = createLoginLogDAL(db);
-                await loginLogDAL.create({
-                  name: authUser.name,
-                  ip: loginInfo.ip,
-                  address: loginInfo.address,
-                  system: loginInfo.system,
-                  browser: loginInfo.browser,
-                  userId: authUser.id,
-                  loginAt: new Date(),
-                });
-              } catch {
-                // Avoid breaking auth if logging fails.
+              } else {
+                console.warn(
+                  `rbac-login: no sys_role with value="${defaultRoleValue}", skipping default role assignment`,
+                );
               }
             }
           }),

@@ -1,6 +1,6 @@
 import { Button, Form, message } from "antd";
 
-import { DrawerForm } from "@ant-design/pro-components";
+import { DrawerForm } from "~/components/pro-form-kit";
 import { FormItems } from "./FormItems";
 import { useCreateToolsMail, useSendToolsMail } from "~/api-client/queries/tools-mail";
 

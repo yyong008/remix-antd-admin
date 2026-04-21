@@ -1,49 +1,149 @@
-import { Dropdown, Form } from "antd";
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
+import { Avatar, Dropdown, theme } from "antd";
+import type { MenuProps } from "antd";
 import { href, useNavigate, useParams } from "react-router";
 
 import type React from "react";
 
-type AvatarDropDownProps = {
-  dom: any;
+import { useLogout } from "~/api-client/queries/auth";
+
+export type AdminHeaderUser = {
+  name?: string | null;
+  nickname?: string | null;
+  email?: string | null;
+  avatar?: string | null;
 };
 
-export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ dom }) => {
+type AvatarDropDownProps = {
+  user: AdminHeaderUser;
+};
+
+function displayName(u: AdminHeaderUser) {
+  const n = u.nickname?.trim() || u.name?.trim();
+  return n || u.email?.trim() || "User";
+}
+
+export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ user }) => {
   const navigate = useNavigate();
   const { locale } = useParams();
+  const { token } = theme.useToken();
+  const { mutate: signOut } = useLogout();
   const isZh = locale === "zh";
+
+  const title = displayName(user);
+  const subtitle = user.email?.trim() || "";
+
+  const items: MenuProps["items"] = [
+    {
+      key: "profile-center",
+      icon: <UserOutlined />,
+      label: isZh ? "个人中心" : "Personal center",
+      onClick: () => {
+        navigate(href("/:locale?/admin/profile/account", { locale }));
+      },
+    },
+    { type: "divider" },
+    {
+      key: "logout",
+      icon: <LogoutOutlined />,
+      label: isZh ? "退出登录" : "Log out",
+      danger: true,
+      onClick: () => {
+        signOut();
+      },
+    },
+  ];
+
+  const avatarSrc = user.avatar?.trim() || undefined;
 
   return (
     <Dropdown
-      menu={{
-        items: [
-          {
-            key: "profile-center",
-            icon: <UserOutlined />,
-            label: isZh ? "个人中心" : "Personal Center",
-            onClick: () => {
-              navigate(href("/:locale?/admin/profile/home", { locale }));
-            },
-          },
-          {
-            type: "divider",
-          },
-          {
-            key: "logout",
-            icon: (
-              <Form method="post" action="/logout">
-                <LogoutOutlined />
-              </Form>
-            ),
-            label: isZh ? "退出登录" : "Logout",
-            onClick() {
-              navigate(href("/:locale?/auth/login", { locale }), { replace: true });
-            },
-          },
-        ],
-      }}
+      trigger={["click"]}
+      placement="bottomRight"
+      menu={{ items }}
+      popupRender={(menu) => (
+        <div
+          style={{
+            overflow: "hidden",
+            borderRadius: 12,
+            border: `1px solid ${token.colorBorderSecondary}`,
+            boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+            background: token.colorBgElevated,
+            minWidth: 260,
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              gap: 12,
+              padding: "12px 16px",
+              borderBottom: `1px solid ${token.colorBorderSecondary}`,
+            }}
+          >
+            <Avatar src={avatarSrc} size={48} style={{ flexShrink: 0 }}>
+              {title.slice(0, 1).toUpperCase()}
+            </Avatar>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <div
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                  fontSize: 15,
+                  fontWeight: 600,
+                  lineHeight: 1.4,
+                  color: token.colorText,
+                }}
+                title={title}
+              >
+                {title}
+              </div>
+              {subtitle ? (
+                <div
+                  style={{
+                    marginTop: 2,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    fontSize: 12,
+                    lineHeight: 1.4,
+                    color: token.colorTextSecondary,
+                  }}
+                  title={subtitle}
+                >
+                  {subtitle}
+                </div>
+              ) : null}
+            </div>
+          </div>
+          {menu}
+        </div>
+      )}
     >
-      {dom}
+      <button
+        type="button"
+        aria-label={isZh ? "用户菜单" : "User menu"}
+        style={{
+          display: "inline-flex",
+          cursor: "pointer",
+          alignItems: "center",
+          borderRadius: 8,
+          border: "1px solid transparent",
+          padding: 2,
+          transition: "background-color 0.2s",
+          background: "transparent",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "rgba(0,0,0,0.04)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "transparent";
+        }}
+      >
+        <Avatar src={avatarSrc} size="default">
+          {title.slice(0, 1).toUpperCase()}
+        </Avatar>
+      </button>
     </Dropdown>
   );
 };

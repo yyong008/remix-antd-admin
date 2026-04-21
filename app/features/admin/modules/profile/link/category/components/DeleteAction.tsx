@@ -1,36 +1,35 @@
-import { Button, Form, Popconfirm, message } from "antd";
-
+import { Button, Popconfirm, message } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 
+import { useDeleteProfileLinkCategory } from "~/api-client/queries/profile-link-category";
+
 type DeleteActionProps = {
-  record: any;
+  record: { id: string };
   title: string;
-  refetch: any;
+  refetch: () => void;
 };
 
 export function DeleteAction(props: DeleteActionProps) {
   const { record, title, refetch } = props;
-  const [deleteIt, { isLoading }] = [(...args: any[]): any => {}, { isLoading: false }];
+  const del = useDeleteProfileLinkCategory();
+
   return (
-    <Form>
-      <Popconfirm
-        title={title || "确定要删除吗?"}
-        onConfirm={async () => {
-          const ids = [record.id];
-
-          const result = await deleteIt({ ids }).unwrap();
-
-          if (result.code !== 0) {
-            message.error(result.message ?? "删除失败");
-            return;
-          }
-
-          refetch?.();
-          message.success("删除成功");
-        }}
-      >
-        <Button type="link" danger icon={<DeleteOutlined />} loading={isLoading} />
-      </Popconfirm>
-    </Form>
+    <Popconfirm
+      title={title || "确定要删除吗?"}
+      onConfirm={async () => {
+        const res = (await del.mutateAsync({ ids: [record.id] })) as {
+          code?: number;
+          message?: string;
+        };
+        if (res.code !== 0) {
+          message.error(res.message ?? "删除失败");
+          return;
+        }
+        message.success("删除成功");
+        refetch();
+      }}
+    >
+      <Button type="link" danger size="small" icon={<DeleteOutlined />} loading={del.isPending} />
+    </Popconfirm>
   );
 }

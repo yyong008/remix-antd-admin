@@ -1,4 +1,6 @@
-import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { AdminTable } from "~/components/admin-table";
+
+import { PageContainer } from "~/components/page-container";
 
 import { createColumns } from "./components/login-log-pro-table/create-columns";
 import { useState } from "react";
@@ -13,7 +15,7 @@ export function Route() {
 
   return (
     <PageContainer>
-      <ProTable
+      <AdminTable
         bordered
         size="small"
         search={false}
@@ -28,11 +30,12 @@ export function Route() {
         }}
         pagination={{
           total: data?.data?.total || 0,
-          pageSize: 10,
-          onChange(page, pageSize) {
+          current: page.page,
+          pageSize: page.pageSize,
+          onChange(p, pageSize) {
             setPage({
-              page,
-              pageSize,
+              page: p,
+              pageSize: pageSize ?? page.pageSize,
             });
           },
         }}

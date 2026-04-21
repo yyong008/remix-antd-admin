@@ -1,15 +1,15 @@
 import { Button, Form } from "antd";
 
-import { EditOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import { FormItems } from "./RoleFormItems";
-import { ModalForm } from "@ant-design/pro-components";
+import { ModalForm } from "~/components/pro-form-kit";
 import { useState } from "react";
 import { useCreateRole } from "~/api-client/queries/system-role";
+import { roleModalFormProps } from "../role-form-layout";
 
 type CreateRoleModalProps = {
   trigger?: React.ReactNode;
   menu: any[];
-  menuRoles: any[];
   refetch: any;
 };
 
@@ -25,23 +25,28 @@ export function CreateRoleModal(props: CreateRoleModalProps) {
   return (
     <ModalForm
       title="创建角色"
+      width={720}
+      {...roleModalFormProps}
+      loading={createRole.isPending}
       trigger={
         trigger ??
         ((
-          <Button type={"primary"} icon={<EditOutlined />}>
+          <Button type={"primary"} icon={<PlusOutlined />}>
             新建
           </Button>
         ) as any)
       }
       form={form}
       autoFocusFirstInput
+      initialValues={{ status: 1 }}
       onOpenChange={(e) => {
         if (e) {
           form.resetFields();
+          setCheckedKeys([]);
         }
       }}
       modalProps={{
-        destroyOnClose: true,
+        destroyOnHidden: true,
         onCancel: () => {},
       }}
       submitTimeout={2000}

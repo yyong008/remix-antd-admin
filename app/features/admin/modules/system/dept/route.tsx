@@ -1,4 +1,6 @@
-import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { AdminTable } from "~/components/admin-table";
+
+import { PageContainer } from "~/components/page-container";
 
 import { CreateDeptModal } from "./components/CreateModal";
 import { ExpandIcon } from "@/components/common/ExpandIcon";
@@ -47,7 +49,7 @@ export function Route() {
 
   return (
     <PageContainer>
-      <ProTable
+      <AdminTable
         rowKey="id"
         size="small"
         bordered

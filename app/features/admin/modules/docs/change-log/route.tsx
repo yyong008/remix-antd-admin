@@ -1,11 +1,12 @@
-import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { AdminTable } from "~/components/admin-table";
+
+import { PageContainer } from "~/components/page-container";
 import { Space, Tag } from "antd";
 
 import { ChangeLogCreateModal } from "./components/ChangeLogModalCreate";
 import ChangeLogUpdateModal from "./components/ChangeLogModalUpdate";
 import { DeleteIt } from "./components/delete-it";
 import { FormatTime } from "@/components/common";
-import { useParams } from "react-router";
 import { useState } from "react";
 
 const typeMap = {
@@ -35,7 +36,6 @@ export function Route() {
   };
 
   const { total = 0, list = [] } = data || {};
-  const params = useParams();
 
   const columns = [
     {
@@ -102,7 +102,7 @@ export function Route() {
   ];
   return (
     <PageContainer>
-      <ProTable
+      <AdminTable
         rowKey="id"
         headerTitle="更新日志"
         size="small"
@@ -118,9 +118,10 @@ export function Route() {
         }}
         pagination={{
           total,
-          pageSize: Number(params.pageSize ?? 10),
-          onChange(page, pageSize) {
-            setPage({ page, pageSize });
+          current: page.page,
+          pageSize: page.pageSize,
+          onChange(p, pageSize) {
+            setPage({ page: p, pageSize: pageSize ?? page.pageSize });
           },
         }}
       />

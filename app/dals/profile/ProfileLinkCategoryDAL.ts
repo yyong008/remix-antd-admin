@@ -2,10 +2,17 @@ import { asc, count, desc, eq, inArray } from "drizzle-orm";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 import { linkCategories } from "db/schema";
 
+function countResult(v: unknown): number {
+  if (v == null) return 0;
+  if (typeof v === "bigint") return Number(v);
+  const n = Number(v);
+  return Number.isFinite(n) ? n : 0;
+}
+
 export function createProfileLinkCategoryDAL(db: DrizzleD1Database) {
   async function getCount() {
     const rows = await db.select({ count: count() }).from(linkCategories);
-    return rows[0]?.count ?? 0;
+    return countResult(rows[0]?.count);
   }
 
   async function getCountByUserId(userId: string) {
@@ -13,10 +20,10 @@ export function createProfileLinkCategoryDAL(db: DrizzleD1Database) {
       .select({ count: count() })
       .from(linkCategories)
       .where(eq(linkCategories.userId, userId));
-    return rows[0]?.count ?? 0;
+    return countResult(rows[0]?.count);
   }
 
-  async function getById(id: number) {
+  async function getById(id: string) {
     const rows = await db.select().from(linkCategories).where(eq(linkCategories.id, id)).limit(1);
     return rows[0] ?? null;
   }
@@ -47,7 +54,7 @@ export function createProfileLinkCategoryDAL(db: DrizzleD1Database) {
     return updated[0];
   }
 
-  async function deleteByIds(ids: number[]) {
+  async function deleteByIds(ids: string[]) {
     return await db.delete(linkCategories).where(inArray(linkCategories.id, ids)).returning();
   }
 

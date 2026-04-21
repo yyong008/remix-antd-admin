@@ -1,4 +1,6 @@
+import { PRODUCT_NAME } from "../product";
+
 export const mailCommonConfig = {
   provider: "resend",
-  defaultFromName: "Remix Antd Admin",
+  defaultFromName: PRODUCT_NAME,
 };

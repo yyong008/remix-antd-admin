@@ -3,9 +3,10 @@ import { useEffect, useMemo, useState } from "react";
 
 import { EditOutlined } from "@ant-design/icons";
 import { FormItems } from "./RoleFormItems";
-import { ModalForm } from "@ant-design/pro-components";
+import { ModalForm } from "~/components/pro-form-kit";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { useUpdateRole } from "~/api-client/queries/system-role";
+import { roleModalFormProps } from "../role-form-layout";
 
 type CreateRoleModalProps = {
   trigger?: React.ReactNode;
@@ -31,9 +32,9 @@ export function UpdateRoleModal(props: CreateRoleModalProps) {
 
   const menus = useMemo(() => {
     return record.MenuRole?.filter((mr: any) => mr.roleId === record.id)?.map((r: any) => ({
-      id: r.id,
-      key: r.id,
-      value: r.id,
+      id: r.menuId,
+      key: r.menuId,
+      value: r.menuId,
     }));
   }, [record.MenuRole, record.id]);
   useEffect(() => {
@@ -45,6 +46,9 @@ export function UpdateRoleModal(props: CreateRoleModalProps) {
   return (
     <ModalForm
       title="更新角色"
+      width={720}
+      {...roleModalFormProps}
+      loading={updateRole.isPending}
       trigger={
         trigger ??
         ((
@@ -68,7 +72,7 @@ export function UpdateRoleModal(props: CreateRoleModalProps) {
         }
       }}
       modalProps={{
-        destroyOnClose: true,
+        destroyOnHidden: true,
         onCancel: () => {},
       }}
       submitTimeout={2000}

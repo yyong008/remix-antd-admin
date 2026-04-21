@@ -1,4 +1,6 @@
-import { PageContainer, ProTable } from "@ant-design/pro-components";
+import { AdminTable } from "~/components/admin-table";
+
+import { PageContainer } from "~/components/page-container";
 
 import { FeedbackModalCreate } from "./components/FeedbackModalCreate";
 import { FormatTime } from "@/components/common";
@@ -30,7 +32,7 @@ export function Route() {
       title: "反馈图片",
       render(_: any, record: any) {
         return (
-          <div className="w-[100px]">
+          <div style={{ width: 100 }}>
             <Image src={record.url}></Image>
           </div>
         );
@@ -46,7 +48,7 @@ export function Route() {
   ];
   return (
     <PageContainer>
-      <ProTable
+      <AdminTable
         rowKey="id"
         headerTitle="反馈内容"
         size="small"
@@ -62,9 +64,10 @@ export function Route() {
         ]}
         pagination={{
           total: data?.data?.total || 0,
+          current: page.page,
           pageSize: page.pageSize || 10,
-          onChange(page, pageSize) {
-            setPage({ page, pageSize });
+          onChange(p, pageSize) {
+            setPage({ page: p, pageSize: pageSize ?? page.pageSize });
           },
         }}
       />

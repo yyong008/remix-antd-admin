@@ -1,5 +1,5 @@
 import { Button, Form, message } from "antd";
-import { ModalForm, ProFormTextArea, ProFormUploadButton } from "@ant-design/pro-components";
+import { ModalForm, ProFormTextArea, ProFormUploadButton } from "~/components/pro-form-kit";
 
 import { EditOutlined } from "@ant-design/icons";
 import { useCreateFeedback } from "~/api-client/queries/docs-feedback";
@@ -22,7 +22,7 @@ export function FeedbackModalCreate({ refetch }: any) {
       form={form}
       autoFocusFirstInput
       modalProps={{
-        destroyOnClose: true,
+        destroyOnHidden: true,
         onCancel: () => form.resetFields(),
       }}
       submitTimeout={2000}

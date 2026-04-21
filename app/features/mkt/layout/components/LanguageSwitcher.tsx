@@ -1,10 +1,17 @@
-import { useContext } from "react";
-import { useLocation, useNavigate, useParams } from "react-router";
+import type { MenuProps } from "antd";
+import { Dropdown } from "antd";
 import { Globe } from "lucide-react";
+import { useContext, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router";
 
-import { langs, defaultLang } from "~/config/lang";
+import { defaultLang, langs } from "~/config/lang";
 import { SettingContext } from "~/context/setting-context";
 import { useChangeLanguage } from "~/hooks/useChangeLanuage";
+
+const LANG_LABELS: Record<string, string> = {
+  en: "English",
+  zh: "中文",
+};
 
 function getNextPath(pathname: string, nextLocale: string) {
   const segments = pathname.split("/").filter(Boolean);
@@ -32,23 +39,37 @@ export function LanguageSwitcher() {
     navigate(getNextPath(location.pathname, nextLocale));
   };
 
+  const items: MenuProps["items"] = langs.map((lang) => ({
+    key: lang,
+    label: LANG_LABELS[lang] ?? lang,
+  }));
+
+  const menu: MenuProps = {
+    items,
+    selectedKeys: [locale],
+    onClick: ({ key }) => handleChange(String(key)),
+  };
+
   return (
-    <div className="flex items-center rounded-full border border-[var(--mkt-border)] bg-[var(--mkt-surface)] px-2 py-1 text-sm shadow-[var(--mkt-shadow)]">
-      <Globe size={16} className="mx-1 text-[var(--mkt-muted)]" />
-      {langs.map((lang) => (
-        <button
-          key={lang}
-          type="button"
-          onClick={() => handleChange(lang)}
-          className={`rounded-full px-2.5 py-1 text-xs font-semibold uppercase transition ${
-            lang === locale
-              ? "bg-[var(--mkt-text)] text-[var(--mkt-surface)]"
-              : "text-[var(--mkt-muted)] hover:text-[var(--mkt-text)]"
-          }`}
-        >
-          {lang}
-        </button>
-      ))}
-    </div>
+    <Dropdown menu={menu} trigger={["click"]} placement="bottomRight">
+      <button
+        type="button"
+        aria-label="Language"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "36px",
+          height: "36px",
+          borderRadius: "50%",
+          border: "1px solid var(--mkt-border)",
+          background: "var(--mkt-surface)",
+          cursor: "pointer",
+          transition: "transform 0.2s, box-shadow 0.2s",
+        }}
+      >
+        <Globe size={18} style={{ color: "var(--mkt-muted)" }} aria-hidden />
+      </button>
+    </Dropdown>
   );
 }
