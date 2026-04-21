@@ -27,7 +27,7 @@ export function createBlogDAL(db: DrizzleD1Database) {
     return updated[0];
   }
 
-  async function deleteByIds(ids: number[]): Promise<any> {
+  async function deleteByIds(ids: string[]): Promise<any> {
     return await db.delete(blogs).where(inArray(blogs.id, ids)).returning();
   }
 
@@ -35,7 +35,7 @@ export function createBlogDAL(db: DrizzleD1Database) {
     return await db.select().from(blogs);
   }
 
-  async function getListByCategoryId(categoryId: number): Promise<any> {
+  async function getListByCategoryId(categoryId: string): Promise<any> {
     return await db.select().from(blogs).where(eq(blogs.categoryId, categoryId));
   }
 
@@ -48,12 +48,19 @@ export function createBlogDAL(db: DrizzleD1Database) {
 
     let query = db.select().from(blogs);
     if (conditions.length) {
-      query = query.where(and(...conditions));
+      return await query
+        .where(and(...conditions))
+        .limit(pageSize)
+        .offset((page - 1) * pageSize);
     }
     return await query.limit(pageSize).offset((page - 1) * pageSize);
   }
 
-  async function getById(id: number): Promise<any> {
+  async function getPublicList(): Promise<any> {
+    return await db.select().from(blogs);
+  }
+
+  async function getById(id: string): Promise<any> {
     const rows = await db.select().from(blogs).where(eq(blogs.id, id)).limit(1);
     return rows[0] ?? null;
   }
@@ -67,6 +74,7 @@ export function createBlogDAL(db: DrizzleD1Database) {
     getAll,
     getListByCategoryId,
     getListByIds,
+    getPublicList,
     getById,
   };
 }

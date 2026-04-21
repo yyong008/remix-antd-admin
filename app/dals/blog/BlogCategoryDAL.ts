@@ -23,7 +23,7 @@ export function createBlogCategoryDAL(db: DrizzleD1Database) {
     return updated[0];
   }
 
-  async function deleteByIds(ids: number[]) {
+  async function deleteByIds(ids: string[]) {
     return await db.delete(blogCategories).where(inArray(blogCategories.id, ids)).returning();
   }
 
@@ -31,7 +31,7 @@ export function createBlogCategoryDAL(db: DrizzleD1Database) {
     return await db.select().from(blogCategories).where(eq(blogCategories.userId, userId));
   }
 
-  async function getById(id: number) {
+  async function getById(id: string) {
     const rows = await db.select().from(blogCategories).where(eq(blogCategories.id, id)).limit(1);
     return rows[0] ?? null;
   }

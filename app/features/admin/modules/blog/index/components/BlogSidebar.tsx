@@ -43,6 +43,7 @@ function CategoryActionsCell({ cat, refetch }: { cat: any; refetch: () => void }
         <Button type="text" size="small" icon={<MoreOutlined />} />
       </Dropdown>
       <UpdateBlogCategoryModal
+        trigger={null}
         record={cat}
         refetch={refetch}
         open={editOpen}
@@ -88,9 +89,13 @@ function TagActionsCell({ tag, refetch }: { tag: any; refetch: () => void }) {
 export function BlogSidebar({
   selectedCategoryId,
   onCategorySelect,
+  selectedTagId,
+  onTagSelect,
 }: {
   selectedCategoryId?: string;
   onCategorySelect: (id?: string) => void;
+  selectedTagId?: string;
+  onTagSelect: (id?: string) => void;
 }) {
   const [activeTab, setActiveTab] = useState("category");
 
@@ -138,14 +143,6 @@ export function BlogSidebar({
                 />
               </Flex>
               <Space orientation="vertical" size={1} style={{ width: "100%" }}>
-                <Button
-                  block
-                  type={!selectedCategoryId ? "primary" : "default"}
-                  size="small"
-                  onClick={() => onCategorySelect(undefined)}
-                >
-                  全部
-                </Button>
                 {catLoading ? (
                   <Flex justify="center" style={{ paddingBlock: 24 }}>
                     <Typography.Text type="secondary" style={{ fontSize: 12 }}>
@@ -227,31 +224,40 @@ export function BlogSidebar({
                     style={{ marginBlock: 16 }}
                   />
                 ) : (
-                  tags.map((tag) => (
-                    <Flex
-                      key={tag.id}
-                      align="center"
-                      justify="space-between"
-                      gap={2}
-                      wrap="nowrap"
-                      style={{ paddingInline: 4 }}
-                    >
-                      <Button block type="text" size="small" style={{ flex: 1, textAlign: "left" }}>
-                        <Typography.Text
-                          style={{
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            fontSize: 13,
-                            display: "block",
-                          }}
+                  tags.map((tag) => {
+                    const selected = selectedTagId === String(tag.id);
+                    return (
+                      <Flex
+                        key={tag.id}
+                        align="center"
+                        justify="space-between"
+                        gap={2}
+                        wrap="nowrap"
+                        style={{ paddingInline: 4 }}
+                      >
+                        <Button
+                          block
+                          size="small"
+                          type={selected ? "primary" : "text"}
+                          style={{ flex: 1, textAlign: "left", fontWeight: selected ? 600 : 400 }}
+                          onClick={() => onTagSelect(String(tag.id))}
                         >
-                          {tag.name}
-                        </Typography.Text>
-                      </Button>
-                      <TagActionsCell tag={tag} refetch={refetchTags} />
-                    </Flex>
-                  ))
+                          <Typography.Text
+                            style={{
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap",
+                              fontSize: 13,
+                              display: "block",
+                            }}
+                          >
+                            {tag.name}
+                          </Typography.Text>
+                        </Button>
+                        <TagActionsCell tag={tag} refetch={refetchTags} />
+                      </Flex>
+                    );
+                  })
                 )}
               </Space>
             </div>

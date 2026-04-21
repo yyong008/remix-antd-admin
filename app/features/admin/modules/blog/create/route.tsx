@@ -58,10 +58,10 @@ export function Route() {
     })) as { code?: number; message?: string; data?: { id?: string } };
 
     if (result.code !== 0) {
-      message.error(result.message ?? "创建失败");
+      message.error(result.message ?? "保存失败");
       return false;
     }
-    message.success("发布成功");
+    message.success("保存成功");
     nav(href("/:locale?/admin/blog/result", { locale }), {
       state: { title: values.title, id: result.data?.id },
     });
@@ -75,7 +75,7 @@ export function Route() {
         title="文章正文"
         extra={
           <Button type="primary" onClick={() => setOpen(true)}>
-            填写元数据并发布
+            编辑元数据
           </Button>
         }
       >
@@ -94,7 +94,7 @@ export function Route() {
       </Card>
 
       <Drawer
-        title="填写元数据"
+        title="编辑元数据"
         open={open}
         onClose={() => setOpen(false)}
         width={520}
@@ -103,7 +103,7 @@ export function Route() {
           <Space>
             <Button onClick={() => setOpen(false)}>取消</Button>
             <Button type="primary" loading={createBlog.isPending} onClick={() => form.submit()}>
-              发布
+              保存
             </Button>
           </Space>
         }

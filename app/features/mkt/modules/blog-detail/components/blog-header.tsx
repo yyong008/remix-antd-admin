@@ -1,32 +1,59 @@
 import dayjs from "dayjs";
-import { Flex, Typography } from "antd";
+import { CalendarOutlined, UserOutlined, FolderOutlined } from "@ant-design/icons";
 
-const { Text } = Typography;
-
-type BlogHeaderProps = {
+export function BlogHeader({
+  blog,
+}: {
   blog: {
     title: string;
-    author: string;
-    source: string;
+    author?: string | null;
+    source?: string | null;
     publishedAt: string;
   };
-};
-
-export function BlogHeader({ blog }: BlogHeaderProps) {
+}) {
   return (
-    <Flex vertical style={{ paddingTop: 140, width: "40vw", height: "80vh" }}>
-      <Text style={{ fontSize: 30 }}>{blog.title}</Text>
-      <Flex style={{ marginTop: 10 }} gap={10}>
-        <Text type="secondary" style={{ fontSize: 14 }}>
-          作者：{blog.author}
-        </Text>
-        <Text type="secondary" style={{ fontSize: 14 }}>
-          来源：{blog.source}
-        </Text>
-        <Text type="secondary" style={{ fontSize: 14 }}>
-          发布时间：{dayjs(blog.publishedAt).format("YYYY-MM-DD")}
-        </Text>
-      </Flex>
-    </Flex>
+    <header style={{ marginBottom: "40px" }}>
+      <h1
+        style={{
+          fontSize: "clamp(24px, 4vw, 36px)",
+          fontWeight: 700,
+          color: "var(--mkt-text)",
+          lineHeight: 1.2,
+          marginBottom: "24px",
+        }}
+      >
+        {blog.title}
+      </h1>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          gap: "16px 24px",
+          fontSize: "14px",
+          borderBottom: "1px solid var(--mkt-border)",
+          paddingBottom: "20px",
+        }}
+      >
+        {blog.author && (
+          <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <span style={{ color: "var(--mkt-muted)" }}>作者:</span>
+            <span style={{ color: "var(--mkt-text)", fontWeight: 500 }}>{blog.author}</span>
+          </span>
+        )}
+        {blog.source && (
+          <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <span style={{ color: "var(--mkt-muted)" }}>来源:</span>
+            <span style={{ color: "var(--mkt-text)" }}>{blog.source}</span>
+          </span>
+        )}
+        <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <span style={{ color: "var(--mkt-muted)" }}>发布时间:</span>
+          <span style={{ color: "var(--mkt-text)" }}>
+            {dayjs(blog.publishedAt).format("YYYY-MM-DD HH:mm")}
+          </span>
+        </span>
+      </div>
+    </header>
   );
 }

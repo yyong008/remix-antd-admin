@@ -10,11 +10,11 @@ export type BlogCategoryListParams = {
 
 export const blogCategoryKeys = {
   list: (params: BlogCategoryListParams) => ["blog-category", "list", params] as const,
-  detail: (id?: number) => ["blog-category", "detail", id] as const,
+  detail: (id?: string) => ["blog-category", "detail", id] as const,
 };
 
 export type BlogCategoryRow = {
-  id: number;
+  id: string;
   name: string;
   description?: string | null;
 };
@@ -39,13 +39,13 @@ export function useBlogCategoryList(params: BlogCategoryListParams) {
   });
 }
 
-export function useBlogCategoryById(id?: number) {
+export function useBlogCategoryById(id?: string) {
   return useQuery({
     queryKey: blogCategoryKeys.detail(id),
     enabled: Boolean(id),
     queryFn: async () => {
       const res = await getApiClient().api.admin.blog.category[":id"].$get({
-        param: { id: String(id) },
+        param: { id: id! },
       });
       return res.json();
     },
@@ -87,7 +87,7 @@ export function useUpdateBlogCategory() {
 export function useDeleteBlogCategory() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: { ids: number[] }) => {
+    mutationFn: async (data: { ids: string[] }) => {
       const res = await getApiClient().api.admin.blog.category.$delete({
         json: data,
       });

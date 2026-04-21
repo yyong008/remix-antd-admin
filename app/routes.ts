@@ -38,8 +38,9 @@ export const adminRoutes = [
       ...prefix("blog", [
         index("routes/admin/blog.tsx"),
         route("list", "routes/admin/blog-list.tsx"),
-        route("edit", "routes/admin/blog/create.tsx"),
-        route("edit/:id?", "routes/admin/blog/edit.tsx"),
+        route("new", "routes/admin/blog/create.tsx"),
+        route("edit", "routes/admin/blog/edit-new.tsx"),
+        route("edit/:id", "routes/admin/blog/edit.tsx"),
         route("result", "routes/admin/blog/result.tsx"),
       ]),
       ...prefix("profile", [

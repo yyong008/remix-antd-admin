@@ -31,7 +31,7 @@ export function Route() {
     page: 1,
     pageSize: 200,
   });
-  const { data: existingBlog, isLoading: blogLoading } = useBlogById(id ? Number(id) : undefined);
+  const { data: existingBlog, isLoading: blogLoading } = useBlogById(id);
 
   const isLoading = catLoading || tagLoading || (isEditMode && blogLoading);
 
@@ -81,7 +81,7 @@ export function Route() {
 
     if (isEditMode && id) {
       const result = (await updateBlog.mutateAsync({
-        id: Number(id),
+        id,
         ...values,
         content,
         publishedAt: values.publishedAt

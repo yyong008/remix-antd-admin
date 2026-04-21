@@ -1,6 +1,6 @@
 import type { MenuProps } from "antd";
 import { Dropdown } from "antd";
-import { Moon, Sun } from "lucide-react";
+import { SunOutlined, MoonOutlined } from "@ant-design/icons";
 import { useTheme } from "next-themes";
 
 export function ThemeSwitcher() {
@@ -11,7 +11,7 @@ export function ThemeSwitcher() {
       key: "light",
       label: (
         <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <Sun size={14} style={{ color: "var(--mkt-accent)" }} />
+          <SunOutlined style={{ fontSize: 14, color: "var(--mkt-accent)" }} />
           Light
         </span>
       ),
@@ -20,7 +20,7 @@ export function ThemeSwitcher() {
       key: "dark",
       label: (
         <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <Moon size={14} style={{ color: "var(--mkt-accent-2)" }} />
+          <MoonOutlined style={{ fontSize: 14, color: "var(--mkt-accent-2)" }} />
           Dark
         </span>
       ),
@@ -52,9 +52,9 @@ export function ThemeSwitcher() {
         }}
       >
         {theme === "dark" ? (
-          <Moon size={18} style={{ color: "var(--mkt-accent-2)" }} />
+          <MoonOutlined style={{ fontSize: 18, color: "var(--mkt-accent-2)" }} />
         ) : (
-          <Sun size={18} style={{ color: "var(--mkt-accent)" }} />
+          <SunOutlined style={{ fontSize: 18, color: "var(--mkt-accent)" }} />
         )}
       </button>
     </Dropdown>

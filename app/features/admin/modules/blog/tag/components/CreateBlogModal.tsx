@@ -22,7 +22,9 @@ export function CreateBlogModal({
   const { mutateAsync: createBlogTag, isPending: loading } = useCreateBlogTag();
   return (
     <>
-      {trigger ?? (
+      {trigger ? (
+        <span onClick={() => setOpen(true)}>{trigger}</span>
+      ) : (
         <Button type="primary" onClick={() => setOpen(true)}>
           新建
         </Button>

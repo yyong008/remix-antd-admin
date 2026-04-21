@@ -1,5 +1,5 @@
 import type { MenuProps } from "antd";
-import { Avatar, Dropdown, Layout, Space } from "antd";
+import { Avatar, Dropdown, Layout, Space, theme } from "antd";
 import { href, NavLink, Outlet, useLocation, useNavigate, useParams } from "react-router";
 import { useLogout } from "~/api-client/queries/auth";
 import { defaultLang } from "~/config/lang";
@@ -8,7 +8,7 @@ import { useSession } from "~/session/hooks";
 import { NavFooter } from "./footer";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { RocketOutlined } from "@ant-design/icons";
+import { DashboardOutlined, LogoutOutlined, RocketOutlined } from "@ant-design/icons";
 
 const { Header, Footer } = Layout;
 
@@ -44,16 +44,19 @@ export function Nav() {
   const sessionPending = sessionCtx?.isSessionPending ?? false;
   const logoutMutation = useLogout();
 
+  const { token } = theme.useToken();
   const accountMenu: MenuProps = {
     items: [
       {
         key: "dashboard",
+        icon: <DashboardOutlined />,
         label: "Dashboard",
         onClick: () => navigate(href("/:locale?/admin/dashboard", { locale })),
       },
       { type: "divider" },
       {
         key: "logout",
+        icon: <LogoutOutlined />,
         danger: true,
         label: logoutMutation.isPending ? "Signing out…" : "Sign out",
         disabled: logoutMutation.isPending,
@@ -238,34 +241,35 @@ export function Nav() {
                 popupRender={(menu) => (
                   <div
                     style={{
-                      minWidth: "260px",
+                      minWidth: 260,
                       overflow: "hidden",
-                      borderRadius: "16px",
-                      border: "1px solid var(--mkt-border)",
-                      background: "var(--mkt-surface)",
-                      boxShadow: "var(--mkt-shadow)",
+                      borderRadius: 12,
+                      border: `1px solid ${token.colorBorder}`,
+                      background: token.colorBgElevated,
+                      boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
                     }}
                   >
                     <div
                       style={{
                         display: "flex",
-                        gap: "12px",
+                        gap: 12,
                         padding: "12px 16px",
-                        borderBottom: "1px solid var(--mkt-border)",
+                        borderBottom: `1px solid ${token.colorBorder}`,
                       }}
                     >
-                      <Avatar src={avatarUrl} size={48}>
+                      <Avatar src={avatarUrl} size={48} style={{ flexShrink: 0 }}>
                         {avatarLetter}
                       </Avatar>
                       <div style={{ minWidth: 0, flex: 1 }}>
                         <div
                           style={{
-                            fontSize: "15px",
-                            fontWeight: 600,
-                            color: "var(--mkt-text)",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             whiteSpace: "nowrap",
+                            fontSize: 15,
+                            fontWeight: 600,
+                            lineHeight: 1.4,
+                            color: token.colorText,
                           }}
                         >
                           {displayName}
@@ -273,12 +277,13 @@ export function Nav() {
                         {user.email ? (
                           <div
                             style={{
-                              fontSize: "12px",
-                              color: "var(--mkt-muted)",
+                              marginTop: 2,
                               overflow: "hidden",
                               textOverflow: "ellipsis",
                               whiteSpace: "nowrap",
-                              marginTop: "2px",
+                              fontSize: 12,
+                              lineHeight: 1.4,
+                              color: token.colorTextSecondary,
                             }}
                           >
                             {user.email}
@@ -297,8 +302,8 @@ export function Nav() {
                   style={{
                     display: "flex",
                     borderRadius: "50%",
-                    border: "1px solid var(--mkt-border)",
-                    background: "var(--mkt-surface)",
+                    border: `1px solid ${token.colorBorder}`,
+                    background: token.colorBgElevated,
                     padding: "2px",
                     cursor: "pointer",
                     transition: "transform 0.2s, box-shadow 0.2s",

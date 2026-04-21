@@ -4,8 +4,6 @@ import { defineConfig } from "vite-plus";
 import { reactRouter } from "@react-router/dev/vite";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import { cloudflare } from "@cloudflare/vite-plugin";
-import mdx from "fumadocs-mdx/vite";
-import * as MdxConfig from "./source.config.ts";
 
 const __APP_INFO__ = JSON.stringify({
   pkg,
@@ -30,7 +28,6 @@ export default defineConfig({
       project: "./project.inlang",
       outdir: "./app/paraglide",
     }),
-    mdx(MdxConfig),
   ],
   define: {
     __APP_INFO__,

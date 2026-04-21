@@ -1,6 +1,5 @@
 import { Card, Typography, Avatar, Tooltip, Row, Col, Divider, Button } from "antd";
-import { GithubOutlined, RocketOutlined } from "@ant-design/icons";
-import { ExternalLink } from "lucide-react";
+import { GithubOutlined, LinkOutlined, RocketOutlined } from "@ant-design/icons";
 import { useAboutData } from "~/hooks";
 
 const { Title, Paragraph, Text } = Typography;
@@ -236,10 +235,9 @@ export function Route() {
                             {dep.version}
                           </Text>
                         </div>
-                        <ExternalLink
+                        <LinkOutlined
                           style={{
-                            width: 12,
-                            height: 12,
+                            fontSize: 12,
                             flexShrink: 0,
                             color: "var(--ant-color-text-tertiary)",
                           }}
@@ -292,10 +290,9 @@ export function Route() {
                             {dep.version}
                           </Text>
                         </div>
-                        <ExternalLink
+                        <LinkOutlined
                           style={{
-                            width: 12,
-                            height: 12,
+                            fontSize: 12,
                             flexShrink: 0,
                             color: "var(--ant-color-text-tertiary)",
                           }}

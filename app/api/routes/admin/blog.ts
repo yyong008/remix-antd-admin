@@ -77,7 +77,7 @@ blogRouter.get("/tag", requirePermission("blog:tag:read", "blog:list:read"), asy
     const db = getD1Db(c);
     const blogTagDAL = createBlogTagDAL(db);
     const total = await blogTagDAL.getCount();
-    const list = await blogTagDAL.getByUserId(userId);
+    const list = await blogTagDAL.getListByUserId(userId);
     return rsj({ total, list });
   } catch (error) {
     return rfj(error as Error);
@@ -86,7 +86,7 @@ blogRouter.get("/tag", requirePermission("blog:tag:read", "blog:list:read"), asy
 
 blogRouter.get("/tag/:id", requirePermission("blog:tag:read", "blog:list:read"), async (c) => {
   try {
-    const id = Number(c.req.param("id"));
+    const id = c.req.param("id");
     if (!id) {
       return rfj({}, "Invalid Tag Id", { status: 400 });
     }
@@ -121,7 +121,7 @@ blogRouter.put("/tag/:id", requirePermission("blog:tag:read", "blog:list:read"),
     if (!userId) {
       return rfj({}, "No Authorization No User", { status: 401 });
     }
-    const id = Number(c.req.param("id"));
+    const id = c.req.param("id");
     const dto = await c.req.json();
     const db = getD1Db(c);
     const blogTagDAL = createBlogTagDAL(db);
@@ -134,7 +134,7 @@ blogRouter.put("/tag/:id", requirePermission("blog:tag:read", "blog:list:read"),
 
 blogRouter.delete("/tag/:id", requirePermission("blog:tag:read", "blog:list:read"), async (c) => {
   try {
-    const id = Number(c.req.param("id"));
+    const id = c.req.param("id");
     if (!id) {
       return rfj({}, "Invalid Tag Id", { status: 400 });
     }
@@ -184,7 +184,7 @@ blogRouter.get(
   requirePermission("blog:category:read", "blog:list:read"),
   async (c) => {
     try {
-      const id = Number(c.req.param("id"));
+      const id = c.req.param("id");
       if (!id) {
         return rfj({}, "Invalid Category Id", { status: 400 });
       }
@@ -227,7 +227,7 @@ blogRouter.put(
       if (!userId) {
         return rfj({}, "No Authorization No User", { status: 401 });
       }
-      const id = Number(c.req.param("id"));
+      const id = c.req.param("id");
       const dto = await c.req.json();
       const db = getD1Db(c);
       const blogCategoryDAL = createBlogCategoryDAL(db);
@@ -244,7 +244,7 @@ blogRouter.delete(
   requirePermission("blog:category:read", "blog:list:read"),
   async (c) => {
     try {
-      const id = Number(c.req.param("id"));
+      const id = c.req.param("id");
       if (!id) {
         return rfj({}, "Invalid Category Id", { status: 400 });
       }
@@ -276,7 +276,7 @@ blogRouter.delete(
 
 blogRouter.get("/:id", requirePermission("blog:detail:read", "blog:list:read"), async (c) => {
   try {
-    const id = Number(c.req.param("id"));
+    const id = c.req.param("id");
     if (!id) {
       return rfj({}, "Invalid Blog Id", { status: 400 });
     }
@@ -295,7 +295,7 @@ blogRouter.put("/:id", requirePermission("blog:detail:read", "blog:list:read"), 
     if (!userId) {
       return rfj({}, "No Authorization No User", { status: 401 });
     }
-    const id = Number(c.req.param("id"));
+    const id = c.req.param("id");
     const dto = await c.req.json();
     const db = getD1Db(c);
     const blogDAL = createBlogDAL(db);
@@ -313,7 +313,7 @@ blogRouter.put("/:id", requirePermission("blog:detail:read", "blog:list:read"), 
 
 blogRouter.delete("/:id", requirePermission("blog:detail:read", "blog:list:read"), async (c) => {
   try {
-    const id = Number(c.req.param("id"));
+    const id = c.req.param("id");
     if (!id) {
       return rfj({}, "Invalid Blog Id", { status: 400 });
     }

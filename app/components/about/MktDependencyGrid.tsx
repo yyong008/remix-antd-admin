@@ -1,6 +1,6 @@
 import { useState, type CSSProperties } from "react";
 import { Button, Card, Col, Flex, Row, Tag, Tooltip, Typography } from "antd";
-import { ExternalLink } from "lucide-react";
+import { LinkOutlined } from "@ant-design/icons";
 import type { AboutDependency } from "~/hooks/useAboutData";
 
 const { Title } = Typography;
@@ -28,10 +28,8 @@ function DepTag({ dep }: { dep: AboutDependency }) {
               {dep.version}
             </Tag>
           </Flex>
-          <ExternalLink
-            width={16}
-            height={16}
-            style={{ color: "var(--ant-color-text-tertiary)", flexShrink: 0 }}
+          <LinkOutlined
+            style={{ fontSize: 16, color: "var(--ant-color-text-tertiary)", flexShrink: 0 }}
           />
         </Flex>
       </Card>

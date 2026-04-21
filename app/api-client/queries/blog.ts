@@ -6,13 +6,13 @@ import { parseRsj } from "~/api-client/parse-rsj";
 export type BlogListParams = {
   page?: number;
   pageSize?: number;
-  categoryId?: number;
-  tagId?: number;
+  categoryId?: string;
+  tagId?: string;
 };
 
 export const blogKeys = {
   list: (params: BlogListParams) => ["blog", "list", params] as const,
-  detail: (id?: number) => ["blog", "detail", id] as const,
+  detail: (id?: string) => ["blog", "detail", id] as const,
 };
 
 export type BlogListData = {
@@ -37,13 +37,13 @@ export function useBlogList(params: BlogListParams) {
   });
 }
 
-export function useBlogById(id?: number) {
+export function useBlogById(id?: string) {
   return useQuery({
     queryKey: blogKeys.detail(id),
     enabled: Boolean(id),
     queryFn: async () => {
       const res = await getApiClient().api.admin.blog[":id"].$get({
-        param: { id: String(id) },
+        param: { id: id! },
       });
       return res.json();
     },
@@ -84,7 +84,7 @@ export function useUpdateBlog() {
 export function useDeleteBlog() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: { ids: number[] }) => {
+    mutationFn: async (data: { ids: string[] }) => {
       const res = await getApiClient().api.admin.blog.$delete({
         json: data,
       });

@@ -4,12 +4,35 @@ import { useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import { ModalFormItems } from "./ModalFormItems";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
+import { useUpdateBlogCategory } from "~/api-client/queries/blog-category";
 
-export function UpdateBlogCategoryModal({ loading, trigger, title, record, refetch }: any) {
+export function UpdateBlogCategoryModal({
+  trigger,
+  title = "编辑分类",
+  record,
+  refetch,
+  open: externalOpen,
+  onClose,
+}: {
+  trigger?: React.ReactNode;
+  title?: string;
+  record: any;
+  refetch?: () => void;
+  open?: boolean;
+  onClose?: () => void;
+}) {
   const [form] = Form.useForm();
   const { colorPrimary } = useColorPrimary();
-  const [update] = [(...args: any): any => {}];
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+  const open = externalOpen ?? internalOpen;
+  const setOpen = onClose
+    ? (o: boolean) => {
+        if (!o) onClose();
+        else setInternalOpen(o);
+      }
+    : (o: boolean) => setInternalOpen(o);
+  const { mutateAsync: updateCategory, isPending: isUpdating } = useUpdateBlogCategory();
+
   return (
     <>
       {trigger ?? (
@@ -27,29 +50,29 @@ export function UpdateBlogCategoryModal({ loading, trigger, title, record, refet
           form.resetFields();
         }}
         footer={null}
-        destroyOnHidden
+        destroyOnClose
       >
         <Form
           form={form}
           layout="vertical"
           initialValues={record}
           onFinish={async (values) => {
-            values.id = record.id;
-            const result = await update(values).unwrap();
-            if (result && result.code !== 0) {
-              message.error(result.message);
+            try {
+              await updateCategory({ ...values, id: record.id });
+              message.success("更新成功");
+              refetch?.();
+              form.resetFields();
+              setOpen(false);
+              return true;
+            } catch (e) {
+              message.error(e instanceof Error ? e.message : "更新失败");
               return false;
             }
-            message.success(result.message);
-            refetch?.();
-            form.resetFields();
-            setOpen(false);
-            return true;
           }}
         >
           <ModalFormItems />
           <Form.Item style={{ marginTop: 16 }}>
-            <Button type="primary" htmlType="submit" loading={loading}>
+            <Button type="primary" htmlType="submit" loading={isUpdating}>
               提交
             </Button>
           </Form.Item>

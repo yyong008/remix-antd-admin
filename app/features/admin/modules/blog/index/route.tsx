@@ -1,10 +1,11 @@
-import { Button, Card, Empty, Flex, Input, Typography } from "antd";
+import { Button, Card, Flex, Input, Typography } from "antd";
 import { ReloadOutlined, SearchOutlined } from "@ant-design/icons";
 import { href, useParams, useSearchParams } from "react-router";
 import { useEffect, useMemo, useState } from "react";
 
 import { useBlogList } from "~/api-client/queries/blog";
 import { useBlogCategoryList } from "~/api-client/queries/blog-category";
+import { useBlogTagList } from "~/api-client/queries/blog-tag";
 import { AdminTable } from "~/components/admin-table";
 import { PageContainer } from "~/components/page-container";
 import { ButtonLink } from "@/components/common";
@@ -15,6 +16,7 @@ export function Route() {
   const { locale } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryId = searchParams.get("category")?.trim() || undefined;
+  const tagId = searchParams.get("tag")?.trim() || undefined;
   const [search, setSearch] = useState("");
   const [page, setPage] = useState({ page: 1, pageSize: 15 });
 
@@ -24,6 +26,12 @@ export function Route() {
   });
   const categories = useMemo(() => catPayload?.list ?? [], [catPayload?.list]);
 
+  const { data: tagPayload, refetch: refetchTags } = useBlogTagList({
+    page: 1,
+    pageSize: 500,
+  });
+  const tags = useMemo(() => tagPayload?.list ?? [], [tagPayload?.list]);
+
   const {
     data: blogData,
     isLoading: blogLoading,
@@ -31,7 +39,8 @@ export function Route() {
   } = useBlogList({
     page: page.page,
     pageSize: page.pageSize,
-    categoryId: categoryId ? Number(categoryId) : undefined,
+    categoryId: categoryId || undefined,
+    tagId: tagId || undefined,
   });
 
   const filteredBlogs = useMemo(() => {
@@ -54,7 +63,7 @@ export function Route() {
 
   useEffect(() => {
     setPage((p) => ({ ...p, page: 1 }));
-  }, [categoryId, search]);
+  }, [categoryId, tagId, search]);
 
   const setCategoryFilter = (id?: string) => {
     setSearchParams(
@@ -62,6 +71,21 @@ export function Route() {
         const next = new URLSearchParams(prev);
         if (id) next.set("category", id);
         else next.delete("category");
+        next.delete("tag");
+        return next;
+      },
+      { replace: true },
+    );
+    setPage((p) => ({ ...p, page: 1 }));
+  };
+
+  const setTagFilter = (id?: string) => {
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (id) next.set("tag", id);
+        else next.delete("tag");
+        next.delete("category");
         return next;
       },
       { replace: true },
@@ -70,6 +94,7 @@ export function Route() {
   };
 
   const selectedCategory = categories.find((c) => String(c.id) === categoryId);
+  const selectedTag = tags.find((t) => String(t.id) === tagId);
 
   const categoryById = useMemo(() => {
     const m = new Map<string, string>();
@@ -78,6 +103,14 @@ export function Route() {
     }
     return m;
   }, [categories]);
+
+  const tagById = useMemo(() => {
+    const m = new Map<string, string>();
+    for (const t of tags) {
+      m.set(String(t.id), t.name);
+    }
+    return m;
+  }, [tags]);
 
   return (
     <PageContainer
@@ -96,16 +129,23 @@ export function Route() {
         }}
       >
         <Card size="small" styles={{ body: { height: "100%", padding: 0 } }}>
-          <BlogSidebar selectedCategoryId={categoryId} onCategorySelect={setCategoryFilter} />
+          <BlogSidebar
+            selectedCategoryId={categoryId}
+            onCategorySelect={setCategoryFilter}
+            selectedTagId={tagId}
+            onTagSelect={setTagFilter}
+          />
         </Card>
 
         <Card
           size="small"
           title={
             <Typography.Text type="secondary">
-              {selectedCategory
-                ? `${selectedCategory.name} · ${filteredBlogs.length} 篇`
-                : `全部博客 · ${filteredBlogs.length} 篇`}
+              {selectedTag
+                ? `${selectedTag.name} · ${filteredBlogs.length} 篇`
+                : selectedCategory
+                  ? `${selectedCategory.name} · ${filteredBlogs.length} 篇`
+                  : `全部博客 · ${filteredBlogs.length} 篇`}
             </Typography.Text>
           }
           extra={
@@ -115,14 +155,15 @@ export function Route() {
                 onClick={() => {
                   void refetch();
                   void refetchCategories();
+                  void refetchTags();
                 }}
               >
                 刷新
               </Button>
               <ButtonLink
                 type="new"
-                content="新建文章"
-                to={href(`/:locale?/admin/blog/edit`, { locale })}
+                content="编辑文章"
+                to={href(`/:locale?/admin/blog/new`, { locale })}
               />
             </Flex>
           }
@@ -157,7 +198,7 @@ export function Route() {
                   });
                 },
               }}
-              columns={createColumns({ locale, refetch, categoryById }) as any}
+              columns={createColumns({ locale, refetch, categoryById, tagById }) as any}
             />
           </Flex>
         </Card>

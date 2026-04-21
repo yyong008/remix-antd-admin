@@ -23,7 +23,7 @@ export function Route() {
         <Button
           key="buy"
           onClick={() => {
-            nav(href("/:locale?/admin/blog/edit", { locale: locale }));
+            nav(href("/:locale?/admin/blog/new", { locale: locale }));
           }}
         >
           create Again

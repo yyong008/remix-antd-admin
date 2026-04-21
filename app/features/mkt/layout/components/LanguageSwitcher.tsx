@@ -1,6 +1,6 @@
 import type { MenuProps } from "antd";
 import { Dropdown } from "antd";
-import { Globe } from "lucide-react";
+import { GlobalOutlined } from "@ant-design/icons";
 import { useContext, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
 
@@ -68,7 +68,7 @@ export function LanguageSwitcher() {
           transition: "transform 0.2s, box-shadow 0.2s",
         }}
       >
-        <Globe size={18} style={{ color: "var(--mkt-muted)" }} aria-hidden />
+        <GlobalOutlined style={{ fontSize: 18, color: "var(--mkt-muted)" }} aria-hidden />
       </button>
     </Dropdown>
   );

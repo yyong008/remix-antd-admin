@@ -16,12 +16,12 @@ export function createBlogTagDAL(db: DrizzleD1Database) {
     return await db.select().from(blogTags).where(eq(blogTags.userId, userId));
   }
 
-  async function getById(id: number) {
+  async function getById(id: string) {
     const rows = await db.select().from(blogTags).where(eq(blogTags.id, id)).limit(1);
     return rows[0] ?? null;
   }
 
-  async function getBlogTagById(id: number) {
+  async function getBlogTagById(id: string) {
     return getById(id);
   }
 
@@ -36,12 +36,12 @@ export function createBlogTagDAL(db: DrizzleD1Database) {
     return updated[0];
   }
 
-  async function deleteById(id: number) {
+  async function deleteById(id: string) {
     const deleted = await db.delete(blogTags).where(eq(blogTags.id, id)).returning();
     return deleted[0] ?? null;
   }
 
-  async function deleteBlogTagByIds(ids: number[]) {
+  async function deleteBlogTagByIds(ids: string[]) {
     return await db.delete(blogTags).where(inArray(blogTags.id, ids)).returning();
   }
 

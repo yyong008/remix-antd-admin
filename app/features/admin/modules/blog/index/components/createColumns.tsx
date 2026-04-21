@@ -85,10 +85,12 @@ export const createColumns = ({
   locale,
   refetch,
   categoryById,
+  tagById,
 }: {
   locale?: string;
   refetch?: () => void;
   categoryById?: Map<string, string>;
+  tagById?: Map<string, string>;
 }) => [
   {
     dataIndex: "title",
@@ -144,6 +146,17 @@ export const createColumns = ({
       const id = record.categoryId;
       if (!id) return "—";
       return categoryById?.get(id) ?? id;
+    },
+  },
+  {
+    dataIndex: "tagId",
+    title: "标签",
+    ellipsis: true,
+    width: 100,
+    render: (_: unknown, record: { tagId?: string | null }) => {
+      const id = record.tagId;
+      if (!id) return "—";
+      return tagById?.get(id) ?? id;
     },
   },
   {

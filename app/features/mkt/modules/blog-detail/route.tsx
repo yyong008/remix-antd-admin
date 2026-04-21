@@ -1,30 +1,49 @@
-import { BlogContent, BlogHeader } from "./components";
-import { Layout } from "./layout";
-import type { loader } from "./loader";
-import { useLoaderData } from "react-router";
-import { Flex, Typography } from "antd";
-import { theme } from "antd";
-
-const { Text } = Typography;
+import { useParams } from "react-router";
+import { BlogHeader, BlogContent } from "./components";
+import { usePublicBlogById } from "~/api-client/queries/public-blog";
 
 export function Route() {
-  const _data = useLoaderData<typeof loader>() as { data?: any } | null;
-  const blog = _data?.data;
-  const { token } = theme.useToken();
+  const { id } = useParams();
+  const { data: blog, isLoading } = usePublicBlogById(id);
+
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "60vh",
+          color: "var(--mkt-muted)",
+        }}
+      >
+        加载中...
+      </div>
+    );
+  }
 
   if (!blog) {
     return (
-      <Layout>
-        <Flex justify="center" style={{ color: token.colorTextTertiary }}>
-          <Text type="secondary">暂无数据</Text>
-        </Flex>
-      </Layout>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "60vh",
+          color: "var(--mkt-muted)",
+        }}
+      >
+        博客不存在
+      </div>
     );
   }
+
   return (
-    <Layout>
-      <BlogHeader blog={blog} />
-      <BlogContent content={blog.content} />
-    </Layout>
+    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "32px 24px" }}>
+      <article>
+        <BlogHeader blog={blog} />
+        <BlogContent content={blog.content} />
+      </article>
+    </div>
   );
 }

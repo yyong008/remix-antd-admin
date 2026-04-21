@@ -4,7 +4,9 @@ import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { user } from "./auth";
 
 export const blogCategories = sqliteTable("blog_category", {
-  id: text("id").primaryKey(),
+  id: text("id")
+    .$defaultFn(() => crypto.randomUUID())
+    .primaryKey(),
   name: text("name").notNull().unique(),
   description: text("description"),
   createdAt: integer("created_at", { mode: "timestamp_ms" })
@@ -20,7 +22,9 @@ export const blogCategories = sqliteTable("blog_category", {
 });
 
 export const blogTags = sqliteTable("blog_tag", {
-  id: text("id").primaryKey(),
+  id: text("id")
+    .$defaultFn(() => crypto.randomUUID())
+    .primaryKey(),
   name: text("name").notNull().unique(),
   description: text("description"),
   createdAt: integer("created_at", { mode: "timestamp_ms" })
@@ -36,7 +40,9 @@ export const blogTags = sqliteTable("blog_tag", {
 });
 
 export const blogs = sqliteTable("blog", {
-  id: text("id").primaryKey(),
+  id: text("id")
+    .$defaultFn(() => crypto.randomUUID())
+    .primaryKey(),
   title: text("title").notNull(),
   content: text("content").notNull(),
   author: text("author"),

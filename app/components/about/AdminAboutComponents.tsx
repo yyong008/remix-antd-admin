@@ -4,8 +4,8 @@ import {
   GithubOutlined,
   GlobalOutlined,
   ClockCircleOutlined,
+  LinkOutlined,
 } from "@ant-design/icons";
-import { ExternalLink } from "lucide-react";
 import type { AboutDependency } from "~/hooks/useAboutData";
 
 const { Title } = Typography;
@@ -86,7 +86,7 @@ export function AdminProjectInfoCard({
                   style={{ fontWeight: 500 }}
                 >
                   <Flex align="center" gap={4}>
-                    <ExternalLink width={12} height={12} />
+                    <LinkOutlined style={{ fontSize: 12 }} />
                     {item.value}
                   </Flex>
                 </Typography.Link>
@@ -144,11 +144,7 @@ export function AdminDependencyCard({ productionDeps, developmentDeps }: AdminDe
                       {dep.version}
                     </Typography.Paragraph>
                   </div>
-                  <ExternalLink
-                    width={16}
-                    height={16}
-                    style={{ color: "var(--ant-color-text-tertiary)" }}
-                  />
+                  <LinkOutlined style={{ fontSize: 16, color: "var(--ant-color-text-tertiary)" }} />
                 </Flex>
               </Card>
             </Tooltip>
