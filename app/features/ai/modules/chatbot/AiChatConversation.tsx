@@ -92,6 +92,7 @@ export function AiChatConversation({
   const [model, setModel] = useState(ai.ollama.initModelName);
   const [modelSelectOptions, setModelSelectOptions] = useState<SelectProps["options"]>([]);
   const [modelsLoading, setModelsLoading] = useState(false);
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     try {
@@ -307,11 +308,14 @@ export function AiChatConversation({
             loading={isRequesting}
             placeholder="输入消息，Enter 发送"
             footer={modelFooter}
+            value={inputValue}
+            onChange={setInputValue}
             onSubmit={(msg) => {
               onRequest({
                 messages: [{ role: "user", content: msg }],
                 model,
               });
+              setInputValue("");
             }}
             onCancel={abort}
           />

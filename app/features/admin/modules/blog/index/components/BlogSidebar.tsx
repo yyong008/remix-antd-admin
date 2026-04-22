@@ -215,8 +215,21 @@ export function BlogSidebar({
                                 overflow: "hidden",
                                 textOverflow: "ellipsis",
                                 whiteSpace: "nowrap",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 4,
                               }}
                             >
+                              <span
+                                style={{
+                                  width: 6,
+                                  height: 6,
+                                  borderRadius: "50%",
+                                  backgroundColor: cat.showOnClient ? "#52c41a" : "#d9d9d9",
+                                  flexShrink: 0,
+                                }}
+                                title={cat.showOnClient ? "客户端展示中" : "客户端隐藏"}
+                              />
                               {cat.name}
                             </span>
                             {categoryCounts && categoryCounts.get(String(cat.id)) ? (

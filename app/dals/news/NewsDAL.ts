@@ -1,6 +1,6 @@
-import { count, desc, eq, inArray } from "drizzle-orm";
+import { and, count, desc, eq, inArray } from "drizzle-orm";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
-import { news } from "db/schema";
+import { news, newsCategories } from "db/schema";
 
 function toPublishedAtDate(v: unknown): Date {
   if (v == null) return new Date();
@@ -85,6 +85,43 @@ export function createNewsDAL(db: DrizzleD1Database) {
 
   async function getAll() {
     return await db.select().from(news);
+  }
+
+  /** Public news list - only status=1 and category visible=true */
+  async function getPublicList({ page, pageSize }: { page: number; pageSize: number }) {
+    // Get visible category IDs
+    const visibleCats = await db
+      .select({ id: newsCategories.id })
+      .from(newsCategories)
+      .where(eq(newsCategories.visible, true));
+
+    const categoryIds = visibleCats.map((c) => c.id);
+    if (categoryIds.length === 0) return [];
+
+    return await db
+      .select()
+      .from(news)
+      .where(and(inArray(news.newsId, categoryIds), eq(news.status, 1)))
+      .orderBy(desc(news.publishedAt))
+      .limit(pageSize)
+      .offset((page - 1) * pageSize);
+  }
+
+  /** Public news count */
+  async function getPublicCount() {
+    const visibleCats = await db
+      .select({ id: newsCategories.id })
+      .from(newsCategories)
+      .where(eq(newsCategories.visible, true));
+
+    const categoryIds = visibleCats.map((c) => c.id);
+    if (categoryIds.length === 0) return 0;
+
+    const rows = await db
+      .select({ c: count() })
+      .from(news)
+      .where(and(inArray(news.newsId, categoryIds), eq(news.status, 1)));
+    return rows[0]?.c ?? 0;
   }
 
   async function create(data: any) {
@@ -173,6 +210,8 @@ export function createNewsDAL(db: DrizzleD1Database) {
     getNewsById,
     getById,
     getAll,
+    getPublicList,
+    getPublicCount,
     getListByUserId,
     create,
     update,

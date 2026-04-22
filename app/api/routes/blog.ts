@@ -43,11 +43,17 @@ blogRouter.get("/:id", async (c) => {
     if (!result) {
       return c.json({ code: 404, msg: "Blog not found" }, 404);
     }
-    // Fetch category and tag names
-    const [category, tag] = await Promise.all([
-      blogCategoryDAL.getById(result.categoryId),
-      blogTagDAL.getById(result.tagId),
-    ]);
+    // Check if blog is published
+    if (!result.isPublished) {
+      return c.json({ code: 404, msg: "Blog not found" }, 404);
+    }
+    // Check if category is shown on client
+    const category = await blogCategoryDAL.getById(result.categoryId);
+    if (!category || !category.showOnClient) {
+      return c.json({ code: 404, msg: "Blog not found" }, 404);
+    }
+    // Fetch tag name
+    const tag = await blogTagDAL.getById(result.tagId);
     return rsj({ ...result, categoryName: category?.name, tagName: tag?.name });
   } catch (error) {
     return c.json({ code: 500, msg: String(error) }, 500);

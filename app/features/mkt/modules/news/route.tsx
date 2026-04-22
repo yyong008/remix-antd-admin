@@ -1,46 +1,36 @@
 import { useState, useMemo } from "react";
 import { Pagination, Skeleton, Row, Col, Card, Input } from "antd";
 import { SearchOutlined, FileTextOutlined } from "@ant-design/icons";
-import { isNewsCategoryVisible } from "~/features/admin/modules/news/news-category-select";
 import { NewsItem } from "./components";
-import { useNewsList } from "~/api-client/queries/news";
-import { useNewsCategoryList } from "~/api-client/queries/news-category";
+import { usePublicNewsList } from "~/api-client/queries/public-news";
+import { usePublicNewsCategoryList } from "~/api-client/queries/public-news-category";
 
-const { Search } = Input;
 const PAGE_SIZE = 10;
 
 export function Route() {
   const [category, setCategory] = useState<string>("");
   const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState<number>(1);
-  const { data: newsData, isLoading: newsLoading } = useNewsList({
-    category,
+  const { data: newsData, isLoading: newsLoading } = usePublicNewsList({
     page,
     pageSize: PAGE_SIZE,
   });
-  const { data: categoryData, isLoading: categoryLoading } = useNewsCategoryList({ pageSize: 100 });
+  const { data: categoryData, isLoading: categoryLoading } = usePublicNewsCategoryList();
 
-  const allCategories = categoryData?.list ?? [];
-  const visibleCategories = useMemo(
-    () => allCategories.filter((c: any) => isNewsCategoryVisible(c.visible)),
-    [allCategories],
-  );
-
+  // Public API already filters: status=1, visible category=true
+  const categories = categoryData?.list ?? [];
   const allNews = newsData?.list ?? [];
   const total = newsData?.total ?? 0;
 
-  const publishedNews = useMemo(() => allNews.filter((n: any) => n.status === 1), [allNews]);
-
-  const visibleNews = useMemo(() => {
-    return publishedNews.filter((n: any) => {
-      const cat = allCategories.find((c: any) => c.id === n.newsId);
-      return isNewsCategoryVisible(cat?.visible);
-    });
-  }, [publishedNews, allCategories]);
+  // Client-side category filter
+  const filteredNews = useMemo(() => {
+    if (!category) return allNews;
+    return allNews.filter((n: any) => n.newsId === category);
+  }, [allNews, category]);
 
   const categoryNewsCount = useMemo(() => {
     const counts: Record<string, number> = {};
-    for (const c of visibleCategories) {
+    for (const c of categories) {
       counts[c.id] = 0;
     }
     for (const n of allNews) {
@@ -49,9 +39,9 @@ export function Route() {
       }
     }
     return counts;
-  }, [visibleCategories, allNews]);
+  }, [categories, allNews]);
 
-  const selectedCategory = visibleCategories.find((c: any) => c.id === category);
+  const selectedCategory = categories.find((c: any) => c.id === category);
 
   const getCategoryBtnStyle = (isActive: boolean): React.CSSProperties => ({
     display: "flex",
@@ -87,7 +77,7 @@ export function Route() {
           </h1>
           <p style={{ color: "var(--mkt-muted)" }}>
             {selectedCategory
-              ? `${selectedCategory.name} · 共 ${total} 篇`
+              ? `${selectedCategory.name} · 共 ${filteredNews.length} 篇`
               : `全部新闻 · 共 ${total} 篇`}
           </p>
         </header>
@@ -150,7 +140,7 @@ export function Route() {
                 {categoryLoading ? (
                   <Skeleton active paragraph={false} />
                 ) : (
-                  visibleCategories.map((cat: any) => (
+                  categories.map((cat: any) => (
                     <button
                       key={cat.id}
                       onClick={() => {
@@ -204,7 +194,7 @@ export function Route() {
                   </div>
                 ))}
               </div>
-            ) : visibleNews.length <= 0 ? (
+            ) : filteredNews.length <= 0 ? (
               <Card
                 style={{
                   background: "var(--mkt-surface)",
@@ -221,7 +211,7 @@ export function Route() {
             ) : (
               <>
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                  {visibleNews.map((n: any) => (
+                  {filteredNews.map((n: any) => (
                     <NewsItem key={n.id} data={n} categoryName={selectedCategory?.name} />
                   ))}
                 </div>

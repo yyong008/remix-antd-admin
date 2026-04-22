@@ -1,20 +1,11 @@
 import { useEffect, useRef } from "react";
 import { useParams } from "react-router";
 import { NewsContent, NewsHeader } from "./components";
-import { useNewsById, useIncrementNewsViewCount } from "~/api-client/queries/news";
+import { usePublicNewsById } from "~/api-client/queries/public-news";
 
 export function Route() {
   const { id } = useParams();
-  const { data: news, isLoading } = useNewsById(id);
-  const incrementView = useIncrementNewsViewCount();
-  const hasIncremented = useRef(false);
-
-  useEffect(() => {
-    if (id && !isLoading && !hasIncremented.current) {
-      hasIncremented.current = true;
-      incrementView.mutate(id);
-    }
-  }, [id, isLoading]);
+  const { data: news, isLoading } = usePublicNewsById(id);
 
   if (isLoading) {
     return (

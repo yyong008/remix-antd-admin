@@ -25,6 +25,11 @@ export function createNewsCategoryDAL(db: DrizzleD1Database) {
     return await db.select().from(newsCategories);
   }
 
+  /** Public category list - only visible categories */
+  async function getPublicList() {
+    return await db.select().from(newsCategories).where(eq(newsCategories.visible, true));
+  }
+
   async function getListWithMore({ where, skip, take }: any) {
     let query = db.select().from(newsCategories);
     if (where?.userId !== undefined) {
@@ -167,6 +172,7 @@ export function createNewsCategoryDAL(db: DrizzleD1Database) {
     getById,
     getList,
     getAll,
+    getPublicList,
     getListWithMore,
     getNewsCategoryListByUserId,
     getNewsCategoryListByNewsId,

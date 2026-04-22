@@ -1,6 +1,6 @@
 import { and, count, eq, inArray } from "drizzle-orm";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
-import { blogs } from "db/schema";
+import { blogs, blogCategories } from "db/schema";
 
 export function createBlogDAL(db: DrizzleD1Database) {
   async function getCount(data: any = {}) {
@@ -90,7 +90,19 @@ export function createBlogDAL(db: DrizzleD1Database) {
   }
 
   async function getPublicList(): Promise<any> {
-    return await db.select().from(blogs);
+    // Only return blogs where category.showOnClient = true AND isPublished = true
+    const publicCategories = await db
+      .select({ id: blogCategories.id })
+      .from(blogCategories)
+      .where(eq(blogCategories.showOnClient, true));
+
+    const categoryIds = publicCategories.map((c) => c.id);
+    if (categoryIds.length === 0) return [];
+
+    return await db
+      .select()
+      .from(blogs)
+      .where(and(inArray(blogs.categoryId, categoryIds), eq(blogs.isPublished, true)));
   }
 
   async function getById(id: string): Promise<any> {
