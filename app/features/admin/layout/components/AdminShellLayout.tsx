@@ -14,7 +14,7 @@ import {
 } from "antd";
 import type { ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Link, href, useLocation, useParams } from "react-router";
+import { Link, href, useLocation, useParams, useMatches } from "react-router";
 
 import { isExternalLink } from "~/utils/client/utils";
 
@@ -56,62 +56,33 @@ export function AdminShellLayout(props: AdminShellLayoutProps) {
 
   const dashboardHref = href("/:locale?/admin/dashboard", { locale });
 
-  const {
-    selectedKeys,
-    openKeys: derivedOpenKeys,
-    trail,
-  } = useMemo(
+  const { selectedKeys, openKeys: derivedOpenKeys } = useMemo(
     () => getAdminShellMenuState(location.pathname, route.routes),
     [location.pathname, route.routes],
   );
 
-  const homeLabel = locale === "en" ? "Home" : "首页";
-  const unknownPageLabel = locale === "en" ? "Page" : "页面";
+  const matches = useMatches();
+
+  const handleMatches = useMemo(() => {
+    const last = matches[matches.length - 1];
+    if (last?.handle && typeof last?.handle === "function") {
+      return last?.handle?.({ params: { locale } });
+    }
+    return { breadcrumb: [] };
+  }, [matches, locale]);
 
   const breadcrumbItems = useMemo(() => {
-    const items: { title: ReactNode }[] = [
-      {
-        title: (
-          <Link to={dashboardHref} style={{ color: "inherit" }}>
-            {homeLabel}
-          </Link>
-        ),
-      },
-    ];
-    if (trail.length === 0) {
-      items.push({ title: unknownPageLabel });
+    const items: { title: ReactNode }[] = [];
+    if (handleMatches.breadcrumb.length === 0) {
       return items;
     }
-    for (let i = 0; i < trail.length; i++) {
-      const node = trail[i];
-      const isLast = i === trail.length - 1;
-      if (isLast) {
-        items.push({ title: node.name });
-      } else if (isExternalLink(node.path)) {
-        items.push({
-          title: (
-            <a
-              href={node.path}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "inherit" }}
-            >
-              {node.name}
-            </a>
-          ),
-        });
-      } else {
-        items.push({
-          title: (
-            <Link to={node.path} style={{ color: "inherit" }}>
-              {node.name}
-            </Link>
-          ),
-        });
-      }
+    for (let i = 0; i < handleMatches.breadcrumb.length; i++) {
+      const match = handleMatches.breadcrumb[i];
+      items.push({ title: match.label });
     }
+    console.log(items, handleMatches);
     return items;
-  }, [trail, dashboardHref, homeLabel, unknownPageLabel]);
+  }, [handleMatches, dashboardHref]);
 
   const [openKeys, setOpenKeys] = useState<string[]>(derivedOpenKeys);
   useEffect(() => {

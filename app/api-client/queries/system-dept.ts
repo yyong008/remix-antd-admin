@@ -59,7 +59,7 @@ export function useUpdateDept() {
 export function useDeleteDept() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: { ids: number[] }) => {
+    mutationFn: async (data: { ids: string[] }) => {
       const res = await getApiClient().api.admin.system.dept.$delete({
         json: data,
       });

@@ -13,7 +13,7 @@ dictItemRouter.get("/dict-item/:dictionaryId", requirePermission("system:dict:re
   try {
     const db = getD1Db(c);
     const dictItemDAL = createDictItemDAL(db);
-    const dictionaryId = Number(c.req.param("dictionaryId"));
+    const dictionaryId = c.req.param("dictionaryId");
     if (!dictionaryId) {
       return rfj({}, "Invalid Dictionary Id", { status: 400 });
     }
@@ -39,7 +39,7 @@ dictItemRouter.post(
     try {
       const db = getD1Db(c);
       const dictItemDAL = createDictItemDAL(db);
-      const dictionaryId = Number(c.req.param("dictionaryId"));
+      const dictionaryId = c.req.param("dictionaryId");
       if (!dictionaryId) {
         return rfj({}, "Invalid Dictionary Id", { status: 400 });
       }
@@ -62,7 +62,7 @@ dictItemRouter.put(
     try {
       const db = getD1Db(c);
       const dictItemDAL = createDictItemDAL(db);
-      const dictionaryId = Number(c.req.param("dictionaryId"));
+      const dictionaryId = c.req.param("dictionaryId");
       if (!dictionaryId) {
         return rfj({}, "Invalid Dictionary Id", { status: 400 });
       }
@@ -85,7 +85,7 @@ dictItemRouter.delete(
     try {
       const db = getD1Db(c);
       const dictItemDAL = createDictItemDAL(db);
-      const dictionaryId = Number(c.req.param("dictionaryId"));
+      const dictionaryId = c.req.param("dictionaryId");
       if (!dictionaryId) {
         return rfj({}, "Invalid Dictionary Id", { status: 400 });
       }

@@ -1,17 +1,17 @@
 import { count, eq, inArray } from "drizzle-orm";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
-import { dictionaries } from "db/schema";
+import { sysConfig } from "db/schema";
 
-export function createDictDAL(db: DrizzleD1Database) {
+export function createConfigDAL(db: DrizzleD1Database) {
   async function getCount() {
-    const rows = await db.select({ count: count() }).from(dictionaries);
+    const rows = await db.select({ count: count() }).from(sysConfig);
     return rows[0]?.count ?? 0;
   }
 
   async function getList(data: any) {
     const skip = data.pageSize * (data.page - 1);
     const take = data.pageSize;
-    return await db.select().from(dictionaries).limit(take).offset(skip);
+    return await db.select().from(sysConfig).limit(take).offset(skip);
   }
 
   async function create(data: any) {
@@ -21,7 +21,7 @@ export function createDictDAL(db: DrizzleD1Database) {
         ? globalThis.crypto.randomUUID()
         : `${Date.now()}-${Math.random().toString(36).slice(2)}`);
     const created = await db
-      .insert(dictionaries)
+      .insert(sysConfig)
       .values({ ...data, id })
       .returning();
     return created[0];
@@ -29,19 +29,15 @@ export function createDictDAL(db: DrizzleD1Database) {
 
   async function update(data: any) {
     const { id, ...values } = data;
-    const updated = await db
-      .update(dictionaries)
-      .set(values)
-      .where(eq(dictionaries.id, id))
-      .returning();
+    const updated = await db.update(sysConfig).set(values).where(eq(sysConfig.id, id)).returning();
     return updated[0];
   }
 
-  async function deleteByIds(ids: number[]) {
+  async function deleteByIds(ids: (string | number)[]) {
     const deleted = await db
-      .delete(dictionaries)
-      .where(inArray(dictionaries.id, ids))
-      .returning({ id: dictionaries.id });
+      .delete(sysConfig)
+      .where(inArray(sysConfig.id, ids))
+      .returning({ id: sysConfig.id });
     return { count: deleted.length };
   }
 
@@ -54,4 +50,4 @@ export function createDictDAL(db: DrizzleD1Database) {
   };
 }
 
-export type DictDAL = ReturnType<typeof createDictDAL>;
+export type ConfigDAL = ReturnType<typeof createConfigDAL>;

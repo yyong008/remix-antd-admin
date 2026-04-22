@@ -13,7 +13,7 @@ import { useDictItemList } from "~/api-client/queries/system-dict-item";
 export function Route() {
   const nav = useNavigate();
   const { id } = useParams();
-  const dictionaryId = Number(id);
+  const dictionaryId = id!;
   const [page, setPage] = useState({
     page: 1,
     pageSize: 10,

@@ -39,6 +39,7 @@ export function ModalFormItems() {
       <ProFormRadio.Group
         name="status"
         label="状态"
+        initialValue={1}
         options={[
           {
             label: "启用",

@@ -3,26 +3,23 @@ import { Button, Form } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { ModalForm } from "~/components/pro-form-kit";
 import { ModalFormItems } from "./ModalFormItems";
-import { useParams } from "react-router";
-import { useCreateDictItem } from "~/api-client/queries/system-dict-item";
+import { useCreateConfig } from "~/api-client/queries/system-config";
 
-type CreateDictModalProps = {
+type CreateConfigModalProps = {
   trigger?: any;
   refetch?: () => void;
 };
 
-export function CreateDictItemModal(props: CreateDictModalProps) {
+export function CreateConfigModal(props: CreateConfigModalProps) {
   const { trigger, refetch } = props;
-  const { id } = useParams();
-  const dictionaryId = id!;
   const [form] = Form.useForm();
-  const createDictItem = useCreateDictItem();
+  const createConfig = useCreateConfig();
 
   return (
     <ModalForm
       key={Date.now()}
       preserve={false}
-      title={"创建字典项"}
+      title={"创建配置"}
       onOpenChange={(c) => {
         if (!c) {
           return;
@@ -44,14 +41,8 @@ export function CreateDictItemModal(props: CreateDictModalProps) {
       }}
       submitTimeout={2000}
       onFinish={async (values: any) => {
-        if (!dictionaryId) {
-          return false;
-        }
-        const vals = { ...values, dictionary_id: dictionaryId };
-        await createDictItem.mutateAsync({
-          dictionaryId,
-          data: vals,
-        });
+        const vals = { ...values };
+        await createConfig.mutateAsync(vals);
         refetch?.();
         form.resetFields();
         return true;

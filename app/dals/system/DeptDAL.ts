@@ -8,7 +8,7 @@ export function createDeptDAL(db: DrizzleD1Database) {
     return rows[0]?.count ?? 0;
   }
 
-  async function getById(id: number) {
+  async function getById(id: string) {
     const rows = await db.select().from(departments).where(eq(departments.id, id)).limit(1);
     return rows[0] ?? null;
   }
@@ -24,20 +24,40 @@ export function createDeptDAL(db: DrizzleD1Database) {
   }
 
   async function create(data: any) {
-    const created = await db.insert(departments).values(data).returning();
+    // Normalize snake_case fields to camelCase for Drizzle column names
+    const normalizedData = {
+      name: data.name as string,
+      description: data.description ?? null,
+      orderNo: data.orderNo ?? 0,
+      parentDepartmentId: data.parent_department_id ?? null,
+    };
+    const id = globalThis.crypto?.randomUUID
+      ? globalThis.crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    const created = await db
+      .insert(departments)
+      .values({ ...normalizedData, id })
+      .returning();
     return created[0];
   }
 
   async function update({ id, ...data }: any) {
+    // Normalize snake_case fields to camelCase for Drizzle column names
+    const normalizedData = {
+      name: data.name,
+      description: data.description ?? null,
+      orderNo: data.orderNo ?? null,
+      parentDepartmentId: data.parent_department_id ?? null,
+    };
     const updated = await db
       .update(departments)
-      .set(data)
+      .set(normalizedData)
       .where(eq(departments.id, id))
       .returning();
     return updated[0];
   }
 
-  async function deleteByIds(ids: number[]) {
+  async function deleteByIds(ids: string[]) {
     const deleted = await db
       .delete(departments)
       .where(inArray(departments.id, ids))

@@ -9,7 +9,7 @@ export function createDictItemDAL(db: DrizzleD1Database) {
     return { ...rest, dictionary_id: dictionaryId };
   }
 
-  async function getCount(dictionary_id: number) {
+  async function getCount(dictionary_id: string) {
     const rows = await db
       .select({ count: count() })
       .from(dictionaryEntries)
@@ -17,7 +17,7 @@ export function createDictItemDAL(db: DrizzleD1Database) {
     return rows[0]?.count ?? 0;
   }
 
-  async function getAll(dictionary_id: number) {
+  async function getAll(dictionary_id: string) {
     const rows = await db
       .select()
       .from(dictionaryEntries)
@@ -25,7 +25,7 @@ export function createDictItemDAL(db: DrizzleD1Database) {
     return rows.map(mapEntry);
   }
 
-  async function getById(id: number) {
+  async function getById(id: string) {
     const rows = await db
       .select()
       .from(dictionaryEntries)
@@ -39,7 +39,7 @@ export function createDictItemDAL(db: DrizzleD1Database) {
     page = 1,
     pageSize = 10,
   }: {
-    dictionary_id: number;
+    dictionary_id: string;
     page: number;
     pageSize: number;
   }) {
@@ -54,10 +54,16 @@ export function createDictItemDAL(db: DrizzleD1Database) {
 
   async function create(data: any) {
     const { dictionary_id, ...values } = data;
+    const id =
+      values.id ??
+      (globalThis.crypto?.randomUUID
+        ? globalThis.crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(36).slice(2)}`);
     const created = await db
       .insert(dictionaryEntries)
       .values({
         ...values,
+        id,
         dictionaryId: dictionary_id,
       })
       .returning();
@@ -76,7 +82,7 @@ export function createDictItemDAL(db: DrizzleD1Database) {
     return mapEntry(updated[0]);
   }
 
-  async function deleteByIds(ids: number[]) {
+  async function deleteByIds(ids: string[]) {
     const deleted = await db
       .delete(dictionaryEntries)
       .where(inArray(dictionaryEntries.id, ids))

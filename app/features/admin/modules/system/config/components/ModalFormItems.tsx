@@ -5,7 +5,7 @@ export function ModalFormItems() {
     <>
       <ProFormText
         name="name"
-        label="字典名称"
+        label="参数名称"
         placeholder="请输入"
         rules={[
           {
@@ -15,12 +15,45 @@ export function ModalFormItems() {
         ]}
       />
       <ProFormText
-        name="code"
-        label="字典编码"
+        name="key"
+        label="参数键名"
         placeholder="请输入"
         rules={[
           {
             required: true,
+            message: "请输入",
+          },
+        ]}
+      />
+      <ProFormText
+        name="value"
+        label="参数键值"
+        placeholder="请输入"
+        rules={[
+          {
+            required: true,
+            message: "请输入",
+          },
+        ]}
+      />
+      <ProFormText
+        name="type"
+        label="参数类型"
+        placeholder="请输入"
+        rules={[
+          {
+            required: false,
+            message: "请输入",
+          },
+        ]}
+      />
+      <ProFormTextArea
+        name="description"
+        label="描述"
+        placeholder="请输入"
+        rules={[
+          {
+            required: false,
             message: "请输入",
           },
         ]}

@@ -289,6 +289,17 @@ export const menuSeeds: MenuSeed[] = [
     isShow: 1,
   },
   {
+    key: "system-dict-item",
+    parentKey: "system-dict",
+    name: "Dict Item",
+    type: 2,
+    path: "/system/dict-item/:id",
+    pathFile: "admin/system/dict-item",
+    permission: "system:dict:read",
+    orderNo: 1,
+    isShow: 0,
+  },
+  {
     key: "system-config",
     parentKey: "system",
     name: "Config",

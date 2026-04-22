@@ -218,3 +218,21 @@ export const userRoleRelations = relations(userRoles, ({ one }) => ({
   user: one(user, { fields: [userRoles.userId], references: [user.id] }),
   role: one(roles, { fields: [userRoles.roleId], references: [roles.id] }),
 }));
+
+export const sysConfig = sqliteTable("sys_config", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  key: text("key").notNull(),
+  value: text("value").notNull(),
+  description: text("description"),
+  remark: text("remark"),
+  type: integer("type"),
+  status: integer("status"),
+  createdAt: integer("created_at", { mode: "timestamp_ms" })
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp_ms" })
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
+});

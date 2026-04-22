@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getApiClient } from "~/api-client";
 
@@ -22,6 +22,51 @@ export function useSystemConfigList(params: SystemConfigListParams) {
         },
       });
       return res.json();
+    },
+  });
+}
+
+export function useCreateConfig() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const res = await getApiClient().api.admin.system.config.$post({
+        json: data,
+      });
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["system-config"] });
+    },
+  });
+}
+
+export function useUpdateConfig() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const res = await getApiClient().api.admin.system.config.$put({
+        json: data,
+      });
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["system-config"] });
+    },
+  });
+}
+
+export function useDeleteConfig() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: { ids: (string | number)[] }) => {
+      const res = await getApiClient().api.admin.system.config.$delete({
+        json: data,
+      });
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["system-config"] });
     },
   });
 }

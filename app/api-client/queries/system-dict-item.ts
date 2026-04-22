@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getApiClient } from "~/api-client";
 
 export type DictItemListParams = {
-  dictionaryId: number;
+  dictionaryId: string;
   page?: number;
   pageSize?: number;
 };
@@ -32,9 +32,9 @@ export function useDictItemList(params: DictItemListParams) {
 export function useCreateDictItem() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (payload: { dictionaryId: number; data: any }) => {
+    mutationFn: async (payload: { dictionaryId: string; data: any }) => {
       const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$post({
-        param: { dictionaryId: String(payload.dictionaryId) },
+        param: { dictionaryId: payload.dictionaryId },
         json: payload.data,
       });
       return res.json();
@@ -48,9 +48,9 @@ export function useCreateDictItem() {
 export function useUpdateDictItem() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (payload: { dictionaryId: number; data: any }) => {
+    mutationFn: async (payload: { dictionaryId: string; data: any }) => {
       const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$put({
-        param: { dictionaryId: String(payload.dictionaryId) },
+        param: { dictionaryId: payload.dictionaryId },
         json: payload.data,
       });
       return res.json();
@@ -64,9 +64,9 @@ export function useUpdateDictItem() {
 export function useDeleteDictItem() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (payload: { dictionaryId: number; ids: number[] }) => {
+    mutationFn: async (payload: { dictionaryId: string; ids: string[] }) => {
       const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$delete({
-        param: { dictionaryId: String(payload.dictionaryId) },
+        param: { dictionaryId: payload.dictionaryId },
         json: { ids: payload.ids },
       });
       return res.json();

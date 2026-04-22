@@ -5,6 +5,8 @@ import {
   AiChatLoading,
 } from "~/features/ai/modules/chatbot/AiChatConversation";
 
+export const handle = { breadcrumb: "AI 助手" };
+
 export default function Page() {
   const [chatId, setChatId] = useState<string | null>(null);
 

@@ -26,33 +26,44 @@ function matchAdminMenuState(pathname: string, routes: AdminRouteNode[]): PathMa
   function visit(items: AdminRouteNode[], prefix: AdminRouteNode[]): PathMatch | null {
     let best: PathMatch | null = null;
     for (const item of items) {
-      if (item.hideInMenu) continue;
       const p = String(item.path ?? "");
-      if (p && !isExternalLink(p)) {
-        const matches = pathname === p || pathname.startsWith(`${p}/`);
-        if (matches) {
-          const plen = p.length;
-          const trail = [...prefix, item];
-          if (!best || plen > best.pathLen) {
-            best = {
-              key: item.key,
-              pathLen: plen,
-              openKeys: prefix.map((n) => n.key),
-              trail,
-            };
+      if (!p || isExternalLink(p)) {
+        if (item.children?.length) {
+          const sub = visit(item.children, [...prefix, item]);
+          if (sub && (!best || sub.pathLen > best.pathLen)) {
+            best = sub;
           }
         }
+        continue;
       }
+
+      // Split into segments, treating :xxx as wildcard
+      const menuSegs = p.split("/").filter(Boolean);
+      const urlSegs = pathname.split("/").filter(Boolean);
+
+      let i = 0;
+      for (; i < menuSegs.length && i < urlSegs.length; i++) {
+        if (menuSegs[i] !== urlSegs[i] && !menuSegs[i].startsWith(":")) break;
+      }
+
+      if (i === menuSegs.length) {
+        if (!best || menuSegs.length > best.pathLen) {
+          best = {
+            key: item.key,
+            pathLen: menuSegs.length,
+            openKeys: prefix.map((n) => n.key),
+            trail: [...prefix, item],
+          };
+        }
+      }
+
       if (item.children?.length) {
         const sub = visit(item.children, [...prefix, item]);
-        if (sub && (!best || sub.pathLen > best.pathLen)) {
-          best = sub;
-        }
+        if (sub && (!best || sub.pathLen > best.pathLen)) best = sub;
       }
     }
     return best;
   }
-
   return visit(routes, []);
 }
 
@@ -91,9 +102,9 @@ export function buildAdminMenuItems(
   setPathname: (path: string) => void,
 ): MenuProps["items"] {
   return routes
-    .filter((r) => !r.hideInMenu)
+    .filter((r) => !r.hideInMenu && r.isShow !== 0)
     .map((item): ItemType => {
-      const visibleChildren = item.children?.filter((c) => !c.hideInMenu) ?? [];
+      const visibleChildren = item.children?.filter((c) => c.isShow !== 0) ?? [];
       const label =
         visibleChildren.length > 0 ? (
           <span>{item.name}</span>

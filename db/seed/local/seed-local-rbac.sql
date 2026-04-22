@@ -60,6 +60,7 @@ DELETE FROM sys_menu WHERE id = 'm-system-monitor-operate';
 DELETE FROM sys_menu WHERE id = 'm-system-monitor-loginlog';
 DELETE FROM sys_menu WHERE id = 'm-system-monitor';
 DELETE FROM sys_menu WHERE id = 'm-system-config';
+DELETE FROM sys_menu WHERE id = 'm-system-dict-item';
 DELETE FROM sys_menu WHERE id = 'm-system-dict';
 DELETE FROM sys_menu WHERE id = 'm-system-dept';
 DELETE FROM sys_menu WHERE id = 'm-system-menu';
@@ -174,6 +175,9 @@ INSERT OR REPLACE INTO sys_menu (id, name, type, description, remark, icon, path
 );
 INSERT OR REPLACE INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, "isShow", "isCache", permission, "isLink", order_no, created_at, updated_at, parent_menu_id) VALUES (
   'm-system-dict', 'Dictionary', 2, NULL, NULL, 'BookOutlined', '/system/dict', 'admin/system/dict', 1, 1, 0, 'system:dict:read', 0, 5, (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), 'm-system'
+);
+INSERT OR REPLACE INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, "isShow", "isCache", permission, "isLink", order_no, created_at, updated_at, parent_menu_id) VALUES (
+  'm-system-dict-item', 'Dict Item', 2, NULL, NULL, NULL, '/system/dict-item/:id', 'admin/system/dict-item', 1, 0, 0, 'system:dict:read', 0, 1, (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), 'm-system-dict'
 );
 INSERT OR REPLACE INTO sys_menu (id, name, type, description, remark, icon, path, path_file, status, "isShow", "isCache", permission, "isLink", order_no, created_at, updated_at, parent_menu_id) VALUES (
   'm-system-config', 'Config', 2, NULL, NULL, 'ControlOutlined', '/system/config', 'admin/system/config', 1, 1, 0, 'system:config:read', 0, 6, (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), 'm-system'
@@ -397,385 +401,391 @@ INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES 
   '01900030-0000-7000-8000-000000000024', '01900000-0000-7000-8000-000000000002', 'm-system-dict', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000025', '01900000-0000-7000-8000-000000000002', 'm-system-config', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000025', '01900000-0000-7000-8000-000000000002', 'm-system-dict-item', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000026', '01900000-0000-7000-8000-000000000002', 'm-system-monitor', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000026', '01900000-0000-7000-8000-000000000002', 'm-system-config', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000027', '01900000-0000-7000-8000-000000000002', 'm-system-monitor-loginlog', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000027', '01900000-0000-7000-8000-000000000002', 'm-system-monitor', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000028', '01900000-0000-7000-8000-000000000002', 'm-system-monitor-operate', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000028', '01900000-0000-7000-8000-000000000002', 'm-system-monitor-loginlog', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000029', '01900000-0000-7000-8000-000000000002', 'm-system-monitor-serve', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000029', '01900000-0000-7000-8000-000000000002', 'm-system-monitor-operate', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000030', '01900000-0000-7000-8000-000000000002', 'm-perm-system-user-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000030', '01900000-0000-7000-8000-000000000002', 'm-system-monitor-serve', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000031', '01900000-0000-7000-8000-000000000002', 'm-perm-system-user-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000031', '01900000-0000-7000-8000-000000000002', 'm-perm-system-user-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000032', '01900000-0000-7000-8000-000000000002', 'm-perm-system-user-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000032', '01900000-0000-7000-8000-000000000002', 'm-perm-system-user-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000033', '01900000-0000-7000-8000-000000000002', 'm-perm-system-user-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000033', '01900000-0000-7000-8000-000000000002', 'm-perm-system-user-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000034', '01900000-0000-7000-8000-000000000002', 'm-perm-system-role-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000034', '01900000-0000-7000-8000-000000000002', 'm-perm-system-user-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000035', '01900000-0000-7000-8000-000000000002', 'm-perm-system-role-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000035', '01900000-0000-7000-8000-000000000002', 'm-perm-system-role-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000036', '01900000-0000-7000-8000-000000000002', 'm-perm-system-role-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000036', '01900000-0000-7000-8000-000000000002', 'm-perm-system-role-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000037', '01900000-0000-7000-8000-000000000002', 'm-perm-system-role-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000037', '01900000-0000-7000-8000-000000000002', 'm-perm-system-role-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000038', '01900000-0000-7000-8000-000000000002', 'm-perm-system-menu-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000038', '01900000-0000-7000-8000-000000000002', 'm-perm-system-role-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000039', '01900000-0000-7000-8000-000000000002', 'm-perm-system-menu-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000039', '01900000-0000-7000-8000-000000000002', 'm-perm-system-menu-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000040', '01900000-0000-7000-8000-000000000002', 'm-perm-system-menu-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000040', '01900000-0000-7000-8000-000000000002', 'm-perm-system-menu-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000041', '01900000-0000-7000-8000-000000000002', 'm-perm-system-menu-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000041', '01900000-0000-7000-8000-000000000002', 'm-perm-system-menu-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000042', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dept-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000042', '01900000-0000-7000-8000-000000000002', 'm-perm-system-menu-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000043', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dept-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000043', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dept-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000044', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dept-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000044', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dept-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000045', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dept-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000045', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dept-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000046', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dict-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000046', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dept-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000047', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dict-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000047', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dict-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000048', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dict-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000048', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dict-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000049', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dict-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000049', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dict-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000050', '01900000-0000-7000-8000-000000000002', 'm-perm-system-config-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000050', '01900000-0000-7000-8000-000000000002', 'm-perm-system-dict-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000051', '01900000-0000-7000-8000-000000000002', 'm-perm-system-config-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000051', '01900000-0000-7000-8000-000000000002', 'm-perm-system-config-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000052', '01900000-0000-7000-8000-000000000002', 'm-perm-system-config-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000052', '01900000-0000-7000-8000-000000000002', 'm-perm-system-config-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000053', '01900000-0000-7000-8000-000000000002', 'm-perm-system-config-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000053', '01900000-0000-7000-8000-000000000002', 'm-perm-system-config-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000054', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-loginlog-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000054', '01900000-0000-7000-8000-000000000002', 'm-perm-system-config-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000055', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-loginlog-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000055', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-loginlog-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000056', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-loginlog-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000056', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-loginlog-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000057', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-loginlog-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000057', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-loginlog-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000058', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-serve-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000058', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-loginlog-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000059', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-serve-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000059', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-serve-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000060', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-serve-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000060', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-serve-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000061', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-serve-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000061', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-serve-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000062', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-operate-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000062', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-serve-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000063', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-operate-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000063', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-operate-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000064', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-operate-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000064', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-operate-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000065', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-operate-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000065', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-operate-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000066', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-mail-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000066', '01900000-0000-7000-8000-000000000002', 'm-perm-system-monitor-operate-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000067', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-mail-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000067', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-mail-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000068', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-mail-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000068', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-mail-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000069', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-mail-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000069', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-mail-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000070', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-storage-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000070', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-mail-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000071', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-storage-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000071', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-storage-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000072', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-storage-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000072', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-storage-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000073', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-storage-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000073', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-storage-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000074', '01900000-0000-7000-8000-000000000003', 'm-dashboard', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000074', '01900000-0000-7000-8000-000000000002', 'm-perm-tools-storage-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000075', '01900000-0000-7000-8000-000000000003', 'm-ai', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000075', '01900000-0000-7000-8000-000000000003', 'm-dashboard', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000076', '01900000-0000-7000-8000-000000000003', 'm-ai-chatbot', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000076', '01900000-0000-7000-8000-000000000003', 'm-ai', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000077', '01900000-0000-7000-8000-000000000003', 'm-news', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000077', '01900000-0000-7000-8000-000000000003', 'm-ai-chatbot', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000078', '01900000-0000-7000-8000-000000000003', 'm-news-list', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000078', '01900000-0000-7000-8000-000000000003', 'm-news', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000079', '01900000-0000-7000-8000-000000000003', 'm-news-edit', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000079', '01900000-0000-7000-8000-000000000003', 'm-news-list', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000080', '01900000-0000-7000-8000-000000000003', 'm-blog', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000080', '01900000-0000-7000-8000-000000000003', 'm-news-edit', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000081', '01900000-0000-7000-8000-000000000003', 'm-blog-list', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000081', '01900000-0000-7000-8000-000000000003', 'm-blog', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000082', '01900000-0000-7000-8000-000000000003', 'm-blog-edit', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000082', '01900000-0000-7000-8000-000000000003', 'm-blog-list', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000083', '01900000-0000-7000-8000-000000000003', 'm-blog-edit-article', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000083', '01900000-0000-7000-8000-000000000003', 'm-blog-edit', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000084', '01900000-0000-7000-8000-000000000003', 'm-blog-detail', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000084', '01900000-0000-7000-8000-000000000003', 'm-blog-edit-article', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000085', '01900000-0000-7000-8000-000000000003', 'm-profile', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000085', '01900000-0000-7000-8000-000000000003', 'm-blog-detail', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000086', '01900000-0000-7000-8000-000000000003', 'm-profile-home', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000086', '01900000-0000-7000-8000-000000000003', 'm-profile', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000087', '01900000-0000-7000-8000-000000000003', 'm-profile-link', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000087', '01900000-0000-7000-8000-000000000003', 'm-profile-home', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000088', '01900000-0000-7000-8000-000000000003', 'm-tools', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000088', '01900000-0000-7000-8000-000000000003', 'm-profile-link', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000089', '01900000-0000-7000-8000-000000000003', 'm-tools-mail', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000089', '01900000-0000-7000-8000-000000000003', 'm-tools', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000090', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-mail-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000090', '01900000-0000-7000-8000-000000000003', 'm-tools-mail', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000091', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-mail-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000091', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-mail-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000092', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-mail-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000092', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-mail-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000093', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-mail-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000093', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-mail-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000094', '01900000-0000-7000-8000-000000000003', 'm-tools-storage', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000094', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-mail-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000095', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-storage-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000095', '01900000-0000-7000-8000-000000000003', 'm-tools-storage', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000096', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-storage-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000096', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-storage-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000097', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-storage-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000097', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-storage-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000098', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-storage-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000098', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-storage-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000099', '01900000-0000-7000-8000-000000000003', 'm-about', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000099', '01900000-0000-7000-8000-000000000003', 'm-perm-tools-storage-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000100', '01900000-0000-7000-8000-000000000003', 'm-system', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000100', '01900000-0000-7000-8000-000000000003', 'm-about', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000101', '01900000-0000-7000-8000-000000000003', 'm-system-user', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000101', '01900000-0000-7000-8000-000000000003', 'm-system', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000102', '01900000-0000-7000-8000-000000000003', 'm-perm-system-user-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000102', '01900000-0000-7000-8000-000000000003', 'm-system-user', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000103', '01900000-0000-7000-8000-000000000003', 'm-perm-system-user-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000103', '01900000-0000-7000-8000-000000000003', 'm-perm-system-user-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000104', '01900000-0000-7000-8000-000000000003', 'm-perm-system-user-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000104', '01900000-0000-7000-8000-000000000003', 'm-perm-system-user-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000105', '01900000-0000-7000-8000-000000000003', 'm-perm-system-user-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000105', '01900000-0000-7000-8000-000000000003', 'm-perm-system-user-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000106', '01900000-0000-7000-8000-000000000003', 'm-system-role', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000106', '01900000-0000-7000-8000-000000000003', 'm-perm-system-user-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000107', '01900000-0000-7000-8000-000000000003', 'm-perm-system-role-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000107', '01900000-0000-7000-8000-000000000003', 'm-system-role', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000108', '01900000-0000-7000-8000-000000000003', 'm-perm-system-role-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000108', '01900000-0000-7000-8000-000000000003', 'm-perm-system-role-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000109', '01900000-0000-7000-8000-000000000003', 'm-perm-system-role-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000109', '01900000-0000-7000-8000-000000000003', 'm-perm-system-role-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000110', '01900000-0000-7000-8000-000000000003', 'm-perm-system-role-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000110', '01900000-0000-7000-8000-000000000003', 'm-perm-system-role-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000111', '01900000-0000-7000-8000-000000000003', 'm-system-menu', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000111', '01900000-0000-7000-8000-000000000003', 'm-perm-system-role-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000112', '01900000-0000-7000-8000-000000000003', 'm-perm-system-menu-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000112', '01900000-0000-7000-8000-000000000003', 'm-system-menu', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000113', '01900000-0000-7000-8000-000000000003', 'm-perm-system-menu-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000113', '01900000-0000-7000-8000-000000000003', 'm-perm-system-menu-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000114', '01900000-0000-7000-8000-000000000003', 'm-perm-system-menu-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000114', '01900000-0000-7000-8000-000000000003', 'm-perm-system-menu-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000115', '01900000-0000-7000-8000-000000000003', 'm-perm-system-menu-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000115', '01900000-0000-7000-8000-000000000003', 'm-perm-system-menu-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000116', '01900000-0000-7000-8000-000000000003', 'm-system-dept', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000116', '01900000-0000-7000-8000-000000000003', 'm-perm-system-menu-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000117', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dept-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000117', '01900000-0000-7000-8000-000000000003', 'm-system-dept', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000118', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dept-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000118', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dept-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000119', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dept-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000119', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dept-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000120', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dept-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000120', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dept-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000121', '01900000-0000-7000-8000-000000000003', 'm-system-dict', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000121', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dept-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000122', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dict-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000122', '01900000-0000-7000-8000-000000000003', 'm-system-dict', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000123', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dict-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000123', '01900000-0000-7000-8000-000000000003', 'm-system-dict-item', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000124', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dict-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000124', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dict-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000125', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dict-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000125', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dict-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000126', '01900000-0000-7000-8000-000000000003', 'm-system-config', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000126', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dict-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000127', '01900000-0000-7000-8000-000000000003', 'm-perm-system-config-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000127', '01900000-0000-7000-8000-000000000003', 'm-perm-system-dict-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000128', '01900000-0000-7000-8000-000000000003', 'm-perm-system-config-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000128', '01900000-0000-7000-8000-000000000003', 'm-system-config', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000129', '01900000-0000-7000-8000-000000000003', 'm-perm-system-config-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000129', '01900000-0000-7000-8000-000000000003', 'm-perm-system-config-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000130', '01900000-0000-7000-8000-000000000003', 'm-perm-system-config-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000130', '01900000-0000-7000-8000-000000000003', 'm-perm-system-config-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000131', '01900000-0000-7000-8000-000000000003', 'm-system-monitor', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000131', '01900000-0000-7000-8000-000000000003', 'm-perm-system-config-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000132', '01900000-0000-7000-8000-000000000003', 'm-system-monitor-loginlog', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000132', '01900000-0000-7000-8000-000000000003', 'm-perm-system-config-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000133', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-loginlog-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000133', '01900000-0000-7000-8000-000000000003', 'm-system-monitor', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000134', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-loginlog-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000134', '01900000-0000-7000-8000-000000000003', 'm-system-monitor-loginlog', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000135', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-loginlog-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000135', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-loginlog-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000136', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-loginlog-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000136', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-loginlog-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000137', '01900000-0000-7000-8000-000000000003', 'm-system-monitor-operate', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000137', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-loginlog-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000138', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-operate-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000138', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-loginlog-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000139', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-operate-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000139', '01900000-0000-7000-8000-000000000003', 'm-system-monitor-operate', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000140', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-operate-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000140', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-operate-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000141', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-operate-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000141', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-operate-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000142', '01900000-0000-7000-8000-000000000003', 'm-system-monitor-serve', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000142', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-operate-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000143', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-serve-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000143', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-operate-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000144', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-serve-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000144', '01900000-0000-7000-8000-000000000003', 'm-system-monitor-serve', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000145', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-serve-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000145', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-serve-read', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000146', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-serve-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000146', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-serve-create', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000147', '01900000-0000-7000-8000-000000000001', 'm-dashboard', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000147', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-serve-update', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000148', '01900000-0000-7000-8000-000000000001', 'm-profile', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000148', '01900000-0000-7000-8000-000000000003', 'm-perm-system-monitor-serve-delete', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000149', '01900000-0000-7000-8000-000000000001', 'm-profile-home', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000149', '01900000-0000-7000-8000-000000000001', 'm-dashboard', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000150', '01900000-0000-7000-8000-000000000001', 'm-profile-link', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000150', '01900000-0000-7000-8000-000000000001', 'm-profile', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
-  '01900030-0000-7000-8000-000000000151', '01900000-0000-7000-8000-000000000001', 'm-about', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+  '01900030-0000-7000-8000-000000000151', '01900000-0000-7000-8000-000000000001', 'm-profile-home', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+);
+INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
+  '01900030-0000-7000-8000-000000000152', '01900000-0000-7000-8000-000000000001', 'm-profile-link', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
+);
+INSERT INTO sys_menu_role (id, role_id, menu_id, created_at, updated_at) VALUES (
+  '01900030-0000-7000-8000-000000000153', '01900000-0000-7000-8000-000000000001', 'm-about', (CAST(unixepoch('subsecond') * 1000 AS INTEGER)), (CAST(unixepoch('subsecond') * 1000 AS INTEGER))
 );
 
 -- End RBAC seed
