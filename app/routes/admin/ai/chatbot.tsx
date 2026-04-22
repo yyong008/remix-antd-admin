@@ -1,11 +1,28 @@
 import { useEffect, useState } from "react";
+import { href } from "react-router";
 
 import {
   AiChatConversation,
   AiChatLoading,
 } from "~/features/ai/modules/chatbot/AiChatConversation";
 
-export const handle = { breadcrumb: "AI 助手" };
+interface HandleParams {
+  locale?: string;
+}
+
+export const handle = ({ params }: { params: HandleParams }) => {
+  return {
+    breadcrumb: [
+      {
+        href: href("/:locale?/admin/dashboard", { locale: params?.locale }),
+        label: "Dashboard",
+      },
+      {
+        label: "AI 助手",
+      },
+    ],
+  };
+};
 
 export default function Page() {
   const [chatId, setChatId] = useState<string | null>(null);

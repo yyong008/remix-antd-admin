@@ -24,7 +24,7 @@ export const authRoutes = [
 export const adminRoutes = [
   ...prefix(":locale?/admin", [
     layout("features/admin/layout/index.tsx", [
-      ...prefix("dashboard", [index("routes/admin/dashboard.tsx")]),
+      ...prefix("dashboard", [index("routes/admin/dashboard/index.tsx")]),
       ...prefix("ai", [route("chatbot", "routes/admin/ai/chatbot.tsx")]),
       ...prefix("news", [
         route("list", "routes/admin/news/list.tsx"),
@@ -33,11 +33,9 @@ export const adminRoutes = [
         route("result", "routes/admin/news/result.tsx"),
       ]),
       ...prefix("blog", [
-        index("routes/admin/blog.tsx"),
-        route("list", "routes/admin/blog-list.tsx"),
-        route("new", "routes/admin/blog/create.tsx"),
-        route("edit", "routes/admin/blog/edit-new.tsx"),
-        route("edit/:id", "routes/admin/blog/edit.tsx"),
+        route("list", "routes/admin/blog/blog-list.tsx"),
+        route("edit", "routes/admin/blog/edit.tsx"),
+        route("edit/:id", "routes/admin/blog/edit.tsx", { id: "admin-blog-edit-id" }),
         route("result", "routes/admin/blog/result.tsx"),
       ]),
       ...prefix("profile", [
