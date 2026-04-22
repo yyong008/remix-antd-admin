@@ -13,11 +13,13 @@ export type PublicBlogRow = {
   title: string;
   content: string;
   author?: string | null;
-  source?: string | null;
   viewCount: number;
   publishedAt: string;
+  isPublished: boolean;
   categoryId: string;
   tagId: string;
+  categoryName?: string;
+  tagName?: string;
 };
 
 export type PublicBlogListData = {

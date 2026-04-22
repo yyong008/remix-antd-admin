@@ -45,10 +45,10 @@ export const blogs = sqliteTable("blog", {
     .primaryKey(),
   title: text("title").notNull(),
   content: text("content").notNull(),
-  author: text("author"),
-  source: text("source"),
+  author: text("author").notNull(),
   viewCount: integer("viewCount").notNull().default(0),
   publishedAt: integer("published_at", { mode: "timestamp_ms" }).notNull(),
+  isPublished: integer("is_published", { mode: "boolean" }).notNull().default(false),
   createdAt: integer("created_at", { mode: "timestamp_ms" })
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),

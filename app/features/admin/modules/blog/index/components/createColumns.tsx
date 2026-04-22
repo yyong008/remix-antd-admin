@@ -133,10 +133,16 @@ export const createColumns = ({
     width: 100,
   },
   {
-    dataIndex: "source",
-    title: "来源",
-    ellipsis: true,
-    width: 120,
+    dataIndex: "isPublished",
+    title: "状态",
+    width: 80,
+    render: (_: unknown, record: { isPublished?: boolean }) => {
+      return record.isPublished ? (
+        <span style={{ color: "#52c41a" }}>已发布</span>
+      ) : (
+        <span style={{ color: "#faad14" }}>草稿</span>
+      );
+    },
   },
   {
     dataIndex: "categoryId",

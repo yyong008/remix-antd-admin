@@ -41,7 +41,15 @@ export function Route() {
   return (
     <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "32px 24px" }}>
       <article>
-        <BlogHeader blog={blog} />
+        <BlogHeader
+          blog={{
+            title: blog.title,
+            author: blog.author,
+            publishedAt: blog.publishedAt,
+            categoryName: blog.categoryName,
+            tagName: blog.tagName,
+          }}
+        />
         <BlogContent content={blog.content} />
       </article>
     </div>

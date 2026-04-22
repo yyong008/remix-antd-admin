@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { CalendarOutlined, UserOutlined, FolderOutlined } from "@ant-design/icons";
+import { CalendarOutlined, UserOutlined, FolderOutlined, TagOutlined } from "@ant-design/icons";
 
 export function BlogHeader({
   blog,
@@ -7,8 +7,9 @@ export function BlogHeader({
   blog: {
     title: string;
     author?: string | null;
-    source?: string | null;
     publishedAt: string;
+    categoryName?: string;
+    tagName?: string;
   };
 }) {
   return (
@@ -41,18 +42,48 @@ export function BlogHeader({
             <span style={{ color: "var(--mkt-text)", fontWeight: 500 }}>{blog.author}</span>
           </span>
         )}
-        {blog.source && (
-          <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-            <span style={{ color: "var(--mkt-muted)" }}>来源:</span>
-            <span style={{ color: "var(--mkt-text)" }}>{blog.source}</span>
-          </span>
-        )}
         <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <span style={{ color: "var(--mkt-muted)" }}>发布时间:</span>
           <span style={{ color: "var(--mkt-text)" }}>
             {dayjs(blog.publishedAt).format("YYYY-MM-DD HH:mm")}
           </span>
         </span>
+        {blog.categoryName && (
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "4px",
+              padding: "4px 12px",
+              background: "var(--mkt-surface)",
+              border: "1px solid var(--mkt-border)",
+              borderRadius: "9999px",
+              fontSize: "12px",
+              color: "var(--mkt-accent)",
+            }}
+          >
+            <FolderOutlined />
+            {blog.categoryName}
+          </span>
+        )}
+        {blog.tagName && (
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "4px",
+              padding: "4px 12px",
+              background: "var(--mkt-accent)",
+              border: "1px solid var(--mkt-accent)",
+              borderRadius: "9999px",
+              fontSize: "12px",
+              color: "white",
+            }}
+          >
+            <TagOutlined />
+            {blog.tagName}
+          </span>
+        )}
       </div>
     </header>
   );

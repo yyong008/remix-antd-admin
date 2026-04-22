@@ -1,4 +1,16 @@
-import { Button, Card, DatePicker, Drawer, Flex, Form, Input, message, Select, Space } from "antd";
+import {
+  Button,
+  Card,
+  DatePicker,
+  Drawer,
+  Flex,
+  Form,
+  Input,
+  message,
+  Select,
+  Space,
+  Switch,
+} from "antd";
 import { PageContainer } from "@/components/page-container";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
@@ -48,10 +60,10 @@ export function Route() {
       form.setFieldsValue({
         title: article.title,
         author: article.author,
-        source: article.source,
         publishedAt: article.publishedAt ? dayjs(article.publishedAt) : null,
         categoryId: article.categoryId,
         tagId: article.tagId,
+        isPublished: article.isPublished ?? false,
       });
     }
   }, [article, form, isEditMode]);
@@ -166,13 +178,6 @@ export function Route() {
             <Input placeholder="请输入作者" />
           </Form.Item>
           <Form.Item
-            label="文章来源"
-            name="source"
-            rules={[{ required: true, message: "请输入来源" }]}
-          >
-            <Input placeholder="请输入来源" />
-          </Form.Item>
-          <Form.Item
             label="发布时间"
             name="publishedAt"
             rules={[{ required: true, message: "请选择发布时间" }]}
@@ -188,6 +193,9 @@ export function Route() {
           </Form.Item>
           <Form.Item label="标签" name="tagId" rules={[{ required: true, message: "请选择标签" }]}>
             <Select placeholder="请选择标签" options={tagsOptions} />
+          </Form.Item>
+          <Form.Item label="是否发布" name="isPublished" valuePropName="checked">
+            <Switch checkedChildren="发布" unCheckedChildren="草稿" />
           </Form.Item>
         </Form>
       </Drawer>

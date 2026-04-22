@@ -17,7 +17,7 @@ export function Route() {
   const allBlogs = blogData?.list ?? [];
   const categories = categoryData?.list ?? [];
 
-  const publishedBlogs = useMemo(() => allBlogs, [allBlogs]);
+  const publishedBlogs = useMemo(() => allBlogs.filter((b) => b.isPublished), [allBlogs]);
 
   const filteredBlogs = useMemo(() => {
     if (!categoryId) return publishedBlogs;

@@ -29,6 +29,13 @@
       "when": 1776769847230,
       "tag": "0003_messy_hydra",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1776855239682,
+      "tag": "0004_sad_the_hand",
+      "breakpoints": true
     }
   ]
 }

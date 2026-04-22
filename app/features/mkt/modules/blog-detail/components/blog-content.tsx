@@ -5,7 +5,8 @@ export function BlogContent({ content }: { content: string }) {
     <div
       style={{
         color: "var(--mkt-text)",
-        lineHeight: 1.8,
+        lineHeight: 1.9,
+        fontSize: "16px",
       }}
       dangerouslySetInnerHTML={{
         __html: dompurify.sanitize(content || ""),

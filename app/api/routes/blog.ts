@@ -37,11 +37,18 @@ blogRouter.get("/:id", async (c) => {
     }
     const db = getD1Db(c);
     const blogDAL = createBlogDAL(db);
+    const blogCategoryDAL = createBlogCategoryDAL(db);
+    const blogTagDAL = (await import("~/dals/blog/BlogTagDAL")).createBlogTagDAL(db);
     const result = await blogDAL.getById(id);
     if (!result) {
       return c.json({ code: 404, msg: "Blog not found" }, 404);
     }
-    return rsj(result);
+    // Fetch category and tag names
+    const [category, tag] = await Promise.all([
+      blogCategoryDAL.getById(result.categoryId),
+      blogTagDAL.getById(result.tagId),
+    ]);
+    return rsj({ ...result, categoryName: category?.name, tagName: tag?.name });
   } catch (error) {
     return c.json({ code: 500, msg: String(error) }, 500);
   }
