@@ -1,7 +1,8 @@
-import { Descriptions, Spin, Tag } from "antd";
+import { Descriptions, message, Spin, Tag, Upload } from "antd";
 import dayjs from "dayjs";
 
 import type { AdminSysUserInfo } from "~/api-client/queries/system-user";
+import { useUpdateProfileAccount } from "~/api-client/queries/profile-account";
 
 function fmt(value: string | null | undefined) {
   if (value == null) return "—";
@@ -26,6 +27,7 @@ export function BasicInfoDescriptions(props: {
   loading?: boolean;
 }) {
   const { userInfo, loading } = props;
+  const { mutateAsync: updateAvatar, isPending: isUpdating } = useUpdateProfileAccount();
 
   if (loading && !userInfo) {
     return (
@@ -36,6 +38,20 @@ export function BasicInfoDescriptions(props: {
   }
 
   const u = userInfo;
+
+  const handleAvatarChange = async (info: {
+    file: { status?: string; response?: { data?: { path?: string } } };
+  }) => {
+    if (info.file.status === "done" && info.file.response?.data?.path) {
+      const avatarUrl = info.file.response.data.path as string;
+      try {
+        await updateAvatar({ avatar: avatarUrl });
+        message.success("头像更新成功");
+      } catch (e) {
+        message.error(e instanceof Error ? e.message : "更新失败");
+      }
+    }
+  };
 
   return (
     <Descriptions
@@ -51,6 +67,42 @@ export function BasicInfoDescriptions(props: {
         content: { wordBreak: "break-word" },
       }}
     >
+      <Descriptions.Item label="头像" span={2}>
+        <Upload
+          showUploadList={false}
+          action="/api/upload"
+          name="file"
+          headers={{
+            authorization:
+              "bearer " +
+              (typeof localStorage !== "undefined" ? (localStorage.getItem("token") ?? "") : ""),
+          }}
+          listType="picture-card"
+          maxCount={1}
+          withCredentials
+          onChange={handleAvatarChange}
+          fileList={
+            u?.avatar
+              ? [{ uid: "-1", name: "avatar", status: "done", url: u.avatar, thumbUrl: u.avatar }]
+              : []
+          }
+        >
+          <div
+            style={{
+              width: 64,
+              height: 64,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              gap: 4,
+            }}
+          >
+            {isUpdating ? <Spin size="small" /> : <span style={{ fontSize: 20 }}>+</span>}
+            <span style={{ fontSize: 12 }}>更换</span>
+          </div>
+        </Upload>
+      </Descriptions.Item>
       <Descriptions.Item label="用户名">{fmt(u?.name)}</Descriptions.Item>
       <Descriptions.Item label="昵称">{fmt(u?.nickname)}</Descriptions.Item>
       <Descriptions.Item label="邮箱">{fmt(u?.email)}</Descriptions.Item>

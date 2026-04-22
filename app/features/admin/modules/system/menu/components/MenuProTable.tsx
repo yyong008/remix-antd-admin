@@ -258,11 +258,18 @@ export function MenuProTable(props: SystemMenuProps) {
 
   return (
     <Spin spinning={props.loading}>
-      <div style={{ display: "flex", gap: 12 }}>
+      <div style={{ display: "flex", gap: 12, alignItems: "stretch" }}>
         <Card
           variant="borderless"
-          style={{ width: 360, flexShrink: 0, boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
-          styles={{ body: { paddingBlock: 12 } }}
+          style={{
+            width: 480,
+            flexShrink: 0,
+            alignSelf: "stretch",
+            boxShadow: "0 1px 2px rgba(0,0,0,0.06)",
+          }}
+          styles={{
+            body: { paddingBlock: 12, display: "flex", flexDirection: "column", height: "100%" },
+          }}
           title={
             <span style={{ color: "var(--ant-color-text-heading)", fontWeight: 600 }}>
               目录结构
@@ -293,7 +300,7 @@ export function MenuProTable(props: SystemMenuProps) {
           ) : (
             <div
               style={{
-                maxHeight: Math.min(720, window.innerHeight * 0.68),
+                flex: 1,
                 overflow: "auto",
                 paddingRight: 4,
               }}
@@ -317,8 +324,10 @@ export function MenuProTable(props: SystemMenuProps) {
 
         <Card
           variant="borderless"
-          style={{ flex: 1, boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
-          styles={{ body: { paddingBlock: 12 } }}
+          style={{ flex: 1, alignSelf: "stretch", boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }}
+          styles={{
+            body: { paddingBlock: 12, display: "flex", flexDirection: "column", height: "100%" },
+          }}
           title={
             <span style={{ color: "var(--ant-color-text-heading)", fontWeight: 600 }}>
               节点详情

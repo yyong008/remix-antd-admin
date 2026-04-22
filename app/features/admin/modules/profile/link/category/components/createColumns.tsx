@@ -25,7 +25,10 @@ export function createColumns({
                 编辑
               </span>
             ),
-            onClick: () => onUpdate(record),
+            onClick: (e) => {
+              e.domEvent.stopPropagation();
+              onUpdate(record);
+            },
           },
           {
             key: "delete",
@@ -35,7 +38,10 @@ export function createColumns({
                 删除
               </span>
             ),
-            onClick: () => onDelete(record),
+            onClick: (e) => {
+              e.domEvent.stopPropagation();
+              onDelete(record);
+            },
           },
         ];
         return (
@@ -46,7 +52,6 @@ export function createColumns({
               justifyContent: "space-between",
               paddingRight: 8,
             }}
-            onClick={(e) => e.stopPropagation()}
           >
             <span style={{ fontWeight: 500 }}>{record.name}</span>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -54,7 +59,12 @@ export function createColumns({
                 {typeof record.linkCount === "number" ? record.linkCount : 0}
               </Tag>
               <Dropdown menu={{ items }} trigger={["click"]}>
-                <span style={{ cursor: "pointer", fontSize: 16, padding: "0 4px" }}>⋮</span>
+                <span
+                  style={{ cursor: "pointer", fontSize: 16, padding: "0 4px" }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  ⋮
+                </span>
               </Dropdown>
             </div>
           </div>

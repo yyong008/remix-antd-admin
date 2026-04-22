@@ -5,6 +5,7 @@ import { requirePermission } from "~/api/middleware/rbac";
 import { createProfileAccountDAL } from "~/dals/profile/ProfileAccountDAL";
 import { createProfileLinkCategoryDAL } from "~/dals/profile/ProfileLinkCategoryDAL";
 import { createProfileLinkDAL } from "~/dals/profile/ProfileLinkDAL";
+import { createUserDAL } from "~/dals/system/user";
 import { getSearchParams, getSearchParamsPage, getSearchParamsPageSize } from "~/utils/server";
 import { rfj, rsj } from "~/utils/server/response-json";
 import { getD1Db } from "~/api/helpers/d1";
@@ -35,8 +36,23 @@ profileRouter.post("/profile/account", requirePermission("profile:account:read")
   return rfj({}, "Unsupport", { status: 501 });
 });
 
-profileRouter.put("/profile/account", requirePermission("profile:account:read"), async () => {
-  return rfj({}, "Unsupport", { status: 501 });
+profileRouter.put("/profile/account", requirePermission("profile:account:read"), async (c) => {
+  try {
+    const db = getD1Db(c);
+    const userDAL = createUserDAL(db);
+    const userId = c.get("userId");
+    if (!userId) {
+      return rfj({}, "No Authorization No User", { status: 401 });
+    }
+    const dto = await c.req.json();
+    const result = await userDAL.update({
+      id: userId,
+      avatar: dto.avatar,
+    });
+    return rsj(result);
+  } catch (error) {
+    return rfjFromCatch(error);
+  }
 });
 
 profileRouter.delete("/profile/account", requirePermission("profile:account:read"), async () => {

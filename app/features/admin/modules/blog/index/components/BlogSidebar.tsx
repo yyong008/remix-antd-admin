@@ -152,8 +152,9 @@ export function BlogSidebar({
     <Tabs
       activeKey={activeTab}
       onChange={setActiveTab}
-      tabPlacement="left"
+      // tabPlacement="left"
       style={{ height: "100%" }}
+      type="card"
       tabBarStyle={{ marginBottom: 0 }}
       items={[
         {
@@ -166,7 +167,7 @@ export function BlogSidebar({
                   refetch={refetchCategories}
                   trigger={
                     <Button type="primary" size="small">
-                      + 新建
+                      + 新建分类
                     </Button>
                   }
                 />
@@ -260,7 +261,7 @@ export function BlogSidebar({
                   refetch={refetchTags}
                   trigger={
                     <Button type="primary" size="small">
-                      + 新建
+                      + 新建标签
                     </Button>
                   }
                 />

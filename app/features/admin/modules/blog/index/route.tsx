@@ -146,7 +146,7 @@ export function Route() {
           flex: 1,
           alignItems: "stretch",
           gap: 16,
-          gridTemplateColumns: "280px 1fr",
+          gridTemplateColumns: "320px 1fr",
         }}
       >
         <Card size="small" styles={{ body: { height: "100%", padding: 0 } }}>

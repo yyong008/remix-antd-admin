@@ -1,6 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getApiClient } from "~/api-client";
+import { parseRsj } from "~/api-client/parse-rsj";
 
 export const profileAccountKeys = {
   info: ["profile-account", "info"] as const,
@@ -11,7 +12,24 @@ export function useProfileAccount() {
     queryKey: profileAccountKeys.info,
     queryFn: async () => {
       const res = await getApiClient().api.admin.profile.account.$get();
-      return res.json();
+      return parseRsj(res);
+    },
+  });
+}
+
+export function useUpdateProfileAccount() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: { avatar?: string }) => {
+      const res = await getApiClient().api.admin.profile.account.$put({
+        json: data,
+      });
+      /** PUT /api/admin/profile/account returns rsj-wrapped user object */
+      return parseRsj<{ id: string; avatar: string }>(res);
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: profileAccountKeys.info });
+      void queryClient.invalidateQueries({ queryKey: ["system-user", "info"] });
     },
   });
 }

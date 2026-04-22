@@ -124,8 +124,8 @@ export function Route() {
         {/* Blog List */}
         {blogLoading ? (
           <Row gutter={[16, 16]}>
-            {[...Array(6)].map((_, i) => (
-              <Col key={i} xs={24} sm={12} lg={8}>
+            {[...Array(8)].map((_, i) => (
+              <Col key={i} xs={24} sm={12} lg={6}>
                 <Card
                   style={{
                     background: "var(--mkt-surface)",
@@ -155,7 +155,7 @@ export function Route() {
           <>
             <Row gutter={[16, 16]}>
               {paginatedBlogs.map((b) => (
-                <Col key={b.id} xs={24} sm={12} lg={8}>
+                <Col key={b.id} xs={24} sm={12} lg={6}>
                   <Link to={`/blog/${b.id}`} style={{ textDecoration: "none" }}>
                     <BlogItem data={b} />
                   </Link>
