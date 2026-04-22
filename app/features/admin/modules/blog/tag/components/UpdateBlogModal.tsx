@@ -1,57 +1,54 @@
 import { Button, Form, Modal, message } from "antd";
-import { useState } from "react";
 
 import { EditOutlined } from "@ant-design/icons";
+import { useUpdateBlogTag } from "~/api-client/queries/blog-tag";
 import { ModalFormItems } from "./ModalFormItems";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 
-export function UpdateBlogModal({ refetch, record }: any) {
-  const [createBlogTag] = [(...args: any): any => {}];
-  const [open, setOpen] = useState(false);
+export function UpdateBlogModal({ refetch, record, open, onClose }: any) {
   const [form] = Form.useForm();
   const { colorPrimary } = useColorPrimary();
+  const { mutateAsync: updateTag } = useUpdateBlogTag();
+
+  const handleClose = () => {
+    form.resetFields();
+    onClose?.();
+  };
+
   return (
-    <>
-      <Button
-        type={"link"}
-        icon={<EditOutlined style={{ color: colorPrimary }} />}
-        onClick={() => setOpen(true)}
-      ></Button>
-      <Modal
-        title="修改标签"
-        open={open}
-        onCancel={() => {
-          setOpen(false);
-          form.resetFields();
-        }}
-        footer={null}
-        destroyOnHidden
-      >
-        <Form
-          form={form}
-          layout="vertical"
-          initialValues={record}
-          onFinish={async (values: any) => {
-            const result = await createBlogTag(values);
-            if (result.data.code !== 0) {
-              message.error(result.data.message);
+    <Modal title="修改标签" open={open} onCancel={handleClose} footer={null} destroyOnHidden>
+      <Form
+        form={form}
+        layout="vertical"
+        initialValues={record}
+        onFinish={async (values: any) => {
+          try {
+            const result = (await updateTag({ id: record.id, ...values })) as {
+              code?: number;
+              message?: string;
+            };
+            if (result.code !== 0) {
+              message.error(result.message ?? "修改失败");
               return false;
             }
-            message.success(result.data.message);
+            message.success("修改成功");
             form.resetFields();
-            setOpen(false);
-            refetch();
+            refetch?.();
+            handleClose();
             return true;
-          }}
-        >
-          <ModalFormItems />
-          <Form.Item style={{ marginTop: 16 }}>
-            <Button type="primary" htmlType="submit">
-              提交
-            </Button>
-          </Form.Item>
-        </Form>
-      </Modal>
-    </>
+          } catch (e) {
+            message.error(e instanceof Error ? e.message : "修改失败");
+            return false;
+          }
+        }}
+      >
+        <ModalFormItems />
+        <Form.Item style={{ marginTop: 16 }}>
+          <Button type="primary" htmlType="submit">
+            提交
+          </Button>
+        </Form.Item>
+      </Form>
+    </Modal>
   );
 }

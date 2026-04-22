@@ -1,8 +1,12 @@
 import { Flex, Typography } from "antd";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { href, useNavigate, useParams } from "react-router";
 
-import { AiChatConversation, AiChatLoading } from "./AiChatConversation";
+import { AiChatLoading } from "./AiChatConversation";
+
+const AiChatConversation = lazy(() =>
+  import("./AiChatConversation").then((m) => ({ default: m.AiChatConversation })),
+);
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -81,7 +85,9 @@ export function Route() {
       {!chatId ? (
         <AiChatLoading />
       ) : (
-        <AiChatConversation chatId={chatId} style={{ minHeight: 480 }} gap={16} />
+        <Suspense fallback={<AiChatLoading />}>
+          <AiChatConversation chatId={chatId} style={{ minHeight: 480 }} gap={16} />
+        </Suspense>
       )}
     </Flex>
   );

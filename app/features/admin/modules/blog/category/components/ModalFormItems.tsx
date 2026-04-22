@@ -1,4 +1,4 @@
-import { Form, Input } from "antd";
+import { Form, Input, Switch } from "antd";
 
 export function ModalFormItems() {
   return (
@@ -17,7 +17,7 @@ export function ModalFormItems() {
       </Form.Item>
       <Form.Item
         name="description"
-        label="标签描述"
+        label="分类描述"
         rules={[
           {
             required: false,
@@ -26,6 +26,14 @@ export function ModalFormItems() {
         ]}
       >
         <Input.TextArea placeholder="请输入" />
+      </Form.Item>
+      <Form.Item
+        name="showOnClient"
+        label="在客户端展示"
+        valuePropName="checked"
+        initialValue={true}
+      >
+        <Switch checkedChildren="展示" unCheckedChildren="隐藏" />
       </Form.Item>
     </>
   );

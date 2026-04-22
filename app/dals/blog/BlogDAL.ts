@@ -3,7 +3,20 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 import { blogs } from "db/schema";
 
 export function createBlogDAL(db: DrizzleD1Database) {
-  async function getCount() {
+  async function getCount(data: any = {}) {
+    const { userId, categoryId, tagId } = data;
+    const conditions = [] as any[];
+    if (userId !== undefined) conditions.push(eq(blogs.userId, userId));
+    if (tagId) conditions.push(eq(blogs.tagId, tagId));
+    if (categoryId) conditions.push(eq(blogs.categoryId, categoryId));
+
+    if (conditions.length) {
+      const rows = await db
+        .select({ count: count() })
+        .from(blogs)
+        .where(and(...conditions));
+      return rows[0]?.count ?? 0;
+    }
     const rows = await db.select({ count: count() }).from(blogs);
     return rows[0]?.count ?? 0;
   }
@@ -39,12 +52,13 @@ export function createBlogDAL(db: DrizzleD1Database) {
     return await db.select().from(blogs).where(eq(blogs.categoryId, categoryId));
   }
 
-  async function getListByIds(data: any): Promise<any> {
-    const { userId, categoryId, tagId, page, pageSize } = data;
+  /** Admin blog list - no userId filter, show all */
+  async function getAdminList(data: any): Promise<any> {
+    const { categoryId, tagId, page, pageSize } = data;
     const conditions = [] as any[];
-    if (userId !== undefined) conditions.push(eq(blogs.userId, userId));
-    if (tagId) conditions.push(eq(blogs.tagId, tagId));
-    if (categoryId) conditions.push(eq(blogs.categoryId, categoryId));
+    if (tagId && tagId !== "0" && tagId !== 0) conditions.push(eq(blogs.tagId, tagId));
+    if (categoryId && categoryId !== "0" && categoryId !== 0)
+      conditions.push(eq(blogs.categoryId, categoryId));
 
     let query = db.select().from(blogs);
     if (conditions.length) {
@@ -54,6 +68,25 @@ export function createBlogDAL(db: DrizzleD1Database) {
         .offset((page - 1) * pageSize);
     }
     return await query.limit(pageSize).offset((page - 1) * pageSize);
+  }
+
+  /** Admin blog count - no userId filter */
+  async function getAdminCount(data: any): Promise<number> {
+    const { categoryId, tagId } = data;
+    const conditions = [] as any[];
+    if (tagId && tagId !== "0" && tagId !== 0) conditions.push(eq(blogs.tagId, tagId));
+    if (categoryId && categoryId !== "0" && categoryId !== 0)
+      conditions.push(eq(blogs.categoryId, categoryId));
+
+    if (conditions.length) {
+      const rows = await db
+        .select({ count: count() })
+        .from(blogs)
+        .where(and(...conditions));
+      return rows[0]?.count ?? 0;
+    }
+    const rows = await db.select({ count: count() }).from(blogs);
+    return rows[0]?.count ?? 0;
   }
 
   async function getPublicList(): Promise<any> {
@@ -73,7 +106,8 @@ export function createBlogDAL(db: DrizzleD1Database) {
     deleteByIds,
     getAll,
     getListByCategoryId,
-    getListByIds,
+    getAdminList,
+    getAdminCount,
     getPublicList,
     getById,
   };

@@ -48,7 +48,7 @@ export function CreateBlogCategoryModal({
           form.resetFields();
         }}
         footer={null}
-        destroyOnClose
+        destroyOnHidden
       >
         <Form
           form={form}

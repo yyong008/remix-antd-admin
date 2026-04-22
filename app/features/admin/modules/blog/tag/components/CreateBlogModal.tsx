@@ -37,7 +37,7 @@ export function CreateBlogModal({
           form.resetFields();
         }}
         footer={null}
-        destroyOnClose
+        destroyOnHidden
       >
         <Form
           form={form}

@@ -64,19 +64,12 @@ export function Route() {
     value: t.id,
   }));
 
-  const handleSubmit = async (values: Record<string, unknown>) => {
-    if (isQuillBodyEmpty(content)) {
-      message.warning("请先在下方编辑器中填写文章正文");
-      return false;
-    }
-
-    const result = (await createBlog.mutateAsync({
-      ...values,
-      content,
-      publishedAt: values.publishedAt
-        ? new Date(values.publishedAt as string).toISOString()
-        : new Date().toISOString(),
-    })) as { code?: number; message?: string; data?: { id?: string } };
+  const createBlogHandler = async (values: Record<string, unknown>) => {
+    const result = (await createBlog.mutateAsync(values)) as {
+      code?: number;
+      message?: string;
+      data?: { id?: string };
+    };
 
     if (result.code !== 0) {
       message.error(result.message ?? "保存失败");
@@ -87,6 +80,23 @@ export function Route() {
       state: { title: values.title, id: result.data?.id },
     });
     return true;
+  };
+
+  const handleSubmit = async (values: Record<string, unknown>) => {
+    if (isQuillBodyEmpty(content)) {
+      message.warning("请先在下方编辑器中填写文章正文");
+      return false;
+    }
+
+    const payload = {
+      ...values,
+      content,
+      publishedAt: values.publishedAt
+        ? new Date(values.publishedAt as string).toISOString()
+        : new Date().toISOString(),
+    };
+
+    return createBlogHandler(payload);
   };
 
   return (
@@ -119,11 +129,16 @@ export function Route() {
         open={open}
         onClose={() => setOpen(false)}
         width={520}
-        styles={{ body: { overflow: "hidden" } }}
-        extra={
-          <Space>
+        footer={
+          <Space style={{ width: "100%", justifyContent: "flex-end" }}>
             <Button onClick={() => setOpen(false)}>取消</Button>
-            <Button type="primary" loading={createBlog.isPending} onClick={() => form.submit()}>
+            <Button
+              type="primary"
+              loading={createBlog.isPending}
+              onClick={() => {
+                form.submit();
+              }}
+            >
               保存
             </Button>
           </Space>

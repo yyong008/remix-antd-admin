@@ -22,7 +22,7 @@ blogRouter.get("/category", async (c) => {
   try {
     const db = getD1Db(c);
     const blogCategoryDAL = createBlogCategoryDAL(db);
-    const list = await blogCategoryDAL.getAll();
+    const list = await blogCategoryDAL.getPublicList();
     return rsj({ total: list.length, list });
   } catch (error) {
     return c.json({ code: 500, msg: String(error) }, 500);

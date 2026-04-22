@@ -1,7 +1,7 @@
 import "quill/dist/quill.snow.css";
 import "./layout.css";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 import { ClientOnly } from "remix-utils/client-only";
 
@@ -11,10 +11,14 @@ const Q = async () => {
 };
 
 export const Editor = ({ value, onChange, content, setContent, initContent }: any) => {
-  const editorRef = useRef<any>(null);
-  const quillRef = useRef<any>();
+  const editorRef = useRef<HTMLDivElement>(null);
+  const quillRef = useRef<any>(null);
+  const isInitRef = useRef(false);
 
-  const initEditor = async () => {
+  const initEditor = useCallback(async () => {
+    if (isInitRef.current || !editorRef.current) return;
+    isInitRef.current = true;
+
     const Quill = await Q();
     quillRef.current = new Quill(editorRef.current, {
       theme: "snow",
@@ -42,18 +46,11 @@ export const Editor = ({ value, onChange, content, setContent, initContent }: an
     });
 
     return quillRef;
-  };
+  }, [initContent, content, onChange, setContent]);
 
   useEffect(() => {
-    if (!quillRef.current) {
-      initEditor();
-    }
-
-    return () => {
-      quillRef.current?.off("text-change");
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    initEditor();
+  }, [initEditor]);
 
   return (
     <div className="rr-quill-snow">

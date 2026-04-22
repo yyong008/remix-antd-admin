@@ -36,6 +36,13 @@
       "when": 1776855239682,
       "tag": "0004_sad_the_hand",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1776862728432,
+      "tag": "0005_greedy_caretaker",
+      "breakpoints": true
     }
   ]
 }

@@ -40,6 +40,10 @@ export function createBlogCategoryDAL(db: DrizzleD1Database) {
     return await db.select().from(blogCategories);
   }
 
+  async function getPublicList() {
+    return await db.select().from(blogCategories).where(eq(blogCategories.showOnClient, true));
+  }
+
   async function getListWithBlog() {
     return await db
       .select()
@@ -55,6 +59,7 @@ export function createBlogCategoryDAL(db: DrizzleD1Database) {
     getListByUserId,
     getById,
     getAll,
+    getPublicList,
     getListWithBlog,
   };
 }

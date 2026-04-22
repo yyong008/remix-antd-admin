@@ -9,6 +9,7 @@ export const blogCategories = sqliteTable("blog_category", {
     .primaryKey(),
   name: text("name").notNull().unique(),
   description: text("description"),
+  showOnClient: integer("show_on_client", { mode: "boolean" }).notNull().default(true),
   createdAt: integer("created_at", { mode: "timestamp_ms" })
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),

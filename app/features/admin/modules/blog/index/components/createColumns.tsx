@@ -1,6 +1,13 @@
 import { Button, Dropdown, Modal, type MenuProps } from "antd";
-import { EyeOutlined, EditOutlined, MoreOutlined, DeleteOutlined } from "@ant-design/icons";
-import { useDeleteBlog } from "~/api-client/queries/blog";
+import {
+  EyeOutlined,
+  EditOutlined,
+  MoreOutlined,
+  DeleteOutlined,
+  ExportOutlined,
+  ImportOutlined,
+} from "@ant-design/icons";
+import { useDeleteBlog, useUpdateBlog } from "~/api-client/queries/blog";
 import { FormatTime } from "~/components/common";
 
 function BlogActionsCell({
@@ -13,6 +20,34 @@ function BlogActionsCell({
   locale?: string;
 }) {
   const { mutateAsync: deleteBlog, isPending: isDeleting } = useDeleteBlog();
+  const { mutateAsync: updateBlog, isPending: isUpdating } = useUpdateBlog();
+
+  const handleTogglePublish = () => {
+    Modal.confirm({
+      title: record.isPublished ? "确定要下架该文章吗？" : "确定要发布该文章吗？",
+      okText: "确认",
+      cancelText: "取消",
+      async onOk() {
+        try {
+          const result = (await updateBlog({
+            id: record.id,
+            isPublished: !record.isPublished,
+          })) as {
+            code?: number;
+            message?: string;
+          };
+          if (result.code !== 0) {
+            Modal.error({ title: result.message ?? "操作失败" });
+            return;
+          }
+          refetch?.();
+          Modal.success({ title: record.isPublished ? "下架成功" : "发布成功" });
+        } catch (e) {
+          Modal.error({ title: e instanceof Error ? e.message : "操作失败" });
+        }
+      },
+    });
+  };
 
   const handleDelete = () => {
     Modal.confirm({
@@ -60,6 +95,13 @@ function BlogActionsCell({
       onClick: () => {
         window.location.href = `/${locale || ""}/admin/blog/edit/${record.id}`.replace(/\/+/g, "/");
       },
+    },
+    {
+      key: "togglePublish",
+      icon: record.isPublished ? <ExportOutlined /> : <ImportOutlined />,
+      label: record.isPublished ? "下架" : "发布",
+      disabled: isUpdating,
+      onClick: handleTogglePublish,
     },
     {
       type: "divider",

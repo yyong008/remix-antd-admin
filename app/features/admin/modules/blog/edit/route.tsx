@@ -12,9 +12,9 @@ import {
   Switch,
 } from "antd";
 import { PageContainer } from "@/components/page-container";
-import { useParams } from "react-router";
+import { href, useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
-import { useBlogById, useUpdateBlog } from "~/api-client/queries/blog";
+import { useBlogById, useCreateBlog, useUpdateBlog } from "~/api-client/queries/blog";
 import { useBlogCategoryList } from "~/api-client/queries/blog-category";
 import { useBlogTagList } from "~/api-client/queries/blog-tag";
 import { QuillEditor } from "@/components/common/quill-editor";
@@ -27,13 +27,16 @@ function isQuillBodyEmpty(html: string): boolean {
 }
 
 export function Route() {
+  const { locale } = useParams();
   const { id } = useParams();
   const isEditMode = Boolean(id);
+  const nav = useNavigate();
 
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm();
   const [content, setContent] = useState("");
 
+  const createBlog = useCreateBlog();
   const updateBlog = useUpdateBlog();
   const { data: categoryList, isLoading: catLoading } = useBlogCategoryList({
     page: 1,
@@ -85,30 +88,57 @@ export function Route() {
     width: "100%" as const,
   };
 
+  const createBlogHandler = async (values: Record<string, unknown>) => {
+    const result = (await createBlog.mutateAsync(values)) as {
+      code?: number;
+      message?: string;
+      data?: { id?: string };
+    };
+
+    if (result.code !== 0) {
+      message.error(result.message ?? "保存失败");
+      return false;
+    }
+    message.success("保存成功");
+    nav(href("/:locale?/admin/blog/result", { locale }), {
+      state: { title: values.title, id: result.data?.id },
+    });
+    return true;
+  };
+
+  const updateBlogHandler = async (id: string, values: Record<string, unknown>) => {
+    const result = (await updateBlog.mutateAsync({ id, ...values })) as {
+      code?: number;
+      message?: string;
+    };
+
+    if (result.code !== 0) {
+      message.error(result.message ?? "更新失败");
+      return false;
+    }
+    message.success("更新成功");
+    return true;
+  };
+
   const handleSubmit = async (values: Record<string, unknown>) => {
     if (isQuillBodyEmpty(content)) {
       message.warning("请先在下方编辑器中填写文章正文");
       return false;
     }
 
-    if (isEditMode && id) {
-      const result = (await updateBlog.mutateAsync({
-        id,
-        ...values,
-        content,
-        publishedAt: values.publishedAt
-          ? new Date(values.publishedAt as string).toISOString()
-          : new Date().toISOString(),
-      })) as { code?: number; message?: string };
+    const payload = {
+      ...values,
+      content,
+      publishedAt: values.publishedAt
+        ? new Date(values.publishedAt as string).toISOString()
+        : new Date().toISOString(),
+    };
 
-      if (result.code !== 0) {
-        message.error(result.message ?? "更新失败");
-        return false;
-      }
-      message.success("更新成功");
-      return true;
+    if (isEditMode && id) {
+      return updateBlogHandler(id, payload);
+    } else {
+      return createBlogHandler(payload);
     }
-    return false;
   };
 
   return (
@@ -143,15 +173,6 @@ export function Route() {
         open={open}
         onClose={() => setOpen(false)}
         width={520}
-        styles={{ body: { overflow: "hidden" } }}
-        extra={
-          <Space>
-            <Button onClick={() => setOpen(false)}>取消</Button>
-            <Button type="primary" loading={updateBlog.isPending} onClick={() => form.submit()}>
-              {isEditMode ? "保存" : "发布"}
-            </Button>
-          </Space>
-        }
       >
         <Form
           form={form}
@@ -196,6 +217,30 @@ export function Route() {
           </Form.Item>
           <Form.Item label="是否发布" name="isPublished" valuePropName="checked">
             <Switch checkedChildren="发布" unCheckedChildren="草稿" />
+          </Form.Item>
+          <Form.Item style={{ marginTop: 16 }}>
+            <Space>
+              <Button onClick={() => setOpen(false)}>取消</Button>
+              <Button
+                type="primary"
+                loading={createBlog.isPending || updateBlog.isPending}
+                onClick={() => {
+                  form
+                    .validateFields()
+                    .then(async (values) => {
+                      const result = await handleSubmit(values);
+                      if (result) {
+                        setOpen(false);
+                      }
+                    })
+                    .catch((err) => {
+                      console.log("Validation failed:", err);
+                    });
+                }}
+              >
+                {isEditMode ? "保存" : "发布"}
+              </Button>
+            </Space>
           </Form.Item>
         </Form>
       </Drawer>

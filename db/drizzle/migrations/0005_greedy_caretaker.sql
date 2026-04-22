@@ -1,0 +1,1 @@
+ALTER TABLE `blog_category` ADD `show_on_client` integer DEFAULT true NOT NULL;

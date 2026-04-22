@@ -22,11 +22,13 @@ blogRouter.get("/", requirePermission("blog:list:read", "blog:detail:read"), asy
     const tagId = getSearchParams(req, "tagId");
     const db = getD1Db(c);
     const blogDAL = createBlogDAL(db);
-    const total = await blogDAL.getCount();
-    const list = await blogDAL.getListByIds({
+    const total = await blogDAL.getAdminCount({
+      categoryId: categoryId || undefined,
+      tagId: tagId || undefined,
+    });
+    const list = await blogDAL.getAdminList({
       page,
       pageSize,
-      userId,
       categoryId: categoryId || undefined,
       tagId: tagId || undefined,
     });
@@ -299,12 +301,10 @@ blogRouter.put("/:id", requirePermission("blog:detail:read", "blog:list:read"), 
     const dto = await c.req.json();
     const db = getD1Db(c);
     const blogDAL = createBlogDAL(db);
-    const result = await blogDAL.update({
-      ...dto,
-      id,
-      publishedAt: new Date(dto.publishedAt),
-      userId,
-    });
+    const updateData: any = { ...dto, id };
+    if (dto.publishedAt) updateData.publishedAt = new Date(dto.publishedAt);
+    updateData.userId = userId;
+    const result = await blogDAL.update(updateData);
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);

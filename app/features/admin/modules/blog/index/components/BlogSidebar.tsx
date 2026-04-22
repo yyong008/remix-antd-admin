@@ -12,11 +12,16 @@ import {
 import { MoreOutlined } from "@ant-design/icons";
 import { useMemo, useState } from "react";
 
-import { useBlogCategoryList, useDeleteBlogCategory } from "~/api-client/queries/blog-category";
-import { useBlogTagList, useDeleteBlogTag } from "~/api-client/queries/blog-tag";
+import {
+  useBlogCategoryList,
+  useDeleteBlogCategory,
+  useUpdateBlogCategory,
+} from "~/api-client/queries/blog-category";
+import { useBlogTagList, useDeleteBlogTag, useUpdateBlogTag } from "~/api-client/queries/blog-tag";
 import { CreateBlogCategoryModal } from "../../category/components/CreateBlogCategoryModal";
 import { CreateBlogModal } from "../../tag/components/CreateBlogModal";
 import { UpdateBlogCategoryModal } from "../../category/components/UpdateBlogCategoryModal";
+import { UpdateBlogModal } from "../../tag/components/UpdateBlogModal";
 
 function CategoryActionsCell({ cat, refetch }: { cat: any; refetch: () => void }) {
   const [editOpen, setEditOpen] = useState(false);
@@ -53,7 +58,6 @@ function CategoryActionsCell({ cat, refetch }: { cat: any; refetch: () => void }
         <Button type="text" size="small" icon={<MoreOutlined />} />
       </Dropdown>
       <UpdateBlogCategoryModal
-        trigger={<></>}
         record={cat}
         refetch={refetch}
         open={editOpen}
@@ -64,6 +68,7 @@ function CategoryActionsCell({ cat, refetch }: { cat: any; refetch: () => void }
 }
 
 function TagActionsCell({ tag, refetch }: { tag: any; refetch: () => void }) {
+  const [editOpen, setEditOpen] = useState(false);
   const { mutateAsync: deleteTag, isPending: isDeleting } = useDeleteBlogTag();
 
   const handleDelete = () => {
@@ -86,13 +91,23 @@ function TagActionsCell({ tag, refetch }: { tag: any; refetch: () => void }) {
   };
 
   const items: MenuProps["items"] = [
+    { key: "edit", label: "编辑", onClick: () => setEditOpen(true) },
+    { type: "divider" as const },
     { key: "delete", label: "删除", danger: true, disabled: isDeleting, onClick: handleDelete },
   ];
 
   return (
-    <Dropdown menu={{ items }} trigger={["click"]}>
-      <Button type="text" size="small" icon={<MoreOutlined />} />
-    </Dropdown>
+    <>
+      <Dropdown menu={{ items }} trigger={["click"]}>
+        <Button type="text" size="small" icon={<MoreOutlined />} />
+      </Dropdown>
+      <UpdateBlogModal
+        record={tag}
+        refetch={refetch}
+        open={editOpen}
+        onClose={() => setEditOpen(false)}
+      />
+    </>
   );
 }
 
@@ -137,7 +152,7 @@ export function BlogSidebar({
     <Tabs
       activeKey={activeTab}
       onChange={setActiveTab}
-      tabPosition="left"
+      tabPlacement="left"
       style={{ height: "100%" }}
       tabBarStyle={{ marginBottom: 0 }}
       items={[
