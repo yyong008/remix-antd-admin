@@ -20,11 +20,8 @@ export function createConfigDAL(db: DrizzleD1Database) {
       (globalThis.crypto?.randomUUID
         ? globalThis.crypto.randomUUID()
         : `${Date.now()}-${Math.random().toString(36).slice(2)}`);
-    const created = await db
-      .insert(sysConfig)
-      .values({ ...data, id })
-      .returning();
-    return created[0];
+    await db.insert(sysConfig).values({ ...data, id });
+    return { id, ...data };
   }
 
   async function update(data: any) {
