@@ -1,8 +1,8 @@
-import { useMemo, useState } from "react";
-import { Button, Card, Flex, Input, Space, Statistic, Typography } from "antd";
-import { CloudOutlined, ReloadOutlined, SearchOutlined } from "@ant-design/icons";
+import React, { useMemo, useState } from "react";
+import { Button, Card, Flex, Input, message, Space, Statistic, Typography } from "antd";
+import { CloudOutlined, DeleteOutlined, ReloadOutlined, SearchOutlined } from "@ant-design/icons";
 
-import { useToolsStorageList } from "~/api-client/queries/tools-storage";
+import { useDeleteToolsStorage, useToolsStorageList } from "~/api-client/queries/tools-storage";
 import { AdminTable } from "~/components/admin-table";
 import { PageContainer } from "~/components/page-container";
 import { StorageModal } from "./components/StorageModal/StorageModal";
@@ -11,8 +11,10 @@ import { createColumns } from "./components/createColumns";
 export function Route() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState({ page: 1, pageSize: 15 });
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
   const { data, isLoading, refetch } = useToolsStorageList(page);
+  const { mutateAsync: deleteStorage, isPending: isDeleting } = useDeleteToolsStorage();
   const result = (data as any)?.data ?? { list: [], total: 0 };
 
   const filteredList = useMemo(() => {
@@ -43,6 +45,25 @@ export function Route() {
     const start = (page.page - 1) * page.pageSize;
     return filteredList.slice(start, start + page.pageSize);
   }, [filteredList, page.page, page.pageSize]);
+
+  const handleBatchDelete = () => {
+    if (!selectedRowKeys.length) return;
+    Modal.confirm({
+      title: `确定要删除选中的 ${selectedRowKeys.length} 个文件吗？`,
+      okText: "确认",
+      cancelText: "取消",
+      async onOk() {
+        try {
+          await deleteStorage({ ids: selectedRowKeys as number[] });
+          setSelectedRowKeys([]);
+          refetch();
+          message.success("删除成功");
+        } catch (e) {
+          message.error(e instanceof Error ? e.message : "删除失败");
+        }
+      },
+    });
+  };
 
   return (
     <PageContainer
@@ -95,6 +116,17 @@ export function Route() {
           }
           extra={
             <Flex gap={8}>
+              {selectedRowKeys.length > 0 && (
+                <Button
+                  danger
+                  type="primary"
+                  icon={<DeleteOutlined />}
+                  loading={isDeleting}
+                  onClick={handleBatchDelete}
+                >
+                  批量删除 ({selectedRowKeys.length})
+                </Button>
+              )}
               <Button
                 icon={<ReloadOutlined />}
                 onClick={() => {
@@ -124,6 +156,10 @@ export function Route() {
               loading={isLoading}
               options={false}
               dataSource={displayedList}
+              rowSelection={{
+                selectedRowKeys,
+                onChange: setSelectedRowKeys,
+              }}
               pagination={{
                 total: filteredList.length,
                 current: page.page,

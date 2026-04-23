@@ -80,7 +80,6 @@ export function AdminShellLayout(props: AdminShellLayoutProps) {
       const match = handleMatches.breadcrumb[i];
       items.push({ title: match.label });
     }
-    console.log(items, handleMatches);
     return items;
   }, [handleMatches, dashboardHref]);
 

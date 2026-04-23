@@ -5,7 +5,7 @@ import {
   LinkOutlined,
   MoreOutlined,
 } from "@ant-design/icons";
-import { Button, Dropdown, Modal, type MenuProps } from "antd";
+import { Button, Dropdown, message, Modal, type MenuProps } from "antd";
 import { useDeleteToolsStorage } from "~/api-client/queries/tools-storage";
 
 export function StorageActionsCell({ record, refetch }: { record: any; refetch?: () => void }) {
@@ -20,9 +20,9 @@ export function StorageActionsCell({ record, refetch }: { record: any; refetch?:
         try {
           await deleteStorage({ ids: [record.id] });
           refetch?.();
-          Modal.success({ title: "删除成功" });
+          message.success("删除成功");
         } catch (e) {
-          Modal.error({ title: e instanceof Error ? e.message : "删除失败" });
+          message.error(e instanceof Error ? e.message : "删除失败");
         }
       },
     });

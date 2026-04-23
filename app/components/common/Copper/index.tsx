@@ -17,6 +17,8 @@ type CropperProps = {
   initialHeight?: number;
 };
 
+const FILE_HINTS = "支持 JPG、PNG、GIF、WebP，最大 2MB";
+
 export function Cropper({
   open = true,
   onOk,
@@ -46,9 +48,11 @@ export function Cropper({
       const displayedHeight = el.height;
       if (!displayedWidth || !displayedHeight) return;
 
-      const maxSide = Math.min(initialWidth, initialHeight, displayedWidth, displayedHeight);
-      const initW = maxSide;
-      const initH = maxSide;
+      // 以较短边为基准，确保选框不超过图片范围
+      const shorterSide = Math.min(displayedWidth, displayedHeight);
+      // 初始选框占图片较短边的 80%
+      const initW = Math.round(shorterSide * 0.8);
+      const initH = circular ? initW : Math.round(initW / aspect);
 
       const initX = Math.round((displayedWidth - initW) / 2);
       const initY = Math.round((displayedHeight - initH) / 2);
@@ -63,7 +67,7 @@ export function Cropper({
       setCrop(initialCrop);
       setCompletedCrop(initialCrop);
     },
-    [initialHeight, initialWidth],
+    [aspect, circular],
   );
 
   useEffect(() => {
@@ -145,8 +149,8 @@ export function Cropper({
   return (
     <Modal
       open={open}
-      title="裁剪图片"
-      width={720}
+      title="裁剪头像"
+      width={900}
       centered
       destroyOnHidden
       maskClosable={false}
@@ -158,14 +162,14 @@ export function Cropper({
         <Space style={{ width: "100%", justifyContent: "flex-end" }}>
           <Button onClick={handleCancel}>取消</Button>
           <Button type="primary" disabled={!outFile} onClick={handleOk}>
-            使用此区域
+            确认裁剪
           </Button>
         </Space>
       }
     >
       <div className="rr-cropper-modal__body">
         <div className="rr-cropper-modal__stage">
-          <div className="rr-cropper-modal__stage-title">拖动选框调整区域</div>
+          <div className="rr-cropper-modal__stage-hint">拖动选框调整裁剪区域</div>
           <div className="rr-cropper-modal__crop-wrap">
             <ReactCrop
               crop={crop}
@@ -183,11 +187,12 @@ export function Cropper({
               />
             </ReactCrop>
           </div>
+          <div className="rr-cropper-modal__file-hint">{FILE_HINTS}</div>
         </div>
 
         <aside className="rr-cropper-modal__preview">
           <div className="rr-cropper-modal__preview-inner">
-            <div className="rr-cropper-modal__preview-title">预览</div>
+            <div className="rr-cropper-modal__preview-title">头像预览</div>
             <div
               className={`rr-cropper-modal__preview-img-wrap${circular ? "" : " rr-cropper-modal__preview-img-wrap--rect"}`}
             >

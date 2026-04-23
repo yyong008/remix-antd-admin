@@ -7,8 +7,11 @@ function normalizePrefix(prefix: string) {
   return prefix.endsWith("/") ? prefix : `${prefix}/`;
 }
 
-export function getStorageKey(fileName: string) {
+export function getStorageKey(fileName: string, userId?: string | number) {
   const prefix = normalizePrefix(storageServerConfig.prefix);
+  if (userId !== undefined) {
+    return `${prefix}user-${userId}/${fileName}`;
+  }
   return `${prefix}${fileName}`;
 }
 

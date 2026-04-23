@@ -21,6 +21,7 @@
   }
 }
 
+/* 裁剪区域 */
 .rr-cropper-modal__stage {
   flex: 1;
   min-width: 0;
@@ -30,16 +31,19 @@
   padding: 12px;
 }
 
-.rr-cropper-modal__stage-title {
+.rr-cropper-modal__stage-hint {
   font-size: 12px;
   color: var(--ant-color-text-secondary, rgba(0, 0, 0, 0.45));
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .rr-cropper-modal__crop-wrap {
   display: flex;
   justify-content: center;
-  max-height: min(52vh, 420px);
+  max-height: min(58vh, 500px);
   overflow: auto;
 }
 
@@ -51,6 +55,7 @@
   height: auto;
 }
 
+/* 预览区域 */
 .rr-cropper-modal__preview {
   width: 100%;
   flex-shrink: 0;
@@ -58,7 +63,7 @@
 
 @media (min-width: 576px) {
   .rr-cropper-modal__preview {
-    width: 168px;
+    width: 180px;
   }
 }
 
@@ -104,4 +109,29 @@
   min-height: 120px;
   color: var(--ant-color-text-quaternary, rgba(0, 0, 0, 0.25));
   font-size: 13px;
+}
+
+/* 文件限制提示 */
+.rr-cropper-modal__file-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--ant-color-text-secondary, rgba(0, 0, 0, 0.45));
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* 宽屏时预览区更宽 */
+@media (min-width: 768px) {
+  .rr-cropper-modal__preview {
+    width: 220px;
+  }
+
+  .rr-cropper-modal__preview-img-wrap {
+    min-height: 180px;
+  }
+
+  .rr-cropper-modal__preview-img-wrap img {
+    max-width: 180px;
+    max-height: 180px;
+  }
 }

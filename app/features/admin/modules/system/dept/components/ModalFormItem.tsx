@@ -1,3 +1,4 @@
+import { Form } from "antd";
 import {
   ProFormDigit,
   ProFormText,
@@ -35,20 +36,16 @@ export function ModalFormItems(props: ModalFormItemsProps) {
           },
         ]}
       />
-      <ProFormTreeSelect
-        name="parent_department_id"
-        label="父部门"
-        placeholder="不修改无需填写"
-        rules={[
-          {
-            required: false,
-            message: "请输入密码",
-          },
-        ]}
-        request={async () => {
-          return treeOptions;
-        }}
-      />
+      <Form.Item name="parent_department_id" label="父部门" rules={[{ required: false }]}>
+        <ProFormTreeSelect
+          placeholder="不修改无需填写"
+          fieldProps={{
+            treeData: treeOptions,
+            showSearch: true,
+            treeDefaultExpandAll: true,
+          }}
+        />
+      </Form.Item>
       <ProFormTextArea
         name="description"
         label="描述"

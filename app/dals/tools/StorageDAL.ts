@@ -3,14 +3,25 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 import { storages } from "db/schema";
 
 export function createStorageDAL(db: DrizzleD1Database) {
-  async function getCount() {
-    const rows = await db.select({ count: count() }).from(storages);
+  async function getCount(where?: { userId?: number | string }) {
+    const conditions = [] as any[];
+    if (where?.userId !== undefined) {
+      conditions.push(eq(storages.userId, where.userId));
+    }
+    let query = db.select({ count: count() }).from(storages);
+    if (conditions.length) query = query.where(and(...conditions));
+    const rows = await query;
     return rows[0]?.count ?? 0;
   }
 
   async function getById(id: number) {
     const rows = await db.select().from(storages).where(eq(storages.id, id)).limit(1);
     return rows[0] ?? null;
+  }
+
+  async function getByIds(ids: number[]) {
+    if (!ids.length) return [];
+    return await db.select().from(storages).where(inArray(storages.id, ids));
   }
 
   async function getList({ where, skip = 0, take = 10, orderBy }: any) {
@@ -50,6 +61,7 @@ export function createStorageDAL(db: DrizzleD1Database) {
   return {
     getCount,
     getById,
+    getByIds,
     getList,
     create,
     update,

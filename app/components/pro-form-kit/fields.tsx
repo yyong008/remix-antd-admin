@@ -113,19 +113,25 @@ export function ProFormTreeSelect({
   placeholder,
   rules,
   request,
+  treeData: treeDataProp,
   fieldProps,
   ...rest
 }: FieldBase & {
   request?: () => unknown[] | Promise<unknown[]>;
+  treeData?: any[];
 }) {
   const [treeData, setTreeData] = useState<any[]>([]);
   useEffect(() => {
+    if (treeDataProp !== undefined) {
+      setTreeData(treeDataProp);
+      return;
+    }
     if (!request) {
       setTreeData([]);
       return;
     }
     void Promise.resolve(request()).then((r) => setTreeData(Array.isArray(r) ? r : []));
-  }, [request]);
+  }, [request, treeDataProp]);
 
   return (
     <Form.Item name={name} label={label} rules={rules} {...rest}>

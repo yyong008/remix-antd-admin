@@ -56,7 +56,7 @@ export async function uploadHandler(c: Context) {
       ? globalThis.crypto.randomUUID()
       : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
     const uniqueFileName = `${randomId}${fileExtension}`;
-    const key = getStorageKey(uniqueFileName);
+    const key = getStorageKey(uniqueFileName, userId);
     const body = new Uint8Array(await file.arrayBuffer());
 
     await uploadObject(c, {

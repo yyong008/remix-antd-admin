@@ -2,8 +2,8 @@ import { Descriptions, message, Spin, Tag } from "antd";
 import dayjs from "dayjs";
 import { useCallback, useRef, useState } from "react";
 
+import { authClient } from "~/libs/auth/client";
 import type { AdminSysUserInfo } from "~/api-client/queries/system-user";
-import { useUpdateProfileAccount } from "~/api-client/queries/profile-account";
 import { Cropper } from "~/components/common/Copper";
 
 function fmt(value: string | null | undefined) {
@@ -29,7 +29,6 @@ export function BasicInfoDescriptions(props: {
   loading?: boolean;
 }) {
   const { userInfo, loading } = props;
-  const { mutateAsync: updateAvatar, isPending: isUpdating } = useUpdateProfileAccount();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [cropperOpen, setCropperOpen] = useState(false);
   const [imageSrc, setImageSrc] = useState<string>("");
@@ -42,6 +41,22 @@ export function BasicInfoDescriptions(props: {
   const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    // 文件类型校验
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      void message.error("请上传 JPG、PNG、GIF 或 WebP 格式的图片");
+      e.target.value = "";
+      return;
+    }
+
+    // 文件大小校验 (2MB)
+    const maxSize = 2 * 1024 * 1024;
+    if (file.size > maxSize) {
+      void message.error("图片大小不能超过 2MB");
+      e.target.value = "";
+      return;
+    }
 
     const reader = new FileReader();
     reader.onload = (event) => {
@@ -59,55 +74,53 @@ export function BasicInfoDescriptions(props: {
     return "bearer " + (localStorage.getItem("token") ?? "");
   };
 
-  const uploadCroppedImage = useCallback(
-    async (canvas: HTMLCanvasElement | null) => {
-      if (!canvas) return;
+  const uploadCroppedImage = useCallback(async (canvas: HTMLCanvasElement | null) => {
+    if (!canvas) return;
 
-      setIsUploading(true);
-      try {
-        const blob = await new Promise<Blob | null>((resolve) => {
-          canvas.toBlob(resolve, "image/png", 1.0);
-        });
+    setIsUploading(true);
+    try {
+      const blob = await new Promise<Blob | null>((resolve) => {
+        canvas.toBlob(resolve, "image/png", 1.0);
+      });
 
-        if (!blob) {
-          throw new Error("Failed to create image blob");
-        }
-
-        const formData = new FormData();
-        formData.append("file", blob, "avatar.png");
-
-        const response = await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
-          headers: {
-            authorization: getAuthHeader(),
-          },
-          credentials: "include",
-        });
-
-        if (!response.ok) {
-          const data = (await response.json().catch(() => ({}))) as { message?: string };
-          throw new Error(data.message || "Upload failed");
-        }
-
-        const result = (await response.json()) as { data?: { path?: string } };
-        const avatarUrl = result.data?.path;
-
-        if (!avatarUrl) {
-          throw new Error("Invalid response: missing path");
-        }
-
-        await updateAvatar({ avatar: avatarUrl });
-        message.success("头像更新成功");
-      } catch (err) {
-        message.error(err instanceof Error ? err.message : "上传失败");
-      } finally {
-        setIsUploading(false);
-        setCropperOpen(false);
+      if (!blob) {
+        throw new Error("Failed to create image blob");
       }
-    },
-    [updateAvatar],
-  );
+
+      const formData = new FormData();
+      formData.append("file", blob, "avatar.png");
+
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+        headers: {
+          authorization: getAuthHeader(),
+        },
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        const data = (await response.json().catch(() => ({}))) as { message?: string };
+        throw new Error(data.message || "Upload failed");
+      }
+
+      const result = (await response.json()) as { data?: { path?: string } };
+      const avatarUrl = result.data?.path;
+
+      if (!avatarUrl) {
+        throw new Error("Invalid response: missing path");
+      }
+
+      await authClient.updateUser({ image: avatarUrl });
+      message.success("头像更新成功");
+      window.location.reload();
+    } catch (err) {
+      message.error(err instanceof Error ? err.message : "上传失败");
+    } finally {
+      setIsUploading(false);
+      setCropperOpen(false);
+    }
+  }, []);
 
   if (loading && !userInfo) {
     return (
@@ -142,46 +155,66 @@ export function BasicInfoDescriptions(props: {
             style={{ display: "none" }}
             onChange={handleFileChange}
           />
-          <button
-            type="button"
-            onClick={handleSelectImage}
-            disabled={isUpdating || isUploading}
-            style={{
-              width: 64,
-              height: 64,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              gap: 4,
-              border: "1px dashed #d9d9d9",
-              borderRadius: 8,
-              cursor: isUpdating || isUploading ? "not-allowed" : "pointer",
-              background: "transparent",
-              opacity: isUpdating || isUploading ? 0.6 : 1,
-            }}
-          >
-            {isUpdating || isUploading ? (
-              <Spin size="small" />
-            ) : (
-              <>
-                <span style={{ fontSize: 20 }}>+</span>
-                <span style={{ fontSize: 12 }}>更换</span>
-              </>
-            )}
-          </button>
-          {u?.avatar && (
-            <img
-              src={u.avatar}
-              alt="avatar"
+          {u?.avatar ? (
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <img
+                src={u.avatar}
+                alt="avatar"
+                onClick={handleSelectImage}
+                style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  cursor: isUploading ? "not-allowed" : "pointer",
+                  opacity: isUploading ? 0.6 : 1,
+                }}
+              />
+              {isUploading && (
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "rgba(0,0,0,0.4)",
+                  }}
+                >
+                  <Spin size="small" />
+                </div>
+              )}
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={handleSelectImage}
+              disabled={isUploading}
               style={{
                 width: 64,
                 height: 64,
-                borderRadius: "50%",
-                marginLeft: 12,
-                objectFit: "cover",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+                gap: 4,
+                border: "1px dashed #d9d9d9",
+                borderRadius: 8,
+                cursor: isUploading ? "not-allowed" : "pointer",
+                background: "transparent",
+                opacity: isUploading ? 0.6 : 1,
               }}
-            />
+            >
+              {isUploading ? (
+                <Spin size="small" />
+              ) : (
+                <>
+                  <span style={{ fontSize: 20 }}>+</span>
+                  <span style={{ fontSize: 12 }}>更换</span>
+                </>
+              )}
+            </button>
           )}
         </Descriptions.Item>
         <Descriptions.Item label="用户名">{fmt(u?.name)}</Descriptions.Item>

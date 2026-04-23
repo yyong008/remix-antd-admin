@@ -133,9 +133,11 @@ toolsRouter.get("/storage", requirePermission("tools:storage:read"), async (c) =
     const req = c.req.raw;
     const page = getSearchParamsPage(req);
     const pageSize = getSearchParamsPageSize(req);
-    const total = await storageDAL.getCount();
+    const userId = c.get("userId");
+    const where = userId ? { userId } : {};
+    const total = await storageDAL.getCount(where);
     const list = await storageDAL.getList({
-      where: {},
+      where,
       skip: (page - 1) * pageSize,
       take: pageSize,
       orderBy: { id: "desc" } as any,
@@ -193,7 +195,12 @@ toolsRouter.delete("/storage", requirePermission("tools:storage:delete"), async 
     const db = getD1Db(c);
     const storageDAL = createStorageDAL(db);
     const dto = await c.req.json();
-    const deleted = await storageDAL.deleteByIds(dto.ids ?? []);
+    const userId = c.get("userId");
+    // Only delete files belonging to the current user
+    const items = await storageDAL.getByIds(dto.ids ?? []);
+    const allowedItems = (items ?? []).filter((item: any) => item.userId === userId);
+    const allowedIds = allowedItems.map((item: any) => item.id);
+    const deleted = await storageDAL.deleteByIds(allowedIds);
     for (const item of deleted ?? []) {
       const key = resolveStorageKey({
         fileName: item.fileName,
