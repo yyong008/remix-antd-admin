@@ -19,7 +19,7 @@ new fullstack:
 - [x] rbac(no better-auth role)
 - [ ] nodemail -> CloudflareEmail/Resend
 - [x] i18n -> Paraglide JS
-- [ ] Cloudflare R2
+- [x] Cloudflare R2
 - [ ] Turnstile 接入（@marsidev/react-turnstile）
 - [x] AI：LangChain -> ai-sdk
 - [ ] AI Client：AntdX
