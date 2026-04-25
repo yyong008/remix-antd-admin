@@ -21,6 +21,10 @@
 - **Better Auth** - Authentication framework
 - **Cloudflare D1** - Serverless SQLite database (via Workers)
 
+## Email
+
+- **CLoudflare Email** - Cloudflare Email
+
 ### Build & Tooling
 
 - **Vite+** - Build toolchain (wraps Vite, Rolldown, Vitest, tsdown, Oxlint, Oxfmt)
@@ -34,7 +38,6 @@
 
 ### Other Dependencies
 
-- **Fumadocs** - Documentation framework
 - **Day.js** - Date manipulation
 - **Quill** - Rich text editor
 - **Nanoid** - ID generation
