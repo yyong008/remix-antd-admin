@@ -2,7 +2,7 @@ import { ApiOutlined, DownOutlined } from "@ant-design/icons";
 import { Bubble, Sender } from "@ant-design/x";
 import { useXChat } from "@ant-design/x-sdk";
 import type { MenuProps, SelectProps } from "antd";
-import { Button, ConfigProvider, Dropdown, Flex, Spin, theme } from "antd";
+import { Button, Dropdown, Flex, Spin, theme } from "antd";
 import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 
 import { ai } from "@/config/ai";
@@ -259,69 +259,67 @@ export function AiChatConversation({
   );
 
   return (
-    <ConfigProvider theme={{ algorithm: theme.defaultAlgorithm }}>
-      <Flex
-        vertical
-        gap={gap}
-        className={className}
-        style={{ height: "100%", width: "100%", overflow: "hidden", ...outerStyle }}
-      >
-        <div style={shellStyle}>
-          <div style={listRegionStyle}>
-            <Bubble.List
-              role={{
-                assistant: { placement: "start" },
-                user: { placement: "end" },
-              }}
-              items={messages.map(({ id, message, status }) => {
-                const role = message.role as "assistant" | "user";
-                const isAssistantStreaming =
-                  role === "assistant" && (status === "loading" || status === "updating");
-                return {
-                  key: String(id),
-                  role,
-                  content: bubbleText(message.content),
-                  loading: status === "loading",
-                  streaming: isAssistantStreaming,
-                };
-              })}
-            />
-          </div>
-          <Sender
-            styles={{
-              root: {
-                position: "sticky",
-                bottom: 0,
-                borderRadius: 0,
-                border: "none",
-                boxShadow: "none",
-                background: "transparent",
-                paddingInline: 12,
-                paddingBottom: 12,
-                paddingTop: 8,
-              },
-              footer: {
-                borderTop: `1px solid ${token.colorBorderSecondary}`,
-                background: token.colorFillAlter,
-              },
+    <Flex
+      vertical
+      gap={gap}
+      className={className}
+      style={{ height: "100%", width: "100%", overflow: "hidden", ...outerStyle }}
+    >
+      <div style={shellStyle}>
+        <div style={listRegionStyle}>
+          <Bubble.List
+            role={{
+              assistant: { placement: "start" },
+              user: { placement: "end" },
             }}
-            loading={isRequesting}
-            placeholder="输入消息，Enter 发送"
-            footer={modelFooter}
-            value={inputValue}
-            onChange={setInputValue}
-            onSubmit={(msg) => {
-              onRequest({
-                messages: [{ role: "user", content: msg }],
-                model,
-              });
-              setInputValue("");
-            }}
-            onCancel={abort}
+            items={messages.map(({ id, message, status }) => {
+              const role = message.role as "assistant" | "user";
+              const isAssistantStreaming =
+                role === "assistant" && (status === "loading" || status === "updating");
+              return {
+                key: String(id),
+                role,
+                content: bubbleText(message.content),
+                loading: status === "loading",
+                streaming: isAssistantStreaming,
+              };
+            })}
           />
         </div>
-      </Flex>
-    </ConfigProvider>
+        <Sender
+          styles={{
+            root: {
+              position: "sticky",
+              bottom: 0,
+              borderRadius: 0,
+              border: "none",
+              boxShadow: "none",
+              background: "transparent",
+              paddingInline: 12,
+              paddingBottom: 12,
+              paddingTop: 8,
+            },
+            footer: {
+              borderTop: `1px solid ${token.colorBorderSecondary}`,
+              background: token.colorFillAlter,
+            },
+          }}
+          loading={isRequesting}
+          placeholder="输入消息，Enter 发送"
+          footer={modelFooter}
+          value={inputValue}
+          onChange={setInputValue}
+          onSubmit={(msg) => {
+            onRequest({
+              messages: [{ role: "user", content: msg }],
+              model,
+            });
+            setInputValue("");
+          }}
+          onCancel={abort}
+        />
+      </div>
+    </Flex>
   );
 }
 

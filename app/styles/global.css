@@ -1,4 +1,6 @@
-@import "@fontsource-variable/rubik";
+body {
+  font-family: "Google Sans Code Variable", monospace;
+}
 
 :root {
   --mkt-bg: #ffffff;
@@ -32,15 +34,21 @@
 
 html,
 body {
+  font-family: "Google Sans Code Variable", monospace;
   height: 100%;
   width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+html body {
+  font-family: "Google Sans Code Variable", monospace !important;
+}
+
 body {
   margin: 0;
   padding: 0;
+  font-family: "Google Sans Code Variable", monospace !important;
 }
 
 ul,

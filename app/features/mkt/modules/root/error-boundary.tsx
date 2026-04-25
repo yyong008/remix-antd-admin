@@ -80,7 +80,6 @@ function ErrorDetailsCard({ error }: { error: Error }) {
       <Paragraph
         style={{
           margin: 0,
-          fontFamily: "monospace",
           fontSize: 12,
           wordBreak: "break-all",
         }}

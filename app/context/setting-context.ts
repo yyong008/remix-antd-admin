@@ -4,11 +4,10 @@ import { defaultLang } from "~/config/lang";
 export const SettingContext = createContext({
   theme: {
     colorPrimary: "",
-    // layout: "mix"
   },
-  setTheme: (theme: any) => {},
+  setTheme: (theme: unknown) => {},
   lang: defaultLang,
-  setLang: (v: any) => {},
+  setLang: (v: unknown) => {},
 });
 
 export default SettingContext;

@@ -183,17 +183,13 @@ function MenuDetailPanel({
               {pathText}
             </a>
           ) : (
-            <Typography.Text
-              style={{ wordBreak: "break-all", fontFamily: "monospace", fontSize: 14 }}
-            >
+            <Typography.Text style={{ wordBreak: "break-all", fontSize: 14 }}>
               {pathText}
             </Typography.Text>
           )}
         </Descriptions.Item>
         <Descriptions.Item label="路由文件">
-          <Typography.Text
-            style={{ wordBreak: "break-all", fontFamily: "monospace", fontSize: 14 }}
-          >
+          <Typography.Text style={{ wordBreak: "break-all", fontSize: 14 }}>
             {r.path_file || "—"}
           </Typography.Text>
         </Descriptions.Item>

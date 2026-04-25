@@ -45,7 +45,6 @@ export function LinkUrlDisplay({ url }: Props) {
           overflow: "hidden",
           textOverflow: "ellipsis",
           whiteSpace: "nowrap",
-          fontFamily: "monospace",
           fontSize: 13,
           lineHeight: 1.5,
         }}

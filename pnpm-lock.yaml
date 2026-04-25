@@ -20,6 +20,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20260422.1
         version: 4.20260422.1
+      '@fontsource-variable/google-sans-code':
+        specifier: ^5.2.4
+        version: 5.2.4
       '@fontsource-variable/rubik':
         specifier: ^5.2.8
         version: 5.2.8
@@ -1283,6 +1286,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource-variable/google-sans-code@5.2.4':
+    resolution: {integrity: sha512-70i7eS9B7VYT1sJcpU+bYnCrKwWOh8+RCTZNLgzE3crUaDwAqx0hRhd2Hr0ZyStJq88f+CF8/r+YUK0A3gMsPA==}
 
   '@fontsource-variable/rubik@5.2.8':
     resolution: {integrity: sha512-vGDExLzB4a2Fj9mca5LqNoA2ZKcU9o+x5FEBLte/nxYkCB9hOQwZS6ZlItUv+Ssn7YMzKauGuI/Po+YueFuZbg==}
@@ -6552,6 +6558,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.27.7':
     optional: true
+
+  '@fontsource-variable/google-sans-code@5.2.4': {}
 
   '@fontsource-variable/rubik@5.2.8': {}
 

@@ -1,18 +1,14 @@
-"use client";
-
-import { useEffect } from "react";
-import { useTheme } from "next-themes";
+import { useContext, useEffect } from "react";
+import { ThemeContext } from "~/context/theme-context";
 
 export function MktThemeSync() {
-  const { resolvedTheme } = useTheme();
+  const { isDark } = useContext(ThemeContext);
 
   useEffect(() => {
-    if (typeof document === "undefined") return;
     const root = document.documentElement;
-    const isDark = resolvedTheme === "dark";
     root.classList.toggle("dark", isDark);
     root.classList.toggle("theme-dark", isDark);
-  }, [resolvedTheme]);
+  }, [isDark]);
 
   return null;
 }

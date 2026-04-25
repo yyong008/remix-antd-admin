@@ -9,15 +9,7 @@ export function AISDKIconSVG() {
       aria-label="AI SDK"
     >
       <rect x="4" y="4" width="28" height="28" rx="6" fill="#111827" />
-      <text
-        x="18"
-        y="22"
-        textAnchor="middle"
-        fontSize="8"
-        fontFamily="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
-        fill="#E5E7EB"
-        fontWeight="bold"
-      >
+      <text x="18" y="22" textAnchor="middle" fontSize="8" fill="#E5E7EB" fontWeight="bold">
         AI SDK
       </text>
     </svg>

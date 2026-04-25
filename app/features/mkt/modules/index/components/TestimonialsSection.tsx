@@ -94,7 +94,6 @@ export function TestimonialsSection() {
                 fontSize: "48px",
                 color: "var(--mkt-border)",
                 opacity: 0.3,
-                fontFamily: "Georgia, serif",
               }}
             >
               "

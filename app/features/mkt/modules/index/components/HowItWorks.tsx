@@ -152,7 +152,6 @@ export function HowItWorks() {
             border: "1px solid var(--mkt-border)",
             maxWidth: "600px",
             margin: "48px auto 0",
-            fontFamily: "monospace",
             fontSize: "14px",
             color: "var(--mkt-muted)",
           }}

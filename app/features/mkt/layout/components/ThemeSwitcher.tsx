@@ -1,10 +1,11 @@
 import type { MenuProps } from "antd";
 import { Dropdown } from "antd";
 import { SunOutlined, MoonOutlined } from "@ant-design/icons";
-import { useTheme } from "next-themes";
+import { useContext } from "react";
+import { ThemeContext } from "~/context/theme-context";
 
 export function ThemeSwitcher() {
-  const { theme, setTheme } = useTheme();
+  const { isDark, toggleDark } = useContext(ThemeContext);
 
   const items: MenuProps["items"] = [
     {
@@ -29,8 +30,8 @@ export function ThemeSwitcher() {
 
   const menu: MenuProps = {
     items,
-    selectedKeys: [theme ?? "light"],
-    onClick: ({ key }) => setTheme(key),
+    selectedKeys: [isDark ? "dark" : "light"],
+    onClick: toggleDark,
   };
 
   return (
@@ -51,7 +52,7 @@ export function ThemeSwitcher() {
           transition: "transform 0.2s, box-shadow 0.2s",
         }}
       >
-        {theme === "dark" ? (
+        {isDark ? (
           <MoonOutlined style={{ fontSize: 18, color: "var(--mkt-accent-2)" }} />
         ) : (
           <SunOutlined style={{ fontSize: 18, color: "var(--mkt-accent)" }} />

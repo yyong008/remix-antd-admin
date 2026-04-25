@@ -50,21 +50,6 @@ export function LogoCloud() {
                   padding: "0 20px",
                   opacity: 0.65,
                   transition: "all 0.25s ease",
-                  filter: "grayscale(100%)",
-                  borderRadius: "8px",
-                  border: "1px solid transparent",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.opacity = "1";
-                  e.currentTarget.style.filter = "grayscale(0%)";
-                  e.currentTarget.style.borderColor = "var(--mkt-border)";
-                  e.currentTarget.style.background = "var(--mkt-surface)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.opacity = "0.65";
-                  e.currentTarget.style.filter = "grayscale(100%)";
-                  e.currentTarget.style.borderColor = "transparent";
-                  e.currentTarget.style.background = "transparent";
                 }}
               >
                 <img

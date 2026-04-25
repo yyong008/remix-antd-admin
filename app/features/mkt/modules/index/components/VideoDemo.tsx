@@ -133,7 +133,6 @@ export function VideoDemo() {
               </div>
               <div
                 style={{
-                  fontFamily: "monospace",
                   fontSize: "14px",
                   color: "#e0e0e0",
                   lineHeight: 1.8,

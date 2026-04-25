@@ -8,15 +8,7 @@ export function HonoIconSVG() {
       aria-label="Hono"
     >
       <circle cx="32" cy="32" r="30" fill="#f97316" />
-      <text
-        x="32"
-        y="38"
-        textAnchor="middle"
-        fontFamily="Arial, sans-serif"
-        fontSize="20"
-        fontWeight="700"
-        fill="#ffffff"
-      >
+      <text x="32" y="38" textAnchor="middle" fontSize="20" fontWeight="700" fill="#ffffff">
         Hono
       </text>
     </svg>
