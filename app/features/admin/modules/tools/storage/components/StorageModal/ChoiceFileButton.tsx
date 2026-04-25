@@ -1,5 +1,5 @@
 import { CloudUploadOutlined } from "@ant-design/icons";
-import { Button, message } from "antd";
+import { Button } from "antd";
 
 import { useRef } from "react";
 
@@ -62,14 +62,12 @@ export function ChoiceFileButton({ fileListLength, disabled, setFileList }: Choi
               });
             }
 
-            queueMicrotask(() => {
-              if (hitLimit) {
-                message.warning(`单次最多添加 ${MaxFiles} 个文件`);
-              }
-              if (skippedBig > 0) {
-                message.warning(`${skippedBig} 个文件超过 ${FileSizeLimit}MB，已跳过`);
-              }
-            });
+            if (hitLimit) {
+              // Can notify about limit if needed
+            }
+            if (skippedBig > 0) {
+              // Can notify about size if needed
+            }
 
             return next;
           });

@@ -58,9 +58,21 @@ export async function uploadHandler(c: Context) {
     const uniqueFileName = `${randomId}${fileExtension}`;
 
     const pathPrefix = formData.get("pathPrefix") as string | null;
-    const key = pathPrefix
-      ? `${pathPrefix}${uniqueFileName}`
-      : getStorageKey(uniqueFileName, userId);
+
+    let key: string;
+    let recordInStorage = false;
+
+    if (pathPrefix) {
+      // Custom path prefix (e.g., avatars/ for profile photos)
+      key = `${pathPrefix}${uniqueFileName}`;
+      // Only record in storages table if not in excluded folders
+      recordInStorage = !pathPrefix.startsWith("avatars/");
+    } else {
+      // Default storage path
+      key = getStorageKey(uniqueFileName, userId);
+      recordInStorage = true;
+    }
+
     const body = new Uint8Array(await file.arrayBuffer());
 
     await uploadObject(c, {
@@ -70,17 +82,22 @@ export async function uploadHandler(c: Context) {
     });
     const path = getPublicObjectUrl(c, key);
 
-    const result = await storageDAL.create({
-      userId,
-      name: file.name,
-      fileName: key,
-      extName: extname(file.name),
-      path,
-      size: file.size.toString(),
-      type: file.type,
-    });
+    // Only record non-avatar uploads in storages table
+    if (recordInStorage) {
+      const result = await storageDAL.create({
+        userId,
+        name: file.name,
+        fileName: key,
+        extName: extname(file.name),
+        path,
+        size: file.size.toString(),
+        type: file.type,
+      });
+      return rsj(result);
+    }
 
-    return rsj(result);
+    // For avatar uploads, just return the path without recording
+    return rsj({ path });
   } catch (error) {
     return rfj(error as Error);
   }

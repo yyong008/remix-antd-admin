@@ -1,10 +1,8 @@
-import { EditOutlined } from "@ant-design/icons";
-import { Alert, Button, Card, Empty, message, Popconfirm, Space, Typography } from "antd";
+import { InboxOutlined, PlusOutlined } from "@ant-design/icons";
+import { Button, message, Progress, Space, Typography } from "antd";
 import { useCallback, useState } from "react";
 
 import { ModalForm } from "~/components/pro-form-kit";
-
-import { AdminTable } from "~/components/admin-table";
 
 import { ChoiceFileButton } from "./ChoiceFileButton";
 import { createModalColumns } from "./createModalColumns";
@@ -75,20 +73,13 @@ export function StorageModal(props: StorageModalProps) {
   };
 
   const totalBytes = fileList.reduce((sum, r) => sum + r.size, 0);
+  const uploadCount = fileList.filter((f) => f.phase === "uploading").length;
+  const successCount = fileList.filter((f) => f.phase === "success").length;
 
   return (
     <ModalForm
-      title={
-        (
-          <Space>
-            <span>上传到对象存储</span>
-            <Typography.Text type="secondary" style={{ fontSize: 14, fontWeight: 400 }}>
-              本地 R2 · 队列上传
-            </Typography.Text>
-          </Space>
-        ) as any
-      }
-      width={720}
+      title="上传文件"
+      width={560}
       onOpenChange={(open) => {
         if (!open) {
           resetAll();
@@ -152,10 +143,7 @@ export function StorageModal(props: StorageModalProps) {
         }
 
         if (failCount > 0) {
-          message.error(
-            `有 ${failCount} 个文件上传失败，请查看列表中的错误说明，移除或重试后再上传。`,
-            6,
-          );
+          message.error(`有 ${failCount} 个文件上传失败`, 4);
           return false;
         }
 
@@ -176,82 +164,233 @@ export function StorageModal(props: StorageModalProps) {
         className: "rr-storage-upload-modal",
         maskClosable: !uploadLocked,
         closable: !uploadLocked,
-        styles: { body: { paddingTop: 12 } },
+        styles: { body: { padding: "16px 20px" } },
       }}
       trigger={
         trigger ??
         ((
-          <Button type="primary" icon={<EditOutlined />}>
-            新建
+          <Button type="primary" icon={<PlusOutlined />}>
+            上传文件
           </Button>
         ) as any)
       }
     >
-      <Alert
-        className="rr-storage-upload-modal__intro"
-        message="上传说明"
-        description={`单个文件不超过 ${FileSizeLimit}MB，单次队列最多 ${MaxFiles} 个。关闭弹窗或上传成功后会自动清空待传列表并释放本地预览内存。`}
-        type="info"
-        showIcon
-      />
+      {/* 文件数量限制提示 */}
+      <div style={{ marginBottom: 16, color: "#666", fontSize: 13 }}>
+        单文件 ≤ {FileSizeLimit}MB，最多 {MaxFiles} 个文件
+      </div>
 
-      <div className="rr-storage-upload-modal__toolbar">
-        <Space wrap>
+      {/* 操作栏 */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "12px 0",
+          borderBottom: "1px solid #f0f0f0",
+          marginBottom: 12,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <ChoiceFileButton
             fileListLength={fileList.length}
             disabled={uploadLocked}
             setFileList={setFileList}
           />
-          <Popconfirm
-            title="清空待传列表？"
-            description="将移除已选文件并释放本地预览，未上传的内容不会保存。"
-            okText="清空"
-            cancelText="取消"
-            disabled={uploadLocked || fileList.length === 0}
-            onConfirm={() => resetAll()}
-          >
-            <Button disabled={uploadLocked || fileList.length === 0}>清空列表</Button>
-          </Popconfirm>
-        </Space>
-        <div className="rr-storage-upload-modal__summary">
-          {fileList.length > 0 ? (
-            <>
-              已选 <strong>{fileList.length}</strong> 个文件 · 合计约{" "}
-              <strong>{formatFileSize(totalBytes)}</strong>
-            </>
-          ) : (
-            <span>尚未选择文件</span>
+          {fileList.length > 0 && (
+            <Button size="small" onClick={resetAll} disabled={uploadLocked}>
+              清空
+            </Button>
           )}
         </div>
+        {fileList.length > 0 && (
+          <Typography.Text type="secondary" style={{ fontSize: 13 }}>
+            {fileList.length} 个文件 · {formatFileSize(totalBytes)}
+          </Typography.Text>
+        )}
       </div>
 
-      <Card size="small" className="rr-storage-upload-modal__card" variant="borderless">
-        <AdminTable<PendingUploadRow>
-          search={false}
-          pagination={false}
-          size="small"
-          rowKey="uid"
-          className="rr-storage-upload-modal__table"
-          dataSource={fileList}
-          columns={createModalColumns({ setFileList, uploadLocked }) as any}
-          locale={{
-            emptyText: (
-              <Empty
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-                description={
-                  <Typography.Text type="secondary">
-                    点击「选择文件」添加本地文件
-                    <br />
-                    <Typography.Text type="secondary" style={{ fontSize: 12, opacity: 0.85 }}>
-                      支持多选，单次最多 {MaxFiles} 个 · 单文件 ≤ {FileSizeLimit}MB
-                    </Typography.Text>
+      {/* 上传进度概览 */}
+      {uploadLocked && (
+        <div
+          style={{ marginBottom: 12, padding: "8px 12px", background: "#f5f5f5", borderRadius: 4 }}
+        >
+          <Typography.Text style={{ fontSize: 12, color: "#666" }}>
+            上传中... {uploadCount} 个文件
+          </Typography.Text>
+        </div>
+      )}
+      {successCount > 0 && !uploadLocked && (
+        <div
+          style={{ marginBottom: 12, padding: "8px 12px", background: "#f6ffed", borderRadius: 4 }}
+        >
+          <Typography.Text style={{ fontSize: 12, color: "#52c41a" }}>
+            已完成 {successCount} 个文件
+          </Typography.Text>
+        </div>
+      )}
+
+      {/* 文件列表 */}
+      <div style={{ maxHeight: 320, overflowY: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <thead>
+            <tr style={{ borderBottom: "1px solid #f0f0f0" }}>
+              <th
+                style={{
+                  padding: "8px 0",
+                  textAlign: "left",
+                  fontSize: 12,
+                  color: "#999",
+                  fontWeight: 400,
+                }}
+              >
+                文件名
+              </th>
+              <th
+                style={{
+                  padding: "8px 0",
+                  textAlign: "right",
+                  fontSize: 12,
+                  color: "#999",
+                  fontWeight: 400,
+                  width: 80,
+                }}
+              >
+                大小
+              </th>
+              <th
+                style={{
+                  padding: "8px 0",
+                  textAlign: "center",
+                  fontSize: 12,
+                  color: "#999",
+                  fontWeight: 400,
+                  width: 80,
+                }}
+              >
+                状态
+              </th>
+              <th
+                style={{
+                  padding: "8px 0",
+                  textAlign: "center",
+                  fontSize: 12,
+                  color: "#999",
+                  fontWeight: 400,
+                  width: 48,
+                }}
+              >
+                操作
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {fileList.length === 0 ? (
+              <tr>
+                <td colSpan={4} style={{ padding: "32px 0", textAlign: "center" }}>
+                  <Typography.Text type="secondary" style={{ fontSize: 13 }}>
+                    <InboxOutlined style={{ fontSize: 24, marginBottom: 8, display: "block" }} />
+                    点击上方「选择文件」添加
                   </Typography.Text>
-                }
-              />
-            ),
+                </td>
+              </tr>
+            ) : (
+              fileList.map((row, index) => (
+                <FileRow
+                  key={row.uid}
+                  row={row}
+                  index={index}
+                  setFileList={setFileList}
+                  uploadLocked={uploadLocked}
+                />
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </ModalForm>
+  );
+}
+
+function FileRow({
+  row,
+  index,
+  setFileList,
+  uploadLocked,
+}: {
+  row: PendingUploadRow;
+  index: number;
+  setFileList: React.Dispatch<React.SetStateAction<PendingUploadRow[]>>;
+  uploadLocked: boolean;
+}) {
+  const phaseLabel: Record<string, { color: string; text: string }> = {
+    pending: { color: "default", text: "待上传" },
+    uploading: { color: "processing", text: "上传中" },
+    success: { color: "success", text: "已完成" },
+    error: { color: "error", text: "失败" },
+  };
+
+  const meta = phaseLabel[row.phase] ?? phaseLabel.pending;
+
+  return (
+    <tr style={{ borderBottom: "1px solid #f5f5f5" }}>
+      <td style={{ padding: "10px 0" }}>
+        <div style={{ fontSize: 13, fontWeight: 500, marginBottom: 4 }}>{row.name}</div>
+        {row.phase === "uploading" && (
+          <Progress
+            percent={
+              row.progress.total > 0
+                ? Math.min(100, (row.progress.loaded / row.progress.total) * 100)
+                : 0
+            }
+            size="small"
+            status="active"
+            style={{ margin: 0 }}
+          />
+        )}
+        {row.phase === "error" && row.errorMessage && (
+          <Typography.Text type="danger" style={{ fontSize: 12 }}>
+            {row.errorMessage}
+          </Typography.Text>
+        )}
+      </td>
+      <td style={{ padding: "10px 0", textAlign: "right", fontSize: 12, color: "#999" }}>
+        {formatFileSize(row.size)}
+      </td>
+      <td style={{ padding: "10px 0", textAlign: "center" }}>
+        <span
+          style={{
+            display: "inline-block",
+            padding: "2px 8px",
+            borderRadius: 4,
+            fontSize: 12,
+            background:
+              meta.color === "success" ? "#f6ffed" : meta.color === "error" ? "#fff2f0" : "#f5f5f5",
+            color:
+              meta.color === "success" ? "#52c41a" : meta.color === "error" ? "#ff4d4f" : "#999",
+          }}
+        >
+          {meta.text}
+        </span>
+      </td>
+      <td style={{ padding: "10px 0", textAlign: "center" }}>
+        <Button
+          type="text"
+          danger
+          size="small"
+          onClick={() => {
+            if (uploadLocked) return;
+            if (row.previewUrl?.startsWith("blob:")) {
+              try {
+                URL.revokeObjectURL(row.previewUrl);
+              } catch {
+                /* ignore */
+              }
+            }
+            setFileList((prev) => prev.filter((_, i) => i !== index));
           }}
         />
-      </Card>
-    </ModalForm>
+      </td>
+    </tr>
   );
 }

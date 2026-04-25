@@ -1,5 +1,6 @@
 import {
   DeleteOutlined,
+  DownloadOutlined,
   EyeOutlined,
   FileOutlined,
   LinkOutlined,
@@ -33,7 +34,25 @@ export function StorageActionsCell({ record, refetch }: { record: any; refetch?:
     Modal.success({ title: "链接已复制" });
   };
 
+  const handleDownload = () => {
+    const token = localStorage.getItem("token");
+    const url = new URL(record.path, window.location.origin);
+    if (token) {
+      url.searchParams.set("token", token);
+    }
+    const a = document.createElement("a");
+    a.href = url.toString();
+    a.download = record.name;
+    a.click();
+  };
+
   const items: MenuProps["items"] = [
+    {
+      key: "download",
+      icon: <DownloadOutlined />,
+      label: "下载",
+      onClick: handleDownload,
+    },
     {
       key: "view",
       icon: record.type?.startsWith("image") ? <EyeOutlined /> : <FileOutlined />,
