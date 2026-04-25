@@ -24,7 +24,7 @@ export function useBlogList(params: BlogListParams) {
   return useQuery({
     queryKey: blogKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.blog.$get({
+      const res = await (getApiClient() as any).api.admin.blog.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -42,7 +42,7 @@ export function useBlogById(id?: string) {
     queryKey: blogKeys.detail(id),
     enabled: Boolean(id),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.blog[":id"].$get({
+      const res = await (getApiClient() as any).api.admin.blog[":id"].$get({
         param: { id: id! },
       });
       return res.json();
@@ -54,7 +54,7 @@ export function useCreateBlog() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.blog.$post({
+      const res = await (getApiClient() as any).api.admin.blog.$post({
         json: data,
       });
       return res.json();
@@ -69,7 +69,7 @@ export function useUpdateBlog() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.blog[":id"].$put({
+      const res = await (getApiClient() as any).api.admin.blog[":id"].$put({
         param: { id: String(data.id) },
         json: data,
       });
@@ -85,7 +85,7 @@ export function useDeleteBlog() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: string[] }) => {
-      const res = await getApiClient().api.admin.blog.$delete({
+      const res = await (getApiClient() as any).api.admin.blog.$delete({
         json: data,
       });
       return res.json();

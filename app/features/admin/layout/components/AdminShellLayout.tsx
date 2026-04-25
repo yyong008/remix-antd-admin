@@ -216,7 +216,6 @@ export function AdminShellLayout(props: AdminShellLayoutProps) {
                 openKeys={openKeys}
                 onOpenChange={onOpenChange}
                 style={{ background: "transparent", border: "none" }}
-                style={{ borderInlineEnd: "none" }}
                 items={menuItems}
               />
             </div>

@@ -4,7 +4,7 @@ import { userRoles, user } from "db/schema";
 
 export function createRegisterDAL(db: DrizzleD1Database) {
   class RegisterDAL {
-    registerRole = [3];
+    registerRole: number[] = [3];
 
     async register(data: { username: string; email?: string; password: string }) {
       return db.transaction(async (tx) => {
@@ -18,9 +18,9 @@ export function createRegisterDAL(db: DrizzleD1Database) {
         if (roles?.length) {
           await tx.insert(userRoles).values(
             roles.map((roleId: number) => ({
-              roleId,
-              userId: authUser.id,
-            })),
+              roleId: String(roleId),
+              userId: authUser.id as string,
+            })) as any,
           );
         }
         return authUser;

@@ -15,7 +15,7 @@ export function useMonitorOperateList(params: MonitorOperateParams) {
   return useQuery({
     queryKey: operateKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.system.monitor.operate.$get({
+      const res = await (getApiClient() as any).api.admin.system.monitor.operate.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),

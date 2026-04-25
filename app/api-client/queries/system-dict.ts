@@ -15,7 +15,7 @@ export function useDictList(params: DictListParams) {
   return useQuery({
     queryKey: dictKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.system.dict.$get({
+      const res = await (getApiClient() as any).api.admin.system.dict.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -30,7 +30,7 @@ export function useCreateDict() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.system.dict.$post({
+      const res = await (getApiClient() as any).api.admin.system.dict.$post({
         json: data,
       });
       return res.json();
@@ -45,7 +45,7 @@ export function useUpdateDict() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.system.dict.$put({
+      const res = await (getApiClient() as any).api.admin.system.dict.$put({
         json: data,
       });
       return res.json();
@@ -60,7 +60,7 @@ export function useDeleteDict() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: number[] }) => {
-      const res = await getApiClient().api.admin.system.dict.$delete({
+      const res = await (getApiClient() as any).api.admin.system.dict.$delete({
         json: data,
       });
       return res.json();

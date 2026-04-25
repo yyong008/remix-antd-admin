@@ -24,7 +24,6 @@ export function UpdateLinkCategoryModal({
     <ModalForm
       preserve={false}
       title="编辑分类"
-      open={open}
       initialValues={{ ...record }}
       onOpenChange={(isOpen) => {
         if (isOpen && record?.id) {
@@ -44,7 +43,7 @@ export function UpdateLinkCategoryModal({
           onClose?.();
         },
       }}
-      loading={update.isPending}
+      loading={update.isPending as boolean}
       submitTimeout={2000}
       onFinish={async (values: Record<string, unknown>) => {
         const res = (await update.mutateAsync({

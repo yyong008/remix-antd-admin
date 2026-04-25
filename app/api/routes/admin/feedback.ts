@@ -27,7 +27,7 @@ feedbackRouter.get("/:id", async (c) => {
   try {
     const db = getD1Db(c);
     const feedbackDAL = createFeedbackDAL(db);
-    const id = Number(c.req.param("id"));
+    const id = c.req.param("id");
     if (!id) {
       return rfj({}, "Invalid Feedback Id", { status: 400 });
     }

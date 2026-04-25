@@ -10,14 +10,14 @@ export const handle = ({ params }: { params: HandleParams }) => {
   return {
     breadcrumb: [
       {
-        href: href("/:locale?/admin/dashboard", { locale: params?.locale }),
+        href: href("/:locale?/admin/dashboard", { locale: params?.locale }) as any,
         label: "Dashboard",
       },
       {
         label: "系统",
       },
       {
-        href: href("/:locale?/admin/dict", { locale: params?.locale }),
+        href: href("/:locale?/admin/dict" as any, { locale: params?.locale }),
         label: "字典",
       },
       {

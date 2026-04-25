@@ -16,7 +16,7 @@ export function useMenuList(params: MenuListParams) {
   return useQuery({
     queryKey: menuKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.system.menu.$get({
+      const res = await (getApiClient() as any).api.admin.system.menu.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -31,7 +31,7 @@ export function useMenuFlatList() {
   return useQuery({
     queryKey: menuKeys.flat,
     queryFn: async () => {
-      const res = await getApiClient().api.admin.system["menu-list"].$get();
+      const res = await (getApiClient() as any).api.admin.system["menu-list"].$get();
       return res.json();
     },
   });
@@ -41,7 +41,7 @@ export function useCreateMenu() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.system.menu.$post({
+      const res = await (getApiClient() as any).api.admin.system.menu.$post({
         json: data,
       });
       return res.json();
@@ -56,7 +56,7 @@ export function useUpdateMenu() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.system.menu.$put({
+      const res = await (getApiClient() as any).api.admin.system.menu.$put({
         json: data,
       });
       return res.json();
@@ -71,7 +71,7 @@ export function useDeleteMenu() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: number[] }) => {
-      const res = await getApiClient().api.admin.system.menu.$delete({
+      const res = await (getApiClient() as any).api.admin.system.menu.$delete({
         json: data,
       });
       return res.json();

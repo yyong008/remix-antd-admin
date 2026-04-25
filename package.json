@@ -85,6 +85,7 @@
     "react-type-animation": "^3.2.0",
     "remix-utils": "^9.3.1",
     "resend": "^6.12.2",
+    "tailwind-merge": "^3.5.0",
     "ua-parser-js": "^1.0.41",
     "zod": "^4.3.6"
   },

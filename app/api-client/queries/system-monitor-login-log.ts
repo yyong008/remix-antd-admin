@@ -16,7 +16,7 @@ export function useMonitorLoginLogList(params: MonitorLoginLogParams) {
   return useQuery({
     queryKey: loginLogKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.system.monitor.loginlog.$get({
+      const res = await (getApiClient() as any).api.admin.system.monitor.loginlog.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),

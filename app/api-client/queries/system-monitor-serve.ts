@@ -10,7 +10,7 @@ export function useMonitorServeInfo() {
   return useQuery({
     queryKey: monitorServeKeys.info,
     queryFn: async () => {
-      const res = await getApiClient().api.admin.system.monitor.serve.$get();
+      const res = await (getApiClient() as any).api.admin.system.monitor.serve.$get();
       return res.json();
     },
   });

@@ -18,7 +18,7 @@ export type ModalFormProps = Omit<FormProps, "onFinish"> & {
   form?: FormInstance;
   onFinish?: (values: Record<string, unknown>) => Promise<boolean | void> | boolean | void;
   onOpenChange?: (open: boolean) => void;
-  modalProps?: Omit<ModalProps, "open" | "onOk" | "onCancel" | "title" | "footer" | "children">;
+  modalProps?: Omit<ModalProps, "open" | "onOk" | "footer" | "children">;
   loading?: boolean;
   submitter?: ModalFormSubmitter;
   submitTimeout?: number;
@@ -90,15 +90,16 @@ export function ModalForm({
 
   const triggerEl =
     trigger &&
-    cloneElement(trigger, {
+    cloneElement(trigger as ReactElement<{ onClick?: (e: React.MouseEvent) => void }>, {
       onClick: (e: React.MouseEvent) => {
-        (trigger.props as { onClick?: (ev: React.MouseEvent) => void }).onClick?.(e);
+        const props = trigger.props as { onClick?: (e: React.MouseEvent) => void };
+        props.onClick?.(e);
         handleOpen(true);
       },
     });
 
-  const submitText =
-    submitter && submitter !== false ? (submitter.searchConfig?.submitText ?? "确定") : "确定";
+  const submitCfg = submitter === false ? null : submitter;
+  const submitText = submitCfg?.searchConfig?.submitText ?? "确定";
 
   const showCancel = submitter === false ? false : submitter?.resetButtonProps !== false;
 
@@ -119,7 +120,7 @@ export function ModalForm({
         <Button
           type="primary"
           loading={mergedLoading}
-          {...(submitter && submitter !== false ? submitter.submitButtonProps : {})}
+          {...(submitCfg?.submitButtonProps ?? {})}
           onClick={() => form.submit()}
         >
           {submitText}
@@ -150,7 +151,7 @@ export function ModalForm({
           onFinish={runFinish}
           component={false}
         >
-          {children}
+          {children as any}
         </Form>
       </Modal>
     </>

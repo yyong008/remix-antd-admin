@@ -1,7 +1,8 @@
 import { app } from "../app/api/index";
 import { createRequestHandler, RouterContextProvider } from "react-router";
 import type { AppType } from "../app/api/index";
-import type { Env } from "../worker-configuration.d.ts";
+
+declare const Env: { DB: D1Database; ctx: ExecutionContext };
 
 declare module "react-router" {
   export interface AppLoadContext extends Record<string, any> {

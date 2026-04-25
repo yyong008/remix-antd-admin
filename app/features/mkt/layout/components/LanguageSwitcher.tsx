@@ -31,7 +31,7 @@ export function LanguageSwitcher() {
   const location = useLocation();
   const settings = useContext(SettingContext);
 
-  useChangeLanguage(locale);
+  useChangeLanguage(locale as "en" | "zh");
 
   const handleChange = (nextLocale: string) => {
     if (nextLocale === locale) return;

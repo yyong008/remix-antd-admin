@@ -15,7 +15,7 @@ function removeType3(data: any[]) {
     });
 }
 
-function buildMenuTree(items: any[], parentId: number | null = null) {
+function buildMenuTree(items: any[], parentId: number | null = null): any[] {
   return items
     .filter((item) => item.parent_menu_id === parentId)
     .map((item) => ({

@@ -23,7 +23,7 @@ export function usePublicNewsCategoryList() {
   return useQuery({
     queryKey: publicNewsCategoryKeys.list(),
     queryFn: async () => {
-      const res = await getApiClient().api.news.category.$get();
+      const res = await (getApiClient() as any).api.news.category.$get();
       return parseRsj<PublicNewsCategoryListData>(res);
     },
   });

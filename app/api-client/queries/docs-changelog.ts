@@ -16,7 +16,7 @@ export function useChangelogList(params: ChangelogListParams) {
   return useQuery({
     queryKey: changelogKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.docs.changelog.$get({
+      const res = await (getApiClient() as any).api.admin.docs.changelog.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -32,7 +32,7 @@ export function useChangelogById(id?: number) {
     queryKey: changelogKeys.detail(id),
     enabled: Boolean(id),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.docs.changelog[":id"].$get({
+      const res = await (getApiClient() as any).api.admin.docs.changelog[":id"].$get({
         param: { id: String(id) },
       });
       return res.json();
@@ -44,7 +44,7 @@ export function useCreateChangelog() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.docs.changelog.$post({
+      const res = await (getApiClient() as any).api.admin.docs.changelog.$post({
         json: data,
       });
       return res.json();
@@ -59,7 +59,7 @@ export function useUpdateChangelog() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.docs.changelog[":id"].$put({
+      const res = await (getApiClient() as any).api.admin.docs.changelog[":id"].$put({
         param: { id: String(data.id) },
         json: data,
       });
@@ -75,7 +75,7 @@ export function useDeleteChangelog() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: number[] }) => {
-      const res = await getApiClient().api.admin.docs.changelog.$delete({
+      const res = await (getApiClient() as any).api.admin.docs.changelog.$delete({
         json: data,
       });
       return res.json();

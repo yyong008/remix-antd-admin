@@ -16,7 +16,7 @@ export function useFeedbackList(params: FeedbackListParams) {
   return useQuery({
     queryKey: feedbackKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.feedback.$get({
+      const res = await (getApiClient() as any).api.admin.feedback.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -32,7 +32,7 @@ export function useFeedbackById(id?: number) {
     queryKey: feedbackKeys.detail(id),
     enabled: Boolean(id),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.feedback[":id"].$get({
+      const res = await (getApiClient() as any).api.admin.feedback[":id"].$get({
         param: { id: String(id) },
       });
       return res.json();
@@ -44,7 +44,7 @@ export function useCreateFeedback() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.feedback.$post({
+      const res = await (getApiClient() as any).api.admin.feedback.$post({
         json: data,
       });
       return res.json();
@@ -59,7 +59,7 @@ export function useUpdateFeedback() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.feedback[":id"].$put({
+      const res = await (getApiClient() as any).api.admin.feedback[":id"].$put({
         param: { id: String(data.id) },
         json: data,
       });
@@ -75,7 +75,7 @@ export function useDeleteFeedback() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: number[] }) => {
-      const res = await getApiClient().api.admin.feedback.$delete({
+      const res = await (getApiClient() as any).api.admin.feedback.$delete({
         json: data,
       });
       return res.json();

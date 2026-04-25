@@ -1,4 +1,5 @@
 import { Upload, message } from "antd";
+import type { UploadChangeParam, UploadFile } from "antd/es/upload";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Cropper } from "../Copper";
@@ -107,7 +108,7 @@ const UploadWithCrop = ({
           headers: {
             authorization: "bearer " + localStorage.getItem("token"),
           },
-          onChange: (info) => {
+          onChange: (info: UploadChangeParam<UploadFile>) => {
             if (info.file.status === "done") {
               if (info.file.response?.code === 0) {
                 message.success(info.file.response.message ?? "上传成功");

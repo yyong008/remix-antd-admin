@@ -12,10 +12,7 @@ export const createColumns = ({ locale, refetch }: any) => [
     renderText(_: any, record: any) {
       return (
         <Link
-          to={{
-            pathname: href("/:locale?/admin/blog", { locale }),
-            search: `tag=${record.id}`,
-          }}
+          to={`${String(href("/:locale?/admin/blog" as any, { locale }))}?tag=${record.id}` as any}
         >
           <Space>
             <TagIcons />

@@ -47,7 +47,10 @@ export function createUserDAL(db: DrizzleD1Database) {
       conditions.push(like(user.name, `%${name}%`));
     }
 
-    let query = db.select().from(user).leftJoin(departments, eq(user.departmentId, departments.id));
+    let query: any = db
+      .select()
+      .from(user)
+      .leftJoin(departments, eq(user.departmentId, departments.id));
     if (conditions.length) query = query.where(and(...conditions));
 
     const userRows = await query
@@ -55,7 +58,7 @@ export function createUserDAL(db: DrizzleD1Database) {
       .limit(pageSize)
       .offset((page - 1) * pageSize);
 
-    const userIds = userRows.map((row) => row.user.id);
+    const userIds = userRows.map((row: any) => row.user.id);
     const roleRows = userIds.length
       ? await db
           .select({ userId: userRoles.userId, roleName: roles.name })
@@ -72,7 +75,7 @@ export function createUserDAL(db: DrizzleD1Database) {
       roleMap.set(userId, list);
     }
 
-    return userRows.map((row) => ({
+    return userRows.map((row: any) => ({
       id: row.user.id,
       avatar: row.user.avatar ?? row.user.image ?? null,
       email: row.user.email,

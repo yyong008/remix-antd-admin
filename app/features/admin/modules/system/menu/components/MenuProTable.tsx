@@ -137,7 +137,7 @@ function MenuDetailPanel({
               background: token.colorFillSecondary,
             }}
           >
-            <AntdIcon name={r.icon} style={{ fontSize: 20, color: "var(--ant-color-text)" }} />
+            <AntdIcon name={r.icon} styles={{ fontSize: 20, color: "var(--ant-color-text)" }} />
           </div>
           <div style={{ minWidth: 0 }}>
             <Typography.Title level={5} style={{ marginBottom: 4, marginTop: 0 }}>
@@ -167,13 +167,13 @@ function MenuDetailPanel({
           <MenuType type={(r.type ?? 1) as 1 | 2 | 3} />
         </Descriptions.Item>
         <Descriptions.Item label="状态">
-          <StatusType status={r.status} />
+          <StatusType status={(r.status as any).color === "green" ? 1 : 0} />
         </Descriptions.Item>
         <Descriptions.Item label="可见 / 外链 / 缓存">
           <Space wrap size={[4, 4]}>
-            <ShowType isShow={r.isShow} />
-            <LinkType isLink={r.isLink} />
-            <CacheType isCache={r.isCache} />
+            <ShowType isShow={(r.isShow ?? 0) as 0 | 1} />
+            <LinkType isLink={(r.isLink ?? 0) as 0 | 1} />
+            <CacheType isCache={(r.isCache ?? 0) as 0 | 1} />
           </Space>
         </Descriptions.Item>
         <Descriptions.Item label="排序">{r.orderNo ?? "—"}</Descriptions.Item>
@@ -240,13 +240,13 @@ export function MenuProTable(props: SystemMenuProps) {
     const menuType = (r.type ?? 1) as 1 | 2 | 3;
     return (
       <div style={{ display: "flex", width: "100%", minWidth: 0, alignItems: "center", gap: 8 }}>
-        <AntdIcon name={r.icon} style={{ flexShrink: 0, color: "var(--ant-color-text)" }} />
+        <AntdIcon name={r.icon} styles={{ flexShrink: 0, color: "var(--ant-color-text)" }} />
         <div style={{ minWidth: 0, flex: 1 }}>
           <TooltipTitle name={r.name} description={r.description} />
         </div>
         <span style={{ display: "flex", flexShrink: 0, alignItems: "center", gap: 6 }}>
           <MenuType type={menuType} />
-          {showTreeStatus ? <StatusType status={r.status} /> : null}
+          {showTreeStatus ? <StatusType status={r.status ? 1 : 0} /> : null}
         </span>
       </div>
     );

@@ -15,7 +15,7 @@ export function useSystemMailTplList(params: SystemMailTplListParams) {
   return useQuery({
     queryKey: systemMailTplKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.system.mail.tpl.$get({
+      const res = await (getApiClient() as any).api.admin.system.mail.tpl.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),

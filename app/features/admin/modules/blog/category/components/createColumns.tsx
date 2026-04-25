@@ -12,13 +12,9 @@ export function createColumns({ refetch }: any) {
       dataIndex: "name",
       title: "分类名字",
       renderText(_: any, record: any) {
+        const linkPath = String(href("/:locale?/admin/blog" as any, { locale }));
         return (
-          <Link
-            to={{
-              pathname: href("/:locale?/admin/blog", { locale }),
-              search: `category=${record.id}`,
-            }}
-          >
+          <Link to={`${linkPath}?category=${record.id}` as any}>
             <Space>
               <CategoryIcons />
               <span>{record.name}</span>

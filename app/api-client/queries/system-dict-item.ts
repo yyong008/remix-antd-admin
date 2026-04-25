@@ -17,13 +17,15 @@ export function useDictItemList(params: DictItemListParams) {
     queryKey: dictItemKeys.list(params),
     enabled: Boolean(params.dictionaryId),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$get({
-        param: { dictionaryId: String(params.dictionaryId) },
-        query: {
-          page: (params.page ?? 1).toString(),
-          pageSize: (params.pageSize ?? 10).toString(),
+      const res = await (getApiClient() as any).api.admin.system["dict-item"][":dictionaryId"].$get(
+        {
+          param: { dictionaryId: String(params.dictionaryId) },
+          query: {
+            page: (params.page ?? 1).toString(),
+            pageSize: (params.pageSize ?? 10).toString(),
+          },
         },
-      });
+      );
       return res.json();
     },
   });
@@ -33,7 +35,9 @@ export function useCreateDictItem() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (payload: { dictionaryId: string; data: any }) => {
-      const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$post({
+      const res = await (getApiClient() as any).api.admin.system["dict-item"][
+        ":dictionaryId"
+      ].$post({
         param: { dictionaryId: payload.dictionaryId },
         json: payload.data,
       });
@@ -49,10 +53,12 @@ export function useUpdateDictItem() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (payload: { dictionaryId: string; data: any }) => {
-      const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$put({
-        param: { dictionaryId: payload.dictionaryId },
-        json: payload.data,
-      });
+      const res = await (getApiClient() as any).api.admin.system["dict-item"][":dictionaryId"].$put(
+        {
+          param: { dictionaryId: payload.dictionaryId },
+          json: payload.data,
+        },
+      );
       return res.json();
     },
     onSuccess: () => {
@@ -65,7 +71,9 @@ export function useDeleteDictItem() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (payload: { dictionaryId: string; ids: string[] }) => {
-      const res = await getApiClient().api.admin.system["dict-item"][":dictionaryId"].$delete({
+      const res = await (getApiClient() as any).api.admin.system["dict-item"][
+        ":dictionaryId"
+      ].$delete({
         param: { dictionaryId: payload.dictionaryId },
         json: { ids: payload.ids },
       });

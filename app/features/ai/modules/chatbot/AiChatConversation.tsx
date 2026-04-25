@@ -311,7 +311,7 @@ export function AiChatConversation({
           onChange={setInputValue}
           onSubmit={(msg) => {
             onRequest({
-              messages: [{ role: "user", content: msg }],
+              messages: [{ role: "user", content: msg }] as any,
               model,
             });
             setInputValue("");

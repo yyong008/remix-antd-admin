@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { AISDKIconSVG } from "../BuildWith/icons/AISDKIconSVG";
 import { AntdIconSVG } from "../BuildWith/icons/AntdIconSVG";
 import { DrizzleIconSVG } from "../BuildWith/icons/DrizzleIconSVG";
@@ -55,7 +56,7 @@ function FeatureItem() {
   );
 }
 
-function Item({ icon, title, content }: { icon: JSX.Element; title: string; content: string }) {
+function Item({ icon, title, content }: { icon: ReactNode; title: string; content: string }) {
   return (
     <div style={{ display: "flex", paddingBlock: 10 }}>
       <div

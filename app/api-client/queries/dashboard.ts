@@ -12,7 +12,7 @@ export function useDashboard() {
   return useQuery({
     queryKey: dashboardKeys.info,
     queryFn: async () => {
-      const res = await getApiClient().api.admin.dashboard.$get();
+      const res = await (getApiClient() as any).api.admin.dashboard.$get();
       return parseRsj<DashboardPayload>(res);
     },
   });
@@ -22,7 +22,7 @@ export function useUserSignIn() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async () => {
-      const res = await getApiClient().api.admin.system.user.signin.$post();
+      const res = await (getApiClient() as any).api.admin.system.user.signin.$post();
       return res.json();
     },
     onSuccess: () => {

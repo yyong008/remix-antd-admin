@@ -30,7 +30,7 @@ export function useNewsCategoryList(params: NewsCategoryListParams) {
   return useQuery({
     queryKey: newsCategoryKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.news.category.$get({
+      const res = await (getApiClient() as any).api.admin.news.category.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -46,7 +46,7 @@ export function useCreateNewsCategory() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: Record<string, unknown>) => {
-      const res = await getApiClient().api.admin.news.category.$post({
+      const res = await (getApiClient() as any).api.admin.news.category.$post({
         json: data,
       });
       return parseRsj<NewsCategoryRow>(res);
@@ -62,7 +62,7 @@ export function useUpdateNewsCategory() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: Record<string, unknown>) => {
-      const res = await getApiClient().api.admin.news.category.$put({
+      const res = await (getApiClient() as any).api.admin.news.category.$put({
         json: data,
       });
       return parseRsj<NewsCategoryRow>(res);
@@ -78,7 +78,7 @@ export function useDeleteNewsCategory() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: string[] }) => {
-      const res = await getApiClient().api.admin.news.category.$delete({
+      const res = await (getApiClient() as any).api.admin.news.category.$delete({
         json: data,
       });
       return parseRsj<unknown>(res);

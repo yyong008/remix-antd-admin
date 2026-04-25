@@ -25,12 +25,12 @@ export function createLoginLogDAL(db: DrizzleD1Database) {
     if (data.name) {
       conditions.push(like(loginLogs.name, `%${data.name}%`));
     }
-    let query = db.select().from(loginLogs);
+    let query: any = db.select().from(loginLogs);
     if (conditions.length) query = query.where(and(...conditions));
-    return await query
+    return (await query
       .orderBy(desc(loginLogs.id))
       .limit(data.pageSize ?? 10)
-      .offset(((data.page ?? 1) - 1) * (data.pageSize ?? 10));
+      .offset(((data.page ?? 1) - 1) * (data.pageSize ?? 10))) as any;
   }
 
   async function getLoginLogLatestByUserId(userId: string) {

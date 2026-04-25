@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 
 type FieldBase = Omit<FormItemProps, "children"> & {
   fieldProps?: Record<string, unknown>;
+  placeholder?: string;
 };
 
 export function ProFormText({ name, label, placeholder, rules, fieldProps, ...rest }: FieldBase) {
@@ -184,8 +185,9 @@ function ProFormRadioGroup({
 export const ProFormRadio = { Group: ProFormRadioGroup };
 
 type UploadFieldProps = FieldBase &
-  Pick<UploadProps, "action" | "listType" | "max"> & {
+  Pick<UploadProps, "action" | "listType"> & {
     placeholder?: string;
+    max?: number;
   };
 
 export function ProFormUploadButton({

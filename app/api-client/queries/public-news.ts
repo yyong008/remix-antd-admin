@@ -31,7 +31,7 @@ export function usePublicNewsList(params: { page?: number; pageSize?: number; ca
   return useQuery({
     queryKey: publicNewsKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.news.$get({
+      const res = await (getApiClient() as any).api.news.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -48,7 +48,7 @@ export function usePublicNewsById(id?: string) {
     queryKey: publicNewsKeys.detail(id),
     enabled: Boolean(id),
     queryFn: async () => {
-      const res = await getApiClient().api.news[":id"].$get({
+      const res = await (getApiClient() as any).api.news[":id"].$get({
         param: { id: id! },
       });
       return parseRsj<PublicNewsRow>(res);

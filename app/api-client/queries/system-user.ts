@@ -45,7 +45,7 @@ export function useUserList(params: UserListParams) {
   return useQuery({
     queryKey: userKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.system.user.$get({
+      const res = await (getApiClient() as any).api.admin.system.user.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -61,7 +61,7 @@ export function useUserInfo() {
   return useQuery({
     queryKey: userKeys.info,
     queryFn: async () => {
-      const res = await getApiClient().api.admin.system.user.info.$get();
+      const res = await (getApiClient() as any).api.admin.system.user.info.$get();
       return parseRsj<AdminUserInfoPayload>(res);
     },
   });
@@ -71,7 +71,7 @@ export function useCreateUser() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.system.user.$post({
+      const res = await (getApiClient() as any).api.admin.system.user.$post({
         json: data,
       });
       return res.json();
@@ -86,7 +86,7 @@ export function useUpdateUser() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.system.user[":id"].$put({
+      const res = await (getApiClient() as any).api.admin.system.user[":id"].$put({
         param: { id: String(data.id) },
         json: data,
       });
@@ -102,7 +102,7 @@ export function useDeleteUser() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: string[] }) => {
-      const res = await getApiClient().api.admin.system.user.$delete({
+      const res = await (getApiClient() as any).api.admin.system.user.$delete({
         json: { ids: data.ids.map((id) => String(id)) },
       });
       return res.json();

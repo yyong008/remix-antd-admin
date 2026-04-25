@@ -10,7 +10,7 @@ export const adminModalFormLayout: Pick<
 > = {
   layout: "horizontal",
   labelCol: { flex: "0 0 120px" },
-  wrapperCol: { flex: "1 1 auto", minWidth: 0 },
+  wrapperCol: { flex: "1 1 auto", style: { minWidth: 0 } },
   colon: false,
   labelAlign: "right",
   labelWrap: true,

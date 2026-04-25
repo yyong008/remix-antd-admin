@@ -8,19 +8,19 @@ export function createChangeLogDAL(db: DrizzleD1Database) {
     return rows[0]?.count ?? 0;
   }
 
-  async function getById(id: number) {
+  async function getById(id: string) {
     const rows = await db.select().from(changeLogs).where(eq(changeLogs.id, id)).limit(1);
     return rows[0] ?? null;
   }
 
   async function getList({ where, skip, take }: any) {
-    let query = db.select().from(changeLogs);
+    let query: any = db.select().from(changeLogs);
     if (where?.userId !== undefined) {
-      query = query.where(eq(changeLogs.userId, where.userId));
+      query = query.where(eq(changeLogs.userId, String(where.userId)));
     }
     if (typeof take === "number") query = query.limit(take);
     if (typeof skip === "number") query = query.offset(skip);
-    return await query;
+    return (await query) as any;
   }
 
   async function create(data: any) {
@@ -33,12 +33,12 @@ export function createChangeLogDAL(db: DrizzleD1Database) {
     const updated = await db
       .update(changeLogs)
       .set(values)
-      .where(eq(changeLogs.id, id))
+      .where(eq(changeLogs.id, String(id)))
       .returning();
     return updated[0];
   }
 
-  async function deleteByIds(ids: number[]) {
+  async function deleteByIds(ids: string[]) {
     return await db.delete(changeLogs).where(inArray(changeLogs.id, ids)).returning();
   }
 

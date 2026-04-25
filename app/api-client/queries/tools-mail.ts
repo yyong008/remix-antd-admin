@@ -16,7 +16,7 @@ export function useToolsMailList(params: ToolsMailListParams) {
   return useQuery({
     queryKey: toolsMailKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.tools.mail.$get({
+      const res = await (getApiClient() as any).api.admin.tools.mail.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -32,7 +32,7 @@ export function useToolsMailById(id?: number) {
     queryKey: toolsMailKeys.detail(id),
     enabled: Boolean(id),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.tools.mail[":id"].$get({
+      const res = await (getApiClient() as any).api.admin.tools.mail[":id"].$get({
         param: { id: String(id) },
       });
       return res.json();
@@ -44,7 +44,7 @@ export function useCreateToolsMail() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.tools.mail.$post({
+      const res = await (getApiClient() as any).api.admin.tools.mail.$post({
         json: data,
       });
       return res.json();
@@ -59,7 +59,7 @@ export function useUpdateToolsMail() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.tools.mail.$put({
+      const res = await (getApiClient() as any).api.admin.tools.mail.$put({
         json: data,
       });
       return res.json();
@@ -74,7 +74,7 @@ export function useDeleteToolsMail() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: number[] }) => {
-      const res = await getApiClient().api.admin.tools.mail.$delete({
+      const res = await (getApiClient() as any).api.admin.tools.mail.$delete({
         json: data,
       });
       return res.json();
@@ -88,7 +88,7 @@ export function useDeleteToolsMail() {
 export function useSendToolsMail() {
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.tools.mail.send.$post({
+      const res = await (getApiClient() as any).api.admin.tools.mail.send.$post({
         json: data,
       });
       return res.json();

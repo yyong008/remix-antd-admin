@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 export function useKeyPress(resetTime = 100) {
   const [key, setKey] = useState("");
-  const tRef = useRef<any>();
+  const tRef = useRef<any>(undefined);
 
   useEffect(() => {
     const handler = (event: KeyboardEvent) => {

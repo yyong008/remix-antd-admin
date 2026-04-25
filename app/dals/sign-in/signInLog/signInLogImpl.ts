@@ -66,4 +66,4 @@ export function createSignInLogDAL(db: DrizzleD1Database) {
   };
 }
 
-export type SignInLogImplDAL = ReturnType<typeof createSignInLogImplDAL>;
+export type SignInLogImplDAL = ReturnType<typeof createSignInLogDAL>;

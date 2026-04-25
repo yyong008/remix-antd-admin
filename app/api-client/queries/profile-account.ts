@@ -11,7 +11,7 @@ export function useProfileAccount() {
   return useQuery({
     queryKey: profileAccountKeys.info,
     queryFn: async () => {
-      const res = await getApiClient().api.admin.profile.account.$get();
+      const res = await (getApiClient() as any).api.admin.profile.account.$get();
       return parseRsj(res);
     },
   });
@@ -21,7 +21,7 @@ export function useUpdateProfileAccount() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { avatar?: string }) => {
-      const res = await getApiClient().api.admin.profile.account.$put({
+      const res = await (getApiClient() as any).api.admin.profile.account.$put({
         json: data,
       });
       /** PUT /api/admin/profile/account returns rsj-wrapped user object */

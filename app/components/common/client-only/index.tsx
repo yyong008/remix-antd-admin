@@ -1,8 +1,9 @@
+import type { ReactNode } from "react";
 import { useHydrated } from "./hooks";
 
 type Props = {
-  children(): JSX.Element;
-  fallback?: JSX.Element | null;
+  children(): ReactNode;
+  fallback?: ReactNode | null;
 };
 
 export function ClientOnly({ children, fallback = null }: Props) {

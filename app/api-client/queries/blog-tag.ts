@@ -28,7 +28,7 @@ export function useBlogTagList(params: BlogTagListParams) {
   return useQuery({
     queryKey: blogTagKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.blog.tag.$get({
+      const res = await (getApiClient() as any).api.admin.blog.tag.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -44,7 +44,7 @@ export function useBlogTagById(id?: number) {
     queryKey: blogTagKeys.detail(id),
     enabled: Boolean(id),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.blog.tag[":id"].$get({
+      const res = await (getApiClient() as any).api.admin.blog.tag[":id"].$get({
         param: { id: String(id) },
       });
       return res.json();
@@ -56,7 +56,7 @@ export function useCreateBlogTag() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: Record<string, unknown>) => {
-      const res = await getApiClient().api.admin.blog.tag.$post({
+      const res = await (getApiClient() as any).api.admin.blog.tag.$post({
         json: data,
       });
       return parseRsj(res);
@@ -72,7 +72,7 @@ export function useUpdateBlogTag() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.blog.tag[":id"].$put({
+      const res = await (getApiClient() as any).api.admin.blog.tag[":id"].$put({
         param: { id: String(data.id) },
         json: data,
       });
@@ -88,7 +88,7 @@ export function useDeleteBlogTag() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: number[] }) => {
-      const res = await getApiClient().api.admin.blog.tag.$delete({
+      const res = await (getApiClient() as any).api.admin.blog.tag.$delete({
         json: data,
       });
       return res.json();
@@ -103,7 +103,7 @@ export function useDeleteBlogTagById() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (id: number) => {
-      const res = await getApiClient().api.admin.blog.tag[":id"].$delete({
+      const res = await (getApiClient() as any).api.admin.blog.tag[":id"].$delete({
         param: { id: String(id) },
       });
       return res.json();

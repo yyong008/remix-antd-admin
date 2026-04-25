@@ -106,8 +106,10 @@ export function NavFooter() {
                   target="_blank"
                   aria-label={social.label}
                   style={linkStyle}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = linkHoverStyle.color)}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = linkStyle.color)}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = linkHoverStyle.color || "#000")
+                  }
+                  onMouseLeave={(e) => (e.currentTarget.style.color = linkStyle.color || "#000")}
                 />
               ))}
             </Space>
@@ -125,8 +127,12 @@ export function NavFooter() {
                         to={link.to}
                         target={link.isOut ? "_blank" : "_self"}
                         style={linkStyle}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = linkHoverStyle.color)}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = linkStyle.color)}
+                        onMouseEnter={(e) =>
+                          (e.currentTarget.style.color = linkHoverStyle.color || "#000")
+                        }
+                        onMouseLeave={(e) =>
+                          (e.currentTarget.style.color = linkStyle.color || "#000")
+                        }
                       >
                         <Space size="small">
                           <span>{link.text}</span>

@@ -13,6 +13,7 @@ export type AdminRouteNode = {
   icon?: ReactNode;
   children?: AdminRouteNode[];
   isLink?: number | boolean | null;
+  isShow?: number | boolean | null;
 };
 
 type PathMatch = {

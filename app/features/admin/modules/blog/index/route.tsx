@@ -186,7 +186,7 @@ export function Route() {
               <ButtonLink
                 type="new"
                 content="编辑文章"
-                to={href(`/:locale?/admin/blog/new`, { locale })}
+                to={href(`/:locale?/admin/blog/new` as any, { locale }) as unknown as string}
               />
             </Flex>
           }

@@ -29,7 +29,7 @@ export function useProfileLinkCategoryList(params: ProfileLinkCategoryListParams
   return useQuery({
     queryKey: profileLinkCategoryKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.profile.link.category.$get({
+      const res = await (getApiClient() as any).api.admin.profile.link.category.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -44,7 +44,7 @@ export function useCreateProfileLinkCategory() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.profile.link.category.$post({
+      const res = await (getApiClient() as any).api.admin.profile.link.category.$post({
         json: data,
       });
       return res.json();
@@ -59,7 +59,7 @@ export function useUpdateProfileLinkCategory() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.profile.link.category.$put({
+      const res = await (getApiClient() as any).api.admin.profile.link.category.$put({
         json: data,
       });
       return res.json();
@@ -74,7 +74,7 @@ export function useDeleteProfileLinkCategory() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: string[] }) => {
-      const res = await getApiClient().api.admin.profile.link.category.$delete({
+      const res = await (getApiClient() as any).api.admin.profile.link.category.$delete({
         json: data,
       });
       return res.json();

@@ -36,5 +36,5 @@ export async function sendMail(input: SendMailInput) {
     replyTo: input.replyTo ?? mailServerConfig.replyTo,
     cc: input.cc,
     bcc: input.bcc,
-  });
+  } as any);
 }

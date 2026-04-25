@@ -8,4 +8,4 @@ const env = {
 };
 
 const db = getDb(env);
-export const auth = createAuth(env);
+export const auth = createAuth(env as any);

@@ -57,7 +57,7 @@ export function useAboutData(): AboutData {
     const productionDeps: AboutDependency[] = Object.entries(pkg.dependencies || {})
       .map(([name, version]) => ({
         name,
-        version,
+        version: String(version),
         url: toNpmUrl(name),
       }))
       .sort((a, b) => a.name.localeCompare(b.name));
@@ -65,7 +65,7 @@ export function useAboutData(): AboutData {
     const developmentDeps: AboutDependency[] = Object.entries(pkg.devDependencies || {})
       .map(([name, version]) => ({
         name,
-        version,
+        version: String(version),
         url: toNpmUrl(name),
       }))
       .sort((a, b) => a.name.localeCompare(b.name));

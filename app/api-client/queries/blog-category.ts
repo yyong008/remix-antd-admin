@@ -17,6 +17,7 @@ export type BlogCategoryRow = {
   id: string;
   name: string;
   description?: string | null;
+  showOnClient?: boolean;
 };
 
 export type BlogCategoryListData = {
@@ -28,7 +29,7 @@ export function useBlogCategoryList(params: BlogCategoryListParams) {
   return useQuery({
     queryKey: blogCategoryKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.blog.category.$get({
+      const res = await (getApiClient() as any).api.admin.blog.category.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -44,7 +45,7 @@ export function useBlogCategoryById(id?: string) {
     queryKey: blogCategoryKeys.detail(id),
     enabled: Boolean(id),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.blog.category[":id"].$get({
+      const res = await (getApiClient() as any).api.admin.blog.category[":id"].$get({
         param: { id: id! },
       });
       return res.json();
@@ -56,7 +57,7 @@ export function useCreateBlogCategory() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: Record<string, unknown>) => {
-      const res = await getApiClient().api.admin.blog.category.$post({
+      const res = await (getApiClient() as any).api.admin.blog.category.$post({
         json: data,
       });
       return parseRsj(res);
@@ -72,7 +73,7 @@ export function useUpdateBlogCategory() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.blog.category[":id"].$put({
+      const res = await (getApiClient() as any).api.admin.blog.category[":id"].$put({
         param: { id: String(data.id) },
         json: data,
       });
@@ -88,7 +89,7 @@ export function useDeleteBlogCategory() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: string[] }) => {
-      const res = await getApiClient().api.admin.blog.category.$delete({
+      const res = await (getApiClient() as any).api.admin.blog.category.$delete({
         json: data,
       });
       return res.json();

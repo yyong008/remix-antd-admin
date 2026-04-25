@@ -79,12 +79,14 @@ export function StorageModal(props: StorageModalProps) {
   return (
     <ModalForm
       title={
-        <Space>
-          <span>上传到对象存储</span>
-          <Typography.Text type="secondary" style={{ fontSize: 14, fontWeight: 400 }}>
-            本地 R2 · 队列上传
-          </Typography.Text>
-        </Space>
+        (
+          <Space>
+            <span>上传到对象存储</span>
+            <Typography.Text type="secondary" style={{ fontSize: 14, fontWeight: 400 }}>
+              本地 R2 · 队列上传
+            </Typography.Text>
+          </Space>
+        ) as any
       }
       width={720}
       onOpenChange={(open) => {

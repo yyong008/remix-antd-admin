@@ -11,7 +11,7 @@ export function createDictDAL(db: DrizzleD1Database) {
   async function getList(data: any) {
     const skip = data.pageSize * (data.page - 1);
     const take = data.pageSize;
-    return await db.select().from(dictionaries).limit(take).offset(skip);
+    return (await db.select().from(dictionaries).limit(take).offset(skip)) as any;
   }
 
   async function create(data: any) {
@@ -37,7 +37,7 @@ export function createDictDAL(db: DrizzleD1Database) {
     return updated[0];
   }
 
-  async function deleteByIds(ids: number[]) {
+  async function deleteByIds(ids: string[]) {
     const deleted = await db
       .delete(dictionaries)
       .where(inArray(dictionaries.id, ids))

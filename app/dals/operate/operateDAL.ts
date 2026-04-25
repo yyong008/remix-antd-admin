@@ -16,11 +16,11 @@ export function createOperateDAL(db: DrizzleD1Database) {
     if (data.where?.username?.contains) {
       conditions.push(like(operates.username, `%${data.where.username.contains}%`));
     }
-    let query = db.select().from(operates);
+    let query: any = db.select().from(operates);
     if (conditions.length) query = query.where(and(...conditions));
     if (data.orderBy?.id === "desc") query = query.orderBy(desc(operates.id));
     if (data.orderBy?.id === "asc") query = query.orderBy(asc(operates.id));
-    return await query.limit(data.take).offset(data.skip);
+    return (await query.limit(data.take).offset(data.skip)) as any;
   }
 
   async function getOperatesCount(data: { where: any }) {
@@ -31,19 +31,20 @@ export function createOperateDAL(db: DrizzleD1Database) {
     if (data.where?.username?.contains) {
       conditions.push(like(operates.username, `%${data.where.username.contains}%`));
     }
-    let query = db.select({ count: count() }).from(operates);
+    let query: any = db.select({ count: count() }).from(operates);
     if (conditions.length) query = query.where(and(...conditions));
     const rows = await query;
     return rows[0]?.count ?? 0;
   }
 
   async function createOperate(data: Record<string, unknown>) {
+    const { id: _id, ...rest } = data;
     const created = await db
       .insert(operates)
       .values({
-        ...data,
-        id: (data.id as string | undefined) ?? crypto.randomUUID(),
-      })
+        ...rest,
+        id: (_id as string | undefined) ?? crypto.randomUUID(),
+      } as any)
       .returning();
     return created[0];
   }

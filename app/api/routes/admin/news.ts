@@ -110,7 +110,7 @@ newsRouter.get(
       const list = await newsCategoryDAL.getList({ page, pageSize });
 
       const categoriesWithCount = await Promise.all(
-        list.map(async (cat) => {
+        list.map(async (cat: (typeof list)[number]) => {
           const countResult = await newsDAL.getCountByCategory(cat.id);
           return { ...cat, newsCount: countResult };
         }),

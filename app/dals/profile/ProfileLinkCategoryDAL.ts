@@ -29,7 +29,7 @@ export function createProfileLinkCategoryDAL(db: DrizzleD1Database) {
   }
 
   async function getList({ where, skip, take, orderBy }: any) {
-    let query = db.select().from(linkCategories);
+    let query: any = db.select().from(linkCategories);
     if (where?.userId !== undefined) {
       query = query.where(eq(linkCategories.userId, where.userId));
     }
@@ -37,7 +37,7 @@ export function createProfileLinkCategoryDAL(db: DrizzleD1Database) {
     if (orderBy?.id === "asc") query = query.orderBy(asc(linkCategories.id));
     if (typeof take === "number") query = query.limit(take);
     if (typeof skip === "number") query = query.offset(skip);
-    return await query;
+    return (await query) as any;
   }
 
   async function create(data: any) {

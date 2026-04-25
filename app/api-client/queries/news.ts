@@ -36,7 +36,7 @@ export function useNewsList(params: NewsListParams) {
   return useQuery({
     queryKey: newsKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.news.$get({
+      const res = await (getApiClient() as any).api.admin.news.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -53,7 +53,7 @@ export function useNewsById(id?: string) {
     queryKey: newsKeys.detail(id),
     enabled: Boolean(id),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.news[":id"].$get({
+      const res = await (getApiClient() as any).api.admin.news[":id"].$get({
         param: { id: id! },
       });
       return parseRsj<NewsRow>(res);
@@ -65,7 +65,7 @@ export function useCreateNews() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.news.$post({
+      const res = await (getApiClient() as any).api.admin.news.$post({
         json: data,
       });
       return res.json();
@@ -80,7 +80,7 @@ export function useUpdateNews() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.news.$put({
+      const res = await (getApiClient() as any).api.admin.news.$put({
         json: data,
       });
       return res.json();
@@ -95,7 +95,7 @@ export function useDeleteNews() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: string[] }) => {
-      const res = await getApiClient().api.admin.news.$delete({
+      const res = await (getApiClient() as any).api.admin.news.$delete({
         json: data,
       });
       return res.json();
@@ -110,7 +110,7 @@ export function useToggleNewsStatus() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { id: string }) => {
-      const res = await getApiClient().api.admin.news["toggle-status"].$put({
+      const res = await (getApiClient() as any).api.admin.news["toggle-status"].$put({
         json: data,
       });
       return res.json();
@@ -125,7 +125,7 @@ export function useIncrementNewsViewCount() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (id: string) => {
-      const res = await getApiClient().api.admin.news[":id"].view.$put({
+      const res = await (getApiClient() as any).api.admin.news[":id"].view.$put({
         param: { id },
       });
       return res.json();

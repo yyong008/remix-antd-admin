@@ -27,7 +27,7 @@ docsRouter.get("/changelog/:id", async (c) => {
   try {
     const db = getD1Db(c);
     const changeLogDAL = createChangeLogDAL(db);
-    const id = Number(c.req.param("id"));
+    const id = c.req.param("id");
     if (!id) {
       return rfj({}, "Invalid Changelog Id", { status: 400 });
     }

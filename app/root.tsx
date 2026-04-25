@@ -75,7 +75,7 @@ export default function Root() {
     <ThemeProvider>
       <SettingContext.Provider
         value={{
-          theme: {},
+          theme: { colorPrimary: "#1677ff" },
           setTheme: () => {},
           lang: "en",
           setLang: () => {},

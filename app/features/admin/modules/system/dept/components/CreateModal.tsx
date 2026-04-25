@@ -5,8 +5,10 @@ import { ModalForm } from "~/components/pro-form-kit";
 import { ModalFormItems } from "./ModalFormItem";
 import { useCreateDept } from "~/api-client/queries/system-dept";
 
+import type { ReactNode } from "react";
+
 type CreateDeptModalProps = {
-  trigger?: JSX.Element;
+  trigger?: ReactNode;
   treeOptions: any;
   refetch?: () => void;
 };
@@ -26,11 +28,11 @@ export function CreateDeptModal(props: CreateDeptModalProps) {
         }
       }}
       trigger={
-        trigger ?? (
+        (trigger ?? (
           <Button type="primary" icon={<EditOutlined />}>
             {"新建"}
           </Button>
-        )
+        )) as any
       }
       form={form}
       autoFocusFirstInput

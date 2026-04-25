@@ -15,7 +15,7 @@ export function Route() {
           type="primary"
           key="console"
           onClick={() => {
-            nav(href("/:locale?/blog/:id", { locale, id: state.id }));
+            nav(href("/:locale?/blog/:id", { locale, id: state.id }) as unknown as string);
           }}
         >
           go read
@@ -23,7 +23,7 @@ export function Route() {
         <Button
           key="buy"
           onClick={() => {
-            nav(href("/:locale?/admin/blog/new", { locale: locale }));
+            nav(href("/:locale?/admin/blog/new" as any, { locale: locale }));
           }}
         >
           create Again

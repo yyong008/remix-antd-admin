@@ -12,6 +12,6 @@ export function createOllamaOpenAIChatProvider(chatId: string) {
         stream: true,
       },
       transformStream: () => createTextStreamToOpenAIChunkTransform(),
-    }),
+    } as any),
   });
 }

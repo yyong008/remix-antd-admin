@@ -16,7 +16,7 @@ export function useToolsStorageList(params: ToolsStorageListParams) {
   return useQuery({
     queryKey: toolsStorageKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.tools.storage.$get({
+      const res = await (getApiClient() as any).api.admin.tools.storage.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -32,7 +32,7 @@ export function useToolsStorageById(id?: number) {
     queryKey: toolsStorageKeys.detail(id),
     enabled: Boolean(id),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.tools.storage[":id"].$get({
+      const res = await (getApiClient() as any).api.admin.tools.storage[":id"].$get({
         param: { id: String(id) },
       });
       return res.json();
@@ -44,7 +44,7 @@ export function useCreateToolsStorage() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.tools.storage.$post({
+      const res = await (getApiClient() as any).api.admin.tools.storage.$post({
         json: data,
       });
       return res.json();
@@ -59,7 +59,7 @@ export function useUpdateToolsStorage() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.tools.storage.$put({
+      const res = await (getApiClient() as any).api.admin.tools.storage.$put({
         json: data,
       });
       return res.json();
@@ -74,7 +74,7 @@ export function useDeleteToolsStorage() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: number[] }) => {
-      const res = await getApiClient().api.admin.tools.storage.$delete({
+      const res = await (getApiClient() as any).api.admin.tools.storage.$delete({
         json: data,
       });
       return res.json();

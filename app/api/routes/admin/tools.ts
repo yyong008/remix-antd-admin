@@ -36,7 +36,7 @@ toolsRouter.get("/mail/:id", requirePermission("tools:mail:read"), async (c) => 
   try {
     const db = getD1Db(c);
     const mailTemplateDAL = createMailTemplateDAL(db);
-    const id = Number(c.req.param("id"));
+    const id = c.req.param("id");
     if (!id) {
       return rfj({}, "Invalid Mail Id", { status: 400 });
     }
@@ -152,7 +152,7 @@ toolsRouter.get("/storage/:id", requirePermission("tools:storage:read"), async (
   try {
     const db = getD1Db(c);
     const storageDAL = createStorageDAL(db);
-    const id = Number(c.req.param("id"));
+    const id = c.req.param("id");
     if (!id) {
       return rfj({}, "Invalid Storage Id", { status: 400 });
     }

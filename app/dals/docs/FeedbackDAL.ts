@@ -8,18 +8,19 @@ export function createFeedbackDAL(db: DrizzleD1Database) {
     return rows[0]?.count ?? 0;
   }
 
-  async function getListById(id: number) {
-    return await db.select().from(feedbacks).where(eq(feedbacks.id, id));
+  async function getById(id: string) {
+    const rows = await db.select().from(feedbacks).where(eq(feedbacks.id, id)).limit(1);
+    return rows[0] ?? null;
   }
 
   async function getList({ where, skip, take }: any) {
-    let query = db.select().from(feedbacks);
+    let query: any = db.select().from(feedbacks);
     if (where?.userId !== undefined) {
-      query = query.where(eq(feedbacks.userId, where.userId));
+      query = query.where(eq(feedbacks.userId, String(where.userId)));
     }
     if (typeof take === "number") query = query.limit(take);
     if (typeof skip === "number") query = query.offset(skip);
-    return await query;
+    return (await query) as any;
   }
 
   async function create(data: any) {
@@ -29,17 +30,21 @@ export function createFeedbackDAL(db: DrizzleD1Database) {
 
   async function update(data: any) {
     const { id, ...values } = data;
-    const updated = await db.update(feedbacks).set(values).where(eq(feedbacks.id, id)).returning();
+    const updated = await db
+      .update(feedbacks)
+      .set(values)
+      .where(eq(feedbacks.id, String(id)))
+      .returning();
     return updated[0];
   }
 
-  async function deleteByIds(ids: number[]) {
+  async function deleteByIds(ids: string[]) {
     return await db.delete(feedbacks).where(inArray(feedbacks.id, ids)).returning();
   }
 
   return {
     getCount,
-    getListById,
+    getById,
     getList,
     create,
     update,

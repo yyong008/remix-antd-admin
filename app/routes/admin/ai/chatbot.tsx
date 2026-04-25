@@ -14,7 +14,7 @@ export const handle = ({ params }: { params: HandleParams }) => {
   return {
     breadcrumb: [
       {
-        href: href("/:locale?/admin/dashboard", { locale: params?.locale }),
+        href: href("/:locale?/admin/dashboard", { locale: params?.locale }) as any,
         label: "Dashboard",
       },
       {
@@ -30,8 +30,8 @@ export default function Page() {
   useEffect(() => {
     let cancelled = false;
     void fetch("/api/ai/chats", { method: "POST" })
-      .then((r) => r.json())
-      .then((d: { id?: string }) => {
+      .then((r) => r.json() as Promise<{ id?: string }>)
+      .then((d) => {
         if (!cancelled && d.id) setChatId(d.id);
       });
     return () => {

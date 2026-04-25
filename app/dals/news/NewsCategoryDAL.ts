@@ -14,42 +14,42 @@ export function createNewsCategoryDAL(db: DrizzleD1Database) {
   }
 
   async function getList(data: any) {
-    return await db
+    return (await db
       .select()
       .from(newsCategories)
       .limit(data.pageSize)
-      .offset(data.pageSize * (data.page - 1));
+      .offset(data.pageSize * (data.page - 1))) as any;
   }
 
   async function getAll() {
-    return await db.select().from(newsCategories);
+    return (await db.select().from(newsCategories)) as any;
   }
 
   /** Public category list - only visible categories */
   async function getPublicList() {
-    return await db.select().from(newsCategories).where(eq(newsCategories.visible, true));
+    return (await db.select().from(newsCategories).where(eq(newsCategories.visible, true))) as any;
   }
 
   async function getListWithMore({ where, skip, take }: any) {
-    let query = db.select().from(newsCategories);
+    let query: any = db.select().from(newsCategories);
     if (where?.userId !== undefined) {
       query = query.where(eq(newsCategories.userId, where.userId));
     }
     if (typeof take === "number") query = query.limit(take);
     if (typeof skip === "number") query = query.offset(skip);
-    return await query;
+    return (await query) as any;
   }
 
   async function getNewsCategoryListByUserId(userId: string) {
-    return await db.select().from(newsCategories).where(eq(newsCategories.userId, userId));
+    return (await db.select().from(newsCategories).where(eq(newsCategories.userId, userId))) as any;
   }
 
   async function getNewsCategoryListByNewsId(_newsId: number) {
-    return await db.select().from(newsCategories);
+    return (await db.select().from(newsCategories)) as any;
   }
 
   async function getNewsCategoryListByNewsIds(_newsIds: number[]) {
-    return await db.select().from(newsCategories);
+    return (await db.select().from(newsCategories)) as any;
   }
 
   async function create(data: {

@@ -31,7 +31,7 @@ export function usePublicBlogList() {
   return useQuery({
     queryKey: publicBlogKeys.list(),
     queryFn: async () => {
-      const res = await getApiClient().api.blog.$get();
+      const res = await (getApiClient() as any).api.blog.$get();
       return parseRsj<PublicBlogListData>(res);
     },
   });
@@ -42,7 +42,7 @@ export function usePublicBlogById(id?: string) {
     queryKey: publicBlogKeys.detail(id),
     enabled: Boolean(id),
     queryFn: async () => {
-      const res = await getApiClient().api.blog[":id"].$get({
+      const res = await (getApiClient() as any).api.blog[":id"].$get({
         param: { id: id! },
       });
       return parseRsj<PublicBlogRow>(res);

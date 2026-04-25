@@ -1,4 +1,4 @@
-import { hc, type Client } from "hono/client";
+import { hc } from "hono/client";
 
 import type { AppType } from "../api";
 
@@ -7,14 +7,14 @@ type CreateClientOptions = {
   getToken?: () => string | null | undefined;
 };
 
-export type ApiClient = Client<AppType>;
+export type ApiClient = ReturnType<typeof hc<AppType>>;
 
 export const createApiClient = (options: CreateClientOptions = {}): ApiClient => {
   const baseUrl = options.baseUrl ?? "/";
   const getToken = options.getToken;
 
   return hc<AppType>(baseUrl, {
-    fetch: (input, init) => {
+    fetch: (input: RequestInfo | URL, init?: RequestInit) => {
       const headers = new Headers(init?.headers);
       const token = getToken?.();
       if (token) {

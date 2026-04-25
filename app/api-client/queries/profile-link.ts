@@ -33,7 +33,7 @@ export function useProfileLinkList(params: ProfileLinkListParams, options?: { en
   return useQuery({
     queryKey: profileLinkKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.profile.link.$get({
+      const res = await (getApiClient() as any).api.admin.profile.link.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -50,7 +50,7 @@ export function useCreateProfileLink() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.profile.link.$post({
+      const res = await (getApiClient() as any).api.admin.profile.link.$post({
         json: data,
       });
       return res.json();
@@ -66,7 +66,7 @@ export function useUpdateProfileLink() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.profile.link.$put({
+      const res = await (getApiClient() as any).api.admin.profile.link.$put({
         json: data,
       });
       return res.json();
@@ -82,7 +82,7 @@ export function useDeleteProfileLink() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: string[] }) => {
-      const res = await getApiClient().api.admin.profile.link.$delete({
+      const res = await (getApiClient() as any).api.admin.profile.link.$delete({
         json: data,
       });
       return res.json();

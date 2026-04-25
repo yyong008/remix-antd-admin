@@ -15,7 +15,7 @@ export function useSystemConfigList(params: SystemConfigListParams) {
   return useQuery({
     queryKey: systemConfigKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.system.config.$get({
+      const res = await (getApiClient() as any).api.admin.system.config.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -30,7 +30,7 @@ export function useCreateConfig() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.system.config.$post({
+      const res = await (getApiClient() as any).api.admin.system.config.$post({
         json: data,
       });
       return res.json();
@@ -45,7 +45,7 @@ export function useUpdateConfig() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.system.config.$put({
+      const res = await (getApiClient() as any).api.admin.system.config.$put({
         json: data,
       });
       return res.json();
@@ -60,7 +60,7 @@ export function useDeleteConfig() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: (string | number)[] }) => {
-      const res = await getApiClient().api.admin.system.config.$delete({
+      const res = await (getApiClient() as any).api.admin.system.config.$delete({
         json: data,
       });
       return res.json();

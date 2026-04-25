@@ -22,7 +22,7 @@ export function usePublicBlogCategoryList() {
   return useQuery({
     queryKey: publicBlogCategoryKeys.list(),
     queryFn: async () => {
-      const res = await getApiClient().api.blog.category.$get();
+      const res = await (getApiClient() as any).api.blog.category.$get();
       return parseRsj<PublicBlogCategoryListData>(res);
     },
   });

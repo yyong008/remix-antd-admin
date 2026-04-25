@@ -88,10 +88,10 @@ export function DrawerForm({
 
   const triggerEl =
     trigger &&
-    cloneElement(trigger, {
+    cloneElement(trigger as ReactElement<{ onClick?: (e: React.MouseEvent) => void }>, {
       onClick: (e: React.MouseEvent) => {
-        const p = trigger.props as { onClick?: (ev: React.MouseEvent) => void };
-        p.onClick?.(e);
+        const props = trigger.props as { onClick?: (e: React.MouseEvent) => void };
+        props.onClick?.(e);
         handleOpen(true);
       },
     });
@@ -161,7 +161,7 @@ export function DrawerForm({
             {...formRest}
             onFinish={runFinish}
           >
-            {children}
+            {children as any}
           </Form>
         </Spin>
       </Drawer>

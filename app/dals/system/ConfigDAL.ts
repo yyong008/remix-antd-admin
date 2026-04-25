@@ -11,7 +11,7 @@ export function createConfigDAL(db: DrizzleD1Database) {
   async function getList(data: any) {
     const skip = data.pageSize * (data.page - 1);
     const take = data.pageSize;
-    return await db.select().from(sysConfig).limit(take).offset(skip);
+    return (await db.select().from(sysConfig).limit(take).offset(skip)) as any;
   }
 
   async function create(data: any) {
@@ -30,10 +30,10 @@ export function createConfigDAL(db: DrizzleD1Database) {
     return updated[0];
   }
 
-  async function deleteByIds(ids: (string | number)[]) {
+  async function deleteByIds(ids: string[]) {
     const deleted = await db
       .delete(sysConfig)
-      .where(inArray(sysConfig.id, ids))
+      .where(inArray(sysConfig.id, ids.map(String)))
       .returning({ id: sysConfig.id });
     return { count: deleted.length };
   }

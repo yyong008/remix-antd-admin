@@ -18,7 +18,7 @@ export const userKeys = {
 };
 
 export async function fetchUserList(params: UserListParams, clientOptions: ClientOptions = {}) {
-  const client = createApiClient(clientOptions);
+  const client = createApiClient(clientOptions) as any;
   const res = await client.api.admin.system.user.$get({
     query: {
       page: params.page?.toString(),

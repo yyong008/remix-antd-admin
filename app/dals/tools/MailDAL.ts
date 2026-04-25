@@ -8,19 +8,19 @@ export function createMailTemplateDAL(db: DrizzleD1Database) {
     return rows[0]?.count ?? 0;
   }
 
-  async function getById(id: number) {
+  async function getById(id: string) {
     const rows = await db.select().from(mails).where(eq(mails.id, id)).limit(1);
     return rows[0] ?? null;
   }
 
   async function getList({ where, skip = 0, take = 10, orderBy }: any) {
-    let query = db.select().from(mails);
+    let query: any = db.select().from(mails);
     if (where?.title?.contains) {
       query = query.where(like(mails.title, `%${where.title.contains}%`));
     }
     if (orderBy?.id === "desc") query = query.orderBy(desc(mails.id));
     if (orderBy?.id === "asc") query = query.orderBy(asc(mails.id));
-    return await query.limit(take).offset(skip);
+    return (await query.limit(take).offset(skip)) as any;
   }
 
   async function create(data: any) {
@@ -28,14 +28,17 @@ export function createMailTemplateDAL(db: DrizzleD1Database) {
     return created[0];
   }
 
-  async function update(id: number, data: any) {
+  async function update(id: string, data: any) {
     const { id: _id, ...values } = data;
     const updated = await db.update(mails).set(values).where(eq(mails.id, id)).returning();
     return updated[0];
   }
 
-  async function deleteByIds(ids: number[]) {
-    return await db.delete(mails).where(inArray(mails.id, ids)).returning();
+  async function deleteByIds(ids: string[]) {
+    return (await db
+      .delete(mails)
+      .where(inArray(mails.id, ids.map(String)))
+      .returning()) as any;
   }
 
   return {

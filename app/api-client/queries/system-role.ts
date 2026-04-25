@@ -15,7 +15,7 @@ export function useRoleList(params: RoleListParams) {
   return useQuery({
     queryKey: roleKeys.list(params),
     queryFn: async () => {
-      const res = await getApiClient().api.admin.system.role.$get({
+      const res = await (getApiClient() as any).api.admin.system.role.$get({
         query: {
           page: (params.page ?? 1).toString(),
           pageSize: (params.pageSize ?? 10).toString(),
@@ -30,7 +30,7 @@ export function useCreateRole() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.system.role.$post({
+      const res = await (getApiClient() as any).api.admin.system.role.$post({
         json: data,
       });
       return res.json();
@@ -45,7 +45,7 @@ export function useUpdateRole() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: any) => {
-      const res = await getApiClient().api.admin.system.role.$put({
+      const res = await (getApiClient() as any).api.admin.system.role.$put({
         json: data,
       });
       return res.json();
@@ -60,7 +60,7 @@ export function useDeleteRole() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: { ids: number[] }) => {
-      const res = await getApiClient().api.admin.system.role.$delete({
+      const res = await (getApiClient() as any).api.admin.system.role.$delete({
         json: data,
       });
       return res.json();

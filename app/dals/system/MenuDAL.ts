@@ -60,7 +60,7 @@ export function createMenuDAL(db: DrizzleD1Database) {
 
     const unique = new Map<number, any>();
     for (const row of rows) {
-      const menu = mapMenu(row.menus);
+      const menu = mapMenu(row.sys_menu);
       if (menu && !unique.has(menu.id)) unique.set(menu.id, menu);
     }
     return Array.from(unique.values());
@@ -72,11 +72,11 @@ export function createMenuDAL(db: DrizzleD1Database) {
       .select()
       .from(menus)
       .innerJoin(menuRoles, eq(menuRoles.menuId, menus.id))
-      .where(inArray(menuRoles.roleId, roleIds));
+      .where(inArray(menuRoles.roleId, roleIds.map(String)));
 
     const unique = new Map<number, any>();
     for (const row of rows) {
-      const menu = mapMenu(row.menus);
+      const menu = mapMenu(row.sys_menu);
       if (menu && !unique.has(menu.id)) unique.set(menu.id, menu);
     }
     return Array.from(unique.values());
@@ -92,15 +92,15 @@ export function createMenuDAL(db: DrizzleD1Database) {
     const updated = await db
       .update(menus)
       .set(mapMenuInput(rest))
-      .where(eq(menus.id, id as number))
+      .where(eq(menus.id, id as string))
       .returning();
     return mapMenu(updated[0]);
   }
 
-  async function deleteByIds(ids: number[]) {
+  async function deleteByIds(ids: string[]) {
     const deleted = await db
       .delete(menus)
-      .where(inArray(menus.id, ids))
+      .where(inArray(menus.id, ids.map(String)))
       .returning({ id: menus.id });
     return { count: deleted.length };
   }

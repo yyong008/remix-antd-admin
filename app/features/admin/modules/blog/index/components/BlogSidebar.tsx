@@ -184,6 +184,7 @@ export function BlogSidebar({
                 ) : (
                   categories.map((cat) => {
                     const selected = selectedCategoryId === String(cat.id);
+                    const catWithShow = cat as { id: string; name: string; showOnClient?: boolean };
                     return (
                       <Flex
                         key={cat.id}
@@ -226,10 +227,10 @@ export function BlogSidebar({
                                   width: 6,
                                   height: 6,
                                   borderRadius: "50%",
-                                  backgroundColor: cat.showOnClient ? "#52c41a" : "#d9d9d9",
+                                  backgroundColor: catWithShow.showOnClient ? "#52c41a" : "#d9d9d9",
                                   flexShrink: 0,
                                 }}
-                                title={cat.showOnClient ? "客户端展示中" : "客户端隐藏"}
+                                title={catWithShow.showOnClient ? "客户端展示中" : "客户端隐藏"}
                               />
                               {cat.name}
                             </span>
