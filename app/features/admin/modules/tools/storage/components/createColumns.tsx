@@ -11,7 +11,7 @@ export const createColumns = ({ refetch }: { refetch?: () => void }) => {
       width: 80,
       align: "center" as const,
       render(_: string, record: any) {
-        if (record?.type?.startsWith("image")) {
+        if (record?.type?.startsWith("image") && !record.path?.startsWith("avatars/")) {
           return (
             <Image
               style={{

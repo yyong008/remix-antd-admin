@@ -89,6 +89,7 @@ export function BasicInfoDescriptions(props: {
 
       const formData = new FormData();
       formData.append("file", blob, "avatar.png");
+      formData.append("pathPrefix", `avatars/${userInfo?.id}/`);
 
       const response = await fetch("/api/upload", {
         method: "POST",

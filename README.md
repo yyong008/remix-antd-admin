@@ -15,13 +15,14 @@ new fullstack:
 - [x] Hono 接入
 - [ ] Hono API 迁移完善
 - [ ] API Client 迁移
-- [ ] better-auth 接入
-- [ ] nodemail -> Resend
-- [ ] i18n -> Paraglide JS
+- [x] better-auth 接入
+- [x] rbac(no better-auth role)
+- [ ] nodemail -> CloudflareEmail/Resend
+- [x] i18n -> Paraglide JS
 - [ ] Cloudflare R2
 - [ ] Turnstile 接入（@marsidev/react-turnstile）
 - [x] AI：LangChain -> ai-sdk
-- [ ] AI：AntdX
+- [ ] AI Client：AntdX
 - [ ] neon -> d1
 
 一个基于 React Router、React、Antd、TailwindCSS、Drizzle ORM 和 RBAC 的现代全栈 Web 解决方案（WIP）。
