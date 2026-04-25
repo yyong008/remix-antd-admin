@@ -22,8 +22,8 @@ new fullstack:
 - [x] Cloudflare R2
 - [ ] Turnstile 接入（@marsidev/react-turnstile）
 - [x] AI：LangChain -> ai-sdk
-- [ ] AI Client：AntdX
-- [ ] neon -> d1
+- [x] AI Client：AntdX
+- [x] neon -> d1
 
 一个基于 React Router、React、Antd、TailwindCSS、Drizzle ORM 和 RBAC 的现代全栈 Web 解决方案（WIP）。
 
