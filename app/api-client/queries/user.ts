@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { createApiClient } from "~/api-client/client";
+import { getApiClient } from "~/api-client";
 
 export type UserListParams = {
   page?: number;
@@ -17,8 +17,8 @@ export const userKeys = {
   list: (params: UserListParams) => ["user", "list", params] as const,
 };
 
-export async function fetchUserList(params: UserListParams, clientOptions: ClientOptions = {}) {
-  const client = createApiClient(clientOptions) as any;
+export async function fetchUserList(params: UserListParams) {
+  const client = getApiClient() as any;
   const res = await client.api.admin.system.user.$get({
     query: {
       page: params.page?.toString(),
@@ -34,9 +34,9 @@ export async function fetchUserList(params: UserListParams, clientOptions: Clien
   return res.json();
 }
 
-export function useUserList(params: UserListParams, clientOptions: ClientOptions = {}) {
+export function useUserList(params: UserListParams) {
   return useQuery({
     queryKey: userKeys.list(params),
-    queryFn: () => fetchUserList(params, clientOptions),
+    queryFn: () => fetchUserList(params),
   });
 }
