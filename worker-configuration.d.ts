@@ -15,6 +15,7 @@ declare namespace Cloudflare {
     BETTER_AUTH_BASE_PATH: string;
     OLLAMA_URL: string;
     VITE_BASE_URL: string;
+    VITE_API_URL: string;
   }
 }
 interface Env extends Cloudflare.Env {}
@@ -31,6 +32,7 @@ declare namespace NodeJS {
       | "BETTER_AUTH_BASE_PATH"
       | "OLLAMA_URL"
       | "VITE_BASE_URL"
+      | "VITE_API_URL"
     >
   > {}
 }

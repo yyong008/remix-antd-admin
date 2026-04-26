@@ -13,7 +13,7 @@ import {
   useRevokeSessionMutation,
 } from "~/api-client/queries/session";
 import { authClient } from "~/libs/auth/client";
-import { useSession } from "~/session/hooks";
+import { useSession } from "~/session/provider";
 
 function formatTs(value: Date | string | undefined) {
   if (value == null) return "—";

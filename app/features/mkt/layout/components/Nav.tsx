@@ -41,7 +41,7 @@ export function Nav() {
   const activePath = location.pathname;
   const sessionCtx = useSession();
   const user = sessionCtx?.user ?? null;
-  const sessionPending = sessionCtx?.isSessionPending ?? false;
+  const sessionPending = sessionCtx?.isLoading ?? false;
   const logoutMutation = useLogout();
 
   const { token } = theme.useToken();

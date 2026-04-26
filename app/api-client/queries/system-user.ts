@@ -61,7 +61,7 @@ export function useUserInfo() {
   return useQuery({
     queryKey: userKeys.info,
     queryFn: async () => {
-      const res = await (getApiClient() as any).api.admin.system.user.info.$get();
+      const res = await getApiClient().api.admin.system.user.info.$get();
       return parseRsj<AdminUserInfoPayload>(res);
     },
   });

@@ -1,6 +1,9 @@
 import { hc } from "hono/client";
 import { AppType } from "~/api";
+import { getBaseUrl } from "~/utils/url";
 
 export function getApiClient() {
-  return hc<AppType>(import.meta.env.VITE_API_URL);
+  return hc<AppType>(getBaseUrl());
 }
+
+const client = getApiClient();

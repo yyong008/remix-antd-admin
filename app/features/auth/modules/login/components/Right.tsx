@@ -51,7 +51,7 @@ const LoginForm: React.FC = () => {
             password: values.password as string,
             token: token ?? "",
           });
-          await session?.refreshUserSession?.();
+          await session?.refresh?.();
           message.success("Signed in successfully.");
           navigate(href("/:locale?/admin/dashboard", { locale }), {
             replace: true,

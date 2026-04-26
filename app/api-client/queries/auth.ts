@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { href, useNavigate, useParams } from "react-router";
 import { isTurnstileEnabled } from "~/config/turnstile";
 import { authClient } from "~/libs/auth/client";
-import { useSession } from "~/session/hooks";
+import { useSession } from "~/session/provider";
 
 type AuthResult<T> = { data?: T | null; error?: { message?: string } | null } | T;
 
@@ -56,6 +56,7 @@ function unwrapResult<T>(result: AuthResult<T>, fallbackMessage: string) {
 }
 
 export function useLogin() {
+  const { locale } = useParams();
   return useMutation({
     mutationFn: async ({ email, password, token }: LoginPayload) => {
       const resolvedEmail = normalizeAuthEmail(email);
@@ -66,6 +67,7 @@ export function useLogin() {
         throw new Error("请完成人机验证");
       }
       const result = await authClient.signIn.email({
+        callbackURL: href("/:locale?/admin/dashboard", { locale: locale ?? "en" }),
         email: resolvedEmail,
         password,
         fetchOptions: {
@@ -115,7 +117,7 @@ export function useLogout() {
       const result = await authClient.signOut({});
       const data = unwrapResult<{ success: boolean }>(result, "退出失败");
       if (data.success) {
-        session?.refreshUserSession();
+        session?.refresh();
         navigate(href("/:locale?/auth/login", { locale }), { replace: true });
       }
       return data;

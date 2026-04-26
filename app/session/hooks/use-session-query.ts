@@ -10,6 +10,8 @@ export type SessionUserContextType = {
   error: Error | null;
   refresh: () => Promise<void>;
   cleanSession: () => void;
+  /** @deprecated Use `refresh` instead. */
+  refreshUserSession: () => Promise<void>;
 };
 
 export function useSessionQuery(): SessionUserContextType {
@@ -38,5 +40,6 @@ export function useSessionQuery(): SessionUserContextType {
     error: error || null,
     refresh,
     cleanSession,
+    refreshUserSession: refresh,
   };
 }

@@ -9,30 +9,19 @@ import { AdminShellLayout } from "./components/AdminShellLayout";
 import { SettingContext } from "@/context/setting-context";
 import { SettingDrawerWrap } from "./components/SettingDrawerWrap";
 import { useUserInfo } from "~/api-client/queries/system-user";
-import { useSession } from "~/session/hooks";
+import { useSession } from "~/session/provider";
 import { ClientOnly } from "~/components/common/client-only";
 
 function AdminLayout() {
+  const { locale } = useParams();
   const { data, isLoading } = useUserInfo();
   const sessionCtx = useSession();
-  const navigate = useNavigate();
 
-  const { locale } = useParams();
   const value = useContext(SettingContext);
   const menu = data?.menu ?? [];
   const userInfo = data?.userInfo;
   const route = useMemo(() => clientUtils.createProLayoutRoute(locale!, menu), [locale, menu]);
 
-  // Redirect to login if not authenticated
-  useEffect(() => {
-    if (!sessionCtx?.isSessionPending && !sessionCtx?.session) {
-      navigate(locale ? `/${locale}/auth/login` : "/auth/login");
-    }
-  }, [sessionCtx?.isSessionPending, sessionCtx?.session, navigate, locale]);
-
-  const isPending = sessionCtx?.isSessionPending || isLoading;
-
-  /** System profile (menu/RBAC) + session user (better-auth) so name/avatar always show when either source has data. */
   const headerUser = useMemo(() => {
     const api = userInfo as {
       name?: string | null;
@@ -52,7 +41,7 @@ function AdminLayout() {
     };
   }, [userInfo, sessionCtx?.user]);
 
-  if (isPending) {
+  if (isLoading) {
     return (
       <div
         style={{
@@ -68,7 +57,7 @@ function AdminLayout() {
   }
 
   return (
-    <ClientOnly fallback={null}>
+    <ClientOnly fallback={<>sdf</>}>
       {() => (
         <AntdApp>
           <AdminShellLayout loading={isLoading} route={route} user={headerUser}>

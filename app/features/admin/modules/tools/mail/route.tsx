@@ -6,8 +6,9 @@ import { href, Link, useParams } from "react-router";
 import { PageContainer } from "~/components/page-container";
 
 import { MailForm } from "./components/MailForm";
-import { QuillEditor } from "@/components/common/quill-editor";
+// import { QuillEditor } from "@/components/common/quill-editor";
 import { useState } from "react";
+import { ReactEmailEditor } from "~/components/react-email";
 
 export function Route() {
   const { locale } = useParams();
@@ -34,7 +35,8 @@ export function Route() {
         }
       >
         <div style={{ height: "400px" }}>
-          <QuillEditor content={content} setContent={setContent} />
+          <ReactEmailEditor />
+          {/* <QuillEditor content={content} setContent={setContent} /> */}
         </div>
       </Card>
     </PageContainer>

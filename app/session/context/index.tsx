@@ -8,8 +8,10 @@ export type SessionUserContextType = {
   session: SessionData["session"] | null;
   user: SessionData["user"] | null;
   /** True while the initial `getSession` request is in flight (client). */
-  isSessionPending: boolean;
-  refreshUserSession: () => void | Promise<void>;
+  isLoading: boolean;
+  error: Error | null;
+  refresh: () => Promise<void>;
+  cleanSession: () => void;
 };
 
 export const SessionUserContext = createContext<SessionUserContextType | null>(null);
