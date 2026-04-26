@@ -12,7 +12,7 @@ declare module "react-router" {
 }
 
 export const app = new Hono<{ Bindings: { Env: Env } }>()
-  .use("*", (c) => {
+  .use("*", async (c) => {
     return c.json({
       message: "Hello, World!",
     });
