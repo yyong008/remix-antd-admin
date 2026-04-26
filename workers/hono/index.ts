@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { app as apiApp } from "../../app/api";
-import { createRequestHandler } from "react-router";
+import { createRequestHandler, RouterContextProvider } from "react-router";
+import { runtimeEnvContext, runtimeExecutionContext } from "~/runtime-context";
 
 declare module "react-router" {
   export interface AppLoadContext extends Record<string, any> {
@@ -11,7 +12,12 @@ declare module "react-router" {
   }
 }
 
-export const app = new Hono<{ Bindings: { Env: Env } }>()
+const requestHandler = createRequestHandler(
+  () => import("virtual:react-router/server-build"),
+  import.meta.env.MODE,
+);
+
+export const app = new Hono<{ Bindings: Env }>()
   .use("*", async (c) => {
     return c.json({
       message: "Hello, World!",
@@ -19,10 +25,9 @@ export const app = new Hono<{ Bindings: { Env: Env } }>()
   })
   .route("/", apiApp)
   .use("*", async (c) => {
-    const requestHandler = createRequestHandler(
-      () => import("virtual:react-router/server-build"),
-      import.meta.env.MODE,
-    );
-    return await requestHandler(c.req.raw);
+    const context = new RouterContextProvider();
+    context.set(runtimeEnvContext, c.env);
+    context.set(runtimeExecutionContext, c.executionCtx);
+    return await requestHandler(c.req.raw, context);
   });
 export default app;

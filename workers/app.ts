@@ -1,5 +1,7 @@
 import { app } from "./hono/index";
 
 export default {
-  fetch: app.fetch,
+  async fetch(request, env, ctx) {
+    return app.fetch(request, env, ctx);
+  },
 } satisfies ExportedHandler<Env>;
