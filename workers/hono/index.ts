@@ -11,11 +11,18 @@ declare module "react-router" {
   }
 }
 
-export const app = new Hono().route("/", apiApp).use("*", async (c) => {
-  const requestHandler = createRequestHandler(
-    () => import("virtual:react-router/server-build"),
-    import.meta.env.MODE,
-  );
-  return await requestHandler(c.req.raw);
-});
+export const app = new Hono<{ Bindings: { Env: Env } }>()
+  .use("*", (c) => {
+    return c.json({
+      message: "Hello, World!",
+    });
+  })
+  .route("/", apiApp)
+  .use("*", async (c) => {
+    const requestHandler = createRequestHandler(
+      () => import("virtual:react-router/server-build"),
+      import.meta.env.MODE,
+    );
+    return await requestHandler(c.req.raw);
+  });
 export default app;
