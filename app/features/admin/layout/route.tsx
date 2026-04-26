@@ -10,6 +10,7 @@ import { SettingContext } from "@/context/setting-context";
 import { SettingDrawerWrap } from "./components/SettingDrawerWrap";
 import { useUserInfo } from "~/api-client/queries/system-user";
 import { useSession } from "~/session/hooks";
+import { ClientOnly } from "~/components/common/client-only";
 
 function AdminLayout() {
   const { data, isLoading } = useUserInfo();
@@ -67,12 +68,16 @@ function AdminLayout() {
   }
 
   return (
-    <AntdApp>
-      <AdminShellLayout loading={isLoading} route={route} user={headerUser}>
-        <Outlet />
-        <SettingDrawerWrap theme={value.theme} setTheme={value.setTheme} />
-      </AdminShellLayout>
-    </AntdApp>
+    <ClientOnly fallback={null}>
+      {() => (
+        <AntdApp>
+          <AdminShellLayout loading={isLoading} route={route} user={headerUser}>
+            <Outlet />
+            <SettingDrawerWrap theme={value.theme} setTheme={value.setTheme} />
+          </AdminShellLayout>
+        </AntdApp>
+      )}
+    </ClientOnly>
   );
 }
 
