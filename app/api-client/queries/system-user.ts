@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getApiClient } from "~/api-client";
-import { parseRsj } from "~/api-client/parse-rsj";
+import { parseRsj } from "~/utils/parse-rsj";
 import type { MenuFlatRow, MenuTreeNode } from "~/utils/menu-tree";
 
 export type UserListParams = {

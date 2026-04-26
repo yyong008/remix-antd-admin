@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getApiClient } from "~/api-client";
-import { parseRsj } from "~/api-client/parse-rsj";
+import { parseRsj } from "~/utils/parse-rsj";
 
 export const publicNewsCategoryKeys = {
   list: () => ["public-news-category", "list"] as const,
