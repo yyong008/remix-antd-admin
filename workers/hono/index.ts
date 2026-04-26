@@ -17,17 +17,10 @@ const requestHandler = createRequestHandler(
   import.meta.env.MODE,
 );
 
-export const app = new Hono<{ Bindings: Env }>()
-  .use("*", async (c) => {
-    return c.json({
-      message: "Hello, World!",
-    });
-  })
-  .route("/", apiApp)
-  .use("*", async (c) => {
-    const context = new RouterContextProvider();
-    context.set(runtimeEnvContext, c.env);
-    context.set(runtimeExecutionContext, c.executionCtx);
-    return await requestHandler(c.req.raw, context);
-  });
+export const app = new Hono<{ Bindings: Env }>().route("/", apiApp).use("*", async (c) => {
+  const context = new RouterContextProvider();
+  context.set(runtimeEnvContext, c.env);
+  context.set(runtimeExecutionContext, c.executionCtx);
+  return await requestHandler(c.req.raw, context);
+});
 export default app;

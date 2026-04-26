@@ -1,20 +1,18 @@
-import { SessionUserContext } from "../context/index";
-import { useUserSessionQuery, useRefreshUserSession } from "~/api-client/queries/session";
+import { createContext, useContext } from "react";
+import { useSessionQuery, type SessionUserContextType } from "../hooks/use-session-query";
+export type { SessionUserContextType };
+
+const SessionUserContext = createContext<SessionUserContextType | null>(null);
+
+export function useSession() {
+  const result = useContext(SessionUserContext);
+  if (!result) {
+    throw new Error("useSession must be used within a SessionProvider");
+  }
+  return result;
+}
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
-  const { data: sessionData, isPending: isSessionPending } = useUserSessionQuery();
-  const refreshUserSession = useRefreshUserSession();
-
-  return (
-    <SessionUserContext.Provider
-      value={{
-        session: sessionData?.session || null,
-        user: sessionData?.user || null,
-        isSessionPending,
-        refreshUserSession,
-      }}
-    >
-      {children}
-    </SessionUserContext.Provider>
-  );
+  const sessionQuery = useSessionQuery();
+  return <SessionUserContext.Provider value={sessionQuery}>{children}</SessionUserContext.Provider>;
 }

@@ -1,13 +1,6 @@
-import { createApiClient } from "./client";
-
-export { AppQueryProvider } from "./query-provider";
+import { hc } from "hono/client";
+import { AppType } from "~/api";
 
 export function getApiClient() {
-  return createApiClient({
-    baseUrl: "/",
-    getToken: () => {
-      if (typeof window === "undefined") return null;
-      return localStorage.getItem("token");
-    },
-  });
+  return hc<AppType>(import.meta.env.VITE_API_URL);
 }

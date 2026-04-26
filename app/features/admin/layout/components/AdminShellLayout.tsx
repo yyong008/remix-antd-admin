@@ -1,21 +1,16 @@
+import { type AdminRouteNode } from "./admin-menu-helpers";
+import type { ReactNode } from "react";
+
+import { buildAdminMenuItems, getAdminShellMenuState } from "./admin-menu-helpers";
+import { info } from "@/config/project";
 import { Footer } from "@/components/common";
 import { prolayoutConfig } from "@/config/prolayout";
-import { info } from "@/config/project";
-import { Breadcrumb, Grid, Layout, Menu, Space, Spin, theme, Watermark } from "antd";
-import type { ReactNode } from "react";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { Link, href, useLocation, useParams, useMatches } from "react-router";
-
-import { isExternalLink } from "~/utils/client/utils";
-
-import { AvatarDropDown, type AdminHeaderUser } from "./AvatarDropdown";
 import { MenuFooterRender } from "./MenuFooterRender";
 import { createActionRenderWrap } from "./createActionsRender";
-import {
-  type AdminRouteNode,
-  buildAdminMenuItems,
-  getAdminShellMenuState,
-} from "./admin-menu-helpers";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Link, href, useLocation, useParams, useMatches } from "react-router";
+import { AvatarDropDown, type AdminHeaderUser } from "./AvatarDropdown";
+import { Breadcrumb, Grid, Layout, Menu, Space, Spin, theme, Watermark } from "antd";
 
 const { Header, Sider, Content } = Layout;
 

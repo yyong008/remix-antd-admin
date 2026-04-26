@@ -1,6 +1,6 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useParams } from "react-router";
 
-import { AppQueryProvider } from "~/api-client/query-provider";
+import { AppQueryProvider } from "~/providers/app-query-provider";
 import { MktThemeSync } from "~/features/mkt/layout/components/MktThemeSync";
 import { SessionProvider } from "~/session/provider/index";
 import { ReactRouterTopLoader } from "~/components/toploader";
@@ -18,11 +18,11 @@ export function RootRoute() {
       </head>
       <body>
         <MktThemeSync />
-        <SessionProvider>
-          <AppQueryProvider>
+        <AppQueryProvider>
+          <SessionProvider>
             <Outlet />
-          </AppQueryProvider>
-        </SessionProvider>
+          </SessionProvider>
+        </AppQueryProvider>
         <ReactRouterTopLoader />
         <ScrollRestoration />
         <Scripts />
