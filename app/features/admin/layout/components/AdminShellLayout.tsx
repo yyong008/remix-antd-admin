@@ -11,6 +11,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, href, useLocation, useParams, useMatches } from "react-router";
 import { AvatarDropDown, type AdminHeaderUser } from "./AvatarDropdown";
 import { Breadcrumb, Grid, Layout, Menu, Space, Spin, theme, Watermark } from "antd";
+import { ThemeSwitcher } from "~/features/mkt/layout/components/ThemeSwitcher";
 
 const { Header, Sider, Content } = Layout;
 
@@ -251,6 +252,7 @@ export function AdminShellLayout(props: AdminShellLayoutProps) {
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 16, flexShrink: 0 }}>
               <Space size="middle">{actions}</Space>
+              <ThemeSwitcher />
               <AvatarDropDown user={user} />
             </div>
           </Header>
