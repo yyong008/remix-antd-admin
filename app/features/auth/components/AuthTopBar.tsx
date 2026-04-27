@@ -16,8 +16,6 @@ export function AuthTopBar() {
         height: 56,
         flexShrink: 0,
         alignItems: "center",
-        borderBottom: "1px solid var(--mkt-border)",
-        background: "color-mix(in srgb, var(--mkt-surface) 90%, transparent)",
         paddingInline: 16,
         backdropFilter: "blur(12px)",
       }}
@@ -44,7 +42,6 @@ export function AuthTopBar() {
             flexShrink: 0,
             borderRadius: 8,
             boxShadow: "0 1px 2px rgba(0,0,0,0.06)",
-            border: "1px solid var(--mkt-border)",
           }}
         />
         <span
@@ -55,7 +52,6 @@ export function AuthTopBar() {
             fontSize: 16,
             fontWeight: 600,
             letterSpacing: "-0.02em",
-            color: "var(--mkt-text)",
           }}
         >
           {AUTH_PRODUCT_NAME}

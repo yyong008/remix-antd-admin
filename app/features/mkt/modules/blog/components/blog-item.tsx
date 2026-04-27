@@ -23,8 +23,6 @@ export function BlogItem(props: { data: any; featured?: boolean; categoryName?: 
     : "";
 
   const cardStyle: React.CSSProperties = {
-    background: "var(--mkt-surface)",
-    border: "1px solid var(--mkt-border)",
     borderRadius: "12px",
     padding: "20px",
     height: "100%",
@@ -46,12 +44,9 @@ export function BlogItem(props: { data: any; featured?: boolean; categoryName?: 
               alignItems: "center",
               gap: "4px",
               fontSize: "12px",
-              color: "var(--mkt-accent)",
-              background: "var(--mkt-surface)",
               padding: "4px 8px",
               borderRadius: "9999px",
               marginBottom: "12px",
-              border: "1px solid var(--mkt-accent)",
               width: "fit-content",
             }}
           >
@@ -62,7 +57,6 @@ export function BlogItem(props: { data: any; featured?: boolean; categoryName?: 
         <h3
           style={{
             fontWeight: 600,
-            color: "var(--mkt-text)",
             marginBottom: "8px",
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -77,7 +71,6 @@ export function BlogItem(props: { data: any; featured?: boolean; categoryName?: 
         {excerpt && (
           <p
             style={{
-              color: "var(--mkt-muted)",
               marginBottom: "12px",
               overflow: "hidden",
               textOverflow: "ellipsis",
@@ -99,7 +92,6 @@ export function BlogItem(props: { data: any; featured?: boolean; categoryName?: 
             marginTop: "auto",
             paddingTop: "12px",
             fontSize: featured ? "13px" : "12px",
-            color: "var(--mkt-muted)",
           }}
         >
           {data.author && (

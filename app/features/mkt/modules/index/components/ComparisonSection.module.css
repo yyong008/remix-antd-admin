@@ -1,0 +1,70 @@
+.section {
+  padding: 60px 24px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.title {
+  margin-bottom: 8px;
+  color: var(--ant-color-text);
+}
+
+.desc {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--ant-color-text-secondary);
+}
+
+.card {
+  border-radius: 12px;
+}
+
+.table {
+  width: 100%;
+}
+
+.featureCell {
+  padding: 12px 16px;
+  color: var(--ant-color-text);
+}
+
+.checkCell {
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.checkIcon {
+  color: var(--ant-color-success);
+  font-size: 16px;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 32px;
+  padding: 20px;
+}
+
+.footerTitle {
+  margin-bottom: 8px;
+}
+
+.footerDesc {
+  color: var(--ant-color-text-secondary);
+  margin: 0;
+}
+
+.tableRowEven td {
+  background: var(--ant-color-bg-secondary);
+}
+
+.tableRowOdd td {
+  background: var(--ant-color-bg-container);
+}

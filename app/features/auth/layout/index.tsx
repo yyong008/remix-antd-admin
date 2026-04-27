@@ -8,8 +8,6 @@ export default function AuthLayout() {
       vertical
       style={{
         minHeight: "100dvh",
-        background: "var(--mkt-bg)",
-        color: "var(--mkt-text)",
       }}
     >
       <AuthTopBar />

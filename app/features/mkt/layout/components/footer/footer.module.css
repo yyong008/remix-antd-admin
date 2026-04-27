@@ -1,0 +1,35 @@
+.footer {
+  background: var(--ant-color-bg-container);
+  padding: 48px 24px 24px;
+  color: var(--ant-color-text);
+}
+
+.link {
+  color: var(--ant-color-text-secondary);
+  font-size: 13px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.sectionTitle {
+  color: var(--ant-color-text);
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.externalIcon {
+  font-size: 10px;
+  margin-left: 4px;
+  color: var(--ant-color-text-secondary);
+}
+
+.socialLink {
+  color: var(--ant-color-text-secondary);
+  transition: color 0.2s;
+}
+
+.socialLink:hover {
+  color: var(--ant-color-primary);
+}

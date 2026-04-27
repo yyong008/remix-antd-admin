@@ -1,0 +1,66 @@
+.section {
+  padding: 48px 32px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  gap: 32px;
+  justify-content: center;
+}
+
+@media (min-width: 576px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.item {
+  text-align: center;
+  padding: 24px 16px;
+}
+
+.iconBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  font-size: 24px;
+  color: white;
+  margin-bottom: 16px;
+}
+
+.value {
+  font-size: 40px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.label {
+  font-size: 14px;
+  display: block;
+  color: var(--ant-color-text-secondary);
+}
+
+@keyframes countUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animatedValue {
+  animation: countUp 0.6s ease-out forwards;
+}

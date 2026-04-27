@@ -47,7 +47,6 @@ function LogoMark() {
         flexShrink: 0,
         borderRadius: 16,
         boxShadow: "0 12px 30px rgba(0,0,0,0.12)",
-        border: "1px solid var(--mkt-border)",
       }}
     />
   );
@@ -74,40 +73,10 @@ export function AuthMarketingShell({
         flex: 1,
         overflowX: "hidden",
         overflowY: "auto",
-        background: "var(--mkt-bg)",
-        color: "var(--mkt-text)",
       }}
     >
-      <div
-        aria-hidden
-        style={{
-          pointerEvents: "none",
-          position: "absolute",
-          left: -112,
-          top: 24,
-          width: 320,
-          height: 320,
-          borderRadius: "50%",
-          background: "var(--mkt-accent)",
-          opacity: 0.22,
-          filter: "blur(120px)",
-        }}
-      />
-      <div
-        aria-hidden
-        style={{
-          pointerEvents: "none",
-          position: "absolute",
-          right: -128,
-          bottom: 0,
-          width: 384,
-          height: 384,
-          borderRadius: "50%",
-          background: "var(--mkt-accent-2)",
-          opacity: 0.2,
-          filter: "blur(130px)",
-        }}
-      />
+      <div aria-hidden />
+      <div aria-hidden />
       <div
         aria-hidden
         style={{
@@ -119,7 +88,7 @@ export function AuthMarketingShell({
           width: 256,
           height: 256,
           borderRadius: "50%",
-          background: "color-mix(in srgb, var(--mkt-accent) 32%, transparent)",
+          background: "color-mix(in srgb, #6366f1 32%, transparent)",
           opacity: 0.3,
           filter: "blur(90px)",
         }}
@@ -151,9 +120,7 @@ export function AuthMarketingShell({
             flexDirection: "column",
             justifyContent: "center",
             gap: 40,
-            borderColor: "var(--mkt-border)",
             padding: lg ? "80px 24px" : "64px 32px",
-            borderRight: lg ? "1px solid var(--mkt-border)" : undefined,
           }}
         >
           <div
@@ -165,7 +132,6 @@ export function AuthMarketingShell({
               bottom: 40,
               right: 0,
               width: 1,
-              background: `linear-gradient(to bottom, transparent, var(--mkt-border), transparent)`,
             }}
           />
           <Flex align="flex-start" gap={16}>
@@ -178,7 +144,6 @@ export function AuthMarketingShell({
                   fontWeight: 600,
                   textTransform: "uppercase",
                   letterSpacing: "0.2em",
-                  color: "var(--mkt-muted)",
                 }}
               >
                 {copy.eyebrow}
@@ -187,7 +152,6 @@ export function AuthMarketingShell({
                 level={1}
                 style={{
                   margin: 0,
-                  color: "var(--mkt-text)",
                   fontSize: lg ? "2rem" : "1.875rem",
                   lineHeight: 1.2,
                   fontWeight: 600,
@@ -201,7 +165,6 @@ export function AuthMarketingShell({
                   maxWidth: 448,
                   fontSize: 14,
                   lineHeight: 1.625,
-                  color: "var(--mkt-muted)",
                   marginBottom: 0,
                 }}
               >
@@ -226,14 +189,14 @@ export function AuthMarketingShell({
                   style={{
                     marginTop: 2,
                     flexShrink: 0,
-                    color: "var(--mkt-accent)",
+                    color: "#6366f1",
                   }}
                 />
                 <span>{line}</span>
               </li>
             ))}
           </ul>
-          <Typography.Text style={{ fontSize: 12, color: "var(--mkt-muted)" }}>
+          <Typography.Text style={{ fontSize: 12 }}>
             © {new Date().getFullYear()} {AUTH_PRODUCT_NAME}
           </Typography.Text>
         </aside>
@@ -258,15 +221,11 @@ export function AuthMarketingShell({
                   fontWeight: 500,
                   textTransform: "uppercase",
                   letterSpacing: "0.05em",
-                  color: "var(--mkt-muted)",
                 }}
               >
                 {AUTH_PRODUCT_NAME}
               </Typography.Text>
-              <Typography.Text
-                strong
-                style={{ display: "block", fontSize: 14, color: "var(--mkt-text)" }}
-              >
+              <Typography.Text strong style={{ display: "block", fontSize: 14 }}>
                 {copy.eyebrow}
               </Typography.Text>
             </div>

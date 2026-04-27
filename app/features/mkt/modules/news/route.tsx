@@ -54,28 +54,27 @@ export function Route() {
     transition: "all 0.2s",
     ...(isActive
       ? {
-          background: "var(--mkt-accent)",
+          background: "#6366f1",
           color: "white",
           boxShadow: "0 4px 12px rgba(102, 126, 234, 0.3)",
         }
-      : { color: "var(--mkt-text)", background: "transparent" }),
+      : { background: "transparent" }),
   });
 
   return (
-    <div style={{ flex: 1, background: "var(--mkt-bg)", minHeight: "100%" }}>
+    <div style={{ flex: 1, minHeight: "100%" }}>
       <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "32px 24px" }}>
         <header style={{ marginBottom: "32px" }}>
           <h1
             style={{
               fontSize: "30px",
               fontWeight: 700,
-              color: "var(--mkt-text)",
               marginBottom: "8px",
             }}
           >
             新闻中心
           </h1>
-          <p style={{ color: "var(--mkt-muted)" }}>
+          <p>
             {selectedCategory
               ? `${selectedCategory.name} · 共 ${filteredNews.length} 篇`
               : `全部新闻 · 共 ${total} 篇`}
@@ -88,14 +87,12 @@ export function Route() {
               style={{
                 position: "sticky",
                 top: "16px",
-                background: "var(--mkt-surface)",
-                border: "1px solid var(--mkt-border)",
               }}
               bodyStyle={{ padding: "20px" }}
             >
               <Input
                 placeholder="搜索新闻..."
-                prefix={<SearchOutlined style={{ color: "var(--mkt-muted)" }} />}
+                prefix={<SearchOutlined />}
                 value={search}
                 onChange={(e) => {
                   setSearch(e.target.value);
@@ -108,7 +105,6 @@ export function Route() {
                 style={{
                   fontSize: "13px",
                   fontWeight: 600,
-                  color: "var(--mkt-muted)",
                   textTransform: "uppercase",
                   letterSpacing: "0.05em",
                   marginBottom: "12px",
@@ -130,8 +126,7 @@ export function Route() {
                       fontSize: "12px",
                       padding: "2px 8px",
                       borderRadius: "9999px",
-                      background: !category ? "rgba(255,255,255,0.2)" : "var(--mkt-bg)",
-                      color: !category ? "white" : "var(--mkt-muted)",
+                      color: !category ? "white" : "#111111",
                     }}
                   >
                     {total}
@@ -163,9 +158,6 @@ export function Route() {
                           fontSize: "12px",
                           padding: "2px 8px",
                           borderRadius: "9999px",
-                          background:
-                            category === cat.id ? "rgba(255,255,255,0.2)" : "var(--mkt-bg)",
-                          color: category === cat.id ? "white" : "var(--mkt-muted)",
                         }}
                       >
                         {categoryNewsCount[cat.id] ?? 0}
@@ -185,8 +177,6 @@ export function Route() {
                     key={i}
                     style={{
                       height: "72px",
-                      background: "var(--mkt-surface)",
-                      border: "1px solid var(--mkt-border)",
                       borderRadius: "10px",
                     }}
                   >
@@ -197,16 +187,12 @@ export function Route() {
             ) : filteredNews.length <= 0 ? (
               <Card
                 style={{
-                  background: "var(--mkt-surface)",
-                  border: "1px solid var(--mkt-border)",
                   textAlign: "center",
                 }}
                 bodyStyle={{ padding: "48px" }}
               >
-                <FileTextOutlined
-                  style={{ fontSize: "48px", color: "var(--mkt-muted)", marginBottom: "16px" }}
-                />
-                <p style={{ color: "var(--mkt-muted)" }}>暂无数据</p>
+                <FileTextOutlined style={{ fontSize: "48px", marginBottom: "16px" }} />
+                <p>暂无数据</p>
               </Card>
             ) : (
               <>

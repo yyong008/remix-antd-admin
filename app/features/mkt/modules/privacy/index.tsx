@@ -1,24 +1,17 @@
 export default function Privacy() {
-  const sectionStyle: React.CSSProperties = {
-    color: "var(--mkt-text)",
-  };
-
   const h2Style: React.CSSProperties = {
     fontSize: "24px",
     fontWeight: 600,
     marginTop: "24px",
     marginBottom: "16px",
-    color: "var(--mkt-text)",
   };
 
   const pStyle: React.CSSProperties = {
-    color: "var(--mkt-muted)",
     marginTop: "16px",
     lineHeight: 1.8,
   };
 
   const ulStyle: React.CSSProperties = {
-    color: "var(--mkt-muted)",
     marginTop: "8px",
     paddingLeft: "24px",
     lineHeight: 1.8,
@@ -26,7 +19,7 @@ export default function Privacy() {
 
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "100px 24px 48px" }}>
-      <header style={{ textAlign: "center", padding: "24px", color: "var(--mkt-text)" }}>
+      <header style={{ textAlign: "center", padding: "24px" }}>
         <h1 style={{ fontSize: "30px", fontWeight: 600 }}>Privacy Policy</h1>
       </header>
 
@@ -35,7 +28,6 @@ export default function Privacy() {
           margin: "32px auto",
           padding: "24px",
           borderRadius: "8px",
-          background: "var(--mkt-surface)",
         }}
       >
         <h2 style={h2Style}>1. Information We Collect</h2>

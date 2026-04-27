@@ -6,13 +6,10 @@ import { href, Link, useParams } from "react-router";
 import { PageContainer } from "~/components/page-container";
 
 import { MailForm } from "./components/MailForm";
-// import { QuillEditor } from "@/components/common/quill-editor";
-import { useState } from "react";
 import { ReactEmailEditor } from "~/components/react-email";
 
 export function Route() {
   const { locale } = useParams();
-  const [content, setContent] = useState("");
   return (
     <PageContainer>
       <Card
@@ -30,13 +27,12 @@ export function Route() {
             <Link to={href(`/:locale?/admin/tools/mail/list`, { locale })}>
               <Button type="primary">查看所有模板</Button>
             </Link>
-            <MailForm content={content} />
+            <MailForm />
           </Space>
         }
       >
         <div style={{ height: "400px" }}>
           <ReactEmailEditor />
-          {/* <QuillEditor content={content} setContent={setContent} /> */}
         </div>
       </Card>
     </PageContainer>

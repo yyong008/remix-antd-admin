@@ -1,5 +1,6 @@
 import { Card, Typography, Table } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
+import styles from "./ComparisonSection.module.css";
 
 const { Title, Paragraph } = Typography;
 
@@ -22,6 +23,7 @@ export function ComparisonSection() {
       dataIndex: "feature",
       key: "feature",
       width: "80%",
+      render: (text: string) => <span className={styles.featureCell}>{text}</span>,
     },
     {
       title: "支持",
@@ -29,83 +31,45 @@ export function ComparisonSection() {
       key: "has",
       width: "20%",
       align: "center" as const,
-      render: (has: boolean) =>
-        has ? <CheckOutlined style={{ color: "#52c41a", fontSize: "16px" }} /> : null,
+      render: (has: boolean) => (has ? <CheckOutlined className={styles.checkIcon} /> : null),
     },
   ];
 
   return (
-    <section style={{ padding: "60px 24px" }}>
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: "32px" }}>
-          <Title level={2} style={{ marginBottom: "8px" }}>
+    <section className={styles.section}>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <Title level={2} className={styles.title}>
             技术特性
           </Title>
-          <Paragraph type="secondary" style={{ maxWidth: "600px", margin: "0 auto" }}>
+          <Paragraph className={styles.desc}>
             React Router Antd Admin 内置的功能特性，开箱即用
           </Paragraph>
         </div>
 
-        <Card
-          style={{
-            borderRadius: "12px",
-            border: "1px solid var(--mkt-border)",
-          }}
-          bodyStyle={{ padding: 0 }}
-        >
+        <Card className={styles.card} styles={{ body: { padding: 0 } }}>
           <Table
             dataSource={features}
             columns={columns}
             rowKey="feature"
             pagination={false}
             size="small"
-            style={{ width: "100%" }}
-            rowClassName={(_, index) => (index % 2 === 0 ? "table-row-even" : "table-row-odd")}
+            className={styles.table}
+            rowClassName={(_, index) =>
+              index % 2 === 0 ? styles.tableRowEven : styles.tableRowOdd
+            }
           />
         </Card>
 
-        {/* 底部总结 */}
-        <div
-          style={{
-            textAlign: "center",
-            marginTop: "32px",
-            padding: "20px",
-            background: "var(--mkt-surface)",
-            borderRadius: "12px",
-            border: "1px solid var(--mkt-border)",
-          }}
-        >
-          <Title level={4} style={{ marginBottom: "8px" }}>
+        <div className={styles.footer}>
+          <Title level={4} className={styles.footerTitle}>
             一站式全栈开发
           </Title>
-          <Paragraph type="secondary" style={{ margin: 0 }}>
+          <Paragraph className={styles.footerDesc}>
             从前端到后端，从 AI 到数据库 — 一个模板搞定所有
           </Paragraph>
         </div>
       </div>
-
-      <style>{`
-        .table-row-even td {
-          background: var(--mkt-bg) !important;
-        }
-        .table-row-odd td {
-          background: var(--mkt-surface) !important;
-        }
-        .ant-table-thead > tr > th {
-          padding: 12px 16px !important;
-        }
-        .ant-table-tbody > tr > td {
-          border-bottom: 1px solid var(--mkt-border) !important;
-          padding: 10px 16px !important;
-          color: var(--mkt-text) !important;
-        }
-        .ant-table {
-          background: transparent !important;
-        }
-        .ant-table-tbody > tr:last-child > td {
-          border-bottom: none !important;
-        }
-      `}</style>
     </section>
   );
 }

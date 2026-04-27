@@ -1,7 +1,7 @@
 import type { MenuProps } from "antd";
 import { Dropdown } from "antd";
 import { GlobalOutlined } from "@ant-design/icons";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
 
 import { defaultLang, langs } from "~/config/lang";
@@ -62,13 +62,11 @@ export function LanguageSwitcher() {
           width: "36px",
           height: "36px",
           borderRadius: "50%",
-          border: "1px solid var(--mkt-border)",
-          background: "var(--mkt-surface)",
           cursor: "pointer",
           transition: "transform 0.2s, box-shadow 0.2s",
         }}
       >
-        <GlobalOutlined style={{ fontSize: 18, color: "var(--mkt-muted)" }} aria-hidden />
+        <GlobalOutlined style={{ fontSize: 18 }} aria-hidden />
       </button>
     </Dropdown>
   );

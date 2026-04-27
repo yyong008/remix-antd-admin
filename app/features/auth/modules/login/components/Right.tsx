@@ -7,7 +7,9 @@ import { useLogin } from "~/api-client/queries/auth";
 import { TurnstileWidget } from "~/components/captcha";
 import { isTurnstileEnabled } from "~/config/turnstile";
 import { AUTH_PRODUCT_NAME } from "~/features/auth/components/AuthMarketingShell";
-import { useSession } from "~/session/hooks";
+import { useSession } from "~/session/provider";
+
+const iconMuted: React.CSSProperties = { color: "var(--ant-color-text-secondary)" };
 
 const submitLargeStyle = {
   height: 48,
@@ -15,8 +17,6 @@ const submitLargeStyle = {
   fontWeight: 500,
   boxShadow: "none",
 } as const;
-
-const iconMuted = { color: "var(--mkt-muted)" } as const;
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
@@ -82,7 +82,7 @@ const LoginForm: React.FC = () => {
         label="Password"
         placeholder="Enter your password"
         fieldProps={{
-          prefix: <LockOutlined style={iconMuted} />,
+          prefix: <LockOutlined />,
           autoComplete: "current-password",
         }}
         rules={[
@@ -106,22 +106,20 @@ export function Right() {
       style={{
         width: "100%",
         borderRadius: 28,
-        border: "1px solid var(--mkt-border)",
-        boxShadow: "var(--mkt-shadow)",
+        boxShadow: "0 4px 24px rgba(0, 0, 0, 0.08)",
         backdropFilter: "blur(8px)",
-        background: "color-mix(in srgb, var(--mkt-surface) 92%, transparent)",
       }}
       styles={{ body: { padding: "clamp(24px, 4vw, 40px)" } }}
     >
       <div style={{ marginBottom: 4 }}>
-        <Typography.Title level={3} style={{ margin: 0, color: "var(--mkt-text)" }}>
+        <Typography.Title level={3} style={{ margin: 0 }}>
           Sign in
         </Typography.Title>
-        <Typography.Text style={{ color: "var(--mkt-muted)", fontSize: 15 }}>
+        <Typography.Text style={{ fontSize: 15 }}>
           Use your credentials to access {AUTH_PRODUCT_NAME}.
         </Typography.Text>
       </div>
-      <Divider style={{ margin: "22px 0", borderColor: "var(--mkt-border)" }} />
+      <Divider style={{ margin: "22px 0" }} />
       <LoginForm />
       <Flex
         vertical={!screens.sm}
@@ -130,16 +128,19 @@ export function Right() {
         justify={screens.sm ? "space-between" : undefined}
         style={{ marginTop: 32, fontSize: 14 }}
       >
-        <Typography.Text style={{ color: "var(--mkt-muted)" }}>
+        <Typography.Text>
           New here?{" "}
           <Link
             to={href("/:locale?/auth/signup", { locale })}
-            style={{ fontWeight: 500, color: "var(--mkt-accent)" }}
+            style={{ fontWeight: 500, color: "#6366f1" }}
           >
             Create an account
           </Link>
         </Typography.Text>
-        <Link to={href("/:locale?", { locale })} style={{ color: "var(--mkt-muted)" }}>
+        <Link
+          to={href("/:locale?", { locale })}
+          style={{ color: "var(--ant-color-text-secondary)" }}
+        >
           ← Back to home
         </Link>
       </Flex>

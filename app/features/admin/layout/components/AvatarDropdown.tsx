@@ -1,11 +1,12 @@
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
-import { Avatar, Dropdown, theme } from "antd";
+import { Avatar, Button, Dropdown, Spin, theme } from "antd";
 import type { MenuProps } from "antd";
 import { href, useNavigate, useParams } from "react-router";
 
 import type React from "react";
 
 import { useLogout } from "~/api-client/queries/auth";
+import { useSession } from "~/session/provider";
 
 export type AdminHeaderUser = {
   name?: string | null;
@@ -28,7 +29,26 @@ export const AvatarDropDown: React.FC<AvatarDropDownProps> = ({ user }) => {
   const { locale } = useParams();
   const { token } = theme.useToken();
   const { mutate: signOut } = useLogout();
+  const { user: sessionUser, isLoading } = useSession();
   const isZh = locale === "zh";
+
+  // Loading state
+  if (isLoading) {
+    return <Spin size="small" />;
+  }
+
+  // Not logged in - show login button
+  if (!sessionUser) {
+    return (
+      <Button
+        type="primary"
+        size="middle"
+        onClick={() => navigate(href("/:locale?/auth/login", { locale }))}
+      >
+        {isZh ? "登录" : "Sign in"}
+      </Button>
+    );
+  }
 
   const title = displayName(user);
   const subtitle = user.email?.trim() || "";

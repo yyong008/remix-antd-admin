@@ -1,7 +1,7 @@
 import * as clientUtils from "~/utils/client";
 
-import { Outlet, useParams, useNavigate } from "react-router";
-import { memo, useContext, useMemo, useEffect } from "react";
+import { Outlet, useParams } from "react-router";
+import { memo, useContext, useMemo } from "react";
 
 import { App as AntdApp } from "antd";
 import { Spin } from "antd";

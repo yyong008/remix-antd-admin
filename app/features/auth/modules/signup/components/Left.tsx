@@ -16,8 +16,6 @@ const submitLargeStyle = {
   boxShadow: "none",
 } as const;
 
-const iconMuted = { color: "var(--mkt-muted)" } as const;
-
 const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
   const { locale } = useParams();
@@ -65,7 +63,7 @@ const RegisterForm: React.FC = () => {
         label="Display name"
         placeholder="How we should address you"
         fieldProps={{
-          prefix: <UserOutlined style={iconMuted} />,
+          prefix: <UserOutlined />,
           autoComplete: "username",
           allowClear: true,
         }}
@@ -80,7 +78,7 @@ const RegisterForm: React.FC = () => {
         label="Work email"
         placeholder="you@company.com"
         fieldProps={{
-          prefix: <MailOutlined style={iconMuted} />,
+          prefix: <MailOutlined />,
           autoComplete: "email",
           allowClear: true,
         }}
@@ -94,7 +92,7 @@ const RegisterForm: React.FC = () => {
         label="Password"
         placeholder="At least 6 characters"
         fieldProps={{
-          prefix: <LockOutlined style={iconMuted} />,
+          prefix: <LockOutlined />,
           autoComplete: "new-password",
         }}
         rules={[
@@ -118,22 +116,20 @@ export function Left() {
       style={{
         width: "100%",
         borderRadius: 28,
-        border: "1px solid var(--mkt-border)",
-        boxShadow: "var(--mkt-shadow)",
+        boxShadow: "0 4px 24px rgba(0, 0, 0, 0.08)",
         backdropFilter: "blur(8px)",
-        background: "color-mix(in srgb, var(--mkt-surface) 92%, transparent)",
       }}
       styles={{ body: { padding: "clamp(24px, 4vw, 40px)" } }}
     >
       <div style={{ marginBottom: 4 }}>
-        <Typography.Title level={3} style={{ margin: 0, color: "var(--mkt-text)" }}>
+        <Typography.Title level={3} style={{ margin: 0 }}>
           Create account
         </Typography.Title>
-        <Typography.Text style={{ color: "var(--mkt-muted)", fontSize: 15 }}>
+        <Typography.Text style={{ fontSize: 15 }}>
           Join {AUTH_PRODUCT_NAME} and open the admin console in one step.
         </Typography.Text>
       </div>
-      <Divider style={{ margin: "22px 0", borderColor: "var(--mkt-border)" }} />
+      <Divider style={{ margin: "22px 0" }} />
       <RegisterForm />
       <Flex
         vertical={!screens.sm}
@@ -142,18 +138,16 @@ export function Left() {
         justify={screens.sm ? "space-between" : undefined}
         style={{ marginTop: 32, fontSize: 14 }}
       >
-        <Typography.Text style={{ color: "var(--mkt-muted)" }}>
+        <Typography.Text>
           Already registered?{" "}
           <Link
             to={href("/:locale?/auth/login", { locale })}
-            style={{ fontWeight: 500, color: "var(--mkt-accent)" }}
+            style={{ fontWeight: 500, color: "#6366f1" }}
           >
             Sign in
           </Link>
         </Typography.Text>
-        <Link to={href("/:locale?", { locale })} style={{ color: "var(--mkt-muted)" }}>
-          ← Back to home
-        </Link>
+        <Link to={href("/:locale?", { locale })}>← Back to home</Link>
       </Flex>
     </Card>
   );

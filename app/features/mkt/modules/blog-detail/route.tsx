@@ -14,7 +14,6 @@ export function Route() {
           alignItems: "center",
           justifyContent: "center",
           minHeight: "60vh",
-          color: "var(--mkt-muted)",
         }}
       >
         加载中...
@@ -30,7 +29,6 @@ export function Route() {
           alignItems: "center",
           justifyContent: "center",
           minHeight: "60vh",
-          color: "var(--mkt-muted)",
         }}
       >
         博客不存在

@@ -17,6 +17,11 @@ export function RootRoute() {
         <Links />
       </head>
       <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var t=localStorage.getItem('mkt-theme');if(t){var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);document.documentElement.classList.toggle('theme-dark',d);document.documentElement.style.colorScheme=d?'dark':'light'}})()`,
+          }}
+        />
         <MktThemeSync />
         <AppQueryProvider>
           <SessionProvider>

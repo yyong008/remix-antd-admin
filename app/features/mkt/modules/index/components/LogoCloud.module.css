@@ -1,0 +1,46 @@
+.section {
+  padding: 40px 24px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.label {
+  text-align: center;
+  margin-bottom: 28px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  color: var(--ant-color-text-secondary);
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.logoItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 20px;
+  opacity: 0.65;
+  transition: opacity 0.25s ease;
+}
+
+.logoItem:hover {
+  opacity: 1;
+}
+
+.logo {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}

@@ -1,6 +1,7 @@
-import { Row, Col, Card, Typography, Avatar } from "antd";
+import { useState } from "react";
+import { Card, Typography, Avatar } from "antd";
 import { StarOutlined } from "@ant-design/icons";
-import { useState, useEffect } from "react";
+import styles from "./TestimonialsSection.module.css";
 
 const { Title, Paragraph } = Typography;
 
@@ -41,138 +42,57 @@ const testimonials: Testimonial[] = [
 
 export function TestimonialsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
-    <section
-      style={{
-        padding: "60px 24px 100px",
-        background: "linear-gradient(180deg, transparent 0%, var(--mkt-bg) 50%, transparent 100%)",
-      }}
-    >
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: "48px" }}>
-          <Title level={2} style={{ marginBottom: "12px" }}>
+    <section className={styles.section}>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <Title level={2} className={styles.title}>
             用户评价
           </Title>
-          <Paragraph type="secondary" style={{ maxWidth: "600px", margin: "0 auto" }}>
-            来自开发者社区的真实反馈
-          </Paragraph>
+          <Paragraph className={styles.desc}>来自开发者社区的真实反馈</Paragraph>
         </div>
 
         {/* 评价卡片 */}
-        <div
-          style={{
-            position: "relative",
-            maxWidth: "800px",
-            margin: "0 auto",
-          }}
-        >
-          <Card
-            style={{
-              borderRadius: "20px",
-              border: "1px solid var(--mkt-border)",
-              boxShadow: "0 24px 48px var(--mkt-shadow)",
-              overflow: "hidden",
-            }}
-            bodyStyle={{ padding: "48px" }}
-          >
+        <div className={styles.cardWrapper}>
+          <Card className={styles.card} styles={{ body: { padding: "48px" } }}>
             {/* 引用图标 */}
-            <div
-              style={{
-                position: "absolute",
-                top: "24px",
-                right: "32px",
-                fontSize: "48px",
-                color: "var(--mkt-border)",
-                opacity: 0.3,
-              }}
-            >
-              "
-            </div>
+            <div className={styles.quoteIcon}>"</div>
 
             {/* 评分 */}
-            <div style={{ display: "flex", gap: "4px", marginBottom: "24px" }}>
+            <div className={styles.rating}>
               {[...Array(5)].map((_, i) => (
                 <StarOutlined
                   key={i}
-                  style={{
-                    color: i < testimonials[activeIndex].rating ? "#FFD700" : "var(--mkt-border)",
-                    fontSize: "18px",
-                  }}
+                  className={`${styles.star} ${i < testimonials[activeIndex].rating ? styles.starFilled : styles.starEmpty}`}
                 />
               ))}
             </div>
 
             {/* 评价内容 */}
-            <Paragraph
-              style={{
-                fontSize: "18px",
-                lineHeight: 1.8,
-                color: "var(--mkt-text)",
-                marginBottom: "32px",
-                fontStyle: "italic",
-                minHeight: "80px",
-                transition: "all 0.4s ease",
-              }}
-            >
-              "{testimonials[activeIndex].content}"
-            </Paragraph>
+            <Paragraph className={styles.content}>"{testimonials[activeIndex].content}"</Paragraph>
 
             {/* 用户信息 */}
-            <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+            <div className={styles.user}>
               <Avatar
                 src={testimonials[activeIndex].avatar}
                 size={56}
-                style={{
-                  border: "2px solid var(--mkt-border)",
-                }}
+                className={styles.userAvatar}
               />
               <div>
-                <div style={{ fontSize: "16px", fontWeight: 600, color: "var(--mkt-text)" }}>
-                  {testimonials[activeIndex].name}
-                </div>
-                <div style={{ fontSize: "13px", color: "var(--mkt-muted)" }}>
-                  {testimonials[activeIndex].role}
-                </div>
+                <div className={styles.userName}>{testimonials[activeIndex].name}</div>
+                <div className={styles.userRole}>{testimonials[activeIndex].role}</div>
               </div>
             </div>
           </Card>
 
           {/* 切换指示器 */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "12px",
-              marginTop: "24px",
-            }}
-          >
+          <div className={styles.indicators}>
             {testimonials.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setActiveIndex(index)}
-                style={{
-                  width: index === activeIndex ? "32px" : "8px",
-                  height: "8px",
-                  borderRadius: "4px",
-                  border: "none",
-                  background:
-                    index === activeIndex
-                      ? "linear-gradient(135deg, var(--mkt-accent) 0%, var(--mkt-accent-2) 100%)"
-                      : "var(--mkt-border)",
-                  cursor: "pointer",
-                  transition: "all 0.3s ease",
-                  padding: 0,
-                }}
+                className={`${styles.indicator} ${index === activeIndex ? styles.indicatorActive : ""}`}
               />
             ))}
           </div>

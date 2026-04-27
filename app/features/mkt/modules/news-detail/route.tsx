@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { useParams } from "react-router";
 import { NewsContent, NewsHeader } from "./components";
 import { usePublicNewsById } from "~/api-client/queries/public-news";
@@ -15,7 +14,6 @@ export function Route() {
           alignItems: "center",
           justifyContent: "center",
           minHeight: "60vh",
-          color: "var(--mkt-muted)",
         }}
       >
         加载中...
@@ -31,7 +29,6 @@ export function Route() {
           alignItems: "center",
           justifyContent: "center",
           minHeight: "60vh",
-          color: "var(--mkt-muted)",
         }}
       >
         新闻不存在

@@ -1,0 +1,146 @@
+.section {
+  padding: 60px 24px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.title {
+  margin-bottom: 12px;
+  color: var(--ant-color-text);
+}
+
+.desc {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--ant-color-text-secondary);
+}
+
+.videoWrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.videoCover {
+  position: relative;
+  padding-bottom: 56.25%;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  cursor: pointer;
+}
+
+.videoBg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(118, 75, 162, 0.3) 0%, transparent 50%);
+}
+
+.browserDots {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dot1 {
+  background: #ff5f57;
+}
+.dot2 {
+  background: #ffbd2e;
+}
+.dot3 {
+  background: #28ca42;
+}
+
+.codePreview {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  padding: 24px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.codeDots {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.codeLine {
+  font-size: 14px;
+  color: #e0e0e0;
+  line-height: 1.8;
+}
+
+.keyword {
+  color: #667eea;
+}
+
+.function {
+  color: #764ba2;
+}
+
+.method {
+  color: #f093fb;
+}
+
+.bottomBar {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.videoInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 100px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.playButton {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, var(--ant-color-primary) 0%, #8b5cf6 100%);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.5);
+}
+
+.links {
+  margin-top: 40px;
+}

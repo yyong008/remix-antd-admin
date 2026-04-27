@@ -1,0 +1,168 @@
+.layout {
+  min-height: 100vh;
+  background: var(--ant-color-bg-container);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 64px;
+  background: var(--ant-color-bg-container);
+  border-bottom: 1px solid var(--ant-color-border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--ant-color-text);
+}
+
+.brandIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  color: var(--ant-color-primary);
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.brandTitle {
+  font-size: 12px;
+  color: var(--ant-color-text-secondary);
+}
+
+.brandName {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ant-color-text);
+  margin: 0;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.navLink {
+  position: relative;
+  color: var(--ant-color-text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+  padding: 8px 0;
+}
+
+.navLink:hover {
+  color: var(--ant-color-text);
+}
+
+.navLinkActive {
+  color: var(--ant-color-primary);
+}
+
+.navLinkActive::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--ant-color-primary);
+  border-radius: 1px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.main {
+  flex: 1;
+}
+
+/* User avatar button */
+.avatarBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.avatarBtn:hover {
+  transform: scale(1.05);
+}
+
+/* User dropdown popup */
+.userPopup {
+  padding: 16px;
+  min-width: 200px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ant-color-border);
+  margin-bottom: 8px;
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.userName {
+  font-weight: 600;
+  color: var(--ant-color-text);
+  font-size: 14px;
+}
+
+.userEmail {
+  font-size: 12px;
+  color: var(--ant-color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.menuDivider {
+  height: 1px;
+  background: var(--ant-color-border);
+  margin: 8px 0;
+}
+
+/* Footer */
+.footer {
+  padding: 0;
+}
+
+/* Loading skeleton */
+.avatarSkeleton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--ant-color-border);
+}

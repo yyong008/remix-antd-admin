@@ -5,12 +5,15 @@
  */
 export const MKT_THEME_STORAGE_KEY = "mkt-theme";
 
-export type MktThemeMode = "light" | "dark";
+export type MktThemeMode = "light" | "dark" | "system";
 
 export function applyMktTheme(mode: MktThemeMode) {
   if (typeof document === "undefined") return;
   const root = document.documentElement;
-  const isDark = mode === "dark";
+  let isDark = mode === "dark";
+  if (mode === "system") {
+    isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
   root.classList.toggle("theme-dark", isDark);
   root.classList.toggle("dark", isDark);
   root.dataset.theme = mode;
@@ -20,5 +23,8 @@ export function applyMktTheme(mode: MktThemeMode) {
 export function readStoredMktTheme(): MktThemeMode {
   if (typeof window === "undefined") return "light";
   const stored = window.localStorage.getItem(MKT_THEME_STORAGE_KEY);
-  return stored === "dark" ? "dark" : "light";
+  if (stored === "dark" || stored === "light" || stored === "system") {
+    return stored;
+  }
+  return "light";
 }

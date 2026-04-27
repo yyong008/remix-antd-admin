@@ -5,5 +5,3 @@ import { getBaseUrl } from "~/utils/url";
 export function getApiClient() {
   return hc<AppType>(getBaseUrl());
 }
-
-const client = getApiClient();

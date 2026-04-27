@@ -2,28 +2,6 @@ body {
   font-family: "Google Sans Code Variable", monospace;
 }
 
-:root {
-  --mkt-bg: #ffffff;
-  --mkt-text: #111111;
-  --mkt-muted: #666666;
-  --mkt-surface: #fafafa;
-  --mkt-border: #e5e5e5;
-  --mkt-accent: #6366f1;
-  --mkt-accent-2: #8b5cf6;
-  --mkt-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-}
-
-.theme-dark {
-  --mkt-bg: #0a0a0a;
-  --mkt-text: #f5f5f5;
-  --mkt-muted: #a3a3a3;
-  --mkt-surface: #171717;
-  --mkt-border: #2e2e2e;
-  --mkt-accent: #818cf8;
-  --mkt-accent-2: #a78bfa;
-  --mkt-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-}
-
 *,
 *::before,
 *::after {
@@ -97,4 +75,16 @@ table {
 
 .animate-shake {
   animation: shake 0.5s ease-in-out infinite;
+}
+
+[data-re-inspector-input],
+[data-re-inspector-color-hex] {
+  max-width: 3.5rem;
+  font-size: 0.75rem;
+  font-family: monospace;
+  /* padding: 0.25rem 0.375rem; */
+  color: inherit;
+  outline: none;
+  border: none;
+  background: none;
 }

@@ -18,7 +18,7 @@ export function Route() {
   ];
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--mkt-bg)", color: "var(--mkt-text)" }}>
+    <div style={{ minHeight: "100vh" }}>
       <Flex
         gap={24}
         style={{
@@ -35,9 +35,6 @@ export function Route() {
               styles={{ body: { padding: 24 } }}
               style={{
                 borderRadius: 24,
-                border: "1px solid var(--mkt-border)",
-                background: "var(--mkt-surface)",
-                boxShadow: "var(--mkt-shadow)",
               }}
             >
               <Typography.Title level={5} style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>
@@ -62,9 +59,6 @@ export function Route() {
                     alignItems: "center",
                     justifyContent: "space-between",
                     padding: "12px 16px",
-                    background: "var(--mkt-text)",
-                    color: "var(--mkt-surface)",
-                    border: "1px solid var(--mkt-border)",
                     fontWeight: 600,
                   }}
                 >
@@ -82,9 +76,6 @@ export function Route() {
               styles={{ body: { padding: 24 } }}
               style={{
                 borderRadius: 24,
-                border: "1px solid var(--mkt-border)",
-                background: "var(--mkt-surface)",
-                boxShadow: "var(--mkt-shadow)",
               }}
             >
               <Flex justify="space-between" align="center">
@@ -101,19 +92,6 @@ export function Route() {
                     key={item.id}
                     type="text"
                     onClick={() => navigate(`${basePath}/chatbot/${item.id}`)}
-                    style={{
-                      height: "auto",
-                      borderRadius: 16,
-                      border: "1px solid var(--mkt-border)",
-                      padding: "8px 12px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      textAlign: "left",
-                      fontSize: 12,
-                      fontWeight: 600,
-                      width: "100%",
-                    }}
                   >
                     <span
                       style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
@@ -129,11 +107,9 @@ export function Route() {
                   <div
                     style={{
                       borderRadius: 16,
-                      border: "1px dashed var(--mkt-border)",
                       padding: "24px 16px",
                       textAlign: "center",
                       fontSize: 12,
-                      color: "var(--mkt-muted)",
                     }}
                   >
                     暂无聊天记录
@@ -149,10 +125,7 @@ export function Route() {
             flex: 1,
             minWidth: 0,
             borderRadius: 32,
-            border: "1px solid var(--mkt-border)",
-            background: "var(--mkt-surface)",
             padding: 32,
-            boxShadow: "var(--mkt-shadow)",
           }}
         >
           <Outlet />

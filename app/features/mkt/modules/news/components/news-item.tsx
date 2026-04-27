@@ -27,18 +27,14 @@ export function NewsItem(props: { data: any; categoryName?: string }) {
         alignItems: "center",
         gap: "16px",
         padding: "16px 20px",
-        background: "var(--mkt-surface)",
-        border: "1px solid var(--mkt-border)",
         borderRadius: "10px",
         cursor: "pointer",
         transition: "all 0.2s ease",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "var(--mkt-accent)";
         e.currentTarget.style.boxShadow = "0 2px 8px rgba(102, 126, 234, 0.15)";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "var(--mkt-border)";
         e.currentTarget.style.boxShadow = "none";
       }}
     >
@@ -49,11 +45,8 @@ export function NewsItem(props: { data: any; categoryName?: string }) {
             alignItems: "center",
             gap: "4px",
             fontSize: "12px",
-            color: "var(--mkt-accent)",
-            background: "var(--mkt-surface)",
             padding: "4px 10px",
             borderRadius: "9999px",
-            border: "1px solid var(--mkt-accent)",
             whiteSpace: "nowrap",
             flexShrink: 0,
           }}
@@ -66,7 +59,6 @@ export function NewsItem(props: { data: any; categoryName?: string }) {
         <h3
           style={{
             fontWeight: 600,
-            color: "var(--mkt-text)",
             marginBottom: "4px",
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -79,7 +71,6 @@ export function NewsItem(props: { data: any; categoryName?: string }) {
         {excerpt && (
           <p
             style={{
-              color: "var(--mkt-muted)",
               fontSize: "13px",
               overflow: "hidden",
               textOverflow: "ellipsis",
@@ -97,7 +88,6 @@ export function NewsItem(props: { data: any; categoryName?: string }) {
           alignItems: "center",
           gap: "12px",
           fontSize: "12px",
-          color: "var(--mkt-muted)",
           flexShrink: 0,
         }}
       >
@@ -120,7 +110,7 @@ export function NewsItem(props: { data: any; categoryName?: string }) {
           <CalendarOutlined />
           {dayjs(data.publishedAt).fromNow()}
         </span>
-        <RightOutlined style={{ fontSize: "10px", color: "var(--mkt-muted)" }} />
+        <RightOutlined style={{ fontSize: "10px" }} />
       </div>
     </div>
   );

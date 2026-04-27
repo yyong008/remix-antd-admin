@@ -160,8 +160,6 @@ export function AiChatConversation({
             flexDirection: "column",
             overflow: "hidden",
             borderRadius: 16,
-            border: "1px solid var(--mkt-border)",
-            background: "var(--mkt-surface)",
           },
     [variant],
   );
@@ -172,7 +170,6 @@ export function AiChatConversation({
       minHeight: 0,
       overflowY: "auto",
       padding: 16,
-      borderBottom: `1px solid ${variant === "plain" ? "rgba(5,5,5,0.08)" : "var(--mkt-border)"}`,
     }),
     [variant],
   );

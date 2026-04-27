@@ -8,6 +8,7 @@ export function MktThemeSync() {
     const root = document.documentElement;
     root.classList.toggle("dark", isDark);
     root.classList.toggle("theme-dark", isDark);
+    root.style.colorScheme = isDark ? "dark" : "light";
   }, [isDark]);
 
   return null;

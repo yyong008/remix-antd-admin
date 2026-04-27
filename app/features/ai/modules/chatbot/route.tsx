@@ -64,7 +64,6 @@ export function Route() {
             fontSize: 12,
             textTransform: "uppercase",
             letterSpacing: "0.3em",
-            color: "var(--mkt-muted)",
           }}
         >
           AI Chatbot
@@ -72,13 +71,9 @@ export function Route() {
         <Typography.Title level={2} style={{ margin: "8px 0 0", fontWeight: 600 }}>
           对话
         </Typography.Title>
-        <Typography.Paragraph
-          style={{ marginTop: 8, marginBottom: 0, color: "var(--mkt-muted)", fontSize: 14 }}
-        >
+        <Typography.Paragraph style={{ marginTop: 8, marginBottom: 0, fontSize: 14 }}>
           当前语言：
-          <Typography.Text strong style={{ color: "var(--mkt-text)" }}>
-            {locale ?? "—"}
-          </Typography.Text>
+          <Typography.Text strong>{locale ?? "—"}</Typography.Text>
         </Typography.Paragraph>
       </div>
 
