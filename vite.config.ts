@@ -4,7 +4,6 @@ import { defineConfig } from "vite-plus";
 import { reactRouter } from "@react-router/dev/vite";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import { cloudflare } from "@cloudflare/vite-plugin";
-import tailwindcss from "@tailwindcss/vite";
 
 const __APP_INFO__ = JSON.stringify({
   pkg,
@@ -17,7 +16,6 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   plugins: [
-    tailwindcss(),
     reactRouter(),
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     paraglideVitePlugin({

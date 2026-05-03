@@ -9,7 +9,6 @@ const TECH_STACK_ICONS: Record<string, { icon: string; color: string }> = {
   "react-router": { icon: "🚀", color: "#FF6B6B" },
   vite: { icon: "⚡", color: "#646CFF" },
   antd: { icon: "🎨", color: "#1890FF" },
-  tailwindcss: { icon: "🎯", color: "#06B6D4" },
   hono: { icon: "🔥", color: "#E3602C" },
   drizzle: { icon: "🗄️", color: "#0EA5E9" },
   typescript: { icon: "📘", color: "#3178C6" },

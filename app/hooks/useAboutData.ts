@@ -22,7 +22,6 @@ const DEPENDENCY_KEYS = [
   "react-router",
   "vite",
   "antd",
-  "tailwindcss",
   "drizzle-orm",
   "drizzle-kit",
   "typescript",

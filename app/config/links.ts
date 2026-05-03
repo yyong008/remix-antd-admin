@@ -48,11 +48,6 @@ export const getLinks = (lang: string) => [
         isOut: true,
       },
       {
-        text: "Tailwind CSS",
-        to: "https://tailwindcss.com/",
-        isOut: true,
-      },
-      {
         text: "Drizzle",
         to: "https://orm.drizzle.team/",
         isOut: true,

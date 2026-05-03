@@ -16,8 +16,7 @@ export const ProjectAbout = () => {
           {pkg.name}是基于 react-router
           <Tag color="purple">{getMajorVersion("react-router")}.x</Tag>、 Vite
           <Tag color="purple">{getMajorVersion("vite")}.x</Tag>、 Antd
-          <Tag color="purple">{getMajorVersion("antd")}.x</Tag>、 TailwindCSS
-          <Tag color="purple">{getMajorVersion("tailwindcss")}.x</Tag>、 Drizzle
+          <Tag color="purple">{getMajorVersion("antd")}.x</Tag>、
           <Tag color="purple">{getMajorVersion("drizzle-orm")}.x</Tag>、 drizzle-kit
           <Tag color="purple">{getMajorVersion("drizzle-kit")}.x</Tag>、 TypeScript
           <Tag color="purple">{getMajorVersion("typescript")}.x</Tag> 开发，

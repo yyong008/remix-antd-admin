@@ -9,7 +9,6 @@ new fullstack:
 - [x] @tanstack/react-query
 - [x] Cloudflare Worker
 - [x] ESLint -> BiomeJS
-- [x] TailwindCSS v4
 - [x] Vite / Vitest
 - [x] CMS: Fumadocs（Legal / Docs）
 - [x] Hono 接入
@@ -25,7 +24,7 @@ new fullstack:
 - [x] AI Client：AntdX
 - [x] neon -> d1
 
-一个基于 React Router、React、Antd、TailwindCSS、Drizzle ORM 和 RBAC 的现代全栈 Web 解决方案（WIP）。
+一个基于 React Router、React、Antd、Drizzle ORM 和 RBAC 的现代全栈 Web 解决方案（WIP）。
 
 Remix Antd Admin 正在开发中，如果您有任何建议或问题，请随时提交 Issue 或 Pull Request。
 

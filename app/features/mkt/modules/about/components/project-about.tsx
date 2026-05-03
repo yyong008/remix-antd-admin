@@ -16,7 +16,6 @@ export const ProjectAbout = () => {
     ${pkg.name}是基于 @remix-run/react${getMajorVersion("@remix-run/react")}.x、
     Vite${getMajorVersion("vite")}.x、
     Antd${getMajorVersion("antd")}.x 、
-    TailwindCSS${getMajorVersion("tailwindcss")}.x 、
     Drizzle${getMajorVersion("drizzle-orm")}.x 、
     drizzle-kit${getMajorVersion("drizzle-kit")}.x 、
     TypeScript${getMajorVersion("typescript")}.x 开发，
