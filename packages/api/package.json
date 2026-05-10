@@ -1,0 +1,33 @@
+{
+  "name": "@workspace/api",
+  "version": "1.0.0",
+  "description": "Hono API implementation",
+  "main": "src/index.ts",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.33.0",
+  "dependencies": {
+    "@workspace/auth": "workspace:*",
+    "@workspace/database": "workspace:*",
+    "@workspace/storage": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "ai": "^6.0.174",
+    "better-auth": "^1.6.9",
+    "dayjs": "^1.11.20",
+    "drizzle-orm": "^0.45.2",
+    "hono": "^4.12.16",
+    "nanoid": "^5.1.11",
+    "ollama-ai-provider-v2": "^3.5.0",
+    "resend": "^6.12.2",
+    "ua-parser-js": "^2.0.9"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260503.1",
+    "typescript": "^6.0.3"
+  }
+}

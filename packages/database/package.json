@@ -1,0 +1,40 @@
+{
+  "name": "@workspace/database",
+  "version": "1.0.0",
+  "description": "Database schema and drizzle ORM configuration",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema/index.ts",
+    "./dals/*": "./src/dals/*.ts",
+    "./drizzle.config": "./src/drizzle.config.ts",
+    "./local/auth": "./src/seed/local/auth.ts"
+  },
+  "scripts": {
+    "drizzle:generate": "drizzle-kit generate",
+    "drizzle:migrate": "drizzle-kit migrate",
+    "drizzle:drop": "drizzle-kit drop",
+    "drizzle:studio:local": "drizzle-kit studio",
+    "drizzle:studio:remote": "drizzle-kit --config ./drizzle/seed/remote/drizzle.config.ts studio",
+    "seed:local:create-user": "dotenv -e ../../apps/api/.env -- vite-node --config ./drizzle/seed/local/vite.config.ts  ./drizzle/seed/local/create-user.ts",
+    "reset:local": "tsx ./drizzle/seed/local/reset.ts",
+    "api:gen:sql-file": "pnpm run  --filter api wrangler:generate:sqlite_file",
+    "api:migrate:local": "pnpm run  --filter api wrangler:migrate:local",
+    "api:migrate:remote": "pnpm run  --filter api wrangler:migrate:remote"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.17.3",
+    "drizzle-kit": "^0.31.10",
+    "drizzle-orm": "^0.45.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.39",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@10.33.0"
+}

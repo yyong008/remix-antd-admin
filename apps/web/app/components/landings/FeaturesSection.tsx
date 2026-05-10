@@ -1,0 +1,131 @@
+import { useState } from "react";
+import { Card, CardContent } from "@workspace/ui/components/card";
+import {
+  IconRocket,
+  IconDatabase,
+  IconRobot,
+  IconCode,
+  IconBolt,
+  IconSitemap,
+} from "@tabler/icons-react";
+
+interface Feature {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  color: string;
+}
+
+const features: Feature[] = [
+  {
+    icon: <IconRocket className="size-6" />,
+    title: "React Router Hono 内置支持",
+    description: "基于 Remix + Hono 路由快速开发项目",
+    color: "#6366f1",
+  },
+  {
+    icon: <IconSitemap className="size-6" />,
+    title: "Tailwind CSS 组件支持",
+    description: "基于 Tailwind CSS 组件库开发项目",
+    color: "#1890FF",
+  },
+  {
+    icon: <IconRobot className="size-6" />,
+    title: "AI SDK 内置支持",
+    description: "基于 AI SDK 的 AI 能力开发项目",
+    color: "#10B981",
+  },
+  {
+    icon: <IconDatabase className="size-6" />,
+    title: "Drizzle 内置支持",
+    description: "基于 Drizzle ORM 的数据库开发项目",
+    color: "#0EA5E9",
+  },
+  {
+    icon: <IconBolt className="size-6" />,
+    title: "高性能优化",
+    description: "内置性能优化和最佳实践",
+    color: "#F59E0B",
+  },
+  {
+    icon: <IconCode className="size-6" />,
+    title: "原生 CSS 样式支持",
+    description: "基于原生 CSS 的样式开发，完美支持暗色模式",
+    color: "#06B6D4",
+  },
+];
+
+export function FeaturesSection() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  return (
+    <section className="py-10 px-6 pb-20">
+      <div className="mx-auto max-w-screen-xl">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-3 text-gray-900 dark:text-gray-100">核心能力</h2>
+          <p className="max-w-[600px] mx-auto text-gray-500 dark:text-gray-400">
+            基于现代 Web 技术栈与开箱能力，快速落地全栈 AI 与管理后台场景。
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="h-full rounded-2xl p-px transition-all duration-300 hover:-translate-y-1"
+              style={{
+                background:
+                  hoveredIndex === index
+                    ? `linear-gradient(135deg, ${feature.color}60 0%, ${feature.color}20 100%)`
+                    : "transparent",
+                boxShadow:
+                  hoveredIndex === index
+                    ? `0 20px 40px color-mix(in srgb, ${feature.color} 25%, transparent), 0 0 0 1px color-mix(in srgb, ${feature.color} 40%, transparent)`
+                    : "none",
+              }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              <Card
+                hoverable={false}
+                className="h-full rounded-xl border transition-all duration-300 overflow-hidden"
+                style={{
+                  border: `1px solid color-mix(in srgb, ${feature.color} 30%, transparent)`,
+                }}
+              >
+                <CardContent className="p-7 relative">
+                  <div
+                    className="w-16 h-16 rounded-xl flex items-center justify-center text-2xl text-white mb-5 transition-all duration-300"
+                    style={{
+                      background: `linear-gradient(135deg, ${feature.color} 0%, color-mix(in srgb, ${feature.color} 80%, transparent) 100%)`,
+                      boxShadow:
+                        hoveredIndex === index
+                          ? `0 8px 32px color-mix(in srgb, ${feature.color} 60%, transparent), 0 0 48px color-mix(in srgb, ${feature.color} 30%, transparent)`
+                          : `0 8px 24px color-mix(in srgb, ${feature.color} 40%, transparent)`,
+                      transform: hoveredIndex === index ? "scale(1.1)" : "scale(1)",
+                    }}
+                  >
+                    {feature.icon}
+                  </div>
+
+                  <h4
+                    className="font-semibold mb-2 transition-colors duration-300"
+                    style={{
+                      color: hoveredIndex === index ? feature.color : undefined,
+                    }}
+                  >
+                    {feature.title}
+                  </h4>
+
+                  <p className="text-sm leading-relaxed text-gray-500 dark:text-gray-400 m-0">
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

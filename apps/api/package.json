@@ -1,0 +1,20 @@
+{
+  "name": "api",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --config ./wrangler.jsonc --port 3002",
+    "deploy": "wrangler deploy --minify --config ./wrangler.jsonc",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "cf-size": "pnpm run build && wrangler deploy --dry-run",
+    "wrangler:migrate:local": "wrangler d1 migrations apply DB --local",
+    "wrangler:migrate:remote": "wrangler d1 migrations apply DB --remote"
+  },
+  "dependencies": {
+    "@workspace/api": "workspace:*",
+    "hono": "^4.12.16"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "wrangler": "^4.87.0"
+  }
+}

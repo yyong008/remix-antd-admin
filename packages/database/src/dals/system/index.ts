@@ -1,0 +1,28 @@
+export { createUserDAL } from "./UserDAL";
+export type { UserDAL } from "./UserDAL";
+export { createUserPermsDAL } from "./UserPermsDAL";
+export type { UserPermsDAL } from "./UserPermsDAL";
+export { createRoleDAL } from "./RoleDAL";
+export type { RoleDAL } from "./RoleDAL";
+export { createMenuDAL } from "./MenuDAL";
+export type { MenuDAL } from "./MenuDAL";
+export { createDeptDAL } from "./DeptDAL";
+export type { DeptDAL } from "./DeptDAL";
+export { createConfigDAL } from "./ConfigDAL";
+export type { ConfigDAL } from "./ConfigDAL";
+export { createDictDAL } from "./DictDAL";
+export type { DictDAL } from "./DictDAL";
+export { createDictItemDAL } from "./DictItemDAL";
+export type { DictItemDAL } from "./DictItemDAL";
+export { createLoginLogDAL } from "./LoginLogDAL";
+export type { LoginLogDAL } from "./LoginLogDAL";
+
+export * from "./UserDAL";
+export * from "./UserPermsDAL";
+export * from "./RoleDAL";
+export * from "./MenuDAL";
+export * from "./DeptDAL";
+export * from "./ConfigDAL";
+export * from "./DictDAL";
+export * from "./DictItemDAL";
+export * from "./LoginLogDAL";

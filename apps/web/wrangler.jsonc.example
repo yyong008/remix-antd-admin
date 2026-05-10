@@ -1,0 +1,15 @@
+/**
+ * Copy to `wrangler.jsonc` (gitignored) and merge with your D1 / other bindings.
+ * R2: `pnpm exec wrangler r2 bucket create local-uploads`
+ * Then open R2 in the dashboard or Wrangler to browse objects locally after `pnpm dev`.
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "remix-antd-admin",
+	"compatibility_date": "2025-09-24",
+	"main": "./workers/app.ts",
+	"compatibility_flags": ["nodejs_compat", "nodejs_compat_populate_process_env"],
+	"observability": {
+		"enabled": true
+	},
+}

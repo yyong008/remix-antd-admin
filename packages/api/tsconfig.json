@@ -1,0 +1,5 @@
+{
+  "extends": "@workspace/typescript-config/react-router.json",
+  "include": ["**/*"],
+  "exclude": ["dist", "build", "node_modules"]
+}

@@ -1,0 +1,1 @@
+export { rbacLoginPlugin } from "./rbac-login";

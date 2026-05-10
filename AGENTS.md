@@ -171,6 +171,19 @@ Vite+ is configured via `package.json` and wraps:
 - Oxfmt for formatting
 - tsdown for TypeScript compilation
 
+## Skills
+
+Available skills for this project:
+
+- **sign-in** - 签到功能 (DAL, API, 前端组件)
+- **hono** - Hono API 开发
+- **react-router-framework-mode** - React Router 框架模式
+- **pnpm** - pnpm 包管理
+- **vite** - Vite 构建工具
+- **wrangler** - Cloudflare Workers 部署
+
+Load a skill using the `skill` tool when working on related features.
+
 ## Review Checklist
 
 - [ ] Run `vp install` after pulling remote changes

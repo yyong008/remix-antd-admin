@@ -4,6 +4,7 @@ new fullstack:
 
 ## 迁移进度
 
+- [ ] sinple repo -> monorepo
 - [x] Prisma v7 -> Drizzle
 - [x] Antd v6
 - [x] @tanstack/react-query

@@ -12,6 +12,9 @@
     ".react-router/types/**/*.ts",
     "./content/*"
   ],
+  "exclude": [
+    "packages/database/src/seed"
+  ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": ["@react-router/node", "vite/client"],
@@ -37,10 +40,13 @@
       "~/*": ["./app/*"],
       "@/*": ["./app/*"],
       "db/*": ["./db/*"],
+      "database/*": ["./packages/database/src/*"],
       "~/public/*": ["./public/*"],
       "~mock/*": ["./app/__mock__/*"],
       "#source/*": ["./.source/*"],
-      ".react-router/*": [".react-router/*"]
+      ".react-router/*": [".react-router/*"],
+      "@workspace/api": ["./packages/api/src/index.ts"],
+      "@workspace/auth": ["./packages/auth/src/index.ts"]
     }
   }
 }

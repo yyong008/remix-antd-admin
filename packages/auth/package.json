@@ -1,0 +1,37 @@
+{
+  "name": "@workspace/auth",
+  "version": "1.0.0",
+  "description": "Better Auth authentication package",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./server": "./src/server.ts"
+  },
+  "scripts": {
+    "gen:secret": "pnpm dlx auth@latest secret",
+    "gen:auth:schema": "pnpm dlx auth@latest generate --config=./src/schema/index.ts --output=../database/src/db/schema/auth.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.33.0",
+  "dependencies": {
+    "@workspace/database": "workspace:*",
+    "better-auth": "^1.6.9"
+  },
+  "peerDependencies": {
+    "drizzle-orm": "^0.38.0"
+  },
+  "peerDependenciesMeta": {
+    "drizzle-orm": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "dotenv-cli": "^11.0.0",
+    "vite-node": "^6.0.0"
+  }
+}
