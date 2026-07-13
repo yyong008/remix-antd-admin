@@ -1,7 +1,7 @@
 import { createMiddleware } from "hono/factory";
 
 import type { HonoEnv } from "../types";
-import { createOperateDAL } from "@workspace/database/dals/operate/operateDAL";
+import { createOperateDAL } from "@workspace/database/dals/operate/OperateDAL";
 import { getD1Db } from "../helpers/d1";
 
 function getClientIp(headers: Headers) {

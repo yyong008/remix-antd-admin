@@ -21,22 +21,22 @@
 		"isbot": "^5.1.31",
 		"lucide-react": "^1.14.0",
 		"next-themes": "^0.4.6",
-		"react": "^19.1.1",
-		"react-dom": "^19.1.1",
-		"react-router": "^7.10.0",
+		"react": "catalog:",
+		"react-dom": "catalog:",
+		"react-router": "catalog:",
 		"tailwind-merge": "^3.5.0"
 	},
 	"devDependencies": {
-		"@cloudflare/vite-plugin": "^1.13.5",
-		"@react-router/dev": "^7.10.0",
+		"@cloudflare/vite-plugin": "catalog:",
+		"@react-router/dev": "catalog:",
 		"@tailwindcss/vite": "^4.1.13",
-		"@types/node": "^22",
-		"@types/react": "^19.1.13",
-		"@types/react-dom": "^19.1.9",
+		"@types/node": "catalog:",
+		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
 		"tailwindcss": "^4.1.13",
-		"typescript": "^5.9.2",
+		"typescript": "catalog:",
 		"vite": "^8.0.10",
 		"vite-plugin-devtools-json": "^1.0.0",
-		"wrangler": "^4.87.0"
+		"wrangler": "catalog:"
 	}
 }

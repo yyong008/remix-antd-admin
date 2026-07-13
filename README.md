@@ -1,10 +1,20 @@
-# 欢迎使用 Remix Antd Admin
+# 欢迎使用 React Router Antd Admin
+
+因为 Remix 技术方向变化，所有 Remix Antd 改为 React Router Antd Admin
+
+## ⚠️警告
+
+本项目使用最新的 react-router v8.2.0 中间件，新特性（不稳定）不适合在生产环境中使用，适合学习
 
 new fullstack:
 
 ## 迁移进度
 
-- [ ] sinple repo -> monorepo
+- [x] sinple repo -> monorepo
+  - [x] web
+  - [x] admin
+  - [x] api
+- [x] React Router v8 Framework mode
 - [x] Prisma v7 -> Drizzle
 - [x] Antd v6
 - [x] @tanstack/react-query
@@ -27,11 +37,13 @@ new fullstack:
 
 一个基于 React Router、React、Antd、Drizzle ORM 和 RBAC 的现代全栈 Web 解决方案（WIP）。
 
-Remix Antd Admin 正在开发中，如果您有任何建议或问题，请随时提交 Issue 或 Pull Request。
+React Router Antd Admin 正在开发中，如果您有任何建议或问题，请随时提交 Issue 或 Pull Request。
 
-## ⚠️警告
+## 关联
 
-本项目使用最新的 react-router v7.6.2 中间件，新特性（不稳定）不适合在生产环境中使用，适合学习
+- [seeksaas](https://www.seeksaas.com) seeksaas 是一个渐进式的 saas 模板项目，早期基于 React Router antd Admin (Remix Antd Admin) 发展而来，
+
+
 
 ## 一杯咖啡
 

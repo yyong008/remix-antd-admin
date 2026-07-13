@@ -35,7 +35,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noEmit": true,
-    "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"],
       "@/*": ["./app/*"],
@@ -44,7 +43,6 @@
       "~/public/*": ["./public/*"],
       "~mock/*": ["./app/__mock__/*"],
       "#source/*": ["./.source/*"],
-      ".react-router/*": [".react-router/*"],
       "@workspace/api": ["./packages/api/src/index.ts"],
       "@workspace/auth": ["./packages/auth/src/index.ts"]
     }

@@ -51,3 +51,6 @@ paraglide/
 # audit
 audit
 wrangler.jsonc
+
+# turbo
+.turbo

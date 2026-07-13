@@ -2,7 +2,7 @@ import { Hono } from "hono";
 
 import type { HonoEnv } from "../../../types";
 import { requirePermission } from "../../../middleware/rbac";
-import { createOperateDAL } from "@workspace/database/dals/operate/operateDAL";
+import { createOperateDAL } from "@workspace/database/dals/operate/OperateDAL";
 import { getSearchParamsPage, getSearchParamsPageSize } from "../../../utils/server";
 import { rfj, rsj } from "../../../utils/server/response-json";
 import { getD1Db } from "../../../helpers/d1";

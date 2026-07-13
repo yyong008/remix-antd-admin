@@ -28,6 +28,6 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260503.1",
-    "typescript": "^6.0.3"
+    "typescript": "catalog:"
   }
 }

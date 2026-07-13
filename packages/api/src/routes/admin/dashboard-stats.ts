@@ -5,7 +5,7 @@ import { createChangeLogDAL } from "@workspace/database/dals/docs/ChangelogDAL";
 import { createFeedbackDAL } from "@workspace/database/dals/docs/FeedbackDAL";
 import { createNewsDAL } from "@workspace/database/dals/news/NewsDAL";
 import { createNewsCategoryDAL } from "@workspace/database/dals/news/NewsCategoryDAL";
-import { createOperateDAL } from "@workspace/database/dals/operate/operateDAL";
+import { createOperateDAL } from "@workspace/database/dals/operate/OperateDAL";
 import { createDeptDAL } from "@workspace/database/dals/system/DeptDAL";
 import { createLoginLogDAL } from "@workspace/database/dals/system/LoginLogDAL";
 import { createMenuDAL } from "@workspace/database/dals/system/MenuDAL";
