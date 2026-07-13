@@ -87,7 +87,6 @@ export function FeaturesSection() {
               onMouseLeave={() => setHoveredIndex(null)}
             >
               <Card
-                hoverable={false}
                 className="h-full rounded-xl border transition-all duration-300 overflow-hidden"
                 style={{
                   border: `1px solid color-mix(in srgb, ${feature.color} 30%, transparent)`,
