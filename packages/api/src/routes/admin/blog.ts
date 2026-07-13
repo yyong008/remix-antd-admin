@@ -1,8 +1,10 @@
+import * as blog from "@workspace/database/repositories/blog/blog";
+import * as blogCategory from "@workspace/database/repositories/blog/blog-category";
+import * as blogTag from "@workspace/database/repositories/blog/blog-tag";
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../../types";
 import { requirePermission } from "../../middleware/rbac";
-import { createBlogDAL, createBlogCategoryDAL, createBlogTagDAL } from "@workspace/database/dals/blog/index";
 import { getD1Db } from "../../helpers/d1";
 import { getSearchParams, getSearchParamsPage, getSearchParamsPageSize } from "../../utils/server";
 import { rfj, rsj } from "../../utils/server/response-json";
@@ -21,12 +23,11 @@ blogRouter.get("/", requirePermission("blog:list:read", "blog:detail:read"), asy
     const categoryId = getSearchParams(req, "categoryId");
     const tagId = getSearchParams(req, "tagId");
     const db = getD1Db(c);
-    const blogDAL = createBlogDAL(db);
-    const total = await blogDAL.getAdminCount({
+    const total = await blog.getAdminCount(db, {
       categoryId: categoryId || undefined,
       tagId: tagId || undefined,
     });
-    const list = await blogDAL.getAdminList({
+    const list = await blog.getAdminList(db, {
       page,
       pageSize,
       categoryId: categoryId || undefined,
@@ -46,8 +47,7 @@ blogRouter.post("/", requirePermission("blog:list:read", "blog:detail:read"), as
     }
     const dto = await c.req.json();
     const db = getD1Db(c);
-    const blogDAL = createBlogDAL(db);
-    const result = await blogDAL.create({
+    const result = await blog.create(db, {
       ...dto,
       publishedAt: new Date(dto.publishedAt),
       userId,
@@ -62,8 +62,7 @@ blogRouter.delete("/", requirePermission("blog:list:read", "blog:detail:read"), 
   try {
     const dto = await c.req.json();
     const db = getD1Db(c);
-    const blogDAL = createBlogDAL(db);
-    const result = await blogDAL.deleteByIds(dto.ids ?? []);
+    const result = await blog.deleteByIds(db, dto.ids ?? []);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);
@@ -77,9 +76,8 @@ blogRouter.get("/tag", requirePermission("blog:tag:read", "blog:list:read"), asy
       return rfj({}, "No Authorization No User", { status: 401 });
     }
     const db = getD1Db(c);
-    const blogTagDAL = createBlogTagDAL(db);
-    const total = await blogTagDAL.getCount();
-    const list = await blogTagDAL.getListByUserId(userId);
+    const total = await blogTag.getCount(db);
+    const list = await blogTag.getListByUserId(db, userId);
     return rsj({ total, list });
   } catch (error) {
     return rfj(error as Error);
@@ -93,8 +91,7 @@ blogRouter.get("/tag/:id", requirePermission("blog:tag:read", "blog:list:read"),
       return rfj({}, "Invalid Tag Id", { status: 400 });
     }
     const db = getD1Db(c);
-    const blogTagDAL = createBlogTagDAL(db);
-    const result = await blogTagDAL.getBlogTagById(id);
+    const result = await blogTag.getBlogTagById(db, id);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);
@@ -109,8 +106,7 @@ blogRouter.post("/tag", requirePermission("blog:tag:read", "blog:list:read"), as
     }
     const dto = await c.req.json();
     const db = getD1Db(c);
-    const blogTagDAL = createBlogTagDAL(db);
-    const result = await blogTagDAL.create({ ...dto, userId });
+    const result = await blogTag.create(db, { ...dto, userId });
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -126,8 +122,7 @@ blogRouter.put("/tag/:id", requirePermission("blog:tag:read", "blog:list:read"),
     const id = c.req.param("id");
     const dto = await c.req.json();
     const db = getD1Db(c);
-    const blogTagDAL = createBlogTagDAL(db);
-    const result = await blogTagDAL.update({ ...dto, id, userId });
+    const result = await blogTag.update(db, { ...dto, id, userId });
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -141,8 +136,7 @@ blogRouter.delete("/tag/:id", requirePermission("blog:tag:read", "blog:list:read
       return rfj({}, "Invalid Tag Id", { status: 400 });
     }
     const db = getD1Db(c);
-    const blogTagDAL = createBlogTagDAL(db);
-    const result = await blogTagDAL.deleteById(id);
+    const result = await blogTag.deleteById(db, id);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);
@@ -153,8 +147,7 @@ blogRouter.delete("/tag", requirePermission("blog:tag:read", "blog:list:read"), 
   try {
     const dto = await c.req.json();
     const db = getD1Db(c);
-    const blogTagDAL = createBlogTagDAL(db);
-    const result = await blogTagDAL.deleteBlogTagByIds(dto.ids ?? []);
+    const result = await blogTag.deleteBlogTagByIds(db, dto.ids ?? []);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);
@@ -171,9 +164,8 @@ blogRouter.get(
         return rfj({}, "No Authorization No User", { status: 401 });
       }
       const db = getD1Db(c);
-      const blogCategoryDAL = createBlogCategoryDAL(db);
-      const total = await blogCategoryDAL.getCount();
-      const list = await blogCategoryDAL.getListByUserId(userId);
+      const total = await blogCategory.getCount(db);
+      const list = await blogCategory.getListByUserId(db, userId);
       return rsj({ total, list });
     } catch (error) {
       return rfj(error as Error);
@@ -191,8 +183,7 @@ blogRouter.get(
         return rfj({}, "Invalid Category Id", { status: 400 });
       }
       const db = getD1Db(c);
-      const blogCategoryDAL = createBlogCategoryDAL(db);
-      const result = await blogCategoryDAL.getById(id);
+      const result = await blogCategory.getById(db, id);
       return rsj(result ?? {});
     } catch (error) {
       return rfj(error as Error);
@@ -211,8 +202,7 @@ blogRouter.post(
       }
       const dto = await c.req.json();
       const db = getD1Db(c);
-      const blogCategoryDAL = createBlogCategoryDAL(db);
-      const result = await blogCategoryDAL.create({ ...dto, userId });
+      const result = await blogCategory.create(db, { ...dto, userId });
       return rsj(result);
     } catch (error) {
       return rfj(error as Error);
@@ -232,8 +222,7 @@ blogRouter.put(
       const id = c.req.param("id");
       const dto = await c.req.json();
       const db = getD1Db(c);
-      const blogCategoryDAL = createBlogCategoryDAL(db);
-      const result = await blogCategoryDAL.update({ ...dto, id, userId });
+      const result = await blogCategory.update(db, { ...dto, id, userId });
       return rsj(result);
     } catch (error) {
       return rfj(error as Error);
@@ -251,8 +240,7 @@ blogRouter.delete(
         return rfj({}, "Invalid Category Id", { status: 400 });
       }
       const db = getD1Db(c);
-      const blogCategoryDAL = createBlogCategoryDAL(db);
-      const result = await blogCategoryDAL.deleteByIds([id]);
+      const result = await blogCategory.deleteByIds(db, [id]);
       return rsj(result ?? {});
     } catch (error) {
       return rfj(error as Error);
@@ -267,8 +255,7 @@ blogRouter.delete(
     try {
       const dto = await c.req.json();
       const db = getD1Db(c);
-      const blogCategoryDAL = createBlogCategoryDAL(db);
-      const result = await blogCategoryDAL.deleteByIds(dto.ids ?? []);
+      const result = await blogCategory.deleteByIds(db, dto.ids ?? []);
       return rsj(result ?? {});
     } catch (error) {
       return rfj(error as Error);
@@ -283,8 +270,7 @@ blogRouter.get("/:id", requirePermission("blog:detail:read", "blog:list:read"), 
       return rfj({}, "Invalid Blog Id", { status: 400 });
     }
     const db = getD1Db(c);
-    const blogDAL = createBlogDAL(db);
-    const result = await blogDAL.getById(id);
+    const result = await blog.getById(db, id);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);
@@ -300,11 +286,10 @@ blogRouter.put("/:id", requirePermission("blog:detail:read", "blog:list:read"), 
     const id = c.req.param("id");
     const dto = await c.req.json();
     const db = getD1Db(c);
-    const blogDAL = createBlogDAL(db);
     const updateData: any = { ...dto, id };
     if (dto.publishedAt) updateData.publishedAt = new Date(dto.publishedAt);
     updateData.userId = userId;
-    const result = await blogDAL.update(updateData);
+    const result = await blog.update(db, updateData);
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -318,8 +303,7 @@ blogRouter.delete("/:id", requirePermission("blog:detail:read", "blog:list:read"
       return rfj({}, "Invalid Blog Id", { status: 400 });
     }
     const db = getD1Db(c);
-    const blogDAL = createBlogDAL(db);
-    const result = await blogDAL.deleteByIds([id]);
+    const result = await blog.deleteByIds(db, [id]);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);

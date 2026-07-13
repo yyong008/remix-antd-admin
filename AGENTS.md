@@ -139,6 +139,14 @@ pnpm typecheck          # Run full type check
 - Query hooks are in `app/api-client/queries/`
 - Follow pattern: `use<Entity>List`, `use<Entity>ById`, `useCreate<Entity>`, `useUpdate<Entity>`, `useDelete<Entity>`
 
+### Database Repositories
+
+- Keep repository modules in `packages/database/src/repositories/<domain>/`
+- Use kebab-case entity filenames such as `blog-category.ts`; do not add a `DAL` suffix
+- Export each database operation as an independent function with `db` as its first parameter
+- Do not use `createXxxDAL` factories or return objects containing repository methods
+- Import repository modules as namespaces in API code, for example `blogCategory.getById(db, id)`
+
 ### Ant Design Usage
 
 - Use `theme.useToken()` for theme-aware styling

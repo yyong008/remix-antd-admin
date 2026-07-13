@@ -1,8 +1,8 @@
+import * as userPerms from "@workspace/database/repositories/system/user-perms";
 import { createMiddleware } from "hono/factory";
 
 import type { HonoEnv } from "../types";
 import { getD1Db } from "../helpers/d1";
-import { createUserPermsDAL } from "@workspace/database/dals/system/UserPermsDAL";
 export const rbacContextMiddleware = createMiddleware<HonoEnv>(async (c, next) => {
   const userId = c.get("userId");
   if (!userId) {
@@ -10,8 +10,7 @@ export const rbacContextMiddleware = createMiddleware<HonoEnv>(async (c, next) =
     return;
   }
   const db = getD1Db(c);
-  const permsDAL = createUserPermsDAL(db);
-  const permissions = await permsDAL.getUserPerms(userId);
+  const permissions = await userPerms.getUserPerms(db, userId);
   c.set("permissions", permissions);
   await next();
 });

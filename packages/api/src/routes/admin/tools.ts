@@ -1,10 +1,10 @@
+import * as mail from "@workspace/database/repositories/tools/mail";
+import * as storage from "@workspace/database/repositories/tools/storage";
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../../types";
 import { requirePermission } from "../../middleware/rbac";
-import { createMailTemplateDAL } from "@workspace/database/dals/tools/MailDAL";
 // import { sendMail } from "../../mails/resend";
-import { createStorageDAL } from "@workspace/database/dals/tools/StorageDAL";
 import { deleteObject, resolveStorageKey } from "@workspace/storage/r2";
 import { getSearchParamsPage, getSearchParamsPageSize } from "../../utils/server";
 import { rfj, rsj } from "../../utils/server/response-json";
@@ -15,12 +15,11 @@ export const toolsRouter = new Hono<HonoEnv>();
 toolsRouter.get("/mail", requirePermission("tools:mail:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const mailTemplateDAL = createMailTemplateDAL(db);
     const req = c.req.raw;
     const page = getSearchParamsPage(req);
     const pageSize = getSearchParamsPageSize(req);
-    const total = await mailTemplateDAL.getCount();
-    const list = await mailTemplateDAL.getList({
+    const total = await mail.getCount(db);
+    const list = await mail.getList(db, {
       where: {},
       skip: (page - 1) * pageSize,
       take: pageSize,
@@ -35,12 +34,11 @@ toolsRouter.get("/mail", requirePermission("tools:mail:read"), async (c) => {
 toolsRouter.get("/mail/:id", requirePermission("tools:mail:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const mailTemplateDAL = createMailTemplateDAL(db);
     const id = c.req.param("id");
     if (!id) {
       return rfj({}, "Invalid Mail Id", { status: 400 });
     }
-    const result = await mailTemplateDAL.getById(id);
+    const result = await mail.getById(db, id);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);
@@ -50,9 +48,8 @@ toolsRouter.get("/mail/:id", requirePermission("tools:mail:read"), async (c) => 
 toolsRouter.post("/mail", requirePermission("tools:mail:create"), async (c) => {
   try {
     const db = getD1Db(c);
-    const mailTemplateDAL = createMailTemplateDAL(db);
     const dto = await c.req.json();
-    const result = await mailTemplateDAL.create(dto);
+    const result = await mail.create(db, dto);
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -102,12 +99,11 @@ toolsRouter.post("/mail/send", requirePermission("tools:mail:create"), async (c)
 toolsRouter.put("/mail", requirePermission("tools:mail:update"), async (c) => {
   try {
     const db = getD1Db(c);
-    const mailTemplateDAL = createMailTemplateDAL(db);
     const dto = await c.req.json();
     if (!dto.id) {
       return rfj({}, "Invalid Mail Id", { status: 400 });
     }
-    const result = await mailTemplateDAL.update(dto.id, dto);
+    const result = await mail.update(db, dto.id, dto);
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -117,9 +113,8 @@ toolsRouter.put("/mail", requirePermission("tools:mail:update"), async (c) => {
 toolsRouter.delete("/mail", requirePermission("tools:mail:delete"), async (c) => {
   try {
     const db = getD1Db(c);
-    const mailTemplateDAL = createMailTemplateDAL(db);
     const dto = await c.req.json();
-    const result = await mailTemplateDAL.deleteByIds(dto.ids ?? []);
+    const result = await mail.deleteByIds(db, dto.ids ?? []);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);
@@ -129,14 +124,13 @@ toolsRouter.delete("/mail", requirePermission("tools:mail:delete"), async (c) =>
 toolsRouter.get("/storage", requirePermission("tools:storage:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const storageDAL = createStorageDAL(db);
     const req = c.req.raw;
     const page = getSearchParamsPage(req);
     const pageSize = getSearchParamsPageSize(req);
     const userId = c.get("userId");
     const where = userId ? { userId } : {};
-    const total = await storageDAL.getCount(where);
-    const list = await storageDAL.getList({
+    const total = await storage.getCount(db, where);
+    const list = await storage.getList(db, {
       where,
       skip: (page - 1) * pageSize,
       take: pageSize,
@@ -151,12 +145,11 @@ toolsRouter.get("/storage", requirePermission("tools:storage:read"), async (c) =
 toolsRouter.get("/storage/:id", requirePermission("tools:storage:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const storageDAL = createStorageDAL(db);
     const id = c.req.param("id");
     if (!id) {
       return rfj({}, "Invalid Storage Id", { status: 400 });
     }
-    const result = await storageDAL.getById(id);
+    const result = await storage.getById(db, id);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);
@@ -166,9 +159,8 @@ toolsRouter.get("/storage/:id", requirePermission("tools:storage:read"), async (
 toolsRouter.post("/storage", requirePermission("tools:storage:create"), async (c) => {
   try {
     const db = getD1Db(c);
-    const storageDAL = createStorageDAL(db);
     const dto = await c.req.json();
-    const result = await storageDAL.create(dto);
+    const result = await storage.create(db, dto);
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -178,12 +170,11 @@ toolsRouter.post("/storage", requirePermission("tools:storage:create"), async (c
 toolsRouter.put("/storage", requirePermission("tools:storage:update"), async (c) => {
   try {
     const db = getD1Db(c);
-    const storageDAL = createStorageDAL(db);
     const dto = await c.req.json();
     if (!dto.id) {
       return rfj({}, "Invalid Storage Id", { status: 400 });
     }
-    const result = await storageDAL.update(dto.id, dto);
+    const result = await storage.update(db, dto.id, dto);
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -193,13 +184,12 @@ toolsRouter.put("/storage", requirePermission("tools:storage:update"), async (c)
 toolsRouter.delete("/storage", requirePermission("tools:storage:delete"), async (c) => {
   try {
     const db = getD1Db(c);
-    const storageDAL = createStorageDAL(db);
     const dto = await c.req.json();
     const userId = c.get("userId");
-    const items = await storageDAL.getByIds(dto.ids ?? []);
+    const items = await storage.getByIds(db, dto.ids ?? []);
     const allowedItems = (items ?? []).filter((item: any) => item.userId === userId);
     const allowedIds = allowedItems.map((item: any) => item.id);
-    const deleted = await storageDAL.deleteByIds(allowedIds);
+    const deleted = await storage.deleteByIds(db, allowedIds);
     for (const item of deleted ?? []) {
       const key = resolveStorageKey({
         fileName: item.fileName,

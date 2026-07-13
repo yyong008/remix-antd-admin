@@ -10,7 +10,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./schema": "./src/schema/index.ts",
-    "./dals/*": "./src/dals/*.ts",
+    "./repositories/*": "./src/repositories/*.ts",
     "./drizzle.config": "./src/drizzle.config.ts",
     "./local/auth": "./src/seed/local/auth.ts"
   },

@@ -1,7 +1,7 @@
+import * as operate from "@workspace/database/repositories/operate/operate";
 import { createMiddleware } from "hono/factory";
 
 import type { HonoEnv } from "../types";
-import { createOperateDAL } from "@workspace/database/dals/operate/OperateDAL";
 import { getD1Db } from "../helpers/d1";
 
 function getClientIp(headers: Headers) {
@@ -23,9 +23,8 @@ export const operateMiddleware = createMiddleware<HonoEnv>(async (c, next) => {
   const persist = async () => {
     try {
       const db = getD1Db(c);
-      const operateDAL = createOperateDAL(db);
       const req = c.req;
-      await operateDAL.createOperate({
+      await operate.createOperate(db, {
         userId,
         username: c.get("username") ?? null,
         path: req.path,

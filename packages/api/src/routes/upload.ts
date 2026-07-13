@@ -1,6 +1,6 @@
+import * as storage from "@workspace/database/repositories/tools/storage";
 import type { Context } from "hono";
 
-import { createStorageDAL } from "@workspace/database/dals/tools/StorageDAL";
 import { extname } from "../utils/server";
 import { getPublicObjectUrl, getStorageKey, uploadObject } from "@workspace/storage/r2";
 import { rfj, rsj, respPresentationModeJson } from "../utils/server/response-json";
@@ -44,7 +44,6 @@ export async function uploadHandler(c: Context) {
     }
 
     const db = getD1Db(c);
-    const storageDAL = createStorageDAL(db);
 
     const formData = await c.req.raw.formData();
     const file = formData.get("file");
@@ -83,7 +82,7 @@ export async function uploadHandler(c: Context) {
     const path = getPublicObjectUrl(c, key);
 
     if (recordInStorage) {
-      const result = await storageDAL.create({
+      const result = await storage.create(db, {
         userId,
         name: file.name,
         fileName: key,

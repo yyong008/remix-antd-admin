@@ -1,8 +1,8 @@
+import * as loginLog from "@workspace/database/repositories/system/login-log";
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../../../types";
 import { requirePermission } from "../../../middleware/rbac";
-import { createLoginLogDAL } from "@workspace/database/dals/system/LoginLogDAL";
 import { getSearchParams, getSearchParamsPage, getSearchParamsPageSize } from "../../../utils/server";
 import { rfj, rsj } from "../../../utils/server/response-json";
 import { getD1Db } from "../../../helpers/d1";
@@ -15,13 +15,12 @@ monitorLoginLogRouter.get(
   async (c) => {
     try {
       const db = getD1Db(c);
-      const loginLogDAL = createLoginLogDAL(db);
       const req = c.req.raw;
       const page = getSearchParamsPage(req);
       const pageSize = getSearchParamsPageSize(req);
       const name = getSearchParams(req, "name") ?? "";
-      const total = await loginLogDAL.getCount();
-      const list = await loginLogDAL.getLoginLogList({ page, pageSize, name });
+      const total = await loginLog.getCount(db);
+      const list = await loginLog.getLoginLogList(db, { page, pageSize, name });
       return rsj({ total, list });
     } catch (error) {
       return rfj(error as Error);
@@ -35,9 +34,8 @@ monitorLoginLogRouter.post(
   async (c) => {
     try {
       const db = getD1Db(c);
-      const loginLogDAL = createLoginLogDAL(db);
       const dto = await c.req.json();
-      const result = await loginLogDAL.create(dto);
+      const result = await loginLog.create(db, dto);
       return rsj(result);
     } catch (error) {
       return rfj(error as Error);
@@ -59,9 +57,8 @@ monitorLoginLogRouter.delete(
   async (c) => {
     try {
       const db = getD1Db(c);
-      const loginLogDAL = createLoginLogDAL(db);
       const dto = await c.req.json();
-      const result = await loginLogDAL.deleteByIds(dto.ids ?? []);
+      const result = await loginLog.deleteByIds(db, dto.ids ?? []);
       return rsj(result ?? {});
     } catch (error) {
       return rfj(error as Error);

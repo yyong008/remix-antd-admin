@@ -1,0 +1,9 @@
+export * as config from "./config";
+export * as dept from "./dept";
+export * as dict from "./dict";
+export * as dictItem from "./dict-item";
+export * as loginLog from "./login-log";
+export * as menu from "./menu";
+export * as role from "./role";
+export * as user from "./user";
+export * as userPerms from "./user-perms";

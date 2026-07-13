@@ -1,16 +1,16 @@
+import * as blog from "@workspace/database/repositories/blog/blog";
+import * as changelog from "@workspace/database/repositories/docs/changelog";
+import * as feedback from "@workspace/database/repositories/docs/feedback";
+import * as news from "@workspace/database/repositories/news/news";
+import * as newsCategory from "@workspace/database/repositories/news/news-category";
+import * as operate from "@workspace/database/repositories/operate/operate";
+import * as dept from "@workspace/database/repositories/system/dept";
+import * as loginLog from "@workspace/database/repositories/system/login-log";
+import * as menu from "@workspace/database/repositories/system/menu";
+import * as role from "@workspace/database/repositories/system/role";
+import * as user from "@workspace/database/repositories/system/user";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
-import { createBlogDAL } from "@workspace/database/dals/blog/BlogDAL";
-import { createChangeLogDAL } from "@workspace/database/dals/docs/ChangelogDAL";
-import { createFeedbackDAL } from "@workspace/database/dals/docs/FeedbackDAL";
-import { createNewsDAL } from "@workspace/database/dals/news/NewsDAL";
-import { createNewsCategoryDAL } from "@workspace/database/dals/news/NewsCategoryDAL";
-import { createOperateDAL } from "@workspace/database/dals/operate/OperateDAL";
-import { createDeptDAL } from "@workspace/database/dals/system/DeptDAL";
-import { createLoginLogDAL } from "@workspace/database/dals/system/LoginLogDAL";
-import { createMenuDAL } from "@workspace/database/dals/system/MenuDAL";
-import { createRoleDAL } from "@workspace/database/dals/system/RoleDAL";
-import { createUserDAL } from "@workspace/database/dals/system/UserDAL";
 import { AdminDashboardStats } from "apps/admin/app/api-client/queries/dashboard/dashboard";
 
 type Loader = {
@@ -23,17 +23,6 @@ export async function loadAdminDashboardStats(
   db: DrizzleD1Database,
   permissions: string[],
 ): Promise<AdminDashboardStats | null> {
-  const userDAL = createUserDAL(db);
-  const roleDAL = createRoleDAL(db);
-  const deptDAL = createDeptDAL(db);
-  const menuDAL = createMenuDAL(db);
-  const newsDAL = createNewsDAL(db);
-  const newsCategoryDAL = createNewsCategoryDAL(db);
-  const blogDAL = createBlogDAL(db);
-  const loginLogDAL = createLoginLogDAL(db);
-  const operateDAL = createOperateDAL(db);
-  const changeLogDAL = createChangeLogDAL(db);
-  const feedbackDAL = createFeedbackDAL(db);
 
   const loaders: Loader[] = [
     {
@@ -41,77 +30,77 @@ export async function loadAdminDashboardStats(
       apply: (s, v) => {
         s.userCount = v;
       },
-      load: () => userDAL.getCount(),
+      load: () => user.getCount(db),
     },
     {
       perm: "system:role:read",
       apply: (s, v) => {
         s.roleCount = v;
       },
-      load: () => roleDAL.getCount(),
+      load: () => role.getCount(db),
     },
     {
       perm: "system:dept:read",
       apply: (s, v) => {
         s.deptCount = v;
       },
-      load: () => deptDAL.getCount(),
+      load: () => dept.getCount(db),
     },
     {
       perm: "system:menu:read",
       apply: (s, v) => {
         s.menuCount = v;
       },
-      load: () => menuDAL.getCount(),
+      load: () => menu.getCount(db),
     },
     {
       perm: "news:list:read",
       apply: (s, v) => {
         s.newsCount = v;
       },
-      load: () => newsDAL.getCount(),
+      load: () => news.getCount(db),
     },
     {
       perm: "news:list:read",
       apply: (s, v) => {
         s.newsCategoryCount = v;
       },
-      load: () => newsCategoryDAL.getCount(),
+      load: () => newsCategory.getCount(db),
     },
     {
       perm: "blog:list:read",
       apply: (s, v) => {
         s.blogCount = v;
       },
-      load: () => blogDAL.getCount(),
+      load: () => blog.getCount(db),
     },
     {
       perm: "system:monitor:loginlog:read",
       apply: (s, v) => {
         s.loginLogCount = v;
       },
-      load: () => loginLogDAL.getCount(),
+      load: () => loginLog.getCount(db),
     },
     {
       perm: "system:monitor:operate:read",
       apply: (s, v) => {
         s.operateLogCount = v;
       },
-      load: () => operateDAL.getOperatesCount({ where: {} }),
+      load: () => operate.getOperatesCount(db, { where: {} }),
     },
     {
       perm: "docs:changelog:read",
       apply: (s, v) => {
         s.changelogCount = v;
       },
-      load: () => changeLogDAL.getCount(),
+      load: () => changelog.getCount(db),
     },
     {
       perm: "docs:feedback:read",
       apply: (s, v) => {
         s.feedbackCount = v;
       },
-      load: () => feedbackDAL.getCount(),
+      load: () => feedback.getCount(db),
     },
   ];
 

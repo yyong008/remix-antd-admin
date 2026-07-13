@@ -1,8 +1,8 @@
+import * as dict from "@workspace/database/repositories/system/dict";
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../../../types";
 import { requirePermission } from "../../../middleware/rbac";
-import { createDictDAL } from "@workspace/database/dals/system/DictDAL";
 import { getSearchParamsPage, getSearchParamsPageSize } from "../../../utils/server";
 import { rfj, rsj } from "../../../utils/server/response-json";
 import { getD1Db } from "../../../helpers/d1";
@@ -12,12 +12,11 @@ export const dictRouter = new Hono<HonoEnv>();
 dictRouter.get("/dict", requirePermission("system:dict:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const dictDAL = createDictDAL(db);
     const req = c.req.raw;
     const page = getSearchParamsPage(req);
     const pageSize = getSearchParamsPageSize(req);
-    const total = await dictDAL.getCount();
-    const list = await dictDAL.getList({ page, pageSize });
+    const total = await dict.getCount(db);
+    const list = await dict.getList(db, { page, pageSize });
     return rsj({ total, list });
   } catch (error) {
     return rfj(error as Error);
@@ -27,9 +26,8 @@ dictRouter.get("/dict", requirePermission("system:dict:read"), async (c) => {
 dictRouter.post("/dict", requirePermission("system:dict:create"), async (c) => {
   try {
     const db = getD1Db(c);
-    const dictDAL = createDictDAL(db);
     const dto = await c.req.json();
-    const result = await dictDAL.create(dto);
+    const result = await dict.create(db, dto);
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -39,9 +37,8 @@ dictRouter.post("/dict", requirePermission("system:dict:create"), async (c) => {
 dictRouter.put("/dict", requirePermission("system:dict:update"), async (c) => {
   try {
     const db = getD1Db(c);
-    const dictDAL = createDictDAL(db);
     const dto = await c.req.json();
-    const result = await dictDAL.update(dto);
+    const result = await dict.update(db, dto);
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -51,9 +48,8 @@ dictRouter.put("/dict", requirePermission("system:dict:update"), async (c) => {
 dictRouter.delete("/dict", requirePermission("system:dict:delete"), async (c) => {
   try {
     const db = getD1Db(c);
-    const dictDAL = createDictDAL(db);
     const dto = await c.req.json();
-    const result = await dictDAL.deleteByIds(dto.ids ?? []);
+    const result = await dict.deleteByIds(db, dto.ids ?? []);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);
@@ -63,8 +59,7 @@ dictRouter.delete("/dict", requirePermission("system:dict:delete"), async (c) =>
 dictRouter.get("/dict/check", requirePermission("system:dict:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const dictDAL = createDictDAL(db);
-    const result = await dictDAL.checkIntegrity();
+    const result = await dict.checkIntegrity(db);
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);

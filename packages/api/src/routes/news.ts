@@ -1,8 +1,8 @@
+import * as news from "@workspace/database/repositories/news/news";
+import * as newsCategory from "@workspace/database/repositories/news/news-category";
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../types";
-import { createNewsDAL } from "@workspace/database/dals/news/NewsDAL";
-import { createNewsCategoryDAL } from "@workspace/database/dals/news/NewsCategoryDAL";
 import { getD1Db } from "../helpers/d1";
 import { rsj, rfj } from "../utils/server/response-json";
 
@@ -13,12 +13,11 @@ export const newsRouter = new Hono<HonoEnv>();
 newsRouter.get("/", async (c) => {
   try {
     const db = getD1Db(c);
-    const newsDAL = createNewsDAL(db);
     const req = c.req.raw;
     const page = Number(new URL(req.url).searchParams.get("page") ?? 1);
     const pageSize = Number(new URL(req.url).searchParams.get("pageSize") ?? 10);
-    const total = await newsDAL.getPublicCount();
-    const list = await newsDAL.getPublicList({ page, pageSize });
+    const total = await news.getPublicCount(db);
+    const list = await news.getPublicList(db, { page, pageSize });
     return rsj({ total, list });
   } catch (error) {
     return c.json({ code: 500, msg: String(error) }, 500);
@@ -28,9 +27,8 @@ newsRouter.get("/", async (c) => {
 newsRouter.post("/", async (c) => {
   try {
     const db = getD1Db(c);
-    const newsDAL = createNewsDAL(db);
     const dto = await c.req.json();
-    const result = await newsDAL.create({ ...dto, userId: SYSTEM_USER_ID });
+    const result = await news.create(db, { ...dto, userId: SYSTEM_USER_ID });
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -40,9 +38,8 @@ newsRouter.post("/", async (c) => {
 newsRouter.put("/", async (c) => {
   try {
     const db = getD1Db(c);
-    const newsDAL = createNewsDAL(db);
     const dto = await c.req.json();
-    const result = await newsDAL.update({ ...dto, userId: SYSTEM_USER_ID });
+    const result = await news.update(db, { ...dto, userId: SYSTEM_USER_ID });
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -52,9 +49,8 @@ newsRouter.put("/", async (c) => {
 newsRouter.delete("/", async (c) => {
   try {
     const db = getD1Db(c);
-    const newsDAL = createNewsDAL(db);
     const dto = await c.req.json();
-    const result = await newsDAL.deleteByIds(dto.ids ?? []);
+    const result = await news.deleteByIds(db, dto.ids ?? []);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);
@@ -64,13 +60,12 @@ newsRouter.delete("/", async (c) => {
 newsRouter.put("/toggle-status", async (c) => {
   try {
     const db = getD1Db(c);
-    const newsDAL = createNewsDAL(db);
     const dto = await c.req.json();
     const { id } = dto;
     if (!id) {
       return rfj({}, "Missing news id", { status: 400 });
     }
-    const result = await newsDAL.toggleStatus(id);
+    const result = await news.toggleStatus(db, id);
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -80,8 +75,7 @@ newsRouter.put("/toggle-status", async (c) => {
 newsRouter.get("/category", async (c) => {
   try {
     const db = getD1Db(c);
-    const newsCategoryDAL = createNewsCategoryDAL(db);
-    const list = await newsCategoryDAL.getPublicList();
+    const list = await newsCategory.getPublicList(db);
     return rsj({ total: list.length, list });
   } catch (error) {
     return c.json({ code: 500, msg: String(error) }, 500);
@@ -91,8 +85,7 @@ newsRouter.get("/category", async (c) => {
 newsRouter.get("/category/all", async (c) => {
   try {
     const db = getD1Db(c);
-    const newsCategoryDAL = createNewsCategoryDAL(db);
-    const list = await newsCategoryDAL.getAll();
+    const list = await newsCategory.getAll(db);
     return rsj({ total: list.length, list });
   } catch (error) {
     return c.json({ code: 500, msg: String(error) }, 500);
@@ -102,9 +95,8 @@ newsRouter.get("/category/all", async (c) => {
 newsRouter.post("/category", async (c) => {
   try {
     const db = getD1Db(c);
-    const newsCategoryDAL = createNewsCategoryDAL(db);
     const body = (await c.req.json()) as Record<string, unknown>;
-    const result = await newsCategoryDAL.create({
+    const result = await newsCategory.create(db, {
       name: body.name,
       description: body.description,
       visible: body.visible,
@@ -119,13 +111,12 @@ newsRouter.post("/category", async (c) => {
 newsRouter.put("/category", async (c) => {
   try {
     const db = getD1Db(c);
-    const newsCategoryDAL = createNewsCategoryDAL(db);
     const body = (await c.req.json()) as Record<string, unknown>;
     const id = body.id != null ? String(body.id).trim() : "";
     if (!id) {
       return rfj({}, "Missing category ID", { status: 400 });
     }
-    const result = await newsCategoryDAL.update({
+    const result = await newsCategory.update(db, {
       id,
       name: body.name,
       description: body.description,
@@ -141,9 +132,8 @@ newsRouter.put("/category", async (c) => {
 newsRouter.delete("/category", async (c) => {
   try {
     const db = getD1Db(c);
-    const newsCategoryDAL = createNewsCategoryDAL(db);
     const dto = await c.req.json();
-    const result = await newsCategoryDAL.deleteByIds(dto.ids ?? []);
+    const result = await newsCategory.deleteByIds(db, dto.ids ?? []);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);
@@ -157,16 +147,14 @@ newsRouter.get("/:id", async (c) => {
       return c.json({ code: 400, msg: "Invalid News Id" }, 400);
     }
     const db = getD1Db(c);
-    const newsDAL = createNewsDAL(db);
-    const newsCategoryDAL = createNewsCategoryDAL(db);
-    const result = await newsDAL.getNewsById(id);
+    const result = await news.getNewsById(db, id);
     if (!result) {
       return c.json({ code: 404, msg: "News not found" }, 404);
     }
     if (result.status !== 1) {
       return c.json({ code: 404, msg: "News not found" }, 404);
     }
-    const category = await newsCategoryDAL.getById(result.newsId);
+    const category = await newsCategory.getById(db, result.newsId);
     if (!category || !category.visible) {
       return c.json({ code: 404, msg: "News not found" }, 404);
     }

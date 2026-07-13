@@ -1,7 +1,7 @@
+import * as changelog from "@workspace/database/repositories/docs/changelog";
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../../types";
-import { createChangeLogDAL } from "@workspace/database/dals/docs/ChangelogDAL";
 import { getSearchParamsPage, getSearchParamsPageSize } from "../../utils/server";
 import { rfj, rsj } from "../../utils/server/response-json";
 import { getD1Db } from "../../helpers/d1";
@@ -11,12 +11,11 @@ export const docsRouter = new Hono<HonoEnv>();
 docsRouter.get("/changelog", async (c) => {
   try {
     const db = getD1Db(c);
-    const changeLogDAL = createChangeLogDAL(db);
     const req = c.req.raw;
     const page = getSearchParamsPage(req);
     const pageSize = getSearchParamsPageSize(req);
-    const total = await changeLogDAL.getCount();
-    const list = await changeLogDAL.getList({ page, pageSize });
+    const total = await changelog.getCount(db);
+    const list = await changelog.getList(db, { page, pageSize });
     return rsj({ total, list });
   } catch (error) {
     return rfj(error as Error);
@@ -26,12 +25,11 @@ docsRouter.get("/changelog", async (c) => {
 docsRouter.get("/changelog/:id", async (c) => {
   try {
     const db = getD1Db(c);
-    const changeLogDAL = createChangeLogDAL(db);
     const id = c.req.param("id");
     if (!id) {
       return rfj({}, "Invalid Changelog Id", { status: 400 });
     }
-    const result = await changeLogDAL.getById(id);
+    const result = await changelog.getById(db, id);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);
@@ -41,13 +39,12 @@ docsRouter.get("/changelog/:id", async (c) => {
 docsRouter.post("/changelog", async (c) => {
   try {
     const db = getD1Db(c);
-    const changeLogDAL = createChangeLogDAL(db);
     const userId = c.get("userId");
     if (!userId) {
       return rfj({}, "No Authorization No User", { status: 401 });
     }
     const dto = await c.req.json();
-    const result = await changeLogDAL.create({ ...dto, userId });
+    const result = await changelog.create(db, { ...dto, userId });
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -57,14 +54,13 @@ docsRouter.post("/changelog", async (c) => {
 docsRouter.put("/changelog/:id", async (c) => {
   try {
     const db = getD1Db(c);
-    const changeLogDAL = createChangeLogDAL(db);
     const userId = c.get("userId");
     if (!userId) {
       return rfj({}, "No Authorization No User", { status: 401 });
     }
     const id = Number(c.req.param("id"));
     const dto = await c.req.json();
-    const result = await changeLogDAL.update({ ...dto, id, userId });
+    const result = await changelog.update(db, { ...dto, id, userId });
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -74,9 +70,8 @@ docsRouter.put("/changelog/:id", async (c) => {
 docsRouter.delete("/changelog", async (c) => {
   try {
     const db = getD1Db(c);
-    const changeLogDAL = createChangeLogDAL(db);
     const dto = await c.req.json();
-    const result = await changeLogDAL.deleteByIds(dto.ids ?? []);
+    const result = await changelog.deleteByIds(db, dto.ids ?? []);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);

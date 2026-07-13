@@ -1,8 +1,8 @@
+import * as operate from "@workspace/database/repositories/operate/operate";
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../../../types";
 import { requirePermission } from "../../../middleware/rbac";
-import { createOperateDAL } from "@workspace/database/dals/operate/OperateDAL";
 import { getSearchParamsPage, getSearchParamsPageSize } from "../../../utils/server";
 import { rfj, rsj } from "../../../utils/server/response-json";
 import { getD1Db } from "../../../helpers/d1";
@@ -15,12 +15,11 @@ monitorOperateRouter.get(
   async (c) => {
     try {
       const db = getD1Db(c);
-      const operateDAL = createOperateDAL(db);
       const req = c.req.raw;
       const page = getSearchParamsPage(req);
       const pageSize = getSearchParamsPageSize(req);
-      const total = await operateDAL.getOperatesCount({ where: {} });
-      const list = await operateDAL.getOperates({
+      const total = await operate.getOperatesCount(db, { where: {} });
+      const list = await operate.getOperates(db, {
         where: {},
         skip: (page - 1) * pageSize,
         take: pageSize,
@@ -39,9 +38,8 @@ monitorOperateRouter.post(
   async (c) => {
     try {
       const db = getD1Db(c);
-      const operateDAL = createOperateDAL(db);
       const dto = await c.req.json();
-      const result = await operateDAL.createOperate(dto);
+      const result = await operate.createOperate(db, dto);
       return rsj(result);
     } catch (error) {
       return rfj(error as Error);
@@ -63,9 +61,8 @@ monitorOperateRouter.delete(
   async (c) => {
     try {
       const db = getD1Db(c);
-      const operateDAL = createOperateDAL(db);
       const dto = await c.req.json();
-      const result = await operateDAL.deleteByIdsOperate(dto.ids ?? []);
+      const result = await operate.deleteByIdsOperate(db, dto.ids ?? []);
       return rsj(result ?? {});
     } catch (error) {
       return rfj(error as Error);

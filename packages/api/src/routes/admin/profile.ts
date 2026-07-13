@@ -1,11 +1,11 @@
+import * as profileAccount from "@workspace/database/repositories/profile/profile-account";
+import * as profileLinkCategory from "@workspace/database/repositories/profile/profile-link-category";
+import * as profileLink from "@workspace/database/repositories/profile/profile-link";
+import * as user from "@workspace/database/repositories/system/user";
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../../types";
 import { requirePermission } from "../../middleware/rbac";
-import { createProfileAccountDAL } from "@workspace/database/dals/profile/ProfileAccountDAL";
-import { createProfileLinkCategoryDAL } from "@workspace/database/dals/profile/ProfileLinkCategoryDAL";
-import { createProfileLinkDAL } from "@workspace/database/dals/profile/ProfileLinkDAL";
-import { createUserDAL } from "@workspace/database/dals/system/UserDAL";
 import { getSearchParams, getSearchParamsPage, getSearchParamsPageSize } from "../../utils/server";
 import { rfj, rsj } from "../../utils/server/response-json";
 import { getD1Db } from "../../helpers/d1";
@@ -20,12 +20,11 @@ export const profileRouter = new Hono<HonoEnv>();
 profileRouter.get("/profile/account", requirePermission("profile:account:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const profileAccountDAL = createProfileAccountDAL(db);
     const userId = c.get("userId");
     if (!userId) {
       return rfj({}, "No Authorization No User", { status: 401 });
     }
-    const result = await profileAccountDAL.getById(userId);
+    const result = await profileAccount.getById(db, userId);
     return rsj(result ?? {});
   } catch (error) {
     return rfjFromCatch(error);
@@ -39,13 +38,12 @@ profileRouter.post("/profile/account", requirePermission("profile:account:read")
 profileRouter.put("/profile/account", requirePermission("profile:account:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const userDAL = createUserDAL(db);
     const userId = c.get("userId");
     if (!userId) {
       return rfj({}, "No Authorization No User", { status: 401 });
     }
     const dto = await c.req.json();
-    const result = await userDAL.update({
+    const result = await user.update(db, {
       id: userId,
       avatar: dto.avatar,
     });
@@ -65,8 +63,6 @@ profileRouter.get(
   async (c) => {
     try {
       const db = getD1Db(c);
-      const profileLinkCategoryDAL = createProfileLinkCategoryDAL(db);
-      const profileLinkDAL = createProfileLinkDAL(db);
       const userId = c.get("userId");
       if (!userId) {
         return rfj({}, "No Authorization No User", { status: 401 });
@@ -74,14 +70,14 @@ profileRouter.get(
       const req = c.req.raw;
       const page = getSearchParamsPage(req);
       const pageSize = getSearchParamsPageSize(req);
-      const total = await profileLinkCategoryDAL.getCountByUserId(userId);
-      const list = await profileLinkCategoryDAL.getList({
+      const total = await profileLinkCategory.getCountByUserId(db, userId);
+      const list = await profileLinkCategory.getList(db, {
         where: { userId },
         skip: (page - 1) * pageSize,
         take: pageSize,
         orderBy: { id: "desc" } as any,
       });
-      const linkCounts = await profileLinkDAL.getLinkCountsByCategoryForUser(userId);
+      const linkCounts = await profileLink.getLinkCountsByCategoryForUser(db, userId);
       const listWithCounts = list.map((row: { id: string }) => ({
         ...row,
         linkCount: linkCounts[row.id] ?? 0,
@@ -99,13 +95,12 @@ profileRouter.post(
   async (c) => {
     try {
       const db = getD1Db(c);
-      const profileLinkCategoryDAL = createProfileLinkCategoryDAL(db);
       const userId = c.get("userId");
       if (!userId) {
         return rfj({}, "No Authorization No User", { status: 401 });
       }
       const dto = await c.req.json();
-      const result = await profileLinkCategoryDAL.create({ ...dto, userId });
+      const result = await profileLinkCategory.create(db, { ...dto, userId });
       return rsj(result);
     } catch (error) {
       return rfjFromCatch(error);
@@ -119,9 +114,8 @@ profileRouter.put(
   async (c) => {
     try {
       const db = getD1Db(c);
-      const profileLinkCategoryDAL = createProfileLinkCategoryDAL(db);
       const dto = await c.req.json();
-      const result = await profileLinkCategoryDAL.update(dto);
+      const result = await profileLinkCategory.update(db, dto);
       return rsj(result);
     } catch (error) {
       return rfjFromCatch(error);
@@ -135,9 +129,8 @@ profileRouter.delete(
   async (c) => {
     try {
       const db = getD1Db(c);
-      const profileLinkCategoryDAL = createProfileLinkCategoryDAL(db);
       const dto = await c.req.json();
-      const result = await profileLinkCategoryDAL.deleteByIds(dto.ids ?? []);
+      const result = await profileLinkCategory.deleteByIds(db, dto.ids ?? []);
       return rsj(result ?? {});
     } catch (error) {
       return rfjFromCatch(error);
@@ -148,7 +141,6 @@ profileRouter.delete(
 profileRouter.get("/profile/link", requirePermission("profile:link:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const profileLinkDAL = createProfileLinkDAL(db);
     const userId = c.get("userId");
     if (!userId) {
       return rfj({}, "No Authorization No User", { status: 401 });
@@ -157,8 +149,8 @@ profileRouter.get("/profile/link", requirePermission("profile:link:read"), async
     const page = getSearchParamsPage(req);
     const pageSize = getSearchParamsPageSize(req);
     const categoryId = (getSearchParams(req, "category") ?? "").trim();
-    const total = await profileLinkDAL.getCount(userId, categoryId || undefined);
-    const list = await profileLinkDAL.getList({
+    const total = await profileLink.getCount(db, userId, categoryId || undefined);
+    const list = await profileLink.getList(db, {
       where: {
         userId,
         ...(categoryId ? { categoryId } : {}),
@@ -175,13 +167,12 @@ profileRouter.get("/profile/link", requirePermission("profile:link:read"), async
 profileRouter.post("/profile/link", requirePermission("profile:link:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const profileLinkDAL = createProfileLinkDAL(db);
     const userId = c.get("userId");
     if (!userId) {
       return rfj({}, "No Authorization No User", { status: 401 });
     }
     const dto = await c.req.json();
-    const result = await profileLinkDAL.create({ ...dto, userId });
+    const result = await profileLink.create(db, { ...dto, userId });
     return rsj(result);
   } catch (error) {
     return rfjFromCatch(error);
@@ -191,12 +182,11 @@ profileRouter.post("/profile/link", requirePermission("profile:link:read"), asyn
 profileRouter.put("/profile/link", requirePermission("profile:link:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const profileLinkDAL = createProfileLinkDAL(db);
     const dto = await c.req.json();
     if (!dto.id) {
       return rfj({}, "Invalid Link Id", { status: 400 });
     }
-    const result = await profileLinkDAL.update(dto);
+    const result = await profileLink.update(db, dto);
     return rsj(result);
   } catch (error) {
     return rfjFromCatch(error);
@@ -206,9 +196,8 @@ profileRouter.put("/profile/link", requirePermission("profile:link:read"), async
 profileRouter.delete("/profile/link", requirePermission("profile:link:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const profileLinkDAL = createProfileLinkDAL(db);
     const dto = await c.req.json();
-    const result = await profileLinkDAL.deleteByIds(dto.ids ?? []);
+    const result = await profileLink.deleteByIds(db, dto.ids ?? []);
     return rsj(result ?? {});
   } catch (error) {
     return rfjFromCatch(error);

@@ -1,9 +1,9 @@
+import * as newsCategory from "@workspace/database/repositories/news/news-category";
+import * as news from "@workspace/database/repositories/news/news";
 import { Hono } from "hono";
 
 import type { HonoEnv } from "../../types";
 import { requirePermission } from "../../middleware/rbac";
-import { createNewsCategoryDAL } from "@workspace/database/dals/news/NewsCategoryDAL";
-import { createNewsDAL } from "@workspace/database/dals/news/NewsDAL";
 import { getSearchParams, getSearchParamsPage, getSearchParamsPageSize } from "../../utils/server";
 import { rfj, rsj } from "../../utils/server/response-json";
 import { errorTextChain, friendlyDbMessage } from "../../utils/server/db-error";
@@ -14,17 +14,16 @@ export const newsRouter = new Hono<HonoEnv>();
 newsRouter.get("/", requirePermission("news:list:read", "news:detail:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const newsDAL = createNewsDAL(db);
     const req = c.req.raw;
     const page = getSearchParamsPage(req);
     const pageSize = getSearchParamsPageSize(req);
     const categoryId = getSearchParams(req, "category")?.trim() ?? "";
     const total = categoryId
-      ? await newsDAL.getCountByCategory(categoryId)
-      : await newsDAL.getCount();
+      ? await news.getCountByCategory(db, categoryId)
+      : await news.getCount(db);
     const list = categoryId
-      ? await newsDAL.getPageByCategory({ page, pageSize, categoryId })
-      : await newsDAL.getPage({ page, pageSize });
+      ? await news.getPageByCategory(db, { page, pageSize, categoryId })
+      : await news.getPage(db, { page, pageSize });
     return rsj({ total, list });
   } catch (error) {
     return rfj(error as Error);
@@ -34,13 +33,12 @@ newsRouter.get("/", requirePermission("news:list:read", "news:detail:read"), asy
 newsRouter.post("/", requirePermission("news:list:read", "news:detail:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const newsDAL = createNewsDAL(db);
     const userId = c.get("userId");
     if (!userId) {
       return rfj({}, "No Authorization No User", { status: 401 });
     }
     const dto = await c.req.json();
-    const result = await newsDAL.create({ ...dto, userId });
+    const result = await news.create(db, { ...dto, userId });
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -50,13 +48,12 @@ newsRouter.post("/", requirePermission("news:list:read", "news:detail:read"), as
 newsRouter.put("/", requirePermission("news:list:read", "news:detail:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const newsDAL = createNewsDAL(db);
     const userId = c.get("userId");
     if (!userId) {
       return rfj({}, "No Authorization No User", { status: 401 });
     }
     const dto = await c.req.json();
-    const result = await newsDAL.update({ ...dto, userId });
+    const result = await news.update(db, { ...dto, userId });
     return rsj(result);
   } catch (error) {
     return rfj(error as Error);
@@ -66,9 +63,8 @@ newsRouter.put("/", requirePermission("news:list:read", "news:detail:read"), asy
 newsRouter.delete("/", requirePermission("news:list:read", "news:detail:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const newsDAL = createNewsDAL(db);
     const dto = await c.req.json();
-    const result = await newsDAL.deleteByIds(dto.ids ?? []);
+    const result = await news.deleteByIds(db, dto.ids ?? []);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);
@@ -81,13 +77,12 @@ newsRouter.put(
   async (c) => {
     try {
       const db = getD1Db(c);
-      const newsDAL = createNewsDAL(db);
       const dto = await c.req.json();
       const { id } = dto;
       if (!id) {
         return rfj({}, "Missing news id", { status: 400 });
       }
-      const result = await newsDAL.toggleStatus(id);
+      const result = await news.toggleStatus(db, id);
       return rsj(result);
     } catch (error) {
       return rfj(error as Error);
@@ -101,17 +96,15 @@ newsRouter.get(
   async (c) => {
     try {
       const db = getD1Db(c);
-      const newsCategoryDAL = createNewsCategoryDAL(db);
-      const newsDAL = createNewsDAL(db);
       const req = c.req.raw;
       const page = getSearchParamsPage(req);
       const pageSize = getSearchParamsPageSize(req);
-      const total = await newsCategoryDAL.getCount();
-      const list = await newsCategoryDAL.getList({ page, pageSize });
+      const total = await newsCategory.getCount(db);
+      const list = await newsCategory.getList(db, { page, pageSize });
 
       const categoriesWithCount = await Promise.all(
         list.map(async (cat: (typeof list)[number]) => {
-          const countResult = await newsDAL.getCountByCategory(cat.id);
+          const countResult = await news.getCountByCategory(db, cat.id);
           return { ...cat, newsCount: countResult };
         }),
       );
@@ -129,13 +122,12 @@ newsRouter.post(
   async (c) => {
     try {
       const db = getD1Db(c);
-      const newsCategoryDAL = createNewsCategoryDAL(db);
       const userId = c.get("userId");
       if (!userId) {
         return rfj({}, "No Authorization No User", { status: 401 });
       }
       const body = (await c.req.json()) as Record<string, unknown>;
-      const result = await newsCategoryDAL.create({
+      const result = await newsCategory.create(db, {
         name: body.name,
         description: body.description,
         visible: body.visible,
@@ -177,7 +169,6 @@ newsRouter.put(
   async (c) => {
     try {
       const db = getD1Db(c);
-      const newsCategoryDAL = createNewsCategoryDAL(db);
       const userId = c.get("userId");
       if (!userId) {
         return rfj({}, "No Authorization No User", { status: 401 });
@@ -187,7 +178,7 @@ newsRouter.put(
       if (!id) {
         return rfj({}, "缺少分类 ID", { status: 400 });
       }
-      const result = await newsCategoryDAL.update({
+      const result = await newsCategory.update(db, {
         id,
         name: body.name,
         description: body.description,
@@ -230,9 +221,8 @@ newsRouter.delete(
   async (c) => {
     try {
       const db = getD1Db(c);
-      const newsCategoryDAL = createNewsCategoryDAL(db);
       const dto = await c.req.json();
-      const result = await newsCategoryDAL.deleteByIds(dto.ids ?? []);
+      const result = await newsCategory.deleteByIds(db, dto.ids ?? []);
       return rsj(result ?? {});
     } catch (error) {
       return rfj({}, friendlyDbMessage(error));
@@ -243,12 +233,11 @@ newsRouter.delete(
 newsRouter.get("/:id", requirePermission("news:detail:read", "news:list:read"), async (c) => {
   try {
     const db = getD1Db(c);
-    const newsDAL = createNewsDAL(db);
     const id = c.req.param("id")?.trim() ?? "";
     if (!id) {
       return rfj({}, "Invalid News Id", { status: 400 });
     }
-    const result = await newsDAL.getNewsById(id);
+    const result = await news.getNewsById(db, id);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);
@@ -258,12 +247,11 @@ newsRouter.get("/:id", requirePermission("news:detail:read", "news:list:read"), 
 newsRouter.put("/:id/view", async (c) => {
   try {
     const db = getD1Db(c);
-    const newsDAL = createNewsDAL(db);
     const id = c.req.param("id")?.trim() ?? "";
     if (!id) {
       return rfj({}, "Invalid News Id", { status: 400 });
     }
-    const result = await newsDAL.incrementViewCount(id);
+    const result = await news.incrementViewCount(db, id);
     return rsj(result ?? {});
   } catch (error) {
     return rfj(error as Error);

@@ -54,3 +54,6 @@ wrangler.jsonc
 
 # turbo
 .turbo/
+
+# pnpm store
+.pnpm-store/

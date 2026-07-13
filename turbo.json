@@ -1,15 +1,49 @@
 {
-  "$schema": "https://turborepo.dev/schema.json",
+  "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
   "tasks": {
-    "build": {
-      "outputs": ["dist/**"]
+    "deploy": {
+      "cache": false,
+      "dependsOn": [
+        "^build"
+      ]
     },
-    "check-types": {
-      "dependsOn": ["^check-types"]
+    "build": {
+      "cache": false,
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        "build/**"
+      ]
+    },
+    "generate": {
+      "cache": false
     },
     "dev": {
-      "persistent": true,
+      "cache": false,
+      "dependsOn": [
+        "^build"
+      ],
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": []
+    },
+    "format": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": []
+    },
+    "clean": {
+      "cache": false
+    },
+    "react-doctor": {
       "cache": false
     }
   }
