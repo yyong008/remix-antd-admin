@@ -20,7 +20,7 @@
   "packageManager": "pnpm@10.33.0",
   "dependencies": {
     "@workspace/database": "workspace:*",
-    "better-auth": "^1.6.9"
+    "better-auth": "catalog:"
   },
   "peerDependencies": {
     "drizzle-orm": "^0.38.0"
@@ -31,7 +31,7 @@
     }
   },
   "devDependencies": {
-    "dotenv-cli": "^11.0.0",
+    "dotenv-cli": "catalog:",
     "vite-node": "^6.0.0"
   }
 }

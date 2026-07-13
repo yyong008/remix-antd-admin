@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "@workspace/api": "workspace:*",
-    "hono": "^4.12.16"
+    "hono": "catalog:"
   },
   "devDependencies": {
     "@types/node": "catalog:",
-    "wrangler": "^4.87.0"
+    "wrangler": "catalog:"
   }
 }

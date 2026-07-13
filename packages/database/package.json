@@ -29,11 +29,11 @@
   "dependencies": {
     "@libsql/client": "^0.17.3",
     "drizzle-kit": "^0.31.10",
-    "drizzle-orm": "^0.45.2"
+    "drizzle-orm": "catalog:"
   },
   "devDependencies": {
     "@types/node": "catalog:",
-    "tsx": "^4.21.0",
+    "tsx": "catalog:",
     "typescript": "catalog:"
   },
   "packageManager": "pnpm@10.33.0"

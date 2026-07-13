@@ -14,29 +14,29 @@
 	},
 	"dependencies": {
 		"@tabler/icons-react": "^3.42.0",
-		"@tanstack/react-query": "^5.100.9",
-		"clsx": "^2.1.1",
-		"dayjs": "^1.11.20",
-		"dompurify": "^3.4.2",
-		"isbot": "^5.1.31",
-		"lucide-react": "^1.14.0",
+		"@tanstack/react-query": "catalog:",
+		"clsx": "catalog:",
+		"dayjs": "catalog:",
+		"dompurify": "catalog:",
+		"isbot": "catalog:",
+		"lucide-react": "catalog:",
 		"next-themes": "^0.4.6",
 		"react": "catalog:",
 		"react-dom": "catalog:",
 		"react-router": "catalog:",
-		"tailwind-merge": "^3.5.0"
+		"tailwind-merge": "catalog:"
 	},
 	"devDependencies": {
 		"@cloudflare/vite-plugin": "catalog:",
 		"@react-router/dev": "catalog:",
-		"@tailwindcss/vite": "^4.1.13",
+		"@tailwindcss/vite": "catalog:",
 		"@types/node": "catalog:",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
-		"tailwindcss": "^4.1.13",
+		"tailwindcss": "catalog:",
 		"typescript": "catalog:",
-		"vite": "^8.0.10",
-		"vite-plugin-devtools-json": "^1.0.0",
+		"vite": "catalog:",
+		"vite-plugin-devtools-json": "catalog:",
 		"wrangler": "catalog:"
 	}
 }
