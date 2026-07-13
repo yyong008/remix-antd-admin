@@ -1,2 +1,2 @@
-export { createSignInLogDAL } from "./SignIn/signInLogImpl";
-export type { SignInLogImplDAL } from "./SignIn/signInLogImpl";
+export { createSignInLogDAL } from "./SignInLog/signInLogImpl";
+export type { SignInLogImplDAL } from "./SignInLog/signInLogImpl";

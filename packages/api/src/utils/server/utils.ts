@@ -73,4 +73,12 @@ const getTodayTime = () => {
   return { startTime, endTime };
 };
 
-export { getTodayTime };
+const getYesterdayTime = () => {
+  const now = new Date();
+  const y = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1, 0, 0, 0);
+  const startTime = new Date(y.getFullYear(), y.getMonth(), y.getDate(), 0, 0, 0);
+  const endTime = new Date(y.getFullYear(), y.getMonth(), y.getDate(), 23, 59, 59);
+  return { startTime, endTime };
+};
+
+export { getTodayTime, getYesterdayTime };

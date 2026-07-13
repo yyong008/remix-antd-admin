@@ -1,5 +1,7 @@
-export { createSignInLogDAL } from "./SignInLogDAL";
-export type { SignInLogImplDAL } from "./SignInLogDAL";
+export { createSignInDAL } from "./SignIn/signInImpl";
+export type { SignInDAL } from "./SignIn/signInImpl";
 
-export * from "./SignInLogDAL";
-export * from "./SignIn";
+export { createSignInLogDAL } from "./SignInLog/signInLogImpl";
+export type { SignInLogImplDAL } from "./SignInLog/signInLogImpl";
+
+export { createSignInLogDAL as createSignInLogDALLegacy } from "./SignInLogDAL";

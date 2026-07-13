@@ -10,52 +10,32 @@ function getTodayTime() {
 }
 
 export function createSignInLogDAL(db: DrizzleD1Database) {
-  const createUserSignInLog$ = async (data: any) => {
-    return db
+  async function create(data: {
+    userId: string;
+    signType: number;
+    signTime?: Date;
+    id?: string;
+  }) {
+    const rows = await db
       .insert(userSignLogs)
       .values({
-        ...data,
         id: data.id ?? crypto.randomUUID(),
+        userId: data.userId,
+        signType: data.signType,
+        signTime: data.signTime ?? new Date(),
       })
       .returning();
-  };
-
-  const getUserTodayIsSignInById$ = (id: string) => {
-    const { startTime, endTime } = getTodayTime();
-
-    return db
-      .select()
-      .from(userSignLogs)
-      .where(
-        and(
-          eq(userSignLogs.userId, id),
-          gte(userSignLogs.signTime, startTime),
-          lte(userSignLogs.signTime, endTime),
-        ),
-      )
-      .limit(1);
-  };
-
-  async function createUserSignInLog(data: any) {
-    const created = await db
-      .insert(userSignLogs)
-      .values({
-        ...data,
-        id: data.id ?? crypto.randomUUID(),
-      })
-      .returning();
-    return created[0];
+    return rows[0];
   }
 
-  async function getUserTodayUserSignLogById(id: string) {
+  async function getLatestById(userId: string) {
     const { startTime, endTime } = getTodayTime();
-
     const rows = await db
       .select()
       .from(userSignLogs)
       .where(
         and(
-          eq(userSignLogs.userId, id),
+          eq(userSignLogs.userId, userId),
           gte(userSignLogs.signTime, startTime),
           lte(userSignLogs.signTime, endTime),
         ),
@@ -64,11 +44,42 @@ export function createSignInLogDAL(db: DrizzleD1Database) {
     return rows[0] ?? null;
   }
 
+  const createUserSignInLog$ = async (data: any) => {
+    const rows = await db
+      .insert(userSignLogs)
+      .values({
+        ...data,
+        id: data.id ?? crypto.randomUUID(),
+      })
+      .returning();
+    return rows;
+  };
+
+  const getUserTodayIsSignInById$ = (id: string) => {
+    const { startTime, endTime } = getTodayTime();
+    return db
+      .select()
+      .from(userSignLogs)
+      .where(
+        and(
+          eq(userSignLogs.userId, id),
+          gte(userSignLogs.signTime, startTime),
+          lte(userSignLogs.signTime, endTime),
+        ),
+      )
+      .limit(1);
+  };
+
+  const createUserSignInLog = create;
+  const getUserTodayUserSignLogById = getLatestById;
+
   return {
-    createUserSignInLog$,
-    getUserTodayIsSignInById$,
+    create,
+    getLatestById,
     createUserSignInLog,
     getUserTodayUserSignLogById,
+    createUserSignInLog$,
+    getUserTodayIsSignInById$,
   };
 }
 
