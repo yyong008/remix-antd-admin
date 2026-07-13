@@ -4,6 +4,7 @@ packages:
 
 catalog:
   "@cloudflare/vite-plugin": ^1.44.0
+  "@cloudflare/workers-types": ^5.20260708.1
   "@react-router/dev": ^8.2.0
   "@types/node": ^26.1.1
   "@types/react": ^19.2.17
