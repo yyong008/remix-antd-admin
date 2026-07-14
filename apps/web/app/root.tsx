@@ -10,6 +10,8 @@ import {
 import type { Route } from "./+types/root";
 import { TooltipProvider } from "@workspace/ui/components/tooltip";
 import { ThemeProvider } from "./context/theme-provider";
+import { getLocale } from "./paraglide/runtime.js";
+import * as m from "./paraglide/messages.js";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -26,8 +28,17 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  // Paraglide is the source of truth for the active locale in this app
+  // (resolved via the configured strategies - URL, cookie, baseLocale).
+  // Falling back to "en" keeps SSR safe before the runtime is initialized.
+  let lang = "en";
+  try {
+    lang = getLocale();
+  } catch {
+    // No locale resolved yet; default attribute to English for SSR.
+  }
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -50,15 +61,15 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
+  let message = m.error_404_title();
   let details = "An unexpected error occurred.";
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
+    message = error.status === 404 ? m.error_404_title() : m.error_404_title();
     details =
       error.status === 404
-        ? "The requested page could not be found."
+        ? m.error_404_message()
         : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;

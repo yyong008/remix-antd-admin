@@ -2,18 +2,30 @@ import { Card, CardContent } from "@workspace/ui/components/card";
 import { Avatar, AvatarImage } from "@workspace/ui/components/avatar";
 import { IconRocket, IconBook, IconCircleCheck } from "@tabler/icons-react";
 import { PRODUCT_NAME } from "~/config/product";
+import * as m from "~/paraglide/messages.js";
 
-const trustBadges = [
-  { text: "MIT 开源协议" },
-  { text: "生产级代码" },
-  { text: "活跃维护" },
-  { text: "中文文档" },
+type TrustBadgeKey = "mit" | "prod" | "active" | "docs_zh";
+
+const trustBadges: Array<{ key: TrustBadgeKey }> = [
+  { key: "mit" },
+  { key: "prod" },
+  { key: "active" },
+  { key: "docs_zh" },
 ];
 
+function trustBadgeText(key: TrustBadgeKey) {
+  switch (key) {
+    case "mit": return m.home_cta_badge_mit();
+    case "prod": return m.home_cta_badge_prod();
+    case "active": return m.home_cta_badge_active();
+    case "docs_zh": return m.home_cta_badge_docs_zh();
+  }
+}
+
 const testimonials = [
-  { name: "张", avatar: "/images/user.jpg" },
-  { name: "李", avatar: "/images/user.jpg" },
-  { name: "王", avatar: "/images/user.jpg" },
+  { avatar: "/images/user.jpg" },
+  { avatar: "/images/user.jpg" },
+  { avatar: "/images/user.jpg" },
 ];
 
 export function CTASection() {
@@ -52,12 +64,12 @@ export function CTASection() {
             <div className="relative z-10">
               <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-6 text-white text-sm font-medium bg-white/15">
                 <IconCircleCheck className="size-4 text-emerald-500" />
-                已帮助 8,500+ 开发者快速启动项目
+                {m.home_cta_eyebrow()}
               </div>
 
-              <h2 className="text-5xl font-bold text-white mb-4">立即开始你的项目</h2>
+              <h2 className="text-5xl font-bold text-white mb-4">{m.home_cta_heading()}</h2>
               <p className="text-lg text-white/85 mb-8 max-w-[560px] mx-auto">
-                使用 {PRODUCT_NAME}，快速构建现代化的全栈应用
+                {m.home_cta_subtitle({ product: PRODUCT_NAME })}
               </p>
 
               <div className="mb-10">
@@ -69,7 +81,7 @@ export function CTASection() {
                     className="inline-flex items-center justify-center rounded-xl bg-white text-indigo-600 hover:bg-white/90 h-14 px-10 text-base font-semibold transition-colors"
                   >
                     <IconRocket className="size-4 mr-2" />
-                    开始使用
+                    {m.home_cta_primary()}
                   </a>
                   <a
                     href="https://remix-antd-admin-docs.vercel.app/"
@@ -78,7 +90,7 @@ export function CTASection() {
                     className="inline-flex items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30 h-14 px-10 text-base font-semibold transition-colors"
                   >
                     <IconBook className="size-4 mr-2" />
-                    查看文档
+                    {m.home_cta_secondary()}
                   </a>
                 </div>
               </div>
@@ -92,7 +104,7 @@ export function CTASection() {
                       </Avatar>
                     ))}
                   </div>
-                  <span className="text-white/90 text-sm">50+ 贡献者</span>
+                  <span className="text-white/90 text-sm">{m.home_cta_contributors({ count: "50" })}</span>
                 </div>
 
                 <div className="w-px h-6 bg-white/20" />
@@ -100,7 +112,7 @@ export function CTASection() {
                 {trustBadges.map((badge, i) => (
                   <div key={i} className="flex items-center gap-1.5 text-white/90 text-xs">
                     <IconCircleCheck className="size-3 text-white/60" />
-                    {badge.text}
+                    {trustBadgeText(badge.key)}
                   </div>
                 ))}
               </div>

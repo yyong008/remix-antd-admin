@@ -2,52 +2,68 @@ import { useState } from "react";
 import { Card, CardContent } from "@workspace/ui/components/card";
 import { Avatar, AvatarImage } from "@workspace/ui/components/avatar";
 import { IconStar } from "@tabler/icons-react";
+import * as m from "~/paraglide/messages.js";
+
+type TestimonialKey = "user_1" | "user_2" | "user_3";
 
 interface Testimonial {
-  name: string;
-  role: string;
+  key: TestimonialKey;
   avatar: string;
-  content: string;
   rating: number;
 }
 
 const testimonials: Testimonial[] = [
-  {
-    name: "张三",
-    role: "全栈工程师 @ 某科技公司",
-    avatar: "/images/user.jpg",
-    content:
-      "这是我用过的最好的 React Router 模板。配置简单，文档清晰，让我在一周内就上线了 AI 管理后台。强烈推荐！",
-    rating: 5,
-  },
-  {
-    name: "李四",
-    role: "技术负责人 @ 创业公司",
-    avatar: "/images/user.jpg",
-    content:
-      "团队从 Remix 迁移到 React Router v7，体验非常顺畅。Hono 的集成让 API 开发变得轻松愉快。",
-    rating: 5,
-  },
-  {
-    name: "王五",
-    role: "独立开发者",
-    avatar: "/images/user.jpg",
-    content:
-      "开箱即用的 AI 集成和漂亮的 UI 组件库，省去了大量重复工作。唯一缺点是官方文档还能再详细点。",
-    rating: 5,
-  },
+  { key: "user_1", avatar: "/images/user.jpg", rating: 5 },
+  { key: "user_2", avatar: "/images/user.jpg", rating: 5 },
+  { key: "user_3", avatar: "/images/user.jpg", rating: 5 },
 ];
+
+function testimonialName(key: TestimonialKey) {
+  switch (key) {
+    case "user_1":
+      return m.home_testimonials_name_1();
+    case "user_2":
+      return m.home_testimonials_name_2();
+    case "user_3":
+      return m.home_testimonials_name_3();
+  }
+}
+
+function testimonialRole(key: TestimonialKey) {
+  switch (key) {
+    case "user_1":
+      return m.home_testimonials_role_1();
+    case "user_2":
+      return m.home_testimonials_role_2();
+    case "user_3":
+      return m.home_testimonials_role_3();
+  }
+}
+
+function testimonialContent(key: TestimonialKey) {
+  switch (key) {
+    case "user_1":
+      return m.home_testimonials_content_1();
+    case "user_2":
+      return m.home_testimonials_content_2();
+    case "user_3":
+      return m.home_testimonials_content_3();
+  }
+}
 
 export function TestimonialsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const current = testimonials[activeIndex];
 
   return (
     <section className="py-[60px] px-6 pb-[100px]">
       <div className="mx-auto max-w-screen-xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-3 text-gray-900 dark:text-gray-100">用户评价</h2>
+          <h2 className="text-3xl font-bold mb-3 text-gray-900 dark:text-gray-100">
+            {m.home_testimonials_eyebrow()}
+          </h2>
           <p className="max-w-[600px] mx-auto text-gray-500 dark:text-gray-400">
-            来自开发者社区的真实反馈
+            {m.home_testimonials_subtitle()}
           </p>
         </div>
 
@@ -55,32 +71,32 @@ export function TestimonialsSection() {
           <Card className="rounded-2xl shadow-[0_24px48px_rgba(0,0,0,0.08)] overflow-hidden">
             <CardContent className="p-6 md:p-12">
               <div className="absolute top-6 right-8 text-6xl opacity-30 text-gray-900 dark:text-gray-100">
-                "
+                &ldquo;
               </div>
 
               <div className="flex gap-1 mb-6">
                 {[...Array(5)].map((_, i) => (
                   <IconStar
                     key={i}
-                    className={`size-5 ${i < testimonials[activeIndex].rating ? "text-yellow-500" : "text-gray-900 dark:text-gray-100"}`}
+                    className={`size-5 ${i < current.rating ? "text-yellow-500" : "text-gray-900 dark:text-gray-100"}`}
                   />
                 ))}
               </div>
 
               <p className="text-lg leading-relaxed mb-8 italic min-h-20 text-gray-700 dark:text-gray-300">
-                "{testimonials[activeIndex].content}"
+                {m.home_testimonials_quote({ content: testimonialContent(current.key) })}
               </p>
 
               <div className="flex items-center gap-4">
                 <Avatar className="size-14">
-                  <AvatarImage src={testimonials[activeIndex].avatar} />
+                  <AvatarImage src={current.avatar} />
                 </Avatar>
                 <div>
                   <div className="font-semibold text-gray-900 dark:text-gray-100">
-                    {testimonials[activeIndex].name}
+                    {testimonialName(current.key)}
                   </div>
                   <div className="text-sm text-gray-500 dark:text-gray-400">
-                    {testimonials[activeIndex].role}
+                    {testimonialRole(current.key)}
                   </div>
                 </div>
               </div>

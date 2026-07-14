@@ -3,16 +3,19 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "react-router build",
+		"build": "npm run i18n:compile && react-router build",
 		"cf-size": "pnpm run build && wrangler deploy --dry-run",
 		"cf-typegen": "wrangler types",
 		"deploy": "pnpm run build && wrangler deploy",
 		"dev": "react-router dev",
+		"i18n:compile": "paraglide-js compile --project ./project.inlang --outdir ./app/paraglide --strategy url cookie baseLocale --emit-ts-declarations",
+		"i18n:watch": "paraglide-js compile --project ./project.inlang --outdir ./app/paraglide --strategy url cookie baseLocale --watch",
 		"postinstall": "npm run cf-typegen",
 		"preview": "pnpm run build && vite preview",
 		"typecheck": "npm run cf-typegen && react-router typegen && tsc -b"
 	},
 	"dependencies": {
+		"@inlang/paraglide-js": "catalog:",
 		"@tabler/icons-react": "^3.42.0",
 		"@tanstack/react-query": "catalog:",
 		"clsx": "catalog:",

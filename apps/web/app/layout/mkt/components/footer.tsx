@@ -5,6 +5,7 @@ import { IconBrandGithub, IconBrandX, IconBrandDiscord, IconBrandYoutube, IconEx
 import { defaultLang } from "~/config/lang";
 import { getLinks } from "~/config/links";
 import { PRODUCT_NAME } from "~/config/product";
+import * as m from "~/paraglide/messages.js";
 
 export function NavFooter() {
   const { locale } = useParams();
@@ -24,7 +25,7 @@ export function NavFooter() {
               <h4 className="text-lg font-semibold m-0">{PRODUCT_NAME}</h4>
             </div>
             <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
-              全栈 AI 管理后台模板，集成现代 Web 工具链与最佳实践。
+              {m.footer_tagline()}
             </p>
             <div className="flex gap-2">
               {socialLinks.map((social, index) => (
@@ -75,13 +76,13 @@ export function NavFooter() {
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-1 text-sm text-muted-foreground">
             <span>&copy;</span>
-            {new Date().getFullYear()} {PRODUCT_NAME}. 保留所有权利。
+            {new Date().getFullYear()} {PRODUCT_NAME}. {m.footer_rights()}
           </div>
         </div>
 
         <div className="text-center mt-4">
           <p className="text-xs text-muted-foreground">
-            Made with ❤️ by the {PRODUCT_NAME} team
+            {m.footer_made_with({ product: PRODUCT_NAME })}
           </p>
         </div>
       </div>

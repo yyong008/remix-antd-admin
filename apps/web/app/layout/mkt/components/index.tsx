@@ -13,14 +13,30 @@ import { IconRocket } from "@tabler/icons-react";
 import { Button } from "@workspace/ui/components/button";
 import { ThemeSwitcher } from "~/components/theme-switcher";
 import { LocaleSwitcher } from "~/components/locale-switcher";
+import * as m from "~/paraglide/messages.js";
 
 
-const navItems = [
-  { key: "home", label: "Home", href: "" },
-  { key: "news", label: "News", href: "news" },
-  { key: "blog", label: "Blog", href: "blog" },
-  { key: "about", label: "About", href: "about" },
+type NavKey = "home" | "news" | "blog" | "about";
+
+const navItems: Array<{ key: NavKey; href: string }> = [
+  { key: "home", href: "" },
+  { key: "news", href: "news" },
+  { key: "blog", href: "blog" },
+  { key: "about", href: "about" },
 ];
+
+function navLabel(key: NavKey) {
+  switch (key) {
+    case "home":
+      return m.nav_home();
+    case "news":
+      return m.nav_news();
+    case "blog":
+      return m.nav_blog();
+    case "about":
+      return m.nav_about();
+  }
+}
 
 export function MarketingsLayout() {
   const { locale: localeParam } = useParams();
@@ -38,58 +54,58 @@ export function MarketingsLayout() {
 
   return (
     <div className="relative min-h-screen max-w-full overflow-x-hidden">
-      <header className="sticky top-0 z-50 flex items-center justify-between max-w-5xl mx-auto px-6 w-full h-16 border-b border-border bg-background/80 backdrop-blur-sm">
-        <button
-          type="button"
-          className="flex items-center gap-3 cursor-pointer text-foreground"
-          onClick={() => navigate(`/`)}
-          aria-label="Go to home"
-        >
-          <span className="flex items-center justify-center w-9 h-9 text-lg text-primary">
-            <IconRocket className="size-5" />
-          </span>
-          <div className="flex flex-col leading-tight">
-            <span className="text-xs text-muted-foreground">
-              React Router
+      <header className="sticky top-0 z-50   px-6 w-full  border-b border-border bg-background/80 backdrop-blur-sm">
+        <div className="max-w-5xl mx-auto flex items-center justify-between h-16">
+          <button
+            type="button"
+            className="flex items-center gap-3 cursor-pointer text-foreground"
+            onClick={() => navigate(`/`)}
+            aria-label="Go to home"
+          >
+            <span className="flex items-center justify-center w-9 h-9 text-lg text-primary">
+              <IconRocket className="size-5" />
             </span>
-            <p className="text-lg font-semibold m-0">Antd Admin</p>
-          </div>
-        </button>
+            <div className="flex flex-col leading-tight">
+              <span className="text-xs text-muted-foreground">
+                {m.nav_brand_subtitle()}
+              </span>
+              <p className="text-lg font-semibold m-0">{m.nav_brand_title()}</p>
+            </div>
+          </button>
 
-        <nav className="flex items-center gap-6">
-          {navItems.map((item) => {
-            const hrefPath = item.href
-              ? `/${locale}/${item.href}`
-              : `/${locale}`;
-            const isActive = isNavActive(item.href);
-            return (
-              <NavLink
-                key={item.key}
-                to={hrefPath}
-                className={`relative text-sm font-medium py-2 transition-colors ${
-                  isActive
+          <nav className="flex items-center gap-6">
+            {navItems.map((item) => {
+              const hrefPath = item.href
+                ? `/${locale}/${item.href}`
+                : `/${locale}`;
+              const isActive = isNavActive(item.href);
+              return (
+                <NavLink
+                  key={item.key}
+                  to={hrefPath}
+                  className={`relative text-sm font-medium py-2 transition-colors ${isActive
                     ? "text-primary"
                     : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {item.label}
-                {isActive && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-sm" />
-                )}
-              </NavLink>
-            );
-          })}
-        </nav>
+                    }`}
+                >
+                  {navLabel(item.key)}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-sm" />
+                  )}
+                </NavLink>
+              );
+            })}
+          </nav>
 
-        <div className="flex items-center gap-4">
-          <LocaleSwitcher />
-          <ThemeSwitcher />
-          <Link to={config.admin.url} target="_blank">
-            <Button variant="default" size="lg">
-              Login Admin
-            </Button>
-          </Link>
-        </div>
+          <div className="flex items-center gap-4">
+            <LocaleSwitcher />
+            <ThemeSwitcher />
+            <Link to={config.admin.url} target="_blank">
+              <Button variant="default" size="lg">
+                {m.nav_login_admin()}
+              </Button>
+            </Link>
+          </div></div>
       </header>
 
       <main>

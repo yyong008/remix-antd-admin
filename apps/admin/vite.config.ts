@@ -4,6 +4,7 @@ import { defineConfig } from "vite";
 import devtoolsJson from "vite-plugin-devtools-json";
 import path from "path";
 import { fileURLToPath } from "url";
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

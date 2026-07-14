@@ -8,12 +8,13 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
-import { IconGlobe } from "@tabler/icons-react";
+import { IconLanguage } from "@tabler/icons-react";
 import { useLocation, useNavigate, useParams } from "react-router";
 
 import { defaultLang, langs } from "~/config/lang";
 import { SettingContext } from "~/context/setting-context";
 import { useChangeLocale } from "~/hooks/use-change-lanuage";
+import { setLocale } from "~/paraglide/runtime.js";
 
 const LANG_LABELS: Record<string, string> = {
   en: "English",
@@ -43,6 +44,7 @@ export function LocaleSwitcher() {
 
   const handleChange = (nextLocale: string) => {
     if (nextLocale === locale) return;
+    setLocale(nextLocale as "en" | "zh", { reload: false });
     settings?.setLang(nextLocale);
     navigate(getNextPath(location.pathname, nextLocale));
   };
@@ -58,7 +60,7 @@ export function LocaleSwitcher() {
           />
         }
       >
-        <IconGlobe className="size-[18px]" />
+        <IconLanguage className="size-[18px]" />
       </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="z-[60]">
         <DropdownMenuRadioGroup value={locale} onValueChange={handleChange}>

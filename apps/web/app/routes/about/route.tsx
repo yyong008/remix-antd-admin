@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@workspace/ui/componen
 import { Avatar } from "@workspace/ui/components/avatar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@workspace/ui/components/tooltip";
 import { IconExternalLink } from "@tabler/icons-react";
+import * as m from "~/paraglide/messages.js";
 
 export const loader = async (_args: LoaderFunctionArgs) => {
   return null;
@@ -30,8 +31,6 @@ function getTechIcon(depName: string) {
 }
 
 const mockData = {
-  projectName: "React Router Antd Admin",
-  description: "基于 React Router v7 + Hono + Tailwind CSS 的全栈 AI 管理后台模板，集成现代 Web 工具链与最佳实践。",
   repoUrl: "https://github.com/yyong008/remix-antd-admin",
   homepage: "https://remix-antd-admin.vercel.app",
   version: "1.0.0",
@@ -65,8 +64,10 @@ export function Route() {
         <CardContent className="p-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="text-4xl font-bold text-white mb-4">{data.projectName}</h1>
-              <p className="text-white/90 text-base leading-relaxed mb-6">{data.description}</p>
+              <h1 className="text-4xl font-bold text-white mb-4">{m.about_project_name()}</h1>
+              <p className="text-white/90 text-base leading-relaxed mb-6">
+                {m.about_project_description()}
+              </p>
               <div className="flex gap-3">
                 <a
                   href={data.repoUrl}
@@ -76,7 +77,7 @@ export function Route() {
                   style={{ background: "rgba(255,255,255,0.2)" }}
                 >
                   <IconExternalLink className="size-4" />
-                  GitHub
+                  {m.about_link_github()}
                 </a>
                 <a
                   href={data.homepage}
@@ -86,7 +87,7 @@ export function Route() {
                   style={{ background: "rgba(255,255,255,0.2)" }}
                 >
                   <IconExternalLink className="size-4" />
-                  预览
+                  {m.about_link_preview()}
                 </a>
               </div>
             </div>
@@ -95,14 +96,14 @@ export function Route() {
                 className="rounded-xl p-4 text-center backdrop-blur-sm"
                 style={{ background: "rgba(255,255,255,0.1)" }}
               >
-                <p className="text-white/70 text-xs">版本</p>
+                <p className="text-white/70 text-xs">{m.about_label_version()}</p>
                 <h3 className="text-white text-2xl font-semibold mt-2">{data.version}</h3>
               </div>
               <div
                 className="rounded-xl p-4 text-center backdrop-blur-sm"
                 style={{ background: "rgba(255,255,255,0.1)" }}
               >
-                <p className="text-white/70 text-xs">最后编译</p>
+                <p className="text-white/70 text-xs">{m.about_label_last_build()}</p>
                 <h5 className="text-white text-sm font-medium mt-2">{data.lastBuildTime}</h5>
               </div>
             </div>
@@ -112,7 +113,7 @@ export function Route() {
 
       <Card className="mb-8 rounded-xl">
         <CardHeader>
-          <CardTitle className="text-xl">技术栈</CardTitle>
+          <CardTitle className="text-xl">{m.about_section_stack()}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
@@ -148,7 +149,7 @@ export function Route() {
                       </div>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>{dep.name}@{dep.version}</p>
+                      <p>{m.about_dep_tooltip({ name: dep.name, version: dep.version })}</p>
                     </TooltipContent>
                   </Tooltip>
                 );
@@ -159,14 +160,14 @@ export function Route() {
 
       <Card className="rounded-xl">
         <CardHeader>
-          <CardTitle className="text-xl">依赖详情</CardTitle>
+          <CardTitle className="text-xl">{m.about_section_deps()}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
             {data.productionDeps.map((dep) => {
               const tech = getTechIcon(dep.name);
               return (
-<Tooltip key={dep.name}>
+                <Tooltip key={dep.name}>
                   <TooltipTrigger>
                     <a
                       href={dep.url}
@@ -185,15 +186,15 @@ export function Route() {
                     </a>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>{dep.version} - 点击查看 NPM</p>
+                    <p>{m.about_dep_tooltip({ name: dep.name, version: dep.version })}</p>
                   </TooltipContent>
                 </Tooltip>
-                );
-              })}
+              );
+            })}
           </div>
 
           <div className="my-6">
-            <h5 className="text-lg font-medium mb-4">开发依赖</h5>
+            <h5 className="text-lg font-medium mb-4">{m.about_section_dev_deps()}</h5>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
               {data.developmentDeps.map((dep) => {
                 const tech = getTechIcon(dep.name);
@@ -217,7 +218,7 @@ export function Route() {
                       </a>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>{dep.version} - 点击查看 NPM</p>
+                      <p>{m.about_dep_tooltip({ name: dep.name, version: dep.version })}</p>
                     </TooltipContent>
                   </Tooltip>
                 );

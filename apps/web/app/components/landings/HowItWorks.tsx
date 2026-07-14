@@ -1,40 +1,47 @@
 import { Card, CardContent } from "@workspace/ui/components/card";
 import { IconCloud, IconSettings, IconRocket } from "@tabler/icons-react";
+import * as m from "~/paraglide/messages.js";
 
-const steps = [
-  {
-    icon: <IconCloud className="size-6" />,
-    title: "克隆项目模板",
-    description: "使用 Git 克隆或使用 CLI 工具创建新项目",
-    color: "#6366f1",
-  },
-  {
-    icon: <IconSettings className="size-6" />,
-    title: "配置环境变量",
-    description: "复制 .env.example 并配置必要的 API 密钥和数据库连接",
-    color: "#8b5cf6",
-  },
-  {
-    icon: <IconRocket className="size-6" />,
-    title: "启动开发服务器",
-    description: "运行 pnpm dev 开始开发，访问 http://localhost:5173",
-    color: "#6366f1",
-  },
+type StepKey = 1 | 2 | 3;
+
+const steps: Array<{ key: StepKey; icon: React.ReactNode; color: string }> = [
+  { key: 1, icon: <IconCloud className="size-6" />, color: "#6366f1" },
+  { key: 2, icon: <IconSettings className="size-6" />, color: "#8b5cf6" },
+  { key: 3, icon: <IconRocket className="size-6" />, color: "#6366f1" },
 ];
+
+function stepTitle(key: StepKey) {
+  switch (key) {
+    case 1: return m.home_how_it_works_step_1_title();
+    case 2: return m.home_how_it_works_step_2_title();
+    case 3: return m.home_how_it_works_step_3_title();
+  }
+}
+
+function stepDescription(key: StepKey) {
+  switch (key) {
+    case 1: return m.home_how_it_works_step_1_description();
+    case 2: return m.home_how_it_works_step_2_description();
+    case 3: return m.home_how_it_works_step_3_description();
+  }
+}
 
 export function HowItWorks() {
   return (
     <section className="py-[60px] px-6 pb-20">
       <div className="mx-auto max-w-screen-xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-3 text-gray-900 dark:text-gray-100">快速上手</h2>
+          <h2 className="text-3xl font-bold mb-3 text-gray-900 dark:text-gray-100">{m.home_how_it_works_eyebrow()}</h2>
           <p className="max-w-[600px] mx-auto text-gray-500 dark:text-gray-400">
-            三步启动你的下一个全栈项目
+            {m.home_how_it_works_subtitle()}
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {steps.map((step, index) => (
+          {steps.map((step, index) => {
+            const title = stepTitle(step.key);
+            const description = stepDescription(step.key);
+            return (
             <div key={index} className="relative h-full transition-all duration-500">
               <Card className="relative h-full rounded-2xl border transition-all duration-300">
                 <CardContent className="p-8 text-center">
@@ -58,23 +65,24 @@ export function HowItWorks() {
                     {step.icon}
                   </div>
 
-                  <h4 className="font-semibold mb-2 text-gray-900 dark:text-gray-100">{step.title}</h4>
+                  <h4 className="font-semibold mb-2 text-gray-900 dark:text-gray-100">{title}</h4>
                   <p className="text-sm leading-relaxed text-gray-500 dark:text-gray-400 m-0">
-                    {step.description}
+                    {description}
                   </p>
                 </CardContent>
               </Card>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mt-12 p-6 rounded-xl max-w-[600px] mx-auto border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-sm font-mono overflow-x-auto">
-          <div className="mb-4 font-medium text-gray-900 dark:text-gray-100"># 克隆项目</div>
-          <div className="mb-4 text-gray-500 dark:text-gray-400 break-all">git clone https://github.com/yyong008/remix-antd-admin.git</div>
-          <div className="mb-4 font-medium text-gray-900 dark:text-gray-100"># 安装依赖</div>
-          <div className="mb-4 text-gray-500 dark:text-gray-400">pnpm install</div>
-          <div className="mb-4 font-medium text-gray-900 dark:text-gray-100"># 启动开发</div>
-          <div className="text-gray-500 dark:text-gray-400">pnpm dev</div>
+          <div className="mb-4 font-medium text-gray-900 dark:text-gray-100">{m.home_how_it_works_cmd_clone_label()}</div>
+          <div className="mb-4 text-gray-500 dark:text-gray-400 break-all">{m.home_how_it_works_cmd_clone_command()}</div>
+          <div className="mb-4 font-medium text-gray-900 dark:text-gray-100">{m.home_how_it_works_cmd_install_label()}</div>
+          <div className="mb-4 text-gray-500 dark:text-gray-400">{m.home_how_it_works_cmd_install_command()}</div>
+          <div className="mb-4 font-medium text-gray-900 dark:text-gray-100">{m.home_how_it_works_cmd_dev_label()}</div>
+          <div className="text-gray-500 dark:text-gray-400">{m.home_how_it_works_cmd_dev_command()}</div>
         </div>
       </div>
     </section>

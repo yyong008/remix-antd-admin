@@ -3,14 +3,14 @@
 ## Project Overview
 
 **Name:** react-router-antd-admin
-**Description:** React Router Antd Admin - A modern admin dashboard built with React Router v7, Ant Design, and Hono
+**Description:** React Router Antd Admin - A modern admin dashboard built with React Router v8, Ant Design, and Hono
 **Repository:** https://github.com/yyong008/remix-antd-admin.git
 
 ## Tech Stack
 
 ### Core
 
-- **React Router v7** (Framework Mode) - Full-stack React framework with loaders/actions
+- **React Router v8** (Framework Mode) - Full-stack React framework with loaders/actions
 - **React 19** - UI library
 - **Hono 4** - Lightweight web framework for API routes
 - **Ant Design 6** - React UI component library
@@ -197,5 +197,5 @@ Load a skill using the `skill` tool when working on related features.
 - [ ] Run `vp install` after pulling remote changes
 - [ ] Run `vp check` and `vp test` before committing
 - [ ] Use `pnpm` commands via Vite+ (`vp add`, `vp remove`, etc.)
-- [ ] Follow React Router v7 data patterns (loaders/actions)
+- [ ] Follow React Router v8 data patterns (loaders/actions)
 - [ ] Use Ant Design theme tokens for consistent styling

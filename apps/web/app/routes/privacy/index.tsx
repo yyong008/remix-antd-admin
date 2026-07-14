@@ -1,8 +1,70 @@
 import type { LoaderFunctionArgs } from "react-router";
+import * as m from "~/paraglide/messages.js";
 
 export const loader = async (_args: LoaderFunctionArgs) => {
   return null;
 };
+
+export const meta = () => [{ title: m.privacy_page_title() }];
+
+type ItemResolver = () => string;
+
+interface PrivacySection {
+  title: () => string;
+  body?: () => string;
+  intro?: () => string;
+  items?: ItemResolver[];
+}
+
+const sections: PrivacySection[] = [
+  {
+    title: () => m.privacy_section_1_title(),
+    intro: () => m.privacy_section_1_intro(),
+    items: [
+      () => m.privacy_section_1_item_1(),
+      () => m.privacy_section_1_item_2(),
+      () => m.privacy_section_1_item_3(),
+    ],
+  },
+  {
+    title: () => m.privacy_section_2_title(),
+    intro: () => m.privacy_section_2_intro(),
+    items: [
+      () => m.privacy_section_2_item_1(),
+      () => m.privacy_section_2_item_2(),
+      () => m.privacy_section_2_item_3(),
+    ],
+  },
+  {
+    title: () => m.privacy_section_3_title(),
+    body: () => m.privacy_section_3_body(),
+  },
+  {
+    title: () => m.privacy_section_4_title(),
+    intro: () => m.privacy_section_4_intro(),
+    items: [
+      () => m.privacy_section_4_item_1(),
+      () => m.privacy_section_4_item_2(),
+      () => m.privacy_section_4_item_3(),
+    ],
+  },
+  {
+    title: () => m.privacy_section_5_title(),
+    body: () => m.privacy_section_5_body(),
+  },
+  {
+    title: () => m.privacy_section_6_title(),
+    body: () => m.privacy_section_6_body(),
+  },
+  {
+    title: () => m.privacy_section_7_title(),
+    body: () => m.privacy_section_7_body(),
+  },
+  {
+    title: () => m.privacy_section_8_title(),
+    body: () => m.privacy_section_8_body(),
+  },
+];
 
 export default function Privacy() {
   const h2Style: React.CSSProperties = {
@@ -26,7 +88,7 @@ export default function Privacy() {
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "100px 24px 48px" }}>
       <header style={{ textAlign: "center", padding: "24px" }}>
-        <h1 style={{ fontSize: "30px", fontWeight: 600 }}>Privacy Policy</h1>
+        <h1 style={{ fontSize: "30px", fontWeight: 600 }}>{m.privacy_heading()}</h1>
       </header>
 
       <main
@@ -36,65 +98,22 @@ export default function Privacy() {
           borderRadius: "8px",
         }}
       >
-        <h2 style={h2Style}>1. Information We Collect</h2>
-        <p style={pStyle}>We may collect the following types of information:</p>
-        <ul style={ulStyle}>
-          <li>Personal Identification Information: Name, email address, phone number, etc.</li>
-          <li>Usage Data: Time of visit, page views, device information, etc.</li>
-          <li>Cookies and Tracking Technologies: Used to enhance user experience.</li>
-        </ul>
+        {sections.map((section, index) => (
+          <div key={index}>
+            <h2 style={h2Style}>{section.title()}</h2>
+            {section.intro ? <p style={pStyle}>{section.intro()}</p> : null}
+            {section.items ? (
+              <ul style={ulStyle}>
+                {section.items.map((item, itemIndex) => (
+                  <li key={itemIndex}>{item()}</li>
+                ))}
+              </ul>
+            ) : null}
+            {section.body ? <p style={pStyle}>{section.body()}</p> : null}
+          </div>
+        ))}
 
-        <h2 style={h2Style}>2. How We Use Your Information</h2>
-        <p style={pStyle}>The information we collect is used for the following purposes:</p>
-        <ul style={ulStyle}>
-          <li>To provide and improve our services.</li>
-          <li>
-            To communicate with you, including sending notifications or responding to queries.
-          </li>
-          <li>To analyze website usage and help improve website content and functionality.</li>
-        </ul>
-
-        <h2 style={h2Style}>3. How We Protect Your Information</h2>
-        <p style={pStyle}>
-          We implement various security measures to protect your personal information, including
-          encryption and access controls. However, please note that no method of data transmission
-          over the internet is 100% secure, and we cannot guarantee absolute security.
-        </p>
-
-        <h2 style={h2Style}>4. Information Sharing and Disclosure</h2>
-        <p style={pStyle}>
-          We will not sell your personal information to third parties. However, we may disclose your
-          information in the following circumstances:
-        </p>
-        <ul style={ulStyle}>
-          <li>To comply with legal obligations or respond to government requests.</li>
-          <li>To protect our legal rights or the safety of our users.</li>
-          <li>To share with service providers that help us run our business.</li>
-        </ul>
-
-        <h2 style={h2Style}>5. Data Retention</h2>
-        <p style={pStyle}>
-          We will retain your information for as long as necessary to fulfill the purposes outlined
-          in this Privacy Policy, or as required by law.
-        </p>
-
-        <h2 style={h2Style}>6. Your Rights</h2>
-        <p style={pStyle}>
-          Depending on your jurisdiction, you may have the right to access, correct, or delete your
-          personal information. If you wish to exercise these rights, please contact us.
-        </p>
-
-        <h2 style={h2Style}>7. Updates and Changes</h2>
-        <p style={pStyle}>
-          We may update this Privacy Policy from time to time. Any changes will be posted on this
-          page with an updated "Effective Date."
-        </p>
-
-        <h2 style={h2Style}>8. Contact Us</h2>
-        <p style={pStyle}>
-          If you have any questions or concerns about this Privacy Policy, please contact us at:
-        </p>
-        <p style={{ ...pStyle, marginTop: "8px" }}>Email: privacy@example.com</p>
+        <p style={{ ...pStyle, marginTop: "8px" }}>{m.privacy_contact_email()}</p>
       </main>
     </div>
   );

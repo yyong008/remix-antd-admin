@@ -1,0 +1,11 @@
+{
+	"$schema": "https://inlang.com/schema/project-settings",
+	"baseLocale": "zh",
+	"locales": ["zh", "en"],
+	"modules": [
+		"./project.inlang/plugins/json-message-format.js"
+	],
+	"app.inlang.webJsonMessageFormat": {
+		"pathPattern": "./messages/{locale}.json"
+	}
+}

@@ -1,3 +1,5 @@
+import * as m from "~/paraglide/messages.js";
+
 const logos = [
   { name: "React Router", src: "/images/react-router.svg" },
   { name: "React", src: "/images/react.svg" },
@@ -15,7 +17,7 @@ export function LogoCloud() {
     <section className="py-10 px-6">
       <div className="mx-auto max-w-screen-xl">
         <p className="text-center mb-7 text-xs uppercase tracking-widest font-medium text-gray-500 dark:text-gray-400">
-          强大的技术栈支撑
+          {m.home_logo_cloud_eyebrow()}
         </p>
         <div className="flex flex-wrap justify-center gap-5 items-center">
           {logos.map((logo) => (

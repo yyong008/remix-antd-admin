@@ -1,13 +1,16 @@
 import { IconPlayerPlay, IconMessageCircle } from "@tabler/icons-react";
+import * as m from "~/paraglide/messages.js";
 
 export function VideoDemo() {
   return (
     <section className="py-[60px] px-6">
       <div className="mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-3 text-gray-900 dark:text-gray-100">看看它是如何工作的</h2>
+          <h2 className="text-3xl font-bold mb-3 text-gray-900 dark:text-gray-100">
+            {m.home_video_demo_eyebrow()}
+          </h2>
           <p className="max-w-[600px] mx-auto text-gray-500 dark:text-gray-400">
-            快速了解如何使用 React Router Antd Admin 构建现代化的全栈应用
+            {m.home_video_demo_subtitle()}
           </p>
         </div>
 
@@ -45,7 +48,7 @@ export function VideoDemo() {
             <div className="h-14 bg-gray-100 dark:bg-gray-800 flex items-center justify-between px-6">
               <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-sm">
                 <IconMessageCircle className="size-4" />
-                3:42 分钟演示
+                {m.home_video_demo_duration()}
               </div>
 
               <button className="inline-flex items-center justify-center rounded-full bg-indigo-600 text-white hover:bg-indigo-700 w-9 h-9">
@@ -62,7 +65,7 @@ export function VideoDemo() {
             rel="noopener noreferrer"
             className="text-indigo-600 dark:text-indigo-400 underline-offset-4 hover:underline"
           >
-            观看更多演示 →
+            {m.home_video_demo_link_more()}
           </a>
           <a
             href="https://remix-antd-admin-docs.vercel.app/"
@@ -70,7 +73,7 @@ export function VideoDemo() {
             rel="noopener noreferrer"
             className="text-indigo-600 dark:text-indigo-400 underline-offset-4 hover:underline"
           >
-            阅读完整教程 →
+            {m.home_video_demo_link_tutorial()}
           </a>
         </div>
       </div>

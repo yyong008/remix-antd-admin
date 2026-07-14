@@ -1,3 +1,5 @@
+import * as m from "~/paraglide/messages.js";
+
 interface Link {
   to: string;
   text: string;
@@ -10,20 +12,29 @@ interface LinkSection {
 }
 
 export function getLinks(locale: string): LinkSection[] {
+  const active = locale || "zh";
   return [
     {
-      title: "产品",
+      title: m.footer_section_product(),
       links: [
-        { to: `/${locale}/about`, text: "关于我们" },
-        { to: `/${locale}/blog`, text: "博客" },
-        { to: `/${locale}/news`, text: "新闻" },
+        { to: `/${active}/about`, text: m.footer_link_about() },
+        { to: `/${active}/blog`, text: m.footer_link_blog() },
+        { to: `/${active}/news`, text: m.footer_link_news() },
       ],
     },
     {
-      title: "资源",
+      title: m.footer_section_resources(),
       links: [
-        { to: "https://remix-antd-admin-docs.vercel.app/", text: "文档", isOut: true },
-        { to: "https://github.com/yyong008/remix-antd-admin", text: "GitHub", isOut: true },
+        {
+          to: "https://remix-antd-admin-docs.vercel.app/",
+          text: m.footer_link_docs(),
+          isOut: true,
+        },
+        {
+          to: "https://github.com/yyong008/remix-antd-admin",
+          text: m.footer_link_github(),
+          isOut: true,
+        },
       ],
     },
   ];

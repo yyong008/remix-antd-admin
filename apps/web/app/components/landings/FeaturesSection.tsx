@@ -8,52 +8,45 @@ import {
   IconBolt,
   IconSitemap,
 } from "@tabler/icons-react";
+import * as m from "~/paraglide/messages.js";
 
-interface Feature {
+type FeatureKey = 1 | 2 | 3 | 4 | 5 | 6;
+
+interface FeatureBase {
   icon: React.ReactNode;
-  title: string;
-  description: string;
   color: string;
 }
 
-const features: Feature[] = [
-  {
-    icon: <IconRocket className="size-6" />,
-    title: "React Router Hono 内置支持",
-    description: "基于 Remix + Hono 路由快速开发项目",
-    color: "#6366f1",
-  },
-  {
-    icon: <IconSitemap className="size-6" />,
-    title: "Tailwind CSS 组件支持",
-    description: "基于 Tailwind CSS 组件库开发项目",
-    color: "#1890FF",
-  },
-  {
-    icon: <IconRobot className="size-6" />,
-    title: "AI SDK 内置支持",
-    description: "基于 AI SDK 的 AI 能力开发项目",
-    color: "#10B981",
-  },
-  {
-    icon: <IconDatabase className="size-6" />,
-    title: "Drizzle 内置支持",
-    description: "基于 Drizzle ORM 的数据库开发项目",
-    color: "#0EA5E9",
-  },
-  {
-    icon: <IconBolt className="size-6" />,
-    title: "高性能优化",
-    description: "内置性能优化和最佳实践",
-    color: "#F59E0B",
-  },
-  {
-    icon: <IconCode className="size-6" />,
-    title: "原生 CSS 样式支持",
-    description: "基于原生 CSS 的样式开发，完美支持暗色模式",
-    color: "#06B6D4",
-  },
+const features: Array<FeatureBase & { key: FeatureKey }> = [
+  { key: 1, icon: <IconRocket className="size-6" />, color: "#6366f1" },
+  { key: 2, icon: <IconSitemap className="size-6" />, color: "#1890FF" },
+  { key: 3, icon: <IconRobot className="size-6" />, color: "#10B981" },
+  { key: 4, icon: <IconDatabase className="size-6" />, color: "#0EA5E9" },
+  { key: 5, icon: <IconBolt className="size-6" />, color: "#F59E0B" },
+  { key: 6, icon: <IconCode className="size-6" />, color: "#06B6D4" },
 ];
+
+function featureTitle(key: FeatureKey) {
+  switch (key) {
+    case 1: return m.home_features_item_1_title();
+    case 2: return m.home_features_item_2_title();
+    case 3: return m.home_features_item_3_title();
+    case 4: return m.home_features_item_4_title();
+    case 5: return m.home_features_item_5_title();
+    case 6: return m.home_features_item_6_title();
+  }
+}
+
+function featureDescription(key: FeatureKey) {
+  switch (key) {
+    case 1: return m.home_features_item_1_description();
+    case 2: return m.home_features_item_2_description();
+    case 3: return m.home_features_item_3_description();
+    case 4: return m.home_features_item_4_description();
+    case 5: return m.home_features_item_5_description();
+    case 6: return m.home_features_item_6_description();
+  }
+}
 
 export function FeaturesSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -62,14 +55,17 @@ export function FeaturesSection() {
     <section className="py-10 px-6 pb-20">
       <div className="mx-auto max-w-screen-xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-3 text-gray-900 dark:text-gray-100">核心能力</h2>
+          <h2 className="text-3xl font-bold mb-3 text-gray-900 dark:text-gray-100">{m.home_features_eyebrow()}</h2>
           <p className="max-w-[600px] mx-auto text-gray-500 dark:text-gray-400">
-            基于现代 Web 技术栈与开箱能力，快速落地全栈 AI 与管理后台场景。
+            {m.home_features_subtitle()}
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {features.map((feature, index) => (
+          {features.map((feature, index) => {
+            const title = featureTitle(feature.key);
+            const description = featureDescription(feature.key);
+            return (
             <div
               key={index}
               className="h-full rounded-2xl p-px transition-all duration-300 hover:-translate-y-1"
@@ -113,16 +109,17 @@ export function FeaturesSection() {
                       color: hoveredIndex === index ? feature.color : undefined,
                     }}
                   >
-                    {feature.title}
+                    {title}
                   </h4>
 
                   <p className="text-sm leading-relaxed text-gray-500 dark:text-gray-400 m-0">
-                    {feature.description}
+                    {description}
                   </p>
                 </CardContent>
               </Card>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
