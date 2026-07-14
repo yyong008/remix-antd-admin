@@ -6,6 +6,7 @@ export { DeleteIt } from "./delete-it";
 export { Footer } from "./Footer";
 export { FormatTime } from "./format-time";
 export { LocaleSwitcher } from "./locale-switcher";
+export { MarkupText } from "./markup-text";
 export { LinkType } from "./link-type";
 export { ListHeaderSearch } from "./list-header-search";
 export { MenuItemLink } from "./menu-item-link";

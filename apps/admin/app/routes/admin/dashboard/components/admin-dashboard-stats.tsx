@@ -13,24 +13,33 @@ import {
   UserSwitchOutlined,
 } from "@ant-design/icons";
 import { Card, Col, Row, Statistic } from "antd";
+import { m } from "~/paraglide/messages";
 import type { AdminDashboardStats as AdminDashboardStatsModel } from "~/api-client/queries/dashboard/dashboard";
 
 const STAT_ORDER: {
   key: keyof AdminDashboardStatsModel;
-  title: string;
+  title: () => string;
   icon: React.ReactNode;
 }[] = [
-  { key: "userCount", title: "系统用户", icon: <TeamOutlined /> },
-  { key: "roleCount", title: "角色", icon: <UserSwitchOutlined /> },
-  { key: "deptCount", title: "部门", icon: <ApartmentOutlined /> },
-  { key: "menuCount", title: "菜单项", icon: <MenuOutlined /> },
-  { key: "newsCount", title: "资讯", icon: <ReadOutlined /> },
-  { key: "newsCategoryCount", title: "资讯分类", icon: <UnorderedListOutlined /> },
-  { key: "blogCount", title: "博客文章", icon: <FileTextOutlined /> },
-  { key: "loginLogCount", title: "登录日志条数", icon: <LoginOutlined /> },
-  { key: "operateLogCount", title: "操作日志条数", icon: <ToolOutlined /> },
-  { key: "changelogCount", title: "变更记录", icon: <BookOutlined /> },
-  { key: "feedbackCount", title: "用户反馈", icon: <CommentOutlined /> },
+  { key: "userCount", title: () => m.dashboard_stat_users(), icon: <TeamOutlined /> },
+  { key: "roleCount", title: () => m.dashboard_stat_roles(), icon: <UserSwitchOutlined /> },
+  { key: "deptCount", title: () => m.dashboard_stat_depts(), icon: <ApartmentOutlined /> },
+  { key: "menuCount", title: () => m.dashboard_stat_menus(), icon: <MenuOutlined /> },
+  { key: "newsCount", title: () => m.dashboard_stat_news(), icon: <ReadOutlined /> },
+  {
+    key: "newsCategoryCount",
+    title: () => m.dashboard_stat_news_categories(),
+    icon: <UnorderedListOutlined />,
+  },
+  { key: "blogCount", title: () => m.dashboard_stat_blog_posts(), icon: <FileTextOutlined /> },
+  { key: "loginLogCount", title: () => m.dashboard_stat_login_logs(), icon: <LoginOutlined /> },
+  {
+    key: "operateLogCount",
+    title: () => m.dashboard_stat_operation_logs(),
+    icon: <ToolOutlined />,
+  },
+  { key: "changelogCount", title: () => m.dashboard_stat_changelogs(), icon: <BookOutlined /> },
+  { key: "feedbackCount", title: () => m.dashboard_stat_feedback(), icon: <CommentOutlined /> },
 ];
 
 export function AdminDashboardStats({ stats }: { stats: AdminDashboardStatsModel }) {
@@ -50,14 +59,14 @@ export function AdminDashboardStats({ stats }: { stats: AdminDashboardStatsModel
         }}
       >
         <DashboardOutlined style={{ marginRight: 8 }} />
-        管理数据概览
+        {m.dashboard_overview()}
       </div>
       <Row gutter={[16, 16]}>
         {items.map((row) => (
           <Col key={row.key} xs={24} sm={12} lg={8} xl={6}>
             <Card size="small" styles={{ body: { paddingTop: 16, paddingBottom: 16 } }}>
               <Statistic
-                title={row.title}
+                title={row.title()}
                 value={stats[row.key] as number}
                 prefix={
                   <span style={{ marginRight: 8, color: "var(--ant-color-primary)" }}>
