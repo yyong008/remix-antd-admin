@@ -12,7 +12,7 @@ const blogRoutes = [
 
 export default [
   ...prefix(":locale?", [
-    layout("layout/mkt/index.tsx", [
+    layout("layout/index.tsx", [
       ...newsRotues,
       ...blogRoutes,
       index("routes/home/index.tsx"),

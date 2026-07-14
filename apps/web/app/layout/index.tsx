@@ -6,8 +6,9 @@ import {
   useNavigate,
   useParams,
 } from "react-router";
+import { AppQueryProvider } from "~/providers/app-query-provider";
 import { config } from "~/config";
-import { NavFooter } from "./footer";
+import { NavFooter } from "./components/footer";
 import { defaultLang } from "~/config/lang";
 import { IconRocket } from "@tabler/icons-react";
 import { Button } from "@workspace/ui/components/button";
@@ -38,7 +39,7 @@ function navLabel(key: NavKey) {
   }
 }
 
-export function MarketingsLayout() {
+function MarketingLayout() {
   const { locale: localeParam } = useParams();
   const locale = localeParam ?? defaultLang;
   const location = useLocation();
@@ -116,5 +117,13 @@ export function MarketingsLayout() {
         <NavFooter />
       </footer>
     </div>
+  );
+}
+
+export default function Layout() {
+  return (
+    <AppQueryProvider>
+      <MarketingLayout />
+    </AppQueryProvider>
   );
 }
