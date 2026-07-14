@@ -6,12 +6,12 @@ export function HeroSection() {
   return (
     <section className="relative px-6 py-20 lg:py-24 mx-auto overflow-hidden max-w-screen-xl">
       <div className="absolute top-0 right-0 w-[50%] h-[120%] rounded-full bg-[radial-gradient(circle,rgba(255,107,61,0.15)_0%,transparent_70%)] pointer-events-none animate-pulse" />
-      <div className="absolute bottom-0 left-0 w-[40%] h-[100%] rounded-full bg-[radial-gradient(circle,rgba(42,109,244,0.12)_0%,transparent_70%)] pointer-events-none animate-pulse" style={{ animationDelay: "1s" }} />
+      <div className="absolute bottom-0 left-0 w-[40%] h-[100%] rounded-full bg-[radial-gradient(circle,rgba(42,109,244,0.12)_0%,transparent_70%)] pointer-events-none animate-pulse delay-[1s]" />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-48 items-center">
         <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm shadow-md animate-bounce" style={{ animationIterationCount: "infinite", animationDuration: "3s" }}>
-            <span className="text-lg animate-ping" style={{ animationIterationCount: "infinite", animationDuration: "2s" }}>⚡</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm shadow-md animate-[bounce_3s_infinite]">
+            <span className="text-lg animate-[ping_2s_infinite]">⚡</span>
               <span className="text-muted-foreground">{m.home_hero_eyebrow()}</span>
           </div>
 

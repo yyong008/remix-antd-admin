@@ -67,53 +67,29 @@ const sections: PrivacySection[] = [
 ];
 
 export default function Privacy() {
-  const h2Style: React.CSSProperties = {
-    fontSize: "24px",
-    fontWeight: 600,
-    marginTop: "24px",
-    marginBottom: "16px",
-  };
-
-  const pStyle: React.CSSProperties = {
-    marginTop: "16px",
-    lineHeight: 1.8,
-  };
-
-  const ulStyle: React.CSSProperties = {
-    marginTop: "8px",
-    paddingLeft: "24px",
-    lineHeight: 1.8,
-  };
-
   return (
-    <div style={{ maxWidth: "800px", margin: "0 auto", padding: "100px 24px 48px" }}>
-      <header style={{ textAlign: "center", padding: "24px" }}>
-        <h1 style={{ fontSize: "30px", fontWeight: 600 }}>{m.privacy_heading()}</h1>
+    <div className="mx-auto max-w-[800px] px-6 pt-[100px] pb-12">
+      <header className="text-center p-6">
+        <h1 className="text-[30px] font-semibold">{m.privacy_heading()}</h1>
       </header>
 
-      <main
-        style={{
-          margin: "32px auto",
-          padding: "24px",
-          borderRadius: "8px",
-        }}
-      >
+      <main className="mx-auto my-8 p-6 rounded-lg">
         {sections.map((section, index) => (
           <div key={index}>
-            <h2 style={h2Style}>{section.title()}</h2>
-            {section.intro ? <p style={pStyle}>{section.intro()}</p> : null}
+            <h2 className="text-2xl font-semibold mt-6 mb-4">{section.title()}</h2>
+            {section.intro ? <p className="mt-4 leading-[1.8]">{section.intro()}</p> : null}
             {section.items ? (
-              <ul style={ulStyle}>
+              <ul className="mt-2 pl-6 leading-[1.8]">
                 {section.items.map((item, itemIndex) => (
                   <li key={itemIndex}>{item()}</li>
                 ))}
               </ul>
             ) : null}
-            {section.body ? <p style={pStyle}>{section.body()}</p> : null}
+            {section.body ? <p className="mt-4 leading-[1.8]">{section.body()}</p> : null}
           </div>
         ))}
 
-        <p style={{ ...pStyle, marginTop: "8px" }}>{m.privacy_contact_email()}</p>
+        <p className="mt-2 leading-[1.8]">{m.privacy_contact_email()}</p>
       </main>
     </div>
   );
