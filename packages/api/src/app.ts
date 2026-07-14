@@ -11,10 +11,13 @@ import { authMiddleware } from "./middleware/auth";
 export const app = new Hono<HonoEnv>()
   .basePath("/api")
   .use("*", logger())
-  .use("*", cors({
-    credentials: true,
-    origin: (origin) => origin || "*",
-  }))
+  .use(
+    "*",
+    cors({
+      credentials: true,
+      origin: (origin) => origin || "*",
+    }),
+  )
   .route("/", v1Router)
   .get("/health", (c) => {
     return c.json({ status: "ok" });

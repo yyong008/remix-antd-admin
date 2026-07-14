@@ -12,10 +12,7 @@ export async function getById(db: DrizzleD1Database, id: string) {
   return rows[0] ?? null;
 }
 
-export async function getList(
-  db: DrizzleD1Database,
-  { where, skip = 0, take = 10, orderBy }: any,
-) {
+export async function getList(db: DrizzleD1Database, { where, skip = 0, take = 10, orderBy }: any) {
   let query: any = db.select().from(mails);
   if (where?.title?.contains) {
     query = query.where(like(mails.title, `%${where.title.contains}%`));
@@ -32,11 +29,7 @@ export async function create(db: DrizzleD1Database, data: any) {
 
 export async function update(db: DrizzleD1Database, id: string, data: any) {
   const { id: _id, ...values } = data;
-  const updated = await db
-    .update(mails)
-    .set(values)
-    .where(eq(mails.id, id))
-    .returning();
+  const updated = await db.update(mails).set(values).where(eq(mails.id, id)).returning();
   return updated[0];
 }
 

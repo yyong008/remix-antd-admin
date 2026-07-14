@@ -7,7 +7,6 @@ import {
   Typography,
   Input,
   Table,
-  Badge,
   Dropdown,
   type MenuProps,
   Modal,
@@ -22,7 +21,10 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 
-import { useNewsCategoryList, useDeleteNewsCategory } from "~/api-client/queries/news/news-category";
+import {
+  useNewsCategoryList,
+  useDeleteNewsCategory,
+} from "~/api-client/queries/news/news-category";
 import { useNewsList } from "~/api-client/queries/news/news";
 import { AdminTable } from "~/components/admin-table";
 import { PageContainer } from "~/components/page-container";

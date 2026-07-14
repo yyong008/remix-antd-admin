@@ -1,7 +1,15 @@
 ---
 title: Server-Side Rendering
 description: Manual SSR setup with createStaticHandler, createStaticRouter, and StaticRouterProvider
-tags: [ssr, server-side-rendering, createStaticHandler, createStaticRouter, StaticRouterProvider, hydration]
+tags:
+  [
+    ssr,
+    server-side-rendering,
+    createStaticHandler,
+    createStaticRouter,
+    StaticRouterProvider,
+    hydration,
+  ]
 ---
 
 # Server-Side Rendering
@@ -69,9 +77,7 @@ export async function render(request: Request): Promise<Response> {
   const router = createStaticRouter(handler.dataRoutes, context);
 
   // Render the app to HTML
-  const html = renderToString(
-    <StaticRouterProvider router={router} context={context} />
-  );
+  const html = renderToString(<StaticRouterProvider router={router} context={context} />);
 
   return new Response(renderFullDocument(html), {
     headers: { "Content-Type": "text/html" },
@@ -130,10 +136,7 @@ import { routes } from "./routes";
 
 const router = createBrowserRouter(routes);
 
-hydrateRoot(
-  document.getElementById("root")!,
-  <RouterProvider router={router} />
-);
+hydrateRoot(document.getElementById("root")!, <RouterProvider router={router} />);
 ```
 
 The browser router automatically picks up the data that was serialized from the server.
@@ -171,11 +174,7 @@ export const routes = [
 
 ```tsx
 // server.tsx
-import {
-  createStaticHandler,
-  createStaticRouter,
-  StaticRouterProvider,
-} from "react-router";
+import { createStaticHandler, createStaticRouter, StaticRouterProvider } from "react-router";
 import { renderToString } from "react-dom/server";
 import { routes } from "./routes";
 
@@ -190,9 +189,7 @@ export async function handleRequest(request: Request): Promise<Response> {
 
   const router = createStaticRouter(handler.dataRoutes, context);
 
-  const appHtml = renderToString(
-    <StaticRouterProvider router={router} context={context} />
-  );
+  const appHtml = renderToString(<StaticRouterProvider router={router} context={context} />);
 
   const html = `<!DOCTYPE html>
 <html>
@@ -222,10 +219,7 @@ import { routes } from "./routes";
 
 const router = createBrowserRouter(routes);
 
-hydrateRoot(
-  document.getElementById("root")!,
-  <RouterProvider router={router} />
-);
+hydrateRoot(document.getElementById("root")!, <RouterProvider router={router} />);
 ```
 
 ## CSS Considerations
@@ -238,19 +232,19 @@ Always include CSS as a `<link>` tag in the HTML template, not just via JavaScri
 import "./styles.css";
 
 // ✅ DO: Include CSS in the HTML template
-<link rel="stylesheet" href="/styles.css" />
+<link rel="stylesheet" href="/styles.css" />;
 ```
 
 JavaScript-imported CSS won't be available until the JS loads and executes, causing a flash of unstyled content (FOUC) on the initial server-rendered page.
 
 ## API Reference
 
-| Function | Purpose |
-| -------- | ------- |
-| `createStaticHandler(routes)` | Creates a handler that can run loaders/actions on the server |
-| `handler.query(request)` | Executes loaders for matched routes, returns context or redirect Response |
-| `createStaticRouter(dataRoutes, context)` | Creates a static router from handler's dataRoutes and context |
-| `StaticRouterProvider` | Renders the app on the server with router and context props |
+| Function                                  | Purpose                                                                   |
+| ----------------------------------------- | ------------------------------------------------------------------------- |
+| `createStaticHandler(routes)`             | Creates a handler that can run loaders/actions on the server              |
+| `handler.query(request)`                  | Executes loaders for matched routes, returns context or redirect Response |
+| `createStaticRouter(dataRoutes, context)` | Creates a static router from handler's dataRoutes and context             |
+| `StaticRouterProvider`                    | Renders the app on the server with router and context props               |
 
 ## See Also
 

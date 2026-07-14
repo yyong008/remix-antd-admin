@@ -72,10 +72,7 @@ export async function create(db: DrizzleD1Database, data: any) {
   return mapEntry(created[0]);
 }
 
-export async function update(
-  db: DrizzleD1Database,
-  { id, dictionary_id, ...data }: any,
-) {
+export async function update(db: DrizzleD1Database, { id, dictionary_id, ...data }: any) {
   const updated = await db
     .update(dictionaryEntries)
     .set({

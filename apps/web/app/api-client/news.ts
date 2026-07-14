@@ -136,7 +136,12 @@ export function useCreateNewsCategory() {
 export function useUpdateNewsCategory() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: { id: string; name: string; description?: string; visible?: boolean }) => {
+    mutationFn: async (data: {
+      id: string;
+      name: string;
+      description?: string;
+      visible?: boolean;
+    }) => {
       return apiPut<NewsCategory>("/news/category", data);
     },
     onSuccess: () => {

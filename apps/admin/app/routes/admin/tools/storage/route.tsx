@@ -1,14 +1,11 @@
 import React, { useMemo, useState } from "react";
 import { Button, Card, Input, message, Modal, Space, Table, Typography } from "antd";
-import {
-  CloudOutlined,
-  DeleteOutlined,
-  PlusOutlined,
-  ReloadOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
+import { CloudOutlined, DeleteOutlined, ReloadOutlined, SearchOutlined } from "@ant-design/icons";
 
-import { useDeleteToolsStorage, useToolsStorageList } from "~/api-client/queries/tools/tools-storage";
+import {
+  useDeleteToolsStorage,
+  useToolsStorageList,
+} from "~/api-client/queries/tools/tools-storage";
 import { PageContainer } from "~/components/page-container";
 import { StorageModal } from "./components/StorageModal/StorageModal";
 import { createColumns } from "./components/createColumns";

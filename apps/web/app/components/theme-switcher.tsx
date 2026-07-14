@@ -12,7 +12,17 @@ import { useTheme } from "next-themes";
 import * as m from "~/paraglide/messages.js";
 
 export function ThemeSwitcher() {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme, mounted } = useTheme();
+
+  const renderIcon = () => {
+    if (!mounted) {
+      return <IconDeviceDesktop className="size-[18px]" />;
+    }
+    const current = theme === "system" ? resolvedTheme : theme;
+    if (current === "dark") return <IconMoon className="size-[18px]" />;
+    if (current === "light") return <IconSun className="size-[18px]" />;
+    return <IconDeviceDesktop className="size-[18px]" />;
+  };
 
   return (
     <DropdownMenu>
@@ -25,16 +35,10 @@ export function ThemeSwitcher() {
           />
         }
       >
-        {theme === "dark" ? (
-          <IconMoon className="size-[18px]" />
-        ) : theme === "light" ? (
-          <IconSun className="size-[18px]" />
-        ) : (
-          <IconDeviceDesktop className="size-[18px]" />
-        )}
+        {renderIcon()}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-[60]">
-        <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+        <DropdownMenuRadioGroup value={mounted ? theme : undefined} onValueChange={setTheme}>
           <DropdownMenuRadioItem value="light">{m.theme_light()}</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="dark">{m.theme_dark()}</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="system">{m.theme_system()}</DropdownMenuRadioItem>

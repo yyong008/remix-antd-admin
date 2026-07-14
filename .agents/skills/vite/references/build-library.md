@@ -10,26 +10,26 @@ Build browser-oriented libraries for distribution.
 ## Basic Configuration
 
 ```ts
-import { resolve } from 'path'
-import { defineConfig } from 'vite'
+import { resolve } from "path";
+import { defineConfig } from "vite";
 
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, 'lib/main.js'),
-      name: 'MyLib',           // Global variable name for UMD
-      fileName: 'my-lib'       // Output filename (without extension)
+      entry: resolve(__dirname, "lib/main.js"),
+      name: "MyLib", // Global variable name for UMD
+      fileName: "my-lib", // Output filename (without extension)
     },
     rolldownOptions: {
-      external: ['vue'],       // Don't bundle these
+      external: ["vue"], // Don't bundle these
       output: {
         globals: {
-          vue: 'Vue'           // Global var for externals in UMD
-        }
-      }
-    }
-  }
-})
+          vue: "Vue", // Global var for externals in UMD
+        },
+      },
+    },
+  },
+});
 ```
 
 ## Multiple Entry Points
@@ -39,13 +39,13 @@ export default defineConfig({
   build: {
     lib: {
       entry: {
-        'my-lib': resolve(__dirname, 'lib/main.js'),
-        'secondary': resolve(__dirname, 'lib/secondary.js')
+        "my-lib": resolve(__dirname, "lib/main.js"),
+        secondary: resolve(__dirname, "lib/secondary.js"),
       },
-      name: 'MyLib'
-    }
-  }
-})
+      name: "MyLib",
+    },
+  },
+});
 ```
 
 ## Output Formats
@@ -57,11 +57,11 @@ Multiple entries defaults: `['es', 'cjs']`
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, 'lib/main.js'),
-      formats: ['es', 'cjs', 'umd', 'iife']
-    }
-  }
-})
+      entry: resolve(__dirname, "lib/main.js"),
+      formats: ["es", "cjs", "umd", "iife"],
+    },
+  },
+});
 ```
 
 ## Custom File Names
@@ -70,12 +70,12 @@ export default defineConfig({
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, 'lib/main.js'),
+      entry: resolve(__dirname, "lib/main.js"),
       fileName: (format, entryName) => `${entryName}.${format}.js`,
-      cssFileName: 'styles'  // For bundled CSS
-    }
-  }
-})
+      cssFileName: "styles", // For bundled CSS
+    },
+  },
+});
 ```
 
 ## Package.json Configuration
@@ -138,15 +138,16 @@ export default defineConfig({
 
 ```ts
 // lib/main.js
-import Foo from './Foo.vue'
-import Bar from './Bar.vue'
+import Foo from "./Foo.vue";
+import Bar from "./Bar.vue";
 
-export { Foo, Bar }
+export { Foo, Bar };
 ```
 
 ## Environment Variables
 
 In library mode:
+
 - `import.meta.env.*` is statically replaced
 - `process.env.*` is NOT replaced (consumers can change it)
 
@@ -155,9 +156,9 @@ To replace `process.env`:
 ```ts
 export default defineConfig({
   define: {
-    'process.env.NODE_ENV': '"production"'
-  }
-})
+    "process.env.NODE_ENV": '"production"',
+  },
+});
 ```
 
 ## Notes
@@ -166,7 +167,7 @@ export default defineConfig({
 - `cssCodeSplit` defaults to `false`
 - For non-browser libraries, consider using [tsdown](https://tsdown.dev/) or Rolldown directly
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/guide/build.html#library-mode
 -->

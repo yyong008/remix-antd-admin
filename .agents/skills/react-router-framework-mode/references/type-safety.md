@@ -1,15 +1,7 @@
 ---
 title: Route Module Types
 description: Auto-generated types, typegen setup, typing loaders/actions/fetchers
-tags:
-  [
-    types,
-    typescript,
-    typegen,
-    Route.LoaderArgs,
-    Route.ComponentProps,
-    useFetcher,
-  ]
+tags: [types, typescript, typegen, Route.LoaderArgs, Route.ComponentProps, useFetcher]
 ---
 
 # Route Module Types

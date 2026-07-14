@@ -51,19 +51,13 @@ import { NavLink } from "react-router";
 function Nav() {
   return (
     <nav>
-      <NavLink
-        to="/"
-        end
-        className={({ isActive }) => (isActive ? "active" : "")}
-      >
+      <NavLink to="/" end className={({ isActive }) => (isActive ? "active" : "")}>
         Home
       </NavLink>
 
       <NavLink
         to="/products"
-        className={({ isActive, isPending }) =>
-          isPending ? "pending" : isActive ? "active" : ""
-        }
+        className={({ isActive, isPending }) => (isPending ? "pending" : isActive ? "active" : "")}
       >
         Products
       </NavLink>
@@ -81,9 +75,7 @@ function Nav() {
 
 ```tsx
 <NavLink to="/messages">
-  {({ isActive, isPending }) => (
-    <span>Messages {isPending && <Spinner />}</span>
-  )}
+  {({ isActive, isPending }) => <span>Messages {isPending && <Spinner />}</span>}
 </NavLink>
 ```
 
@@ -92,10 +84,7 @@ function Nav() {
 The `isPending` prop is `true` when navigating TO this link (while the loader runs):
 
 ```tsx
-<NavLink
-  to="/dashboard"
-  className={({ isPending }) => (isPending ? "loading" : "")}
->
+<NavLink to="/dashboard" className={({ isPending }) => (isPending ? "loading" : "")}>
   Dashboard
 </NavLink>
 ```
@@ -370,15 +359,18 @@ function Root() {
   return (
     <div>
       <nav>
-        <NavLink to="/" end className={({ isActive }) => isActive ? "active" : ""}>
+        <NavLink to="/" end className={({ isActive }) => (isActive ? "active" : "")}>
           Home
         </NavLink>
-        <NavLink to="/about" className={({ isActive }) => isActive ? "active" : ""}>
+        <NavLink to="/about" className={({ isActive }) => (isActive ? "active" : "")}>
           About
         </NavLink>
-        <NavLink to="/dashboard" className={({ isActive, isPending }) =>
-          isPending ? "pending" : isActive ? "active" : ""
-        }>
+        <NavLink
+          to="/dashboard"
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "active" : ""
+          }
+        >
           Dashboard
         </NavLink>
       </nav>

@@ -13,7 +13,7 @@ export function FeedbackModalCreate({ refetch }: any) {
       preserve={false}
       title="创建反馈"
       loading={createFeedback.isPending}
-      onOpenChange={(c) => {}}
+      onOpenChange={(_c) => {}}
       trigger={
         <Button type="primary" icon={<EditOutlined />}>
           新建

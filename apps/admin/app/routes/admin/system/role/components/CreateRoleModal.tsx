@@ -18,7 +18,7 @@ export function CreateRoleModal(props: CreateRoleModalProps) {
   const [form] = Form.useForm();
   const [checkedKeys, setCheckedKeys] = useState<any[]>([]);
   const createRole = useCreateRole();
-  const onCheck = (checkedKeys: any, info: any) => {
+  const onCheck = (checkedKeys: any, _info: any) => {
     setCheckedKeys(checkedKeys);
   };
 

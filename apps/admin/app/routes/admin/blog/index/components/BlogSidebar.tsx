@@ -15,9 +15,8 @@ import { useMemo, useState } from "react";
 import {
   useBlogCategoryList,
   useDeleteBlogCategory,
-  useUpdateBlogCategory,
 } from "~/api-client/queries/blog/blog-category";
-import { useBlogTagList, useDeleteBlogTag, useUpdateBlogTag } from "~/api-client/queries/blog/blog-tag";
+import { useBlogTagList, useDeleteBlogTag } from "~/api-client/queries/blog/blog-tag";
 import { CreateBlogCategoryModal } from "../../category/components/CreateBlogCategoryModal";
 import { CreateBlogModal } from "../../tag/components/CreateBlogModal";
 import { UpdateBlogCategoryModal } from "../../category/components/UpdateBlogCategoryModal";

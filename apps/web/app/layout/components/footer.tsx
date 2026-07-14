@@ -1,6 +1,12 @@
 import { Link, useParams } from "react-router";
 import { Separator } from "@workspace/ui/components/separator";
-import { IconBrandGithub, IconBrandX, IconBrandDiscord, IconBrandYoutube, IconExternalLink } from "@tabler/icons-react";
+import {
+  IconBrandGithub,
+  IconBrandX,
+  IconBrandDiscord,
+  IconBrandYoutube,
+  IconExternalLink,
+} from "@tabler/icons-react";
 
 import { defaultLang } from "~/config/lang";
 import { getLinks } from "~/config/links";
@@ -17,11 +23,7 @@ export function NavFooter() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <img
-                src="/logo.png"
-                alt="Logo"
-                className="size-10 rounded-lg object-contain"
-              />
+              <img src="/logo.png" alt="Logo" className="size-10 rounded-lg object-contain" />
               <h4 className="text-lg font-semibold m-0">{PRODUCT_NAME}</h4>
             </div>
             <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
@@ -47,9 +49,7 @@ export function NavFooter() {
             <div className="flex justify-end gap-16">
               {data.map((section, index) => (
                 <div key={index}>
-                  <div className="text-sm font-semibold text-foreground mb-3">
-                    {section.title}
-                  </div>
+                  <div className="text-sm font-semibold text-foreground mb-3">{section.title}</div>
                   <div className="flex flex-col gap-2">
                     {section.links.map((link, linkIndex) => (
                       <Link

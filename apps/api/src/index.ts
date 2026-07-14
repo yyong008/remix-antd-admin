@@ -1,3 +1,3 @@
-import { app } from "@workspace/api"
+import { app } from "@workspace/api";
 
 export default app;

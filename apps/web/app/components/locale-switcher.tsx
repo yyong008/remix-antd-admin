@@ -62,7 +62,7 @@ export function LocaleSwitcher() {
       >
         <IconLanguage className="size-[18px]" />
       </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="z-[60]">
+      <DropdownMenuContent align="end" className="z-[60]">
         <DropdownMenuRadioGroup value={locale} onValueChange={handleChange}>
           {langs.map((lang) => (
             <DropdownMenuRadioItem key={lang} value={lang}>

@@ -8,7 +8,6 @@ export type UserListParams = {
   name?: string;
 };
 
-
 export const userKeys = {
   list: (params: UserListParams) => ["user", "list", params] as const,
 };

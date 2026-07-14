@@ -17,19 +17,19 @@ vite serve [root] # alias
 
 ### Dev Server Options
 
-| Option | Description |
-|--------|-------------|
-| `--host [host]` | Specify hostname (use `0.0.0.0` for LAN access) |
-| `--port <port>` | Specify port (default: 5173) |
-| `--open [path]` | Open browser on startup |
-| `--cors` | Enable CORS |
-| `--strictPort` | Exit if port is in use |
-| `--force` | Force optimizer to re-bundle dependencies |
-| `-c, --config <file>` | Use specified config file |
-| `--base <path>` | Public base path |
-| `-m, --mode <mode>` | Set env mode |
-| `-l, --logLevel <level>` | info \| warn \| error \| silent |
-| `--clearScreen` | Allow/disable clear screen when logging |
+| Option                   | Description                                     |
+| ------------------------ | ----------------------------------------------- |
+| `--host [host]`          | Specify hostname (use `0.0.0.0` for LAN access) |
+| `--port <port>`          | Specify port (default: 5173)                    |
+| `--open [path]`          | Open browser on startup                         |
+| `--cors`                 | Enable CORS                                     |
+| `--strictPort`           | Exit if port is in use                          |
+| `--force`                | Force optimizer to re-bundle dependencies       |
+| `-c, --config <file>`    | Use specified config file                       |
+| `--base <path>`          | Public base path                                |
+| `-m, --mode <mode>`      | Set env mode                                    |
+| `-l, --logLevel <level>` | info \| warn \| error \| silent                 |
+| `--clearScreen`          | Allow/disable clear screen when logging         |
 
 ## Build
 
@@ -41,19 +41,19 @@ vite build [root]
 
 ### Build Options
 
-| Option | Description |
-|--------|-------------|
-| `--target <target>` | Transpile target (default: `"modules"`) |
-| `--outDir <dir>` | Output directory (default: `dist`) |
-| `--assetsDir <dir>` | Assets directory under outDir (default: `"assets"`) |
-| `--assetsInlineLimit <number>` | Inline threshold in bytes (default: 4096) |
-| `--ssr [entry]` | Build for SSR |
-| `--sourcemap [output]` | Generate source maps (`boolean \| "inline" \| "hidden"`) |
-| `--minify [minifier]` | Minifier (`boolean \| "oxc" \| "terser" \| "esbuild"`) |
-| `--manifest [name]` | Generate build manifest JSON |
-| `--ssrManifest [name]` | Generate SSR manifest JSON |
-| `--emptyOutDir` | Force empty outDir |
-| `-w, --watch` | Watch mode for rebuilding |
+| Option                         | Description                                              |
+| ------------------------------ | -------------------------------------------------------- |
+| `--target <target>`            | Transpile target (default: `"modules"`)                  |
+| `--outDir <dir>`               | Output directory (default: `dist`)                       |
+| `--assetsDir <dir>`            | Assets directory under outDir (default: `"assets"`)      |
+| `--assetsInlineLimit <number>` | Inline threshold in bytes (default: 4096)                |
+| `--ssr [entry]`                | Build for SSR                                            |
+| `--sourcemap [output]`         | Generate source maps (`boolean \| "inline" \| "hidden"`) |
+| `--minify [minifier]`          | Minifier (`boolean \| "oxc" \| "terser" \| "esbuild"`)   |
+| `--manifest [name]`            | Generate build manifest JSON                             |
+| `--ssrManifest [name]`         | Generate SSR manifest JSON                               |
+| `--emptyOutDir`                | Force empty outDir                                       |
+| `-w, --watch`                  | Watch mode for rebuilding                                |
 
 ## Preview
 
@@ -65,12 +65,12 @@ vite preview [root]
 
 ### Preview Options
 
-| Option | Description |
-|--------|-------------|
-| `--host [host]` | Specify hostname |
-| `--port <port>` | Specify port |
-| `--strictPort` | Exit if port is in use |
-| `--open [path]` | Open browser on startup |
+| Option           | Description                        |
+| ---------------- | ---------------------------------- |
+| `--host [host]`  | Specify hostname                   |
+| `--port <port>`  | Specify port                       |
+| `--strictPort`   | Exit if port is in use             |
+| `--open [path]`  | Open browser on startup            |
 | `--outDir <dir>` | Output directory (default: `dist`) |
 
 ## Package Scripts
@@ -131,7 +131,7 @@ vite --profile
 vite --debug -f plugin-transform
 ```
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/guide/cli.html
 -->

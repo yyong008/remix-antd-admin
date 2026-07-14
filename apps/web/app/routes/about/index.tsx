@@ -1,4 +1,4 @@
-import type { LoaderFunctionArgs, MetaFunction } from "react-router";
+import type { MetaFunction } from "react-router";
 import { Card, CardContent } from "@workspace/ui/components/card";
 import { Badge } from "@workspace/ui/components/badge";
 import { IconExternalLink, IconBrandGithub, IconWorld } from "@tabler/icons-react";
@@ -92,7 +92,13 @@ export default function Route() {
               "better-auth",
               "typescript",
             ].map((name) => {
-              const pkg = deps.find(([n]) => n === name || n === `@${name}` || n.startsWith(`${name}/`) || n.startsWith(`@${name}/`));
+              const pkg = deps.find(
+                ([n]) =>
+                  n === name ||
+                  n === `@${name}` ||
+                  n.startsWith(`${name}/`) ||
+                  n.startsWith(`@${name}/`),
+              );
               if (!pkg) return null;
               return (
                 <a

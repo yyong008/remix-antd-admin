@@ -76,10 +76,7 @@ export const middleware: Route.MiddlewareFunction[] = [authMiddleware];
 Call `next()` to continue the chain and get the response:
 
 ```tsx
-async function loggingMiddleware(
-  { request }: Route.MiddlewareArgs,
-  next: Route.MiddlewareNext,
-) {
+async function loggingMiddleware({ request }: Route.MiddlewareArgs, next: Route.MiddlewareNext) {
   console.log(`→ ${request.method} ${request.url}`);
 
   const response = await next();
@@ -196,10 +193,7 @@ async function authMiddleware({ request, context }: Route.MiddlewareArgs) {
 ### Request Logging
 
 ```tsx
-async function loggingMiddleware(
-  { request }: Route.MiddlewareArgs,
-  next: Route.MiddlewareNext,
-) {
+async function loggingMiddleware({ request }: Route.MiddlewareArgs, next: Route.MiddlewareNext) {
   const id = crypto.randomUUID();
   const start = performance.now();
 
@@ -214,10 +208,7 @@ async function loggingMiddleware(
 ### Response Headers
 
 ```tsx
-async function securityHeaders(
-  _: Route.MiddlewareArgs,
-  next: Route.MiddlewareNext,
-) {
+async function securityHeaders(_: Route.MiddlewareArgs, next: Route.MiddlewareNext) {
   const response = await next();
   response.headers.set("X-Frame-Options", "DENY");
   response.headers.set("X-Content-Type-Options", "nosniff");
@@ -228,10 +219,7 @@ async function securityHeaders(
 ### 404 Fallback
 
 ```tsx
-async function cmsFallback(
-  { request }: Route.MiddlewareArgs,
-  next: Route.MiddlewareNext,
-) {
+async function cmsFallback({ request }: Route.MiddlewareArgs, next: Route.MiddlewareNext) {
   const response = await next();
 
   if (response.status === 404) {

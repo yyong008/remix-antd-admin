@@ -1,6 +1,5 @@
 import { AntdIcon } from "~/components/common/antd-icon";
 import { isExternalLink } from "./utils";
-import { Link } from "react-router";
 
 function createProLayoutRouteImpl(locale: string, items: any[], parentId: string | null): any[] {
   return items

@@ -76,8 +76,8 @@ toolsRouter.post("/mail/send", requirePermission("tools:mail:create"), async (c)
       return rfj({}, "Missing subject", { status: 400 });
     }
 
-    const html = dto.html ?? dto.content ?? "";
-    const text = dto.text;
+    const _html = dto.html ?? dto.content ?? "";
+    const _text = dto.text;
 
     // const result = await sendMail({
     //   to,

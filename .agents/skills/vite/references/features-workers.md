@@ -10,23 +10,21 @@ description: Web Worker support in Vite
 Standard Web Worker creation:
 
 ```ts
-const worker = new Worker(new URL('./worker.js', import.meta.url))
+const worker = new Worker(new URL("./worker.js", import.meta.url));
 ```
 
 Module worker:
 
 ```ts
-const worker = new Worker(new URL('./worker.js', import.meta.url), {
-  type: 'module'
-})
+const worker = new Worker(new URL("./worker.js", import.meta.url), {
+  type: "module",
+});
 ```
 
 Shared Worker:
 
 ```ts
-const sharedWorker = new SharedWorker(
-  new URL('./shared-worker.js', import.meta.url)
-)
+const sharedWorker = new SharedWorker(new URL("./shared-worker.js", import.meta.url));
 ```
 
 **Note:** The `new URL()` must be used directly inside `new Worker()` for detection.
@@ -36,17 +34,17 @@ const sharedWorker = new SharedWorker(
 Import with `?worker` suffix:
 
 ```ts
-import MyWorker from './worker?worker'
+import MyWorker from "./worker?worker";
 
-const worker = new MyWorker()
+const worker = new MyWorker();
 ```
 
 Shared worker:
 
 ```ts
-import MySharedWorker from './worker?sharedworker'
+import MySharedWorker from "./worker?sharedworker";
 
-const worker = new MySharedWorker()
+const worker = new MySharedWorker();
 ```
 
 ### Inline Worker
@@ -54,9 +52,9 @@ const worker = new MySharedWorker()
 Inline as base64 string (no separate chunk):
 
 ```ts
-import MyWorker from './worker?worker&inline'
+import MyWorker from "./worker?worker&inline";
 
-const worker = new MyWorker()
+const worker = new MyWorker();
 ```
 
 ### Worker URL Only
@@ -64,7 +62,7 @@ const worker = new MyWorker()
 Get URL instead of constructor:
 
 ```ts
-import workerUrl from './worker?worker&url'
+import workerUrl from "./worker?worker&url";
 ```
 
 ## Worker Script
@@ -73,12 +71,12 @@ Workers can use ESM `import` statements:
 
 ```ts
 // worker.js
-import { heavyComputation } from './utils'
+import { heavyComputation } from "./utils";
 
 self.onmessage = (e) => {
-  const result = heavyComputation(e.data)
-  self.postMessage(result)
-}
+  const result = heavyComputation(e.data);
+  self.postMessage(result);
+};
 ```
 
 ## Worker Options
@@ -89,27 +87,27 @@ Configure worker bundling:
 // vite.config.ts
 export default defineConfig({
   worker: {
-    format: 'es',  // or 'iife'
+    format: "es", // or 'iife'
     plugins: () => [/* worker-specific plugins */],
     rollupOptions: {
       // Rollup options for worker bundle
-    }
-  }
-})
+    },
+  },
+});
 ```
 
 ## WebAssembly in Workers
 
 ```ts
 // worker.js
-import init from './module.wasm?init'
+import init from "./module.wasm?init";
 
 init().then((instance) => {
-  instance.exports.compute()
-})
+  instance.exports.compute();
+});
 ```
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/guide/features.html#web-workers
 -->

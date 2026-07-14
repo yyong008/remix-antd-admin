@@ -10,7 +10,7 @@ Vite provides rich CSS support with HMR, `@import` inlining, and automatic URL r
 ## Basic CSS Import
 
 ```ts
-import './styles.css'  // Injected into page with HMR support
+import "./styles.css"; // Injected into page with HMR support
 ```
 
 ## CSS Modules
@@ -25,8 +25,8 @@ Files ending with `.module.css` are treated as CSS modules:
 ```
 
 ```ts
-import classes from './example.module.css'
-element.className = classes.red
+import classes from "./example.module.css";
+element.className = classes.red;
 ```
 
 ### Named Imports with camelCase
@@ -36,15 +36,15 @@ element.className = classes.red
 export default defineConfig({
   css: {
     modules: {
-      localsConvention: 'camelCaseOnly'
-    }
-  }
-})
+      localsConvention: "camelCaseOnly",
+    },
+  },
+});
 ```
 
 ```ts
 // .apply-color -> applyColor
-import { applyColor } from './example.module.css'
+import { applyColor } from "./example.module.css";
 ```
 
 ## CSS Pre-processors
@@ -65,9 +65,9 @@ npm add -D stylus
 Use by file extension:
 
 ```ts
-import './styles.scss'
-import './styles.less'
-import './styles.styl'
+import "./styles.scss";
+import "./styles.less";
+import "./styles.styl";
 ```
 
 ### Pre-processor Options
@@ -78,21 +78,21 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `$injectedColor: orange;`,
-        importers: [/* ... */]
+        importers: [/* ... */],
       },
       less: {
-        math: 'parens-division'
-      }
+        math: "parens-division",
+      },
     },
-    preprocessorMaxWorkers: true  // Use multiple threads
-  }
-})
+    preprocessorMaxWorkers: true, // Use multiple threads
+  },
+});
 ```
 
 ### Combined with CSS Modules
 
 ```ts
-import styles from './component.module.scss'
+import styles from "./component.module.scss";
 ```
 
 ## PostCSS
@@ -102,11 +102,8 @@ Automatically applied if `postcss.config.js` exists:
 ```js
 // postcss.config.js
 export default {
-  plugins: [
-    require('postcss-nesting'),
-    require('autoprefixer')
-  ]
-}
+  plugins: [require("postcss-nesting"), require("autoprefixer")],
+};
 ```
 
 Or configure inline:
@@ -115,13 +112,10 @@ Or configure inline:
 export default defineConfig({
   css: {
     postcss: {
-      plugins: [
-        postcssNesting(),
-        autoprefixer()
-      ]
-    }
-  }
-})
+      plugins: [postcssNesting(), autoprefixer()],
+    },
+  },
+});
 ```
 
 ## Lightning CSS
@@ -135,17 +129,17 @@ npm add -D lightningcss
 ```ts
 export default defineConfig({
   css: {
-    transformer: 'lightningcss',
+    transformer: "lightningcss",
     lightningcss: {
       targets: {
-        chrome: 111
+        chrome: 111,
       },
       cssModules: {
         // Lightning CSS modules config
-      }
-    }
-  }
-})
+      },
+    },
+  },
+});
 ```
 
 Use Lightning CSS for minification only:
@@ -153,9 +147,9 @@ Use Lightning CSS for minification only:
 ```ts
 export default defineConfig({
   build: {
-    cssMinify: 'lightningcss'
-  }
-})
+    cssMinify: "lightningcss",
+  },
+});
 ```
 
 ## Disable CSS Injection
@@ -163,7 +157,7 @@ export default defineConfig({
 Import CSS as string without injecting:
 
 ```ts
-import styles from './styles.css?inline'  // Returns CSS string, not injected
+import styles from "./styles.css?inline"; // Returns CSS string, not injected
 ```
 
 ## Source Maps
@@ -173,9 +167,9 @@ Enable CSS source maps in development:
 ```ts
 export default defineConfig({
   css: {
-    devSourcemap: true
-  }
-})
+    devSourcemap: true,
+  },
+});
 ```
 
 ## CSS Code Splitting
@@ -185,9 +179,9 @@ By default, CSS is extracted per async chunk. Disable to get single CSS file:
 ```ts
 export default defineConfig({
   build: {
-    cssCodeSplit: false  // Single CSS file for entire app
-  }
-})
+    cssCodeSplit: false, // Single CSS file for entire app
+  },
+});
 ```
 
 ## CSS Target
@@ -197,9 +191,9 @@ Set different browser target for CSS:
 ```ts
 export default defineConfig({
   build: {
-    cssTarget: 'chrome61'  // For Android WeChat WebView
-  }
-})
+    cssTarget: "chrome61", // For Android WeChat WebView
+  },
+});
 ```
 
 ## @import and URL Handling
@@ -209,7 +203,7 @@ export default defineConfig({
 - `url()` references are rebased for correctness
 - Works across Sass/Less files in different directories
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/guide/features.html#css
 -->

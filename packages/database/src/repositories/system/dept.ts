@@ -8,11 +8,7 @@ export async function getCount(db: DrizzleD1Database) {
 }
 
 export async function getById(db: DrizzleD1Database, id: string) {
-  const rows = await db
-    .select()
-    .from(departments)
-    .where(eq(departments.id, id))
-    .limit(1);
+  const rows = await db.select().from(departments).where(eq(departments.id, id)).limit(1);
   return rows[0] ?? null;
 }
 

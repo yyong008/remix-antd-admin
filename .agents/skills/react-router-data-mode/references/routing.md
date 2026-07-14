@@ -32,21 +32,19 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
-);
+ReactDOM.createRoot(document.getElementById("root")).render(<RouterProvider router={router} />);
 ```
 
 ## Route Object Properties
 
-| Property   | Purpose                               |
-| ---------- | ------------------------------------- |
-| `path`     | URL segment to match                  |
-| `Component`| React component to render             |
-| `children` | Nested routes                         |
-| `index`    | Default child route (no path segment) |
-| `loader`   | Data loading function                 |
-| `action`   | Form submission handler               |
+| Property    | Purpose                               |
+| ----------- | ------------------------------------- |
+| `path`      | URL segment to match                  |
+| `Component` | React component to render             |
+| `children`  | Nested routes                         |
+| `index`     | Default child route (no path segment) |
+| `loader`    | Data loading function                 |
+| `action`    | Form submission handler               |
 
 See [route-object.md](./route-object.md) for all properties.
 
@@ -186,7 +184,11 @@ const router = createBrowserRouter([
 function Team() {
   const { teamId } = useParams();
   const data = useLoaderData();
-  return <h1>Team {teamId}: {data.name}</h1>;
+  return (
+    <h1>
+      Team {teamId}: {data.name}
+    </h1>
+  );
 }
 ```
 

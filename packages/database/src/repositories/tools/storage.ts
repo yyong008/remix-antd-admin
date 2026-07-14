@@ -19,11 +19,7 @@ export async function getCount(
 }
 
 export async function getById(db: DrizzleD1Database, id: string) {
-  const rows = await db
-    .select()
-    .from(storages)
-    .where(eq(storages.id, id))
-    .limit(1);
+  const rows = await db.select().from(storages).where(eq(storages.id, id)).limit(1);
   return rows[0] ?? null;
 }
 
@@ -35,10 +31,7 @@ export async function getByIds(db: DrizzleD1Database, ids: string[]) {
     .where(inArray(storages.id, ids.map(String)))) as any;
 }
 
-export async function getList(
-  db: DrizzleD1Database,
-  { where, skip = 0, take = 10, orderBy }: any,
-) {
+export async function getList(db: DrizzleD1Database, { where, skip = 0, take = 10, orderBy }: any) {
   const conditions = [] as any[];
   if (where?.userId !== undefined) {
     conditions.push(eq(storages.userId, String(where.userId)));
@@ -63,11 +56,7 @@ export async function create(db: DrizzleD1Database, data: any) {
 
 export async function update(db: DrizzleD1Database, id: string, data: any) {
   const { id: _id, ...values } = data;
-  const updated = await db
-    .update(storages)
-    .set(values)
-    .where(eq(storages.id, id))
-    .returning();
+  const updated = await db.update(storages).set(values).where(eq(storages.id, id)).returning();
   return updated[0];
 }
 

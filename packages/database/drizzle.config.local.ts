@@ -2,7 +2,10 @@ import path from "node:path";
 import { defineConfig } from "drizzle-kit";
 import { existsSync, readdirSync } from "node:fs";
 
-const D1_DIR = path.join("../../.wrangler/apps/api/", ".wrangler/state/v3/d1/miniflare-D1DatabaseObject");
+const D1_DIR = path.join(
+  "../../.wrangler/apps/api/",
+  ".wrangler/state/v3/d1/miniflare-D1DatabaseObject",
+);
 
 /** Miniflare keeps `metadata.sqlite` in the same folder; that file is not the D1 app database. */
 const isD1UserDbFile = (name: string) => name.endsWith(".sqlite") && name !== "metadata.sqlite";

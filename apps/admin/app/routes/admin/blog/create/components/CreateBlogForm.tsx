@@ -16,7 +16,7 @@ export function CreateBlogForm(props: {
   const [form] = Form.useForm();
   const nav = useNavigate();
   const { locale } = useParams();
-  const [createBlog, others] = [(...args: any): any => {}, { isLoading: false }];
+  const [createBlog, others] = [(..._args: any): any => {}, { isLoading: false }];
   const { data: categories = {} } = { data: { data: { list: [] } } };
   const { data: tags = {} } = { data: { data: { list: [] } } };
   const categoriesOptions = useMemo(() => {

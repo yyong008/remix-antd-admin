@@ -7,7 +7,6 @@ import { HowItWorks } from "~/components/landings/how-it-works";
 import { ComparisonSection } from "~/components/landings/comparison-section";
 import { CTASection } from "~/components/landings/cta-section";
 
-
 function SectionDivider() {
   return <div className="border-t border-border py-6" />;
 }

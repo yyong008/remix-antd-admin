@@ -35,8 +35,7 @@ function errorTextChain(err: unknown): string {
 function isMissingProfileLinkTimestampColumnsError(err: unknown): boolean {
   const t = errorTextChain(err);
   if (/no such column/i.test(t)) return true;
-  if (/Failed query/i.test(t) && /\bcreated_at\b|\bupdated_at\b/i.test(t))
-    return true;
+  if (/Failed query/i.test(t) && /\bcreated_at\b|\bupdated_at\b/i.test(t)) return true;
   return false;
 }
 
@@ -47,11 +46,7 @@ function countResult(v: unknown): number {
   return Number.isFinite(n) ? n : 0;
 }
 
-export async function getCount(
-  db: DrizzleD1Database,
-  userId: string,
-  categoryId?: string,
-) {
+export async function getCount(db: DrizzleD1Database, userId: string, categoryId?: string) {
   const cond = categoryId
     ? and(eq(links.userId, userId), eq(links.categoryId, categoryId))
     : eq(links.userId, userId);
@@ -61,42 +56,25 @@ export async function getCount(
 
 export async function getListByUserId(db: DrizzleD1Database, userId: string) {
   try {
-    return await db
-      .select(linkRowFull)
-      .from(links)
-      .where(eq(links.userId, userId));
+    return await db.select(linkRowFull).from(links).where(eq(links.userId, userId));
   } catch (err) {
     if (!isMissingProfileLinkTimestampColumnsError(err)) throw err;
-    return await db
-      .select(linkRowBase)
-      .from(links)
-      .where(eq(links.userId, userId));
+    return await db.select(linkRowBase).from(links).where(eq(links.userId, userId));
   }
 }
 
 export async function getById(db: DrizzleD1Database, id: string) {
   try {
-    const rows = await db
-      .select(linkRowFull)
-      .from(links)
-      .where(eq(links.id, id))
-      .limit(1);
+    const rows = await db.select(linkRowFull).from(links).where(eq(links.id, id)).limit(1);
     return rows[0] ?? null;
   } catch (err) {
     if (!isMissingProfileLinkTimestampColumnsError(err)) throw err;
-    const rows = await db
-      .select(linkRowBase)
-      .from(links)
-      .where(eq(links.id, id))
-      .limit(1);
+    const rows = await db.select(linkRowBase).from(links).where(eq(links.id, id)).limit(1);
     return rows[0] ?? null;
   }
 }
 
-export async function getList(
-  db: DrizzleD1Database,
-  { where, skip, take }: any,
-) {
+export async function getList(db: DrizzleD1Database, { where, skip, take }: any) {
   const parts = [];
   if (where?.userId !== undefined) {
     parts.push(eq(links.userId, where.userId));
@@ -104,19 +82,11 @@ export async function getList(
   if (where?.categoryId) {
     parts.push(eq(links.categoryId, where.categoryId));
   }
-  const w =
-    parts.length === 0
-      ? undefined
-      : parts.length === 1
-        ? parts[0]
-        : and(...parts);
+  const w = parts.length === 0 ? undefined : parts.length === 1 ? parts[0] : and(...parts);
   try {
     const base = db.select(linkRowFull).from(links);
     const filtered = w ? base.where(w) : base;
-    const ordered = filtered.orderBy(
-      desc(links.updatedAt),
-      desc(links.createdAt),
-    );
+    const ordered = filtered.orderBy(desc(links.updatedAt), desc(links.createdAt));
     const limited = typeof take === "number" ? ordered.limit(take) : ordered;
     const paged = typeof skip === "number" ? limited.offset(skip) : limited;
     return await paged;
@@ -131,10 +101,7 @@ export async function getList(
   }
 }
 
-export async function getLinkCountsByCategoryForUser(
-  db: DrizzleD1Database,
-  userId: string,
-) {
+export async function getLinkCountsByCategoryForUser(db: DrizzleD1Database, userId: string) {
   const rows = await db
     .select({
       categoryId: links.categoryId,
@@ -195,15 +162,9 @@ export async function update(
 
 export async function deleteByIds(db: DrizzleD1Database, ids: string[]) {
   try {
-    return await db
-      .delete(links)
-      .where(inArray(links.id, ids))
-      .returning(linkRowFull);
+    return await db.delete(links).where(inArray(links.id, ids)).returning(linkRowFull);
   } catch (err) {
     if (!isMissingProfileLinkTimestampColumnsError(err)) throw err;
-    return await db
-      .delete(links)
-      .where(inArray(links.id, ids))
-      .returning(linkRowBase);
+    return await db.delete(links).where(inArray(links.id, ids)).returning(linkRowBase);
   }
 }

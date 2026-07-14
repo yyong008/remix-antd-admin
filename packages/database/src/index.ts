@@ -5,5 +5,8 @@ export * from "./seed/users/admin";
 export * from "./seed/users/superadmin";
 export * from "./seed/users/user";
 export { LOCAL_ROLE_IDS } from "./seed/local/role-ids";
-export type { CredentialSeedUser, seedCredentialUserIfMissing } from "./seed/local/seed-credential-user";
+export type {
+  CredentialSeedUser,
+  seedCredentialUserIfMissing,
+} from "./seed/local/seed-credential-user";
 export { getDb } from "./seed/local/libsql-db";

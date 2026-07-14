@@ -38,7 +38,7 @@ export function MailForm({ content, refetch }: any) {
       loading={createMailTemplate.isPending || sendMail.isPending}
       form={form}
       submitter={{
-        render: (props, doms) => {
+        render: (props, _doms) => {
           return [
             <Button
               type="primary"

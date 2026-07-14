@@ -50,6 +50,7 @@ Add Vite's client types for `import.meta.env` and asset imports:
 ```
 
 This provides types for:
+
 - Asset imports (`.svg`, `.png`, etc.)
 - `import.meta.env` constants
 - `import.meta.hot` HMR API
@@ -60,9 +61,9 @@ Override default asset import types:
 
 ```ts
 // vite-env-override.d.ts
-declare module '*.svg' {
-  const content: React.FC<React.SVGProps<SVGElement>>
-  export default content
+declare module "*.svg" {
+  const content: React.FC<React.SVGProps<SVGElement>>;
+  export default content;
 }
 ```
 
@@ -74,9 +75,9 @@ Enable tsconfig paths resolution:
 // vite.config.ts
 export default defineConfig({
   resolve: {
-    tsconfigPaths: true
-  }
-})
+    tsconfigPaths: true,
+  },
+});
 ```
 
 ## JSX
@@ -87,14 +88,14 @@ export default defineConfig({
 export default defineConfig({
   oxc: {
     jsx: {
-      runtime: 'classic',  // or 'automatic'
-      pragma: 'h',
-      pragmaFrag: 'Fragment'
+      runtime: "classic", // or 'automatic'
+      pragma: "h",
+      pragmaFrag: "Fragment",
     },
     // Auto-inject JSX helpers
-    jsxInject: `import React from 'react'`
-  }
-})
+    jsxInject: `import React from 'react'`,
+  },
+});
 ```
 
 ## HTML
@@ -133,24 +134,24 @@ Direct import with named exports support:
 
 ```ts
 // Import entire object
-import json from './data.json'
+import json from "./data.json";
 
 // Named imports (tree-shakeable)
-import { field } from './data.json'
+import { field } from "./data.json";
 ```
 
 ## Framework Support
 
 Official framework plugins:
 
-| Framework | Plugin |
-|-----------|--------|
-| Vue 3 | `@vitejs/plugin-vue` |
-| Vue 3 JSX | `@vitejs/plugin-vue-jsx` |
-| React | `@vitejs/plugin-react` |
-| React (SWC) | `@vitejs/plugin-react-swc` |
-| React Server Components | `@vitejs/plugin-rsc` |
-| Legacy browsers | `@vitejs/plugin-legacy` |
+| Framework               | Plugin                     |
+| ----------------------- | -------------------------- |
+| Vue 3                   | `@vitejs/plugin-vue`       |
+| Vue 3 JSX               | `@vitejs/plugin-vue-jsx`   |
+| React                   | `@vitejs/plugin-react`     |
+| React (SWC)             | `@vitejs/plugin-react-swc` |
+| React Server Components | `@vitejs/plugin-rsc`       |
+| Legacy browsers         | `@vitejs/plugin-legacy`    |
 
 ## Content Security Policy
 
@@ -159,12 +160,12 @@ Configure nonce for CSP:
 ```ts
 export default defineConfig({
   html: {
-    cspNonce: 'PLACEHOLDER'  // Replace per-request
-  }
-})
+    cspNonce: "PLACEHOLDER", // Replace per-request
+  },
+});
 ```
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/guide/features.html
 -->

@@ -14,6 +14,7 @@ wrangler --version  # Requires v4.x+
 ```
 
 If not installed:
+
 ```bash
 npm install -D wrangler@latest
 ```
@@ -39,16 +40,16 @@ npx create-cloudflare@latest my-app
 
 ## Quick Reference: Core Commands
 
-| Task | Command |
-|------|---------|
-| Start local dev server | `wrangler dev` |
-| Deploy to Cloudflare | `wrangler deploy` |
-| Deploy dry run | `wrangler deploy --dry-run` |
-| Generate TypeScript types | `wrangler types` |
-| Validate configuration | `wrangler check` |
-| View live logs | `wrangler tail` |
-| Delete Worker | `wrangler delete` |
-| Auth status | `wrangler whoami` |
+| Task                      | Command                     |
+| ------------------------- | --------------------------- |
+| Start local dev server    | `wrangler dev`              |
+| Deploy to Cloudflare      | `wrangler deploy`           |
+| Deploy dry run            | `wrangler deploy --dry-run` |
+| Generate TypeScript types | `wrangler types`            |
+| Validate configuration    | `wrangler check`            |
+| View live logs            | `wrangler tail`             |
+| Delete Worker             | `wrangler delete`           |
+| Auth status               | `wrangler whoami`           |
 
 ---
 
@@ -61,7 +62,7 @@ npx create-cloudflare@latest my-app
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "my-worker",
   "main": "src/index.ts",
-  "compatibility_date": "2026-01-01"
+  "compatibility_date": "2026-01-01",
 }
 ```
 
@@ -77,56 +78,44 @@ npx create-cloudflare@latest my-app
 
   // Environment variables
   "vars": {
-    "ENVIRONMENT": "production"
+    "ENVIRONMENT": "production",
   },
 
   // KV Namespace
-  "kv_namespaces": [
-    { "binding": "KV", "id": "<KV_NAMESPACE_ID>" }
-  ],
+  "kv_namespaces": [{ "binding": "KV", "id": "<KV_NAMESPACE_ID>" }],
 
   // R2 Bucket
-  "r2_buckets": [
-    { "binding": "BUCKET", "bucket_name": "my-bucket" }
-  ],
+  "r2_buckets": [{ "binding": "BUCKET", "bucket_name": "my-bucket" }],
 
   // D1 Database
-  "d1_databases": [
-    { "binding": "DB", "database_name": "my-db", "database_id": "<DB_ID>" }
-  ],
+  "d1_databases": [{ "binding": "DB", "database_name": "my-db", "database_id": "<DB_ID>" }],
 
   // Workers AI (always remote)
   "ai": { "binding": "AI" },
 
   // Vectorize
-  "vectorize": [
-    { "binding": "VECTOR_INDEX", "index_name": "my-index" }
-  ],
+  "vectorize": [{ "binding": "VECTOR_INDEX", "index_name": "my-index" }],
 
   // Hyperdrive
-  "hyperdrive": [
-    { "binding": "HYPERDRIVE", "id": "<HYPERDRIVE_ID>" }
-  ],
+  "hyperdrive": [{ "binding": "HYPERDRIVE", "id": "<HYPERDRIVE_ID>" }],
 
   // Durable Objects
   "durable_objects": {
-    "bindings": [
-      { "name": "COUNTER", "class_name": "Counter" }
-    ]
+    "bindings": [{ "name": "COUNTER", "class_name": "Counter" }],
   },
 
   // Cron triggers
   "triggers": {
-    "crons": ["0 * * * *"]
+    "crons": ["0 * * * *"],
   },
 
   // Environments
   "env": {
     "staging": {
       "name": "my-worker-staging",
-      "vars": { "ENVIRONMENT": "staging" }
-    }
-  }
+      "vars": { "ENVIRONMENT": "staging" },
+    },
+  },
 }
 ```
 
@@ -179,13 +168,9 @@ Use `remote: true` in binding config to connect to real resources while running 
 
 ```jsonc
 {
-  "r2_buckets": [
-    { "binding": "BUCKET", "bucket_name": "my-bucket", "remote": true }
-  ],
+  "r2_buckets": [{ "binding": "BUCKET", "bucket_name": "my-bucket", "remote": true }],
   "ai": { "binding": "AI", "remote": true },
-  "vectorize": [
-    { "binding": "INDEX", "index_name": "my-index", "remote": true }
-  ]
+  "vectorize": [{ "binding": "INDEX", "index_name": "my-index", "remote": true }],
 }
 ```
 
@@ -301,9 +286,7 @@ wrangler kv bulk put --namespace-id <ID> data.json
 
 ```jsonc
 {
-  "kv_namespaces": [
-    { "binding": "CACHE", "id": "<NAMESPACE_ID>" }
-  ]
+  "kv_namespaces": [{ "binding": "CACHE", "id": "<NAMESPACE_ID>" }],
 }
 ```
 
@@ -347,9 +330,7 @@ wrangler r2 object delete my-bucket/path/file.txt
 
 ```jsonc
 {
-  "r2_buckets": [
-    { "binding": "ASSETS", "bucket_name": "my-bucket" }
-  ]
+  "r2_buckets": [{ "binding": "ASSETS", "bucket_name": "my-bucket" }],
 }
 ```
 
@@ -424,9 +405,9 @@ wrangler d1 export my-database --remote --output schema.sql --no-data
       "binding": "DB",
       "database_name": "my-database",
       "database_id": "<DATABASE_ID>",
-      "migrations_dir": "./migrations"
-    }
-  ]
+      "migrations_dir": "./migrations",
+    },
+  ],
 }
 ```
 
@@ -467,9 +448,7 @@ wrangler vectorize query my-index --vector "[0.1, 0.2, ...]" --top-k 10
 
 ```jsonc
 {
-  "vectorize": [
-    { "binding": "SEARCH_INDEX", "index_name": "my-index" }
-  ]
+  "vectorize": [{ "binding": "SEARCH_INDEX", "index_name": "my-index" }],
 }
 ```
 
@@ -502,9 +481,7 @@ wrangler hyperdrive delete <HYPERDRIVE_ID>
 ```jsonc
 {
   "compatibility_flags": ["nodejs_compat_v2"],
-  "hyperdrive": [
-    { "binding": "HYPERDRIVE", "id": "<HYPERDRIVE_ID>" }
-  ]
+  "hyperdrive": [{ "binding": "HYPERDRIVE", "id": "<HYPERDRIVE_ID>" }],
 }
 ```
 
@@ -526,7 +503,7 @@ wrangler ai finetune list
 
 ```jsonc
 {
-  "ai": { "binding": "AI" }
+  "ai": { "binding": "AI" },
 }
 ```
 
@@ -560,17 +537,15 @@ wrangler queues consumer remove my-queue my-worker
 ```jsonc
 {
   "queues": {
-    "producers": [
-      { "binding": "MY_QUEUE", "queue": "my-queue" }
-    ],
+    "producers": [{ "binding": "MY_QUEUE", "queue": "my-queue" }],
     "consumers": [
       {
         "queue": "my-queue",
         "max_batch_size": 10,
-        "max_batch_timeout": 30
-      }
-    ]
-  }
+        "max_batch_timeout": 30,
+      },
+    ],
+  },
 }
 ```
 
@@ -672,9 +647,9 @@ wrangler workflows instances terminate my-workflow <INSTANCE_ID>
     {
       "binding": "MY_WORKFLOW",
       "name": "my-workflow",
-      "class_name": "MyWorkflow"
-    }
-  ]
+      "class_name": "MyWorkflow",
+    },
+  ],
 }
 ```
 
@@ -705,9 +680,7 @@ wrangler pipelines delete my-pipeline
 
 ```jsonc
 {
-  "pipelines": [
-    { "binding": "MY_PIPELINE", "pipeline": "my-pipeline" }
-  ]
+  "pipelines": [{ "binding": "MY_PIPELINE", "pipeline": "my-pipeline" }],
 }
 ```
 
@@ -752,9 +725,9 @@ wrangler secrets-store secret delete <STORE_ID> my-secret
     {
       "binding": "MY_SECRET",
       "store_id": "<STORE_ID>",
-      "secret_name": "my-secret"
-    }
-  ]
+      "secret_name": "my-secret",
+    },
+  ],
 }
 ```
 
@@ -805,8 +778,8 @@ wrangler tail --format json
 {
   "observability": {
     "enabled": true,
-    "head_sampling_rate": 1
-  }
+    "head_sampling_rate": 1,
+  },
 }
 ```
 
@@ -821,6 +794,7 @@ npm install -D @cloudflare/vitest-pool-workers vitest
 ```
 
 `vitest.config.ts`:
+
 ```typescript
 import { defineWorkersConfig } from "@cloudflare/vitest-pool-workers/config";
 
@@ -851,14 +825,14 @@ curl http://localhost:8787/__scheduled
 
 ### Common Issues
 
-| Issue | Solution |
-|-------|----------|
-| `command not found: wrangler` | Install: `npm install -D wrangler` |
-| Auth errors | Run `wrangler login` |
-| Config validation errors | Run `wrangler check` |
-| Type errors after config change | Run `wrangler types` |
-| Local storage not persisting | Check `.wrangler/state` directory |
-| Binding undefined in Worker | Verify binding name matches config exactly |
+| Issue                           | Solution                                   |
+| ------------------------------- | ------------------------------------------ |
+| `command not found: wrangler`   | Install: `npm install -D wrangler`         |
+| Auth errors                     | Run `wrangler login`                       |
+| Config validation errors        | Run `wrangler check`                       |
+| Type errors after config change | Run `wrangler types`                       |
+| Local storage not persisting    | Check `.wrangler/state` directory          |
+| Binding undefined in Worker     | Verify binding name matches config exactly |
 
 ### Debug Commands
 

@@ -8,18 +8,11 @@ export async function getCount(db: DrizzleD1Database) {
 }
 
 export async function getById(db: DrizzleD1Database, id: string) {
-  const rows = await db
-    .select()
-    .from(feedbacks)
-    .where(eq(feedbacks.id, id))
-    .limit(1);
+  const rows = await db.select().from(feedbacks).where(eq(feedbacks.id, id)).limit(1);
   return rows[0] ?? null;
 }
 
-export async function getList(
-  db: DrizzleD1Database,
-  { where, skip, take }: any,
-) {
+export async function getList(db: DrizzleD1Database, { where, skip, take }: any) {
   let query: any = db.select().from(feedbacks);
   if (where?.userId !== undefined) {
     query = query.where(eq(feedbacks.userId, String(where.userId)));
@@ -45,8 +38,5 @@ export async function update(db: DrizzleD1Database, data: any) {
 }
 
 export async function deleteByIds(db: DrizzleD1Database, ids: string[]) {
-  return await db
-    .delete(feedbacks)
-    .where(inArray(feedbacks.id, ids))
-    .returning();
+  return await db.delete(feedbacks).where(inArray(feedbacks.id, ids)).returning();
 }

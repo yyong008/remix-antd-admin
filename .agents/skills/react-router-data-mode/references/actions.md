@@ -248,9 +248,7 @@ function FavoriteButton({ itemId, isFavorite }) {
   const fetcher = useFetcher();
 
   // Optimistic: use pending form data, fallback to server state
-  const optimistic = fetcher.formData
-    ? fetcher.formData.get("favorite") === "true"
-    : isFavorite;
+  const optimistic = fetcher.formData ? fetcher.formData.get("favorite") === "true" : isFavorite;
 
   return (
     <fetcher.Form method="post" action={`/items/${itemId}/favorite`}>

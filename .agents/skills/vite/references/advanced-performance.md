@@ -39,10 +39,10 @@ Be explicit with extensions to avoid filesystem checks:
 
 ```ts
 // Slow: checks .mjs, .js, .mts, .ts, .jsx, .tsx, .json
-import Component from './Component'
+import Component from "./Component";
 
 // Fast: direct hit
-import Component from './Component.tsx'
+import Component from "./Component.tsx";
 ```
 
 Enable TypeScript path resolution for explicit imports:
@@ -62,10 +62,10 @@ Barrel files (`index.js` re-exporting everything) cause all files to load:
 
 ```ts
 // Slow: loads all utils
-import { slash } from './utils'
+import { slash } from "./utils";
 
 // Fast: loads only slash.js
-import { slash } from './utils/slash.js'
+import { slash } from "./utils/slash.js";
 ```
 
 ## Warm Up Frequently Used Files
@@ -76,14 +76,11 @@ Pre-transform files that are always loaded:
 export default defineConfig({
   server: {
     warmup: {
-      clientFiles: [
-        './src/components/BigComponent.vue',
-        './src/utils/big-utils.js'
-      ],
-      ssrFiles: ['./src/server/modules/*.js']
-    }
-  }
-})
+      clientFiles: ["./src/components/BigComponent.vue", "./src/utils/big-utils.js"],
+      ssrFiles: ["./src/server/modules/*.js"],
+    },
+  },
+});
 ```
 
 Find files to warm up:
@@ -95,19 +92,21 @@ vite --debug transform
 ## Use Native/Less Tooling
 
 **Do less work:**
+
 - CSS instead of Sass/Less (PostCSS has nesting)
 - Don't transform SVGs to components - import as strings/URLs
 - Skip Babel in `@vitejs/plugin-react` if not needed
 
 **Use native tools:**
+
 - Try Lightning CSS for faster CSS processing
 
 ```ts
 export default defineConfig({
   css: {
-    transformer: 'lightningcss'
-  }
-})
+    transformer: "lightningcss",
+  },
+});
 ```
 
 ## Server Options
@@ -119,9 +118,9 @@ Triggers warmup of entry point:
 ```ts
 export default defineConfig({
   server: {
-    open: true
-  }
-})
+    open: true,
+  },
+});
 ```
 
 ### Limit File Watching
@@ -130,10 +129,10 @@ export default defineConfig({
 export default defineConfig({
   server: {
     watch: {
-      ignored: ['**/large-folder/**']
-    }
-  }
-})
+      ignored: ["**/large-folder/**"],
+    },
+  },
+});
 ```
 
 ## Build Performance
@@ -145,9 +144,9 @@ Skip gzip size calculation for large projects:
 ```ts
 export default defineConfig({
   build: {
-    reportCompressedSize: false
-  }
-})
+    reportCompressedSize: false,
+  },
+});
 ```
 
 ### Sourcemaps
@@ -157,12 +156,12 @@ Disable if not needed:
 ```ts
 export default defineConfig({
   build: {
-    sourcemap: false
-  }
-})
+    sourcemap: false,
+  },
+});
 ```
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/guide/performance.html
 -->

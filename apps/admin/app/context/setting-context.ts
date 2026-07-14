@@ -5,9 +5,9 @@ export const SettingContext = createContext({
   theme: {
     colorPrimary: "",
   },
-  setTheme: (theme: unknown) => {},
+  setTheme: (_theme: unknown) => {},
   lang: defaultLang,
-  setLang: (v: unknown) => {},
+  setLang: (_v: unknown) => {},
 });
 
 export default SettingContext;

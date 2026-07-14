@@ -25,11 +25,7 @@ export async function create(db: DrizzleD1Database, data: any) {
 
 export async function update(db: DrizzleD1Database, data: any) {
   const { id, ...values } = data;
-  const updated = await db
-    .update(sysConfig)
-    .set(values)
-    .where(eq(sysConfig.id, id))
-    .returning();
+  const updated = await db.update(sysConfig).set(values).where(eq(sysConfig.id, id)).returning();
   return updated[0];
 }
 

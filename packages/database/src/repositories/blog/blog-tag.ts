@@ -16,11 +16,7 @@ export async function getListByUserId(db: DrizzleD1Database, userId: string) {
 }
 
 export async function getById(db: DrizzleD1Database, id: string) {
-  const rows = await db
-    .select()
-    .from(blogTags)
-    .where(eq(blogTags.id, id))
-    .limit(1);
+  const rows = await db.select().from(blogTags).where(eq(blogTags.id, id)).limit(1);
   return rows[0] ?? null;
 }
 
@@ -35,19 +31,12 @@ export async function create(db: DrizzleD1Database, data: any) {
 
 export async function update(db: DrizzleD1Database, data: any) {
   const { id, ...values } = data;
-  const updated = await db
-    .update(blogTags)
-    .set(values)
-    .where(eq(blogTags.id, id))
-    .returning();
+  const updated = await db.update(blogTags).set(values).where(eq(blogTags.id, id)).returning();
   return updated[0];
 }
 
 export async function deleteById(db: DrizzleD1Database, id: string) {
-  const deleted = await db
-    .delete(blogTags)
-    .where(eq(blogTags.id, id))
-    .returning();
+  const deleted = await db.delete(blogTags).where(eq(blogTags.id, id)).returning();
   return deleted[0] ?? null;
 }
 

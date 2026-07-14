@@ -81,10 +81,7 @@ function Nav() {
 Or use className:
 
 ```tsx
-<NavLink
-  to="/dashboard"
-  className={({ isPending }) => (isPending ? "pending" : "")}
->
+<NavLink to="/dashboard" className={({ isPending }) => (isPending ? "pending" : "")}>
   Dashboard
 </NavLink>
 ```
@@ -106,9 +103,7 @@ function LikeButton({ postId, liked }) {
 
   return (
     <fetcher.Form method="post" action={`/posts/${postId}/like`}>
-      <button disabled={isPending}>
-        {isPending ? "..." : liked ? "Unlike" : "Like"}
-      </button>
+      <button disabled={isPending}>{isPending ? "..." : liked ? "Unlike" : "Like"}</button>
     </fetcher.Form>
   );
 }
@@ -133,9 +128,7 @@ function FavoriteButton({ itemId, isFavorite }) {
   const fetcher = useFetcher();
 
   // Optimistic: use pending form data, fallback to server state
-  const optimistic = fetcher.formData
-    ? fetcher.formData.get("favorite") === "true"
-    : isFavorite;
+  const optimistic = fetcher.formData ? fetcher.formData.get("favorite") === "true" : isFavorite;
 
   return (
     <fetcher.Form method="post" action={`/items/${itemId}/favorite`}>
@@ -156,9 +149,7 @@ function RatingStars({ itemId, currentRating }) {
 
   // 1. Check if we're submitting - use the pending value
   // 2. Otherwise use the server value
-  const displayRating = fetcher.formData
-    ? Number(fetcher.formData.get("rating"))
-    : currentRating;
+  const displayRating = fetcher.formData ? Number(fetcher.formData.get("rating")) : currentRating;
 
   const isSubmitting = fetcher.state !== "idle";
 
@@ -201,9 +192,7 @@ function NewProjectForm() {
   return (
     <Form method="post">
       <input type="text" name="title" />
-      <button disabled={isSubmitting}>
-        {isSubmitting ? "Creating..." : "Create"}
-      </button>
+      <button disabled={isSubmitting}>{isSubmitting ? "Creating..." : "Create"}</button>
 
       {optimisticTitle && <p>Creating "{optimisticTitle}"...</p>}
     </Form>
@@ -369,10 +358,7 @@ const router = createBrowserRouter([
         loader: async ({ params }) => fetchItem(params.itemId),
         action: async ({ request, params }) => {
           const formData = await request.formData();
-          return toggleFavorite(
-            params.itemId,
-            formData.get("favorite") === "true",
-          );
+          return toggleFavorite(params.itemId, formData.get("favorite") === "true");
         },
         Component: Item,
       },
@@ -387,10 +373,7 @@ function Root() {
   return (
     <div style={{ opacity: isNavigating ? 0.5 : 1 }}>
       <nav>
-        <NavLink
-          to="/"
-          className={({ isPending }) => (isPending ? "pending" : "")}
-        >
+        <NavLink to="/" className={({ isPending }) => (isPending ? "pending" : "")}>
           Home
         </NavLink>
       </nav>

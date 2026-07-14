@@ -160,9 +160,7 @@ export default function Product({ loaderData }: Route.ComponentProps) {
       <h1>{loaderData.product.name}</h1>
 
       <Suspense fallback={<ReviewsSkeleton />}>
-        <Await resolve={loaderData.reviews}>
-          {(reviews) => <Reviews items={reviews} />}
-        </Await>
+        <Await resolve={loaderData.reviews}>{(reviews) => <Reviews items={reviews} />}</Await>
       </Suspense>
     </div>
   );

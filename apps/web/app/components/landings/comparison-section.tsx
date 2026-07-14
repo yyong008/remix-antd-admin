@@ -35,15 +35,24 @@ const features: Array<{ key: FeatureKey; has: boolean }> = [
 
 function featureLabel(key: FeatureKey) {
   switch (key) {
-    case "feature_1": return m.home_comparison_feature_1();
-    case "feature_2": return m.home_comparison_feature_2();
-    case "feature_3": return m.home_comparison_feature_3();
-    case "feature_4": return m.home_comparison_feature_4();
-    case "feature_5": return m.home_comparison_feature_5();
-    case "feature_6": return m.home_comparison_feature_6();
-    case "feature_7": return m.home_comparison_feature_7();
-    case "feature_8": return m.home_comparison_feature_8();
-    case "feature_9": return m.home_comparison_feature_9();
+    case "feature_1":
+      return m.home_comparison_feature_1();
+    case "feature_2":
+      return m.home_comparison_feature_2();
+    case "feature_3":
+      return m.home_comparison_feature_3();
+    case "feature_4":
+      return m.home_comparison_feature_4();
+    case "feature_5":
+      return m.home_comparison_feature_5();
+    case "feature_6":
+      return m.home_comparison_feature_6();
+    case "feature_7":
+      return m.home_comparison_feature_7();
+    case "feature_8":
+      return m.home_comparison_feature_8();
+    case "feature_9":
+      return m.home_comparison_feature_9();
   }
 }
 
@@ -66,16 +75,26 @@ export function ComparisonSection() {
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[80%]">{m.home_comparison_header_feature()}</TableHead>
-                  <TableHead className="text-center">{m.home_comparison_header_support()}</TableHead>
+                  <TableHead className="text-center">
+                    {m.home_comparison_header_support()}
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {features.map((item, index) => (
                   <TableRow key={item.key}>
-                    <TableCell className={index % 2 === 0 ? "bg-gray-50 dark:bg-gray-800/50" : "bg-white dark:bg-gray-900"}>
+                    <TableCell
+                      className={
+                        index % 2 === 0
+                          ? "bg-gray-50 dark:bg-gray-800/50"
+                          : "bg-white dark:bg-gray-900"
+                      }
+                    >
                       {featureLabel(item.key)}
                     </TableCell>
-                    <TableCell className={`text-center ${index % 2 === 0 ? "bg-gray-50 dark:bg-gray-800/50" : "bg-white dark:bg-gray-900"}`}>
+                    <TableCell
+                      className={`text-center ${index % 2 === 0 ? "bg-gray-50 dark:bg-gray-800/50" : "bg-white dark:bg-gray-900"}`}
+                    >
                       {item.has ? <IconCheck className="size-4 text-green-500" /> : null}
                     </TableCell>
                   </TableRow>

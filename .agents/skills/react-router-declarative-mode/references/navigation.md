@@ -73,10 +73,7 @@ a.active {
 For custom class names, use the `className` function:
 
 ```tsx
-<NavLink
-  to="/products"
-  className={({ isActive }) => (isActive ? "nav-active" : "nav-link")}
->
+<NavLink to="/products" className={({ isActive }) => (isActive ? "nav-active" : "nav-link")}>
   Products
 </NavLink>
 ```

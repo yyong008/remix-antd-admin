@@ -12,7 +12,7 @@ import { EditOutlined } from "@ant-design/icons";
 export default function ChangeLogUpdateModal({ record, refetch }: any) {
   const [form] = Form.useForm();
 
-  const [updateChangelogById, other] = [(...args: any): any => {}, { isLoading: false }];
+  const [updateChangelogById, other] = [(..._args: any): any => {}, { isLoading: false }];
   return (
     <ModalForm
       key={Date.now()}

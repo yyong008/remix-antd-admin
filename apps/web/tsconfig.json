@@ -1,9 +1,6 @@
 {
   "files": [],
-  "references": [
-    { "path": "./tsconfig.node.json" },
-    { "path": "./tsconfig.cloudflare.json" }
-  ],
+  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.cloudflare.json" }],
   "compilerOptions": {
     "checkJs": true,
     "verbatimModuleSyntax": true,
@@ -11,9 +8,11 @@
     "strict": true,
     "noEmit": true,
     "rootDirs": [".", "./.react-router/types"],
+    "allowImportingTsExtensions": true,
     "paths": {
       "~/*": ["./app/*"],
+      "collections/*": ["./.source/*"],
       "@workspace/ui/*": ["../../packages/ui/src/*"]
-    },
+    }
   }
 }

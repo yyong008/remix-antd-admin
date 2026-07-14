@@ -1,13 +1,12 @@
 import { Button, Form, Modal, message } from "antd";
 
-import { EditOutlined } from "@ant-design/icons";
 import { useUpdateBlogTag } from "~/api-client/queries/blog/blog-tag";
 import { ModalFormItems } from "./ModalFormItems";
 import { useColorPrimary } from "~/hooks/useColorPrimary";
 
 export function UpdateBlogModal({ refetch, record, open, onClose }: any) {
   const [form] = Form.useForm();
-  const { colorPrimary } = useColorPrimary();
+  const { colorPrimary: _colorPrimary } = useColorPrimary();
   const { mutateAsync: updateTag } = useUpdateBlogTag();
 
   const handleClose = () => {

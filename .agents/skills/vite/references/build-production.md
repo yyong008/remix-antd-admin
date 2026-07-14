@@ -20,10 +20,10 @@ Default target: Baseline Widely Available browsers (Chrome 111+, Edge 111+, Fire
 ```ts
 export default defineConfig({
   build: {
-    target: 'es2020',  // Or specific browsers
+    target: "es2020", // Or specific browsers
     // target: ['chrome64', 'firefox78', 'safari12']
-  }
-})
+  },
+});
 ```
 
 For legacy browsers:
@@ -33,15 +33,15 @@ npm add -D @vitejs/plugin-legacy
 ```
 
 ```ts
-import legacy from '@vitejs/plugin-legacy'
+import legacy from "@vitejs/plugin-legacy";
 
 export default defineConfig({
   plugins: [
     legacy({
-      targets: ['defaults', 'not IE 11']
-    })
-  ]
-})
+      targets: ["defaults", "not IE 11"],
+    }),
+  ],
+});
 ```
 
 ## Output Configuration
@@ -49,13 +49,13 @@ export default defineConfig({
 ```ts
 export default defineConfig({
   build: {
-    outDir: 'dist',           // Output directory
-    assetsDir: 'assets',      // Assets subdirectory
-    emptyOutDir: true,        // Clear outDir before build
-    sourcemap: true,          // Generate sourcemaps
+    outDir: "dist", // Output directory
+    assetsDir: "assets", // Assets subdirectory
+    emptyOutDir: true, // Clear outDir before build
+    sourcemap: true, // Generate sourcemaps
     // sourcemap: 'inline' | 'hidden'
-  }
-})
+  },
+});
 ```
 
 ## Public Base Path
@@ -64,39 +64,39 @@ For deploying under a subpath:
 
 ```ts
 export default defineConfig({
-  base: '/my-app/'
-})
+  base: "/my-app/",
+});
 ```
 
 Relative base (works anywhere):
 
 ```ts
 export default defineConfig({
-  base: './'
-})
+  base: "./",
+});
 ```
 
 Access in code:
 
 ```ts
-const base = import.meta.env.BASE_URL
+const base = import.meta.env.BASE_URL;
 ```
 
 ## Multi-Page App
 
 ```ts
-import { resolve } from 'path'
+import { resolve } from "path";
 
 export default defineConfig({
   build: {
     rolldownOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        nested: resolve(__dirname, 'nested/index.html')
-      }
-    }
-  }
-})
+        main: resolve(__dirname, "index.html"),
+        nested: resolve(__dirname, "nested/index.html"),
+      },
+    },
+  },
+});
 ```
 
 ## Minification
@@ -104,17 +104,18 @@ export default defineConfig({
 ```ts
 export default defineConfig({
   build: {
-    minify: 'oxc',     // Default, fastest
+    minify: "oxc", // Default, fastest
     // minify: 'terser',  // More options, slower
     // minify: false,     // Disable
-    
-    terserOptions: {   // If using terser
+
+    terserOptions: {
+      // If using terser
       compress: {
-        drop_console: true
-      }
-    }
-  }
-})
+        drop_console: true,
+      },
+    },
+  },
+});
 ```
 
 ## Chunk Strategy
@@ -126,12 +127,12 @@ export default defineConfig({
       output: {
         codeSplitting: {
           // Manual chunks configuration
-        }
-      }
+        },
+      },
     },
-    chunkSizeWarningLimit: 500  // KB
-  }
-})
+    chunkSizeWarningLimit: 500, // KB
+  },
+});
 ```
 
 ## CSS Options
@@ -139,11 +140,11 @@ export default defineConfig({
 ```ts
 export default defineConfig({
   build: {
-    cssCodeSplit: true,         // CSS per async chunk
-    cssMinify: 'lightningcss',  // or 'esbuild'
-    cssTarget: 'chrome61'       // Different from JS target
-  }
-})
+    cssCodeSplit: true, // CSS per async chunk
+    cssMinify: "lightningcss", // or 'esbuild'
+    cssTarget: "chrome61", // Different from JS target
+  },
+});
 ```
 
 ## Asset Handling
@@ -151,10 +152,10 @@ export default defineConfig({
 ```ts
 export default defineConfig({
   build: {
-    assetsInlineLimit: 4096,    // Inline assets < 4KB as base64
-    copyPublicDir: true         // Copy public/ to outDir
-  }
-})
+    assetsInlineLimit: 4096, // Inline assets < 4KB as base64
+    copyPublicDir: true, // Copy public/ to outDir
+  },
+});
 ```
 
 ## Manifest
@@ -164,9 +165,9 @@ Generate manifest for backend integration:
 ```ts
 export default defineConfig({
   build: {
-    manifest: true  // .vite/manifest.json
-  }
-})
+    manifest: true, // .vite/manifest.json
+  },
+});
 ```
 
 ## Watch Mode
@@ -180,9 +181,9 @@ vite build --watch
 ```ts
 export default defineConfig({
   build: {
-    watch: {}  // Enable programmatically
-  }
-})
+    watch: {}, // Enable programmatically
+  },
+});
 ```
 
 ## Load Error Handling
@@ -190,9 +191,9 @@ export default defineConfig({
 Handle dynamic import failures (e.g., after deployment):
 
 ```ts
-window.addEventListener('vite:preloadError', (event) => {
-  window.location.reload()
-})
+window.addEventListener("vite:preloadError", (event) => {
+  window.location.reload();
+});
 ```
 
 ## Build Optimizations (Automatic)
@@ -208,12 +209,12 @@ Generate license file for dependencies:
 ```ts
 export default defineConfig({
   build: {
-    license: true  // .vite/license.md
-  }
-})
+    license: true, // .vite/license.md
+  },
+});
 ```
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/guide/build.html
 - https://vite.dev/config/build-options.html

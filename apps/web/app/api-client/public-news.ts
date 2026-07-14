@@ -27,7 +27,10 @@ interface CategoryListResponse {
   list: Category[];
 }
 
-async function fetchNewsList(params?: { page: number; pageSize: number }): Promise<NewsListResponse> {
+async function fetchNewsList(params?: {
+  page: number;
+  pageSize: number;
+}): Promise<NewsListResponse> {
   const searchParams = new URLSearchParams();
   if (params?.page) searchParams.set("page", String(params.page));
   if (params?.pageSize) searchParams.set("pageSize", String(params.pageSize));

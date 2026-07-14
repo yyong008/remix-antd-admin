@@ -11,7 +11,7 @@ import { useNavigate, useParams } from "react-router";
 
 const ActionRenderImpl = () => {
   const navigate = useNavigate();
-  const { locale } = useParams();
+  const { locale: _locale } = useParams();
 
   const choiceLang = (newLocale: string) => {
     navigate(`/${newLocale ? `${newLocale}/` : ""}admin/dashboard`, {

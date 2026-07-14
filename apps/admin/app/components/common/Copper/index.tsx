@@ -26,8 +26,8 @@ export function Cropper({
   imageSrc,
   aspect = 1,
   circular = true,
-  initialWidth = 200,
-  initialHeight = 200,
+  initialWidth: _initialWidth = 200,
+  initialHeight: _initialHeight = 200,
 }: CropperProps) {
   const imgRef = useRef<HTMLImageElement | null>(null);
   const [crop, setCrop] = useState<Crop>({

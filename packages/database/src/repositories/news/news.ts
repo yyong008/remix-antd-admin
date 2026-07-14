@@ -37,14 +37,8 @@ export async function getCount(db: DrizzleD1Database) {
   return rows[0]?.c ?? 0;
 }
 
-export async function getCountByCategory(
-  db: DrizzleD1Database,
-  categoryId: string,
-) {
-  const rows = await db
-    .select({ c: count() })
-    .from(news)
-    .where(eq(news.newsId, categoryId));
+export async function getCountByCategory(db: DrizzleD1Database, categoryId: string) {
+  const rows = await db.select({ c: count() }).from(news).where(eq(news.newsId, categoryId));
   return rows[0]?.c ?? 0;
 }
 
@@ -100,10 +94,7 @@ export async function getList(
   return getPage(db, { page, pageSize });
 }
 
-export async function getListWithCategoryId(
-  db: DrizzleD1Database,
-  categoryId: string,
-) {
+export async function getListWithCategoryId(db: DrizzleD1Database, categoryId: string) {
   return await db.select().from(news).where(eq(news.newsId, categoryId));
 }
 

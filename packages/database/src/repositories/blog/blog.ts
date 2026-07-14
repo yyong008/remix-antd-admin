@@ -34,18 +34,11 @@ export async function create(db: DrizzleD1Database, data: any): Promise<any> {
 
 export async function update(db: DrizzleD1Database, data: any): Promise<any> {
   const { id, ...values } = data;
-  const updated = await db
-    .update(blogs)
-    .set(values)
-    .where(eq(blogs.id, id))
-    .returning();
+  const updated = await db.update(blogs).set(values).where(eq(blogs.id, id)).returning();
   return updated[0];
 }
 
-export async function deleteByIds(
-  db: DrizzleD1Database,
-  ids: string[],
-): Promise<any> {
+export async function deleteByIds(db: DrizzleD1Database, ids: string[]): Promise<any> {
   return await db.delete(blogs).where(inArray(blogs.id, ids)).returning();
 }
 
@@ -53,21 +46,14 @@ export async function getAll(db: DrizzleD1Database): Promise<any> {
   return await db.select().from(blogs);
 }
 
-export async function getListByCategoryId(
-  db: DrizzleD1Database,
-  categoryId: string,
-): Promise<any> {
+export async function getListByCategoryId(db: DrizzleD1Database, categoryId: string): Promise<any> {
   return await db.select().from(blogs).where(eq(blogs.categoryId, categoryId));
 }
 
-export async function getAdminList(
-  db: DrizzleD1Database,
-  data: any,
-): Promise<any> {
+export async function getAdminList(db: DrizzleD1Database, data: any): Promise<any> {
   const { categoryId, tagId, page, pageSize } = data;
   const conditions = [] as any[];
-  if (tagId && tagId !== "0" && tagId !== 0)
-    conditions.push(eq(blogs.tagId, tagId));
+  if (tagId && tagId !== "0" && tagId !== 0) conditions.push(eq(blogs.tagId, tagId));
   if (categoryId && categoryId !== "0" && categoryId !== 0)
     conditions.push(eq(blogs.categoryId, categoryId));
   let query = db.select().from(blogs);
@@ -80,14 +66,10 @@ export async function getAdminList(
   return await query.limit(pageSize).offset((page - 1) * pageSize);
 }
 
-export async function getAdminCount(
-  db: DrizzleD1Database,
-  data: any,
-): Promise<number> {
+export async function getAdminCount(db: DrizzleD1Database, data: any): Promise<number> {
   const { categoryId, tagId } = data;
   const conditions = [] as any[];
-  if (tagId && tagId !== "0" && tagId !== 0)
-    conditions.push(eq(blogs.tagId, tagId));
+  if (tagId && tagId !== "0" && tagId !== 0) conditions.push(eq(blogs.tagId, tagId));
   if (categoryId && categoryId !== "0" && categoryId !== 0)
     conditions.push(eq(blogs.categoryId, categoryId));
   if (conditions.length) {
@@ -111,9 +93,7 @@ export async function getPublicList(db: DrizzleD1Database): Promise<any> {
   return await db
     .select()
     .from(blogs)
-    .where(
-      and(inArray(blogs.categoryId, categoryIds), eq(blogs.isPublished, true)),
-    );
+    .where(and(inArray(blogs.categoryId, categoryIds), eq(blogs.isPublished, true)));
 }
 
 export async function getById(db: DrizzleD1Database, id: string): Promise<any> {

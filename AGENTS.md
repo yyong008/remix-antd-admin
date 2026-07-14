@@ -8,19 +8,19 @@ A full-stack admin dashboard platform featuring RBAC, content management (blog/n
 
 ## Technology Choices
 
-| Choice | Rationale |
-|--------|-----------|
+| Choice                               | Rationale                                                                                             |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------------- |
 | **React Router v8** (Framework Mode) | Full-stack React with loaders/actions for data fetching, file-based routing, and SSR/SSG capabilities |
-| **Hono 4** | Lightweight, fast, type-safe API framework with first-class RPC client support |
-| **Ant Design 6** | Comprehensive enterprise UI component library with theming system |
-| **Drizzle ORM** | Type-safe SQL ORM with schema migrations and D1 support |
-| **Better Auth** | Full-featured auth framework with session management, RBAC, and social login |
-| **Cloudflare D1** | Serverless SQLite with zero maintenance, global replication via Workers |
-| **TanStack React Query** | Server state management with caching, invalidation, and optimistic updates |
-| **pnpm + Turborepo** | Fast package manager with strict dependency resolution + monorepo orchestration |
-| **inlang Paraglide JS** | Tree-shakable i18n with Type-safe messages and no runtime overhead |
-| **Tailwind CSS 4** | Utility-first CSS with JIT compilation, used alongside Ant Design tokens |
-| **Vite** | Fast HMR, optimized builds with Rolldown/Rollup |
+| **Hono 4**                           | Lightweight, fast, type-safe API framework with first-class RPC client support                        |
+| **Ant Design 6**                     | Comprehensive enterprise UI component library with theming system                                     |
+| **Drizzle ORM**                      | Type-safe SQL ORM with schema migrations and D1 support                                               |
+| **Better Auth**                      | Full-featured auth framework with session management, RBAC, and social login                          |
+| **Cloudflare D1**                    | Serverless SQLite with zero maintenance, global replication via Workers                               |
+| **TanStack React Query**             | Server state management with caching, invalidation, and optimistic updates                            |
+| **pnpm + Turborepo**                 | Fast package manager with strict dependency resolution + monorepo orchestration                       |
+| **inlang Paraglide JS**              | Tree-shakable i18n with Type-safe messages and no runtime overhead                                    |
+| **Tailwind CSS 4**                   | Utility-first CSS with JIT compilation, used alongside Ant Design tokens                              |
+| **Vite**                             | Fast HMR, optimized builds with Rolldown/Rollup                                                       |
 
 ## Workspace Structure
 
@@ -116,22 +116,21 @@ app/
 - Use `"catalog:"` protocol in package.json to reference catalog entries
 - Run `pnpm install` at root after adding/changing any dependency
 - Never commit `pnpm-lock.yaml` changes without a corresponding package.json change
-- `.npmrc` exists for legacy Prisma mirror config (not actively used)
 
 ## Turbo Orchestration Rules
 
 Tasks defined in `turbo.json`:
 
-| Task | Caching | Depends On | Notes |
-|------|---------|------------|-------|
-| `build` | disabled | `^build` | Outputs to `dist/**`, `build/**` |
-| `dev` | disabled | `^build` | `persistent: true` (long-running) |
-| `lint` | enabled | `^build` | Outputs empty (no artifacts) |
-| `format` | enabled | `^build` | Outputs empty |
-| `deploy` | disabled | `^build` | Deployment gate |
-| `generate` | disabled | - | Code generation |
-| `clean` | disabled | - | Clean builds |
-| `react-doctor` | disabled | - | React diagnosis |
+| Task           | Caching  | Depends On | Notes                             |
+| -------------- | -------- | ---------- | --------------------------------- |
+| `build`        | disabled | `^build`   | Outputs to `dist/**`, `build/**`  |
+| `dev`          | disabled | `^build`   | `persistent: true` (long-running) |
+| `lint`         | enabled  | `^build`   | Outputs empty (no artifacts)      |
+| `format`       | enabled  | `^build`   | Outputs empty                     |
+| `deploy`       | disabled | `^build`   | Deployment gate                   |
+| `generate`     | disabled | -          | Code generation                   |
+| `clean`        | disabled | -          | Clean builds                      |
+| `react-doctor` | disabled | -          | React diagnosis                   |
 
 - Root scripts use turbo: `turbo build`, `turbo dev`, `turbo lint`, `turbo fmt`, `turbo test`
 - Use `-F` flag for per-package commands: `pnpm -F @workspace/database run migrate`
@@ -143,11 +142,11 @@ Framework: **inlang Paraglide JS** — compile-time i18n with tree-shakeable mes
 
 ### Message Files
 
-| Location | Languages | Scope |
-|----------|-----------|-------|
-| `packages/i18n/messages/` | en, zh | Shared messages |
-| `apps/admin/messages/` | en, de | Admin app messages |
-| `apps/web/messages/` | en, zh | Web app messages |
+| Location                  | Languages | Scope              |
+| ------------------------- | --------- | ------------------ |
+| `packages/i18n/messages/` | en, zh    | Shared messages    |
+| `apps/admin/messages/`    | en, de    | Admin app messages |
+| `apps/web/messages/`      | en, zh    | Web app messages   |
 
 ### Configuration
 

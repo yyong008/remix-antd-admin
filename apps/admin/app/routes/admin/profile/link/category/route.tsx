@@ -38,7 +38,7 @@ export function Route() {
     name: string;
     description?: string;
   } | null>(null);
-  const updateMutation = useUpdateProfileLinkCategory();
+  const _updateMutation = useUpdateProfileLinkCategory();
   const deleteMutation = useDeleteProfileLinkCategory();
 
   const categories = catData?.list ?? [];
@@ -76,7 +76,7 @@ export function Route() {
   );
 
   const linkList = linkData?.list ?? [];
-  const linkTotal = linkData?.total ?? 0;
+  const _linkTotal = linkData?.total ?? 0;
 
   const refetchAll = useCallback(() => {
     refetchCategories();

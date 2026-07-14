@@ -49,7 +49,7 @@ export function MailForm({ data, content, refetch }: any) {
       form={form}
       initialValues={{ ...data }}
       submitter={{
-        render: (props, doms) => {
+        render: (props, _doms) => {
           return [
             <Button
               type="primary"

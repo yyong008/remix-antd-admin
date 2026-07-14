@@ -23,18 +23,11 @@ export async function getCountByUserId(db: DrizzleD1Database, userId: string) {
 }
 
 export async function getById(db: DrizzleD1Database, id: string) {
-  const rows = await db
-    .select()
-    .from(linkCategories)
-    .where(eq(linkCategories.id, id))
-    .limit(1);
+  const rows = await db.select().from(linkCategories).where(eq(linkCategories.id, id)).limit(1);
   return rows[0] ?? null;
 }
 
-export async function getList(
-  db: DrizzleD1Database,
-  { where, skip, take, orderBy }: any,
-) {
+export async function getList(db: DrizzleD1Database, { where, skip, take, orderBy }: any) {
   let query: any = db.select().from(linkCategories);
   if (where?.userId !== undefined) {
     query = query.where(eq(linkCategories.userId, where.userId));
@@ -61,8 +54,5 @@ export async function update(db: DrizzleD1Database, { id, ...data }: any) {
 }
 
 export async function deleteByIds(db: DrizzleD1Database, ids: string[]) {
-  return await db
-    .delete(linkCategories)
-    .where(inArray(linkCategories.id, ids))
-    .returning();
+  return await db.delete(linkCategories).where(inArray(linkCategories.id, ids)).returning();
 }

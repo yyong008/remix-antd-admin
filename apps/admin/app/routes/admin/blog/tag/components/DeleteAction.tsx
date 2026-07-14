@@ -10,7 +10,7 @@ type DeleteActionProps = {
 
 export function DeleteAction(props: DeleteActionProps) {
   const { record, title, refetch } = props;
-  const [deleteByIds, { isLoading }] = [(...args: any): any => {}, { isLoading: false }];
+  const [deleteByIds, { isLoading }] = [(..._args: any): any => {}, { isLoading: false }];
   return (
     <Form>
       <Popconfirm

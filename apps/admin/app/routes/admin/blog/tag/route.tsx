@@ -3,12 +3,12 @@ import { AdminTable } from "~/components/admin-table/AdminTable";
 
 import { CreateBlogModal } from "./components/CreateBlogModal";
 import { createColumns } from "./components/createColumns";
-import { href, useParams } from "react-router";
+import { useParams } from "react-router";
 import { useState } from "react";
 
 export function Route() {
   const { locale } = useParams();
-  const [page, setPage] = useState({
+  const [_page, _setPage] = useState({
     page: 1,
     pageSize: 10,
   });

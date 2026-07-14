@@ -5,10 +5,24 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Input } from "@workspace/ui/components/input";
 import { Skeleton } from "@workspace/ui/components/skeleton";
-import { IconSearch, IconFileText, IconCalendar, IconUser, IconFolder, IconChevronRight } from "@tabler/icons-react";
+import {
+  IconSearch,
+  IconFileText,
+  IconCalendar,
+  IconUser,
+  IconFolder,
+  IconChevronRight,
+} from "@tabler/icons-react";
 import { Card, CardContent } from "@workspace/ui/components/card";
 import { usePublicNewsList, usePublicNewsCategoryList } from "~/api-client/public-news";
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@workspace/ui/components/pagination";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@workspace/ui/components/pagination";
 import { defaultLang } from "~/config/lang";
 import * as m from "~/paraglide/messages.js";
 
@@ -23,7 +37,10 @@ export const loader = async (_args: LoaderFunctionArgs) => {
 };
 
 function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+  return html
+    .replace(/<[^>]*>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function NewsItem(props: { data: any; categoryName?: string }) {
@@ -114,7 +131,10 @@ export default function Route() {
           <h1 className="text-3xl font-bold mb-2">{m.news_center_title()}</h1>
           <p>
             {selectedCategory
-              ? m.news_category_posts({ category: selectedCategory.name, count: filteredNews.length })
+              ? m.news_category_posts({
+                  category: selectedCategory.name,
+                  count: filteredNews.length,
+                })
               : m.news_all_posts({ count: total })}
           </p>
         </header>
@@ -135,7 +155,9 @@ export default function Route() {
                   />
                   <IconSearch className="absolute right-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                 </div>
-                <p className="text-xs font-semibold uppercase tracking-wider mb-3">{m.news_categories()}</p>
+                <p className="text-xs font-semibold uppercase tracking-wider mb-3">
+                  {m.news_categories()}
+                </p>
                 <div className="flex flex-col gap-1">
                   <button
                     onClick={() => {
@@ -200,17 +222,25 @@ export default function Route() {
                             className={page <= 1 ? "pointer-events-none opacity-50" : ""}
                           />
                         </PaginationItem>
-                        {Array.from({ length: Math.ceil(total / PAGE_SIZE) }, (_, i) => i + 1).map((p) => (
-                          <PaginationItem key={p}>
-                            <PaginationLink onClick={() => setPage(p)} isActive={page === p}>
-                              {p}
-                            </PaginationLink>
-                          </PaginationItem>
-                        ))}
+                        {Array.from({ length: Math.ceil(total / PAGE_SIZE) }, (_, i) => i + 1).map(
+                          (p) => (
+                            <PaginationItem key={p}>
+                              <PaginationLink onClick={() => setPage(p)} isActive={page === p}>
+                                {p}
+                              </PaginationLink>
+                            </PaginationItem>
+                          ),
+                        )}
                         <PaginationItem>
                           <PaginationNext
-                            onClick={() => setPage((p) => Math.min(Math.ceil(total / PAGE_SIZE), p + 1))}
-                            className={page >= Math.ceil(total / PAGE_SIZE) ? "pointer-events-none opacity-50" : ""}
+                            onClick={() =>
+                              setPage((p) => Math.min(Math.ceil(total / PAGE_SIZE), p + 1))
+                            }
+                            className={
+                              page >= Math.ceil(total / PAGE_SIZE)
+                                ? "pointer-events-none opacity-50"
+                                : ""
+                            }
                           />
                         </PaginationItem>
                       </PaginationContent>

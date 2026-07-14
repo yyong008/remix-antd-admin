@@ -1,8 +1,7 @@
 ---
 title: Route Object
 description: Route object properties including Component, loader, action, and lazy
-tags:
-  [route-object, Component, loader, action, lazy, shouldRevalidate, middleware]
+tags: [route-object, Component, loader, action, lazy, shouldRevalidate, middleware]
 ---
 
 # Route Object
@@ -202,12 +201,7 @@ const router = createBrowserRouter([
   {
     path: "/products",
     loader: productsLoader,
-    shouldRevalidate: ({
-      currentUrl,
-      nextUrl,
-      formMethod,
-      defaultShouldRevalidate,
-    }) => {
+    shouldRevalidate: ({ currentUrl, nextUrl, formMethod, defaultShouldRevalidate }) => {
       // Don't revalidate on search param changes only
       if (currentUrl.pathname === nextUrl.pathname) {
         return false;
@@ -278,9 +272,7 @@ const router = createBrowserRouter([
 // Access in any component
 function Breadcrumbs() {
   const matches = useMatches();
-  const crumbs = matches
-    .filter((m) => m.handle?.breadcrumb)
-    .map((m) => m.handle.breadcrumb);
+  const crumbs = matches.filter((m) => m.handle?.breadcrumb).map((m) => m.handle.breadcrumb);
   return <nav>{crumbs.join(" > ")}</nav>;
 }
 ```
@@ -326,9 +318,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />,
-);
+ReactDOM.createRoot(document.getElementById("root")).render(<RouterProvider router={router} />);
 ```
 
 ## See Also

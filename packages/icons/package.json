@@ -1,0 +1,37 @@
+{
+  "name": "@workspace/icons",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./social/*": "./src/social/*.tsx",
+    "./auth/*": "./src/auth/*.tsx",
+    "./ai/*": "./src/ai/*.tsx",
+    "./ai/agents/*": "./src/ai/agents/*.tsx",
+    "./ai/models/*": "./src/ai/models/*.tsx",
+    "./cloud/*": "./src/cloud/*.tsx",
+    "./database/*": "./src/database/*.tsx",
+    "./devtools/*": "./src/devtools/*.tsx",
+    "./docs/*": "./src/docs/*.tsx",
+    "./email/*": "./src/email/*.tsx",
+    "./forms/*": "./src/forms/*.tsx",
+    "./frameworks/*": "./src/frameworks/*.tsx",
+    "./payments/*": "./src/payments/*.tsx",
+    "./ui/*": "./src/ui/*.tsx",
+    "./api/*": "./src/api/*.tsx",
+    "./api/editors/*": "./src/api/editors/*.tsx",
+    "./animation": "./src/animation/index.tsx"
+  },
+  "scripts": {
+    "lint": "oxlint",
+    "format": "oxfmt --write",
+    "clean": "rimraf node_modules"
+  },
+  "dependencies": {
+    "react": "catalog:"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "@workspace/tsconfig": "workspace:^"
+  }
+}

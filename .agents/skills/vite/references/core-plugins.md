@@ -17,12 +17,12 @@ npm add -D @vitejs/plugin-vue
 
 ```ts
 // vite.config.ts
-import vue from '@vitejs/plugin-vue'
-import { defineConfig } from 'vite'
+import vue from "@vitejs/plugin-vue";
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  plugins: [vue()]
-})
+  plugins: [vue()],
+});
 ```
 
 ## Plugin Arrays
@@ -32,10 +32,7 @@ Plugins can return arrays (for complex features):
 ```ts
 // Framework plugin returning multiple plugins
 export default function framework(config) {
-  return [
-    frameworkRefresh(config),
-    frameworkDevtools(config)
-  ]
+  return [frameworkRefresh(config), frameworkDevtools(config)];
 }
 ```
 
@@ -47,9 +44,9 @@ Falsy values are ignored:
 export default defineConfig({
   plugins: [
     vue(),
-    process.env.ANALYZE && visualizer()  // Only if ANALYZE is set
-  ]
-})
+    process.env.ANALYZE && visualizer(), // Only if ANALYZE is set
+  ],
+});
 ```
 
 ## Enforcing Plugin Order
@@ -61,17 +58,18 @@ export default defineConfig({
   plugins: [
     {
       ...somePlugin(),
-      enforce: 'pre'  // Before Vite core plugins
+      enforce: "pre", // Before Vite core plugins
     },
     {
       ...anotherPlugin(),
-      enforce: 'post'  // After Vite build plugins
-    }
-  ]
-})
+      enforce: "post", // After Vite build plugins
+    },
+  ],
+});
 ```
 
 **Order:**
+
 1. Alias
 2. Plugins with `enforce: 'pre'`
 3. Vite core plugins
@@ -89,14 +87,14 @@ export default defineConfig({
   plugins: [
     {
       ...typescript2(),
-      apply: 'build'  // Only during build
+      apply: "build", // Only during build
     },
     {
       ...devOnlyPlugin(),
-      apply: 'serve'  // Only during dev
-    }
-  ]
-})
+      apply: "serve", // Only during dev
+    },
+  ],
+});
 ```
 
 Function form for more control:
@@ -120,18 +118,19 @@ Function form for more control:
 
 ## Official Plugins
 
-| Plugin | Purpose |
-|--------|---------|
-| `@vitejs/plugin-vue` | Vue 3 SFC support |
-| `@vitejs/plugin-vue-jsx` | Vue 3 JSX support |
-| `@vitejs/plugin-react` | React with Babel/Oxc |
-| `@vitejs/plugin-react-swc` | React with SWC |
-| `@vitejs/plugin-rsc` | React Server Components |
-| `@vitejs/plugin-legacy` | Legacy browser support |
+| Plugin                     | Purpose                 |
+| -------------------------- | ----------------------- |
+| `@vitejs/plugin-vue`       | Vue 3 SFC support       |
+| `@vitejs/plugin-vue-jsx`   | Vue 3 JSX support       |
+| `@vitejs/plugin-react`     | React with Babel/Oxc    |
+| `@vitejs/plugin-react-swc` | React with SWC          |
+| `@vitejs/plugin-rsc`       | React Server Components |
+| `@vitejs/plugin-legacy`    | Legacy browser support  |
 
 ## Rollup/Rolldown Plugin Compatibility
 
 Many Rollup plugins work directly with Vite if they:
+
 - Don't use `moduleParsed` hook
 - Don't rely on Rolldown-specific options
 - Don't have strong coupling between bundle and output phases
@@ -142,13 +141,13 @@ For build-only Rollup plugins:
 export default defineConfig({
   build: {
     rolldownOptions: {
-      plugins: [rollupPluginForBuildOnly()]
-    }
-  }
-})
+      plugins: [rollupPluginForBuildOnly()],
+    },
+  },
+});
 ```
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/guide/using-plugins.html
 -->

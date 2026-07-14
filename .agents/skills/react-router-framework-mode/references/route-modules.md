@@ -1,8 +1,7 @@
 ---
 title: Route Modules
 description: All route module exports - loader, action, meta, links, ErrorBoundary, etc.
-tags:
-  [route-module, loader, action, meta, links, ErrorBoundary, headers, handle]
+tags: [route-module, loader, action, meta, links, ErrorBoundary, headers, handle]
 ---
 
 # Route Modules
@@ -37,12 +36,7 @@ The default export renders when the route matches:
 ```tsx
 import type { Route } from "./+types/my-route";
 
-export default function MyRoute({
-  loaderData,
-  actionData,
-  params,
-  matches,
-}: Route.ComponentProps) {
+export default function MyRoute({ loaderData, actionData, params, matches }: Route.ComponentProps) {
   return <div>{loaderData.message}</div>;
 }
 ```
@@ -79,10 +73,7 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 Runs in browser. Can augment or replace server loader:
 
 ```tsx
-export async function clientLoader({
-  params,
-  serverLoader,
-}: Route.ClientLoaderArgs) {
+export async function clientLoader({ params, serverLoader }: Route.ClientLoaderArgs) {
   const serverData = await serverLoader();
   const clientData = await getClientData();
   return { ...serverData, ...clientData };
@@ -133,10 +124,7 @@ export default function NewItem() {
 Handles mutations in the browser:
 
 ```tsx
-export async function clientAction({
-  request,
-  serverAction,
-}: Route.ClientActionArgs) {
+export async function clientAction({ request, serverAction }: Route.ClientActionArgs) {
   invalidateClientCache();
   return await serverAction();
 }
@@ -302,9 +290,7 @@ import { useMatches } from "react-router";
 
 function Breadcrumbs() {
   const matches = useMatches();
-  const crumbs = matches
-    .filter((m) => m.handle?.breadcrumb)
-    .map((m) => m.handle.breadcrumb);
+  const crumbs = matches.filter((m) => m.handle?.breadcrumb).map((m) => m.handle.breadcrumb);
   return <nav>{crumbs.join(" > ")}</nav>;
 }
 ```
@@ -336,12 +322,7 @@ export function shouldRevalidate({
 
 ```tsx
 import type { Route } from "./+types/team";
-import {
-  Form,
-  redirect,
-  isRouteErrorResponse,
-  useRouteError,
-} from "react-router";
+import { Form, redirect, isRouteErrorResponse, useRouteError } from "react-router";
 
 export const middleware: Route.MiddlewareFunction[] = [
   async function requireAuth({ context }, next) {

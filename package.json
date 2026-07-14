@@ -27,12 +27,15 @@
     "build": "turbo build",
     "coverage": "turbo test run --coverage",
     "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "turbo fmt",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint . --fix",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt .",
     "test": "turbo test",
     "commit": "git-cz",
     "changeset": "changeset",
     "version": "changeset version",
+    "prepare": "husky",
     "drizzle:generate": "pnpm -F @workspace/database run generate",
     "auth:generate:schema": "pnpm dlx auth@latest generate --config=./packages/database/src/seed/local/auth.ts --output=./packages/database/src/schema/auth.ts",
     "drizzle:push": "pnpm -F @workspace/database run push",
@@ -53,10 +56,23 @@
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
     "dotenv-cli": "catalog:",
+    "husky": "catalog:",
+    "lint-staged": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
     "rimraf": "^6.1.3",
     "tsx": "catalog:",
     "turbo": "catalog:",
     "typescript": "catalog:"
+  },
+  "lint-staged": {
+    "*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}": [
+      "oxlint --fix",
+      "oxfmt"
+    ],
+    "*.{json,md,mdx,yml,yaml,css}": [
+      "oxfmt"
+    ]
   },
   "config": {
     "commitizen": {

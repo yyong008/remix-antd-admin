@@ -9,17 +9,17 @@ description: Environment variables, .env files, and modes in Vite
 
 Available via `import.meta.env`:
 
-| Constant | Description |
-|----------|-------------|
-| `import.meta.env.MODE` | App mode (`'development'` or `'production'`) |
-| `import.meta.env.BASE_URL` | Base URL from `base` config |
-| `import.meta.env.PROD` | `true` in production |
-| `import.meta.env.DEV` | `true` in development |
-| `import.meta.env.SSR` | `true` in server-side rendering |
+| Constant                   | Description                                  |
+| -------------------------- | -------------------------------------------- |
+| `import.meta.env.MODE`     | App mode (`'development'` or `'production'`) |
+| `import.meta.env.BASE_URL` | Base URL from `base` config                  |
+| `import.meta.env.PROD`     | `true` in production                         |
+| `import.meta.env.DEV`      | `true` in development                        |
+| `import.meta.env.SSR`      | `true` in server-side rendering              |
 
 ```ts
 if (import.meta.env.DEV) {
-  console.log('Development mode')
+  console.log("Development mode");
   // Tree-shaken in production
 }
 ```
@@ -35,16 +35,16 @@ DB_PASSWORD=secret  # NOT exposed to client
 ```
 
 ```ts
-console.log(import.meta.env.VITE_API_URL)  // "https://api.example.com"
-console.log(import.meta.env.DB_PASSWORD)   // undefined
+console.log(import.meta.env.VITE_API_URL); // "https://api.example.com"
+console.log(import.meta.env.DB_PASSWORD); // undefined
 ```
 
 ### Custom Prefix
 
 ```ts
 export default defineConfig({
-  envPrefix: ['VITE_', 'APP_']  // Expose VITE_* and APP_*
-})
+  envPrefix: ["VITE_", "APP_"], // Expose VITE_* and APP_*
+});
 ```
 
 ## .env Files
@@ -90,11 +90,11 @@ NODE_ENV=production  # Still production build
 
 ### NODE_ENV vs Mode
 
-| Command | NODE_ENV | Mode |
-|---------|----------|------|
-| `vite build` | `production` | `production` |
-| `vite build --mode development` | `production` | `development` |
-| `NODE_ENV=development vite build` | `development` | `production` |
+| Command                           | NODE_ENV      | Mode          |
+| --------------------------------- | ------------- | ------------- |
+| `vite build`                      | `production`  | `production`  |
+| `vite build --mode development`   | `production`  | `development` |
+| `NODE_ENV=development vite build` | `development` | `production`  |
 
 ## TypeScript IntelliSense
 
@@ -103,12 +103,12 @@ Create type declarations for custom env variables:
 ```ts
 // vite-env.d.ts
 interface ImportMetaEnv {
-  readonly VITE_APP_TITLE: string
-  readonly VITE_API_URL: string
+  readonly VITE_APP_TITLE: string;
+  readonly VITE_API_URL: string;
 }
 
 interface ImportMeta {
-  readonly env: ImportMetaEnv
+  readonly env: ImportMetaEnv;
 }
 ```
 
@@ -116,7 +116,7 @@ For strict typing (disallow unknown keys):
 
 ```ts
 interface ViteTypeOptions {
-  strictImportMetaEnv: unknown
+  strictImportMetaEnv: unknown;
 }
 ```
 
@@ -136,17 +136,17 @@ Non-existent variables are left as-is (not replaced with `undefined`).
 Env vars are NOT available in `vite.config.ts` automatically:
 
 ```ts
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig, loadEnv } from "vite";
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '')  // '' loads all vars
-  
+  const env = loadEnv(mode, process.cwd(), ""); // '' loads all vars
+
   return {
     define: {
-      __APP_ENV__: JSON.stringify(env.APP_ENV)
-    }
-  }
-})
+      __APP_ENV__: JSON.stringify(env.APP_ENV),
+    },
+  };
+});
 ```
 
 ## Security Notes
@@ -155,7 +155,7 @@ export default defineConfig(({ mode }) => {
 - `VITE_*` variables end up in client bundle - no secrets
 - Never set `envPrefix` to `''` (exposes everything)
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/guide/env-and-mode.html
 -->

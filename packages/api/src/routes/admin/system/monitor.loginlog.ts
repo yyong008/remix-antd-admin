@@ -3,7 +3,11 @@ import { Hono } from "hono";
 
 import type { HonoEnv } from "../../../types";
 import { requirePermission } from "../../../middleware/rbac";
-import { getSearchParams, getSearchParamsPage, getSearchParamsPageSize } from "../../../utils/server";
+import {
+  getSearchParams,
+  getSearchParamsPage,
+  getSearchParamsPageSize,
+} from "../../../utils/server";
 import { rfj, rsj } from "../../../utils/server/response-json";
 import { getD1Db } from "../../../helpers/d1";
 

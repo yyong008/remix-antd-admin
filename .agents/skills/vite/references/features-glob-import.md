@@ -10,7 +10,7 @@ description: Vite's import.meta.glob for batch importing modules and dynamic imp
 Import multiple modules using glob patterns:
 
 ```ts
-const modules = import.meta.glob('./dir/*.js')
+const modules = import.meta.glob("./dir/*.js");
 // Transformed to:
 // {
 //   './dir/foo.js': () => import('./dir/foo.js'),
@@ -23,8 +23,8 @@ Iterate and load:
 ```ts
 for (const path in modules) {
   modules[path]().then((mod) => {
-    console.log(path, mod)
-  })
+    console.log(path, mod);
+  });
 }
 ```
 
@@ -33,7 +33,7 @@ for (const path in modules) {
 Load all modules immediately (no dynamic import):
 
 ```ts
-const modules = import.meta.glob('./dir/*.js', { eager: true })
+const modules = import.meta.glob("./dir/*.js", { eager: true });
 // Transformed to:
 // import * as __glob_0 from './dir/foo.js'
 // import * as __glob_1 from './dir/bar.js'
@@ -46,10 +46,7 @@ const modules = import.meta.glob('./dir/*.js', { eager: true })
 ## Multiple Patterns
 
 ```ts
-const modules = import.meta.glob([
-  './dir/*.js',
-  './another/*.js'
-])
+const modules = import.meta.glob(["./dir/*.js", "./another/*.js"]);
 ```
 
 ## Negative Patterns
@@ -58,9 +55,9 @@ Exclude files with `!` prefix:
 
 ```ts
 const modules = import.meta.glob([
-  './dir/*.js',
-  '!**/bar.js'  // Exclude bar.js
-])
+  "./dir/*.js",
+  "!**/bar.js", // Exclude bar.js
+]);
 ```
 
 ## Named Imports
@@ -68,19 +65,19 @@ const modules = import.meta.glob([
 Import specific exports for tree-shaking:
 
 ```ts
-const modules = import.meta.glob('./dir/*.js', {
-  import: 'setup'
-})
+const modules = import.meta.glob("./dir/*.js", {
+  import: "setup",
+});
 // './dir/foo.js': () => import('./dir/foo.js').then(m => m.setup)
 ```
 
 Import default export:
 
 ```ts
-const modules = import.meta.glob('./dir/*.js', {
-  import: 'default',
-  eager: true
-})
+const modules = import.meta.glob("./dir/*.js", {
+  import: "default",
+  eager: true,
+});
 ```
 
 ## Custom Queries
@@ -88,23 +85,23 @@ const modules = import.meta.glob('./dir/*.js', {
 Import as raw strings or URLs:
 
 ```ts
-const moduleStrings = import.meta.glob('./dir/*.svg', {
-  query: '?raw',
-  import: 'default'
-})
+const moduleStrings = import.meta.glob("./dir/*.svg", {
+  query: "?raw",
+  import: "default",
+});
 
-const moduleUrls = import.meta.glob('./dir/*.svg', {
-  query: '?url',
-  import: 'default'
-})
+const moduleUrls = import.meta.glob("./dir/*.svg", {
+  query: "?url",
+  import: "default",
+});
 ```
 
 Custom queries for plugins:
 
 ```ts
-const modules = import.meta.glob('./dir/*.js', {
-  query: { foo: 'bar', bar: true }
-})
+const modules = import.meta.glob("./dir/*.js", {
+  query: { foo: "bar", bar: true },
+});
 ```
 
 ## Base Path
@@ -112,9 +109,9 @@ const modules = import.meta.glob('./dir/*.js', {
 Change the base path for imports:
 
 ```ts
-const modules = import.meta.glob('./**/*.js', {
-  base: './base'
-})
+const modules = import.meta.glob("./**/*.js", {
+  base: "./base",
+});
 // Keys: './dir/foo.js'
 // Imports: './base/dir/foo.js'
 ```
@@ -131,10 +128,11 @@ const modules = import.meta.glob('./**/*.js', {
 Limited dynamic import support:
 
 ```ts
-const module = await import(`./dir/${file}.js`)
+const module = await import(`./dir/${file}.js`);
 ```
 
 **Rules:**
+
 - Must start with `./` or `../`
 - Must end with file extension
 - Variable represents only one level (no `foo/bar`)
@@ -144,18 +142,18 @@ const module = await import(`./dir/${file}.js`)
 
 ```ts
 // Lazy load all page components
-const pages = import.meta.glob('./pages/*.vue')
+const pages = import.meta.glob("./pages/*.vue");
 
 const routes = Object.keys(pages).map((path) => {
-  const name = path.match(/\.\/pages\/(.*)\.vue$/)[1]
+  const name = path.match(/\.\/pages\/(.*)\.vue$/)[1];
   return {
     path: `/${name.toLowerCase()}`,
-    component: pages[path]  // Lazy loaded
-  }
-})
+    component: pages[path], // Lazy loaded
+  };
+});
 ```
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/guide/features.html#glob-import
 -->

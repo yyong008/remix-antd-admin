@@ -32,18 +32,20 @@ type SessionFlashData = {
   error: string;
 };
 
-const { getSession, commitSession, destroySession } =
-  createCookieSessionStorage<SessionData, SessionFlashData>({
-    cookie: {
-      name: "__session",
-      httpOnly: true,
-      maxAge: 60 * 60 * 24 * 7, // 1 week
-      path: "/",
-      sameSite: "lax",
-      secrets: [process.env.SESSION_SECRET!],
-      secure: process.env.NODE_ENV === "production",
-    },
-  });
+const { getSession, commitSession, destroySession } = createCookieSessionStorage<
+  SessionData,
+  SessionFlashData
+>({
+  cookie: {
+    name: "__session",
+    httpOnly: true,
+    maxAge: 60 * 60 * 24 * 7, // 1 week
+    path: "/",
+    sameSite: "lax",
+    secrets: [process.env.SESSION_SECRET!],
+    secure: process.env.NODE_ENV === "production",
+  },
+});
 
 export { getSession, commitSession, destroySession };
 ```
@@ -344,10 +346,7 @@ return redirect("/settings", {
 
 // In loader - read and clear flash
 const success = session.get("success"); // Returns value, then clears
-return data(
-  { success },
-  { headers: { "Set-Cookie": await commitSession(session) } },
-);
+return data({ success }, { headers: { "Set-Cookie": await commitSession(session) } });
 ```
 
 **Gotcha:** With nested routes, multiple loaders run in parallel. If you use flash data, ensure only one loader reads it to avoid race conditions.

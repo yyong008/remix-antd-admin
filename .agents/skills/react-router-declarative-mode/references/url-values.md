@@ -122,14 +122,7 @@ function SearchForm() {
     }
   }
 
-  return (
-    <input
-      type="search"
-      value={query}
-      onChange={handleSearch}
-      placeholder="Search..."
-    />
-  );
+  return <input type="search" value={query} onChange={handleSearch} placeholder="Search..." />;
 }
 ```
 
@@ -153,9 +146,7 @@ function Filters() {
     );
   }
 
-  return (
-    <button onClick={() => applyFilter("electronics")}>Electronics</button>
-  );
+  return <button onClick={() => applyFilter("electronics")}>Electronics</button>;
 }
 ```
 
@@ -203,13 +194,7 @@ For pagination and similar controls, prefer `<Link>` over buttons with `setSearc
 ```tsx
 import { Link, useSearchParams } from "react-router";
 
-function Pagination({
-  currentPage,
-  totalPages,
-}: {
-  currentPage: number;
-  totalPages: number;
-}) {
+function Pagination({ currentPage, totalPages }: { currentPage: number; totalPages: number }) {
   const [searchParams] = useSearchParams();
 
   // Build URL that preserves existing search params
@@ -221,15 +206,11 @@ function Pagination({
 
   return (
     <nav aria-label="Pagination">
-      {currentPage > 1 && (
-        <Link to={getPageUrl(currentPage - 1)}>Previous</Link>
-      )}
+      {currentPage > 1 && <Link to={getPageUrl(currentPage - 1)}>Previous</Link>}
       <span>
         Page {currentPage} of {totalPages}
       </span>
-      {currentPage < totalPages && (
-        <Link to={getPageUrl(currentPage + 1)}>Next</Link>
-      )}
+      {currentPage < totalPages && <Link to={getPageUrl(currentPage + 1)}>Next</Link>}
     </nav>
   );
 }

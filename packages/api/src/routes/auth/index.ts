@@ -168,7 +168,7 @@ authRouter.get("/session", async (c) => {
         user: result?.user ?? null,
       },
     });
-  } catch (error: any) {
+  } catch {
     return c.json({
       code: 0,
       message: "success",

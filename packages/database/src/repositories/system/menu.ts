@@ -54,17 +54,11 @@ export async function getList(
 }
 
 export async function getAllFilterPermMenu(db: DrizzleD1Database) {
-  const rows = await db
-    .select()
-    .from(menus)
-    .where(ne(menus.type, permMenuType));
+  const rows = await db.select().from(menus).where(ne(menus.type, permMenuType));
   return rows.map(mapMenu);
 }
 
-export async function getMenuTreeByUserId(
-  db: DrizzleD1Database,
-  userId: string,
-) {
+export async function getMenuTreeByUserId(db: DrizzleD1Database, userId: string) {
   const rows = await db
     .select()
     .from(menus)
@@ -79,10 +73,7 @@ export async function getMenuTreeByUserId(
   return Array.from(unique.values());
 }
 
-export async function getMenuTreeByRoleIds(
-  db: DrizzleD1Database,
-  roleIds: number[],
-) {
+export async function getMenuTreeByRoleIds(db: DrizzleD1Database, roleIds: number[]) {
   if (!roleIds.length) return [];
   const rows = await db
     .select()

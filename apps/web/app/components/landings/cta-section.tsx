@@ -15,10 +15,14 @@ const trustBadges: Array<{ key: TrustBadgeKey }> = [
 
 function trustBadgeText(key: TrustBadgeKey) {
   switch (key) {
-    case "mit": return m.home_cta_badge_mit();
-    case "prod": return m.home_cta_badge_prod();
-    case "active": return m.home_cta_badge_active();
-    case "docs_zh": return m.home_cta_badge_docs_zh();
+    case "mit":
+      return m.home_cta_badge_mit();
+    case "prod":
+      return m.home_cta_badge_prod();
+    case "active":
+      return m.home_cta_badge_active();
+    case "docs_zh":
+      return m.home_cta_badge_docs_zh();
   }
 }
 
@@ -29,13 +33,10 @@ const testimonials = [
 ];
 
 export function CTASection() {
-
   return (
     <section className="px-6">
       <div className="mx-auto max-w-4xl">
-        <Card
-          className="text-center rounded-3xl border-0 overflow-hidden bg-gradient-to-br from-indigo-500 to-violet-500"
-        >
+        <Card className="text-center rounded-3xl border-0 overflow-hidden bg-gradient-to-br from-indigo-500 to-violet-500">
           <CardContent className="relative overflow-hidden p-8 md:p-16">
             <div className="absolute -top-1/2 -left-1/4 -translate-x-1/2 w-[150%] h-[150%] rounded-full pointer-events-none bg-[radial-gradient(circle,rgba(255,255,255,0.12)_0%,transparent_70%)]" />
             <div className="absolute -bottom-1/3 -right-1/4 translate-x-1/2 w-[120%] h-[120%] rounded-full pointer-events-none bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,transparent_70%)]" />
@@ -84,7 +85,9 @@ export function CTASection() {
                       </Avatar>
                     ))}
                   </div>
-                  <span className="text-white/90 text-sm">{m.home_cta_contributors({ count: "50" })}</span>
+                  <span className="text-white/90 text-sm">
+                    {m.home_cta_contributors({ count: "50" })}
+                  </span>
                 </div>
 
                 <div className="w-px h-6 bg-white/20" />

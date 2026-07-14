@@ -14,23 +14,23 @@ Integrate Vite with traditional backends (Rails, Laravel, etc.) for asset servin
 export default defineConfig({
   server: {
     cors: {
-      origin: 'http://my-backend.example.com'
-    }
+      origin: "http://my-backend.example.com",
+    },
   },
   build: {
-    manifest: true,  // Generate .vite/manifest.json
+    manifest: true, // Generate .vite/manifest.json
     rolldownOptions: {
-      input: '/path/to/main.js'  // Override HTML entry
-    }
-  }
-})
+      input: "/path/to/main.js", // Override HTML entry
+    },
+  },
+});
 ```
 
 Import polyfill in entry:
 
 ```ts
 // main.js
-import 'vite/modulepreload-polyfill'
+import "vite/modulepreload-polyfill";
 ```
 
 ## Development
@@ -49,26 +49,27 @@ Add before other scripts:
 
 ```html
 <script type="module">
-  import RefreshRuntime from 'http://localhost:5173/@react-refresh'
-  RefreshRuntime.injectIntoGlobalHook(window)
-  window.$RefreshReg$ = () => {}
-  window.$RefreshSig$ = () => (type) => type
-  window.__vite_plugin_react_preamble_installed__ = true
+  import RefreshRuntime from "http://localhost:5173/@react-refresh";
+  RefreshRuntime.injectIntoGlobalHook(window);
+  window.$RefreshReg$ = () => {};
+  window.$RefreshSig$ = () => (type) => type;
+  window.__vite_plugin_react_preamble_installed__ = true;
 </script>
 ```
 
 ### Asset Proxying
 
 Either:
+
 1. Proxy static asset requests to Vite
 2. Set `server.origin`:
 
 ```ts
 export default defineConfig({
   server: {
-    origin: 'http://localhost:5173'
-  }
-})
+    origin: "http://localhost:5173",
+  },
+});
 ```
 
 ## Production
@@ -113,14 +114,14 @@ For entry `views/foo.js`, render in this order:
 
 ```ts
 interface ManifestChunk {
-  src?: string           // Input file name
-  file: string          // Output file name
-  css?: string[]        // CSS files (JS chunks only)
-  assets?: string[]     // Non-CSS assets (JS chunks only)
-  isEntry?: boolean     // Is entry point
-  isDynamicEntry?: boolean  // Is dynamic import
-  imports?: string[]    // Static imports (manifest keys)
-  dynamicImports?: string[]  // Dynamic imports (manifest keys)
+  src?: string; // Input file name
+  file: string; // Output file name
+  css?: string[]; // CSS files (JS chunks only)
+  assets?: string[]; // Non-CSS assets (JS chunks only)
+  isEntry?: boolean; // Is entry point
+  isDynamicEntry?: boolean; // Is dynamic import
+  imports?: string[]; // Static imports (manifest keys)
+  dynamicImports?: string[]; // Dynamic imports (manifest keys)
 }
 ```
 
@@ -130,35 +131,36 @@ Recursively collect all imported chunks:
 
 ```ts
 function getImportedChunks(manifest, name) {
-  const seen = new Set()
-  const chunks = []
-  
+  const seen = new Set();
+  const chunks = [];
+
   function collect(chunk) {
     for (const file of chunk.imports ?? []) {
-      if (seen.has(file)) continue
-      seen.add(file)
-      
-      const importee = manifest[file]
-      collect(importee)
-      chunks.push(importee)
+      if (seen.has(file)) continue;
+      seen.add(file);
+
+      const importee = manifest[file];
+      collect(importee);
+      chunks.push(importee);
     }
   }
-  
-  collect(manifest[name])
-  return chunks
+
+  collect(manifest[name]);
+  return chunks;
 }
 ```
 
 ## Existing Integrations
 
 Check [Awesome Vite](https://github.com/vitejs/awesome-vite#integrations-with-backends) for:
+
 - Laravel (laravel-vite)
 - Rails
 - Django
 - Flask
 - And more
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/guide/backend-integration.html
 -->

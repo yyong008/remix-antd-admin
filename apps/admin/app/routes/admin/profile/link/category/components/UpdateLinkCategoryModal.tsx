@@ -9,7 +9,7 @@ import { FormItems } from "./FormItems";
 export function UpdateLinkCategoryModal({
   record,
   refetch,
-  open,
+  open: _open,
   onClose,
 }: {
   record: Record<string, unknown> & { id: string };

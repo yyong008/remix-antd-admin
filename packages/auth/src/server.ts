@@ -8,7 +8,6 @@ import { rbacLoginPlugin } from "./plugins/rbac-login";
 import { customSessionPlugin } from "./plugins/custom-session";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
-
 export function createAuth(database: DB, env: Env) {
   const db = database ?? drizzle(env.DB);
 

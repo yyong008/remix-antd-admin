@@ -71,8 +71,8 @@ export function useLogin() {
 }
 
 export function useEamilSignup() {
-  const navigate = useNavigate();
-  const { locale } = useParams();
+  const _navigate = useNavigate();
+  const { locale: _locale } = useParams();
   return useMutation({
     mutationFn: async ({ username, email, password, token }: RegisterPayload) => {
       const resolvedEmail = normalizeAuthEmail(email ?? username);

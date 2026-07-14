@@ -2,15 +2,14 @@
   "name": "@workspace/api",
   "version": "1.0.0",
   "description": "Hono API implementation",
-  "main": "src/index.ts",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "type": "module",
+  "main": "src/index.ts",
   "exports": {
     ".": "./src/index.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.33.0",
   "dependencies": {
     "@workspace/auth": "workspace:*",
     "@workspace/database": "workspace:*",
@@ -29,5 +28,6 @@
   "devDependencies": {
     "@cloudflare/workers-types": "catalog:",
     "typescript": "catalog:"
-  }
+  },
+  "packageManager": "pnpm@10.33.0"
 }

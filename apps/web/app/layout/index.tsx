@@ -1,11 +1,4 @@
-import {
-  Link,
-  NavLink,
-  Outlet,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router";
+import { Link, NavLink, Outlet, useLocation, useNavigate, useParams } from "react-router";
 import { AppQueryProvider } from "~/providers/app-query-provider";
 import { config } from "~/config";
 import { NavFooter } from "./components/footer";
@@ -15,7 +8,6 @@ import { Button } from "@workspace/ui/components/button";
 import { ThemeSwitcher } from "~/components/theme-switcher";
 import { LocaleSwitcher } from "~/components/locale-switcher";
 import * as m from "~/paraglide/messages.js";
-
 
 type NavKey = "home" | "news" | "blog" | "about";
 
@@ -67,27 +59,22 @@ function MarketingLayout() {
               <IconRocket className="size-5" />
             </span>
             <div className="flex flex-col leading-tight">
-              <span className="text-xs text-muted-foreground">
-                {m.nav_brand_subtitle()}
-              </span>
+              <span className="text-xs text-muted-foreground">{m.nav_brand_subtitle()}</span>
               <p className="text-lg font-semibold m-0">{m.nav_brand_title()}</p>
             </div>
           </button>
 
           <nav className="flex items-center gap-6">
             {navItems.map((item) => {
-              const hrefPath = item.href
-                ? `/${locale}/${item.href}`
-                : `/${locale}`;
+              const hrefPath = item.href ? `/${locale}/${item.href}` : `/${locale}`;
               const isActive = isNavActive(item.href);
               return (
                 <NavLink
                   key={item.key}
                   to={hrefPath}
-                  className={`relative text-sm font-medium py-2 transition-colors ${isActive
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
-                    }`}
+                  className={`relative text-sm font-medium py-2 transition-colors ${
+                    isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                  }`}
                 >
                   {navLabel(item.key)}
                   {isActive && (
@@ -106,7 +93,8 @@ function MarketingLayout() {
                 {m.nav_login_admin()}
               </Button>
             </Link>
-          </div></div>
+          </div>
+        </div>
       </header>
 
       <main>

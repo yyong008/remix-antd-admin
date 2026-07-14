@@ -6,8 +6,7 @@ import { drizzle } from "drizzle-orm/d1";
 
 // Better Auth infers user fields as a union (`string | boolean | Date`); at runtime
 // id is the string primary key and name/email are plain strings or null.
-const toStr = (v: unknown): string | null =>
-  typeof v === "string" && v.length > 0 ? v : null;
+const toStr = (v: unknown): string | null => (typeof v === "string" && v.length > 0 ? v : null);
 
 export const authMiddleware = createMiddleware<HonoEnv>(async (c, next) => {
   const env = c.env;
@@ -27,10 +26,7 @@ export const authMiddleware = createMiddleware<HonoEnv>(async (c, next) => {
   }
 
   c.set("userId", String(result.user.id));
-  c.set(
-    "username",
-    toStr(result.user.name) || toStr(result.user.email) || null,
-  );
+  c.set("username", toStr(result.user.name) || toStr(result.user.email) || null);
 
   await next();
 });

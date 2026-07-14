@@ -6,11 +6,10 @@ const env: any = {
   DB: getD1LocalUrl(),
 };
 
-
 export const getLocalDb = () => {
-  return getDb(env)
-}
+  return getDb(env);
+};
 
-export const getLocalEnv = () =>  {
-  return env
-}
+export const getLocalEnv = () => {
+  return env;
+};

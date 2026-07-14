@@ -14,7 +14,7 @@ Vite pre-bundles dependencies on first run for faster dev server startup.
 
 ```ts
 // Works thanks to smart import analysis
-import React, { useState } from 'react'
+import React, { useState } from "react";
 ```
 
 ## Automatic Discovery
@@ -31,14 +31,15 @@ Force pre-bundling for dependencies not auto-discovered:
 export default defineConfig({
   optimizeDeps: {
     include: [
-      'some-package',
-      'another-package/nested'  // Deep imports
-    ]
-  }
-})
+      "some-package",
+      "another-package/nested", // Deep imports
+    ],
+  },
+});
 ```
 
 **When to include:**
+
 - Dynamically imported (via plugin transform)
 - Large dependencies with many internal modules
 - CommonJS dependencies
@@ -50,9 +51,9 @@ Skip pre-bundling for small ESM-only dependencies:
 ```ts
 export default defineConfig({
   optimizeDeps: {
-    exclude: ['small-esm-dep']
-  }
-})
+    exclude: ["small-esm-dep"],
+  },
+});
 ```
 
 ## Monorepo Linked Dependencies
@@ -62,9 +63,9 @@ Linked packages are treated as source code by default. If not ESM:
 ```ts
 export default defineConfig({
   optimizeDeps: {
-    include: ['linked-dep']
-  }
-})
+    include: ["linked-dep"],
+  },
+});
 ```
 
 Restart with `--force` after making changes to linked deps.
@@ -77,9 +78,9 @@ export default defineConfig({
     rolldownOptions: {
       plugins: [/* Rolldown plugins */],
       // Other Rolldown options
-    }
-  }
-})
+    },
+  },
+});
 ```
 
 ## Caching
@@ -117,12 +118,9 @@ Specify custom entry points for discovery:
 ```ts
 export default defineConfig({
   optimizeDeps: {
-    entries: [
-      'src/main.ts',
-      'src/other-entry.ts'
-    ]
-  }
-})
+    entries: ["src/main.ts", "src/other-entry.ts"],
+  },
+});
 ```
 
 By default, all HTML files are used as entries.
@@ -137,12 +135,12 @@ export default defineConfig({
     // Deprecated
     esbuildOptions: {},
     // Use instead
-    rolldownOptions: {}
-  }
-})
+    rolldownOptions: {},
+  },
+});
 ```
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/guide/dep-pre-bundling.html
 -->

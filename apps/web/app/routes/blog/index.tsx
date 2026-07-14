@@ -6,7 +6,14 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { IconFileText, IconCalendar, IconUser, IconFolder } from "@tabler/icons-react";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 import { Card, CardContent } from "@workspace/ui/components/card";
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@workspace/ui/components/pagination";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@workspace/ui/components/pagination";
 import { usePublicBlogList, usePublicBlogCategoryList } from "~/api-client/public-blog";
 import { defaultLang } from "~/config/lang";
 import * as m from "~/paraglide/messages.js";
@@ -22,7 +29,10 @@ export const loader = async (_args: LoaderFunctionArgs) => {
 };
 
 function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+  return html
+    .replace(/<[^>]*>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function BlogItem(props: { data: any; featured?: boolean; categoryName?: string }) {
@@ -49,11 +59,15 @@ function BlogItem(props: { data: any; featured?: boolean; categoryName?: string 
           {data.title}
         </h3>
         {excerpt && (
-          <p className={`text-muted-foreground mb-3 line-clamp-2 flex-1 ${featured ? "text-sm" : "text-xs"}`}>
+          <p
+            className={`text-muted-foreground mb-3 line-clamp-2 flex-1 ${featured ? "text-sm" : "text-xs"}`}
+          >
             {excerpt}
           </p>
         )}
-        <div className={`flex items-center gap-4 pt-3 mt-auto ${featured ? "text-[13px]" : "text-xs"}`}>
+        <div
+          className={`flex items-center gap-4 pt-3 mt-auto ${featured ? "text-[13px]" : "text-xs"}`}
+        >
           {data.author && (
             <span className="flex items-center gap-1 max-w-[80px] truncate">
               <IconUser className="size-3" />
@@ -103,7 +117,10 @@ export default function Route() {
           <h1 className="text-3xl font-bold mb-2">{m.blog_center_title()}</h1>
           <p>
             {selectedCategory
-              ? m.blog_category_posts({ category: selectedCategory.name, count: filteredBlogs.length })
+              ? m.blog_category_posts({
+                  category: selectedCategory.name,
+                  count: filteredBlogs.length,
+                })
               : m.blog_all_posts({ count: filteredBlogs.length })}
           </p>
         </header>
@@ -180,19 +197,28 @@ export default function Route() {
                         className={page <= 1 ? "pointer-events-none opacity-50" : ""}
                       />
                     </PaginationItem>
-                    {Array.from({ length: Math.ceil(filteredBlogs.length / PAGE_SIZE) }, (_, i) => i + 1).map(
-                      (p) => (
-                        <PaginationItem key={p}>
-                          <PaginationLink onClick={() => setPage(p)} isActive={page === p}>
-                            {p}
-                          </PaginationLink>
-                        </PaginationItem>
-                      )
-                    )}
+                    {Array.from(
+                      { length: Math.ceil(filteredBlogs.length / PAGE_SIZE) },
+                      (_, i) => i + 1,
+                    ).map((p) => (
+                      <PaginationItem key={p}>
+                        <PaginationLink onClick={() => setPage(p)} isActive={page === p}>
+                          {p}
+                        </PaginationLink>
+                      </PaginationItem>
+                    ))}
                     <PaginationItem>
                       <PaginationNext
-                        onClick={() => setPage((p) => Math.min(Math.ceil(filteredBlogs.length / PAGE_SIZE), p + 1))}
-                        className={page >= Math.ceil(filteredBlogs.length / PAGE_SIZE) ? "pointer-events-none opacity-50" : ""}
+                        onClick={() =>
+                          setPage((p) =>
+                            Math.min(Math.ceil(filteredBlogs.length / PAGE_SIZE), p + 1),
+                          )
+                        }
+                        className={
+                          page >= Math.ceil(filteredBlogs.length / PAGE_SIZE)
+                            ? "pointer-events-none opacity-50"
+                            : ""
+                        }
                       />
                     </PaginationItem>
                   </PaginationContent>

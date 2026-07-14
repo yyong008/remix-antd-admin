@@ -36,7 +36,7 @@ export function AdminShellLayout(props: AdminShellLayoutProps) {
     setPathname(location.pathname);
   }, [location.pathname]);
 
-  const menuItems = useMemo(() => buildAdminMenuItems(route.routes, setPathname), [route.routes]);
+  const menuItems = useMemo(() => buildAdminMenuItems(route.routes), [route.routes]);
 
   const dashboardHref = `/${locale ? `${locale}/` : ""}admin/dashboard`;
 

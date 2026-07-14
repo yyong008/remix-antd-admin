@@ -82,10 +82,7 @@ function Nav() {
 Or use className:
 
 ```tsx
-<NavLink
-  to="/dashboard"
-  className={({ isPending }) => (isPending ? "pending" : "")}
->
+<NavLink to="/dashboard" className={({ isPending }) => (isPending ? "pending" : "")}>
   Dashboard
 </NavLink>
 ```
@@ -105,9 +102,7 @@ function LikeButton({ postId, liked }) {
 
   return (
     <fetcher.Form method="post" action={`/posts/${postId}/like`}>
-      <button disabled={isPending}>
-        {isPending ? "..." : liked ? "Unlike" : "Like"}
-      </button>
+      <button disabled={isPending}>{isPending ? "..." : liked ? "Unlike" : "Like"}</button>
     </fetcher.Form>
   );
 }
@@ -130,9 +125,7 @@ function LikeButton({ postId, initialLiked }) {
   const fetcher = useFetcher();
 
   // Optimistic: check pending form data first, fallback to server state
-  const liked = fetcher.formData
-    ? fetcher.formData.get("liked") === "true"
-    : initialLiked;
+  const liked = fetcher.formData ? fetcher.formData.get("liked") === "true" : initialLiked;
 
   return (
     <fetcher.Form method="post" action={`/posts/${postId}/like`}>
@@ -153,9 +146,7 @@ function RatingStars({ itemId, currentRating }) {
 
   // 1. Check if we're submitting - use the pending value
   // 2. Otherwise use the server value
-  const displayRating = fetcher.formData
-    ? Number(fetcher.formData.get("rating"))
-    : currentRating;
+  const displayRating = fetcher.formData ? Number(fetcher.formData.get("rating")) : currentRating;
 
   const isSubmitting = fetcher.state !== "idle";
 
@@ -196,9 +187,7 @@ function NewProjectForm() {
   return (
     <Form method="post">
       <input type="text" name="title" />
-      <button disabled={isSubmitting}>
-        {isSubmitting ? "Creating..." : "Create"}
-      </button>
+      <button disabled={isSubmitting}>{isSubmitting ? "Creating..." : "Create"}</button>
 
       {optimisticTitle && <p>Creating "{optimisticTitle}"...</p>}
     </Form>
@@ -227,9 +216,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
       <h1>{loaderData.fastData.title}</h1>
 
       <Suspense fallback={<CommentsSkeleton />}>
-        <Await resolve={loaderData.slowData}>
-          {(data) => <Comments data={data} />}
-        </Await>
+        <Await resolve={loaderData.slowData}>{(data) => <Comments data={data} />}</Await>
       </Suspense>
     </div>
   );

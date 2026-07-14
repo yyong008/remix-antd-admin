@@ -207,14 +207,9 @@ export async function getRolesByUserId(db: DrizzleD1Database, userId: string) {
   return [...seen.values()];
 }
 
-export async function getUserPerms(
-  db: DrizzleD1Database,
-  userId: string,
-): Promise<string[]> {
+export async function getUserPerms(db: DrizzleD1Database, userId: string): Promise<string[]> {
   const all = await getAllFlatMenuByUserId(db, userId);
-  const codes = all
-    .map((m) => m.permission)
-    .filter((p): p is string => Boolean(p?.trim()));
+  const codes = all.map((m) => m.permission).filter((p): p is string => Boolean(p?.trim()));
   return [...new Set(codes)];
 }
 

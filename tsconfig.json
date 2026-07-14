@@ -12,9 +12,7 @@
     ".react-router/types/**/*.ts",
     "./content/*"
   ],
-  "exclude": [
-    "packages/database/src/seed"
-  ],
+  "exclude": ["packages/database/src/seed"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": ["@react-router/node", "vite/client"],

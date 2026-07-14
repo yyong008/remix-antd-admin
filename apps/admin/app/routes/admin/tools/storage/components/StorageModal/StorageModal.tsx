@@ -1,11 +1,10 @@
 import { InboxOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, message, Progress, Space, Typography } from "antd";
+import { Button, message, Progress, Typography } from "antd";
 import { useCallback, useState } from "react";
 
 import { ModalForm } from "~/components/pro-form-kit";
 
 import { ChoiceFileButton } from "./ChoiceFileButton";
-import { createModalColumns } from "./createModalColumns";
 import type { PendingUploadRow } from "./pending-file-types";
 import { formatFileSize, revokePreviewUrls } from "./pending-file-types";
 

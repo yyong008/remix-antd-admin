@@ -57,3 +57,6 @@ wrangler.jsonc
 
 # pnpm store
 .pnpm-store/
+
+# husky internal state
+.husky/_

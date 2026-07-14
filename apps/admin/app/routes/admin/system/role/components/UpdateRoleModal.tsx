@@ -22,7 +22,7 @@ export function UpdateRoleModal(props: CreateRoleModalProps) {
   const [checkedKeys, setCheckedKeys] = useState<any[]>([]);
   const updateRole = useUpdateRole();
 
-  const onCheck = (checkedKeys: any, info: any) => {
+  const onCheck = (checkedKeys: any, _info: any) => {
     setCheckedKeys(checkedKeys);
   };
 

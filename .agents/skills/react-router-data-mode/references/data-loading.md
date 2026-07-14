@@ -97,12 +97,12 @@ Loaders can return any serializable data:
 // Return object
 loader: async () => {
   return { users: await fetchUsers() };
-}
+};
 
 // Return array
 loader: async () => {
   return fetchProducts();
-}
+};
 
 // Return Response object
 loader: async () => {
@@ -110,7 +110,7 @@ loader: async () => {
   return Response.json(data, {
     headers: { "Cache-Control": "max-age=3600" },
   });
-}
+};
 ```
 
 ## Throwing Errors
@@ -168,7 +168,7 @@ loader: async ({ request }) => {
   }
 
   return user;
-}
+};
 ```
 
 ## Parallel Data Loading
@@ -313,9 +313,7 @@ function Team() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
-);
+ReactDOM.createRoot(document.getElementById("root")).render(<RouterProvider router={router} />);
 ```
 
 ## See Also

@@ -6,7 +6,11 @@ import { Hono } from "hono";
 
 import type { HonoEnv } from "../../../types";
 import { requirePermission } from "../../../middleware/rbac";
-import { getSearchParams, getSearchParamsPage, getSearchParamsPageSize } from "../../../utils/server";
+import {
+  getSearchParams,
+  getSearchParamsPage,
+  getSearchParamsPageSize,
+} from "../../../utils/server";
 import { rfj, rsj } from "../../../utils/server/response-json";
 import { getD1Db } from "../../../helpers/d1";
 
@@ -137,9 +141,7 @@ userRouter.post("/signin", async (c) => {
     const yesterdaySign = await signIn.getYesterdaySignLog(db, userId);
 
     if (userSign) {
-      const newContinuity = yesterdaySign
-        ? userSign.continuitySignedNums + 1
-        : 1;
+      const newContinuity = yesterdaySign ? userSign.continuitySignedNums + 1 : 1;
       await signIn.updateUserSign(db, userId, {
         signedNums: userSign.signedNums + 1,
         continuitySignedNums: newContinuity,

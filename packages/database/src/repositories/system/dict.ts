@@ -44,6 +44,6 @@ export async function deleteByIds(db: DrizzleD1Database, ids: string[]) {
   return { count: deleted.length };
 }
 
-export async function checkIntegrity(db: DrizzleD1Database) {
+export async function checkIntegrity(_db: DrizzleD1Database) {
   return { ok: true };
 }

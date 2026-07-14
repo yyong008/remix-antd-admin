@@ -8,11 +8,7 @@ export async function getCount(db: DrizzleD1Database) {
 }
 
 export async function getById(db: DrizzleD1Database, id: string) {
-  const rows = await db
-    .select()
-    .from(newsCategories)
-    .where(eq(newsCategories.id, id))
-    .limit(1);
+  const rows = await db.select().from(newsCategories).where(eq(newsCategories.id, id)).limit(1);
   return rows[0] ?? null;
 }
 
@@ -29,16 +25,10 @@ export async function getAll(db: DrizzleD1Database) {
 }
 
 export async function getPublicList(db: DrizzleD1Database) {
-  return (await db
-    .select()
-    .from(newsCategories)
-    .where(eq(newsCategories.visible, true))) as any;
+  return (await db.select().from(newsCategories).where(eq(newsCategories.visible, true))) as any;
 }
 
-export async function getListWithMore(
-  db: DrizzleD1Database,
-  { where, skip, take }: any,
-) {
+export async function getListWithMore(db: DrizzleD1Database, { where, skip, take }: any) {
   let query: any = db.select().from(newsCategories);
   if (where?.userId !== undefined) {
     query = query.where(eq(newsCategories.userId, where.userId));
@@ -48,27 +38,15 @@ export async function getListWithMore(
   return (await query) as any;
 }
 
-export async function getNewsCategoryListByUserId(
-  db: DrizzleD1Database,
-  userId: string,
-) {
-  return (await db
-    .select()
-    .from(newsCategories)
-    .where(eq(newsCategories.userId, userId))) as any;
+export async function getNewsCategoryListByUserId(db: DrizzleD1Database, userId: string) {
+  return (await db.select().from(newsCategories).where(eq(newsCategories.userId, userId))) as any;
 }
 
-export async function getNewsCategoryListByNewsId(
-  db: DrizzleD1Database,
-  _newsId: number,
-) {
+export async function getNewsCategoryListByNewsId(db: DrizzleD1Database, _newsId: number) {
   return (await db.select().from(newsCategories)) as any;
 }
 
-export async function getNewsCategoryListByNewsIds(
-  db: DrizzleD1Database,
-  _newsIds: number[],
-) {
+export async function getNewsCategoryListByNewsIds(db: DrizzleD1Database, _newsIds: number[]) {
   return (await db.select().from(newsCategories)) as any;
 }
 
@@ -82,9 +60,7 @@ export async function create(
   },
 ) {
   const visible =
-    data.visible === false || data.visible === 0 || data.visible === "0"
-      ? false
-      : true;
+    data.visible === false || data.visible === 0 || data.visible === "0" ? false : true;
   const id = crypto.randomUUID();
   const name = String(data.name ?? "").trim();
   if (!name) {
@@ -98,11 +74,7 @@ export async function create(
   if (!uid) {
     throw new Error("缺少用户上下文，请重新登录");
   }
-  const userRow = await db
-    .select({ id: user.id })
-    .from(user)
-    .where(eq(user.id, uid))
-    .limit(1);
+  const userRow = await db.select({ id: user.id }).from(user).where(eq(user.id, uid)).limit(1);
   if (!userRow.length) {
     throw new Error(
       "USER_NOT_IN_DATABASE: 当前登录账号在 user 表中不存在，无法写入 news_category.user_id 外键。请执行本地种子或确认会话用户与数据库一致。",
@@ -144,9 +116,7 @@ export async function update(
   },
 ) {
   const visible =
-    data.visible === false || data.visible === 0 || data.visible === "0"
-      ? false
-      : true;
+    data.visible === false || data.visible === 0 || data.visible === "0" ? false : true;
   const name = String(data.name ?? "").trim();
   if (!name) {
     throw new Error("分类名称不能为空");
@@ -159,11 +129,7 @@ export async function update(
   if (!uid) {
     throw new Error("缺少用户上下文，请重新登录");
   }
-  const userRow = await db
-    .select({ id: user.id })
-    .from(user)
-    .where(eq(user.id, uid))
-    .limit(1);
+  const userRow = await db.select({ id: user.id }).from(user).where(eq(user.id, uid)).limit(1);
   if (!userRow.length) {
     throw new Error(
       "USER_NOT_IN_DATABASE: 当前登录账号在 user 表中不存在，无法写入 news_category.user_id 外键。请执行本地种子或确认会话用户与数据库一致。",

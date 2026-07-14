@@ -1,4 +1,4 @@
-import { DeleteOutlined, EditOutlined, ReloadOutlined } from "@ant-design/icons";
+import { EditOutlined, ReloadOutlined } from "@ant-design/icons";
 import { Button, Card, Descriptions, Empty, Flex, Space, Spin, Tree, Typography } from "antd";
 import type { DataNode } from "antd/es/tree";
 import { useEffect, useMemo, useState } from "react";

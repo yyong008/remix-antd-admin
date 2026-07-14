@@ -33,6 +33,7 @@ export class Rps {
         message: message ?? ResMessage.fail,
         data: data ?? null,
       }),
+      options,
     );
   }
 }
@@ -57,6 +58,7 @@ export const rfj = (data?: any, message?: string, options?: any) => {
       message: message ?? ResMessage.fail,
       data: data ?? null,
     }),
+    options,
   );
 };
 

@@ -11,7 +11,7 @@ import { EditOutlined } from "@ant-design/icons";
 
 export function ChangeLogCreateModal({ refetch }: any) {
   const [form] = Form.useForm();
-  const [createChangelog, other] = [(...args: any): any => {}, { isLoading: false }];
+  const [createChangelog, other] = [(..._args: any): any => {}, { isLoading: false }];
 
   return (
     <ModalForm
@@ -19,7 +19,7 @@ export function ChangeLogCreateModal({ refetch }: any) {
       preserve={false}
       loading={other.isLoading}
       title="创建日志"
-      onOpenChange={(c) => {}}
+      onOpenChange={(_c) => {}}
       trigger={
         <Button type="primary" icon={<EditOutlined />}>
           新建

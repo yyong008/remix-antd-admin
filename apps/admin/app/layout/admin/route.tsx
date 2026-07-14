@@ -19,10 +19,7 @@ function AdminLayout() {
   const value = useContext(SettingContext);
   const menu = data?.menu ?? [];
   const userInfo = data?.userInfo;
-  const route = useMemo(
-    () => createProLayoutRoute(locale!, menu),
-    [locale, menu],
-  );
+  const route = useMemo(() => createProLayoutRoute(locale!, menu), [locale, menu]);
 
   const headerUser = useMemo(() => {
     const api = userInfo as {

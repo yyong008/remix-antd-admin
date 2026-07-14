@@ -1,4 +1,4 @@
-import { Flex, Typography, Button } from "antd";
+import { Flex, Typography } from "antd";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { href, useNavigate, useParams } from "react-router";
 
@@ -49,7 +49,7 @@ function useResolvedChatId() {
 }
 
 export function Route() {
-  const { locale, id: chatId } = useParams();
+  const { locale } = useParams();
   const resolvedChatId = useResolvedChatId();
 
   return (
@@ -78,11 +78,13 @@ export function Route() {
           <Typography.Text type="secondary">准备会话...</Typography.Text>
         </Flex>
       ) : (
-        <Suspense fallback={
-          <Flex justify="center" align="center" style={{ height: 200 }}>
-            <Typography.Text type="secondary">加载中...</Typography.Text>
-          </Flex>
-        }>
+        <Suspense
+          fallback={
+            <Flex justify="center" align="center" style={{ height: 200 }}>
+              <Typography.Text type="secondary">加载中...</Typography.Text>
+            </Flex>
+          }
+        >
           <AiChatConversation chatId={resolvedChatId} style={{ minHeight: 480 }} gap={16} />
         </Suspense>
       )}

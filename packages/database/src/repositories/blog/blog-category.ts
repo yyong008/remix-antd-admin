@@ -23,25 +23,15 @@ export async function update(db: DrizzleD1Database, data: any) {
 }
 
 export async function deleteByIds(db: DrizzleD1Database, ids: string[]) {
-  return await db
-    .delete(blogCategories)
-    .where(inArray(blogCategories.id, ids))
-    .returning();
+  return await db.delete(blogCategories).where(inArray(blogCategories.id, ids)).returning();
 }
 
 export async function getListByUserId(db: DrizzleD1Database, userId: string) {
-  return await db
-    .select()
-    .from(blogCategories)
-    .where(eq(blogCategories.userId, userId));
+  return await db.select().from(blogCategories).where(eq(blogCategories.userId, userId));
 }
 
 export async function getById(db: DrizzleD1Database, id: string) {
-  const rows = await db
-    .select()
-    .from(blogCategories)
-    .where(eq(blogCategories.id, id))
-    .limit(1);
+  const rows = await db.select().from(blogCategories).where(eq(blogCategories.id, id)).limit(1);
   return rows[0] ?? null;
 }
 
@@ -50,10 +40,7 @@ export async function getAll(db: DrizzleD1Database) {
 }
 
 export async function getPublicList(db: DrizzleD1Database) {
-  return await db
-    .select()
-    .from(blogCategories)
-    .where(eq(blogCategories.showOnClient, true));
+  return await db.select().from(blogCategories).where(eq(blogCategories.showOnClient, true));
 }
 
 export async function getListWithBlog(db: DrizzleD1Database) {

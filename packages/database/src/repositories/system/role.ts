@@ -105,11 +105,7 @@ export async function create(db: DrizzleD1Database, data: any) {
 
 export async function update(db: DrizzleD1Database, data: any) {
   return db.transaction(async (tx) => {
-    const existing = await tx
-      .select()
-      .from(roles)
-      .where(eq(roles.id, data.id))
-      .limit(1);
+    const existing = await tx.select().from(roles).where(eq(roles.id, data.id)).limit(1);
     if (!existing[0]) {
       throw new Error("create user fail");
     }
@@ -137,18 +133,11 @@ export async function update(db: DrizzleD1Database, data: any) {
     const menuIdsToDelete = existingMenuIds.filter(
       (id) => !menusData.some((menu: any) => menu.id === id),
     );
-    const menuIdsToAdd = menusData.filter(
-      (menu: any) => !existingMenuIds.includes(menu.id),
-    );
+    const menuIdsToAdd = menusData.filter((menu: any) => !existingMenuIds.includes(menu.id));
     if (menuIdsToDelete.length > 0) {
       await tx
         .delete(menuRoles)
-        .where(
-          and(
-            inArray(menuRoles.menuId, menuIdsToDelete),
-            eq(menuRoles.roleId, data.id),
-          ),
-        );
+        .where(and(inArray(menuRoles.menuId, menuIdsToDelete), eq(menuRoles.roleId, data.id)));
     }
     if (menuIdsToAdd.length > 0) {
       const now = new Date();

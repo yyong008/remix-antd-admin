@@ -1,0 +1,5 @@
+{
+  "extends": "@workspace/typescript-config/react",
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

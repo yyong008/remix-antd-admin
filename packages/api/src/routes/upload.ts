@@ -8,9 +8,9 @@ import { getD1Db } from "../helpers/d1";
 
 const DEMO_TRUE_VALUES = new Set(["1", "true", "yes", "on"]);
 
-const isStorageUploadAllowed = (c) => {
-  return false
-}
+const isStorageUploadAllowed = (_c: unknown) => {
+  return false;
+};
 const isDemoModeEnabled = () => {
   const raw = process.env.DEMO_MODE;
   if (!raw) {

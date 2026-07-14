@@ -146,11 +146,7 @@ export async function create(db: DrizzleD1Database, data: any) {
 
 export async function update(db: DrizzleD1Database, { id, ...data }: any) {
   return db.transaction(async (tx) => {
-    const existing = await tx
-      .select()
-      .from(user)
-      .where(eq(user.id, id))
-      .limit(1);
+    const existing = await tx.select().from(user).where(eq(user.id, id)).limit(1);
     if (!existing[0]) {
       throw new Error("update user fail");
     }
@@ -192,10 +188,7 @@ export async function update(db: DrizzleD1Database, { id, ...data }: any) {
 export async function deleteByIds(db: DrizzleD1Database, ids: string[]) {
   return db.transaction(async (tx) => {
     await tx.delete(userRoles).where(inArray(userRoles.userId, ids));
-    const deleted = await tx
-      .delete(user)
-      .where(inArray(user.id, ids))
-      .returning({ id: user.id });
+    const deleted = await tx.delete(user).where(inArray(user.id, ids)).returning({ id: user.id });
     return { count: deleted.length };
   });
 }

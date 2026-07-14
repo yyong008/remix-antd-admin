@@ -1,15 +1,15 @@
-import { reactRouter } from "@react-router/dev/vite";
-import { cloudflare } from "@cloudflare/vite-plugin";
-import tailwindcss from "@tailwindcss/vite";
-import { defineConfig } from "vite";
-import devtoolsJson from "vite-plugin-devtools-json";
-import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import fs from "node:fs";
 import path from "node:path";
+import { defineConfig } from "vite";
+import mdx from "fumadocs-mdx/vite";
 import { fileURLToPath } from "node:url";
+import tailwindcss from "@tailwindcss/vite";
+import * as MdxConfig from "./source.config";
+import { reactRouter } from "@react-router/dev/vite";
+import { cloudflare } from "@cloudflare/vite-plugin";
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
 const rootPkg = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../package.json"), "utf-8"));
 const webPkg = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./package.json"), "utf-8"));
 
@@ -40,8 +40,8 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   plugins: [
+    mdx(MdxConfig),
     cloudflare({ viteEnvironment: { name: "ssr" }, inspectorPort: false }),
-    devtoolsJson(),
     tailwindcss(),
     reactRouter(),
     paraglideVitePlugin({

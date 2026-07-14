@@ -34,14 +34,14 @@ Add to `tsconfig.json`:
 Module handles its own updates:
 
 ```ts
-export const count = 1
+export const count = 1;
 
 if (import.meta.hot) {
   import.meta.hot.accept((newModule) => {
     if (newModule) {
-      console.log('updated: count is now', newModule.count)
+      console.log("updated: count is now", newModule.count);
     }
-  })
+  });
 }
 ```
 
@@ -50,23 +50,20 @@ if (import.meta.hot) {
 React to changes in dependencies without self-reload:
 
 ```ts
-import { foo } from './foo.js'
+import { foo } from "./foo.js";
 
-foo()
+foo();
 
 if (import.meta.hot) {
   // Single dependency
-  import.meta.hot.accept('./foo.js', (newFoo) => {
-    newFoo?.foo()
-  })
-  
+  import.meta.hot.accept("./foo.js", (newFoo) => {
+    newFoo?.foo();
+  });
+
   // Multiple dependencies
-  import.meta.hot.accept(
-    ['./foo.js', './bar.js'],
-    ([newFooModule, newBarModule]) => {
-      // Handle updates
-    }
-  )
+  import.meta.hot.accept(["./foo.js", "./bar.js"], ([newFooModule, newBarModule]) => {
+    // Handle updates
+  });
 }
 ```
 
@@ -76,16 +73,16 @@ Clean up side effects before module is replaced:
 
 ```ts
 function setupSideEffect() {
-  const interval = setInterval(() => {}, 1000)
-  return interval
+  const interval = setInterval(() => {}, 1000);
+  return interval;
 }
 
-const interval = setupSideEffect()
+const interval = setupSideEffect();
 
 if (import.meta.hot) {
   import.meta.hot.dispose((data) => {
-    clearInterval(interval)
-  })
+    clearInterval(interval);
+  });
 }
 ```
 
@@ -97,7 +94,7 @@ Called when module is no longer imported:
 if (import.meta.hot) {
   import.meta.hot.prune((data) => {
     // Cleanup when module is removed from page
-  })
+  });
 }
 ```
 
@@ -108,7 +105,7 @@ Pass data between module instances:
 ```ts
 if (import.meta.hot) {
   // Mutate properties, don't reassign data itself
-  import.meta.hot.data.count = (import.meta.hot.data.count || 0) + 1
+  import.meta.hot.data.count = (import.meta.hot.data.count || 0) + 1;
 }
 ```
 
@@ -120,9 +117,9 @@ Force propagation to importers:
 if (import.meta.hot) {
   import.meta.hot.accept((module) => {
     if (cannotHandleUpdate(module)) {
-      import.meta.hot.invalidate()  // Propagate to importers
+      import.meta.hot.invalidate(); // Propagate to importers
     }
-  })
+  });
 }
 ```
 
@@ -132,29 +129,29 @@ Listen to built-in events:
 
 ```ts
 if (import.meta.hot) {
-  import.meta.hot.on('vite:beforeUpdate', (payload) => {
-    console.log('Update incoming')
-  })
-  
-  import.meta.hot.on('vite:afterUpdate', (payload) => {
-    console.log('Update applied')
-  })
-  
-  import.meta.hot.on('vite:beforeFullReload', () => {
-    console.log('Full reload')
-  })
-  
-  import.meta.hot.on('vite:error', (error) => {
-    console.error('HMR error', error)
-  })
-  
-  import.meta.hot.on('vite:ws:connect', () => {
-    console.log('WebSocket connected')
-  })
-  
-  import.meta.hot.on('vite:ws:disconnect', () => {
-    console.log('WebSocket disconnected')
-  })
+  import.meta.hot.on("vite:beforeUpdate", (payload) => {
+    console.log("Update incoming");
+  });
+
+  import.meta.hot.on("vite:afterUpdate", (payload) => {
+    console.log("Update applied");
+  });
+
+  import.meta.hot.on("vite:beforeFullReload", () => {
+    console.log("Full reload");
+  });
+
+  import.meta.hot.on("vite:error", (error) => {
+    console.error("HMR error", error);
+  });
+
+  import.meta.hot.on("vite:ws:connect", () => {
+    console.log("WebSocket connected");
+  });
+
+  import.meta.hot.on("vite:ws:disconnect", () => {
+    console.log("WebSocket disconnected");
+  });
 }
 ```
 
@@ -165,7 +162,7 @@ Send events to server:
 ```ts
 // Client
 if (import.meta.hot) {
-  import.meta.hot.send('my:event', { msg: 'Hello from client' })
+  import.meta.hot.send("my:event", { msg: "Hello from client" });
 }
 ```
 
@@ -174,9 +171,9 @@ Receive from server:
 ```ts
 // Client
 if (import.meta.hot) {
-  import.meta.hot.on('my:response', (data) => {
-    console.log(data.msg)
-  })
+  import.meta.hot.on("my:response", (data) => {
+    console.log(data.msg);
+  });
 }
 ```
 
@@ -184,17 +181,17 @@ if (import.meta.hot) {
 
 ```ts
 // events.d.ts
-import 'vite/types/customEvent.d.ts'
+import "vite/types/customEvent.d.ts";
 
-declare module 'vite/types/customEvent.d.ts' {
+declare module "vite/types/customEvent.d.ts" {
   interface CustomEventMap {
-    'my:event': { msg: string }
-    'my:response': { msg: string }
+    "my:event": { msg: string };
+    "my:response": { msg: string };
   }
 }
 ```
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/guide/api-hmr.html
 -->

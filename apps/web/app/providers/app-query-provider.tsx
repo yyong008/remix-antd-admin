@@ -4,7 +4,6 @@ import {
   defaultShouldDehydrateQuery,
 } from "@tanstack/react-query";
 
-
 export function createQueryClient() {
   return new QueryClient({
     defaultOptions: {
@@ -38,5 +37,3 @@ export function AppQueryProvider({ children }: { children: React.ReactNode }) {
 
   return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
 }
-
-export {  };

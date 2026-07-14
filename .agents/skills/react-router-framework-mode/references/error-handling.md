@@ -68,10 +68,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   const product = await db.getProduct(params.id);
 
   if (!product) {
-    throw data(
-      { message: "Product not found", productId: params.id },
-      { status: 404 },
-    );
+    throw data({ message: "Product not found", productId: params.id }, { status: 404 });
   }
 
   return product;

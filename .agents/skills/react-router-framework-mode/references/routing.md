@@ -26,13 +26,7 @@ export default [
 ### Complete Example
 
 ```ts
-import {
-  type RouteConfig,
-  route,
-  index,
-  layout,
-  prefix,
-} from "@react-router/dev/routes";
+import { type RouteConfig, route, index, layout, prefix } from "@react-router/dev/routes";
 
 export default [
   index("./home.tsx"),
@@ -57,10 +51,7 @@ export default [
 import { type RouteConfig, route } from "@react-router/dev/routes";
 import { flatRoutes } from "@react-router/fs-routes";
 
-export default [
-  route("/", "./home.tsx"),
-  ...(await flatRoutes()),
-] satisfies RouteConfig;
+export default [route("/", "./home.tsx"), ...(await flatRoutes())] satisfies RouteConfig;
 ```
 
 ## Route Helpers

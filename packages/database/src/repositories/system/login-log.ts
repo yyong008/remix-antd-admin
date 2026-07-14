@@ -38,10 +38,7 @@ export async function getLoginLogList(db: DrizzleD1Database, data: TPage) {
     .offset(((data.page ?? 1) - 1) * (data.pageSize ?? 10))) as any;
 }
 
-export async function getLoginLogLatestByUserId(
-  db: DrizzleD1Database,
-  userId: string,
-) {
+export async function getLoginLogLatestByUserId(db: DrizzleD1Database, userId: string) {
   const rows = await db
     .select()
     .from(loginLogs)

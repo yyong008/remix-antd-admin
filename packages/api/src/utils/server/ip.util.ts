@@ -37,7 +37,7 @@ export async function getIpAddress(ip: string) {
         return d;
       },
     );
-  } catch (error) {
+  } catch {
     return "第三方接口请求失败";
   }
 }
@@ -94,7 +94,7 @@ class IpUtils {
           return d;
         },
       );
-    } catch (error) {
+    } catch {
       return "第三方接口请求失败";
     }
   }

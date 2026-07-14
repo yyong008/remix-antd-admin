@@ -14,7 +14,17 @@ export const loader = async (_args: LoaderFunctionArgs) => {
   return null;
 };
 
-function BlogHeader({ blog }: { blog: { title: string; author?: string | null; publishedAt: string; categoryName?: string; tagName?: string } }) {
+function BlogHeader({
+  blog,
+}: {
+  blog: {
+    title: string;
+    author?: string | null;
+    publishedAt: string;
+    categoryName?: string;
+    tagName?: string;
+  };
+}) {
   return (
     <header className="mb-10">
       <h1 className="text-3xl font-bold leading-tight mb-6 text-[clamp(24px,4vw,36px)]">
@@ -50,7 +60,8 @@ function BlogHeader({ blog }: { blog: { title: string; author?: string | null; p
 
 function BlogContent({ content }: { content: string }) {
   return (
-    <div className="leading-[1.9] text-base"
+    <div
+      className="leading-[1.9] text-base"
       dangerouslySetInnerHTML={{ __html: dompurify.sanitize(content || "") }}
     />
   );
@@ -62,17 +73,13 @@ export default function Route() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        {m.common_loading()}
-      </div>
+      <div className="flex items-center justify-center min-h-[60vh]">{m.common_loading()}</div>
     );
   }
 
   if (!blog) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        {m.blog_not_found()}
-      </div>
+      <div className="flex items-center justify-center min-h-[60vh]">{m.blog_not_found()}</div>
     );
   }
 

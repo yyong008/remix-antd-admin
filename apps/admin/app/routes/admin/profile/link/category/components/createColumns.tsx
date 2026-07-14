@@ -1,9 +1,9 @@
-import { Dropdown, message, Tag } from "antd";
+import { Dropdown, Tag } from "antd";
 import type { MenuProps } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 export function createColumns({
-  refetch,
+  refetch: _refetch,
   onUpdate,
   onDelete,
 }: {

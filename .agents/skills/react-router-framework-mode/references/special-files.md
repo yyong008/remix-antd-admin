@@ -154,16 +154,10 @@ export default function App() {
       {/* Global navigation */}
       <header className="app-header">
         <nav className="app-nav">
-          <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
+          <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
             Home
           </NavLink>
-          <NavLink
-            to="/products"
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
+          <NavLink to="/products" className={({ isActive }) => (isActive ? "active" : "")}>
             Products
           </NavLink>
         </nav>
@@ -175,9 +169,7 @@ export default function App() {
       </main>
 
       {/* Global footer */}
-      <footer className="app-footer">
-        © {new Date().getFullYear()} My App
-      </footer>
+      <footer className="app-footer">© {new Date().getFullYear()} My App</footer>
     </div>
   );
 }
@@ -196,12 +188,7 @@ Defines the URL structure and maps URLs to route modules.
 Quick example:
 
 ```ts
-import {
-  type RouteConfig,
-  route,
-  index,
-  layout,
-} from "@react-router/dev/routes";
+import { type RouteConfig, route, index, layout } from "@react-router/dev/routes";
 
 export default [
   index("./home.tsx"),

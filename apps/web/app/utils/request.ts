@@ -9,7 +9,7 @@ interface ApiResponse<T> {
 export class ApiError extends Error {
   constructor(
     message: string,
-    public code: number
+    public code: number,
   ) {
     super(message);
     this.name = "ApiError";
@@ -26,11 +26,7 @@ async function handleResponse<T>(response: Response): Promise<T> {
   return result.data;
 }
 
-async function request<T>(
-  endpoint: string,
-  method: string,
-  body?: unknown
-): Promise<T> {
+async function request<T>(endpoint: string, method: string, body?: unknown): Promise<T> {
   const url = `${config.api.baseUrl}${endpoint}`;
   const response = await fetch(url, {
     method,

@@ -34,52 +34,49 @@ Low-level API for framework authors. For applications, use higher-level tools fr
 
 ```ts
 // server.js
-import express from 'express'
-import { createServer as createViteServer } from 'vite'
+import express from "express";
+import { createServer as createViteServer } from "vite";
 
 async function createServer() {
-  const app = express()
+  const app = express();
 
   const vite = await createViteServer({
     server: { middlewareMode: true },
-    appType: 'custom'
-  })
+    appType: "custom",
+  });
 
-  app.use(vite.middlewares)
+  app.use(vite.middlewares);
 
-  app.use('*all', async (req, res, next) => {
-    const url = req.originalUrl
+  app.use("*all", async (req, res, next) => {
+    const url = req.originalUrl;
 
     try {
       // 1. Read index.html
-      let template = fs.readFileSync(
-        path.resolve(__dirname, 'index.html'),
-        'utf-8'
-      )
+      let template = fs.readFileSync(path.resolve(__dirname, "index.html"), "utf-8");
 
       // 2. Apply Vite transforms
-      template = await vite.transformIndexHtml(url, template)
+      template = await vite.transformIndexHtml(url, template);
 
       // 3. Load server entry
-      const { render } = await vite.ssrLoadModule('/src/entry-server.js')
+      const { render } = await vite.ssrLoadModule("/src/entry-server.js");
 
       // 4. Render app HTML
-      const appHtml = await render(url)
+      const appHtml = await render(url);
 
       // 5. Inject into template
-      const html = template.replace('<!--ssr-outlet-->', appHtml)
+      const html = template.replace("<!--ssr-outlet-->", appHtml);
 
-      res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
+      res.status(200).set({ "Content-Type": "text/html" }).end(html);
     } catch (e) {
-      vite.ssrFixStacktrace(e)
-      next(e)
+      vite.ssrFixStacktrace(e);
+      next(e);
     }
-  })
+  });
 
-  app.listen(5173)
+  app.listen(5173);
 }
 
-createServer()
+createServer();
 ```
 
 ## Conditional Logic
@@ -127,10 +124,10 @@ Dependencies are externalized by default. To transform with Vite:
 ```ts
 export default defineConfig({
   ssr: {
-    noExternal: ['package-that-needs-transform'],
-    external: ['package-to-externalize']
-  }
-})
+    noExternal: ["package-that-needs-transform"],
+    external: ["package-to-externalize"],
+  },
+});
 ```
 
 ## SSR-specific Plugin Logic
@@ -138,13 +135,13 @@ export default defineConfig({
 ```ts
 export function mySSRPlugin() {
   return {
-    name: 'my-ssr',
+    name: "my-ssr",
     transform(code, id, options) {
       if (options?.ssr) {
         // SSR-specific transform
       }
-    }
-  }
+    },
+  };
 }
 ```
 
@@ -153,10 +150,10 @@ export function mySSRPlugin() {
 ```ts
 export default defineConfig({
   ssr: {
-    target: 'node',      // Default
+    target: "node", // Default
     // target: 'webworker'  // For edge runtimes
-  }
-})
+  },
+});
 ```
 
 ## SSR Bundle
@@ -166,9 +163,9 @@ Bundle all dependencies (for workers):
 ```ts
 export default defineConfig({
   ssr: {
-    noExternal: true  // Bundle everything
-  }
-})
+    noExternal: true, // Bundle everything
+  },
+});
 ```
 
 ## Resolve Conditions
@@ -177,18 +174,18 @@ export default defineConfig({
 export default defineConfig({
   ssr: {
     resolve: {
-      conditions: ['node'],
-      externalConditions: ['node']
-    }
-  }
-})
+      conditions: ["node"],
+      externalConditions: ["node"],
+    },
+  },
+});
 ```
 
 ## Pre-Rendering / SSG
 
 Pre-render routes with known data into static HTML at build time.
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/guide/ssr.html
 -->

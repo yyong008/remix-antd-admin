@@ -8,9 +8,7 @@ const WRITE_METHODS = new Set(["POST", "PUT", "PATCH", "DELETE"]);
 
 export const demoModeMiddleware = createMiddleware<HonoEnv>(async (c, next) => {
   const demoRaw = c.env.DEMO_MODE;
-  const demoEnabled = demoRaw
-    ? DEMO_TRUE_VALUES.has(demoRaw.toLowerCase())
-    : false;
+  const demoEnabled = demoRaw ? DEMO_TRUE_VALUES.has(demoRaw.toLowerCase()) : false;
 
   if (!demoEnabled) {
     return next();

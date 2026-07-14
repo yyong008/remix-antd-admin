@@ -135,10 +135,7 @@ export async function action({ request }: Route.ActionArgs) {
 Runs in the browser:
 
 ```tsx
-export async function clientAction({
-  request,
-  serverAction,
-}: Route.ClientActionArgs) {
+export async function clientAction({ request, serverAction }: Route.ClientActionArgs) {
   const formData = await request.formData();
 
   // Can call server action
@@ -236,9 +233,7 @@ function FavoriteButton({ itemId, isFavorite }) {
   const fetcher = useFetcher();
 
   // Optimistic: use pending form data, fallback to server state
-  const optimistic = fetcher.formData
-    ? fetcher.formData.get("favorite") === "true"
-    : isFavorite;
+  const optimistic = fetcher.formData ? fetcher.formData.get("favorite") === "true" : isFavorite;
 
   return (
     <fetcher.Form method="post" action={`/items/${itemId}/favorite`}>

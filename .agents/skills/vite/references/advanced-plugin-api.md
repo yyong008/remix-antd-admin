@@ -12,10 +12,10 @@ Vite plugins extend Rolldown's plugin interface with Vite-specific hooks.
 ```ts
 export default function myPlugin(options = {}) {
   return {
-    name: 'vite-plugin-my-plugin',
-    
+    name: "vite-plugin-my-plugin",
+
     // Hooks...
-  }
+  };
 }
 ```
 
@@ -28,15 +28,18 @@ export default function myPlugin(options = {}) {
 ## Universal Hooks (from Rolldown)
 
 Called on server start:
+
 - `options` - Modify Rolldown options
 - `buildStart` - Build starting
 
 Called per module request:
+
 - `resolveId` - Resolve import paths
 - `load` - Load module content
 - `transform` - Transform module code
 
 Called on server close:
+
 - `buildEnd`
 - `closeBundle`
 
@@ -87,7 +90,7 @@ Add dev server middleware:
       // Handle request
       next()
     })
-    
+
     // Return function to run after Vite's middlewares
     return () => {
       server.middlewares.use((req, res, next) => {
@@ -156,31 +159,31 @@ Provide build-time information to source code:
 
 ```ts
 export default function myPlugin() {
-  const virtualModuleId = 'virtual:my-module'
-  const resolvedId = '\0' + virtualModuleId
+  const virtualModuleId = "virtual:my-module";
+  const resolvedId = "\0" + virtualModuleId;
 
   return {
-    name: 'virtual-module',
-    
+    name: "virtual-module",
+
     resolveId(id) {
       if (id === virtualModuleId) {
-        return resolvedId
+        return resolvedId;
       }
     },
-    
+
     load(id) {
       if (id === resolvedId) {
-        return `export const msg = "from virtual module"`
+        return `export const msg = "from virtual module"`;
       }
-    }
-  }
+    },
+  };
 }
 ```
 
 Usage:
 
 ```ts
-import { msg } from 'virtual:my-module'
+import { msg } from "virtual:my-module";
 ```
 
 ## Client-Server Communication
@@ -201,9 +204,9 @@ Client receives:
 
 ```ts
 if (import.meta.hot) {
-  import.meta.hot.on('my:greetings', (data) => {
-    console.log(data.msg)
-  })
+  import.meta.hot.on("my:greetings", (data) => {
+    console.log(data.msg);
+  });
 }
 ```
 
@@ -247,12 +250,12 @@ if (import.meta.hot) {
 Use POSIX separators for cross-platform compatibility:
 
 ```ts
-import { normalizePath } from 'vite'
+import { normalizePath } from "vite";
 
-normalizePath('foo\\bar')  // 'foo/bar'
+normalizePath("foo\\bar"); // 'foo/bar'
 ```
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/guide/api-plugin.html
 -->

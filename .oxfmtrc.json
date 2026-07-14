@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "typescript": {
+    "quoteStyle": "single"
+  },
+  "javascript": {
+    "quoteStyle": "single"
+  },
+  "json": {
+    "indentWidth": 2
+  }
+}

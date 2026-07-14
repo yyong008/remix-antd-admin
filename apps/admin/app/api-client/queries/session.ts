@@ -16,19 +16,6 @@ export type AuthSessionRow = {
 
 export const AUTH_SESSIONS_LIST_KEY = ["auth", "sessions", "list"] as const;
 
-function unwrapListSessionsPayload(result: unknown): AuthSessionRow[] {
-  if (result && typeof result === "object" && "error" in result) {
-    const err = (result as { error?: { message?: string } | null }).error;
-    if (err) throw new Error(err.message ?? "Failed to list sessions");
-  }
-  const raw =
-    result && typeof result === "object" && "data" in result
-      ? (result as { data: unknown }).data
-      : result;
-  if (Array.isArray(raw)) return raw as AuthSessionRow[];
-  return [];
-}
-
 /**
  * All active sessions for the current user (better-auth `listSessions`).
  * @see https://www.better-auth.com/docs/concepts/session-management
@@ -53,19 +40,6 @@ export type AuthLinkedAccountRow = {
 
 export const AUTH_ACCOUNTS_LIST_KEY = ["auth", "accounts", "list"] as const;
 
-function unwrapListAccountsPayload(result: unknown): AuthLinkedAccountRow[] {
-  if (result && typeof result === "object" && "error" in result) {
-    const err = (result as { error?: { message?: string } | null }).error;
-    if (err) throw new Error(err.message ?? "Failed to list accounts");
-  }
-  const raw =
-    result && typeof result === "object" && "data" in result
-      ? (result as { data: unknown }).data
-      : result;
-  if (Array.isArray(raw)) return raw as AuthLinkedAccountRow[];
-  return [];
-}
-
 /**
  * OAuth / credential accounts linked to the current user (`listAccounts`).
  */
@@ -85,7 +59,7 @@ export function useAuthAccountsList() {
  * @see https://tanstack.com/query/latest/docs/framework/react/guides/important-defaults
  */
 export function useUserSessionQuery() {
-  const queryClient = useQueryClient();
+  const _queryClient = useQueryClient();
 
   return useQuery({
     queryKey: USER_SESSION_QUERY_KEY,
@@ -108,7 +82,7 @@ export function useRevokeSessionMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ token }: { token: string }) => {
+    mutationFn: async ({ token: _token }: { token: string }) => {
       return { success: true };
     },
     onSuccess: () => {

@@ -5,7 +5,7 @@ import { useCreateBlogCategory } from "~/api-client/queries/blog/blog-category";
 import { ModalFormItems } from "./ModalFormItems";
 
 export function CreateBlogCategoryModal({
-  loading,
+  loading: _loading,
   trigger,
   title = "创建分类",
   onOpenChange,

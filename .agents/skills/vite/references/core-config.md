@@ -11,11 +11,11 @@ Vite automatically resolves a config file named `vite.config.*` in the project r
 
 ```ts
 // vite.config.ts
-import { defineConfig } from 'vite'
+import { defineConfig } from "vite";
 
 export default defineConfig({
   // config options
-})
+});
 ```
 
 Use `defineConfig` for TypeScript intellisense. Alternatively, use JSDoc annotations:
@@ -24,7 +24,7 @@ Use `defineConfig` for TypeScript intellisense. Alternatively, use JSDoc annotat
 /** @type {import('vite').UserConfig} */
 export default {
   // config options
-}
+};
 ```
 
 ## Conditional Config
@@ -32,25 +32,25 @@ export default {
 Export a function to conditionally determine options based on command, mode, or build type:
 
 ```ts
-import { defineConfig } from 'vite'
+import { defineConfig } from "vite";
 
 export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
-  if (command === 'serve') {
+  if (command === "serve") {
     // dev specific config
     return {
       define: {
-        __DEV__: true
-      }
-    }
+        __DEV__: true,
+      },
+    };
   } else {
     // build specific config
     return {
       define: {
-        __DEV__: false
-      }
-    }
+        __DEV__: false,
+      },
+    };
   }
-})
+});
 ```
 
 - `command` is `'serve'` during dev (`vite`, `vite dev`, `vite serve`) and `'build'` for production
@@ -59,14 +59,14 @@ export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
 ## Async Config
 
 ```ts
-import { defineConfig } from 'vite'
+import { defineConfig } from "vite";
 
 export default defineConfig(async ({ command, mode }) => {
-  const data = await fetchRemoteConfig()
+  const data = await fetchRemoteConfig();
   return {
     // config using fetched data
-  }
-})
+  };
+});
 ```
 
 ## Key Configuration Options
@@ -75,28 +75,28 @@ export default defineConfig(async ({ command, mode }) => {
 
 ```ts
 export default defineConfig({
-  root: './src',           // Project root directory (where index.html is)
-  base: '/my-app/',        // Public base path for assets
-  publicDir: 'public',     // Static assets directory
-  cacheDir: 'node_modules/.vite'  // Cache directory
-})
+  root: "./src", // Project root directory (where index.html is)
+  base: "/my-app/", // Public base path for assets
+  publicDir: "public", // Static assets directory
+  cacheDir: "node_modules/.vite", // Cache directory
+});
 ```
 
 ### Resolve Aliases
 
 ```ts
-import { resolve } from 'path'
+import { resolve } from "path";
 
 export default defineConfig({
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
-      '~': resolve(__dirname, 'src/components')
+      "@": resolve(__dirname, "src"),
+      "~": resolve(__dirname, "src/components"),
     },
     // File extensions to try for imports without extension
-    extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json']
-  }
-})
+    extensions: [".mjs", ".js", ".mts", ".ts", ".jsx", ".tsx", ".json"],
+  },
+});
 ```
 
 ### Define Global Constants
@@ -104,18 +104,18 @@ export default defineConfig({
 ```ts
 export default defineConfig({
   define: {
-    __APP_VERSION__: JSON.stringify('1.0.0'),
-    __API_URL__: JSON.stringify('https://api.example.com')
-  }
-})
+    __APP_VERSION__: JSON.stringify("1.0.0"),
+    __API_URL__: JSON.stringify("https://api.example.com"),
+  },
+});
 ```
 
 Values must be JSON-serializable or a single identifier. Add TypeScript declarations:
 
 ```ts
 // vite-env.d.ts
-declare const __APP_VERSION__: string
-declare const __API_URL__: string
+declare const __APP_VERSION__: string;
+declare const __API_URL__: string;
 ```
 
 ### JSON Handling
@@ -123,10 +123,10 @@ declare const __API_URL__: string
 ```ts
 export default defineConfig({
   json: {
-    namedExports: true,  // Support named imports from JSON
-    stringify: 'auto'    // Stringify large JSON for performance
-  }
-})
+    namedExports: true, // Support named imports from JSON
+    stringify: "auto", // Stringify large JSON for performance
+  },
+});
 ```
 
 ## Using Environment Variables in Config
@@ -134,21 +134,21 @@ export default defineConfig({
 Variables from `.env` files are NOT automatically available in config. Use `loadEnv`:
 
 ```ts
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig, loadEnv } from "vite";
 
 export default defineConfig(({ mode }) => {
   // Load env vars from .env files
-  const env = loadEnv(mode, process.cwd(), '')
-  
+  const env = loadEnv(mode, process.cwd(), "");
+
   return {
     define: {
-      __APP_ENV__: JSON.stringify(env.APP_ENV)
+      __APP_ENV__: JSON.stringify(env.APP_ENV),
     },
     server: {
-      port: env.APP_PORT ? Number(env.APP_PORT) : 5173
-    }
-  }
-})
+      port: env.APP_PORT ? Number(env.APP_PORT) : 5173,
+    },
+  };
+});
 ```
 
 ## Specifying Config File
@@ -170,7 +170,7 @@ vite --configLoader runner
 vite --configLoader native
 ```
 
-<!-- 
+<!--
 Source references:
 - https://vite.dev/config/
 -->

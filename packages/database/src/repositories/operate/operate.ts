@@ -3,11 +3,7 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
 import { operates } from "../../schema";
 
 export async function getById(db: DrizzleD1Database, id: string) {
-  const rows = await db
-    .select()
-    .from(operates)
-    .where(eq(operates.id, id))
-    .limit(1);
+  const rows = await db.select().from(operates).where(eq(operates.id, id)).limit(1);
   return rows[0] ?? null;
 }
 
@@ -25,9 +21,7 @@ export async function getOperates(
     conditions.push(eq(operates.userId, data.where.userId));
   }
   if (data.where?.username?.contains) {
-    conditions.push(
-      like(operates.username, `%${data.where.username.contains}%`),
-    );
+    conditions.push(like(operates.username, `%${data.where.username.contains}%`));
   }
   let query: any = db.select().from(operates);
   if (conditions.length) query = query.where(and(...conditions));
@@ -47,9 +41,7 @@ export async function getOperatesCount(
     conditions.push(eq(operates.userId, data.where.userId));
   }
   if (data.where?.username?.contains) {
-    conditions.push(
-      like(operates.username, `%${data.where.username.contains}%`),
-    );
+    conditions.push(like(operates.username, `%${data.where.username.contains}%`));
   }
   let query: any = db.select({ count: count() }).from(operates);
   if (conditions.length) query = query.where(and(...conditions));
@@ -57,10 +49,7 @@ export async function getOperatesCount(
   return rows[0]?.count ?? 0;
 }
 
-export async function createOperate(
-  db: DrizzleD1Database,
-  data: Record<string, unknown>,
-) {
+export async function createOperate(db: DrizzleD1Database, data: Record<string, unknown>) {
   const { id: _id, ...rest } = data;
   const created = await db
     .insert(operates)

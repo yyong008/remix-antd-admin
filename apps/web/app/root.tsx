@@ -1,18 +1,17 @@
 import {
-  isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  isRouteErrorResponse,
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import { TooltipProvider } from "@workspace/ui/components/tooltip";
-import { ThemeProvider } from "./context/theme-provider";
 import { getLocale } from "./paraglide/runtime.js";
 import * as m from "./paraglide/messages.js";
 import "./app.css";
+import { Providers } from "./providers";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -46,9 +45,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <ThemeProvider>
-          <TooltipProvider>{children}</TooltipProvider>
-        </ThemeProvider>
+        <Providers>{children}</Providers>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -62,15 +59,12 @@ export default function App() {
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let message = m.error_404_title();
-  let details = m.error_unexpected();
+  let details: string = m.error_unexpected();
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
     message = error.status === 404 ? m.error_404_title() : m.error_404_title();
-    details =
-      error.status === 404
-        ? m.error_404_message()
-        : error.statusText || details;
+    details = error.status === 404 ? m.error_404_message() : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;

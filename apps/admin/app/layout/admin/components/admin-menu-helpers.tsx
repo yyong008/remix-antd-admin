@@ -113,10 +113,7 @@ function MenuItemLink({ path, children }: { path: string; children: ReactNode })
   );
 }
 
-export function buildAdminMenuItems(
-  routes: AdminRouteNode[],
-  setPathname: (path: string) => void,
-): MenuProps["items"] {
+export function buildAdminMenuItems(routes: AdminRouteNode[]): MenuProps["items"] {
   return routes
     .filter((r) => !r.hideInMenu && r.isShow !== 0)
     .map((item): ItemType => {
@@ -127,7 +124,7 @@ export function buildAdminMenuItems(
           key: item.key,
           icon: item.icon,
           label,
-          children: buildAdminMenuItems(visibleChildren, setPathname),
+          children: buildAdminMenuItems(visibleChildren),
         };
       }
       return {

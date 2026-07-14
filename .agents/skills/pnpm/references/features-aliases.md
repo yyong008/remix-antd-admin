@@ -14,6 +14,7 @@ pnpm add <alias>@npm:<package>@<version>
 ```
 
 In `package.json`:
+
 ```json
 {
   "dependencies": {
@@ -38,9 +39,10 @@ Install different versions side by side:
 ```
 
 Usage:
+
 ```js
-import lodash3 from 'lodash3'
-import lodash4 from 'lodash4'
+import lodash3 from "lodash3";
+import lodash4 from "lodash4";
 ```
 
 ### Replace Package with Fork
@@ -151,6 +153,7 @@ Aliases work with any valid pnpm specifier:
 ## Best Practices
 
 1. **Clear naming**: Use descriptive alias names that indicate purpose
+
    ```json
    "lodash-legacy": "npm:lodash@3"
    "lodash-modern": "npm:lodash@4"
@@ -162,7 +165,7 @@ Aliases work with any valid pnpm specifier:
 
 4. **Test thoroughly**: Aliased packages may have subtle differences in behavior
 
-<!-- 
+<!--
 Source references:
 - https://pnpm.io/aliases
 -->

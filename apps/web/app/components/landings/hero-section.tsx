@@ -12,13 +12,15 @@ export function HeroSection() {
         <div className="relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm shadow-md animate-[bounce_3s_infinite]">
             <span className="text-lg animate-[ping_2s_infinite]">⚡</span>
-              <span className="text-muted-foreground">{m.home_hero_eyebrow()}</span>
+            <span className="text-muted-foreground">{m.home_hero_eyebrow()}</span>
           </div>
 
           <h1 className="text-4xl lg:text-6xl font-bold leading-tight mb-5 tracking-tight text-gray-900 dark:text-gray-100">
             {PRODUCT_NAME}
             <br />
-            <span className="bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">{m.home_hero_heading_line1()}</span>
+            <span className="bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+              {m.home_hero_heading_line1()}
+            </span>
           </h1>
 
           <p className="text-lg leading-relaxed text-gray-500 dark:text-gray-400 mb-8 max-w-[500px]">
@@ -58,11 +60,15 @@ export function HeroSection() {
           <div className="flex gap-8 mt-10 pt-6 border-t border-gray-200 dark:border-gray-800">
             <div className="flex flex-col">
               <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">50+</span>
-              <span className="text-xs text-gray-500 dark:text-gray-400">{m.home_hero_stat_contributors_label()}</span>
+              <span className="text-xs text-gray-500 dark:text-gray-400">
+                {m.home_hero_stat_contributors_label()}
+              </span>
             </div>
             <div className="flex flex-col">
               <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">v7</span>
-              <span className="text-xs text-gray-500 dark:text-gray-400">{m.home_hero_stat_router_label()}</span>
+              <span className="text-xs text-gray-500 dark:text-gray-400">
+                {m.home_hero_stat_router_label()}
+              </span>
             </div>
           </div>
         </div>
@@ -76,11 +82,17 @@ export function HeroSection() {
               admin.remix-antd-admin.com
             </div>
           </div>
-          <img src="/images/admin.png" alt={m.home_hero_browser_label({ product: PRODUCT_NAME })} className="w-full block bg-white dark:bg-gray-900" />
+          <img
+            src="/images/admin.png"
+            alt={m.home_hero_browser_label({ product: PRODUCT_NAME })}
+            className="w-full block bg-white dark:bg-gray-900"
+          />
 
           <div className="absolute top-4 right-4 px-4 py-3 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 flex items-center gap-2">
             <span className="text-xl">🎨</span>
-            <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">Tailwind CSS</span>
+            <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+              Tailwind CSS
+            </span>
           </div>
         </div>
       </div>

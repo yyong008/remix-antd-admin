@@ -4,13 +4,7 @@ import { useEffect, useRef, useCallback } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
-export default function TiptapEditor({
-  value,
-  onChange,
-  content,
-  setContent,
-  initContent,
-}: any) {
+export default function TiptapEditor({ value, onChange, content, setContent, initContent }: any) {
   const editorRef = useRef<ReturnType<typeof useEditor>>(null);
   const isInitRef = useRef(false);
 

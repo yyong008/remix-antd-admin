@@ -5,31 +5,13 @@ import { userSignLogs, userSigns } from "../../schema";
 function getYesterdayTime() {
   const now = new Date();
   const y = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
-  const startTime = new Date(
-    y.getFullYear(),
-    y.getMonth(),
-    y.getDate(),
-    0,
-    0,
-    0,
-  );
-  const endTime = new Date(
-    y.getFullYear(),
-    y.getMonth(),
-    y.getDate(),
-    23,
-    59,
-    59,
-  );
+  const startTime = new Date(y.getFullYear(), y.getMonth(), y.getDate(), 0, 0, 0);
+  const endTime = new Date(y.getFullYear(), y.getMonth(), y.getDate(), 23, 59, 59);
   return { startTime, endTime };
 }
 
 export async function getUserSignById(db: DrizzleD1Database, userId: string) {
-  const rows = await db
-    .select()
-    .from(userSigns)
-    .where(eq(userSigns.userId, userId))
-    .limit(1);
+  const rows = await db.select().from(userSigns).where(eq(userSigns.userId, userId)).limit(1);
   return rows[0] ?? null;
 }
 
@@ -57,18 +39,11 @@ export async function updateUserSign(
   }>,
 ) {
   await db.update(userSigns).set(data).where(eq(userSigns.userId, userId));
-  const rows = await db
-    .select()
-    .from(userSigns)
-    .where(eq(userSigns.userId, userId))
-    .limit(1);
+  const rows = await db.select().from(userSigns).where(eq(userSigns.userId, userId)).limit(1);
   return rows[0];
 }
 
-export async function getYesterdaySignLog(
-  db: DrizzleD1Database,
-  userId: string,
-) {
+export async function getYesterdaySignLog(db: DrizzleD1Database, userId: string) {
   const { startTime, endTime } = getYesterdayTime();
   const rows = await db
     .select()
@@ -84,10 +59,7 @@ export async function getYesterdaySignLog(
   return rows[0] ?? null;
 }
 
-export async function getLatestSignLogById(
-  db: DrizzleD1Database,
-  userId: string,
-) {
+export async function getLatestSignLogById(db: DrizzleD1Database, userId: string) {
   const rows = await db
     .select()
     .from(userSignLogs)

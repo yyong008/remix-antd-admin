@@ -23,7 +23,6 @@ export async function loadAdminDashboardStats(
   db: DrizzleD1Database,
   permissions: string[],
 ): Promise<AdminDashboardStats | null> {
-
   const loaders: Loader[] = [
     {
       perm: "system:user:read",

@@ -13,7 +13,11 @@ export const loader = async (_args: LoaderFunctionArgs) => {
   return null;
 };
 
-function NewsHeader({ news }: { news: { title: string; author?: string | null; source?: string | null; publishedAt: string } }) {
+function NewsHeader({
+  news,
+}: {
+  news: { title: string; author?: string | null; source?: string | null; publishedAt: string };
+}) {
   return (
     <header className="mb-10">
       <h1 className="text-3xl font-bold leading-tight mb-6 text-[clamp(24px,4vw,36px)]">
@@ -43,7 +47,8 @@ function NewsHeader({ news }: { news: { title: string; author?: string | null; s
 
 function NewsContent({ content }: { content: string }) {
   return (
-    <div className="leading-[1.8]"
+    <div
+      className="leading-[1.8]"
       dangerouslySetInnerHTML={{ __html: dompurify.sanitize(content || "") }}
     />
   );
@@ -55,17 +60,13 @@ export default function Route() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        {m.common_loading()}
-      </div>
+      <div className="flex items-center justify-center min-h-[60vh]">{m.common_loading()}</div>
     );
   }
 
   if (!news) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        {m.news_not_found()}
-      </div>
+      <div className="flex items-center justify-center min-h-[60vh]">{m.news_not_found()}</div>
     );
   }
 

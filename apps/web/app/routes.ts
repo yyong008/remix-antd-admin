@@ -10,8 +10,10 @@ const blogRoutes = [
   route("blog/:id", "routes/blog-detail/index.tsx"),
 ];
 
+const docsRoutes = [route("docs/*", "routes/docs/index.tsx")];
 export default [
   ...prefix(":locale?", [
+    ...docsRoutes,
     layout("layout/index.tsx", [
       ...newsRotues,
       ...blogRoutes,

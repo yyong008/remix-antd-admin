@@ -2,10 +2,7 @@ import type { Route } from "./+types/index";
 
 import { redirect, href } from "react-router";
 
-const authMiddleware: Route.MiddlewareFunction = async (
-  { request, params },
-  next,
-) => {
+const authMiddleware: Route.MiddlewareFunction = async ({ request, params }, next) => {
   const url = import.meta.env.VITE_API_URL + "/api/auth/session";
   const response = await fetch(url, {
     headers: request.headers,

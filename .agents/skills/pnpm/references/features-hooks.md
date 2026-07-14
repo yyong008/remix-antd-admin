@@ -15,20 +15,20 @@ Create `.pnpmfile.cjs` at workspace root:
 // .pnpmfile.cjs
 function readPackage(pkg, context) {
   // Modify package metadata
-  return pkg
+  return pkg;
 }
 
 function afterAllResolved(lockfile, context) {
   // Modify lockfile
-  return lockfile
+  return lockfile;
 }
 
 module.exports = {
   hooks: {
     readPackage,
-    afterAllResolved
-  }
-}
+    afterAllResolved,
+  },
+};
 ```
 
 ## readPackage Hook
@@ -39,14 +39,14 @@ Called for every package before resolution. Use to modify dependencies, add miss
 
 ```js
 function readPackage(pkg, context) {
-  if (pkg.name === 'some-broken-package') {
+  if (pkg.name === "some-broken-package") {
     pkg.peerDependencies = {
       ...pkg.peerDependencies,
-      react: '*'
-    }
-    context.log(`Added react peer dep to ${pkg.name}`)
+      react: "*",
+    };
+    context.log(`Added react peer dep to ${pkg.name}`);
   }
-  return pkg
+  return pkg;
 }
 ```
 
@@ -56,12 +56,12 @@ function readPackage(pkg, context) {
 function readPackage(pkg, context) {
   // Fix all lodash versions
   if (pkg.dependencies?.lodash) {
-    pkg.dependencies.lodash = '^4.17.21'
+    pkg.dependencies.lodash = "^4.17.21";
   }
   if (pkg.devDependencies?.lodash) {
-    pkg.devDependencies.lodash = '^4.17.21'
+    pkg.devDependencies.lodash = "^4.17.21";
   }
-  return pkg
+  return pkg;
 }
 ```
 
@@ -71,9 +71,9 @@ function readPackage(pkg, context) {
 function readPackage(pkg, context) {
   // Remove optional dependency that causes issues
   if (pkg.optionalDependencies?.fsevents) {
-    delete pkg.optionalDependencies.fsevents
+    delete pkg.optionalDependencies.fsevents;
   }
-  return pkg
+  return pkg;
 }
 ```
 
@@ -82,11 +82,11 @@ function readPackage(pkg, context) {
 ```js
 function readPackage(pkg, context) {
   // Replace deprecated package
-  if (pkg.dependencies?.['old-package']) {
-    pkg.dependencies['new-package'] = pkg.dependencies['old-package']
-    delete pkg.dependencies['old-package']
+  if (pkg.dependencies?.["old-package"]) {
+    pkg.dependencies["new-package"] = pkg.dependencies["old-package"];
+    delete pkg.dependencies["old-package"];
   }
-  return pkg
+  return pkg;
 }
 ```
 
@@ -95,15 +95,15 @@ function readPackage(pkg, context) {
 ```js
 function readPackage(pkg, context) {
   // Fix incorrect exports field
-  if (pkg.name === 'broken-esm-package') {
+  if (pkg.name === "broken-esm-package") {
     pkg.exports = {
-      '.': {
-        import: './dist/index.mjs',
-        require: './dist/index.cjs'
-      }
-    }
+      ".": {
+        import: "./dist/index.mjs",
+        require: "./dist/index.cjs",
+      },
+    };
   }
-  return pkg
+  return pkg;
 }
 ```
 
@@ -114,10 +114,10 @@ Called after the lockfile is generated. Use for post-resolution modifications.
 ```js
 function afterAllResolved(lockfile, context) {
   // Log all resolved packages
-  context.log(`Resolved ${Object.keys(lockfile.packages || {}).length} packages`)
-  
+  context.log(`Resolved ${Object.keys(lockfile.packages || {}).length} packages`);
+
   // Modify lockfile if needed
-  return lockfile
+  return lockfile;
 }
 ```
 
@@ -128,9 +128,9 @@ The `context` object provides utilities:
 ```js
 function readPackage(pkg, context) {
   // Log messages
-  context.log('Processing package...')
-  
-  return pkg
+  context.log("Processing package...");
+
+  return pkg;
 }
 ```
 
@@ -147,14 +147,14 @@ For type hints, use JSDoc:
  * @returns {import('type-fest').PackageJson}
  */
 function readPackage(pkg, context) {
-  return pkg
+  return pkg;
 }
 
 module.exports = {
   hooks: {
-    readPackage
-  }
-}
+    readPackage,
+  },
+};
 ```
 
 ## Common Patterns
@@ -164,14 +164,14 @@ module.exports = {
 ```js
 function readPackage(pkg, context) {
   switch (pkg.name) {
-    case 'package-a':
-      pkg.dependencies.foo = '^2.0.0'
-      break
-    case 'package-b':
-      delete pkg.optionalDependencies.bar
-      break
+    case "package-a":
+      pkg.dependencies.foo = "^2.0.0";
+      break;
+    case "package-b":
+      delete pkg.optionalDependencies.bar;
+      break;
   }
-  return pkg
+  return pkg;
 }
 ```
 
@@ -181,9 +181,9 @@ function readPackage(pkg, context) {
 function readPackage(pkg, context) {
   // Remove all optional fsevents
   if (pkg.optionalDependencies) {
-    delete pkg.optionalDependencies.fsevents
+    delete pkg.optionalDependencies.fsevents;
   }
-  return pkg
+  return pkg;
 }
 ```
 
@@ -192,22 +192,23 @@ function readPackage(pkg, context) {
 ```js
 function readPackage(pkg, context) {
   if (process.env.DEBUG_PNPM) {
-    context.log(`${pkg.name}@${pkg.version}`)
-    context.log(`  deps: ${Object.keys(pkg.dependencies || {}).join(', ')}`)
+    context.log(`${pkg.name}@${pkg.version}`);
+    context.log(`  deps: ${Object.keys(pkg.dependencies || {}).join(", ")}`);
   }
-  return pkg
+  return pkg;
 }
 ```
 
 ## Hooks vs Overrides
 
-| Feature | Hooks (.pnpmfile.cjs) | Overrides |
-|---------|----------------------|-----------|
-| Complexity | Can use JavaScript logic | Declarative only |
-| Scope | Any package metadata | Version only |
-| Use case | Complex fixes, conditional logic | Simple version pins |
+| Feature    | Hooks (.pnpmfile.cjs)            | Overrides           |
+| ---------- | -------------------------------- | ------------------- |
+| Complexity | Can use JavaScript logic         | Declarative only    |
+| Scope      | Any package metadata             | Version only        |
+| Use case   | Complex fixes, conditional logic | Simple version pins |
 
 **Prefer overrides** for simple version fixes. **Use hooks** when you need:
+
 - Conditional logic
 - Non-version modifications (exports, peer deps)
 - Logging/debugging
@@ -227,7 +228,7 @@ function readPackage(pkg, context) {
 pnpm install --reporter=append-only
 ```
 
-<!-- 
+<!--
 Source references:
 - https://pnpm.io/pnpmfile
 -->

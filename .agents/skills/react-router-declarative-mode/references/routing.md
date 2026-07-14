@@ -1,17 +1,7 @@
 ---
 title: Routing
 description: JSX-based route configuration with Routes and Route components
-tags:
-  [
-    routing,
-    Routes,
-    Route,
-    nested-routes,
-    layout,
-    dynamic-segments,
-    params,
-    Outlet,
-  ]
+tags: [routing, Routes, Route, nested-routes, layout, dynamic-segments, params, Outlet]
 ---
 
 # Routing

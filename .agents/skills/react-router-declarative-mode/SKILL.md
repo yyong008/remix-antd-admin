@@ -65,17 +65,10 @@ import { NavLink } from "react-router";
 function Nav() {
   return (
     <nav>
-      <NavLink
-        to="/"
-        end
-        className={({ isActive }) => (isActive ? "active" : "")}
-      >
+      <NavLink to="/" end className={({ isActive }) => (isActive ? "active" : "")}>
         Home
       </NavLink>
-      <NavLink
-        to="/dashboard"
-        className={({ isActive }) => (isActive ? "active" : "")}
-      >
+      <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "active" : "")}>
         Dashboard
       </NavLink>
     </nav>
@@ -109,10 +102,7 @@ function SearchResults() {
 
   return (
     <div>
-      <input
-        value={query || ""}
-        onChange={(e) => setSearchParams({ q: e.target.value })}
-      />
+      <input value={query || ""} onChange={(e) => setSearchParams({ q: e.target.value })} />
       <p>Results for: {query}</p>
     </div>
   );
