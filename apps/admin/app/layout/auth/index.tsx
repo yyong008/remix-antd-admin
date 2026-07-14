@@ -1,6 +1,6 @@
 import { Flex } from "antd";
 import { Outlet } from "react-router";
-import { AuthTopBar } from "./AuthTopBar";
+import { AuthTopBar } from "./auth-top-bar";
 
 export default function AuthLayout() {
   return (

@@ -1,5 +1,6 @@
+import { ConfigProvider, theme as antdTheme } from "antd";
 import { createContext, useEffect, useState } from "react";
-import { MKT_THEME_STORAGE_KEY, readStoredMktTheme, applyMktTheme } from "~/utils/mkt-theme";
+import { MKT_THEME_STORAGE_KEY, applyMktTheme, readStoredMktTheme } from "~/utils/mkt-theme";
 
 export type MktThemeMode = "light" | "dark" | "system";
 
@@ -20,36 +21,25 @@ function getSystemDark(): boolean {
   return window.matchMedia("(prefers-color-scheme: dark)").matches;
 }
 
+function resolveIsDark(mode: MktThemeMode): boolean {
+  if (mode === "dark") return true;
+  if (mode === "system") return getSystemDark();
+  return false;
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [themeMode, setThemeModeState] = useState<MktThemeMode>("light");
-  const [isDark, setIsDark] = useState(false);
+  const [themeMode, setThemeModeState] = useState<MktThemeMode>(() => readStoredMktTheme());
+  const [isDark, setIsDark] = useState<boolean>(() => resolveIsDark(readStoredMktTheme()));
 
-  // Initialize from localStorage and apply theme
   useEffect(() => {
-    const stored = readStoredMktTheme();
-    const mode = stored === "system" ? "system" : stored;
-    setThemeModeState(mode);
-  }, []);
+    applyMktTheme(isDark ? "dark" : "light");
+  }, [isDark]);
 
-  // Update isDark when themeMode or system preference changes
-  useEffect(() => {
-    let dark = false;
-    if (themeMode === "dark") {
-      dark = true;
-    } else if (themeMode === "system") {
-      dark = getSystemDark();
-    }
-    setIsDark(dark);
-    applyMktTheme(dark ? "dark" : "light");
-  }, [themeMode]);
-
-  // Listen for system preference changes when in system mode
   useEffect(() => {
     if (themeMode !== "system") return;
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
     const handler = (e: MediaQueryListEvent) => {
       setIsDark(e.matches);
-      applyMktTheme(e.matches ? "dark" : "light");
     };
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
@@ -57,12 +47,19 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const setThemeMode = (mode: MktThemeMode) => {
     setThemeModeState(mode);
+    setIsDark(resolveIsDark(mode));
     window.localStorage.setItem(MKT_THEME_STORAGE_KEY, mode);
   };
 
   return (
     <ThemeContext.Provider value={{ themeMode, isDark, setThemeMode }}>
-      {children}
+      <ConfigProvider
+        theme={{
+          algorithm: isDark ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
+        }}
+      >
+        {children}
+      </ConfigProvider>
     </ThemeContext.Provider>
   );
 }

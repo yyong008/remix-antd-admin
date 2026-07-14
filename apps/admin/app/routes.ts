@@ -3,8 +3,8 @@ import { type RouteConfig, index, route, layout, prefix } from "@react-router/de
 const authRoutes = [
   ...prefix("auth", [
     layout("layout/auth/index.tsx", [
-      route("login", "routes/auth/login/index.tsx"),
-      route("signup", "routes/auth/signup/index.tsx"),
+      route("login", "routes/auth/login.tsx"),
+      route("signup", "routes/auth/signup.tsx"),
     ]),
   ]),
 ];

@@ -2,14 +2,13 @@ import { type AdminRouteNode } from "./admin-menu-helpers";
 import type { ReactNode } from "react";
 
 import { buildAdminMenuItems, getAdminShellMenuState } from "./admin-menu-helpers";
-import { Footer } from "~/components/common";
+import { Footer, ThemeSwitcher } from "~/components/common";
 import { MenuFooterRender } from "./MenuFooterRender";
 import { createActionRenderWrap } from "./createActionsRender";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useParams, useMatches } from "react-router";
 import { AvatarDropDown, type AdminHeaderUser } from "./AvatarDropdown";
 import { Breadcrumb, Grid, Layout, Menu, Space, Spin, theme, Watermark } from "antd";
-import { ThemeSwitcher } from "./ThemeSwitcher";
 
 const { Header, Sider, Content } = Layout;
 

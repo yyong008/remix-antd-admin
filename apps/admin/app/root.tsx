@@ -11,6 +11,7 @@ import type { MiddlewareFunction } from "react-router";
 import type { Route } from "./+types/root";
 import { AppQueryProvider } from "./providers/app-query-provider";
 import { SessionProvider } from "./session/provider/index";
+import { ThemeProvider } from "./context/theme-context";
 import { ClientOnly } from "./components/common/client-only";
 import { Spin } from "antd";
 import { paraglideMiddleware } from "./paraglide/server.js";
@@ -58,7 +59,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         >
           {() => (
             <AppQueryProvider>
-              <SessionProvider>{children}</SessionProvider>
+              <SessionProvider>
+                <ThemeProvider>{children}</ThemeProvider>
+              </SessionProvider>
             </AppQueryProvider>
           )}
         </ClientOnly>
