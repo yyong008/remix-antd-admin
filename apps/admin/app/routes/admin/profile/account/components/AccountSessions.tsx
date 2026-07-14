@@ -94,7 +94,7 @@ export function AccountSessions() {
                   await queryClient.invalidateQueries({ queryKey: USER_SESSION_QUERY_KEY });
                   await queryClient.invalidateQueries({ queryKey: AUTH_SESSIONS_LIST_KEY });
                   message.success("已退出");
-                  navigate(href("/:locale?/auth/login", { locale }), { replace: true });
+                  navigate(href("/:locale?/login", { locale }), { replace: true });
                   return;
                 }
                 await revokeMutation.mutateAsync({ token: row.token });

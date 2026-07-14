@@ -9,7 +9,7 @@ const authMiddleware: Route.MiddlewareFunction = async ({ request, params }, nex
   }).then((res) => res);
   const result = await response.json();
   if (!result?.data?.user?.id) {
-    throw redirect(href("/:locale?/auth/login", { locale: params.locale }));
+    throw redirect(href("/:locale?/login", { locale: params.locale }));
   }
 
   next();

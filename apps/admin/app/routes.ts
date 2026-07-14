@@ -1,11 +1,9 @@
 import { type RouteConfig, index, route, layout, prefix } from "@react-router/dev/routes";
 
 const authRoutes = [
-  ...prefix("auth", [
-    layout("layout/auth/index.tsx", [
-      route("login", "routes/auth/login.tsx"),
-      route("signup", "routes/auth/signup.tsx"),
-    ]),
+  layout("layout/auth/index.tsx", [
+    route("login", "routes/auth/login.tsx"),
+    route("signup", "routes/auth/signup.tsx"),
   ]),
 ];
 

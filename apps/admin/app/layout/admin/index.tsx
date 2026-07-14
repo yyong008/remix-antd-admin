@@ -199,7 +199,7 @@ function AvatarDropDown({ user }: { user: AdminHeaderUser }) {
       <Button
         type="primary"
         size="middle"
-        onClick={() => navigate(`/${locale ? `${locale}/` : ""}auth/login`)}
+        onClick={() => navigate(`/${locale ? `${locale}/` : ""}login`)}
       >
         {m.auth_sign_in_title()}
       </Button>

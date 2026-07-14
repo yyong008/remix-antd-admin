@@ -103,7 +103,7 @@ export function useLogout() {
       const result = await parseRsj<{ success: boolean }>(res);
       if (result?.success) {
         session?.refresh();
-        navigate(`/${locale ? `${locale}/` : ""}auth/login`, { replace: true });
+        navigate(`/${locale ? `${locale}/` : ""}login`, { replace: true });
       }
       return result;
     },

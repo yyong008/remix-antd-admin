@@ -34,15 +34,12 @@ export default function LoginRoute() {
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14 }}>
           <span>
             {m.auth_no_account()}{" "}
-            <Link
-              to={locale ? `/${locale}/auth/signup` : "/auth/signup"}
-              style={{ fontWeight: 500 }}
-            >
+            <Link to={href("/:locale?/signup", { locale })} style={{ fontWeight: 500 }}>
               {m.auth_create_account()}
             </Link>
           </span>
           <Link
-            to={locale ? `/${locale}` : "/"}
+            to={href("/:locale?", { locale })}
             style={{ color: "var(--ant-color-text-secondary)" }}
           >
             {m.auth_back_home()}

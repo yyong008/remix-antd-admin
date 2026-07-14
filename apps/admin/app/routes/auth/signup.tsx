@@ -1,7 +1,7 @@
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { Form, message } from "antd";
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, href, useNavigate, useParams } from "react-router";
 import { useEamilSignup } from "~/api-client/queries/auth/auth";
 import { TurnstileWidget } from "~/components/captcha";
 import { isTurnstileEnabled } from "~/config/turnstile";
@@ -26,12 +26,12 @@ export default function SignupRoute() {
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14 }}>
           <span>
             {m.auth_have_account()}{" "}
-            <Link to={locale ? `/${locale}/auth/login` : "/auth/login"} style={{ fontWeight: 500 }}>
+            <Link to={href("/:locale?/login", { locale })} style={{ fontWeight: 500 }}>
               {m.auth_sign_in_link()}
             </Link>
           </span>
           <Link
-            to={locale ? `/${locale}` : "/"}
+            to={href("/:locale?", { locale })}
             style={{ color: "var(--ant-color-text-secondary)" }}
           >
             {m.auth_back_home()}
@@ -65,7 +65,7 @@ export default function SignupRoute() {
               token: token ?? "",
             });
             message.success(m.auth_sign_up_success());
-            navigate(locale ? `/${locale}/auth/login` : "/auth/login", { replace: true });
+            navigate(href("/:locale?/login", { locale }), { replace: true });
             return true;
           } catch (error) {
             message.error((error as Error)?.message ?? m.auth_sign_up_failed());
