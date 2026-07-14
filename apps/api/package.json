@@ -2,6 +2,7 @@
   "name": "api",
   "type": "module",
   "scripts": {
+    "build": "wrangler build",
     "dev": "wrangler dev --config ./wrangler.jsonc --port 3002",
     "deploy": "wrangler deploy --minify --config ./wrangler.jsonc",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
