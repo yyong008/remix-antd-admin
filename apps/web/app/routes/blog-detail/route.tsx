@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
 import { BlogHeader, BlogContent } from "./components";
 import { usePublicBlogById } from "~/api-client/public-blog";
+import * as m from "~/paraglide/messages.js";
 
 export const loader = async (_args: LoaderFunctionArgs) => {
   return null;
@@ -21,7 +22,7 @@ export function Route() {
           minHeight: "60vh",
         }}
       >
-        加载中...
+        {m.common_loading()}
       </div>
     );
   }
@@ -36,7 +37,7 @@ export function Route() {
           minHeight: "60vh",
         }}
       >
-        博客不存在
+        {m.blog_not_found()}
       </div>
     );
   }

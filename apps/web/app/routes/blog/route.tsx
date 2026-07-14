@@ -7,6 +7,7 @@ import { Card, CardContent } from "@workspace/ui/components/card";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@workspace/ui/components/pagination";
 import { BlogItem } from "./components";
 import { usePublicBlogList, usePublicBlogCategoryList } from "~/api-client/public-blog";
+import * as m from "~/paraglide/messages.js";
 
 export const loader = async (_args: LoaderFunctionArgs) => {
   return null;
@@ -41,11 +42,11 @@ export function Route() {
     <div className="flex-1 min-h-full">
       <div className="mx-auto max-w-5xl  px-6 py-8">
         <header className="mb-6">
-          <h1 className="text-3xl font-bold mb-2">博客中心</h1>
+          <h1 className="text-3xl font-bold mb-2">{m.blog_center_title()}</h1>
           <p>
             {selectedCategory
-              ? `${selectedCategory.name} · 共 ${filteredBlogs.length} 篇`
-              : `全部博客 · 共 ${filteredBlogs.length} 篇`}
+              ? m.blog_category_posts({ category: selectedCategory.name, count: filteredBlogs.length })
+              : m.blog_all_posts({ count: filteredBlogs.length })}
           </p>
         </header>
 
@@ -61,7 +62,7 @@ export function Route() {
                 : "bg-transparent text-foreground"
             }`}
           >
-            全部
+            {m.blog_all()}
           </button>
           {categoryLoading ? (
             <Skeleton className="h-10 w-20" />
@@ -100,7 +101,7 @@ export function Route() {
         ) : filteredBlogs.length <= 0 ? (
           <Card className="text-center p-12">
             <IconFileText className="size-12 mx-auto mb-4" />
-            <p>暂无数据</p>
+            <p>{m.common_no_data()}</p>
           </Card>
         ) : (
           <>

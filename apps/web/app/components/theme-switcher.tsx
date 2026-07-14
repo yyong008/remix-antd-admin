@@ -9,6 +9,7 @@ import {
 } from "@workspace/ui/components/dropdown-menu";
 import { IconSun, IconMoon, IconDeviceDesktop } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
+import * as m from "~/paraglide/messages.js";
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
@@ -20,7 +21,7 @@ export function ThemeSwitcher() {
           <button
             type="button"
             className="inline-flex shrink-0 items-center justify-center rounded-full size-7 text-foreground hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground"
-            aria-label="Theme"
+            aria-label={m.theme_label()}
           />
         }
       >
@@ -34,9 +35,9 @@ export function ThemeSwitcher() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-[60]">
         <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-          <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="system">System</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="light">{m.theme_light()}</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="dark">{m.theme_dark()}</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="system">{m.theme_system()}</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>

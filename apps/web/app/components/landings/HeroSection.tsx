@@ -1,5 +1,5 @@
 import { IconRocket, IconEye, IconExternalLink } from "@tabler/icons-react";
-import { PRODUCT_NAME, PRODUCT_TAGLINE } from "~/config/product";
+import { PRODUCT_NAME } from "~/config/product";
 import * as m from "~/paraglide/messages.js";
 
 export function HeroSection() {
@@ -22,7 +22,7 @@ export function HeroSection() {
           </h1>
 
           <p className="text-lg leading-relaxed text-gray-500 dark:text-gray-400 mb-8 max-w-[500px]">
-            {PRODUCT_TAGLINE || m.home_hero_description({ product: PRODUCT_NAME })}
+            {m.home_hero_description({ product: PRODUCT_NAME })}
           </p>
 
           <div className="flex flex-wrap gap-4">

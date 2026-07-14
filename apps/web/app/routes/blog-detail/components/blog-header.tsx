@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { IconFolder, IconTag } from "@tabler/icons-react";
+import * as m from "~/paraglide/messages.js";
 
 export function BlogHeader({
   blog,
@@ -23,12 +24,12 @@ export function BlogHeader({
       <div className="flex flex-wrap items-center gap-4 text-sm pb-5">
         {blog.author && (
           <span className="flex items-center gap-1.5">
-            <span className="text-muted-foreground">作者:</span>
+            <span className="text-muted-foreground">{m.label_author()}</span>
             <span className="font-medium">{blog.author}</span>
           </span>
         )}
         <span className="flex items-center gap-1.5">
-          <span className="text-muted-foreground">发布时间:</span>
+          <span className="text-muted-foreground">{m.label_published_at()}</span>
           <span>{dayjs(blog.publishedAt).format("YYYY-MM-DD HH:mm")}</span>
         </span>
         {blog.categoryName && (

@@ -8,6 +8,7 @@ import { IconSearch, IconFileText } from "@tabler/icons-react";
 import { Card, CardContent } from "@workspace/ui/components/card";
 import { usePublicNewsList, usePublicNewsCategoryList } from "~/api-client/public-news";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@workspace/ui/components/pagination";
+import * as m from "~/paraglide/messages.js";
 
 export const loader = async (_args: LoaderFunctionArgs) => {
   return null;
@@ -71,11 +72,11 @@ export function Route() {
     <div className="flex-1 min-h-full">
       <div className="mx-auto max-w-5xl px-6 py-8">
         <header className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">新闻中心</h1>
+          <h1 className="text-3xl font-bold mb-2">{m.news_center_title()}</h1>
           <p>
             {selectedCategory
-              ? `${selectedCategory.name} · 共 ${filteredNews.length} 篇`
-              : `全部新闻 · 共 ${total} 篇`}
+              ? m.news_category_posts({ category: selectedCategory.name, count: filteredNews.length })
+              : m.news_all_posts({ count: total })}
           </p>
         </header>
 
@@ -85,7 +86,7 @@ export function Route() {
               <CardContent className="p-5">
                 <div className="relative mb-4">
                   <Input
-                    placeholder="搜索新闻..."
+                    placeholder={m.news_search_placeholder()}
                     value={search}
                     onChange={(e) => {
                       setSearch(e.target.value);
@@ -95,7 +96,7 @@ export function Route() {
                   />
                   <IconSearch className="absolute right-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                 </div>
-                <p className="text-xs font-semibold uppercase tracking-wider mb-3">分类</p>
+                <p className="text-xs font-semibold uppercase tracking-wider mb-3">{m.news_categories()}</p>
                 <div className="flex flex-col gap-1">
                   <button
                     onClick={() => {
@@ -104,7 +105,7 @@ export function Route() {
                     }}
                     style={getCategoryBtnStyle(!category)}
                   >
-                    <span>全部</span>
+                    <span>{m.news_all()}</span>
                     <span className="text-xs px-2 py-0.5 rounded-full bg-white/20">{total}</span>
                   </button>
                   {categoryLoading ? (
@@ -141,7 +142,7 @@ export function Route() {
             ) : filteredNews.length <= 0 ? (
               <Card className="text-center p-12">
                 <IconFileText className="size-12 mx-auto mb-4" />
-                <p>暂无数据</p>
+                <p>{m.common_no_data()}</p>
               </Card>
             ) : (
               <>
