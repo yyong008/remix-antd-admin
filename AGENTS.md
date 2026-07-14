@@ -1,10 +1,6 @@
 # Project Agents
 
-## Project Overview
-
-**Name:** react-router-antd-admin
-**Description:** React Router Antd Admin - A modern admin dashboard built with React Router v8, Ant Design, and Hono
-**Repository:** https://github.com/yyong008/remix-antd-admin.git
+React Router Antd Admin - A modern admin dashboard built with React Router v8, Ant Design, and Hono
 
 ## Tech Stack
 
@@ -27,7 +23,7 @@
 
 ### Build & Tooling
 
-- **Vite+** - Build toolchain (wraps Vite, Rolldown, Vitest, tsdown, Oxlint, Oxfmt)
+- **Vite** - Build toolchain (wraps Vite, Rolldown, Vitest, tsdown, Oxlint, Oxfmt)
 - **Native CSS** - CSS-in-JS via Ant Design theme tokens and inline styles
 - **pnpm** - Package manager (v10.33.0)
 
@@ -113,13 +109,6 @@ pnpm typecheck          # Run full type check
 
 ## Important Conventions
 
-### Vite+ Commands
-
-- **Always use `vp` commands** instead of direct tool invocations
-- `vp dev`, `vp build`, `vp test`, `vp lint`, `vp fmt` for all tooling
-- Import test utilities from `vite-plus/test`, not `vitest`
-- Do NOT install Vitest, Oxlint, or tsdown directly
-
 ### React Router Patterns
 
 - Use **loaders** for data fetching
@@ -159,43 +148,3 @@ pnpm typecheck          # Run full type check
 - Use `clsx` for conditional class names when Tailwind CSS classes are still present
 - CSS variables for Ant Design token overrides
 
-## Environment Setup
-
-Required environment variables (see `.env.example`):
-
-- `AUTH_SECRET` - Better Auth secret
-- `RESEND_API_KEY` - Email API key
-- `AI_PROVIDER` - AI provider selection
-- `OLLAMA_BASE_URL` - Ollama server URL
-
-## Vite+ Configuration
-
-Vite+ is configured via `package.json` and wraps:
-
-- Vite for builds
-- Rolldown for bundling
-- Vitest for testing
-- Oxlint for linting
-- Oxfmt for formatting
-- tsdown for TypeScript compilation
-
-## Skills
-
-Available skills for this project:
-
-- **sign-in** - 签到功能 (DAL, API, 前端组件)
-- **hono** - Hono API 开发
-- **react-router-framework-mode** - React Router 框架模式
-- **pnpm** - pnpm 包管理
-- **vite** - Vite 构建工具
-- **wrangler** - Cloudflare Workers 部署
-
-Load a skill using the `skill` tool when working on related features.
-
-## Review Checklist
-
-- [ ] Run `vp install` after pulling remote changes
-- [ ] Run `vp check` and `vp test` before committing
-- [ ] Use `pnpm` commands via Vite+ (`vp add`, `vp remove`, etc.)
-- [ ] Follow React Router v8 data patterns (loaders/actions)
-- [ ] Use Ant Design theme tokens for consistent styling
