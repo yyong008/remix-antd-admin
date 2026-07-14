@@ -32,5 +32,11 @@
   "theme_aria_label": "主题",
   "lang_english": "English",
   "lang_chinese": "中文",
-  "lang_aria_label": "语言"
+  "lang_aria_label": "语言",
+  "layout_user_menu_aria": "用户菜单",
+  "layout_profile_center": "个人中心",
+  "layout_log_out": "退出登录",
+  "layout_user_fallback": "用户",
+  "layout_copyright": "© 2023",
+  "layout_made_with_love": "用心打造 · Yong"
 }

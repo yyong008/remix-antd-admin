@@ -2,6 +2,8 @@ import type { ItemType } from "antd/es/menu/interface";
 import type { MenuProps } from "antd";
 import type { ReactNode } from "react";
 
+import { m } from "~/paraglide/messages";
+
 import {
   GithubFilled,
   HomeFilled,
@@ -183,7 +185,7 @@ export type AdminHeaderUser = {
 
 function displayName(u: AdminHeaderUser) {
   const n = u.nickname?.trim() || u.name?.trim();
-  return n || u.email?.trim() || "User";
+  return n || u.email?.trim() || m.layout_user_fallback();
 }
 
 function AvatarDropDown({ user }: { user: AdminHeaderUser }) {
@@ -192,7 +194,6 @@ function AvatarDropDown({ user }: { user: AdminHeaderUser }) {
   const { token } = theme.useToken();
   const { mutate: signOut } = useLogout();
   const { user: sessionUser, isLoading } = useSession();
-  const isZh = locale === "zh";
 
   if (isLoading) {
     return <Spin size="small" />;
@@ -205,7 +206,7 @@ function AvatarDropDown({ user }: { user: AdminHeaderUser }) {
         size="middle"
         onClick={() => navigate(`/${locale ? `${locale}/` : ""}auth/login`)}
       >
-        {isZh ? "登录" : "Sign in"}
+        {m.auth_sign_in_title()}
       </Button>
     );
   }
@@ -217,7 +218,7 @@ function AvatarDropDown({ user }: { user: AdminHeaderUser }) {
     {
       key: "profile-center",
       icon: <UserOutlined />,
-      label: isZh ? "个人中心" : "Personal center",
+      label: m.layout_profile_center(),
       onClick: () => {
         navigate(`/${locale ? `${locale}/` : ""}admin/profile/account`);
       },
@@ -226,7 +227,7 @@ function AvatarDropDown({ user }: { user: AdminHeaderUser }) {
     {
       key: "logout",
       icon: <LogoutOutlined />,
-      label: isZh ? "退出登录" : "Log out",
+      label: m.layout_log_out(),
       danger: true,
       onClick: () => {
         signOut();
@@ -277,7 +278,7 @@ function AvatarDropDown({ user }: { user: AdminHeaderUser }) {
     >
       <button
         type="button"
-        aria-label={isZh ? "用户菜单" : "User menu"}
+        aria-label={m.layout_user_menu_aria()}
         className={styles.avatarBtn}
         onMouseEnter={(e) => {
           e.currentTarget.style.background = "rgba(0,0,0,0.04)";
@@ -298,8 +299,8 @@ function MenuFooterRender({ collapsed }: { collapsed?: boolean }) {
   if (collapsed) return undefined;
   return (
     <div className={styles.footer} style={{ paddingInline: 16, paddingBlock: 16 }}>
-      <p className={styles.footerCopyright}>© 2023</p>
-      <p className={styles.footerMade}>Made with love · Yong</p>
+      <p className={styles.footerCopyright}>{m.layout_copyright()}</p>
+      <p className={styles.footerMade}>{m.layout_made_with_love()}</p>
     </div>
   );
 }
@@ -320,14 +321,14 @@ function ActionRenderImpl() {
         items: [
           {
             key: "en",
-            label: "EN English",
+            label: m.layout_lang_en(),
             onClick: () => {
               choiceLang("en");
             },
           },
           {
             key: "cn",
-            label: "CN 简体中文",
+            label: m.layout_lang_zh(),
             onClick: () => {
               choiceLang("zh");
             },

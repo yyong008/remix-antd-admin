@@ -33,5 +33,13 @@
   "theme_aria_label": "Theme",
   "lang_english": "English",
   "lang_chinese": "中文",
-  "lang_aria_label": "Language"
+  "lang_aria_label": "Language",
+  "layout_user_menu_aria": "User menu",
+  "layout_profile_center": "Personal center",
+  "layout_log_out": "Log out",
+  "layout_user_fallback": "User",
+  "layout_copyright": "© 2023",
+  "layout_made_with_love": "Made with love · Yong",
+  "layout_lang_en": "EN English",
+  "layout_lang_zh": "CN 简体中文"
 }
