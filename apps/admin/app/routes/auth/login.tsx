@@ -1,7 +1,7 @@
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Form, message } from "antd";
-import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, href, useNavigate, useParams } from "react-router";
 import { useLogin } from "~/api-client/queries/auth/auth";
 import { TurnstileWidget } from "~/components/captcha";
 import { isTurnstileEnabled } from "~/config/turnstile";
@@ -19,6 +19,12 @@ export default function LoginRoute() {
   const loginMutation = useLogin();
   const session = useSession();
   const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!session.isLoading && session.user) {
+      navigate(href("/:locale?/admin/dashboard", { locale }), { replace: true });
+    }
+  }, [session.isLoading, session.user, locale, navigate]);
 
   return (
     <AuthPageCard
@@ -70,7 +76,7 @@ export default function LoginRoute() {
             });
             await session?.refresh?.();
             message.success(m.auth_sign_in_success());
-            navigate(locale ? `/${locale}/admin/dashboard` : "/admin/dashboard", { replace: true });
+            navigate(href("/:locale?/admin/dashboard", { locale }), { replace: true });
             return true;
           } catch (error) {
             message.error((error as Error)?.message ?? m.auth_sign_in_failed());
