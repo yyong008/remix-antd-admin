@@ -68,7 +68,7 @@ const sections: PrivacySection[] = [
 
 export default function Privacy() {
   return (
-    <div className="mx-auto max-w-[800px] px-6 pt-[100px] pb-12">
+    <div className="mx-auto max-w-200 px-6 pt-25 pb-12">
       <header className="text-center p-6">
         <h1 className="text-[30px] font-semibold">{m.privacy_heading()}</h1>
       </header>

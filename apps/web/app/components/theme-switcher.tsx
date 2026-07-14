@@ -16,12 +16,12 @@ export function ThemeSwitcher() {
 
   const renderIcon = () => {
     if (!mounted) {
-      return <IconDeviceDesktop className="size-[18px]" />;
+      return <IconDeviceDesktop className="size-4.5" />;
     }
     const current = theme === "system" ? resolvedTheme : theme;
-    if (current === "dark") return <IconMoon className="size-[18px]" />;
-    if (current === "light") return <IconSun className="size-[18px]" />;
-    return <IconDeviceDesktop className="size-[18px]" />;
+    if (current === "dark") return <IconMoon className="size-4.5" />;
+    if (current === "light") return <IconSun className="size-4.5" />;
+    return <IconDeviceDesktop className="size-4.5" />;
   };
 
   return (
@@ -37,7 +37,7 @@ export function ThemeSwitcher() {
       >
         {renderIcon()}
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="z-[60]">
+      <DropdownMenuContent align="end" className="z-60">
         <DropdownMenuRadioGroup value={mounted ? theme : undefined} onValueChange={setTheme}>
           <DropdownMenuRadioItem value="light">{m.theme_light()}</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="dark">{m.theme_dark()}</DropdownMenuRadioItem>

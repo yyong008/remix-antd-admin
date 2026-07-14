@@ -17,8 +17,8 @@ export const HeaderLink = ({
       end={end ?? true}
       className={({ isActive }) => {
         return isActive
-          ? "mr-[20px] bg-yellow-300 px-[10px] py-[10px] rounded-[10px] hover:text-gray-900 hover:shadow-xl border-gray-50"
-          : "mr-[20px] hover:bg-yellow-300 px-[10px] py-[10px] rounded-[10px] hover:text-gray-900 hover:shadow-xl border-gray-50";
+          ? "mr-5 bg-yellow-300 px-2.5 py-2.5 rounded-[10px] hover:text-gray-900 hover:shadow-xl border-gray-50"
+          : "mr-5 hover:bg-yellow-300 px-2.5 py-2.5 rounded-[10px] hover:text-gray-900 hover:shadow-xl border-gray-50";
       }}
     >
       {children}

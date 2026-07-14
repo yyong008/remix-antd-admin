@@ -84,7 +84,7 @@ export default function Route() {
   }
 
   return (
-    <div className="mx-auto max-w-[1200px] px-6 py-8">
+    <div className="mx-auto max-w-300 px-6 py-8">
       <article>
         <BlogHeader
           blog={{

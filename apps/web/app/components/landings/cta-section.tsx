@@ -36,11 +36,11 @@ export function CTASection() {
   return (
     <section className="px-6">
       <div className="mx-auto max-w-4xl">
-        <Card className="text-center rounded-3xl border-0 overflow-hidden bg-gradient-to-br from-indigo-500 to-violet-500">
+        <Card className="text-center rounded-3xl border-0 overflow-hidden bg-linear-to-br from-indigo-500 to-violet-500">
           <CardContent className="relative overflow-hidden p-8 md:p-16">
             <div className="absolute -top-1/2 -left-1/4 -translate-x-1/2 w-[150%] h-[150%] rounded-full pointer-events-none bg-[radial-gradient(circle,rgba(255,255,255,0.12)_0%,transparent_70%)]" />
             <div className="absolute -bottom-1/3 -right-1/4 translate-x-1/2 w-[120%] h-[120%] rounded-full pointer-events-none bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,transparent_70%)]" />
-            <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px]" />
+            <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[40px_40px]" />
 
             <div className="relative z-10">
               <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-6 text-white text-sm font-medium bg-white/15">
@@ -49,7 +49,7 @@ export function CTASection() {
               </div>
 
               <h2 className="text-5xl font-bold text-white mb-4">{m.home_cta_heading()}</h2>
-              <p className="text-lg text-white/85 mb-8 max-w-[560px] mx-auto">
+              <p className="text-lg text-white/85 mb-8 max-w-140 mx-auto">
                 {m.home_cta_subtitle({ product: PRODUCT_NAME })}
               </p>
 

@@ -20,7 +20,7 @@ type DepEntry = [string, string];
 
 function StatCard({ value, label }: { value: string; label: string }) {
   return (
-    <div className="rounded-xl p-4 text-center backdrop-blur-sm min-w-[100px] bg-white/10">
+    <div className="rounded-xl p-4 text-center backdrop-blur-sm min-w-25 bg-white/10">
       <p className="text-white/70 text-[10px] uppercase tracking-wider">{label}</p>
       <p className="text-white text-lg font-semibold mt-1 truncate">{value}</p>
     </div>
@@ -35,7 +35,7 @@ export default function Route() {
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-8 space-y-6">
-      <Card className="overflow-hidden border-0 rounded-[12px] bg-gradient-to-br from-[#667eea] to-[#764ba2]">
+      <Card className="overflow-hidden border-0 rounded-[12px] bg-linear-to-br from-[#667eea] to-[#764ba2]">
         <CardContent className="p-8 md:p-10">
           <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
             <div className="flex-1 min-w-0">

@@ -58,13 +58,13 @@ function featureLabel(key: FeatureKey) {
 
 export function ComparisonSection() {
   return (
-    <section className="py-[60px] px-6">
-      <div className="mx-auto max-w-screen-xl">
+    <section className="py-15 px-6">
+      <div className="mx-auto max-w-7xl">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold mb-2 text-gray-900 dark:text-gray-100">
             {m.home_comparison_eyebrow()}
           </h2>
-          <p className="max-w-[600px] mx-auto text-gray-500 dark:text-gray-400">
+          <p className="max-w-150 mx-auto text-gray-500 dark:text-gray-400">
             {m.home_comparison_subtitle()}
           </p>
         </div>
