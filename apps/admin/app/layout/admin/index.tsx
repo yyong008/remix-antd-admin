@@ -40,9 +40,6 @@ export { middleware } from "./middleware";
 
 const { Header, Sider, Content } = Layout;
 
-const SIDER_EXPANDED_PX = 248;
-const SIDER_COLLAPSED_PX = 80;
-
 export type AdminRouteNode = {
   name: string;
   path: string;
@@ -274,17 +271,7 @@ function AvatarDropDown({ user }: { user: AdminHeaderUser }) {
         </div>
       )}
     >
-      <button
-        type="button"
-        aria-label={m.layout_user_menu_aria()}
-        className={styles.avatarBtn}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = "rgba(0,0,0,0.04)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = "transparent";
-        }}
-      >
+      <button type="button" aria-label={m.layout_user_menu_aria()} className={styles.avatarBtn}>
         <Avatar src={avatarSrc} size="default">
           {title.slice(0, 1).toUpperCase()}
         </Avatar>
@@ -376,17 +363,15 @@ function AdminShellLayout(props: AdminShellLayoutProps) {
     navigate(`/${locale ? `${locale}/` : ""}`);
   }, [navigate, locale]);
 
-  const mainGutterStart = collapsed ? SIDER_COLLAPSED_PX : SIDER_EXPANDED_PX;
-
   return (
     <Watermark content="React Router Antd Admin">
       <Layout style={{ minHeight: "100dvh" }}>
         <Sider
           collapsible
           collapsed={collapsed}
-          collapsedWidth={SIDER_COLLAPSED_PX}
+          collapsedWidth={80}
           onCollapse={setCollapsed}
-          width={SIDER_EXPANDED_PX}
+          width={248}
           className={styles.sider}
           theme="dark"
         >
@@ -436,7 +421,7 @@ function AdminShellLayout(props: AdminShellLayoutProps) {
           </div>
         </Sider>
 
-        <Layout className={styles.mainLayout} style={{ marginInlineStart: mainGutterStart }}>
+        <Layout className={styles.mainLayout}>
           <Header
             className={styles.header}
             style={{
@@ -451,10 +436,15 @@ function AdminShellLayout(props: AdminShellLayoutProps) {
             </div>
             <div className={styles.headerRight}>
               <Space size="middle">
-                <HomeFilled onClick={goHome} />
-                <InfoCircleFilled />
-                <QuestionCircleFilled />
-                <GithubFilled onClick={goGithub} />
+                <Button type="text" aria-label="首页" icon={<HomeFilled />} onClick={goHome} />
+                <Button type="text" aria-label="关于" icon={<InfoCircleFilled />} />
+                <Button type="text" aria-label="帮助" icon={<QuestionCircleFilled />} />
+                <Button
+                  type="text"
+                  aria-label="GitHub"
+                  icon={<GithubFilled />}
+                  onClick={goGithub}
+                />
               </Space>
               <LocaleSwitcher />
               <ThemeSwitcher />
@@ -470,9 +460,7 @@ function AdminShellLayout(props: AdminShellLayoutProps) {
             </div>
           </Content>
 
-          <div className={styles.footerArea}>
-            <Footer />
-          </div>
+          <Footer />
         </Layout>
       </Layout>
     </Watermark>
@@ -516,7 +504,7 @@ function AdminLayout() {
   }
 
   return (
-    <ClientOnly fallback={<>sdf</>}>
+    <ClientOnly fallback={null}>
       {() => (
         <AntdApp>
           <AdminShellLayout loading={isLoading} route={route} user={headerUser}>

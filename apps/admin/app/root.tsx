@@ -1,19 +1,18 @@
+import type { Route } from "./+types/root";
+import type { MiddlewareFunction } from "react-router";
+
 import {
-  isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  isRouteErrorResponse,
 } from "react-router";
-import type { MiddlewareFunction } from "react-router";
 
-import type { Route } from "./+types/root";
-import { AppQueryProvider } from "./providers/app-query-provider";
-import { SessionProvider } from "./session/provider/index";
-import { ThemeProvider } from "./context/theme-context";
-import { ClientOnly } from "./components/common/client-only";
-import { Spin } from "antd";
+import "./app.css";
+
+import { Providers } from "./providers";
 import { paraglideMiddleware } from "./paraglide/server.js";
 
 export const links: Route.LinksFunction = () => [
@@ -43,28 +42,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <ClientOnly
-          fallback={
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                minHeight: "100dvh",
-              }}
-            >
-              <Spin size="large" />
-            </div>
-          }
-        >
-          {() => (
-            <AppQueryProvider>
-              <SessionProvider>
-                <ThemeProvider>{children}</ThemeProvider>
-              </SessionProvider>
-            </AppQueryProvider>
-          )}
-        </ClientOnly>
+        <Providers>{children}</Providers>
         <ScrollRestoration />
         <Scripts />
       </body>

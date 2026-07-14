@@ -6,12 +6,12 @@
 }
 
 .sider {
-  position: fixed;
-  inset-inline-start: 0;
+  position: sticky;
+  align-self: flex-start;
   top: 0;
   height: 100dvh;
   overflow: hidden;
-  z-index: 100;
+  z-index: 50;
   border-inline-end: 1px solid rgba(255, 255, 255, 0.06);
   background: linear-gradient(165deg, #161c28 0%, #10151f 42%, #0b0f16 100%);
   box-shadow: 4px 0 32px rgba(0, 0, 0, 0.12);
@@ -119,7 +119,6 @@
   flex: 1;
   flex-direction: column;
   overflow: hidden;
-  transition: margin-inline-start 0.2s;
 }
 
 .header {
@@ -167,8 +166,8 @@
   width: 100%;
 }
 
-.footerArea {
-  flex-shrink: 0;
+.avatarBtn:hover {
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .dropdownPopup {
