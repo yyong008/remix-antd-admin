@@ -40,7 +40,7 @@ const cardStyle: React.CSSProperties = {
   overflow: "hidden",
   borderRadius: 8,
   border: "1px solid var(--ant-color-border-secondary)",
-  backgroundColor: "white",
+  backgroundColor: "var(--ant-color-bg-container)",
 };
 
 const toolbarStyle: React.CSSProperties = {
