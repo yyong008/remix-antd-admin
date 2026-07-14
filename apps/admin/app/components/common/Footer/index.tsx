@@ -38,7 +38,7 @@ export const Footer: React.FC = () => {
       }}
     >
       <Flex justify="space-between" align="center" wrap="wrap" gap={8}>
-        <span>{`${currentYear} ${"By Yong-"}`}</span>
+        <span>{`${currentYear} ${"By Walle-"}`}</span>
         <Space
           size="middle"
           separator={<span style={{ color: token.colorTextQuaternary }}>|</span>}

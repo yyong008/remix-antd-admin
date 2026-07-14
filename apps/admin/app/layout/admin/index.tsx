@@ -10,7 +10,6 @@ import {
   InfoCircleFilled,
   LogoutOutlined,
   QuestionCircleFilled,
-  TranslationOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import {
@@ -19,7 +18,6 @@ import {
   Breadcrumb,
   Button,
   Dropdown,
-  Grid,
   Layout,
   Menu,
   Space,
@@ -30,7 +28,7 @@ import {
 
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useParams, useMatches, useNavigate, Outlet } from "react-router";
-import { Footer, ThemeSwitcher } from "~/components/common";
+import { Footer, LocaleSwitcher, ThemeSwitcher } from "~/components/common";
 import { useLogout } from "~/api-client/queries/auth/auth";
 import { useSession } from "~/session/provider";
 import { useUserInfo } from "~/api-client/queries/system/system-user";
@@ -305,74 +303,6 @@ function MenuFooterRender({ collapsed }: { collapsed?: boolean }) {
   );
 }
 
-function ActionRenderImpl() {
-  const navigate = useNavigate();
-  const { locale: _locale } = useParams();
-
-  const choiceLang = (newLocale: string) => {
-    navigate(`/${newLocale ? `${newLocale}/` : ""}admin/dashboard`, {
-      replace: true,
-    });
-  };
-  return (
-    <Dropdown
-      key="locale"
-      menu={{
-        items: [
-          {
-            key: "en",
-            label: m.layout_lang_en(),
-            onClick: () => {
-              choiceLang("en");
-            },
-          },
-          {
-            key: "cn",
-            label: m.layout_lang_zh(),
-            onClick: () => {
-              choiceLang("zh");
-            },
-          },
-        ],
-      }}
-    >
-      <TranslationOutlined />
-    </Dropdown>
-  );
-}
-
-function createActionRenderWrap() {
-  return (props: any) => {
-    const goGithub = () => {
-      let aTag: any = document.createElement("a");
-      aTag.setAttribute("href", "https://github.com/yyong008/remix-antd-admin");
-      aTag.setAttribute("target", "_blank");
-      aTag.click();
-      aTag = null;
-    };
-    if (props.isMobile) return [];
-    return [
-      <HomeIcon key="HomeIcon" />,
-      <InfoCircleFilled key="InfoCircleFilled" />,
-      <QuestionCircleFilled key="QuestionCircleFilled" />,
-      <GithubFilled key="GithubFilled" onClick={goGithub} />,
-      <ActionRenderImpl key="actionRender" />,
-    ];
-  };
-}
-
-function HomeIcon() {
-  const navigate = useNavigate();
-  const { locale } = useParams();
-  return (
-    <HomeFilled
-      onClick={() => {
-        navigate(`/${locale ? `${locale}/` : ""}`);
-      }}
-    />
-  );
-}
-
 type AdminShellLayoutProps = {
   route: { routes: AdminRouteNode[] };
   loading: boolean;
@@ -384,8 +314,7 @@ function AdminShellLayout(props: AdminShellLayoutProps) {
   const { route, loading, user, children } = props;
   const location = useLocation();
   const { locale } = useParams();
-  const screens = Grid.useBreakpoint();
-  const isMobile = !screens.md;
+  const navigate = useNavigate();
   const { token } = theme.useToken();
 
   const [, setPathname] = useState(location.pathname);
@@ -435,7 +364,17 @@ function AdminShellLayout(props: AdminShellLayoutProps) {
 
   const [collapsed, setCollapsed] = useState(false);
 
-  const actions = useMemo(() => createActionRenderWrap()({ isMobile }), [isMobile]);
+  const goGithub = useCallback(() => {
+    let aTag: any = document.createElement("a");
+    aTag.setAttribute("href", "https://github.com/yyong008/remix-antd-admin");
+    aTag.setAttribute("target", "_blank");
+    aTag.click();
+    aTag = null;
+  }, []);
+
+  const goHome = useCallback(() => {
+    navigate(`/${locale ? `${locale}/` : ""}`);
+  }, [navigate, locale]);
 
   const mainGutterStart = collapsed ? SIDER_COLLAPSED_PX : SIDER_EXPANDED_PX;
 
@@ -511,7 +450,13 @@ function AdminShellLayout(props: AdminShellLayoutProps) {
               <Breadcrumb items={breadcrumbItems} />
             </div>
             <div className={styles.headerRight}>
-              <Space size="middle">{actions}</Space>
+              <Space size="middle">
+                <HomeFilled onClick={goHome} />
+                <InfoCircleFilled />
+                <QuestionCircleFilled />
+                <GithubFilled onClick={goGithub} />
+              </Space>
+              <LocaleSwitcher />
               <ThemeSwitcher />
               <AvatarDropDown user={user} />
             </div>
