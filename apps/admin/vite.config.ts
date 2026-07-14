@@ -4,6 +4,7 @@ import { defineConfig } from "vite";
 import devtoolsJson from "vite-plugin-devtools-json";
 import path from "path";
 import { fileURLToPath } from "url";
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -20,14 +21,19 @@ export default defineConfig({
   },
   resolve: {
     tsconfigPaths: true,
-    alias: {
-      "@": path.resolve(__dirname, "./app"),
-      "~": path.resolve(__dirname, "./app"),
-    },
   },
   plugins: [
     cloudflare({ viteEnvironment: { name: "ssr" }, inspectorPort: false }),
     devtoolsJson(),
     reactRouter(),
+    paraglideVitePlugin({
+      project: "./project.inlang",
+      outdir: "./app/paraglide",
+      // URL is first so the `:locale?` route prefix under app/routes.ts is the
+      // source of truth, with cookie/baseLocale as fallbacks. The strategy here
+      // must stay in sync with `i18n:compile` in package.json.
+      strategy: ["url", "cookie", "baseLocale"],
+      emitTsDeclarations: true,
+    }),
   ],
 });

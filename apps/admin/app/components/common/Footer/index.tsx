@@ -1,6 +1,8 @@
 import { GithubOutlined } from "@ant-design/icons";
 import { Button, Flex, Layout, Space, theme } from "antd";
 
+import { m } from "~/paraglide/messages";
+
 const { Footer: LayoutFooter } = Layout;
 
 export const Footer: React.FC = () => {
@@ -38,7 +40,9 @@ export const Footer: React.FC = () => {
       }}
     >
       <Flex justify="space-between" align="center" wrap="wrap" gap={8}>
-        <span>{`${currentYear} ${"By Walle-"}`}</span>
+        <span>
+          © {currentYear} · {m.layout_made_with_love()}
+        </span>
         <Space
           size="middle"
           separator={<span style={{ color: token.colorTextQuaternary }}>|</span>}

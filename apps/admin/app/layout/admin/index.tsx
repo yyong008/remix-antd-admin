@@ -280,16 +280,6 @@ function AvatarDropDown({ user }: { user: AdminHeaderUser }) {
   );
 }
 
-function MenuFooterRender({ collapsed }: { collapsed?: boolean }) {
-  if (collapsed) return undefined;
-  return (
-    <div className={styles.footer} style={{ paddingInline: 16, paddingBlock: 16 }}>
-      <p className={styles.footerCopyright}>{m.layout_copyright()}</p>
-      <p className={styles.footerMade}>{m.layout_made_with_love()}</p>
-    </div>
-  );
-}
-
 type AdminShellLayoutProps = {
   route: { routes: AdminRouteNode[] };
   loading: boolean;
@@ -376,10 +366,7 @@ function AdminShellLayout(props: AdminShellLayoutProps) {
           theme="dark"
         >
           <div className={styles.siderInner}>
-            <div
-              className={styles.logoBox}
-              style={{ padding: collapsed ? "16px 12px" : "20px 16px" }}
-            >
+            <div className={styles.logoBox}>
               <Link
                 to={dashboardHref}
                 className={styles.logoLink}
@@ -416,8 +403,6 @@ function AdminShellLayout(props: AdminShellLayoutProps) {
                 items={menuItems}
               />
             </div>
-
-            <MenuFooterRender collapsed={collapsed} />
           </div>
         </Sider>
 
@@ -425,8 +410,6 @@ function AdminShellLayout(props: AdminShellLayoutProps) {
           <Header
             className={styles.header}
             style={{
-              paddingInline: 20,
-              paddingBlock: 12,
               background: token.colorBgContainer,
               borderBottomColor: token.colorBorderSecondary,
             }}
