@@ -13,12 +13,12 @@ export interface AboutData {
   repoUrl: string;
   repoLabel: string;
   homepage: string;
-  description: string;
+  techStack: Record<string, string>;
   productionDeps: AboutDependency[];
   developmentDeps: AboutDependency[];
 }
 
-const DEPENDENCY_KEYS = [
+export const DEPENDENCY_KEYS = [
   "react-router",
   "vite",
   "antd",
@@ -27,7 +27,7 @@ const DEPENDENCY_KEYS = [
   "typescript",
 ] as const;
 
-const getMajorVersion = (depVersion: string | undefined): string => {
+export const getMajorVersion = (depVersion: string | undefined): string => {
   return depVersion?.match(/\d+/)?.[0] || "";
 };
 
@@ -35,28 +35,34 @@ const toNpmUrl = (name: string): string => {
   return /^http(s)?:/.test(name) ? name : `https://www.npmjs.com/package/${name}`;
 };
 
-const buildDescription = (pkgName: string, deps: Record<string, string>): string => {
-  const techStack = DEPENDENCY_KEYS.map((key) => {
-    const version = getMajorVersion(deps[key]);
-    return `${key} ${version}.x`;
-  }).join("、");
-
-  return `${pkgName}是基于 ${techStack} 开发，内置了动态路由、权限验证、菜单、数据库全栈管理工具`;
+const resolveVersion = (
+  name: string,
+  raw: string | undefined,
+  catalog: Record<string, string>,
+): string => {
+  if (!raw) return "";
+  if (raw === "catalog:") return catalog[name] ?? "catalog:";
+  return raw;
 };
 
 export function useAboutData(): AboutData {
   return useMemo(() => {
-    const { pkg, lastBuildTime } = __APP_INFO__;
+    const { pkg, lastBuildTime, catalog = {} } = __APP_INFO__;
     const allDeps = { ...pkg.dependencies, ...pkg.devDependencies };
 
     const repoUrl =
       pkg.repository?.url?.replace(/^git\+/, "").replace(/\.git$/, "") || pkg.homepage || "";
     const repoLabel = repoUrl?.replace(/^https?:\/\//, "") || "repository";
 
+    const techStack: Record<string, string> = {};
+    for (const key of DEPENDENCY_KEYS) {
+      techStack[key] = resolveVersion(key, allDeps[key], catalog);
+    }
+
     const productionDeps: AboutDependency[] = Object.entries(pkg.dependencies || {})
       .map(([name, version]) => ({
         name,
-        version: String(version),
+        version: resolveVersion(name, version, catalog),
         url: toNpmUrl(name),
       }))
       .sort((a, b) => a.name.localeCompare(b.name));
@@ -64,7 +70,7 @@ export function useAboutData(): AboutData {
     const developmentDeps: AboutDependency[] = Object.entries(pkg.devDependencies || {})
       .map(([name, version]) => ({
         name,
-        version: String(version),
+        version: resolveVersion(name, version, catalog),
         url: toNpmUrl(name),
       }))
       .sort((a, b) => a.name.localeCompare(b.name));
@@ -76,7 +82,7 @@ export function useAboutData(): AboutData {
       repoUrl,
       repoLabel,
       homepage: pkg.homepage || "",
-      description: buildDescription(pkg.name, allDeps),
+      techStack,
       productionDeps,
       developmentDeps,
     };

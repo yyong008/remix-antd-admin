@@ -9,5 +9,6 @@ declare const __APP_INFO__: {
     };
     homepage?: string;
   };
+  catalog: Record<string, string>;
   lastBuildTime: string;
 };

@@ -16,10 +16,32 @@ export type AdminDashboardStats = {
   feedbackCount?: number;
 };
 
+export type UserSignLog = {
+  id: string;
+  userId: string;
+  signType: number;
+  signTime: string | Date;
+};
+
+export type LatestLoginLog = {
+  id?: string;
+  userId?: string;
+  loginAt?: string | Date;
+  ip?: string;
+  system?: string;
+  browser?: string;
+  address?: string;
+};
+
 export type DashboardPayload = {
-  isLogin: boolean;
-  latestLoginLog: Record<string, unknown> | null;
+  isLogin: UserSignLog | null;
+  latestLoginLog: LatestLoginLog | null;
   stats?: AdminDashboardStats | null;
+};
+
+type SignInResult = {
+  alreadySigned?: boolean;
+  record?: UserSignLog;
 };
 
 export const dashboardKeys = {
@@ -41,7 +63,15 @@ export function useUserSignIn() {
   return useMutation({
     mutationFn: async () => {
       const res = await (getApiClient() as any).api.admin.system.user.signin.$post();
-      return res.json();
+      const body = (await res.json()) as {
+        code: number;
+        message?: string;
+        data?: SignInResult;
+      };
+      if (body.code !== 0) {
+        throw new Error(body.message ?? "Sign-in failed");
+      }
+      return body.data ?? {};
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: dashboardKeys.info });

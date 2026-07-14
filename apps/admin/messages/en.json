@@ -64,5 +64,18 @@
   "layout_profile_center": "Personal center",
   "layout_log_out": "Log out",
   "layout_user_fallback": "User",
-  "layout_made_with_love": "Made with love · Walle"
+  "layout_made_with_love": "Made with love · Walle",
+  "about_card_title": "About the project",
+  "about_card_description": "A full-stack admin template built with {techStack}, featuring dynamic routing, RBAC, menus and a complete database toolkit.",
+  "about_info_title": "Project info",
+  "about_info_version": "Version",
+  "about_info_last_build": "Last build",
+  "about_info_github": "GitHub",
+  "about_info_preview": "Preview site",
+  "about_info_preview_label": "Visit",
+  "about_dep_title": "Dependencies",
+  "about_dep_production": "Production deps {count}",
+  "about_dep_development": "Dev deps {count}",
+  "about_dep_tooltip": "{version} — open NPM",
+  "about_dep_version_missing": "version not resolved"
 }

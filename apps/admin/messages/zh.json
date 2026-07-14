@@ -63,5 +63,18 @@
   "layout_profile_center": "个人中心",
   "layout_log_out": "退出登录",
   "layout_user_fallback": "用户",
-  "layout_made_with_love": "用心打造 · Walle"
+  "layout_made_with_love": "用心打造 · Walle",
+  "about_card_title": "关于项目",
+  "about_card_description": "基于 {techStack} 的全栈管理后台模板，内置动态路由、权限验证、菜单管理与数据库全栈工具。",
+  "about_info_title": "项目信息",
+  "about_info_version": "版本",
+  "about_info_last_build": "最后编译",
+  "about_info_github": "GitHub",
+  "about_info_preview": "预览地址",
+  "about_info_preview_label": "访问",
+  "about_dep_title": "依赖信息",
+  "about_dep_production": "生产依赖 {count}",
+  "about_dep_development": "开发依赖 {count}",
+  "about_dep_tooltip": "{version} — 打开 NPM",
+  "about_dep_version_missing": "版本未解析"
 }

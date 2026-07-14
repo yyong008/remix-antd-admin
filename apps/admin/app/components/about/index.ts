@@ -1,1 +1,1 @@
-export { AdminAboutCard, AdminProjectInfoCard, AdminDependencyCard } from "./AdminAboutComponents";
+export { AdminAbout } from "./admin-about";
