@@ -5,6 +5,7 @@ import { drizzle } from "drizzle-orm/d1";
 import * as schema from "database/schema";
 import { admin, openAPI } from "better-auth/plugins";
 import { rbacLoginPlugin } from "./plugins/rbac-login";
+import { loginLoggerPlugin } from "./plugins/login-logger";
 import { customSessionPlugin } from "./plugins/custom-session";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
@@ -16,7 +17,13 @@ export function createAuth(database: DB, env: Env) {
       provider: "sqlite",
       schema,
     }),
-    plugins: [rbacLoginPlugin({ db }), admin(), openAPI(), customSessionPlugin()],
+    plugins: [
+      rbacLoginPlugin({ db }),
+      loginLoggerPlugin({ db }),
+      admin(),
+      openAPI(),
+      customSessionPlugin(),
+    ],
     user: {
       additionalFields: {
         nickname: {
