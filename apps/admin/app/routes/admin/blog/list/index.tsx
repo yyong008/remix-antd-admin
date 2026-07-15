@@ -199,7 +199,7 @@ export function Route() {
               <ButtonLink
                 type="new"
                 content={m.blog_list_action_new()}
-                to={href("/:locale?/admin/blog/new" as any, { locale }) as unknown as string}
+                to={href("/:locale?/admin/blog/edit" as any, { locale }) as unknown as string}
               />
             </Flex>
           }

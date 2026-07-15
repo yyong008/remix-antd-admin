@@ -4,25 +4,18 @@ import dayjs from "dayjs";
 import { m } from "~/paraglide/messages";
 import { useEffect, useState } from "react";
 import { FormItems } from "./form-items";
-import { isQuillBodyEmpty } from "./build-payload";
+import { isBodyEmpty } from "./build-payload";
 import { href, useNavigate, useParams } from "react-router";
 import { PageContainer } from "~/components/page-container";
-import { QuillEditor } from "~/components/common/quill-editor";
+import { RichTextEditor } from "~/components/common/rich-text-editor";
 import { useBlogTagList } from "~/api-client/queries/blog/blog-tag";
 import { Button, Card, Drawer, Flex, Form, message, Space } from "antd";
 import { useBlogCategoryList } from "~/api-client/queries/blog/blog-category";
 import { useBlogById, useCreateBlog, useUpdateBlog } from "~/api-client/queries/blog/blog";
 
-export const handle = ({
-  params,
-  id,
-}: {
-  params: { id?: string; locale?: string };
-  id?: string;
-}) => {
-  if (id === "admin-blog-new") return { breadcrumb: [{ label: m.breadcrumb_new() }] };
+export const handle = ({ params }: { params: { id?: string; locale?: string } }) => {
   if (params.id) return { breadcrumb: [{ label: `Edit: #${params.id}` }] };
-  return { breadcrumb: [{ label: m.breadcrumb_edit() }] };
+  return { breadcrumb: [{ label: m.breadcrumb_new() }] };
 };
 
 export const meta: MetaFunction = () => [{ title: "Blog · edit" }];
@@ -104,7 +97,7 @@ export function Route() {
   };
 
   const handleSubmit = async (values: Record<string, unknown>) => {
-    if (isQuillBodyEmpty(content)) {
+    if (isBodyEmpty(content)) {
       message.warning(m.blog_edit_content_required_warning());
       return false;
     }
@@ -168,7 +161,7 @@ export function Route() {
       >
         {isEditMode && article ? (
           <Flex vertical gap={0} style={editorWrapStyle}>
-            <QuillEditor
+            <RichTextEditor
               key={article.id ?? id}
               initContent={article.content ?? ""}
               content={content}
@@ -177,7 +170,7 @@ export function Route() {
           </Flex>
         ) : (
           <Flex vertical gap={0} style={editorWrapStyle}>
-            <QuillEditor initContent="" content={content} setContent={setContent} />
+            <RichTextEditor initContent="" content={content} setContent={setContent} />
           </Flex>
         )}
       </Card>

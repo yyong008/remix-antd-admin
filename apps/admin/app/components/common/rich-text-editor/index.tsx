@@ -14,6 +14,6 @@ const Editor: ComponentType<EditorProps> = import.meta.env.SSR
   ? () => null as any
   : lazy(() => import("./editor"));
 
-export const QuillEditor = (props: EditorProps) => {
+export const RichTextEditor = (props: EditorProps) => {
   return <ClientOnly fallback={<>Loading...</>}>{() => <Editor {...props} />}</ClientOnly>;
 };

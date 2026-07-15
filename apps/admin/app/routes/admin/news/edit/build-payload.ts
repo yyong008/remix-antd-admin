@@ -1,4 +1,4 @@
-export function isQuillBodyEmpty(html: string) {
+export function isBodyEmpty(html: string) {
   const text = html
     .replace(/<[^>]*>/g, " ")
     .replace(/&nbsp;/gi, " ")

@@ -6,7 +6,7 @@ import { href, Link, useParams } from "react-router";
 import type { MetaFunction } from "react-router";
 import { useEffect, useState } from "react";
 import { PageContainer } from "~/components/page-container";
-import { QuillEditor } from "~/components/common/quill-editor";
+import { RichTextEditor } from "~/components/common/rich-text-editor";
 import { m } from "~/paraglide/messages";
 import { MailForm } from "./components/mail-form";
 import { useToolsMailById } from "~/api-client/queries/tools/tools-mail";
@@ -53,7 +53,7 @@ export default function Route() {
         }
       >
         <div style={{ height: "400px" }}>
-          <QuillEditor
+          <RichTextEditor
             initContent={data?.data?.content}
             content={content}
             setContent={setContent}

@@ -13,13 +13,8 @@ const adminBlogRoutes = [
   layout("routes/admin/blog/_layout.tsx", [
     ...prefix("blog", [
       route("list", "routes/admin/blog/list/index.tsx"),
-      route("category", "routes/admin/blog/category/index.tsx"),
-      route("tag", "routes/admin/blog/tag/index.tsx"),
-      route("new", "routes/admin/blog/edit/index.tsx", { id: "admin-blog-new" }),
-      route("edit", "routes/admin/blog/edit/index.tsx", { id: "admin-blog-edit" }),
-      route("edit/:id", "routes/admin/blog/edit/index.tsx", {
-        id: "admin-blog-edit-id",
-      }),
+      route("edit", "routes/admin/blog/edit/index.tsx", { id: "admin-blog-new" }),
+      route("edit/:id", "routes/admin/blog/edit/index.tsx", { id: "admin-blog-edit-id" }),
       route("result", "routes/admin/blog/result/index.tsx"),
     ]),
   ]),

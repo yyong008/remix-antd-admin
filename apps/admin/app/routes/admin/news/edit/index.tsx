@@ -17,12 +17,12 @@ import { href, useNavigate, useParams } from "react-router";
 import type { MetaFunction } from "react-router";
 
 import { PageContainer } from "~/components/page-container";
-import { QuillEditor } from "~/components/common/quill-editor";
+import { RichTextEditor } from "~/components/common/rich-text-editor";
 import { useCreateNews, useNewsById, useUpdateNews } from "~/api-client/queries/news/news";
 import { useNewsCategoryList } from "~/api-client/queries/news/news-category";
 import { m } from "~/paraglide/messages";
 
-import { buildNewsPayload, isQuillBodyEmpty } from "./build-payload";
+import { buildNewsPayload, isBodyEmpty } from "./build-payload";
 import { categoriesForNewsSelect } from "../category-select";
 
 export const handle = ({ params }: { params: { id?: string } }) => {
@@ -111,7 +111,7 @@ export function Route() {
   };
 
   const handleSubmit = async (values: Record<string, unknown>) => {
-    if (isQuillBodyEmpty(content)) {
+    if (isBodyEmpty(content)) {
       message.warning(m.news_edit_content_required_warning());
       return false;
     }
@@ -173,7 +173,7 @@ export function Route() {
       >
         {isEditMode && article ? (
           <Flex vertical gap={0} style={editorWrapStyle}>
-            <QuillEditor
+            <RichTextEditor
               key={article.id ?? id}
               initContent={article.content ?? ""}
               content={content}
@@ -182,7 +182,7 @@ export function Route() {
           </Flex>
         ) : (
           <Flex vertical gap={0} style={editorWrapStyle}>
-            <QuillEditor initContent="" content={content} setContent={setContent} />
+            <RichTextEditor initContent="" content={content} setContent={setContent} />
           </Flex>
         )}
       </Card>

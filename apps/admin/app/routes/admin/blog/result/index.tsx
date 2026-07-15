@@ -36,7 +36,7 @@ export function Route() {
         <Button
           key="buy"
           onClick={() => {
-            nav(href("/:locale?/admin/blog/new" as any, { locale }));
+            nav(href("/:locale?/admin/blog/edit" as any, { locale }));
           }}
         >
           {m.blog_result_button_create_again()}
