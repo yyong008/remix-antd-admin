@@ -21,6 +21,7 @@
   "footer_link_news": "新闻",
   "footer_link_docs": "文档",
   "footer_link_github": "GitHub",
+  "footer_link_seeksaas": "SeekSaaS",
   "home_hero_eyebrow": "基于 React Router v8 构建",
   "home_hero_heading_line1": "全栈开发范式",
   "home_hero_description": "{product} 是一个全栈解决方案，帮助你快速启动基于 React Router 的 AI 项目。集成了现代 Web 开发的最佳实践和工具链。",

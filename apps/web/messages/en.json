@@ -21,6 +21,7 @@
   "footer_link_news": "News",
   "footer_link_docs": "Docs",
   "footer_link_github": "GitHub",
+  "footer_link_seeksaas": "SeekSaaS",
   "home_hero_eyebrow": "Built on React Router v8",
   "home_hero_heading_line1": "The full-stack paradigm",
   "home_hero_description": "{product} is a full-stack solution that helps you bootstrap React Router based AI projects. It bundles modern web best practices and tooling out of the box.",

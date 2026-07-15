@@ -32,6 +32,11 @@ export function getLinks(locale: string): LinkSection[] {
           text: m.footer_link_github(),
           isOut: true,
         },
+        {
+          to: "https://www.seeksaas.com",
+          text: m.footer_link_seeksaas(),
+          isOut: true,
+        },
       ],
     },
   ];
