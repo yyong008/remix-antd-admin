@@ -12,7 +12,7 @@
     "./local/auth": "./src/local/auth.ts"
   },
   "scripts": {
-    "generate:seed-sql": "tsx ./src/local/generate-rbac-seed-sql.ts",
+    "generate:seed-sql": "tsx ./src/rbac/sql/generate.ts",
     "seed:local:create-user": "dotenv -e ../../apps/api/.env -- tsx ./src/local/create-users.ts"
   },
   "dependencies": {

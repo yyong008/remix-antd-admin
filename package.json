@@ -43,7 +43,7 @@
     "db:migrate:local": "wrangler d1 migrations apply DB --local",
     "db:setup:local": "pnpm run db:migrate:local && pnpm run db:seed:local",
     "db:generate:seed-sql": "pnpm -F @workspace/seed run generate:seed-sql",
-    "db:seed:local": "pnpm exec wrangler d1 execute DB --local --file=./tools/seed/src/local/seed-local-rbac.sql",
+    "db:seed:local": "pnpm exec wrangler d1 execute DB --local --file=./tools/seed/src/rbac/sql/seed.sql",
     "db:seed": "pnpm run db:seed:local",
     "db:seed:local:create-user": "pnpm -F @workspace/seed run seed:local:create-user",
     "db:studio:local": "pnpm -F @workspace/database run studio",

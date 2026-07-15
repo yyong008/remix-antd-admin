@@ -1,12 +1,13 @@
 import { AntdIcon } from "~/components/common/antd-icon";
 import { isExternalLink } from "./utils";
+import { resolveMenuLabel } from "./menu-label";
 
 function createProLayoutRouteImpl(locale: string, items: any[], parentId: string | null): any[] {
   return items
     .filter((item) => item.parent_menu_id === parentId && item.isShow !== 0)
     .map((item) => ({
       ...item,
-      name: item.name,
+      name: resolveMenuLabel(item.name),
       path: isExternalLink(item.path)
         ? item.path
         : `/${locale ? `${locale}/` : ""}admin${item.path}`,

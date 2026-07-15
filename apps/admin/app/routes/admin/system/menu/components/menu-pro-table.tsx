@@ -29,6 +29,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useDeleteMenu } from "~/api-client/queries/system/system-menu";
 import { CreateMenuModal } from "./create-menu-modal";
 import { UpdateMenuModal } from "./update-menu-modal";
+import { resolveMenuLabel } from "~/utils/client/menu-label";
 import "./menu-tree.css";
 import { m } from "~/paraglide/messages";
 
@@ -81,7 +82,7 @@ function mapToTreeData(items: any[] | undefined): DataNode[] {
   return items.map((item) => ({
     ...item,
     key: String(item.id),
-    title: item.name,
+    title: resolveMenuLabel(item.name),
     children: item.children?.length ? mapToTreeData(item.children) : undefined,
   })) as DataNode[];
 }
@@ -176,7 +177,7 @@ function MenuDetailPanel({
           </div>
           <div style={{ minWidth: 0 }}>
             <Typography.Title level={5} style={{ marginBottom: 4, marginTop: 0 }}>
-              {r.name}
+              {resolveMenuLabel(r.name)}
             </Typography.Title>
             {r.description?.trim() ? (
               <Typography.Text type="secondary" style={{ fontSize: 14 }}>
@@ -278,7 +279,7 @@ export function MenuProTable(props: SystemMenuProps) {
       <div style={{ display: "flex", width: "100%", minWidth: 0, alignItems: "center", gap: 8 }}>
         <AntdIcon name={r.icon} styles={{ flexShrink: 0, color: "var(--ant-color-text)" }} />
         <div style={{ minWidth: 0, flex: 1 }}>
-          <TooltipTitle name={r.name} description={r.description} />
+          <TooltipTitle name={resolveMenuLabel(r.name)} description={r.description} />
         </div>
         <span style={{ display: "flex", flexShrink: 0, alignItems: "center", gap: 6 }}>
           <MenuType type={menuType} />

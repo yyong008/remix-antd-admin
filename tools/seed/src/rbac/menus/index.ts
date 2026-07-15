@@ -16,10 +16,17 @@ export type MenuSeed = {
   remark?: string | null;
 };
 
+/**
+ * `name` is an i18n key consumed by `resolveMenuLabel` on the admin client
+ * (see `apps/admin/app/utils/client/menu-label.ts`). Keys follow the `menu_*`
+ * short namespace declared in `apps/admin/messages/{en,zh}.json`. Type-3
+ * permission nodes intentionally keep their plain-English verb so they can
+ * be referenced directly from permission strings without going through i18n.
+ */
 export const menuSeeds: MenuSeed[] = [
   {
     key: "dashboard",
-    name: "Dashboard",
+    name: "menu_dashboard",
     type: 2,
     path: "/dashboard",
     pathFile: "admin/dashboard",
@@ -30,7 +37,7 @@ export const menuSeeds: MenuSeed[] = [
   },
   {
     key: "ai",
-    name: "AI",
+    name: "menu_ai",
     type: 1,
     path: "/ai",
     icon: "RobotOutlined",
@@ -40,7 +47,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "ai-chatbot",
     parentKey: "ai",
-    name: "Chatbot",
+    name: "menu_chatbot",
     type: 2,
     path: "/ai/chatbot",
     pathFile: "admin/ai/chatbot",
@@ -51,7 +58,7 @@ export const menuSeeds: MenuSeed[] = [
   },
   {
     key: "news",
-    name: "News",
+    name: "menu_news",
     type: 1,
     path: "/news",
     icon: "NotificationOutlined",
@@ -61,7 +68,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "news-list",
     parentKey: "news",
-    name: "List",
+    name: "menu_news_list",
     type: 2,
     path: "/news/list",
     pathFile: "admin/news/list",
@@ -73,7 +80,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "news-edit",
     parentKey: "news",
-    name: "Edit",
+    name: "menu_news_edit",
     type: 2,
     path: "/news/edit",
     pathFile: "admin/news/edit",
@@ -85,7 +92,7 @@ export const menuSeeds: MenuSeed[] = [
   },
   {
     key: "blog",
-    name: "博客",
+    name: "menu_blog",
     type: 1,
     path: "/blog",
     icon: "EditOutlined",
@@ -95,7 +102,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "blog-list",
     parentKey: "blog",
-    name: "列表",
+    name: "menu_blog_list",
     type: 2,
     path: "/blog/list",
     pathFile: "admin/blog/list",
@@ -107,7 +114,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "blog-edit",
     parentKey: "blog",
-    name: "新建文章",
+    name: "menu_blog_edit",
     type: 2,
     path: "/blog/edit",
     /** 与路由 `routes/admin/blog/create.tsx`（URL `/blog/edit`）一致，便于侧栏与权限对齐 */
@@ -121,7 +128,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "blog-edit-article",
     parentKey: "blog",
-    name: "编辑",
+    name: "menu_blog_edit_article",
     type: 2,
     path: "/blog/edit/:id",
     pathFile: "admin/blog/edit",
@@ -133,7 +140,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "blog-detail",
     parentKey: "blog",
-    name: "Detail",
+    name: "menu_blog_detail",
     type: 2,
     path: "/blog/detail",
     pathFile: "admin/blog/detail",
@@ -144,7 +151,7 @@ export const menuSeeds: MenuSeed[] = [
   },
   {
     key: "profile",
-    name: "Profile",
+    name: "menu_profile",
     type: 1,
     path: "/profile",
     icon: "UserOutlined",
@@ -154,7 +161,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "profile-home",
     parentKey: "profile",
-    name: "Account",
+    name: "menu_account",
     type: 2,
     path: "/profile/account",
     pathFile: "admin/profile/account",
@@ -166,7 +173,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "profile-link",
     parentKey: "profile",
-    name: "Link",
+    name: "menu_link",
     type: 2,
     path: "/profile/link",
     pathFile: "admin/profile/link/category",
@@ -177,7 +184,7 @@ export const menuSeeds: MenuSeed[] = [
   },
   {
     key: "tools",
-    name: "Tools",
+    name: "menu_tools",
     type: 1,
     path: "/tools",
     icon: "ToolOutlined",
@@ -187,7 +194,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "tools-mail",
     parentKey: "tools",
-    name: "Mail",
+    name: "menu_mail",
     type: 2,
     path: "/tools/mail",
     pathFile: "admin/tools/mail",
@@ -199,7 +206,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "tools-storage",
     parentKey: "tools",
-    name: "Storage",
+    name: "menu_storage",
     type: 2,
     path: "/tools/storage",
     pathFile: "admin/tools/storage",
@@ -210,18 +217,18 @@ export const menuSeeds: MenuSeed[] = [
   },
   {
     key: "about",
-    name: "About",
+    name: "menu_about",
     type: 2,
     path: "/about",
     pathFile: "admin/about",
     permission: "about:read",
     icon: "InfoCircleOutlined",
-    orderNo: 8,
+    orderNo: 9,
     isShow: 1,
   },
   {
     key: "system",
-    name: "System",
+    name: "menu_system",
     type: 1,
     path: "/system",
     icon: "SettingOutlined",
@@ -231,7 +238,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "system-user",
     parentKey: "system",
-    name: "User",
+    name: "menu_user",
     type: 2,
     path: "/system/user",
     pathFile: "admin/system/user",
@@ -243,7 +250,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "system-role",
     parentKey: "system",
-    name: "Role",
+    name: "menu_role",
     type: 2,
     path: "/system/role",
     pathFile: "admin/system/role",
@@ -255,7 +262,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "system-menu",
     parentKey: "system",
-    name: "Menu",
+    name: "menu_menu",
     type: 2,
     path: "/system/menu",
     pathFile: "admin/system/menu",
@@ -267,7 +274,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "system-dept",
     parentKey: "system",
-    name: "Department",
+    name: "menu_dept",
     type: 2,
     path: "/system/dept",
     pathFile: "admin/system/dept",
@@ -279,7 +286,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "system-dict",
     parentKey: "system",
-    name: "Dictionary",
+    name: "menu_dict",
     type: 2,
     path: "/system/dict",
     pathFile: "admin/system/dict",
@@ -291,7 +298,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "system-dict-item",
     parentKey: "system-dict",
-    name: "Dict Item",
+    name: "menu_dict_item",
     type: 2,
     path: "/system/dict-item/:id",
     pathFile: "admin/system/dict-item",
@@ -302,7 +309,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "system-config",
     parentKey: "system",
-    name: "Config",
+    name: "menu_config",
     type: 2,
     path: "/system/config",
     pathFile: "admin/system/config",
@@ -314,7 +321,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "system-monitor",
     parentKey: "system",
-    name: "Monitor",
+    name: "menu_monitor",
     type: 1,
     path: "/system/monitor",
     icon: "MonitorOutlined",
@@ -324,7 +331,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "system-monitor-loginlog",
     parentKey: "system-monitor",
-    name: "Login Log",
+    name: "menu_login_log",
     type: 2,
     path: "/system/monitor/loginlog",
     pathFile: "admin/system/monitor/loginlog",
@@ -336,7 +343,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "system-monitor-operate",
     parentKey: "system-monitor",
-    name: "Operate",
+    name: "menu_operate",
     type: 2,
     path: "/system/monitor/operate",
     pathFile: "admin/system/monitor/operate",
@@ -348,13 +355,46 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "system-monitor-serve",
     parentKey: "system-monitor",
-    name: "Serve",
+    name: "menu_serve",
     type: 2,
     path: "/system/monitor/serve",
     pathFile: "admin/system/monitor/serve",
     permission: "system:monitor:serve:read",
     icon: "CloudServerOutlined",
     orderNo: 3,
+    isShow: 1,
+  },
+  {
+    key: "docs",
+    name: "menu_docs",
+    type: 1,
+    path: "/docs",
+    icon: "FileTextOutlined",
+    orderNo: 8,
+    isShow: 1,
+  },
+  {
+    key: "docs-changelog",
+    parentKey: "docs",
+    name: "menu_docs_changelog",
+    type: 2,
+    path: "/docs/changelog",
+    pathFile: "admin/docs/changelog",
+    permission: "docs:changelog:read",
+    icon: "HistoryOutlined",
+    orderNo: 1,
+    isShow: 1,
+  },
+  {
+    key: "docs-feedback",
+    parentKey: "docs",
+    name: "menu_docs_feedback",
+    type: 2,
+    path: "/docs/feedback",
+    pathFile: "admin/docs/feedback",
+    permission: "docs:feedback:read",
+    icon: "MessageOutlined",
+    orderNo: 2,
     isShow: 1,
   },
   {
@@ -576,7 +616,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-system-monitor-loginlog-read",
     parentKey: "system-monitor-loginlog",
-    name: "Login Log Read",
+    name: "Read",
     type: 3,
     permission: "system:monitor:loginlog:read",
     orderNo: 1,
@@ -585,7 +625,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-system-monitor-loginlog-create",
     parentKey: "system-monitor-loginlog",
-    name: "Login Log Create",
+    name: "Create",
     type: 3,
     permission: "system:monitor:loginlog:create",
     orderNo: 2,
@@ -594,7 +634,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-system-monitor-loginlog-update",
     parentKey: "system-monitor-loginlog",
-    name: "Login Log Update",
+    name: "Update",
     type: 3,
     permission: "system:monitor:loginlog:update",
     orderNo: 3,
@@ -603,7 +643,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-system-monitor-loginlog-delete",
     parentKey: "system-monitor-loginlog",
-    name: "Login Log Delete",
+    name: "Delete",
     type: 3,
     permission: "system:monitor:loginlog:delete",
     orderNo: 4,
@@ -612,7 +652,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-system-monitor-serve-read",
     parentKey: "system-monitor-serve",
-    name: "Serve Read",
+    name: "Read",
     type: 3,
     permission: "system:monitor:serve:read",
     orderNo: 1,
@@ -621,7 +661,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-system-monitor-serve-create",
     parentKey: "system-monitor-serve",
-    name: "Serve Create",
+    name: "Create",
     type: 3,
     permission: "system:monitor:serve:create",
     orderNo: 2,
@@ -630,7 +670,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-system-monitor-serve-update",
     parentKey: "system-monitor-serve",
-    name: "Serve Update",
+    name: "Update",
     type: 3,
     permission: "system:monitor:serve:update",
     orderNo: 3,
@@ -639,7 +679,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-system-monitor-serve-delete",
     parentKey: "system-monitor-serve",
-    name: "Serve Delete",
+    name: "Delete",
     type: 3,
     permission: "system:monitor:serve:delete",
     orderNo: 4,
@@ -648,7 +688,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-system-monitor-operate-read",
     parentKey: "system-monitor-operate",
-    name: "Operate Read",
+    name: "Read",
     type: 3,
     permission: "system:monitor:operate:read",
     orderNo: 1,
@@ -657,7 +697,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-system-monitor-operate-create",
     parentKey: "system-monitor-operate",
-    name: "Operate Create",
+    name: "Create",
     type: 3,
     permission: "system:monitor:operate:create",
     orderNo: 2,
@@ -666,7 +706,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-system-monitor-operate-update",
     parentKey: "system-monitor-operate",
-    name: "Operate Update",
+    name: "Update",
     type: 3,
     permission: "system:monitor:operate:update",
     orderNo: 3,
@@ -675,7 +715,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-system-monitor-operate-delete",
     parentKey: "system-monitor-operate",
-    name: "Operate Delete",
+    name: "Delete",
     type: 3,
     permission: "system:monitor:operate:delete",
     orderNo: 4,
@@ -684,7 +724,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-tools-mail-read",
     parentKey: "tools-mail",
-    name: "Mail Read",
+    name: "Read",
     type: 3,
     permission: "tools:mail:read",
     orderNo: 1,
@@ -693,7 +733,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-tools-mail-create",
     parentKey: "tools-mail",
-    name: "Mail Create",
+    name: "Create",
     type: 3,
     permission: "tools:mail:create",
     orderNo: 2,
@@ -702,7 +742,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-tools-mail-update",
     parentKey: "tools-mail",
-    name: "Mail Update",
+    name: "Update",
     type: 3,
     permission: "tools:mail:update",
     orderNo: 3,
@@ -711,7 +751,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-tools-mail-delete",
     parentKey: "tools-mail",
-    name: "Mail Delete",
+    name: "Delete",
     type: 3,
     permission: "tools:mail:delete",
     orderNo: 4,
@@ -720,7 +760,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-tools-storage-read",
     parentKey: "tools-storage",
-    name: "Storage Read",
+    name: "Read",
     type: 3,
     permission: "tools:storage:read",
     orderNo: 1,
@@ -729,7 +769,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-tools-storage-create",
     parentKey: "tools-storage",
-    name: "Storage Create",
+    name: "Create",
     type: 3,
     permission: "tools:storage:create",
     orderNo: 2,
@@ -738,7 +778,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-tools-storage-update",
     parentKey: "tools-storage",
-    name: "Storage Update",
+    name: "Update",
     type: 3,
     permission: "tools:storage:update",
     orderNo: 3,
@@ -747,7 +787,7 @@ export const menuSeeds: MenuSeed[] = [
   {
     key: "perm-tools-storage-delete",
     parentKey: "tools-storage",
-    name: "Storage Delete",
+    name: "Delete",
     type: 3,
     permission: "tools:storage:delete",
     orderNo: 4,

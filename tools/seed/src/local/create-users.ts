@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/libsql";
 import { account, user } from "@workspace/database/schema";
 import { userRoles } from "@workspace/database/schema";
-import { LOCAL_ROLE_IDS } from "./role-ids";
+import { LOCAL_ROLE_IDS } from "../rbac/sql/role-ids";
 import { superAdminSeed } from "../users/superadmin";
 import { adminSeed } from "../users/admin";
 import { userSeed } from "../users/user";

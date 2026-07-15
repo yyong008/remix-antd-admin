@@ -1,32 +1,47 @@
 import {
   ProFormDigit,
   ProFormRadio,
+  ProFormSelect,
   ProFormText,
   ProFormTextArea,
   ProFormTreeSelect,
 } from "~/components/pro-form-kit";
 import { AntdIcon } from "~/components/common/antd-icon";
 import { AntdIconSelect } from "~/components/common/antd-icon-select";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { m } from "~/paraglide/messages";
+import { buildMenuI18nOptions } from "~/utils/client/menu-i18n-options";
+import { resolveMenuLabel } from "~/utils/client/menu-label";
+
+function withResolvedTitles(items: any[]): any[] {
+  return (items ?? []).map((it) => ({
+    ...it,
+    title: resolveMenuLabel(it.name),
+    children: it.children?.length ? withResolvedTitles(it.children) : it.children,
+  }));
+}
 
 export function TypeDir({ menuNotPerm, form }: any) {
   const [selectIconStr, setSelectIconStr] = useState(form?.getFieldValue("icon") ?? "");
+  const treeData = useMemo(() => withResolvedTitles(menuNotPerm ?? []), [menuNotPerm]);
+  const nameOptions = useMemo(() => buildMenuI18nOptions(), []);
   return (
     <>
-      <ProFormText
+      <ProFormSelect
         name="name"
         label={m.system_menu_field_name()}
-        placeholder={m.tools_placeholder_enter()}
-        rules={[{ required: true, message: m.tools_placeholder_enter() }]}
+        placeholder={m.tools_placeholder_select()}
+        options={nameOptions}
+        fieldProps={{ showSearch: true, optionFilterProp: "label" }}
+        rules={[{ required: true, message: m.tools_placeholder_select() }]}
       />
       <ProFormTreeSelect
         name="parent_menu_id"
         label={m.system_menu_field_parent()}
         placeholder={m.system_menu_field_parent_placeholder()}
-        request={async () => menuNotPerm}
+        request={async () => treeData}
         rules={[{ required: true, message: m.tools_placeholder_select() }]}
-        fieldProps={{ fieldNames: { label: "name", value: "id" } }}
+        fieldProps={{ fieldNames: { label: "title", value: "id" } }}
       />
       <ProFormText
         name="path"
