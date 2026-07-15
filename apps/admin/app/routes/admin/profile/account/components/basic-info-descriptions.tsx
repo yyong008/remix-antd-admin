@@ -1,11 +1,10 @@
-import { Descriptions, message, Spin, Tag } from "antd";
 import dayjs from "dayjs";
-import { useCallback, useRef, useState } from "react";
-
-import { useUpdateProfileAccount } from "~/api-client/queries/profile/profile-account";
-import { useUserInfo } from "~/api-client/queries/system/system-user";
-import { Cropper } from "~/components/common/Copper";
 import { m } from "~/paraglide/messages";
+import { Cropper } from "~/components/common/Copper";
+import { useCallback, useRef, useState } from "react";
+import { Descriptions, message, Spin, Tag } from "antd";
+import { useUserInfo } from "~/api-client/queries/system/system-user";
+import { useUpdateProfileAccount } from "~/api-client/queries/profile/profile-account";
 
 function fmt(value: string | null | undefined) {
   if (value == null) return "—";

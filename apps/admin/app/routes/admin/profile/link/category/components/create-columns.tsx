@@ -1,8 +1,8 @@
-import { Dropdown, Tag } from "antd";
 import type { MenuProps } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
+import { Dropdown, Tag } from "antd";
 import { m } from "~/paraglide/messages";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 export function createColumns({
   onUpdate,

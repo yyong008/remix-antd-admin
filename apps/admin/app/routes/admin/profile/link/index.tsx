@@ -1,21 +1,21 @@
-import { AdminTable } from "~/components/admin-table";
-import { PageContainer } from "~/components/page-container";
-import { Alert, Button, Card, Empty, Spin, Typography, message, theme } from "antd";
-import { useCallback, useEffect, useMemo, useState } from "react";
 import type { MetaFunction } from "react-router";
 
 import {
   useProfileLinkCategoryList,
   useDeleteProfileLinkCategory,
 } from "~/api-client/queries/profile/profile-link-category";
-import { useProfileLinkList } from "~/api-client/queries/profile/profile-link";
-import { m } from "~/paraglide/messages";
 
+import { m } from "~/paraglide/messages";
+import { AdminTable } from "~/components/admin-table";
+import { PageContainer } from "~/components/page-container";
+import { CreateLinkModal } from "./components/create-link-modal";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useProfileLinkList } from "~/api-client/queries/profile/profile-link";
+import { createColumns as createLinkColumns } from "./components/create-columns";
+import { Alert, Button, Card, Empty, Spin, Typography, message, theme } from "antd";
 import { CreateLinkCategoryModal } from "./category/components/create-link-category-modal";
 import { UpdateLinkCategoryModal } from "./category/components/update-link-category-modal";
 import { createColumns as createCategoryColumns } from "./category/components/create-columns";
-import { createColumns as createLinkColumns } from "./components/create-columns";
-import { CreateLinkModal } from "./components/create-link-modal";
 
 export const handle = () => ({
   breadcrumb: [{ label: m.profile_link_title() }],

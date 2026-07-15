@@ -1,10 +1,8 @@
 import { Form, message } from "antd";
-import { ModalForm } from "~/components/pro-form-kit";
-
-import { useUpdateProfileLinkCategory } from "~/api-client/queries/profile/profile-link-category";
 import { m } from "~/paraglide/messages";
-
 import { FormItems } from "./form-items";
+import { ModalForm } from "~/components/pro-form-kit";
+import { useUpdateProfileLinkCategory } from "~/api-client/queries/profile/profile-link-category";
 
 export function UpdateLinkCategoryModal({
   record,

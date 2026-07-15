@@ -1,12 +1,10 @@
+import { nanoid } from "nanoid";
+import { m } from "~/paraglide/messages";
+import { FormItems } from "./form-items";
 import { Button, Form, message } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { ModalForm } from "~/components/pro-form-kit";
-import { nanoid } from "nanoid";
-
 import { useCreateProfileLinkCategory } from "~/api-client/queries/profile/profile-link-category";
-import { m } from "~/paraglide/messages";
-
-import { FormItems } from "./form-items";
 
 export function CreateLinkCategoryModal({
   refetch,

@@ -1,8 +1,7 @@
+import { m } from "~/paraglide/messages";
 import { Button, Popconfirm, message } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-
 import { useDeleteProfileLinkCategory } from "~/api-client/queries/profile/profile-link-category";
-import { m } from "~/paraglide/messages";
 
 type DeleteActionProps = {
   record: { id: string };

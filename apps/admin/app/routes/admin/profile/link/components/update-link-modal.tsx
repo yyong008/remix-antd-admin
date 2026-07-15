@@ -1,11 +1,9 @@
-import { Button, Divider, Flex, Form, Modal, message } from "antd";
-import { EditOutlined } from "@ant-design/icons";
-import { useState, useEffect } from "react";
-
-import { useUpdateProfileLink } from "~/api-client/queries/profile/profile-link";
 import { m } from "~/paraglide/messages";
-
 import { FormItems } from "./form-items";
+import { useState, useEffect } from "react";
+import { EditOutlined } from "@ant-design/icons";
+import { Button, Divider, Flex, Form, Modal, message } from "antd";
+import { useUpdateProfileLink } from "~/api-client/queries/profile/profile-link";
 
 export function UpdateLinkModal({
   record,

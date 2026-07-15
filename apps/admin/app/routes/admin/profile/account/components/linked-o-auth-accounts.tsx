@@ -1,10 +1,10 @@
-import { Card, Table, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
+
 import dayjs from "dayjs";
 import { useMemo } from "react";
-
-import { type AuthLinkedAccountRow, useAuthAccountsList } from "~/api-client/queries/session";
 import { m } from "~/paraglide/messages";
+import { Card, Table, Typography } from "antd";
+import { type AuthLinkedAccountRow, useAuthAccountsList } from "~/api-client/queries/session";
 
 /** better-auth `credential` is email/password — excluded from OAuth display. */
 export const OAUTH_PROVIDER_IDS = new Set(["github", "google"]);

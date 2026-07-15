@@ -1,10 +1,8 @@
 import { Tag } from "antd";
 import { Link } from "react-router";
-
+import { LinkSvg } from "./link-svg";
 import { m } from "~/paraglide/messages";
 import { parseLinkUrl } from "~/utils/link-url";
-
-import { LinkSvg } from "./link-svg";
 
 type Props = {
   url: string;

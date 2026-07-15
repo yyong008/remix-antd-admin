@@ -1,13 +1,12 @@
-import { Card, Flex } from "antd";
 import type { MetaFunction } from "react-router";
 
-import { useUserInfo } from "~/api-client/queries/system/system-user";
-import { PageContainer } from "~/components/page-container";
+import { Card, Flex } from "antd";
 import { m } from "~/paraglide/messages";
-
+import { PageContainer } from "~/components/page-container";
 import { AccountSessions } from "./components/account-sessions";
-import { BasicInfoDescriptions } from "./components/basic-info-descriptions";
+import { useUserInfo } from "~/api-client/queries/system/system-user";
 import { OAuthAccountsSection } from "./components/linked-o-auth-accounts";
+import { BasicInfoDescriptions } from "./components/basic-info-descriptions";
 
 export const handle = () => ({
   breadcrumb: [{ label: m.profile_account_title() }],

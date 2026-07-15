@@ -1,9 +1,4 @@
-import { Button, message, Popconfirm, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import dayjs from "dayjs";
-import { href, useNavigate, useParams } from "react-router";
-
-import { useQueryClient } from "@tanstack/react-query";
 
 import {
   AUTH_SESSIONS_LIST_KEY,
@@ -12,8 +7,13 @@ import {
   useAuthSessionsList,
   useRevokeSessionMutation,
 } from "~/api-client/queries/session";
+
+import dayjs from "dayjs";
 import { m } from "~/paraglide/messages";
 import { useSession } from "~/session/provider";
+import { useQueryClient } from "@tanstack/react-query";
+import { href, useNavigate, useParams } from "react-router";
+import { Button, message, Popconfirm, Table, Tag, Typography } from "antd";
 
 function formatTs(value: Date | string | undefined) {
   if (value == null) return "—";

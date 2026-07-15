@@ -1,13 +1,11 @@
-import { Button, Dropdown, Modal, Typography, type MenuProps } from "antd";
-import { DeleteOutlined, EditOutlined, MoreOutlined } from "@ant-design/icons";
 import { useState } from "react";
-
-import { FormatTime } from "~/components/common";
-import { useDeleteProfileLink } from "~/api-client/queries/profile/profile-link";
 import { m } from "~/paraglide/messages";
-
+import { FormatTime } from "~/components/common";
 import { LinkUrlDisplay } from "./link-url-display";
 import { UpdateLinkModal } from "./update-link-modal";
+import { Button, Dropdown, Modal, Typography, type MenuProps } from "antd";
+import { DeleteOutlined, EditOutlined, MoreOutlined } from "@ant-design/icons";
+import { useDeleteProfileLink } from "~/api-client/queries/profile/profile-link";
 
 function LinkActionsCell({
   record,

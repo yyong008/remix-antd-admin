@@ -1,8 +1,7 @@
 import { Flex } from "antd";
-
-import { ProFormText, ProFormTextArea } from "~/components/pro-form-kit";
 import { m } from "~/paraglide/messages";
 import { isValidLinkUrl, linkUrlRuleMessage } from "~/utils/link-url";
+import { ProFormText, ProFormTextArea } from "~/components/pro-form-kit";
 
 export function FormItems() {
   return (

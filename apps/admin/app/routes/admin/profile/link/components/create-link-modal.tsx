@@ -1,12 +1,10 @@
-import { Button, Divider, Flex, Form, Modal, message } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import { useState } from "react";
 import { nanoid } from "nanoid";
-
-import { useCreateProfileLink } from "~/api-client/queries/profile/profile-link";
+import { useState } from "react";
 import { m } from "~/paraglide/messages";
-
 import { FormItems } from "./form-items";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Divider, Flex, Form, Modal, message } from "antd";
+import { useCreateProfileLink } from "~/api-client/queries/profile/profile-link";
 
 export function CreateLinkModal({
   refetch,
