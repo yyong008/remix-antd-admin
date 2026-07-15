@@ -1,0 +1,90 @@
+import { Button, Form } from "antd";
+import { useEffect, useMemo, useState } from "react";
+import { EditOutlined } from "@ant-design/icons";
+import { FormItems } from "./role-form-items";
+import { ModalForm } from "~/components/pro-form-kit";
+import { useColorPrimary } from "~/hooks/useColorPrimary";
+import { useUpdateRole } from "~/api-client/queries/system/system-role";
+import { roleModalFormProps } from "../role-form-layout";
+import { m } from "~/paraglide/messages";
+
+type UpdateRoleModalProps = {
+  trigger?: React.ReactNode;
+  record: any;
+  menu: any[];
+  refetch: any;
+};
+
+export function UpdateRoleModal(props: UpdateRoleModalProps) {
+  const { trigger, record, menu, refetch } = props;
+  const [form] = Form.useForm();
+  const { colorPrimary } = useColorPrimary();
+  const [checkedKeys, setCheckedKeys] = useState<any[]>([]);
+  const updateRole = useUpdateRole();
+
+  const onCheck = (checkedKeys: any, _info: any) => {
+    setCheckedKeys(checkedKeys);
+  };
+
+  const initCheckKeys: any[] = useMemo(() => {
+    return record.MenuRole?.filter((mr: any) => mr.roleId === record.id)?.map((r: any) => r.menuId);
+  }, [record.MenuRole, record.id]);
+
+  const menus = useMemo(() => {
+    return record.MenuRole?.filter((mr: any) => mr.roleId === record.id)?.map((r: any) => ({
+      id: r.menuId,
+      key: r.menuId,
+      value: r.menuId,
+    }));
+  }, [record.MenuRole, record.id]);
+
+  useEffect(() => {
+    if (record.id) {
+      setCheckedKeys(initCheckKeys);
+    }
+  }, [initCheckKeys, record.id]);
+
+  return (
+    <ModalForm
+      title={m.system_role_modal_update()}
+      width={720}
+      {...roleModalFormProps}
+      loading={updateRole.isPending}
+      trigger={
+        trigger ??
+        ((
+          <Button
+            type="link"
+            icon={<EditOutlined style={{ color: colorPrimary }} twoToneColor={colorPrimary} />}
+          />
+        ) as any)
+      }
+      form={form}
+      autoFocusFirstInput
+      onOpenChange={(e) => {
+        if (e) {
+          form.setFieldsValue({
+            ...record,
+            menus,
+          });
+          if (record.id) {
+            setCheckedKeys(initCheckKeys);
+          }
+        }
+      }}
+      modalProps={{
+        destroyOnHidden: true,
+        onCancel: () => {},
+      }}
+      submitTimeout={2000}
+      onFinish={async (vals) => {
+        const values = { ...vals, id: record.id };
+        await updateRole.mutateAsync(values);
+        refetch?.();
+        return true;
+      }}
+    >
+      <FormItems menu={menu} checkedKeys={checkedKeys} onCheck={onCheck} />
+    </ModalForm>
+  );
+}

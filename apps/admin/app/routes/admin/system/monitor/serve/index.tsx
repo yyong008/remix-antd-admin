@@ -1,10 +1,11 @@
 import type { MetaFunction } from "react-router";
-import { Route } from "./route";
+import { PageContainer } from "~/components/page-container";
+import { m } from "~/paraglide/messages";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Monitor-Server" }];
+  return [{ title: m.system_monitor_serve_title() }];
 };
 
-export default function Page() {
-  return <Route />;
+export default function Route() {
+  return <PageContainer loading={false}>{m.system_monitor_serve_view_platform()}</PageContainer>;
 }

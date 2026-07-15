@@ -1,98 +1,109 @@
-import { IconRocket, IconEye, IconExternalLink } from "@tabler/icons-react";
 import { PRODUCT_NAME } from "~/config/product";
 import * as m from "~/paraglide/messages.js";
+import { BrandButton, BrandIconButton } from "./_shared/brand-button";
+import {
+  ReactRouterSvgIcon,
+  HonoSvgIcon,
+  DrizzleSvgIcon,
+  GithubSvgIcon,
+  RocketIcon,
+  EyeIcon,
+} from "./_shared/icons";
+
+const trustStrip = [
+  { value: "1.2k", label: m.home_hero_trust_stars() },
+  { value: "50+", label: m.home_hero_trust_contributors() },
+  { value: "v8", label: m.home_hero_trust_router() },
+];
 
 export function HeroSection() {
   return (
-    <section className="relative px-6 py-20 lg:py-24 mx-auto overflow-hidden max-w-screen-xl">
-      <div className="absolute top-0 right-0 w-[50%] h-[120%] rounded-full bg-[radial-gradient(circle,rgba(255,107,61,0.15)_0%,transparent_70%)] pointer-events-none animate-pulse" />
-      <div className="absolute bottom-0 left-0 w-[40%] h-[100%] rounded-full bg-[radial-gradient(circle,rgba(42,109,244,0.12)_0%,transparent_70%)] pointer-events-none animate-pulse delay-[1s]" />
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-48 items-center">
+    <section className="relative overflow-hidden brand-radial">
+      <div className="mx-auto grid max-w-screen-xl grid-cols-1 items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:gap-16 lg:py-28">
         <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm shadow-md animate-[bounce_3s_infinite]">
-            <span className="text-lg animate-[ping_2s_infinite]">⚡</span>
-            <span className="text-muted-foreground">{m.home_hero_eyebrow()}</span>
-          </div>
+          <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-border bg-brand-surface px-4 py-1.5 text-sm font-medium text-brand-primary">
+            <RocketIcon className="size-4" />
+            {m.home_hero_eyebrow()}
+          </span>
 
-          <h1 className="text-4xl lg:text-6xl font-bold leading-tight mb-5 tracking-tight text-gray-900 dark:text-gray-100">
+          <h1 className="mb-5 text-4xl font-bold leading-tight tracking-tight text-balance text-foreground lg:text-6xl">
             {PRODUCT_NAME}
-            <br />
-            <span className="bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+            <span className="mt-1 block bg-brand-gradient bg-clip-text text-transparent">
               {m.home_hero_heading_line1()}
             </span>
           </h1>
 
-          <p className="text-lg leading-relaxed text-gray-500 dark:text-gray-400 mb-8 max-w-[500px]">
+          <p className="mb-8 max-w-[520px] text-lg leading-relaxed text-muted-foreground">
             {m.home_hero_description({ product: PRODUCT_NAME })}
           </p>
 
-          <div className="flex flex-wrap gap-4">
-            <a
+          <div className="flex flex-wrap items-center gap-3">
+            <BrandButton
               href="https://github.com/yyong008/remix-antd-admin"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 h-12 px-8 text-base font-medium transition-colors"
+              external
+              size="lg"
+              iconLeft={<RocketIcon className="size-5" />}
             >
-              <IconRocket className="size-5 mr-2" />
               {m.home_hero_cta_start()}
-            </a>
-            <a
+            </BrandButton>
+            <BrandButton
               href="https://remix-antd-admin-docs.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 h-12 px-8 text-base font-medium transition-colors"
+              external
+              variant="secondary"
+              size="lg"
+              iconLeft={<EyeIcon className="size-5" />}
             >
-              <IconEye className="size-5 mr-2" />
               {m.home_hero_cta_demo()}
-            </a>
-            <a
+            </BrandButton>
+            <BrandIconButton
               href="https://github.com/yyong008/remix-antd-admin"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 h-12 px-8 text-base font-medium transition-colors"
+              external
+              label={m.home_hero_cta_github()}
             >
-              <IconExternalLink className="size-5 mr-2" />
-              {m.home_hero_cta_github()}
-            </a>
+              <GithubSvgIcon className="size-5" />
+            </BrandIconButton>
           </div>
 
-          <div className="flex gap-8 mt-10 pt-6 border-t border-gray-200 dark:border-gray-800">
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">50+</span>
-              <span className="text-xs text-gray-500 dark:text-gray-400">
-                {m.home_hero_stat_contributors_label()}
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">v7</span>
-              <span className="text-xs text-gray-500 dark:text-gray-400">
-                {m.home_hero_stat_router_label()}
-              </span>
-            </div>
-          </div>
+          <dl className="mt-10 flex gap-8 border-t border-border pt-6">
+            {trustStrip.map((item) => (
+              <div key={item.label} className="flex flex-col">
+                <dt className="text-2xl font-bold text-foreground">{item.value}</dt>
+                <dd className="text-xs text-muted-foreground">{item.label}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
-        <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800">
-          <div className="flex items-center gap-2 px-4 py-3 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-            <div className="w-3 h-3 rounded-full bg-red-500" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500" />
-            <div className="w-3 h-3 rounded-full bg-green-500" />
-            <div className="flex-1 h-7 ml-3 px-3 bg-gray-100 dark:bg-gray-800 rounded flex items-center text-xs text-gray-500">
-              admin.remix-antd-admin.com
+        <div className="relative">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
+            <div className="flex items-center gap-2 border-b border-border bg-muted/40 px-4 py-3">
+              <span className="size-3 rounded-full bg-red-500/80" />
+              <span className="size-3 rounded-full bg-yellow-500/80" />
+              <span className="size-3 rounded-full bg-green-500/80" />
+              <div className="ml-3 flex h-7 flex-1 items-center rounded bg-background px-3 text-xs text-muted-foreground">
+                admin.{PRODUCT_NAME.toLowerCase()}.com
+              </div>
             </div>
+            <img
+              src="/images/admin.png"
+              alt={m.home_hero_browser_label({ product: PRODUCT_NAME })}
+              className="block w-full bg-card"
+            />
           </div>
-          <img
-            src="/images/admin.png"
-            alt={m.home_hero_browser_label({ product: PRODUCT_NAME })}
-            className="w-full block bg-white dark:bg-gray-900"
-          />
 
-          <div className="absolute top-4 right-4 px-4 py-3 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 flex items-center gap-2">
-            <span className="text-xl">🎨</span>
-            <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-              Tailwind CSS
-            </span>
+          <div className="absolute -left-4 top-10 hidden rounded-xl border border-border bg-card px-4 py-3 shadow-lg sm:flex sm:items-center sm:gap-2">
+            <ReactRouterSvgIcon className="size-5 text-brand-primary" />
+            <span className="text-sm font-semibold text-foreground">React Router v8</span>
+          </div>
+
+          <div className="absolute -right-4 top-1/3 hidden rounded-xl border border-border bg-card px-4 py-3 shadow-lg sm:flex sm:items-center sm:gap-2">
+            <HonoSvgIcon className="size-5 text-brand-primary" />
+            <span className="text-sm font-semibold text-foreground">Hono RPC</span>
+          </div>
+
+          <div className="absolute -bottom-4 left-8 hidden rounded-xl border border-border bg-card px-4 py-3 shadow-lg sm:flex sm:items-center sm:gap-2">
+            <DrizzleSvgIcon className="size-5 text-brand-primary" />
+            <span className="text-sm font-semibold text-foreground">D1 / Drizzle</span>
           </div>
         </div>
       </div>

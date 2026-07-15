@@ -7,27 +7,16 @@ import { HowItWorks } from "~/components/landings/how-it-works";
 import { ComparisonSection } from "~/components/landings/comparison-section";
 import { CTASection } from "~/components/landings/cta-section";
 
-function SectionDivider() {
-  return <div className="border-t border-border py-6" />;
-}
-
 export default function Route() {
   return (
-    <div className="max-w-5xl mx-auto py-10">
+    <div className="overflow-hidden">
       <HeroSection />
-      <SectionDivider />
       <LogoCloud />
-      <SectionDivider />
       <StatsSection />
-      <SectionDivider />
       <FeaturesSection />
-      <SectionDivider />
-      <TestimonialsSection />
-      <SectionDivider />
       <HowItWorks />
-      <SectionDivider />
+      <TestimonialsSection />
       <ComparisonSection />
-      <SectionDivider />
       <CTASection />
     </div>
   );

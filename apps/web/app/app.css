@@ -1,3 +1,80 @@
 @import "@workspace/ui/styles/globals.css";
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
+
+/* Brand design tokens — single source of truth for the marketing site */
+:root {
+  --brand-primary: #6366f1;
+  --brand-primary-600: #4f46e5;
+  --brand-accent: #8b5cf6;
+  --brand-cyan: #0ea5e9;
+  --brand-emerald: #10b981;
+
+  --brand-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --brand-gradient-soft: linear-gradient(135deg, #6366f1 0%, #8b5cf6 90%);
+  --brand-surface: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --brand-surface-strong: color-mix(in srgb, var(--brand-primary) 14%, transparent);
+  --brand-border: color-mix(in srgb, var(--brand-primary) 22%, transparent);
+  --brand-border-soft: color-mix(in srgb, var(--brand-primary) 12%, transparent);
+  --brand-glow: color-mix(in srgb, var(--brand-primary) 30%, transparent);
+  --brand-text: var(--brand-primary);
+  --brand-soft-1: color-mix(in srgb, var(--brand-primary) 6%, transparent);
+  --brand-soft-2: color-mix(in srgb, var(--brand-accent) 6%, transparent);
+
+  --brand-card-bg: color-mix(in srgb, var(--brand-primary) 4%, var(--background));
+  --brand-radial-primary: radial-gradient(
+    circle at 50% 0%,
+    color-mix(in srgb, var(--brand-primary) 16%, transparent) 0%,
+    transparent 60%
+  );
+}
+
+.dark {
+  --brand-surface: color-mix(in srgb, var(--brand-primary) 14%, transparent);
+  --brand-surface-strong: color-mix(in srgb, var(--brand-primary) 22%, transparent);
+  --brand-border: color-mix(in srgb, var(--brand-primary) 35%, transparent);
+  --brand-border-soft: color-mix(in srgb, var(--brand-primary) 18%, transparent);
+  --brand-soft-1: color-mix(in srgb, var(--brand-primary) 10%, transparent);
+  --brand-soft-2: color-mix(in srgb, var(--brand-accent) 10%, transparent);
+  --brand-card-bg: color-mix(in srgb, var(--brand-primary) 9%, var(--background));
+  --brand-radial-primary: radial-gradient(
+    circle at 50% 0%,
+    color-mix(in srgb, var(--brand-primary) 22%, transparent) 0%,
+    transparent 65%
+  );
+}
+
+@theme inline {
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-600: var(--brand-primary-600);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-cyan: var(--brand-cyan);
+  --color-brand-emerald: var(--brand-emerald);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-surface-strong: var(--brand-surface-strong);
+  --color-brand-border: var(--brand-border);
+  --color-brand-border-soft: var(--brand-border-soft);
+  --color-brand-card-bg: var(--brand-card-bg);
+  --color-brand-gradient: var(--brand-gradient);
+  --color-brand-gradient-soft: var(--brand-gradient-soft);
+}
+
+@utility brand-radial {
+  background-image: var(--brand-radial-primary);
+}
+
+@keyframes brand-pulse-soft {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe-pulse {
+    animation: none !important;
+  }
+}

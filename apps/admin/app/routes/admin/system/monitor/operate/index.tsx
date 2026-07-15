@@ -1,10 +1,48 @@
+import { AdminTable } from "~/components/admin-table";
+import { PageContainer } from "~/components/page-container";
+import { createColumns } from "./components/create-columns";
+import { useMonitorOperateList } from "~/api-client/queries/system/system-monitor-operate";
+import { m } from "~/paraglide/messages";
 import type { MetaFunction } from "react-router";
-import { Route } from "./route";
+import { useState } from "react";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "System-User" }];
+  return [{ title: m.system_monitor_operate_title() }];
 };
 
-export default function Page() {
-  return <Route />;
+export default function Route() {
+  const [page, setPage] = useState({
+    page: 1,
+    pageSize: 10,
+  });
+  const { data, isLoading, refetch } = useMonitorOperateList(page);
+  return (
+    <PageContainer>
+      <AdminTable
+        bordered
+        size="small"
+        search={false}
+        headerTitle={m.system_monitor_operate_header_title()}
+        rowKey="id"
+        showSorterTooltip
+        dataSource={data?.data?.list || []}
+        columns={createColumns()}
+        loading={isLoading}
+        options={{
+          reload: refetch,
+        }}
+        pagination={{
+          total: data?.data?.total || 0,
+          current: page.page,
+          pageSize: page.pageSize,
+          onChange(p, pageSize) {
+            setPage({
+              page: p,
+              pageSize: pageSize ?? page.pageSize,
+            });
+          },
+        }}
+      />
+    </PageContainer>
+  );
 }

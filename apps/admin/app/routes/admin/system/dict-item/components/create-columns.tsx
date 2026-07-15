@@ -1,14 +1,34 @@
-import { DeleteAction } from "./DeleteAction";
-import { OneToOneOutlined } from "@ant-design/icons";
-import { Flex, Space } from "antd";
+import { Button, Flex, Form, Popconfirm, Space, message } from "antd";
+import { DeleteOutlined, OneToOneOutlined } from "@ant-design/icons";
 import { StatusType } from "~/components/common";
-import { UpdateDictItemModal } from "./UpdateDictItemModal";
+import { UpdateDictItemModal } from "./update-dict-item-modal";
+import { useDeleteDictItem } from "~/api-client/queries/system/system-dict-item";
 import { formatDate } from "~/utils/client";
+import { m } from "~/paraglide/messages";
+
+function DeleteAction({ record, refetch }: any) {
+  const deleteByIds = useDeleteDictItem();
+  return (
+    <Form>
+      <Popconfirm
+        title={m.system_dict_item_confirm_delete()}
+        onConfirm={async () => {
+          const ids = [record.id];
+          await deleteByIds.mutateAsync({ dictionaryId: record.dictionary_id, ids });
+          refetch?.();
+          message.success(m.system_delete_success());
+        }}
+      >
+        <Button type="link" danger icon={<DeleteOutlined />} loading={deleteByIds.isPending} />
+      </Popconfirm>
+    </Form>
+  );
+}
 
 export const createColumns = ({ refetch }: any) => [
   {
     dataIndex: "key",
-    title: "字典键",
+    title: m.system_dict_item_column_key(),
     render(_: any, record: any) {
       return (
         <Flex align="center" gap={16} style={{ fontWeight: 700 }}>
@@ -20,41 +40,41 @@ export const createColumns = ({ refetch }: any) => [
   },
   {
     dataIndex: "value",
-    title: "字典值",
+    title: m.system_dict_item_column_value(),
   },
   {
     dataIndex: "remark",
-    title: "标记",
+    title: m.system_dict_item_column_remark(),
   },
   {
     dataIndex: "status",
-    title: "状态",
+    title: m.system_dict_item_column_status(),
     renderText(_: any, record: any) {
       return <StatusType status={record.status} />;
     },
   },
   {
     dataIndex: "createdAt",
-    title: "创建时间",
+    title: m.system_created_at(),
     render(_: any, record: any) {
       return <div>{record.createdAt ? formatDate(record.createdAt) : "-"}</div>;
     },
   },
   {
     dataIndex: "updatedAt",
-    title: "更新时间",
+    title: m.system_updated_at(),
     render(_: any, record: any) {
       return <div>{record.updatedAt ? formatDate(record.updatedAt) : "-"}</div>;
     },
   },
   {
     dataIndex: "op",
-    title: "操作",
+    title: m.system_action(),
     render(_: any, record: any) {
       return (
         <Space>
-          <UpdateDictItemModal key="update-dict-item-modal" record={record} refetch={refetch} />
-          <DeleteAction title="确定要删除字典？" refetch={refetch} record={record} />
+          <UpdateDictItemModal record={record} refetch={refetch} />
+          <DeleteAction refetch={refetch} record={record} />
         </Space>
       );
     },

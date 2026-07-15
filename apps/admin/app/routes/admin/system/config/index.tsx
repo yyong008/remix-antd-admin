@@ -1,10 +1,25 @@
+import { Card } from "antd";
+import { PageContainer } from "~/components/page-container";
+import { ConfigProTable } from "./components/config-pro-table";
+import { useAntdThemeToken } from "~/hooks/useAntdThemeToken";
+import { m } from "~/paraglide/messages";
 import type { MetaFunction } from "react-router";
-import { Route } from "./route";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "System-Config" }];
+  return [{ title: m.system_config_title() }];
 };
 
-export default function Page() {
-  return <Route />;
+function HeaderTitle({ title }: { title: string }) {
+  const token = useAntdThemeToken();
+  return <div style={{ color: token.colorPrimary }}>{title}</div>;
+}
+
+export default function Route() {
+  return (
+    <PageContainer>
+      <Card>
+        <ConfigProTable headerTitle={<HeaderTitle title={m.system_config_header_title()} />} />
+      </Card>
+    </PageContainer>
+  );
 }

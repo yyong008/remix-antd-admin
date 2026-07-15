@@ -1,15 +1,40 @@
-import { DeleteAction } from "./DeleteAction";
-import { Space, Tag, Tooltip, Typography } from "antd";
+import { Button, Form, Popconfirm, Space, Tag, Tooltip, Typography, message } from "antd";
+import {
+  DeleteOutlined,
+  CrownOutlined,
+  SafetyCertificateOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { StatusType } from "~/components/common";
-import { UpdateRoleModal } from "./UpdateRoleModal";
-import { CrownOutlined, SafetyCertificateOutlined, UserOutlined } from "@ant-design/icons";
+import { UpdateRoleModal } from "./update-role-modal";
+import { useDeleteRole } from "~/api-client/queries/system/system-role";
 import { auth } from "~/utils/client/auth";
+import { m } from "~/paraglide/messages";
 
 type CreateColumnsParams = {
   locale?: any;
   menus: any;
   refetch: any;
 };
+
+function DeleteAction({ record, refetch }: any) {
+  const deleteRoles = useDeleteRole();
+  return (
+    <Form>
+      <Popconfirm
+        title={m.system_role_confirm_delete()}
+        onConfirm={async () => {
+          const ids = [record.id];
+          await deleteRoles.mutateAsync({ ids });
+          refetch?.();
+          message.success(m.system_delete_success());
+        }}
+      >
+        <Button type="link" danger icon={<DeleteOutlined />} loading={deleteRoles.isPending} />
+      </Popconfirm>
+    </Form>
+  );
+}
 
 function RoleNameCell({ record }: { record: any }) {
   const name = record?.name ?? "—";
@@ -20,7 +45,7 @@ function RoleNameCell({ record }: { record: any }) {
           {name}
         </Tag>
         <Typography.Text type="secondary" style={{ fontSize: 12 }}>
-          超管
+          {m.system_role_super_admin()}
         </Typography.Text>
       </Space>
     );
@@ -32,7 +57,7 @@ function RoleNameCell({ record }: { record: any }) {
           {name}
         </Tag>
         <Typography.Text type="secondary" style={{ fontSize: 12 }}>
-          管理员
+          {m.system_role_admin()}
         </Typography.Text>
       </Space>
     );
@@ -51,7 +76,7 @@ export const createColumns = (params: CreateColumnsParams) => {
   const { menus, refetch } = params;
   return [
     {
-      title: "角色",
+      title: m.system_role_column_name(),
       dataIndex: "name",
       width: 220,
       fixed: "left" as const,
@@ -60,7 +85,7 @@ export const createColumns = (params: CreateColumnsParams) => {
       },
     },
     {
-      title: "标识",
+      title: m.system_role_column_value(),
       dataIndex: "value",
       width: 140,
       ellipsis: true,
@@ -73,7 +98,7 @@ export const createColumns = (params: CreateColumnsParams) => {
       },
     },
     {
-      title: "描述",
+      title: m.system_role_column_description(),
       dataIndex: "description",
       ellipsis: true,
       render(text: string) {
@@ -92,7 +117,7 @@ export const createColumns = (params: CreateColumnsParams) => {
     },
     {
       dataIndex: "status",
-      title: "状态",
+      title: m.system_role_column_status(),
       width: 96,
       align: "center" as const,
       render(_: unknown, record: any) {
@@ -100,7 +125,7 @@ export const createColumns = (params: CreateColumnsParams) => {
       },
     },
     {
-      title: "操作",
+      title: m.system_action(),
       key: "actions",
       width: 120,
       align: "center" as const,
@@ -108,13 +133,8 @@ export const createColumns = (params: CreateColumnsParams) => {
       render(_: unknown, record: any) {
         return (
           <Space size="small">
-            <UpdateRoleModal
-              record={record}
-              key={`edit-${record.id}`}
-              menu={menus}
-              refetch={refetch}
-            />
-            <DeleteAction title="确定要删除此角色吗？" record={record} refetch={refetch} />
+            <UpdateRoleModal record={record} menu={menus} refetch={refetch} />
+            <DeleteAction record={record} refetch={refetch} />
           </Space>
         );
       },

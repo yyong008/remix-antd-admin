@@ -1,39 +1,21 @@
-import { useEffect, useState } from "react";
-import { IconUser, IconFileText, IconNetwork } from "@tabler/icons-react";
+import { useEffect, useRef, useState } from "react";
+import { SectionHeader } from "./_shared/section-header";
+import { UsersIcon, FileTextIcon, PlugIcon } from "./_shared/icons";
 import * as m from "~/paraglide/messages.js";
-
-interface StatItem {
-  label: string;
-  value: number;
-  suffix: string;
-  icon: React.ReactNode;
-  color: string;
-}
 
 type StatKey = "weekly_users" | "templates" | "integrations";
 
-const stats: Array<Omit<StatItem, "label"> & { key: StatKey }> = [
-  {
-    key: "weekly_users",
-    value: 8500,
-    suffix: "+",
-    icon: <IconUser className="size-6" />,
-    color: "#6366f1",
-  },
-  {
-    key: "templates",
-    value: 12,
-    suffix: "",
-    icon: <IconFileText className="size-6" />,
-    color: "#8b5cf6",
-  },
-  {
-    key: "integrations",
-    value: 20,
-    suffix: "+",
-    icon: <IconNetwork className="size-6" />,
-    color: "#f093fb",
-  },
+interface StatDef {
+  key: StatKey;
+  value: number;
+  suffix: string;
+  Icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactNode;
+}
+
+const stats: StatDef[] = [
+  { key: "weekly_users", value: 8500, suffix: "+", Icon: UsersIcon },
+  { key: "templates", value: 12, suffix: "", Icon: FileTextIcon },
+  { key: "integrations", value: 20, suffix: "+", Icon: PlugIcon },
 ];
 
 function statLabel(key: StatKey) {
@@ -48,85 +30,84 @@ function statLabel(key: StatKey) {
 }
 
 function formatNumber(num: number) {
-  if (num >= 1000) {
-    return (num / 1000).toFixed(1) + "k";
-  }
+  if (num >= 1000) return (num / 1000).toFixed(1) + "k";
   return num.toString();
 }
 
-function AnimatedNumber({
-  value,
-  suffix,
-  color,
-}: {
-  value: number;
-  suffix: string;
-  color: string;
-}) {
-  const [displayValue, setDisplayValue] = useState(0);
+function useCountUp(target: number, active: boolean) {
+  const [value, setValue] = useState(0);
 
   useEffect(() => {
-    const duration = 1800;
-    const startTime = Date.now();
+    if (!active) return;
+    const duration = 1600;
+    const start = performance.now();
 
-    const animate = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const easeOut = 1 - Math.pow(1 - progress, 4);
-      const current = Math.floor(value * easeOut);
-
-      setDisplayValue(current);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
+    let frame = 0;
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 4);
+      setValue(Math.floor(target * eased));
+      if (progress < 1) frame = requestAnimationFrame(tick);
     };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [target, active]);
 
-    requestAnimationFrame(animate);
-  }, [value]);
+  return value;
+}
+
+function StatCard({ def, active }: { def: StatDef; active: boolean }) {
+  const value = useCountUp(def.value, active);
+  const { Icon } = def;
 
   return (
-    <span
-      style={{
-        background: `linear-gradient(135deg, ${color} 0%, ${color}cc 100%)`,
-        WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent",
-        backgroundClip: "text",
-      }}
-    >
-      {formatNumber(displayValue)}
-      {suffix}
-    </span>
+    <div className="flex flex-col items-center gap-3 px-4 py-6 text-center">
+      <div
+        className="flex size-14 items-center justify-center rounded-2xl text-white"
+        style={{
+          background: "linear-gradient(135deg, var(--brand-primary), var(--brand-accent))",
+          boxShadow: "0 8px 24px var(--brand-glow)",
+        }}
+      >
+        <Icon className="size-6" />
+      </div>
+      <div className="text-4xl font-bold tracking-tight text-foreground lg:text-5xl">
+        {formatNumber(value)}
+        {def.suffix}
+      </div>
+      <div className="text-sm text-muted-foreground">{statLabel(def.key)}</div>
+    </div>
   );
 }
 
 export function StatsSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setActive(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="py-12 px-8">
+    <section ref={ref} className="px-6 py-12">
       <div className="mx-auto max-w-screen-xl">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 justify-center">
-          {stats.map((stat, index) => {
-            const label = statLabel(stat.key);
-            return (
-              <div key={index} className="text-center p-6">
-                <div
-                  className="inline-flex items-center justify-center w-14 h-14 rounded-xl text-white mb-4"
-                  style={{
-                    background: `linear-gradient(135deg, ${stat.color} 0%, color-mix(in srgb, ${stat.color} 80%, transparent) 100%)`,
-                    boxShadow: `0 8px 24px color-mix(in srgb, ${stat.color} 30%, transparent)`,
-                  }}
-                >
-                  {stat.icon}
-                </div>
-
-                <h1 className="text-5xl font-bold mb-2 leading-none">
-                  <AnimatedNumber value={stat.value} suffix={stat.suffix} color={stat.color} />
-                </h1>
-
-                <span className="text-sm text-gray-500 dark:text-gray-400">{label}</span>
-              </div>
-            );
-          })}
+        <SectionHeader title={m.home_stats_eyebrow()} align="center" className="mb-10" />
+        <div className="grid grid-cols-1 gap-4 rounded-3xl border border-border bg-brand-card-bg p-6 sm:grid-cols-3">
+          {stats.map((def) => (
+            <StatCard key={def.key} def={def} active={active} />
+          ))}
         </div>
       </div>
     </section>

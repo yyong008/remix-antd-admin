@@ -22,8 +22,8 @@ import { ButtonLink } from "~/components/common";
 import { PageContainer } from "~/components/page-container";
 import { m } from "~/paraglide/messages";
 
-import { CreateNewsCategoryModal } from "./category/components/CreateNewsCategoryModal";
-import { UpdateNewsCategoryModal } from "./category/components/UpdateNewsCategoryModal";
+import { CreateNewsCategoryModal } from "./category/components/create-news-category-modal";
+import { UpdateNewsCategoryModal } from "./category/components/update-news-category-modal";
 import { isNewsCategoryVisible } from "./news-category-select";
 import { createColumns } from "./list-news/create-columns";
 

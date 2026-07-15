@@ -7,7 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from "@workspace/ui/components/table";
-import { IconCheck } from "@tabler/icons-react";
+import { SectionHeader } from "./_shared/section-header";
+import { CheckIcon } from "./_shared/icons";
+import { PRODUCT_NAME } from "~/config/product";
 import * as m from "~/paraglide/messages.js";
 
 type FeatureKey =
@@ -58,44 +60,48 @@ function featureLabel(key: FeatureKey) {
 
 export function ComparisonSection() {
   return (
-    <section className="py-15 px-6">
-      <div className="mx-auto max-w-7xl">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-2 text-gray-900 dark:text-gray-100">
-            {m.home_comparison_eyebrow()}
-          </h2>
-          <p className="max-w-150 mx-auto text-gray-500 dark:text-gray-400">
-            {m.home_comparison_subtitle()}
-          </p>
-        </div>
+    <section className="px-6 py-20">
+      <div className="mx-auto max-w-4xl">
+        <SectionHeader
+          eyebrow={m.home_comparison_eyebrow()}
+          title={m.home_comparison_title()}
+          subtitle={m.home_comparison_subtitle()}
+          className="mb-12"
+        />
 
-        <Card className="rounded-xl overflow-hidden">
+        <Card className="overflow-hidden rounded-2xl border-border">
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[80%]">{m.home_comparison_header_feature()}</TableHead>
+                <TableRow className="border-border hover:bg-transparent">
+                  <TableHead className="w-[70%]">{m.home_comparison_header_feature()}</TableHead>
                   <TableHead className="text-center">
-                    {m.home_comparison_header_support()}
+                    <span className="bg-brand-gradient bg-clip-text font-bold text-transparent">
+                      {PRODUCT_NAME}
+                    </span>
+                  </TableHead>
+                  <TableHead className="text-center text-muted-foreground">
+                    {m.home_comparison_header_other()}
                   </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {features.map((item, index) => (
-                  <TableRow key={item.key}>
-                    <TableCell
-                      className={
-                        index % 2 === 0
-                          ? "bg-gray-50 dark:bg-gray-800/50"
-                          : "bg-white dark:bg-gray-900"
-                      }
-                    >
+                  <TableRow key={item.key} className="border-border">
+                    <TableCell className={index % 2 === 0 ? "bg-muted/40" : "bg-transparent"}>
                       {featureLabel(item.key)}
                     </TableCell>
                     <TableCell
-                      className={`text-center ${index % 2 === 0 ? "bg-gray-50 dark:bg-gray-800/50" : "bg-white dark:bg-gray-900"}`}
+                      className={`text-center ${index % 2 === 0 ? "bg-muted/40" : "bg-transparent"}`}
                     >
-                      {item.has ? <IconCheck className="size-4 text-green-500" /> : null}
+                      {item.has ? (
+                        <CheckIcon className="mx-auto size-4 text-brand-primary" />
+                      ) : null}
+                    </TableCell>
+                    <TableCell
+                      className={`text-center ${index % 2 === 0 ? "bg-muted/40" : "bg-transparent"}`}
+                    >
+                      <span className="text-muted-foreground/50">—</span>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -104,13 +110,9 @@ export function ComparisonSection() {
           </div>
         </Card>
 
-        <div className="text-center mt-8 p-5">
-          <h4 className="font-semibold mb-2 text-gray-900 dark:text-gray-100">
-            {m.home_comparison_footer_title()}
-          </h4>
-          <p className="text-gray-500 dark:text-gray-400 m-0">
-            {m.home_comparison_footer_subtitle()}
-          </p>
+        <div className="mt-8 rounded-2xl border border-brand-border bg-brand-surface p-6 text-center">
+          <h4 className="mb-1 font-semibold text-foreground">{m.home_comparison_footer_title()}</h4>
+          <p className="m-0 text-sm text-muted-foreground">{m.home_comparison_footer_subtitle()}</p>
         </div>
       </div>
     </section>

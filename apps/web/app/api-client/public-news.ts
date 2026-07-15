@@ -35,7 +35,7 @@ async function fetchNewsList(params?: {
   if (params?.page) searchParams.set("page", String(params.page));
   if (params?.pageSize) searchParams.set("pageSize", String(params.pageSize));
   const query = searchParams.toString();
-  return apiGet<NewsListResponse>(`/news/${query ? `?${query}` : ""}`);
+  return apiGet<NewsListResponse>(`/news${query ? `?${query}` : ""}`);
 }
 
 async function fetchNewsById(id: string): Promise<News> {

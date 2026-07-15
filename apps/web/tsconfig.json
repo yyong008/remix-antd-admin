@@ -12,7 +12,8 @@
     "paths": {
       "~/*": ["./app/*"],
       "collections/*": ["./.source/*"],
-      "@workspace/ui/*": ["../../packages/ui/src/*"]
+      "@workspace/ui/*": ["../../packages/ui/src/*"],
+      "@workspace/icons": ["../../packages/icons/src/index.ts"]
     }
   }
 }

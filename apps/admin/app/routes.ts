@@ -11,13 +11,15 @@ const adminDashboardRoutes = [...prefix("dashboard", [index("routes/admin/dashbo
 
 const adminBlogRoutes = [
   ...prefix("blog", [
-    route("list", "routes/admin/blog/index/index.tsx"),
-    route("new", "routes/admin/blog/create/index.tsx"),
-    route("edit", "routes/admin/blog/edit/index.tsx"),
-    route("edit/:id", "routes/admin/blog/edit/index.tsx", {
+    route("list", "routes/admin/blog/list-blog.tsx"),
+    route("category", "routes/admin/blog/list-blog-category.tsx"),
+    route("tag", "routes/admin/blog/list-blog-tag.tsx"),
+    route("new", "routes/admin/blog/edit-blog.tsx", { id: "admin-blog-new" }),
+    route("edit", "routes/admin/blog/edit-blog.tsx", { id: "admin-blog-edit" }),
+    route("edit/:id", "routes/admin/blog/edit-blog.tsx", {
       id: "admin-blog-edit-id",
     }),
-    route("result", "routes/admin/blog/result/index.tsx"),
+    route("result", "routes/admin/blog/result-blog.tsx"),
   ]),
 ];
 
@@ -32,8 +34,8 @@ const adminNewsRoutes = [
 
 const adminProfileRoutes = [
   ...prefix("profile", [
-    route("account", "routes/admin/profile/account/index.tsx"),
-    route("link", "routes/admin/profile/link/category/index.tsx"),
+    route("account", "routes/admin/profile/account.tsx"),
+    route("link", "routes/admin/profile/link/category.tsx"),
   ]),
 ];
 

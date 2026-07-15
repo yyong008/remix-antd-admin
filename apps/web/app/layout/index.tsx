@@ -9,13 +9,15 @@ import { ThemeSwitcher } from "~/components/theme-switcher";
 import { LocaleSwitcher } from "~/components/locale-switcher";
 import * as m from "~/paraglide/messages.js";
 
-type NavKey = "home" | "news" | "blog" | "about";
+type NavKey = "home" | "news" | "blog" | "about" | "docs" | "privacy";
 
 const navItems: Array<{ key: NavKey; href: string }> = [
   { key: "home", href: "" },
   { key: "news", href: "news" },
   { key: "blog", href: "blog" },
+  { key: "docs", href: "docs" },
   { key: "about", href: "about" },
+  { key: "privacy", href: "privacy" },
 ];
 
 function navLabel(key: NavKey) {
@@ -26,8 +28,12 @@ function navLabel(key: NavKey) {
       return m.nav_news();
     case "blog":
       return m.nav_blog();
+    case "docs":
+      return m.nav_docs();
     case "about":
       return m.nav_about();
+    case "privacy":
+      return m.nav_privacy();
   }
 }
 

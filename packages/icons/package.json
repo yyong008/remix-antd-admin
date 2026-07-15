@@ -32,6 +32,6 @@
   },
   "devDependencies": {
     "@types/react": "catalog:",
-    "@workspace/tsconfig": "workspace:^"
+    "@workspace/typescript-config": "workspace:^"
   }
 }

@@ -187,7 +187,7 @@ aiRouter.post("/chats/:id/messages", async (c) => {
     baseURL: getOllamaBaseApiUrl(),
   });
 
-  const modelName = (body.model as string | undefined) || aiConfig.ollama.initModelName;
+  const modelName = (body.model as string | undefined) || "qwen2.5:0.5b";
 
   const result = streamText({
     model: ollama.chat(modelName),

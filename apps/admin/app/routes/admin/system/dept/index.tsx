@@ -1,10 +1,24 @@
+import { PageContainer } from "~/components/page-container";
+import { DeptProTable } from "./components/dept-pro-table";
+import { useDeptList } from "~/api-client/queries/system/system-dept";
+import { m } from "~/paraglide/messages";
 import type { MetaFunction } from "react-router";
-import { Route } from "./route";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "System-Meta" }];
+  return [{ title: m.system_dept_title() }];
 };
 
-export default function Page() {
-  return <Route />;
+export default function Route() {
+  const { data, isLoading, refetch } = useDeptList({ page: 1, pageSize: 1000 });
+
+  return (
+    <PageContainer>
+      <DeptProTable
+        list={data?.data?.list ?? []}
+        loading={isLoading}
+        refetch={refetch}
+        total={data?.data?.total ?? 0}
+      />
+    </PageContainer>
+  );
 }

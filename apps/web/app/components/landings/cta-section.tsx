@@ -1,6 +1,14 @@
 import { Card, CardContent } from "@workspace/ui/components/card";
-import { Avatar, AvatarImage } from "@workspace/ui/components/avatar";
-import { IconRocket, IconBook, IconCircleCheck } from "@tabler/icons-react";
+import { BrandButton } from "./_shared/brand-button";
+import { InitialsAvatar } from "./_shared/initials-avatar";
+import {
+  CheckIcon,
+  RocketIcon,
+  EyeIcon,
+  GithubSvgIcon,
+  CloudflareSvgIcon,
+  ReactRouterSvgIcon,
+} from "./_shared/icons";
 import { PRODUCT_NAME } from "~/config/product";
 import * as m from "~/paraglide/messages.js";
 
@@ -26,78 +34,88 @@ function trustBadgeText(key: TrustBadgeKey) {
   }
 }
 
-const testimonials = [
-  { avatar: "/images/user.jpg" },
-  { avatar: "/images/user.jpg" },
-  { avatar: "/images/user.jpg" },
-];
+const contributorNames = ["Yong Wang", "Lei Chen", "Sara Lin", "Tom Hu", "Mia Zhao"];
 
 export function CTASection() {
   return (
-    <section className="px-6">
+    <section className="px-6 pb-24 pt-8">
       <div className="mx-auto max-w-4xl">
-        <Card className="text-center rounded-3xl border-0 overflow-hidden bg-linear-to-br from-indigo-500 to-violet-500">
+        <Card className="overflow-hidden rounded-3xl border-0 bg-brand-gradient shadow-[0_24px_64px_var(--brand-glow)]">
           <CardContent className="relative overflow-hidden p-8 md:p-16">
-            <div className="absolute -top-1/2 -left-1/4 -translate-x-1/2 w-[150%] h-[150%] rounded-full pointer-events-none bg-[radial-gradient(circle,rgba(255,255,255,0.12)_0%,transparent_70%)]" />
-            <div className="absolute -bottom-1/3 -right-1/4 translate-x-1/2 w-[120%] h-[120%] rounded-full pointer-events-none bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,transparent_70%)]" />
-            <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[40px_40px]" />
+            <div className="pointer-events-none absolute -right-10 -top-10 opacity-10">
+              <ReactRouterSvgIcon className="size-48 text-white" />
+            </div>
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[length:36px_36px]" />
 
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-6 text-white text-sm font-medium bg-white/15">
-                <IconCircleCheck className="size-4 text-emerald-500" />
+              <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2 text-sm font-medium text-white">
+                <CheckIcon className="size-4 text-emerald-300" />
                 {m.home_cta_eyebrow()}
-              </div>
+              </span>
 
-              <h2 className="text-5xl font-bold text-white mb-4">{m.home_cta_heading()}</h2>
-              <p className="text-lg text-white/85 mb-8 max-w-140 mx-auto">
+              <h2 className="mb-4 text-4xl font-bold text-white lg:text-5xl">
+                {m.home_cta_heading()}
+              </h2>
+              <p className="mb-8 max-w-[36rem] text-lg text-white/85">
                 {m.home_cta_subtitle({ product: PRODUCT_NAME })}
               </p>
 
-              <div className="mb-10">
-                <div className="flex flex-wrap gap-4 justify-center">
-                  <a
-                    href="https://github.com/yyong008/remix-antd-admin"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center rounded-xl bg-white text-indigo-600 hover:bg-white/90 h-14 px-10 text-base font-semibold transition-colors"
-                  >
-                    <IconRocket className="size-4 mr-2" />
-                    {m.home_cta_primary()}
-                  </a>
-                  <a
-                    href="https://remix-antd-admin-docs.vercel.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30 h-14 px-10 text-base font-semibold transition-colors"
-                  >
-                    <IconBook className="size-4 mr-2" />
-                    {m.home_cta_secondary()}
-                  </a>
-                </div>
+              <div className="mb-10 flex flex-wrap justify-center gap-4">
+                <BrandButton
+                  href="https://github.com/yyong008/remix-antd-admin"
+                  external
+                  size="lg"
+                  variant="primary"
+                  className="!bg-white !text-brand-primary-600 shadow-lg hover:!bg-white/90"
+                  iconLeft={<RocketIcon className="size-5" />}
+                >
+                  {m.home_cta_primary()}
+                </BrandButton>
+                <BrandButton
+                  href="https://remix-antd-admin-docs.vercel.app/"
+                  external
+                  size="lg"
+                  variant="secondary"
+                  className="!border-white/30 !bg-white/15 !text-white hover:!bg-white/25"
+                  iconLeft={<EyeIcon className="size-5" />}
+                >
+                  {m.home_cta_secondary()}
+                </BrandButton>
               </div>
 
-              <div className="flex justify-center items-center gap-6 flex-wrap">
+              <div className="flex flex-wrap items-center justify-center gap-6">
                 <div className="flex items-center">
-                  <div className="flex mr-3">
-                    {testimonials.map((t, i) => (
-                      <Avatar key={i} className="size-8 border-2 border-white">
-                        <AvatarImage src={t.avatar} />
-                      </Avatar>
+                  <div className="mr-3 flex -space-x-2">
+                    {contributorNames.map((name) => (
+                      <InitialsAvatar
+                        key={name}
+                        name={name}
+                        size={32}
+                        className="ring-2 ring-white"
+                      />
                     ))}
                   </div>
-                  <span className="text-white/90 text-sm">
+                  <span className="text-sm text-white/90">
                     {m.home_cta_contributors({ count: "50" })}
                   </span>
                 </div>
 
-                <div className="w-px h-6 bg-white/20" />
+                <div className="hidden h-6 w-px bg-white/20 sm:block" />
 
-                {trustBadges.map((badge, i) => (
-                  <div key={i} className="flex items-center gap-1.5 text-white/90 text-xs">
-                    <IconCircleCheck className="size-3 text-white/60" />
-                    {trustBadgeText(badge.key)}
-                  </div>
-                ))}
+                <div className="flex flex-wrap items-center justify-center gap-4">
+                  <GithubSvgIcon className="size-5 text-white/80" />
+                  <CloudflareSvgIcon className="size-5 text-white/80" />
+                  <ReactRouterSvgIcon className="size-5 text-white/80" />
+                  {trustBadges.map((badge) => (
+                    <div
+                      key={badge.key}
+                      className="flex items-center gap-1.5 text-xs text-white/90"
+                    >
+                      <CheckIcon className="size-3 text-emerald-300" />
+                      {trustBadgeText(badge.key)}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </CardContent>

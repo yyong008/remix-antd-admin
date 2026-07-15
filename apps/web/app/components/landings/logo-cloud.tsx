@@ -1,31 +1,43 @@
 import * as m from "~/paraglide/messages.js";
+import {
+  ReactRouterSvgIcon,
+  ReactSvgIcon,
+  TypeScript,
+  HonoSvgIcon,
+  CloudflareSvgIcon,
+  DrizzleSvgIcon,
+  TailwindCSS,
+  Turborepo,
+  ViteSvgIcon,
+} from "./_shared/icons";
 
 const logos = [
-  { name: "React Router", src: "/images/react-router.svg" },
-  { name: "React", src: "/images/react.svg" },
-  { name: "TypeScript", src: "/images/typescript.svg" },
-  { name: "Vite", src: "/images/vite.svg" },
-  { name: "Hono", src: "/images/hono.svg" },
-  { name: "Tailwind CSS", src: "/images/tailwind.svg" },
-  { name: "Drizzle ORM", src: "/images/drizzle.svg" },
-  { name: "Cloudflare", src: "/images/cloudflare.svg" },
-  { name: "pnpm", src: "/images/pnpm.svg" },
+  { name: "React Router", Icon: ReactRouterSvgIcon },
+  { name: "React", Icon: ReactSvgIcon },
+  { name: "TypeScript", Icon: TypeScript },
+  { name: "Hono", Icon: HonoSvgIcon },
+  { name: "Cloudflare", Icon: CloudflareSvgIcon },
+  { name: "Drizzle", Icon: DrizzleSvgIcon },
+  { name: "Tailwind CSS", Icon: TailwindCSS },
+  { name: "Turborepo", Icon: Turborepo },
+  { name: "Vite", Icon: ViteSvgIcon },
 ];
 
 export function LogoCloud() {
   return (
-    <section className="py-10 px-6">
+    <section className="px-6 py-12">
       <div className="mx-auto max-w-screen-xl">
-        <p className="text-center mb-7 text-xs uppercase tracking-widest font-medium text-gray-500 dark:text-gray-400">
+        <p className="mb-8 text-center text-xs font-medium uppercase tracking-widest text-muted-foreground">
           {m.home_logo_cloud_eyebrow()}
         </p>
-        <div className="flex flex-wrap justify-center gap-5 items-center">
-          {logos.map((logo) => (
+        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+          {logos.map(({ name, Icon }) => (
             <div
-              key={logo.name}
-              className="flex items-center justify-center h-11 px-5 opacity-65 hover:opacity-100 transition-opacity duration-300"
+              key={name}
+              title={name}
+              className="flex h-10 items-center justify-center opacity-50 grayscale transition-all duration-300 hover:scale-105 hover:opacity-100 hover:grayscale-0"
             >
-              <img src={logo.src} alt={logo.name} className="h-full w-auto object-contain" />
+              <Icon className="h-9 w-auto text-foreground" />
             </div>
           ))}
         </div>

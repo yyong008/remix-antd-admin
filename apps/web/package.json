@@ -16,6 +16,7 @@
     "@inlang/paraglide-js": "catalog:",
     "@tabler/icons-react": "^3.42.0",
     "@tanstack/react-query": "catalog:",
+    "@workspace/icons": "workspace:^",
     "clsx": "catalog:",
     "dayjs": "catalog:",
     "dompurify": "catalog:",
