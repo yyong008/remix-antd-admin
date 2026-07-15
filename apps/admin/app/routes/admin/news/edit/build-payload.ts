@@ -1,4 +1,3 @@
-/** Rich text from Quill — treat blank paragraph as empty. */
 export function isQuillBodyEmpty(html: string) {
   const text = html
     .replace(/<[^>]*>/g, " ")
@@ -8,7 +7,6 @@ export function isQuillBodyEmpty(html: string) {
   return text.length === 0;
 }
 
-/** Map ProForm `date` to DB `publishedAt` (ms) and attach Quill `content`. */
 export function buildNewsPayload(values: Record<string, unknown>, content: string) {
   const { date, ...rest } = values;
   let publishedAt: unknown = date;

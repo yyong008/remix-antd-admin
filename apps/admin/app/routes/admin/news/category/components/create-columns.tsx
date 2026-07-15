@@ -1,9 +1,9 @@
 import { Space, Tag } from "antd";
 import { href, Link } from "react-router";
 
-import { DeleteAction } from "./DeleteAction";
-import { UpdateNewsCategoryModal } from "./UpdateNewsCategoryModal";
-import { isNewsCategoryVisible } from "../../news-category-select";
+import { DeleteAction } from "./delete-action";
+import { UpdateNewsCategoryModal } from "./update-modal";
+import { isNewsCategoryVisible } from "../../category-select";
 import { m } from "~/paraglide/messages";
 
 export function createColumns({ refetch, locale }: { refetch: () => void; locale?: string }) {

@@ -26,12 +26,12 @@ const adminBlogRoutes = [
 ];
 
 const adminNewsRoutes = [
-  layout("routes/admin/news/news-layout.tsx", [
+  layout("routes/admin/news/_layout.tsx", [
     ...prefix("news", [
-      route("list", "routes/admin/news/list-news.tsx"),
-      route("edit", "routes/admin/news/edit-news.tsx"),
-      route("edit/:id", "routes/admin/news/edit-news.tsx", { id: "admin-news-edit-id" }),
-      route("result", "routes/admin/news/result-news.tsx"),
+      route("list", "routes/admin/news/list/index.tsx"),
+      route("edit", "routes/admin/news/edit/index.tsx"),
+      route("edit/:id", "routes/admin/news/edit/index.tsx", { id: "admin-news-edit-id" }),
+      route("result", "routes/admin/news/result/index.tsx"),
     ]),
   ]),
 ];
@@ -97,7 +97,6 @@ export default [
         ...adminToolsRoues,
         ...adminAIRoutes,
         route("about", "routes/admin/about/index.tsx"),
-        route("welcome", "routes/admin/welcome/index.tsx"),
         route("docs/changelog", "routes/admin/docs/changelog/index.tsx"),
         route("docs/feedback", "routes/admin/docs/feedback/index.tsx"),
       ]),

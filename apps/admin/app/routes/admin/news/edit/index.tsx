@@ -22,8 +22,8 @@ import { useCreateNews, useNewsById, useUpdateNews } from "~/api-client/queries/
 import { useNewsCategoryList } from "~/api-client/queries/news/news-category";
 import { m } from "~/paraglide/messages";
 
-import { buildNewsPayload, isQuillBodyEmpty } from "./build-news-payload";
-import { categoriesForNewsSelect } from "./news-category-select";
+import { buildNewsPayload, isQuillBodyEmpty } from "./build-payload";
+import { categoriesForNewsSelect } from "../category-select";
 
 export const handle = ({ params }: { params: { id?: string } }) => {
   if (params.id) return { breadcrumb: [{ label: `Edit: #${params.id}` }] };

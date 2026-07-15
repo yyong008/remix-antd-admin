@@ -1,6 +1,6 @@
 import { ProFormDateTimePicker, ProFormSelect, ProFormText } from "~/components/pro-form-kit";
 
-import { categoriesForNewsSelect } from "../news-category-select";
+import { categoriesForNewsSelect } from "../category-select";
 import { m } from "~/paraglide/messages";
 
 export function FormItems(props: {

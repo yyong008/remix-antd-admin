@@ -22,14 +22,14 @@ import { ButtonLink } from "~/components/common";
 import { PageContainer } from "~/components/page-container";
 import { m } from "~/paraglide/messages";
 
+import { CreateNewsCategoryModal } from "../category/components/create-modal";
+import { UpdateNewsCategoryModal } from "../category/components/update-modal";
+import { isNewsCategoryVisible } from "../category-select";
+import { createColumns } from "./create-columns";
+
 export const handle = () => ({
   breadcrumb: [{ label: m.breadcrumb_list() }],
 });
-
-import { CreateNewsCategoryModal } from "./category/components/create-news-category-modal";
-import { UpdateNewsCategoryModal } from "./category/components/update-news-category-modal";
-import { isNewsCategoryVisible } from "./news-category-select";
-import { createColumns } from "./list-news/create-columns";
 
 export const meta: MetaFunction = () => [{ title: "News · list" }];
 
