@@ -1,10 +1,8 @@
-import { Button, Form, Modal, message } from "antd";
 import { useEffect } from "react";
-
-import { useUpdateBlogTag } from "~/api-client/queries/blog/blog-tag";
 import { m } from "~/paraglide/messages";
-
+import { Button, Form, Modal, message } from "antd";
 import { ModalFormItems } from "./modal-form-items";
+import { useUpdateBlogTag } from "~/api-client/queries/blog/blog-tag";
 
 export function UpdateBlogTagModal({
   record,

@@ -1,8 +1,7 @@
+import { m } from "~/paraglide/messages";
 import { Button, Popconfirm, message } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-
 import { useDeleteBlogTag } from "~/api-client/queries/blog/blog-tag";
-import { m } from "~/paraglide/messages";
 
 type DeleteActionProps = {
   record: { id: string };
@@ -17,7 +16,7 @@ export function DeleteAction({ record, refetch }: DeleteActionProps) {
       title={m.blog_action_confirm_delete_tag()}
       onConfirm={async () => {
         try {
-          await mutateAsync({ ids: [record.id] });
+          await mutateAsync({ ids: [Number(record.id)] });
           message.success(m.blog_tag_toast_deleted());
           refetch?.();
         } catch (e) {

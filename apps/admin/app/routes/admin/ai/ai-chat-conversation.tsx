@@ -1,12 +1,13 @@
-import { ApiOutlined, DownOutlined } from "@ant-design/icons";
-import { Bubble, Sender } from "@ant-design/x";
-import { useXChat } from "@ant-design/x-sdk";
 import type { MenuProps, SelectProps } from "antd";
-import { Button, Dropdown, Flex, Spin, theme } from "antd";
-import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from "react";
-import { m } from "~/paraglide/messages";
+
 import { ai } from "~/config/ai";
+import { m } from "~/paraglide/messages";
+import { useXChat } from "@ant-design/x-sdk";
+import { Bubble, Sender } from "@ant-design/x";
+import { Button, Dropdown, Flex, Spin, theme } from "antd";
+import { ApiOutlined, DownOutlined } from "@ant-design/icons";
 import { createOllamaOpenAIChatProvider } from "./lib/create-ollama-chat-provider";
+import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 
 const MODEL_STORAGE_KEY = "ai-chat-ollama-model";
 

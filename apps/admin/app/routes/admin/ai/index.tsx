@@ -1,7 +1,8 @@
-import { Flex, Typography } from "antd";
-import { lazy, Suspense, useEffect, useState } from "react";
 import type { MetaFunction } from "react-router";
+
+import { Flex, Typography } from "antd";
 import { m } from "~/paraglide/messages";
+import { lazy, Suspense, useEffect, useState } from "react";
 
 const AiChatConversation = lazy(() =>
   import("./ai-chat-conversation").then((m) => ({ default: m.AiChatConversation })),
