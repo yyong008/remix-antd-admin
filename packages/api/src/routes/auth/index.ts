@@ -7,12 +7,11 @@ import { createAuth } from "@workspace/auth/server";
 export const authRouter = new Hono<HonoEnv>();
 
 authRouter.post("/login", async (c) => {
-  const env: Env = c.env;
+  const env = c.env;
   const db = drizzle(env.DB);
   const auth = createAuth(db, env);
 
   const body = await c.req.json().catch(() => ({}));
-  console.log("body", body);
   const { email, password } = body;
 
   if (!email || !password) {
@@ -34,7 +33,7 @@ authRouter.post("/login", async (c) => {
       asResponse: true,
     });
 
-    const result = await response.json();
+    const result: any = await response.json();
 
     const setCookieHeaders = response.headers.getSetCookie?.() || [];
     setCookieHeaders.forEach((cookie) => {
@@ -57,12 +56,11 @@ authRouter.post("/login", async (c) => {
 });
 
 authRouter.post("/register", async (c) => {
-  const env: Env = c.env;
+  const env = c.env;
   const db = drizzle(env.DB);
   const auth = createAuth(db, env);
 
   const body = await c.req.json().catch(() => ({}));
-  console.log(body);
   const { username, email, password } = body;
 
   if (!username || !email || !password) {
@@ -88,8 +86,7 @@ authRouter.post("/register", async (c) => {
       c.header("Set-Cookie", cookie);
     });
 
-    const result = await response.json();
-    console.log("result", result);
+    const result: any = await response.json();
 
     if (result.code) {
       return c.json({
@@ -114,7 +111,7 @@ authRouter.post("/register", async (c) => {
 });
 
 authRouter.post("/logout", async (c) => {
-  const env: Env = c.env;
+  const env: any = c.env;
   const db = drizzle(env.DB);
   const auth = createAuth(db, env);
 
@@ -151,7 +148,7 @@ authRouter.post("/logout", async (c) => {
 });
 
 authRouter.get("/list-sessions", async (c) => {
-  const env: Env = c.env;
+  const env: any = c.env;
   const db = drizzle(env.DB);
   const auth = createAuth(db, env);
 
@@ -174,7 +171,7 @@ authRouter.get("/list-sessions", async (c) => {
 });
 
 authRouter.post("/revoke-session", async (c) => {
-  const env: Env = c.env;
+  const env: any = c.env;
   const db = drizzle(env.DB);
   const auth = createAuth(db, env);
 
@@ -203,7 +200,7 @@ authRouter.post("/revoke-session", async (c) => {
 });
 
 authRouter.get("/session", async (c) => {
-  const env: Env = c.env;
+  const env: any = c.env;
   const db = drizzle(env.DB);
   const auth = createAuth(db, env);
 
