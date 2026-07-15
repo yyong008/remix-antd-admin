@@ -31,6 +31,15 @@ const adminNewsRoutes = [
   ]),
 ];
 
+const adminDocsRoutes = [
+  layout("routes/admin/docs/_layout.tsx", [
+    ...prefix("docs", [
+      route("changelog", "routes/admin/docs/changelog/index.tsx"),
+      route("feedback", "routes/admin/docs/feedback/index.tsx"),
+    ]),
+  ]),
+];
+
 const adminProfileRoutes = [
   layout("routes/admin/profile/layout.tsx", [
     ...prefix("profile", [
@@ -92,8 +101,7 @@ export default [
         ...adminToolsRoues,
         ...adminAIRoutes,
         route("about", "routes/admin/about/index.tsx"),
-        route("docs/changelog", "routes/admin/docs/changelog/index.tsx"),
-        route("docs/feedback", "routes/admin/docs/feedback/index.tsx"),
+        ...adminDocsRoutes,
       ]),
     ]),
   ]),

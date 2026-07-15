@@ -125,7 +125,7 @@ export function AdminTable<T extends object = Record<string, unknown>>(props: Ad
           </Space>
         </Flex>
       )}
-      <div style={{ minWidth: 0, overflow: "auto" }}>
+      <div style={{ minWidth: 0, overflow: "hidden" }}>
         <Table<T>
           {...rest}
           bordered={false}
