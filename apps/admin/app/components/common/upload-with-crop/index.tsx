@@ -2,7 +2,7 @@ import { Upload, message } from "antd";
 import type { UploadChangeParam, UploadFile } from "antd/es/upload";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { Cropper } from "../Copper";
+import { Cropper } from "../cropper";
 import { ProFormUploadButton } from "~/components/pro-form-kit";
 
 type UploadWithCropProps = {

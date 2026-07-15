@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { m } from "~/paraglide/messages";
-import { Cropper } from "~/components/common/Copper";
+import { Cropper } from "~/components/common/cropper";
 import { useCallback, useRef, useState } from "react";
 import { Descriptions, message, Spin, Tag } from "antd";
 import { useUserInfo } from "~/api-client/queries/system/system-user";

@@ -10,7 +10,7 @@ import {
 } from "~/components/pro-form-kit";
 import { useCreateUser } from "~/api-client/queries/system/system-user";
 import { optionsLocale, optionsStatus, optionsTheme } from "~/constants/options";
-import UploadWithCrop from "~/components/common/UploadWithCrop";
+import UploadWithCrop from "~/components/common/upload-with-crop";
 import { m } from "~/paraglide/messages";
 
 type CreateUserModalProps = {

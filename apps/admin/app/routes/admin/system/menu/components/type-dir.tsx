@@ -6,7 +6,7 @@ import {
   ProFormTreeSelect,
 } from "~/components/pro-form-kit";
 import { AntdIcon } from "~/components/common/antd-icon";
-import { AntdIconSelect } from "~/components/common/AntdIconSelect";
+import { AntdIconSelect } from "~/components/common/antd-icon-select";
 import { useState } from "react";
 import { m } from "~/paraglide/messages";
 

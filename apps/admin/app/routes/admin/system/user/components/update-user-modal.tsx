@@ -11,7 +11,7 @@ import {
 import { useUpdateUser } from "~/api-client/queries/system/system-user";
 import { genFileListByName } from "~/utils/server/utils";
 import { optionsLocale, optionsStatus, optionsTheme } from "~/constants/options";
-import UploadWithCrop from "~/components/common/UploadWithCrop";
+import UploadWithCrop from "~/components/common/upload-with-crop";
 import { m } from "~/paraglide/messages";
 
 type UpdateUserModalProps = {

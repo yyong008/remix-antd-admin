@@ -1,1 +1,1 @@
-export { AdminTable, type AdminTableOptions, type AdminTableProps } from "./AdminTable";
+export { AdminTable, type AdminTableOptions, type AdminTableProps } from "./admin-table";
