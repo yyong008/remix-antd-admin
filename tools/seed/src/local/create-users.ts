@@ -1,7 +1,8 @@
 import { hashPassword } from "better-auth/crypto";
+import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/libsql";
-import { account, user } from "../../schema/auth";
-import { userRoles } from "../../schema/system";
+import { account, user } from "@workspace/database/schema";
+import { userRoles } from "@workspace/database/schema";
 import { LOCAL_ROLE_IDS } from "./role-ids";
 import { superAdminSeed } from "../users/superadmin";
 import { adminSeed } from "../users/admin";
@@ -15,12 +16,11 @@ async function seedUser(seed: typeof superAdminSeed, roleId: string) {
   const email = seed.email.toLowerCase();
   const now = new Date();
 
-  const existing = db
+  const existing = await db
     .select({ id: user.id })
     .from(user)
-    .where((u) => u.email.equals(email))
-    .limit(1)
-    .all();
+    .where(eq(user.email, email))
+    .limit(1);
 
   if (existing.length > 0) {
     console.log(`User ${email} already exists, skipping...`);
@@ -30,42 +30,36 @@ async function seedUser(seed: typeof superAdminSeed, roleId: string) {
   const userId = crypto.randomUUID();
   const passwordHash = await hashPassword(seed.password);
 
-  db.insert(user)
-    .values({
-      id: userId,
-      name: seed.name,
-      email,
-      emailVerified: true,
-      image: null,
-      createdAt: now,
-      updatedAt: now,
-      nickname: seed.nickname ?? seed.name,
-      locale: "en-US",
-      theme: "light",
-    })
-    .run();
+  await db.insert(user).values({
+    id: userId,
+    name: seed.name,
+    email,
+    emailVerified: true,
+    image: null,
+    createdAt: now,
+    updatedAt: now,
+    nickname: seed.nickname ?? seed.name,
+    locale: "en-US",
+    theme: "light",
+  });
 
-  db.insert(account)
-    .values({
-      id: crypto.randomUUID(),
-      accountId: userId,
-      providerId: "credential",
-      userId,
-      password: passwordHash,
-      createdAt: now,
-      updatedAt: now,
-    })
-    .run();
+  await db.insert(account).values({
+    id: crypto.randomUUID(),
+    accountId: userId,
+    providerId: "credential",
+    userId,
+    password: passwordHash,
+    createdAt: now,
+    updatedAt: now,
+  });
 
-  db.insert(userRoles)
-    .values({
-      id: crypto.randomUUID(),
-      userId,
-      roleId,
-      createdAt: now,
-      updatedAt: now,
-    })
-    .run();
+  await db.insert(userRoles).values({
+    id: crypto.randomUUID(),
+    userId,
+    roleId,
+    createdAt: now,
+    updatedAt: now,
+  });
 
   console.log(`Created user: ${email} with role ${roleId}`);
 }

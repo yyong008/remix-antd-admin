@@ -6,6 +6,7 @@
  * - **user**: minimal portal (dashboard, profile, about).
  *
  * Edit the sets below, then `pnpm db:generate:seed-sql` (regenerates `seed-local-rbac.sql`).
+ * (Equivalent: `pnpm -F @workspace/seed run generate:seed-sql`.)
  */
 export const ADMIN_MENU_ROOT_KEYS = new Set([
   "dashboard",

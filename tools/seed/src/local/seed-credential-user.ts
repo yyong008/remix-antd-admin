@@ -8,8 +8,8 @@ import { and, eq } from "drizzle-orm";
 import type { LibSQLDatabase } from "drizzle-orm/libsql";
 import { hashPassword } from "better-auth/crypto";
 
-import { account, user } from "../../schema/auth";
-import { userRoles } from "../../schema/system";
+import { account, user } from "@workspace/database/schema";
+import { userRoles } from "@workspace/database/schema";
 
 export type CredentialSeedUser = {
   email: string;

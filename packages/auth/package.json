@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@workspace/database": "workspace:*",
+    "@workspace/seed": "workspace:*",
     "better-auth": "catalog:"
   },
   "devDependencies": {

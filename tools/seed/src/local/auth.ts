@@ -1,4 +1,4 @@
-import { getD1LocalUrl } from "../../../drizzle.config.local";
+import { getD1LocalUrl } from "@workspace/database";
 import { getDb } from "./libsql-db";
 
 const env: any = {

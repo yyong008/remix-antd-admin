@@ -1,0 +1,31 @@
+{
+  "name": "@workspace/seed",
+  "version": "1.0.0",
+  "description": "Local RBAC seed scripts (menu SQL generator + auth user creator) for the D1 database",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./local/auth": "./src/local/auth.ts"
+  },
+  "scripts": {
+    "generate:seed-sql": "tsx ./src/local/generate-rbac-seed-sql.ts",
+    "seed:local:create-user": "dotenv -e ../../apps/api/.env -- tsx ./src/local/create-users.ts"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.17.3",
+    "@workspace/database": "workspace:*",
+    "better-auth": "catalog:",
+    "drizzle-orm": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "dotenv-cli": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:"
+  },
+  "packageManager": "pnpm@10.33.0"
+}
