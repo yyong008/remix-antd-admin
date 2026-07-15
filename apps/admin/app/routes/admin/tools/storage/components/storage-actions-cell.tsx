@@ -36,13 +36,8 @@ export function StorageActionsCell({ record, refetch }: { record: any; refetch?:
   };
 
   const handleDownload = () => {
-    const token = localStorage.getItem("token");
-    const url = new URL(record.path, window.location.origin);
-    if (token) {
-      url.searchParams.set("token", token);
-    }
     const a = document.createElement("a");
-    a.href = url.toString();
+    a.href = record.path;
     a.download = record.name;
     a.click();
   };

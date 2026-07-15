@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+import { getApiClient } from "~/api-client";
+
 export const USER_SESSION_QUERY_KEY = ["user", "session"] as const;
 
-/** better-auth `/list-sessions` row shape (serialized dates may be strings). */
 export type AuthSessionRow = {
   id: string;
   createdAt: Date | string;
@@ -16,15 +17,14 @@ export type AuthSessionRow = {
 
 export const AUTH_SESSIONS_LIST_KEY = ["auth", "sessions", "list"] as const;
 
-/**
- * All active sessions for the current user (better-auth `listSessions`).
- * @see https://www.better-auth.com/docs/concepts/session-management
- */
 export function useAuthSessionsList() {
   return useQuery({
     queryKey: AUTH_SESSIONS_LIST_KEY,
     queryFn: async (): Promise<AuthSessionRow[]> => {
-      return [];
+      const res = await (getApiClient() as any).api.auth["list-sessions"].$get();
+      const body = await res.json();
+      if (body.code !== 0) throw new Error(body.message || "Failed to list sessions");
+      return (body.data ?? []) as AuthSessionRow[];
     },
     staleTime: 1000 * 60,
   });
@@ -40,9 +40,6 @@ export type AuthLinkedAccountRow = {
 
 export const AUTH_ACCOUNTS_LIST_KEY = ["auth", "accounts", "list"] as const;
 
-/**
- * OAuth / credential accounts linked to the current user (`listAccounts`).
- */
 export function useAuthAccountsList() {
   return useQuery({
     queryKey: AUTH_ACCOUNTS_LIST_KEY,
@@ -53,11 +50,6 @@ export function useAuthAccountsList() {
   });
 }
 
-/**
- * Hook for fetching the current user session
- *
- * @see https://tanstack.com/query/latest/docs/framework/react/guides/important-defaults
- */
 export function useUserSessionQuery() {
   const _queryClient = useQueryClient();
 
@@ -66,10 +58,10 @@ export function useUserSessionQuery() {
     queryFn: async () => {
       return null;
     },
-    staleTime: 1000 * 60 * 5, // 5 minutes - balance between freshness and performance
+    staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: true,
     retry: false,
-    gcTime: 1000 * 60 * 10, // 10 minutes (formerly cacheTime)
+    gcTime: 1000 * 60 * 10,
   });
 }
 
@@ -82,8 +74,13 @@ export function useRevokeSessionMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ token: _token }: { token: string }) => {
-      return { success: true };
+    mutationFn: async ({ token }: { token: string }) => {
+      const res = await (getApiClient() as any).api.auth["revoke-session"].$post({
+        json: { token },
+      });
+      const body = await res.json();
+      if (body.code !== 0) throw new Error(body.message || "Failed to revoke session");
+      return body.data as { success: boolean };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: USER_SESSION_QUERY_KEY });

@@ -150,6 +150,58 @@ authRouter.post("/logout", async (c) => {
   }
 });
 
+authRouter.get("/list-sessions", async (c) => {
+  const env: Env = c.env;
+  const db = drizzle(env.DB);
+  const auth = createAuth(db, env);
+
+  try {
+    const result = await auth.api.listSessions({
+      headers: c.req.raw.headers,
+    });
+
+    return c.json({
+      code: 0,
+      message: "success",
+      data: result ?? [],
+    });
+  } catch (error: any) {
+    return c.json(
+      { code: 1, message: error?.message || "Failed to list sessions", data: null },
+      { status: 400 },
+    );
+  }
+});
+
+authRouter.post("/revoke-session", async (c) => {
+  const env: Env = c.env;
+  const db = drizzle(env.DB);
+  const auth = createAuth(db, env);
+
+  try {
+    const { token } = await c.req.json();
+    if (!token) {
+      return c.json({ code: 1, message: "Token is required", data: null }, { status: 400 });
+    }
+
+    await auth.api.revokeSession({
+      body: { token },
+      headers: c.req.raw.headers,
+    });
+
+    return c.json({
+      code: 0,
+      message: "success",
+      data: { success: true },
+    });
+  } catch (error: any) {
+    return c.json(
+      { code: 1, message: error?.message || "Failed to revoke session", data: null },
+      { status: 400 },
+    );
+  }
+});
+
 authRouter.get("/session", async (c) => {
   const env: Env = c.env;
   const db = drizzle(env.DB);

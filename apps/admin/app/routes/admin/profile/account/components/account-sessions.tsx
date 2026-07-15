@@ -1,9 +1,7 @@
 import type { ColumnsType } from "antd/es/table";
 
 import {
-  AUTH_SESSIONS_LIST_KEY,
   type AuthSessionRow,
-  USER_SESSION_QUERY_KEY,
   useAuthSessionsList,
   useRevokeSessionMutation,
 } from "~/api-client/queries/session";
@@ -11,7 +9,6 @@ import {
 import dayjs from "dayjs";
 import { m } from "~/paraglide/messages";
 import { useSession } from "~/session/provider";
-import { useQueryClient } from "@tanstack/react-query";
 import { href, useNavigate, useParams } from "react-router";
 import { Button, message, Popconfirm, Table, Tag, Typography } from "antd";
 
@@ -21,18 +18,12 @@ function formatTs(value: Date | string | undefined) {
   return d.isValid() ? d.format("YYYY-MM-DD HH:mm") : "—";
 }
 
-function shortenUa(ua: string | null | undefined) {
-  if (!ua?.trim()) return "—";
-  return ua.length > 96 ? `${ua.slice(0, 96)}…` : ua;
-}
-
 // TODO: useAuthSessionsList / useRevokeSessionMutation currently return mocks.
 // Replace with better-auth `listSessions` + `revokeSession` once auth wiring is ready.
 
 export function AccountSessions() {
   const navigate = useNavigate();
   const { locale } = useParams();
-  const queryClient = useQueryClient();
   const sessionCtx = useSession();
   const currentSessionId = sessionCtx?.session?.id ?? null;
 
@@ -44,10 +35,11 @@ export function AccountSessions() {
       title: m.profile_account_sessions_column_ua(),
       dataIndex: "userAgent",
       key: "userAgent",
+      width: 220,
       ellipsis: true,
       render: (_, row) => (
         <Typography.Text type="secondary" style={{ fontSize: 14 }}>
-          {shortenUa(row.userAgent)}
+          {row.userAgent || "—"}
         </Typography.Text>
       ),
     },
@@ -56,7 +48,8 @@ export function AccountSessions() {
       dataIndex: "ipAddress",
       key: "ipAddress",
       width: 140,
-      render: (v: string | null | undefined) => v?.trim() || "—",
+      render: (v: string | null | undefined) =>
+        v?.trim() && v !== "0000" ? v : m.common_unknown(),
     },
     {
       title: m.profile_account_sessions_column_created(),
@@ -101,9 +94,7 @@ export function AccountSessions() {
             onConfirm={async () => {
               try {
                 if (isCurrent) {
-                  // TODO: await authClient.signOut({}) once better-auth is wired.
-                  await queryClient.invalidateQueries({ queryKey: USER_SESSION_QUERY_KEY });
-                  await queryClient.invalidateQueries({ queryKey: AUTH_SESSIONS_LIST_KEY });
+                  await revokeMutation.mutateAsync({ token: row.token });
                   message.success(m.profile_account_sessions_signed_out());
                   navigate(href("/:locale?/login", { locale }), { replace: true });
                   return;

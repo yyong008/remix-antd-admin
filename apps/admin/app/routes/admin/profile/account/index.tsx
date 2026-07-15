@@ -18,7 +18,11 @@ export default function Page() {
   const { isLoading } = useUserInfo();
 
   return (
-    <PageContainer title={m.profile_account_title()} loading={isLoading}>
+    <PageContainer
+      title={m.profile_account_title()}
+      loading={isLoading}
+      style={{ width: "70%", margin: "0 auto" }}
+    >
       <Flex vertical gap={16}>
         <Card title={m.profile_account_basic_info()} variant="outlined">
           <BasicInfoDescriptions />

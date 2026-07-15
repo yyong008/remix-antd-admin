@@ -105,9 +105,6 @@ const UploadWithCrop = ({
         action="/api/upload"
         max={1}
         fieldProps={{
-          headers: {
-            authorization: "bearer " + localStorage.getItem("token"),
-          },
           onChange: (info: UploadChangeParam<UploadFile>) => {
             if (info.file.status === "done") {
               if (info.file.response?.code === 0) {

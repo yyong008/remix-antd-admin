@@ -9,7 +9,6 @@ export { LocaleSwitcher } from "./locale-switcher";
 export { MarkupText } from "./markup-text";
 export { LinkType } from "./link-type";
 export { ListHeaderSearch } from "./list-header-search";
-export { MenuItemLink } from "./menu-item-link";
 export { MenuItemOutLink } from "./menu-item-outer-link";
 export { MenuType } from "./menu-type";
 export { ShowType } from "./show-type";

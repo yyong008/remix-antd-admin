@@ -2,15 +2,17 @@ import * as storage from "@workspace/database/repositories/tools/storage";
 import type { Context } from "hono";
 
 import { extname } from "../utils/server";
-import { getPublicObjectUrl, getStorageKey, uploadObject } from "@workspace/storage/r2";
+import {
+  getPublicObjectUrl,
+  getStorageKey,
+  isStorageUploadAllowed,
+  uploadObject,
+} from "@workspace/storage/r2";
 import { rfj, rsj, respPresentationModeJson } from "../utils/server/response-json";
 import { getD1Db } from "../helpers/d1";
 
 const DEMO_TRUE_VALUES = new Set(["1", "true", "yes", "on"]);
 
-const isStorageUploadAllowed = (_c: unknown) => {
-  return false;
-};
 const isDemoModeEnabled = () => {
   const raw = process.env.DEMO_MODE;
   if (!raw) {

@@ -5,6 +5,7 @@ import { useCallback, useRef, useState } from "react";
 import { Descriptions, message, Spin, Tag } from "antd";
 import { useUserInfo } from "~/api-client/queries/system/system-user";
 import { useUpdateProfileAccount } from "~/api-client/queries/profile/profile-account";
+import { uploadAvatar } from "~/api-client/upload";
 
 function fmt(value: string | null | undefined) {
   if (value == null) return "—";
@@ -66,50 +67,13 @@ export function BasicInfoDescriptions() {
     e.target.value = "";
   }, []);
 
-  const getAuthHeader = () => {
-    if (typeof localStorage === "undefined") return "";
-    return "bearer " + (localStorage.getItem("token") ?? "");
-  };
-
   const uploadCroppedImage = useCallback(
     async (canvas: HTMLCanvasElement | null) => {
       if (!canvas) return;
 
       setIsUploading(true);
       try {
-        const blob = await new Promise<Blob | null>((resolve) => {
-          canvas.toBlob(resolve, "image/png", 1.0);
-        });
-
-        if (!blob) {
-          throw new Error("Failed to create image blob");
-        }
-
-        const formData = new FormData();
-        formData.append("file", blob, "avatar.png");
-        formData.append("pathPrefix", `avatars/${userInfo?.id}/`);
-
-        const response = await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
-          headers: {
-            authorization: getAuthHeader(),
-          },
-          credentials: "include",
-        });
-
-        if (!response.ok) {
-          const data = (await response.json().catch(() => ({}))) as { message?: string };
-          throw new Error(data.message || "Upload failed");
-        }
-
-        const result = (await response.json()) as { data?: { path?: string } };
-        const avatarUrl = result.data?.path;
-
-        if (!avatarUrl) {
-          throw new Error("Invalid response: missing path");
-        }
-
+        const avatarUrl = await uploadAvatar(userInfo?.id, canvas);
         await updateProfile.mutateAsync({ avatar: avatarUrl });
         message.success(m.profile_account_avatar_success());
       } catch (err) {

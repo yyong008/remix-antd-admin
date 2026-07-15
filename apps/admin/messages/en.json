@@ -275,6 +275,8 @@
   "blog_result_button_create_again": "Create another",
   "profile_account_title": "Account",
   "profile_account_basic_info": "Basic info",
+  "common_unknown": "Unknown",
+
   "profile_account_sessions": "Sign-in sessions",
   "profile_account_oauth": "Third-party accounts",
   "profile_account_avatar": "Avatar",
@@ -701,8 +703,6 @@
   "breadcrumb_monitor": "Monitor",
   "breadcrumb_mail": "Email",
   "breadcrumb_list": "List",
-  "breadcrumb_category": "Category",
-  "breadcrumb_tag": "Tag",
   "breadcrumb_new": "New",
   "breadcrumb_edit": "Edit",
   "breadcrumb_result": "Result",

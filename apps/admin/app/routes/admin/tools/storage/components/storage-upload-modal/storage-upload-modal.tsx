@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 
 import { ModalForm } from "~/components/pro-form-kit";
 import { m } from "~/paraglide/messages";
+import { uploadFileWithProgress } from "~/api-client/upload";
 
 import { ChoiceFileButton } from "./choice-file-button";
 import type { PendingUploadRow } from "./pending-file-types";
@@ -32,46 +33,6 @@ export function StorageUploadModal(props: StorageModalProps) {
     setUploadLocked(false);
   }, []);
 
-  const uploadFile = (
-    file: File,
-    token: string | null,
-    onProgress: (loaded: number, total: number) => void,
-  ) => {
-    return new Promise<void>((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", "/api/upload", true);
-      xhr.withCredentials = true;
-      if (token) {
-        xhr.setRequestHeader("Authorization", `Bearer ${token}`);
-      }
-      xhr.upload.onprogress = (event) => {
-        if (event.lengthComputable) {
-          onProgress(event.loaded, event.total);
-        }
-      };
-      xhr.onload = () => {
-        if (xhr.status >= 200 && xhr.status < 300) {
-          try {
-            const body = JSON.parse(xhr.responseText) as { code?: number; message?: string };
-            if (body.code !== 0) {
-              reject(new Error(body.message ?? "Upload failed"));
-              return;
-            }
-            resolve();
-          } catch {
-            reject(new Error("Upload failed"));
-          }
-        } else {
-          reject(new Error(xhr.status === 401 ? "Not logged in" : "Upload failed"));
-        }
-      };
-      xhr.onerror = () => reject(new Error("Network error"));
-      const formData = new FormData();
-      formData.append("file", file);
-      xhr.send(formData);
-    });
-  };
-
   const totalBytes = fileList.reduce((sum, r) => sum + r.size, 0);
   const uploadCount = fileList.filter((f) => f.phase === "uploading").length;
   const successCount = fileList.filter((f) => f.phase === "success").length;
@@ -92,7 +53,6 @@ export function StorageUploadModal(props: StorageModalProps) {
           return false;
         }
 
-        const token = localStorage.getItem("token");
         setUploadLocked(true);
 
         setFileList((prev) =>
@@ -105,7 +65,7 @@ export function StorageUploadModal(props: StorageModalProps) {
           await Promise.all(
             rows.map(async (row, index) => {
               try {
-                await uploadFile(row.file, token, (loaded, total) => {
+                await uploadFileWithProgress(row.file, (loaded, total) => {
                   setFileList((prev) => {
                     const next = [...prev];
                     if (!next[index]) return next;

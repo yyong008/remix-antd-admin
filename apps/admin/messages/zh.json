@@ -274,6 +274,8 @@
   "blog_result_button_create_again": "再写一篇",
   "profile_account_title": "账户",
   "profile_account_basic_info": "基本信息",
+  "common_unknown": "未知",
+
   "profile_account_sessions": "登录会话",
   "profile_account_oauth": "第三方账号",
   "profile_account_avatar": "头像",
@@ -700,8 +702,6 @@
   "breadcrumb_monitor": "监控",
   "breadcrumb_mail": "邮件",
   "breadcrumb_list": "列表",
-  "breadcrumb_category": "分类",
-  "breadcrumb_tag": "标签",
   "breadcrumb_new": "新建",
   "breadcrumb_edit": "编辑",
   "breadcrumb_result": "结果",
