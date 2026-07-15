@@ -12,6 +12,10 @@ import { CreateUserModal } from "./components/create-user-modal";
 import { ToolbarDeleteButton } from "./components/toolbar-delete-button";
 import { createUserTableColumns } from "./components/create-columns";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.system_user_title() }],
+});
+
 export const meta: MetaFunction = () => {
   return [{ title: m.system_user_title() }];
 };

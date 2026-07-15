@@ -2,7 +2,15 @@ import { Button, Form, type FormProps, Modal, type ModalProps, Space } from "ant
 
 import { adminModalFormLayout } from "./admin-modal-form-layout";
 import type { FormInstance } from "antd/es/form";
-import { cloneElement, type ReactElement, type ReactNode, useCallback, useState } from "react";
+import {
+  cloneElement,
+  type ReactElement,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 export type ModalFormSubmitter =
   | false
@@ -16,6 +24,7 @@ export type ModalFormProps = Omit<FormProps, "onFinish"> & {
   title?: ReactNode;
   trigger?: ReactElement;
   form?: FormInstance;
+  open?: boolean;
   onFinish?: (values: Record<string, unknown>) => Promise<boolean | void> | boolean | void;
   onOpenChange?: (open: boolean) => void;
   modalProps?: Omit<ModalProps, "open" | "onOk" | "footer" | "children">;
@@ -31,6 +40,7 @@ export function ModalForm({
   trigger,
   children,
   form: propForm,
+  open: externalOpen,
   onFinish,
   onOpenChange,
   modalProps,
@@ -44,22 +54,29 @@ export function ModalForm({
 }: ModalFormProps) {
   const [innerForm] = Form.useForm();
   const form = propForm ?? innerForm;
-  const [open, setOpen] = useState(false);
+  const [innerOpen, setInnerOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+
+  const isControlled = externalOpen !== undefined;
+  const open = isControlled ? externalOpen : innerOpen;
 
   const mergedLoading = Boolean(loading) || submitting;
 
   const close = useCallback(() => {
-    setOpen(false);
+    if (!isControlled) {
+      setInnerOpen(false);
+    }
     onOpenChange?.(false);
-  }, [onOpenChange]);
+  }, [isControlled, onOpenChange]);
 
   const handleOpen = useCallback(
     (next: boolean) => {
-      setOpen(next);
+      if (!isControlled) {
+        setInnerOpen(next);
+      }
       onOpenChange?.(next);
     },
-    [onOpenChange],
+    [isControlled, onOpenChange],
   );
 
   const runFinish = useCallback(
@@ -88,15 +105,24 @@ export function ModalForm({
     [close, form, onFinish, submitTimeout],
   );
 
+  const prevExternalOpen = useRef(externalOpen);
+  useEffect(() => {
+    if (isControlled && externalOpen !== prevExternalOpen.current) {
+      prevExternalOpen.current = externalOpen;
+      onOpenChange?.(externalOpen);
+    }
+  }, [externalOpen, isControlled, onOpenChange]);
+
   const triggerEl =
-    trigger &&
-    cloneElement(trigger as ReactElement<{ onClick?: (e: React.MouseEvent) => void }>, {
-      onClick: (e: React.MouseEvent) => {
-        const props = trigger.props as { onClick?: (e: React.MouseEvent) => void };
-        props.onClick?.(e);
-        handleOpen(true);
-      },
-    });
+    !isControlled && trigger
+      ? cloneElement(trigger as ReactElement<{ onClick?: (e: React.MouseEvent) => void }>, {
+          onClick: (e: React.MouseEvent) => {
+            const props = trigger.props as { onClick?: (e: React.MouseEvent) => void };
+            props.onClick?.(e);
+            handleOpen(true);
+          },
+        })
+      : null;
 
   const submitCfg = submitter === false ? null : submitter;
   const submitText = submitCfg?.searchConfig?.submitText ?? "确定";

@@ -12,6 +12,10 @@ import type { MetaFunction } from "react-router";
 import { useMemo } from "react";
 import { useParams } from "react-router";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.system_role_title() }],
+});
+
 export const meta: MetaFunction = () => {
   return [{ title: m.system_role_title() }];
 };

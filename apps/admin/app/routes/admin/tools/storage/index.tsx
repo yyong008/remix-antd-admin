@@ -12,6 +12,10 @@ import { m } from "~/paraglide/messages";
 import { StorageUploadModal } from "./components/storage-upload-modal/storage-upload-modal";
 import { createColumns } from "./components/create-columns";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.tools_storage_title() }],
+});
+
 export const meta: MetaFunction = () => {
   return [{ title: m.tools_storage_title() }];
 };

@@ -8,7 +8,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
-import { IconLanguage } from "@tabler/icons-react";
+import { LanguageIcon } from "~/components/icons";
 import { useLocation, useNavigate, useParams } from "react-router";
 
 import { defaultLang, langs } from "~/config/lang";
@@ -60,7 +60,7 @@ export function LocaleSwitcher() {
           />
         }
       >
-        <IconLanguage className="size-4.5" />
+        <LanguageIcon className="size-4.5" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-60">
         <DropdownMenuRadioGroup value={locale} onValueChange={handleChange}>

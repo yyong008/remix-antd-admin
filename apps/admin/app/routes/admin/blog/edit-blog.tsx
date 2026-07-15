@@ -14,6 +14,18 @@ import { m } from "~/paraglide/messages";
 import { isQuillBodyEmpty } from "./build-blog-payload";
 import { FormItems } from "./edit-blog/form-items";
 
+export const handle = ({
+  params,
+  id,
+}: {
+  params: { id?: string; locale?: string };
+  id?: string;
+}) => {
+  if (id === "admin-blog-new") return { breadcrumb: [{ label: m.breadcrumb_new() }] };
+  if (params.id) return { breadcrumb: [{ label: `Edit: #${params.id}` }] };
+  return { breadcrumb: [{ label: m.breadcrumb_edit() }] };
+};
+
 export const meta: MetaFunction = () => [{ title: "Blog · edit" }];
 
 export function Route() {

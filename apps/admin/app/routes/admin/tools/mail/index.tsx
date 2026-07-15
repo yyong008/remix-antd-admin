@@ -9,6 +9,10 @@ import { ReactEmailEditor } from "~/components/react-email";
 import { m } from "~/paraglide/messages";
 import { MailForm } from "./components/mail-form";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.tools_mail_title() }],
+});
+
 export const meta: MetaFunction = () => {
   return [{ title: m.tools_mail_title() }];
 };

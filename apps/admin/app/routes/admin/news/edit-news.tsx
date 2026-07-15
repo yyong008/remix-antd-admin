@@ -25,6 +25,11 @@ import { m } from "~/paraglide/messages";
 import { buildNewsPayload, isQuillBodyEmpty } from "./build-news-payload";
 import { categoriesForNewsSelect } from "./news-category-select";
 
+export const handle = ({ params }: { params: { id?: string } }) => {
+  if (params.id) return { breadcrumb: [{ label: `Edit: #${params.id}` }] };
+  return { breadcrumb: [{ label: m.breadcrumb_edit() }] };
+};
+
 export const meta: MetaFunction = () => [{ title: "News · edit" }];
 
 export function Route() {

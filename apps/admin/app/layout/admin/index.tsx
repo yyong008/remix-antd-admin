@@ -310,25 +310,20 @@ function AdminShellLayout(props: AdminShellLayoutProps) {
 
   const matches = useMatches();
 
-  const handleMatches = useMemo(() => {
-    const last = matches[matches.length - 1];
-    if (last?.handle && typeof last?.handle === "function") {
-      return last?.handle?.({ params: { locale } });
-    }
-    return { breadcrumb: [] };
-  }, [matches, locale]);
-
   const breadcrumbItems = useMemo(() => {
     const items: { title: ReactNode }[] = [];
-    if (handleMatches.breadcrumb.length === 0) {
-      return items;
-    }
-    for (let i = 0; i < handleMatches.breadcrumb.length; i++) {
-      const match = handleMatches.breadcrumb[i];
-      items.push({ title: match.label });
+    for (const match of matches) {
+      if (typeof match.handle === "function") {
+        const result = match.handle({ params: match.params, id: match.id });
+        if (result?.breadcrumb) {
+          for (const crumb of result.breadcrumb) {
+            items.push({ title: crumb.label });
+          }
+        }
+      }
     }
     return items;
-  }, [handleMatches, dashboardHref]);
+  }, [matches]);
 
   const [openKeys, setOpenKeys] = useState<string[]>(derivedOpenKeys);
   useEffect(() => {

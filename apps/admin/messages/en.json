@@ -691,5 +691,23 @@
   "docs_feedback_toast_created": "Feedback created",
   "docs_feedback_toast_updated": "Feedback updated",
   "docs_feedback_toast_create_failed": "Create failed",
-  "docs_feedback_toast_update_failed": "Update failed"
+  "docs_feedback_toast_update_failed": "Update failed",
+
+  "breadcrumb_blog": "Blog",
+  "breadcrumb_news": "News",
+  "breadcrumb_system": "System",
+  "breadcrumb_profile": "Profile",
+  "breadcrumb_tools": "Tools",
+  "breadcrumb_monitor": "Monitor",
+  "breadcrumb_mail": "Email",
+  "breadcrumb_list": "List",
+  "breadcrumb_category": "Category",
+  "breadcrumb_tag": "Tag",
+  "breadcrumb_new": "New",
+  "breadcrumb_edit": "Edit",
+  "breadcrumb_result": "Result",
+  "breadcrumb_detail": "Detail",
+  "breadcrumb_storage": "Storage",
+  "breadcrumb_welcome": "Welcome",
+  "breadcrumb_about": "About"
 }

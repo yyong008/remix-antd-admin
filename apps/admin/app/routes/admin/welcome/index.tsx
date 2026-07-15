@@ -2,6 +2,11 @@ import { Card } from "antd";
 import type { MetaFunction } from "react-router";
 import { PageContainer } from "~/components/page-container";
 import { useParams } from "react-router";
+import { m } from "~/paraglide/messages";
+
+export const handle = () => ({
+  breadcrumb: [{ label: m.breadcrumb_welcome() }],
+});
 
 export const meta: MetaFunction = () => {
   return [{ title: "欢迎~" }];

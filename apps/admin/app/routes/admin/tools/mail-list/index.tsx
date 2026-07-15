@@ -8,6 +8,10 @@ import { m } from "~/paraglide/messages";
 import { useToolsMailList } from "~/api-client/queries/tools/tools-mail";
 import { createColumns } from "./components/create-columns";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.breadcrumb_list() }],
+});
+
 export const meta: MetaFunction = () => {
   return [{ title: m.tools_mail_list_title() }];
 };

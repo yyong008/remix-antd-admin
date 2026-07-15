@@ -3,8 +3,13 @@ import { AdminTable } from "~/components/admin-table";
 import { useBlogTagList } from "~/api-client/queries/blog/blog-tag";
 import type { MetaFunction } from "react-router";
 
+import { m } from "~/paraglide/messages";
 import { CreateBlogTagModal } from "./tag/components/create-blog-tag-modal";
 import { createColumns } from "./tag/components/create-columns";
+
+export const handle = () => ({
+  breadcrumb: [{ label: m.breadcrumb_tag() }],
+});
 
 export const meta: MetaFunction = () => [{ title: "Blog · tags" }];
 

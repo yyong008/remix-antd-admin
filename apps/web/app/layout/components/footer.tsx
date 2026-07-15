@@ -1,12 +1,12 @@
 import { Link, useParams } from "react-router";
 import { Separator } from "@workspace/ui/components/separator";
 import {
-  IconBrandGithub,
-  IconBrandX,
-  IconBrandDiscord,
-  IconBrandYoutube,
-  IconExternalLink,
-} from "@tabler/icons-react";
+  GithubSvgIcon,
+  XSvgIcon,
+  DiscordSvgIcon,
+  YoutubeSvgIcon,
+  ExternalLinkIcon,
+} from "~/components/icons";
 
 import { defaultLang } from "~/config/lang";
 import { getLinks } from "~/config/links";
@@ -37,7 +37,7 @@ export function NavFooter() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="text-muted-foreground transition-colors hover:text-primary"
+                  className="text-muted-foreground transition-colors hover:text-brand-primary"
                 >
                   {social.icon}
                 </a>
@@ -56,11 +56,11 @@ export function NavFooter() {
                         key={linkIndex}
                         to={link.to}
                         target={link.isOut ? "_blank" : "_self"}
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                        className="text-sm text-muted-foreground hover:text-brand-primary transition-colors"
                       >
                         <span className="flex items-center gap-1">
                           <span>{link.text}</span>
-                          {link.isOut && <IconExternalLink className="size-3" />}
+                          {link.isOut && <ExternalLinkIcon className="size-3" />}
                         </span>
                       </Link>
                     ))}
@@ -92,11 +92,11 @@ export function NavFooter() {
 
 const socialLinks = [
   {
-    icon: <IconBrandGithub className="size-5" />,
+    icon: <GithubSvgIcon className="size-5" />,
     label: "GitHub",
     url: "https://github.com/yyong008/remix-antd-admin",
   },
-  { icon: <IconBrandX className="size-5" />, label: "Twitter", url: "https://twitter.com" },
-  { icon: <IconBrandDiscord className="size-5" />, label: "Discord", url: "https://discord.com" },
-  { icon: <IconBrandYoutube className="size-5" />, label: "YouTube", url: "https://youtube.com" },
+  { icon: <XSvgIcon className="size-5" />, label: "Twitter", url: "https://twitter.com" },
+  { icon: <DiscordSvgIcon className="size-5" />, label: "Discord", url: "https://discord.com" },
+  { icon: <YoutubeSvgIcon className="size-5" />, label: "YouTube", url: "https://youtube.com" },
 ];

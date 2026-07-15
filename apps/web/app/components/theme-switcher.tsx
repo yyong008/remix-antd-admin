@@ -7,7 +7,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
-import { IconSun, IconMoon, IconDeviceDesktop } from "@tabler/icons-react";
+import { SunIcon, MoonIcon, MonitorIcon } from "~/components/icons";
 import { useTheme } from "next-themes";
 import * as m from "~/paraglide/messages.js";
 
@@ -16,12 +16,12 @@ export function ThemeSwitcher() {
 
   const renderIcon = () => {
     if (!mounted) {
-      return <IconDeviceDesktop className="size-4.5" />;
+      return <MonitorIcon className="size-4.5" />;
     }
     const current = theme === "system" ? resolvedTheme : theme;
-    if (current === "dark") return <IconMoon className="size-4.5" />;
-    if (current === "light") return <IconSun className="size-4.5" />;
-    return <IconDeviceDesktop className="size-4.5" />;
+    if (current === "dark") return <MoonIcon className="size-4.5" />;
+    if (current === "light") return <SunIcon className="size-4.5" />;
+    return <MonitorIcon className="size-4.5" />;
   };
 
   return (

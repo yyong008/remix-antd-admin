@@ -3,8 +3,13 @@ import { AdminTable } from "~/components/admin-table";
 import { useBlogCategoryList } from "~/api-client/queries/blog/blog-category";
 import type { MetaFunction } from "react-router";
 
+import { m } from "~/paraglide/messages";
 import { CreateBlogCategoryModal } from "./category/components/create-blog-category-modal";
 import { createColumns } from "./category/components/create-columns";
+
+export const handle = () => ({
+  breadcrumb: [{ label: m.breadcrumb_category() }],
+});
 
 export const meta: MetaFunction = () => [{ title: "Blog · categories" }];
 

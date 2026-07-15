@@ -1,9 +1,11 @@
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import dayjs from "dayjs";
 import dompurify from "dompurify";
-import { IconFolder, IconTag } from "@tabler/icons-react";
 import { usePublicBlogById } from "~/api-client/public-blog";
+import { BrandPill } from "~/components/brand-pill";
+import { BrandButton } from "~/components/landings/_shared/brand-button";
+import { ArrowLeftIcon, FolderIcon, TagIcon } from "~/components/icons";
 import * as m from "~/paraglide/messages.js";
 
 export const meta: MetaFunction = () => {
@@ -27,31 +29,29 @@ function BlogHeader({
 }) {
   return (
     <header className="mb-10">
-      <h1 className="text-3xl font-bold leading-tight mb-6 text-[clamp(24px,4vw,36px)]">
+      <h1 className="mb-6 text-[clamp(24px,4vw,36px)] font-bold leading-tight text-foreground">
         {blog.title}
       </h1>
-      <div className="flex flex-wrap items-center gap-4 text-sm pb-5">
+      <div className="flex flex-wrap items-center gap-3 border-b border-border pb-5 text-sm">
         {blog.author && (
           <span className="flex items-center gap-1.5">
             <span className="text-muted-foreground">{m.label_author()}</span>
-            <span className="font-medium">{blog.author}</span>
+            <span className="font-medium text-foreground">{blog.author}</span>
           </span>
         )}
         <span className="flex items-center gap-1.5">
           <span className="text-muted-foreground">{m.label_published_at()}</span>
-          <span>{dayjs(blog.publishedAt).format("YYYY-MM-DD HH:mm")}</span>
+          <span className="text-foreground">
+            {dayjs(blog.publishedAt).format("YYYY-MM-DD HH:mm")}
+          </span>
         </span>
         {blog.categoryName && (
-          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs">
-            <IconFolder className="size-3" />
-            {blog.categoryName}
-          </span>
+          <BrandPill icon={<FolderIcon className="size-3" />}>{blog.categoryName}</BrandPill>
         )}
         {blog.tagName && (
-          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs text-white bg-indigo-500">
-            <IconTag className="size-3" />
+          <BrandPill variant="solid" icon={<TagIcon className="size-3" />}>
             {blog.tagName}
-          </span>
+          </BrandPill>
         )}
       </div>
     </header>
@@ -61,7 +61,7 @@ function BlogHeader({
 function BlogContent({ content }: { content: string }) {
   return (
     <div
-      className="leading-[1.9] text-base"
+      className="leading-[1.9] text-base text-foreground"
       dangerouslySetInnerHTML={{ __html: dompurify.sanitize(content || "") }}
     />
   );
@@ -73,18 +73,25 @@ export default function Route() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">{m.common_loading()}</div>
+      <div className="flex min-h-[60vh] items-center justify-center">{m.common_loading()}</div>
     );
   }
 
   if (!blog) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">{m.blog_not_found()}</div>
+      <div className="flex min-h-[60vh] items-center justify-center">{m.blog_not_found()}</div>
     );
   }
 
   return (
     <div className="mx-auto max-w-300 px-6 py-8">
+      <div className="mb-6">
+        <Link to="/blog">
+          <BrandButton variant="ghost" size="md" iconLeft={<ArrowLeftIcon className="size-4" />}>
+            {m.blog_back_to_list()}
+          </BrandButton>
+        </Link>
+      </div>
       <article>
         <BlogHeader
           blog={{

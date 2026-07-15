@@ -1,7 +1,7 @@
 import type { MetaFunction } from "react-router";
 import { Card, CardContent } from "@workspace/ui/components/card";
 import { Badge } from "@workspace/ui/components/badge";
-import { IconExternalLink, IconBrandGithub, IconWorld } from "@tabler/icons-react";
+import { GithubSvgIcon, GlobeIcon, ExternalLinkIcon } from "~/components/icons";
 import * as m from "~/paraglide/messages.js";
 
 export const meta: MetaFunction = () => {
@@ -35,7 +35,7 @@ export default function Route() {
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-8 space-y-6">
-      <Card className="overflow-hidden border-0 rounded-[12px] bg-linear-to-br from-[#667eea] to-[#764ba2]">
+      <Card className="overflow-hidden rounded-[12px] border-0 bg-brand-gradient shadow-[0_24px_64px_var(--brand-glow)]">
         <CardContent className="p-8 md:p-10">
           <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
             <div className="flex-1 min-w-0">
@@ -52,7 +52,7 @@ export default function Route() {
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-all bg-white/20"
                 >
-                  <IconBrandGithub className="size-4" />
+                  <GithubSvgIcon className="size-4" />
                   {m.about_link_github()}
                 </a>
                 <a
@@ -61,7 +61,7 @@ export default function Route() {
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-all bg-white/20"
                 >
-                  <IconWorld className="size-4" />
+                  <GlobeIcon className="size-4" />
                   {m.about_link_preview()}
                 </a>
               </div>
@@ -109,7 +109,7 @@ export default function Route() {
                   className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors group"
                 >
                   <code className="text-sm font-mono flex-1">{pkg[0]}</code>
-                  <IconExternalLink className="size-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                  <ExternalLinkIcon className="size-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                 </a>
               );
             })}
@@ -136,7 +136,7 @@ export default function Route() {
                     className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors group"
                   >
                     <code className="text-xs font-mono flex-1 truncate">{name}</code>
-                    <IconExternalLink className="size-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                    <ExternalLinkIcon className="size-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                   </a>
                 ))}
             </div>
@@ -160,7 +160,7 @@ export default function Route() {
                     className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors group"
                   >
                     <code className="text-xs font-mono flex-1 truncate">{name}</code>
-                    <IconExternalLink className="size-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                    <ExternalLinkIcon className="size-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                   </a>
                 ))}
             </div>

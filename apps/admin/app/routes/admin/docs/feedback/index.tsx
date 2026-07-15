@@ -7,6 +7,10 @@ import { Image } from "antd";
 import type { MetaFunction } from "react-router";
 import { useState } from "react";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.docs_feedback_title() }],
+});
+
 export const meta: MetaFunction = () => {
   return [{ title: m.docs_feedback_title() }];
 };

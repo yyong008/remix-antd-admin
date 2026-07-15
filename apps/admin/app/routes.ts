@@ -10,67 +10,78 @@ const authRoutes = [
 const adminDashboardRoutes = [...prefix("dashboard", [index("routes/admin/dashboard/index.tsx")])];
 
 const adminBlogRoutes = [
-  ...prefix("blog", [
-    route("list", "routes/admin/blog/list-blog.tsx"),
-    route("category", "routes/admin/blog/list-blog-category.tsx"),
-    route("tag", "routes/admin/blog/list-blog-tag.tsx"),
-    route("new", "routes/admin/blog/edit-blog.tsx", { id: "admin-blog-new" }),
-    route("edit", "routes/admin/blog/edit-blog.tsx", { id: "admin-blog-edit" }),
-    route("edit/:id", "routes/admin/blog/edit-blog.tsx", {
-      id: "admin-blog-edit-id",
-    }),
-    route("result", "routes/admin/blog/result-blog.tsx"),
+  layout("routes/admin/blog/blog-layout.tsx", [
+    ...prefix("blog", [
+      route("list", "routes/admin/blog/list-blog.tsx"),
+      route("category", "routes/admin/blog/list-blog-category.tsx"),
+      route("tag", "routes/admin/blog/list-blog-tag.tsx"),
+      route("new", "routes/admin/blog/edit-blog.tsx", { id: "admin-blog-new" }),
+      route("edit", "routes/admin/blog/edit-blog.tsx", { id: "admin-blog-edit" }),
+      route("edit/:id", "routes/admin/blog/edit-blog.tsx", {
+        id: "admin-blog-edit-id",
+      }),
+      route("result", "routes/admin/blog/result-blog.tsx"),
+    ]),
   ]),
 ];
 
 const adminNewsRoutes = [
-  ...prefix("news", [
-    route("list", "routes/admin/news/list-news.tsx"),
-    route("edit", "routes/admin/news/edit-news.tsx"),
-    route("edit/:id", "routes/admin/news/edit-news.tsx", { id: "admin-news-edit-id" }),
-    route("result", "routes/admin/news/result-news.tsx"),
+  layout("routes/admin/news/news-layout.tsx", [
+    ...prefix("news", [
+      route("list", "routes/admin/news/list-news.tsx"),
+      route("edit", "routes/admin/news/edit-news.tsx"),
+      route("edit/:id", "routes/admin/news/edit-news.tsx", { id: "admin-news-edit-id" }),
+      route("result", "routes/admin/news/result-news.tsx"),
+    ]),
   ]),
 ];
 
 const adminProfileRoutes = [
-  ...prefix("profile", [
-    route("account", "routes/admin/profile/account.tsx"),
-    route("link", "routes/admin/profile/link/category.tsx"),
+  layout("routes/admin/profile/profile-layout.tsx", [
+    ...prefix("profile", [
+      route("account", "routes/admin/profile/account.tsx"),
+      route("link", "routes/admin/profile/link/category.tsx"),
+    ]),
   ]),
 ];
 
 const adminSystemRoutes = [
-  ...prefix("system", [
-    route("config", "routes/admin/system/config/index.tsx"),
-    route("dept", "routes/admin/system/dept/index.tsx"),
-    route("dict", "routes/admin/system/dict/index.tsx"),
-    route("dict-item/:id", "routes/admin/system/dict-item/index.tsx"),
-    route("menu", "routes/admin/system/menu/index.tsx"),
-    ...prefix("monitor", [
-      route("loginlog", "routes/admin/system/monitor/login-log/index.tsx"),
-      route("serve", "routes/admin/system/monitor/serve/index.tsx"),
-      route("operate", "routes/admin/system/monitor/operate/index.tsx"),
+  layout("routes/admin/system/system-layout.tsx", [
+    ...prefix("system", [
+      route("config", "routes/admin/system/config/index.tsx"),
+      route("dept", "routes/admin/system/dept/index.tsx"),
+      route("dict", "routes/admin/system/dict/index.tsx"),
+      route("dict-item/:id", "routes/admin/system/dict-item/index.tsx"),
+      route("menu", "routes/admin/system/menu/index.tsx"),
+      layout("routes/admin/system/monitor/monitor-layout.tsx", [
+        ...prefix("monitor", [
+          route("loginlog", "routes/admin/system/monitor/login-log/index.tsx"),
+          route("serve", "routes/admin/system/monitor/serve/index.tsx"),
+          route("operate", "routes/admin/system/monitor/operate/index.tsx"),
+        ]),
+      ]),
+      route("role", "routes/admin/system/role/index.tsx"),
+      route("user", "routes/admin/system/user/index.tsx"),
     ]),
-    route("role", "routes/admin/system/role/index.tsx"),
-    route("user", "routes/admin/system/user/index.tsx"),
   ]),
 ];
 
 const adminToolsRoues = [
-  ...prefix("tools", [
-    ...prefix("mail", [
-      index("routes/admin/tools/mail/index.tsx"),
-      route("list", "routes/admin/tools/mail-list/index.tsx"),
-      route(":id", "routes/admin/tools/mail-detail/index.tsx"),
+  layout("routes/admin/tools/tools-layout.tsx", [
+    ...prefix("tools", [
+      layout("routes/admin/tools/mail/mail-layout.tsx", [
+        ...prefix("mail", [
+          index("routes/admin/tools/mail/index.tsx"),
+          route("list", "routes/admin/tools/mail-list/index.tsx"),
+          route(":id", "routes/admin/tools/mail-detail/index.tsx"),
+        ]),
+      ]),
+      route("storage", "routes/admin/tools/storage/index.tsx"),
     ]),
-    route("storage", "routes/admin/tools/storage/index.tsx"),
   ]),
 ];
 
-const adminAIRoutes = [
-  route("ai", "routes/admin/ai/index.tsx"),
-  route("ai/:id", "routes/admin/ai/index.tsx", { id: "ai-chat-id" }),
-];
+const adminAIRoutes = [route("ai/chatbot", "routes/admin/ai/index.tsx")];
 
 export default [
   ...prefix(":locale?", [

@@ -4,6 +4,10 @@ import { useDeptList } from "~/api-client/queries/system/system-dept";
 import { m } from "~/paraglide/messages";
 import type { MetaFunction } from "react-router";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.system_dept_title() }],
+});
+
 export const meta: MetaFunction = () => {
   return [{ title: m.system_dept_title() }];
 };

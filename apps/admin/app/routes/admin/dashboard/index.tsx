@@ -6,6 +6,10 @@ import { PageContainer } from "~/components/page-container";
 import { useUserInfo } from "~/api-client/queries/system/system-user";
 import { useDashboard } from "~/api-client/queries/dashboard/dashboard";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.dashboard_title() }],
+});
+
 export const meta: MetaFunction = () => {
   return [{ title: m.dashboard_title() }];
 };

@@ -3,7 +3,7 @@ import { AppQueryProvider } from "~/providers/app-query-provider";
 import { config } from "~/config";
 import { NavFooter } from "./components/footer";
 import { defaultLang } from "~/config/lang";
-import { IconRocket } from "@tabler/icons-react";
+import { RocketIcon } from "~/components/icons";
 import { Button } from "@workspace/ui/components/button";
 import { ThemeSwitcher } from "~/components/theme-switcher";
 import { LocaleSwitcher } from "~/components/locale-switcher";
@@ -61,8 +61,14 @@ function MarketingLayout() {
             onClick={() => navigate(`/`)}
             aria-label="Go to home"
           >
-            <span className="flex items-center justify-center w-9 h-9 text-lg text-primary">
-              <IconRocket className="size-5" />
+            <span
+              className="flex size-9 items-center justify-center rounded-xl text-white"
+              style={{
+                background: "linear-gradient(135deg, var(--brand-primary), var(--brand-accent))",
+                boxShadow: "0 6px 18px var(--brand-glow)",
+              }}
+            >
+              <RocketIcon className="size-5" />
             </span>
             <div className="flex flex-col leading-tight">
               <span className="text-xs text-muted-foreground">{m.nav_brand_subtitle()}</span>
@@ -79,12 +85,12 @@ function MarketingLayout() {
                   key={item.key}
                   to={hrefPath}
                   className={`relative text-sm font-medium py-2 transition-colors ${
-                    isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                    isActive ? "text-brand-primary" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {navLabel(item.key)}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-sm" />
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 rounded-sm bg-brand-primary" />
                   )}
                 </NavLink>
               );

@@ -15,6 +15,10 @@ import { m } from "~/paraglide/messages";
 import { BlogSidebar } from "./list-blog/blog-sidebar";
 import { createColumns } from "./list-blog/create-columns";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.breadcrumb_list() }],
+});
+
 export const meta: MetaFunction = () => [{ title: "Blog · list" }];
 
 export function Route() {

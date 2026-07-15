@@ -9,6 +9,10 @@ import { AccountSessions } from "./account/components/account-sessions";
 import { BasicInfoDescriptions } from "./account/components/basic-info-descriptions";
 import { OAuthAccountsSection } from "./account/components/linked-o-auth-accounts";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.profile_account_title() }],
+});
+
 export const meta: MetaFunction = () => [{ title: "Profile · account" }];
 
 export function Route() {

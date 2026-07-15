@@ -10,6 +10,10 @@ import { useNavigate, useParams } from "react-router";
 import { useState } from "react";
 import { useDictItemList } from "~/api-client/queries/system/system-dict-item";
 
+export const handle = ({ params }: { params: { id?: string } }) => ({
+  breadcrumb: [{ label: params.id ? `Dict: #${params.id}` : m.system_dict_item_title() }],
+});
+
 export const meta: MetaFunction = () => {
   return [{ title: m.system_dict_item_title() }];
 };

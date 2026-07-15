@@ -22,6 +22,10 @@ import { ButtonLink } from "~/components/common";
 import { PageContainer } from "~/components/page-container";
 import { m } from "~/paraglide/messages";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.breadcrumb_list() }],
+});
+
 import { CreateNewsCategoryModal } from "./category/components/create-news-category-modal";
 import { UpdateNewsCategoryModal } from "./category/components/update-news-category-modal";
 import { isNewsCategoryVisible } from "./news-category-select";

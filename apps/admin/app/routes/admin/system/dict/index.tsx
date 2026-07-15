@@ -9,6 +9,10 @@ import { useParams } from "react-router";
 import { useState } from "react";
 import { useDictList } from "~/api-client/queries/system/system-dict";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.system_dict_title() }],
+});
+
 export const meta: MetaFunction = () => {
   return [{ title: m.system_dict_title() }];
 };

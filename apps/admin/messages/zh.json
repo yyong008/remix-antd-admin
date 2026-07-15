@@ -690,5 +690,23 @@
   "docs_feedback_toast_created": "创建成功",
   "docs_feedback_toast_updated": "更新成功",
   "docs_feedback_toast_create_failed": "创建失败",
-  "docs_feedback_toast_update_failed": "更新失败"
+  "docs_feedback_toast_update_failed": "更新失败",
+
+  "breadcrumb_blog": "博客",
+  "breadcrumb_news": "新闻",
+  "breadcrumb_system": "系统",
+  "breadcrumb_profile": "个人",
+  "breadcrumb_tools": "工具",
+  "breadcrumb_monitor": "监控",
+  "breadcrumb_mail": "邮件",
+  "breadcrumb_list": "列表",
+  "breadcrumb_category": "分类",
+  "breadcrumb_tag": "标签",
+  "breadcrumb_new": "新建",
+  "breadcrumb_edit": "编辑",
+  "breadcrumb_result": "结果",
+  "breadcrumb_detail": "详情",
+  "breadcrumb_storage": "存储",
+  "breadcrumb_welcome": "欢迎",
+  "breadcrumb_about": "关于"
 }

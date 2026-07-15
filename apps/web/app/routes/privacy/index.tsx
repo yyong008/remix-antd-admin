@@ -1,4 +1,6 @@
 import type { LoaderFunctionArgs } from "react-router";
+import { Card, CardContent } from "@workspace/ui/components/card";
+import { PageHeader } from "~/components/page-header";
 import * as m from "~/paraglide/messages.js";
 
 export const loader = async (_args: LoaderFunctionArgs) => {
@@ -68,29 +70,38 @@ const sections: PrivacySection[] = [
 
 export default function Privacy() {
   return (
-    <div className="mx-auto max-w-200 px-6 pt-25 pb-12">
-      <header className="text-center p-6">
-        <h1 className="text-[30px] font-semibold">{m.privacy_heading()}</h1>
-      </header>
+    <div className="mx-auto max-w-200 px-6 pb-12 pt-10">
+      <PageHeader title={m.privacy_heading()} />
 
-      <main className="mx-auto my-8 p-6 rounded-lg">
-        {sections.map((section, index) => (
-          <div key={index}>
-            <h2 className="text-2xl font-semibold mt-6 mb-4">{section.title()}</h2>
-            {section.intro ? <p className="mt-4 leading-[1.8]">{section.intro()}</p> : null}
-            {section.items ? (
-              <ul className="mt-2 pl-6 leading-[1.8]">
-                {section.items.map((item, itemIndex) => (
-                  <li key={itemIndex}>{item()}</li>
-                ))}
-              </ul>
-            ) : null}
-            {section.body ? <p className="mt-4 leading-[1.8]">{section.body()}</p> : null}
-          </div>
-        ))}
+      <Card className="rounded-2xl border-border">
+        <CardContent className="p-6 md:p-10">
+          {sections.map((section, index) => (
+            <div
+              key={index}
+              className="border-l-2 border-brand-primary/70 py-4 pl-4 first:pt-0 last:pb-0"
+            >
+              <h2 className="mb-3 text-xl font-semibold text-foreground">{section.title()}</h2>
+              {section.intro ? (
+                <p className="mt-2 leading-[1.8] text-muted-foreground">{section.intro()}</p>
+              ) : null}
+              {section.items ? (
+                <ul className="mt-2 space-y-1 pl-6 leading-[1.8] text-muted-foreground">
+                  {section.items.map((item, itemIndex) => (
+                    <li key={itemIndex}>{item()}</li>
+                  ))}
+                </ul>
+              ) : null}
+              {section.body ? (
+                <p className="mt-2 leading-[1.8] text-muted-foreground">{section.body()}</p>
+              ) : null}
+            </div>
+          ))}
 
-        <p className="mt-2 leading-[1.8]">{m.privacy_contact_email()}</p>
-      </main>
+          <p className="mt-4 border-l-2 border-brand-primary/70 pl-4 leading-[1.8] text-muted-foreground">
+            {m.privacy_contact_email()}
+          </p>
+        </CardContent>
+      </Card>
     </div>
   );
 }

@@ -11,6 +11,10 @@ import { m } from "~/paraglide/messages";
 import { MailForm } from "./components/mail-form";
 import { useToolsMailById } from "~/api-client/queries/tools/tools-mail";
 
+export const handle = ({ params }: { params: { id?: string } }) => ({
+  breadcrumb: [{ label: params.id ? `Mail: #${params.id}` : m.breadcrumb_detail() }],
+});
+
 export const meta: MetaFunction = () => {
   return [{ title: m.tools_mail_detail_title() }];
 };

@@ -6,6 +6,10 @@ import { m } from "~/paraglide/messages";
 import type { MetaFunction } from "react-router";
 import { useState } from "react";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.system_monitor_operate_title() }],
+});
+
 export const meta: MetaFunction = () => {
   return [{ title: m.system_monitor_operate_title() }];
 };

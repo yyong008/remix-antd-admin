@@ -51,9 +51,21 @@ export function createColumns({
               alignItems: "center",
               justifyContent: "space-between",
               paddingRight: 8,
+              overflow: "hidden",
             }}
           >
-            <span style={{ fontWeight: 500 }}>{record.name}</span>
+            <span
+              style={{
+                fontWeight: 500,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                flex: 1,
+                minWidth: 0,
+              }}
+            >
+              {record.name}
+            </span>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <Tag color="processing" style={{ margin: 0 }}>
                 {typeof record.linkCount === "number" ? record.linkCount : 0}

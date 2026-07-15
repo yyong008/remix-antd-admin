@@ -5,6 +5,10 @@ import { useAntdThemeToken } from "~/hooks/useAntdThemeToken";
 import { m } from "~/paraglide/messages";
 import type { MetaFunction } from "react-router";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.system_config_title() }],
+});
+
 export const meta: MetaFunction = () => {
   return [{ title: m.system_config_title() }];
 };

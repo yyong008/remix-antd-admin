@@ -4,6 +4,11 @@ import { Space } from "antd";
 import { useAboutData } from "~/hooks";
 import { AdminAbout } from "~/components/about";
 import { PageContainer } from "~/components/page-container";
+import { m } from "~/paraglide/messages";
+
+export const handle = () => ({
+  breadcrumb: [{ label: m.breadcrumb_about() }],
+});
 
 export const meta: MetaFunction = () => {
   return [{ title: "About" }];

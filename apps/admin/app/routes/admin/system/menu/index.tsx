@@ -5,6 +5,10 @@ import { useMenuList } from "~/api-client/queries/system/system-menu";
 import { m } from "~/paraglide/messages";
 import type { MetaFunction } from "react-router";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.system_menu_title() }],
+});
+
 export const meta: MetaFunction = () => {
   return [{ title: m.system_menu_title() }];
 };

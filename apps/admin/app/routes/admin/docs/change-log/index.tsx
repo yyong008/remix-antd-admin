@@ -9,6 +9,10 @@ import { Space, Tag } from "antd";
 import type { MetaFunction } from "react-router";
 import { useState } from "react";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.docs_changelog_title() }],
+});
+
 export const meta: MetaFunction = () => {
   return [{ title: m.docs_changelog_title() }];
 };

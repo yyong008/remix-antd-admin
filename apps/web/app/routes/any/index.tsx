@@ -1,7 +1,7 @@
-import { Button } from "@workspace/ui/components/button";
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 import type { MetaFunction } from "react-router";
-import { IconHelpCircle } from "@tabler/icons-react";
+import { QuestionIcon } from "~/components/icons";
+import { BrandButton } from "~/components/landings/_shared/brand-button";
 import * as m from "~/paraglide/messages.js";
 
 export const meta: MetaFunction = () => {
@@ -9,17 +9,19 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Route() {
-  const navigate = useNavigate();
-
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
+    <div className="flex min-h-screen items-center justify-center p-6">
       <div className="text-center">
-        <IconHelpCircle className="size-24 mx-auto mb-6 text-muted-foreground" />
-        <h1 className="text-6xl font-bold mb-4">{m.error_404_title()}</h1>
-        <p className="text-xl text-muted-foreground mb-8">{m.error_404_message()}</p>
-        <Button variant="default" onClick={() => navigate("/")}>
-          {m.nav_home()}
-        </Button>
+        <div className="mx-auto mb-6 flex size-24 items-center justify-center rounded-3xl bg-brand-surface text-brand-primary">
+          <QuestionIcon className="size-12" />
+        </div>
+        <h1 className="bg-brand-gradient bg-clip-text text-7xl font-bold text-transparent">
+          {m.error_404_title()}
+        </h1>
+        <p className="mb-8 mt-3 text-xl text-muted-foreground">{m.error_404_message()}</p>
+        <Link to="/">
+          <BrandButton size="lg">{m.nav_home()}</BrandButton>
+        </Link>
       </div>
     </div>
   );

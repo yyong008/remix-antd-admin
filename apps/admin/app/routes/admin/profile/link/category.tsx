@@ -17,6 +17,10 @@ import { createColumns as createCategoryColumns } from "./category/components/cr
 import { createColumns as createLinkColumns } from "./link/components/create-columns";
 import { CreateLinkModal } from "./link/components/create-link-modal";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.profile_link_title() }],
+});
+
 export const meta: MetaFunction = () => [{ title: "Profile · links" }];
 
 function idKey(v: unknown) {
@@ -89,12 +93,15 @@ export function Route() {
       try {
         await deleteMutation.mutateAsync({ ids: [record.id] });
         message.success(m.profile_link_toast_deleted());
+        if (idKey(record.id) === idKey(selectedCategoryId)) {
+          setSelectedCategoryId(null);
+        }
         refetchAll();
       } catch (e) {
         message.error(e instanceof Error ? e.message : m.profile_link_toast_delete_failed());
       }
     },
-    [deleteMutation, refetchAll],
+    [deleteMutation, refetchAll, selectedCategoryId],
   );
 
   const categoryColumns = useMemo(
@@ -154,7 +161,12 @@ export function Route() {
       <div style={{ display: "flex", minHeight: 480, gap: 16 }}>
         <Card
           size="small"
-          style={{ width: 280, flexShrink: 0, borderColor: token.colorPrimaryBorder }}
+          style={{
+            width: 280,
+            flexShrink: 0,
+            borderColor: token.colorPrimaryBorder,
+            alignSelf: "stretch",
+          }}
           title={
             <span>
               {m.profile_link_category_card_title()}
@@ -168,7 +180,7 @@ export function Route() {
               ) : null}
             </span>
           }
-          styles={{ body: { padding: 12 } }}
+          styles={{ body: { padding: 12, overflowY: "auto" } }}
           extra={
             <CreateLinkCategoryModal
               refetch={refetchAll}

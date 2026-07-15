@@ -4,6 +4,10 @@ import type { MetaFunction } from "react-router";
 
 import { m } from "~/paraglide/messages";
 
+export const handle = () => ({
+  breadcrumb: [{ label: m.breadcrumb_result() }],
+});
+
 export const meta: MetaFunction = () => [{ title: "News · result" }];
 
 export function Route() {
