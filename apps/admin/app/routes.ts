@@ -10,17 +10,17 @@ const authRoutes = [
 const adminDashboardRoutes = [...prefix("dashboard", [index("routes/admin/dashboard/index.tsx")])];
 
 const adminBlogRoutes = [
-  layout("routes/admin/blog/blog-layout.tsx", [
+  layout("routes/admin/blog/_layout.tsx", [
     ...prefix("blog", [
-      route("list", "routes/admin/blog/list-blog.tsx"),
-      route("category", "routes/admin/blog/list-blog-category.tsx"),
-      route("tag", "routes/admin/blog/list-blog-tag.tsx"),
-      route("new", "routes/admin/blog/edit-blog.tsx", { id: "admin-blog-new" }),
-      route("edit", "routes/admin/blog/edit-blog.tsx", { id: "admin-blog-edit" }),
-      route("edit/:id", "routes/admin/blog/edit-blog.tsx", {
+      route("list", "routes/admin/blog/list/index.tsx"),
+      route("category", "routes/admin/blog/category/index.tsx"),
+      route("tag", "routes/admin/blog/tag/index.tsx"),
+      route("new", "routes/admin/blog/edit/index.tsx", { id: "admin-blog-new" }),
+      route("edit", "routes/admin/blog/edit/index.tsx", { id: "admin-blog-edit" }),
+      route("edit/:id", "routes/admin/blog/edit/index.tsx", {
         id: "admin-blog-edit-id",
       }),
-      route("result", "routes/admin/blog/result-blog.tsx"),
+      route("result", "routes/admin/blog/result/index.tsx"),
     ]),
   ]),
 ];

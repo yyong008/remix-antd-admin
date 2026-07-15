@@ -12,8 +12,8 @@ import { ButtonLink } from "~/components/common";
 import { PageContainer } from "~/components/page-container";
 import { m } from "~/paraglide/messages";
 
-import { BlogSidebar } from "./list-blog/blog-sidebar";
-import { createColumns } from "./list-blog/create-columns";
+import { BlogSidebar } from "./blog-sidebar";
+import { createColumns } from "./create-columns";
 
 export const handle = () => ({
   breadcrumb: [{ label: m.breadcrumb_list() }],

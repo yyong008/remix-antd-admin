@@ -4,8 +4,8 @@ import { useBlogTagList } from "~/api-client/queries/blog/blog-tag";
 import type { MetaFunction } from "react-router";
 
 import { m } from "~/paraglide/messages";
-import { CreateBlogTagModal } from "./tag/components/create-blog-tag-modal";
-import { createColumns } from "./tag/components/create-columns";
+import { CreateBlogTagModal } from "./components/create-modal";
+import { createColumns } from "./components/create-columns";
 
 export const handle = () => ({
   breadcrumb: [{ label: m.breadcrumb_tag() }],

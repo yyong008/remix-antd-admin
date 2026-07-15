@@ -20,10 +20,10 @@ import {
 import { useBlogTagList, useDeleteBlogTag } from "~/api-client/queries/blog/blog-tag";
 import { m } from "~/paraglide/messages";
 
-import { CreateBlogCategoryModal } from "../category/components/create-blog-category-modal";
-import { CreateBlogTagModal } from "../tag/components/create-blog-tag-modal";
-import { UpdateBlogCategoryModal } from "../category/components/update-blog-category-modal";
-import { UpdateBlogTagModal } from "../tag/components/update-blog-tag-modal";
+import { CreateBlogCategoryModal } from "../category/components/create-modal";
+import { CreateBlogTagModal } from "../tag/components/create-modal";
+import { UpdateBlogCategoryModal } from "../category/components/update-modal";
+import { UpdateBlogTagModal } from "../tag/components/update-modal";
 
 function CategoryActionsCell({
   cat,

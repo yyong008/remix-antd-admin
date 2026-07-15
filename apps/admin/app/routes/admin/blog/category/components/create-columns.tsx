@@ -6,7 +6,7 @@ import { useColorPrimary } from "~/hooks/useColorPrimary";
 import { SwitcherOutlined } from "@ant-design/icons";
 
 import { DeleteAction } from "./delete-action";
-import { UpdateBlogCategoryModal } from "./update-blog-category-modal";
+import { UpdateBlogCategoryModal } from "./update-modal";
 
 export function createColumns({ refetch }: { refetch?: () => void }) {
   const { locale } = useParams();
