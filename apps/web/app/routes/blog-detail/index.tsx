@@ -84,7 +84,7 @@ export default function Route() {
   }
 
   return (
-    <div className="mx-auto max-w-300 px-6 py-8">
+    <div className="mx-auto max-w-5xl px-6 py-8">
       <div className="mb-6">
         <Link to="/blog">
           <BrandButton variant="ghost" size="md" iconLeft={<ArrowLeftIcon className="size-4" />}>
