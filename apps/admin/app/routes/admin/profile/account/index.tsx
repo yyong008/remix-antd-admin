@@ -15,7 +15,7 @@ export const handle = () => ({
 
 export const meta: MetaFunction = () => [{ title: "Profile · account" }];
 
-export function Route() {
+export default function Page() {
   const { isLoading } = useUserInfo();
 
   return (
@@ -31,8 +31,4 @@ export function Route() {
       </Flex>
     </PageContainer>
   );
-}
-
-export default function Page() {
-  return <Route />;
 }

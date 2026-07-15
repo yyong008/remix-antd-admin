@@ -98,7 +98,7 @@ export default [
         ...adminAIRoutes,
         route("about", "routes/admin/about/index.tsx"),
         route("welcome", "routes/admin/welcome/index.tsx"),
-        route("docs/change-log", "routes/admin/docs/change-log/index.tsx"),
+        route("docs/changelog", "routes/admin/docs/changelog/index.tsx"),
         route("docs/feedback", "routes/admin/docs/feedback/index.tsx"),
       ]),
     ]),

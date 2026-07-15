@@ -27,7 +27,7 @@ function idKey(v: unknown) {
   return v == null ? null : String(v);
 }
 
-export function Route() {
+export default function Page() {
   const { token } = theme.useToken();
 
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
@@ -255,8 +255,4 @@ export function Route() {
       </div>
     </PageContainer>
   );
-}
-
-export default function Page() {
-  return <Route />;
 }
