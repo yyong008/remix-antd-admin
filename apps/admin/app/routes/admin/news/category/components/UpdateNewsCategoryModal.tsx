@@ -1,9 +1,11 @@
 import { Button, Divider, Flex, Form, Modal, message } from "antd";
 import { EditOutlined } from "@ant-design/icons";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useAntdThemeToken } from "~/hooks/useAntdThemeToken";
 import { useUpdateNewsCategory } from "~/api-client/queries/news/news-category";
+import { m } from "~/paraglide/messages";
+
 import { ModalFormItems, normalizeNewsCategoryValues } from "./ModalFormItem";
 
 export function UpdateNewsCategoryModal({
@@ -47,7 +49,7 @@ export function UpdateNewsCategoryModal({
   const handleFinish = async (values: Record<string, unknown>) => {
     const normalized = normalizeNewsCategoryValues(values);
     if (!normalized.name) {
-      message.error("请输入分类名称");
+      message.error(m.news_category_name_required());
       return false;
     }
     try {
@@ -57,12 +59,12 @@ export function UpdateNewsCategoryModal({
         description: normalized.description || undefined,
         visible: normalized.visible,
       });
-      message.success("更新成功");
+      message.success(m.news_category_toast_updated());
       refetch();
       handleClose();
       return true;
     } catch (e) {
-      message.error(e instanceof Error ? e.message : "更新失败");
+      message.error(e instanceof Error ? e.message : m.news_category_toast_failed());
       return false;
     }
   };
@@ -75,11 +77,11 @@ export function UpdateNewsCategoryModal({
           size="small"
           icon={<EditOutlined {...iconStyles} />}
           onClick={() => setOpen(true)}
-          aria-label="编辑分类"
+          aria-label={m.news_action_edit()}
         />
       )}
       <Modal
-        title="修改新闻分类"
+        title={m.news_category_update_title()}
         open={isOpen}
         onCancel={handleClose}
         footer={null}
@@ -92,9 +94,9 @@ export function UpdateNewsCategoryModal({
           <Form.Item style={{ marginBottom: 0 }}>
             <Flex gap="small" wrap="wrap">
               <Button type="primary" htmlType="submit" loading={isPending}>
-                更新
+                {m.news_category_update_button()}
               </Button>
-              <Button onClick={handleClose}>取消</Button>
+              <Button onClick={handleClose}>{m.news_category_cancel_button()}</Button>
             </Flex>
           </Form.Item>
         </Form>

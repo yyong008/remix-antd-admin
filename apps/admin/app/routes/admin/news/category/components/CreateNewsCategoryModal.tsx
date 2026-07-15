@@ -3,6 +3,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
 import { useCreateNewsCategory } from "~/api-client/queries/news/news-category";
+import { m } from "~/paraglide/messages";
+
 import { ModalFormItems, normalizeNewsCategoryValues } from "./ModalFormItem";
 
 export function CreateNewsCategoryModal({
@@ -29,7 +31,7 @@ export function CreateNewsCategoryModal({
   const handleFinish = async (values: Record<string, unknown>) => {
     const normalized = normalizeNewsCategoryValues(values);
     if (!normalized.name) {
-      message.error("请输入分类名称");
+      message.error(m.news_category_name_required());
       return false;
     }
     try {
@@ -38,12 +40,12 @@ export function CreateNewsCategoryModal({
         description: normalized.description || undefined,
         visible: normalized.visible,
       });
-      message.success("创建成功");
+      message.success(m.news_category_toast_created());
       refetch();
       handleClose();
       return true;
     } catch (e) {
-      message.error(e instanceof Error ? e.message : "创建失败");
+      message.error(e instanceof Error ? e.message : m.news_category_toast_failed());
       return false;
     }
   };
@@ -57,10 +59,10 @@ export function CreateNewsCategoryModal({
         icon={<PlusOutlined />}
         onClick={handleOpen}
       >
-        新建分类
+        {m.news_category_new_button()}
       </Button>
       <Modal
-        title="新建新闻分类"
+        title={m.news_category_create_title()}
         open={open}
         onCancel={handleClose}
         footer={null}
@@ -78,9 +80,9 @@ export function CreateNewsCategoryModal({
           <Form.Item style={{ marginBottom: 0 }}>
             <Flex gap="small" wrap="wrap">
               <Button type="primary" htmlType="submit" loading={isPending}>
-                创建
+                {m.news_category_create_button()}
               </Button>
-              <Button onClick={handleClose}>取消</Button>
+              <Button onClick={handleClose}>{m.news_category_cancel_button()}</Button>
             </Flex>
           </Form.Item>
         </Form>

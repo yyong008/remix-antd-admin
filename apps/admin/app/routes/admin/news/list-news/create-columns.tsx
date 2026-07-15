@@ -1,22 +1,28 @@
 import { href, Link } from "react-router";
-import { Button, Dropdown, Tag, Modal, type MenuProps } from "antd";
+import { Button, Dropdown, message, Modal, Tag, type MenuProps } from "antd";
 import {
-  EyeOutlined,
-  EditOutlined,
-  MoreOutlined,
-  DeleteOutlined,
   CheckCircleOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  EyeOutlined,
+  MoreOutlined,
   StopOutlined,
 } from "@ant-design/icons";
-import { useToggleNewsStatus } from "~/api-client/queries/news/news";
-import { useDeleteNews } from "~/api-client/queries/news/news";
+
+import { useDeleteNews, useToggleNewsStatus } from "~/api-client/queries/news/news";
+import { m } from "~/paraglide/messages";
 
 function NewsActionsCell({
   record,
   refetch,
   locale,
 }: {
-  record: any;
+  record: {
+    id: string;
+    title: string;
+    content?: string;
+    status?: number;
+  };
   refetch: () => void;
   locale?: string;
 }) {
@@ -24,40 +30,30 @@ function NewsActionsCell({
   const { mutateAsync: deleteNews, isPending: isDeleting } = useDeleteNews();
 
   const handleToggleStatus = async () => {
-    const result = (await toggleStatus({ id: record.id })) as { code?: number; message?: string };
-    if (result.code !== 0) {
-      Modal.error({ title: result.message ?? "操作失败" });
-      return;
+    try {
+      await toggleStatus({ id: record.id });
+      message.success(record.status === 1 ? m.news_toast_unpublished() : m.news_toast_published());
+      refetch();
+    } catch (e) {
+      message.error(e instanceof Error ? e.message : m.news_toast_update_failed());
     }
-    refetch();
-    Modal.success({ title: record.status === 1 ? "已下架" : "已发布" });
   };
 
-  const handleDelete = () => {
-    Modal.confirm({
-      title: "确定要删除吗？",
-      okText: "确认",
-      cancelText: "取消",
-      async onOk() {
-        const result = (await deleteNews({ ids: [record.id] })) as {
-          code?: number;
-          message?: string;
-        };
-        if (result.code !== 0) {
-          Modal.error({ title: result.message ?? "删除失败" });
-          return;
-        }
-        refetch();
-        Modal.success({ title: "删除成功" });
-      },
-    });
+  const handleDelete = async () => {
+    try {
+      await deleteNews({ ids: [record.id] });
+      message.success(m.news_toast_deleted());
+      refetch();
+    } catch (e) {
+      message.error(e instanceof Error ? e.message : m.news_toast_delete_failed());
+    }
   };
 
   const items: MenuProps["items"] = [
     {
       key: "view",
       icon: <EyeOutlined />,
-      label: "查看内容",
+      label: m.news_action_view(),
       onClick: () => {
         Modal.info({
           title: record.title,
@@ -68,32 +64,33 @@ function NewsActionsCell({
             />
           ),
           width: 700,
-          okText: "关闭",
+          okText: m.news_action_close(),
         });
       },
     },
     {
       key: "toggle",
       icon: record.status === 1 ? <StopOutlined /> : <CheckCircleOutlined />,
-      label: record.status === 1 ? "下架" : "发布",
+      label: record.status === 1 ? m.news_action_unpublish() : m.news_action_publish(),
       onClick: handleToggleStatus,
       disabled: isToggling,
     },
     {
       key: "edit",
       icon: <EditOutlined />,
-      label: "编辑",
+      label: m.news_action_edit(),
       onClick: () => {
-        window.location.href = href("/:locale?/admin/news/edit/:id", { locale, id: record.id });
+        window.location.href = href("/:locale?/admin/news/edit/:id", {
+          locale,
+          id: record.id,
+        });
       },
     },
-    {
-      type: "divider",
-    },
+    { type: "divider" },
     {
       key: "delete",
       icon: <DeleteOutlined />,
-      label: "删除",
+      label: m.news_action_delete(),
       danger: true,
       disabled: isDeleting,
       onClick: handleDelete,
@@ -119,9 +116,9 @@ export function createColumns({
   return [
     {
       dataIndex: "title",
-      title: "新闻标题",
+      title: m.news_list_column_title(),
       ellipsis: true,
-      render: (_: unknown, record: any) => (
+      render: (_: unknown, record: { id: string; title: string }) => (
         <Link
           style={{
             display: "block",
@@ -132,7 +129,7 @@ export function createColumns({
           }}
           title={record.title}
           to={{
-            pathname: href("/:locale?/news/:id", { locale, id: record.id }),
+            pathname: href("/:locale?/news/:id" as any, { locale, id: record.id }),
           }}
         >
           {record.title}
@@ -141,24 +138,28 @@ export function createColumns({
     },
     {
       dataIndex: "status",
-      title: "状态",
+      title: m.news_list_column_status(),
       width: 80,
-      render: (_: unknown, record: any) =>
-        record.status === 1 ? <Tag color="green">已发布</Tag> : <Tag color="default">未发布</Tag>,
+      render: (_: unknown, record: { status?: number }) =>
+        record.status === 1 ? (
+          <Tag color="green">{m.news_list_status_published()}</Tag>
+        ) : (
+          <Tag color="default">{m.news_list_status_draft()}</Tag>
+        ),
     },
     {
       dataIndex: "author",
-      title: "作者",
+      title: m.news_list_column_author(),
       ellipsis: true,
     },
     {
       dataIndex: "source",
-      title: "新闻来源",
+      title: m.news_list_column_source(),
       ellipsis: true,
     },
     {
       dataIndex: "newsId",
-      title: "新闻分类",
+      title: m.news_list_column_category(),
       ellipsis: true,
       render: (_: unknown, record: { newsId?: string | null }) => {
         const id = record.newsId;
@@ -168,16 +169,17 @@ export function createColumns({
     },
     {
       dataIndex: "viewCount",
-      title: "查看次数",
+      title: m.news_list_column_view_count(),
       width: 96,
     },
     {
       dataIndex: "op",
-      title: "操作",
+      title: m.news_list_column_action(),
       width: 60,
-      render: (_: unknown, record: any) => (
-        <NewsActionsCell record={record} refetch={refetch} locale={locale} />
-      ),
+      render: (
+        _: unknown,
+        record: { id: string; title: string; content?: string; status?: number },
+      ) => <NewsActionsCell record={record} refetch={refetch} locale={locale} />,
     },
   ];
 }

@@ -1,55 +1,52 @@
 import { useEffect, useMemo, useState } from "react";
+import { Button, Card, Dropdown, Empty, Flex, Input, Modal, Table, Typography } from "antd";
+import type { MenuProps } from "antd";
 import {
-  Button,
-  Card,
-  Empty,
-  Flex,
-  Typography,
-  Input,
-  Table,
-  Dropdown,
-  type MenuProps,
-  Modal,
-} from "antd";
-import { href, useParams, useSearchParams } from "react-router";
-import {
-  FolderOutlined,
-  ReloadOutlined,
-  SearchOutlined,
-  MoreOutlined,
   EditOutlined,
   DeleteOutlined,
+  FolderOutlined,
+  MoreOutlined,
+  ReloadOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
+import { href, useParams, useSearchParams } from "react-router";
+import type { MetaFunction } from "react-router";
 
 import {
-  useNewsCategoryList,
   useDeleteNewsCategory,
+  useNewsCategoryList,
 } from "~/api-client/queries/news/news-category";
 import { useNewsList } from "~/api-client/queries/news/news";
 import { AdminTable } from "~/components/admin-table";
-import { PageContainer } from "~/components/page-container";
 import { ButtonLink } from "~/components/common";
-import { createColumns } from "./components/createColumns";
-import { CreateNewsCategoryModal } from "../category/components/CreateNewsCategoryModal";
-import { UpdateNewsCategoryModal } from "../category/components/UpdateNewsCategoryModal";
-import { isNewsCategoryVisible } from "../news-category-select";
+import { PageContainer } from "~/components/page-container";
+import { m } from "~/paraglide/messages";
 
-function CategoryActionsCell({ cat, refetch }: { cat: any; refetch: () => void }) {
+import { CreateNewsCategoryModal } from "./category/components/CreateNewsCategoryModal";
+import { UpdateNewsCategoryModal } from "./category/components/UpdateNewsCategoryModal";
+import { isNewsCategoryVisible } from "./news-category-select";
+import { createColumns } from "./list-news/create-columns";
+
+export const meta: MetaFunction = () => [{ title: "News · list" }];
+
+function CategoryActionsCell({ cat, refetch }: { cat: { id: string }; refetch: () => void }) {
   const [editOpen, setEditOpen] = useState(false);
   const { mutateAsync: deleteCategory, isPending: isDeleting } = useDeleteNewsCategory();
 
   const handleDelete = () => {
     Modal.confirm({
-      title: "确定要删除该分类吗？",
-      okText: "确认",
-      cancelText: "取消",
+      title: m.news_action_confirm_delete_category(),
+      okText: m.news_category_create_button(),
+      cancelText: m.news_category_cancel_button(),
       async onOk() {
         try {
           await deleteCategory({ ids: [cat.id] });
           refetch();
-          Modal.success({ title: "删除成功" });
+          Modal.success({ title: m.news_category_toast_deleted() });
         } catch (e) {
-          Modal.error({ title: e instanceof Error ? e.message : "删除失败" });
+          Modal.error({
+            title: e instanceof Error ? e.message : m.news_category_toast_failed(),
+          });
         }
       },
     });
@@ -59,16 +56,14 @@ function CategoryActionsCell({ cat, refetch }: { cat: any; refetch: () => void }
     {
       key: "edit",
       icon: <EditOutlined />,
-      label: "编辑",
+      label: m.news_action_edit(),
       onClick: () => setEditOpen(true),
     },
-    {
-      type: "divider",
-    },
+    { type: "divider" },
     {
       key: "delete",
       icon: <DeleteOutlined />,
-      label: "删除",
+      label: m.news_action_delete(),
       danger: true,
       disabled: isDeleting,
       onClick: handleDelete,
@@ -136,7 +131,6 @@ export function Route() {
     return filteredNews.slice(start, start + page.pageSize);
   }, [filteredNews, page.page, page.pageSize]);
 
-  // Count news per category
   const categoryNewsCount = useMemo(() => {
     const counts: Record<string, number> = {};
     const allNews = newsData?.list ?? [];
@@ -180,10 +174,10 @@ export function Route() {
 
   const categoryColumns = [
     {
-      title: "分类名称",
+      title: m.news_category_field_name(),
       dataIndex: "name",
       key: "name",
-      render: (name: string, record: any) => (
+      render: (name: string, record: { id: string; visible?: unknown }) => (
         <Flex gap={6} align="center">
           <span
             style={{
@@ -193,36 +187,38 @@ export function Route() {
               backgroundColor: isNewsCategoryVisible(record.visible) ? "#52c41a" : "#d9d9d9",
               flexShrink: 0,
             }}
-            title={isNewsCategoryVisible(record.visible) ? "展示中" : "已隐藏"}
+            title={
+              isNewsCategoryVisible(record.visible) ? m.news_list_visible() : m.news_list_hidden()
+            }
           />
           <span>{name}</span>
         </Flex>
       ),
     },
     {
-      title: "新闻数",
+      title: m.news_list_column_category(),
       dataIndex: "id",
       key: "count",
       width: 80,
       render: (id: string) => categoryNewsCount[id] ?? 0,
     },
     {
-      title: "状态",
+      title: m.news_category_field_visible(),
       dataIndex: "visible",
       key: "visible",
       width: 80,
       render: (visible: unknown) =>
         isNewsCategoryVisible(visible) ? (
-          <span style={{ color: "#52c41a" }}>展示</span>
+          <span style={{ color: "#52c41a" }}>{m.news_list_visible()}</span>
         ) : (
-          <span style={{ color: "#d9d9d9" }}>隐藏</span>
+          <span style={{ color: "#d9d9d9" }}>{m.news_list_hidden()}</span>
         ),
     },
     {
-      title: "操作",
+      title: m.news_list_column_action(),
       key: "action",
       width: 60,
-      render: (_: unknown, record: any) => (
+      render: (_: unknown, record: { id: string }) => (
         <CategoryActionsCell cat={record} refetch={refetchCategories} />
       ),
     },
@@ -249,7 +245,7 @@ export function Route() {
           title={
             <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <FolderOutlined style={{ color: "#eab308" }} />
-              新闻分类
+              {m.news_list_sidebar_title()}
             </span>
           }
           styles={{ body: { padding: 0 } }}
@@ -258,10 +254,13 @@ export function Route() {
           <div style={{ overflowY: "auto", maxHeight: "calc(100vh - 200px)" }}>
             {catLoading ? (
               <Flex justify="center" style={{ padding: 24 }}>
-                <Typography.Text type="secondary">加载中...</Typography.Text>
+                <Typography.Text type="secondary">{m.news_list_loading()}</Typography.Text>
               </Flex>
             ) : categories.length === 0 ? (
-              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无分类" />
+              <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                description={m.news_list_empty_categories()}
+              />
             ) : (
               <Table
                 size="small"
@@ -286,8 +285,11 @@ export function Route() {
           title={
             <Typography.Text type="secondary">
               {selectedCategory
-                ? `${selectedCategory.name} · ${filteredNews.length} 篇`
-                : `全部新闻 · ${filteredNews.length} 篇`}
+                ? m.news_list_category_count({
+                    name: selectedCategory.name,
+                    count: filteredNews.length,
+                  })
+                : m.news_list_all_count({ count: filteredNews.length })}
             </Typography.Text>
           }
           extra={
@@ -299,11 +301,11 @@ export function Route() {
                   void refetchCategories();
                 }}
               >
-                刷新
+                {m.news_list_action_refresh()}
               </Button>
               <ButtonLink
                 type="new"
-                content="新建新闻"
+                content={m.news_list_action_new()}
                 to={href(`/:locale?/admin/news/edit`, { locale })}
               />
             </Flex>
@@ -311,7 +313,7 @@ export function Route() {
         >
           <Flex vertical gap={8}>
             <Input
-              placeholder="搜索新闻标题/作者/来源..."
+              placeholder={m.news_list_search_placeholder()}
               prefix={<SearchOutlined style={{ color: "#9ca3af" }} />}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -331,7 +333,7 @@ export function Route() {
                 current: page.page,
                 pageSize: page.pageSize,
                 showSizeChanger: true,
-                showTotal: (total) => `共 ${total} 条`,
+                showTotal: (total) => m.news_list_pagination_total({ total }),
                 onChange(p, pageSize) {
                   setPage({
                     page: p,
@@ -346,4 +348,8 @@ export function Route() {
       </div>
     </PageContainer>
   );
+}
+
+export default function Page() {
+  return <Route />;
 }

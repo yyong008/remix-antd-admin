@@ -1,5 +1,7 @@
 import { Form, Input, Switch, Tooltip } from "antd";
 
+import { m } from "~/paraglide/messages";
+
 export function normalizeNewsCategoryValues(values: Record<string, unknown>) {
   const name = String(values.name ?? "").trim();
   const descRaw = values.description;
@@ -18,17 +20,21 @@ export function ModalFormItems() {
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <Form.Item
         name="name"
-        label="分类名称"
+        label={m.news_category_field_name()}
         rules={[
-          { required: true, message: "请输入分类名称" },
-          { max: 64, message: "不超过 64 字" },
+          { required: true, message: m.news_category_name_required() },
+          { max: 64, message: m.news_category_name_max() },
         ]}
       >
-        <Input placeholder="请输入分类名称" allowClear />
+        <Input placeholder={m.news_category_name_required()} allowClear />
       </Form.Item>
-      <Form.Item name="description" label="描述" rules={[{ max: 500, message: "不超过 500 字" }]}>
+      <Form.Item
+        name="description"
+        label={m.news_category_field_description()}
+        rules={[{ max: 500, message: m.news_category_desc_max() }]}
+      >
         <Input.TextArea
-          placeholder="选填，简要说明该分类用途"
+          placeholder={m.news_category_desc_placeholder()}
           rows={3}
           showCount
           maxLength={500}
@@ -39,8 +45,8 @@ export function ModalFormItems() {
         name="visible"
         label={
           <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            客户端展示
-            <Tooltip title="关闭后，该分类不会出现在新闻列表左侧与新建新闻的分类下拉里；已关联的新闻不受影响。">
+            {m.news_category_field_visible()}
+            <Tooltip title={m.news_category_field_visible_tip()}>
               <span style={{ color: "#9ca3af", cursor: "help" }}>[?]</span>
             </Tooltip>
           </span>
@@ -48,7 +54,10 @@ export function ModalFormItems() {
         valuePropName="checked"
         style={{ marginBottom: 0 }}
       >
-        <Switch checkedChildren="展示" unCheckedChildren="隐藏" />
+        <Switch
+          checkedChildren={m.news_category_visible_show()}
+          unCheckedChildren={m.news_category_visible_hide()}
+        />
       </Form.Item>
     </div>
   );
