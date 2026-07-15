@@ -52,7 +52,7 @@ function MarketingLayout() {
   };
 
   return (
-    <div className="relative min-h-screen max-w-full overflow-x-hidden">
+    <div className="relative flex min-h-screen flex-col max-w-full overflow-x-hidden">
       <header className="sticky top-0 z-50   px-6 w-full  border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto flex items-center justify-between h-16">
           <button
@@ -109,7 +109,7 @@ function MarketingLayout() {
         </div>
       </header>
 
-      <main>
+      <main className="flex-1">
         <Outlet />
       </main>
 
