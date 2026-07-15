@@ -45,9 +45,7 @@ A full-stack admin dashboard platform featuring RBAC, content management (blog/n
 └── packages/
     ├── api/            # @workspace/api — Hono API implementation (routes, middleware, helpers)
     ├── auth/           # @workspace/auth — Better Auth server/client config
-    ├── config/         # @workspace/config — Shared configuration
     ├── database/       # @workspace/database — Drizzle schema, migrations, repositories, seeds
-    ├── i18n/           # @workspace/i18n — Shared inlang paraglide messages
     ├── storage/        # @workspace/storage — Cloudflare R2 storage utilities
     ├── typescript-config/  # Shared tsconfig presets
     ├── ui/             # @workspace/ui — shadcn/ui components (tailwind-based)
@@ -98,7 +96,6 @@ app/
 - **Package naming**: `@workspace/<name>` for all internal packages
 - **Consumer apps**: `apps/admin` depends on `@workspace/api`, `@workspace/auth`, `@workspace/ui`, etc.
 - **API flow**: `apps/api` re-exports `@workspace/api` as the Cloudflare Worker entry point
-- **Shared i18n**: `packages/i18n` contains base messages; each app can extend with app-specific messages
 - **Database access**: Only `packages/api` (and seed scripts) should import from `@workspace/database`
 - **UI separation**: `@workspace/ui` is for tailwind-based components; Ant Design components live in `apps/admin/app/components/`
 - **Dependency direction**: `apps/*` → `packages/*` (never the reverse)
@@ -142,11 +139,10 @@ Framework: **inlang Paraglide JS** — compile-time i18n with tree-shakeable mes
 
 ### Message Files
 
-| Location                  | Languages | Scope              |
-| ------------------------- | --------- | ------------------ |
-| `packages/i18n/messages/` | en, zh    | Shared messages    |
-| `apps/admin/messages/`    | en, de    | Admin app messages |
-| `apps/web/messages/`      | en, zh    | Web app messages   |
+| Location               | Languages | Scope              |
+| ---------------------- | --------- | ------------------ |
+| `apps/admin/messages/` | en, de    | Admin app messages |
+| `apps/web/messages/`   | en, zh    | Web app messages   |
 
 ### Configuration
 
@@ -232,9 +228,6 @@ pnpm drizzle:migrate     # Run migrations
 pnpm db:studio:local     # Open Drizzle Studio
 pnpm db:seed:local       # Seed local database
 pnpm db:setup:local      # migrate + seed
-
-# i18n
-pnpm -F @workspace/i18n run compile  # Compile inlang messages
 
 # Deploy
 pnpm build && pnpm -F apps/api run deploy

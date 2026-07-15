@@ -461,8 +461,6 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.9.0)
 
-  packages/config: {}
-
   packages/database:
     dependencies:
       '@libsql/client':
@@ -484,12 +482,6 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 6.0.3
-
-  packages/i18n:
-    dependencies:
-      '@inlang/paraglide-js':
-        specifier: 'catalog:'
-        version: 2.18.0(typescript@6.0.3)
 
   packages/icons:
     dependencies:
@@ -7207,7 +7199,6 @@ packages:
   prebuild-install@7.1.3:
     resolution: {integrity: sha512-8Mf2cbV7x1cXPUILADGI3wuhfqWvtiLA1iclTDbFRZkgRQS0NqsPZphna9V+HyTEadheuPmjaJMsbzKQFOzLug==}
     engines: {node: '>=10'}
-    deprecated: No longer maintained. Please contact the author of the relevant native addon; alternatives are available.
     hasBin: true
 
   prettier@2.8.8:
