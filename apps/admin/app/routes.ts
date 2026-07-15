@@ -37,10 +37,10 @@ const adminNewsRoutes = [
 ];
 
 const adminProfileRoutes = [
-  layout("routes/admin/profile/profile-layout.tsx", [
+  layout("routes/admin/profile/layout.tsx", [
     ...prefix("profile", [
-      route("account", "routes/admin/profile/account.tsx"),
-      route("link", "routes/admin/profile/link/category.tsx"),
+      route("account", "routes/admin/profile/account/index.tsx"),
+      route("link", "routes/admin/profile/link/index.tsx"),
     ]),
   ]),
 ];

@@ -1,5 +1,4 @@
-import { Button, Form, message } from "antd";
-import { EditOutlined } from "@ant-design/icons";
+import { Form, message } from "antd";
 import { ModalForm } from "~/components/pro-form-kit";
 
 import { useUpdateProfileLinkCategory } from "~/api-client/queries/profile/profile-link-category";
@@ -26,6 +25,7 @@ export function UpdateLinkCategoryModal({
       preserve={false}
       title={m.profile_link_update_category_title()}
       initialValues={{ ...record }}
+      open={_open}
       onOpenChange={(isOpen) => {
         if (isOpen && record?.id) {
           form.setFieldsValue({ ...record });
@@ -34,7 +34,6 @@ export function UpdateLinkCategoryModal({
           onClose?.();
         }
       }}
-      trigger={<Button type="link" size="small" icon={<EditOutlined />} />}
       form={form}
       autoFocusFirstInput
       modalProps={{

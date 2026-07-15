@@ -14,8 +14,8 @@ import { m } from "~/paraglide/messages";
 import { CreateLinkCategoryModal } from "./category/components/create-link-category-modal";
 import { UpdateLinkCategoryModal } from "./category/components/update-link-category-modal";
 import { createColumns as createCategoryColumns } from "./category/components/create-columns";
-import { createColumns as createLinkColumns } from "./link/components/create-columns";
-import { CreateLinkModal } from "./link/components/create-link-modal";
+import { createColumns as createLinkColumns } from "./components/create-columns";
+import { CreateLinkModal } from "./components/create-link-modal";
 
 export const handle = () => ({
   breadcrumb: [{ label: m.profile_link_title() }],
@@ -214,6 +214,12 @@ export function Route() {
               />
             )}
           </Spin>
+          <UpdateLinkCategoryModal
+            record={updateCategory ?? { id: "", name: "", description: "" }}
+            refetch={refetchAll}
+            open={updateCategory != null}
+            onClose={() => setUpdateCategory(null)}
+          />
         </Card>
 
         <Card
@@ -247,12 +253,6 @@ export function Route() {
           )}
         </Card>
       </div>
-      <UpdateLinkCategoryModal
-        record={updateCategory ?? { id: "", name: "", description: "" }}
-        refetch={refetchAll}
-        open={updateCategory != null}
-        onClose={() => setUpdateCategory(null)}
-      />
     </PageContainer>
   );
 }

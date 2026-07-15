@@ -40,7 +40,7 @@ export function CTASection() {
   return (
     <section className="px-6 pb-24 pt-8">
       <div className="mx-auto max-w-4xl">
-        <Card className="overflow-hidden rounded-3xl border-0 bg-brand-gradient shadow-[0_24px_64px_var(--brand-glow)]">
+        <Card className="overflow-hidden rounded-3xl border-0 brand-gradient shadow-[0_24px_64px_var(--brand-glow)]">
           <CardContent className="relative overflow-hidden p-8 md:p-16">
             <div className="pointer-events-none absolute -right-10 -top-10 opacity-10">
               <ReactRouterSvgIcon className="size-48 text-white" />

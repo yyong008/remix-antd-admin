@@ -28,7 +28,7 @@ export function HeroSection() {
 
           <h1 className="mb-5 text-4xl font-bold leading-tight tracking-tight text-balance text-foreground lg:text-6xl">
             {PRODUCT_NAME}
-            <span className="mt-1 block bg-brand-gradient bg-clip-text text-transparent">
+            <span className="mt-1 block brand-gradient bg-clip-text text-transparent">
               {m.home_hero_heading_line1()}
             </span>
           </h1>

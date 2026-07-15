@@ -35,7 +35,7 @@ export default function Route() {
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-8 space-y-6">
-      <Card className="overflow-hidden rounded-[12px] border-0 bg-brand-gradient shadow-[0_24px_64px_var(--brand-glow)]">
+      <Card className="overflow-hidden rounded-[12px] border-0 brand-gradient shadow-[0_24px_64px_var(--brand-glow)]">
         <CardContent className="p-8 md:p-10">
           <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
             <div className="flex-1 min-w-0">

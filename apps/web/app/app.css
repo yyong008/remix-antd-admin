@@ -55,12 +55,14 @@
   --color-brand-border: var(--brand-border);
   --color-brand-border-soft: var(--brand-border-soft);
   --color-brand-card-bg: var(--brand-card-bg);
-  --color-brand-gradient: var(--brand-gradient);
-  --color-brand-gradient-soft: var(--brand-gradient-soft);
 }
 
 @utility brand-radial {
   background-image: var(--brand-radial-primary);
+}
+
+@utility brand-gradient {
+  background-image: var(--brand-gradient);
 }
 
 @keyframes brand-pulse-soft {

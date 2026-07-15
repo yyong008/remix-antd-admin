@@ -76,7 +76,7 @@ export function ComparisonSection() {
                 <TableRow className="border-border hover:bg-transparent">
                   <TableHead className="w-[70%]">{m.home_comparison_header_feature()}</TableHead>
                   <TableHead className="text-center">
-                    <span className="bg-brand-gradient bg-clip-text font-bold text-transparent">
+                    <span className="brand-gradient bg-clip-text font-bold text-transparent">
                       {PRODUCT_NAME}
                     </span>
                   </TableHead>

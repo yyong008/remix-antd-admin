@@ -5,9 +5,9 @@ import { useUserInfo } from "~/api-client/queries/system/system-user";
 import { PageContainer } from "~/components/page-container";
 import { m } from "~/paraglide/messages";
 
-import { AccountSessions } from "./account/components/account-sessions";
-import { BasicInfoDescriptions } from "./account/components/basic-info-descriptions";
-import { OAuthAccountsSection } from "./account/components/linked-o-auth-accounts";
+import { AccountSessions } from "./components/account-sessions";
+import { BasicInfoDescriptions } from "./components/basic-info-descriptions";
+import { OAuthAccountsSection } from "./components/linked-o-auth-accounts";
 
 export const handle = () => ({
   breadcrumb: [{ label: m.profile_account_title() }],

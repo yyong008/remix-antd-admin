@@ -15,7 +15,7 @@ export default function Route() {
         <div className="mx-auto mb-6 flex size-24 items-center justify-center rounded-3xl bg-brand-surface text-brand-primary">
           <QuestionIcon className="size-12" />
         </div>
-        <h1 className="bg-brand-gradient bg-clip-text text-7xl font-bold text-transparent">
+        <h1 className="brand-gradient bg-clip-text text-7xl font-bold text-transparent">
           {m.error_404_title()}
         </h1>
         <p className="mb-8 mt-3 text-xl text-muted-foreground">{m.error_404_message()}</p>
