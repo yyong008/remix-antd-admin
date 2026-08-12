@@ -1,3 +1,5 @@
+
+
 # 欢迎使用 React Router Antd Admin
 
 因为 Remix 技术方向变化，所有 Remix Antd 改为 React Router Antd Admin
@@ -10,7 +12,7 @@ new fullstack:
 
 ## 迁移进度
 
-- [x] sinple repo -> monorepo
+- [x] simple repo -> monorepo
   - [x] web
   - [x] admin
   - [x] api
